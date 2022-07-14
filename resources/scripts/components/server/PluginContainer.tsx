@@ -111,7 +111,7 @@ export default () => {
                                                         <Button className={'m-1'} onClick={() => setOpen(true)}>
                                                             <Icon.DownloadCloud size={18} />
                                                         </Button>
-                                                        <a href={`https://api.spiget.org/v2/resources/${plugin.id}/go`}>
+                                                        <a href={`https://api.spiget.org/v2/resources/${plugin.id}/go`} target="_blank">
                                                             <Button className={'m-1'}>
                                                                 <Icon.ExternalLink size={18} />
                                                             </Button>
