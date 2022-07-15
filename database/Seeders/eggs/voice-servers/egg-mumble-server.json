@@ -7,7 +7,7 @@
     "exported_at": "2021-06-15T16:54:54-04:00",
     "name": "Mumble Server",
     "author": "support@pterodactyl.io",
-    "description": "Mumble is an open source, low-latency, high quality voice chat software primarily intended for use while gaming.",
+    "description": "Mumble 是一款开源、低延迟、高质量的语音聊天软件，主要用于游戏时使用。",
     "features": null,
     "images": [
         "ghcr.io\/pterodactyl\/yolks:alpine"
@@ -29,8 +29,8 @@
     },
     "variables": [
         {
-            "name": "Maximum Users",
-            "description": "Maximum concurrent users on the mumble server.",
+            "name": "最大用户数",
+            "description": "Mumble 服务器上的最大并发用户数。",
             "env_variable": "MAX_USERS",
             "default_value": "100",
             "user_viewable": true,
@@ -38,8 +38,8 @@
             "rules": "required|numeric|digits_between:1,5"
         },
         {
-            "name": "Server Version",
-            "description": "Version of Mumble Server to download and use.",
+            "name": "服务器版本",
+            "description": "下载并使用的 Mumble 服务器版本。",
             "env_variable": "MUMBLE_VERSION",
             "default_value": "latest",
             "user_viewable": true,

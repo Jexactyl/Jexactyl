@@ -7,7 +7,7 @@
     "exported_at": "2022-06-17T08:11:42+03:00",
     "name": "Sponge (SpongeVanilla)",
     "author": "support@pterodactyl.io",
-    "description": "SpongeVanilla is the SpongeAPI implementation for Vanilla Minecraft.",
+    "description": "SpongeVanilla 是建立在独立的原版 Minecraft 服务端上的 SpongeAPI 实现。",
     "features": [
         "eula",
         "java_version",
@@ -35,8 +35,8 @@
     },
     "variables": [
         {
-            "name": "Sponge Version",
-            "description": "The version of SpongeVanilla to download and use.",
+            "name": "Sponge 版本",
+            "description": "下载并使用的 SpongeVanilla 版本。",
             "env_variable": "SPONGE_VERSION",
             "default_value": "1.12.2-7.3.0",
             "user_viewable": true,
@@ -45,8 +45,8 @@
             "field_type": "text"
         },
         {
-            "name": "Server Jar File",
-            "description": "The name of the Jarfile to use when running SpongeVanilla.",
+            "name": "服务器 Jar 文件",
+            "description": "运行 SpongeVanilla 时使用的核心文件名称。",
             "env_variable": "SERVER_JARFILE",
             "default_value": "server.jar",
             "user_viewable": true,

@@ -7,7 +7,7 @@
     "exported_at": "2022-06-17T08:10:44+03:00",
     "name": "Bungeecord",
     "author": "support@pterodactyl.io",
-    "description": "For a long time, Minecraft server owners have had a dream that encompasses a free, easy, and reliable way to connect multiple Minecraft servers together. BungeeCord is the answer to said dream. Whether you are a small server wishing to string multiple game-modes together, or the owner of the ShotBow Network, BungeeCord is the ideal solution for you. With the help of BungeeCord, you will be able to unlock your community's full potential.",
+    "description": "长期以来，Minecraft 服务器腐竹们一直梦想着以一种免费、简单且可靠的方式，将多个 Minecraft 服务器变成一个整体。而 BungeeCord！实现了大家的梦想。 无论您是希望将多个游戏模式串在一起的小型服务器，还是 ShotBow 网络的腐竹，BungeeCord 都是您的理想解决方案。在 BungeeCord 的帮助下，您社区的全部潜力将会释放。",
     "features": [
         "eula",
         "java_version",
@@ -36,8 +36,8 @@
     },
     "variables": [
         {
-            "name": "Bungeecord Version",
-            "description": "The version of Bungeecord to download and use.",
+            "name": "Bungeecord 版本",
+            "description": "下载并使用的 Bungeecord 版本。",
             "env_variable": "BUNGEE_VERSION",
             "default_value": "latest",
             "user_viewable": true,
@@ -46,8 +46,8 @@
             "field_type": "text"
         },
         {
-            "name": "Bungeecord Jar File",
-            "description": "The name of the Jarfile to use when running Bungeecord.",
+            "name": "Bungeecord Jar 文件",
+            "description": "运行 Bungeecord 时要使用的核心名称。",
             "env_variable": "SERVER_JARFILE",
             "default_value": "bungeecord.jar",
             "user_viewable": true,

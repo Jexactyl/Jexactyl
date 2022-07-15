@@ -7,7 +7,7 @@
     "exported_at": "2021-06-15T17:24:18-04:00",
     "name": "Teamspeak3 Server",
     "author": "support@pterodactyl.io",
-    "description": "VoIP software designed with security in mind, featuring crystal clear voice quality, endless customization options, and scalabilty up to thousands of simultaneous users.",
+    "description": "VoIP 软件在设计时考虑了安全性，具有清晰的语音质量、无限的自定义选项以及可扩展到数千名用户同时使用的功能。",
     "features": null,
     "images": [
         "ghcr.io\/pterodactyl\/yolks:debian"
@@ -29,8 +29,8 @@
     },
     "variables": [
         {
-            "name": "Server Version",
-            "description": "The version of Teamspeak 3 to use when running the server.",
+            "name": "服务器版本",
+            "description": "运行服务器时使用的 Teamspeak 3 版本。",
             "env_variable": "TS_VERSION",
             "default_value": "latest",
             "user_viewable": true,
@@ -38,8 +38,8 @@
             "rules": "required|string|max:6"
         },
         {
-            "name": "File Transfer Port",
-            "description": "The Teamspeak file transfer port",
+            "name": "文件传输端口",
+            "description": "Teamspeak 文件传输端口",
             "env_variable": "FILE_TRANSFER",
             "default_value": "30033",
             "user_viewable": true,
@@ -47,8 +47,8 @@
             "rules": "required|integer|between:1,65535"
         },
         {
-            "name": "Query Port",
-            "description": "The Teamspeak Query Port",
+            "name": "查询端口",
+            "description": "Teamspeak 查询端口",
             "env_variable": "QUERY_PORT",
             "default_value": "10011",
             "user_viewable": true,

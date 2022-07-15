@@ -67,7 +67,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'InvalidPasswordProvidedException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was invalid for this account.');
+        $response->assertJsonPath('errors.0.detail', '提供的密码对此帐户无效。');
     }
 
     /**
@@ -140,7 +140,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'InvalidPasswordProvidedException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was invalid for this account.');
+        $response->assertJsonPath('errors.0.detail', '提供的密码对此帐户无效。');
     }
 
     /**
@@ -183,6 +183,6 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'confirmed');
-        $response->assertJsonPath('errors.0.detail', 'The password confirmation does not match.');
+        $response->assertJsonPath('errors.0.detail', 'password 确认不匹配。');
     }
 }

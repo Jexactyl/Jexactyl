@@ -7,7 +7,7 @@
     "exported_at": "2022-01-18T07:01:54-05:00",
     "name": "Counter-Strike: Global Offensive",
     "author": "support@pterodactyl.io",
-    "description": "Counter-Strike: Global Offensive is a multiplayer first-person shooter video game developed by Hidden Path Entertainment and Valve Corporation.",
+    "description": "《反恐精英：全球攻势》又称 CSGO 是一款多人第一人称射击游戏，由 Hidden Path Entertainment 和 Valve Corporation 开发。",
     "features": [
         "gsl_token",
         "steam_disk_space"
@@ -32,8 +32,8 @@
     },
     "variables": [
         {
-            "name": "Map",
-            "description": "The default map for the server.",
+            "name": "地图",
+            "description": "服务器的默认地图。",
             "env_variable": "SRCDS_MAP",
             "default_value": "de_dust2",
             "user_viewable": true,
@@ -41,8 +41,8 @@
             "rules": "required|string|alpha_dash"
         },
         {
-            "name": "Steam Account Token",
-            "description": "The Steam Account Token required for the server to be displayed publicly.",
+            "name": "Steam 帐户令牌",
+            "description": "服务器公开显示所需的 Steam 帐户令牌。",
             "env_variable": "STEAM_ACC",
             "default_value": "",
             "user_viewable": true,
@@ -51,7 +51,7 @@
         },
         {
             "name": "Source AppID",
-            "description": "Required for game to update on server restart. Do not modify this.",
+            "description": "游戏在服务器重新启动时更新的必要内容。请不要修改这个。",
             "env_variable": "SRCDS_APPID",
             "default_value": "740",
             "user_viewable": false,

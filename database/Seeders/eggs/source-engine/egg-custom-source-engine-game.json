@@ -7,7 +7,7 @@
     "exported_at": "2022-01-18T07:03:08-05:00",
     "name": "Custom Source Engine Game",
     "author": "support@pterodactyl.io",
-    "description": "This option allows modifying the startup arguments and other details to run a custom SRCDS based game on the panel.",
+    "description": "此选项允许修改启动参数和其他详细信息以在面板上运行基于 SRCDS 的自定义游戏。",
     "features": [
         "steam_disk_space"
     ],
@@ -31,8 +31,8 @@
     },
     "variables": [
         {
-            "name": "Game ID",
-            "description": "The ID corresponding to the game to download and run using SRCDS.",
+            "name": "游戏 ID",
+            "description": "使用 SRCDS 下载并运行的游戏对应 ID。",
             "env_variable": "SRCDS_APPID",
             "default_value": "",
             "user_viewable": true,
@@ -40,8 +40,8 @@
             "rules": "required|numeric|digits_between:1,6"
         },
         {
-            "name": "Game Name",
-            "description": "The name corresponding to the game to download and run using SRCDS.",
+            "name": "游戏名称",
+            "description": "对应于使用 SRCDS 下载并运行的游戏名称。",
             "env_variable": "SRCDS_GAME",
             "default_value": "",
             "user_viewable": true,
@@ -49,8 +49,8 @@
             "rules": "required|alpha_dash|between:1,100"
         },
         {
-            "name": "Map",
-            "description": "The default map for the server.",
+            "name": "地图",
+            "description": "服务器的默认地图。",
             "env_variable": "SRCDS_MAP",
             "default_value": "",
             "user_viewable": true,
@@ -58,7 +58,7 @@
             "rules": "required|string|alpha_dash"
         },
         {
-            "name": "Steam Username",
+            "name": "Steam 用户名",
             "description": "",
             "env_variable": "STEAM_USER",
             "default_value": "",
@@ -67,7 +67,7 @@
             "rules": "nullable|string"
         },
         {
-            "name": "Steam Password",
+            "name": "Steam 密码",
             "description": "",
             "env_variable": "STEAM_PASS",
             "default_value": "",
@@ -76,7 +76,7 @@
             "rules": "nullable|string"
         },
         {
-            "name": "Steam Auth",
+            "name": "Steam 身份验证",
             "description": "",
             "env_variable": "STEAM_AUTH",
             "default_value": "",

@@ -7,7 +7,7 @@
     "exported_at": "2022-01-18T07:07:27-05:00",
     "name": "Insurgency",
     "author": "support@pterodactyl.io",
-    "description": "Take to the streets for intense close quarters combat, where a team's survival depends upon securing crucial strongholds and destroying enemy supply in this multiplayer and cooperative Source Engine based experience.",
+    "description": "《Insurgency》是一款现代战争背景下的FPS游戏，是一款代表着现代战场中个人以及战术水平的游戏。只有技术最好的玩家才能成为指挥官，并有机会带领整个团队走向胜利。",
     "features": [
         "steam_disk_space"
     ],
@@ -31,8 +31,8 @@
     },
     "variables": [
         {
-            "name": "Game ID",
-            "description": "The ID corresponding to the game to download and run using SRCDS.",
+            "name": "游戏 ID",
+            "description": "使用 SRCDS 下载并运行的游戏对应 ID。",
             "env_variable": "SRCDS_APPID",
             "default_value": "237410",
             "user_viewable": true,
@@ -40,8 +40,8 @@
             "rules": "required|regex:\/^(237410)$\/"
         },
         {
-            "name": "Default Map",
-            "description": "The default map to use when starting the server.",
+            "name": "默认地图",
+            "description": "启动服务器时要使用的默认地图。",
             "env_variable": "SRCDS_MAP",
             "default_value": "sinjar",
             "user_viewable": true,

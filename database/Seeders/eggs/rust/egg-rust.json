@@ -7,7 +7,7 @@
     "exported_at": "2022-01-18T11:44:55-05:00",
     "name": "Rust",
     "author": "support@pterodactyl.io",
-    "description": "The only aim in Rust is to survive. To do this you will need to overcome struggles such as hunger, thirst and cold. Build a fire. Build a shelter. Kill animals for meat. Protect yourself from other players, and kill them for meat. Create alliances with other players and form a town. Do whatever it takes to survive.",
+    "description": "Rust(腐蚀) 一款尽一切努力生存的游戏。为此，您需要克服饥饿、干渴和寒冷等风险。建立庇护所。杀死动物以获取肉。保护自己免受其他玩家的攻击，甚至是朋友的背叛。与其他玩家建立联盟并组建城镇。尽一切努力生存吧。",
     "features": [
         "steam_disk_space"
     ],
@@ -31,8 +31,8 @@
     },
     "variables": [
         {
-            "name": "Server Name",
-            "description": "The name of your server in the public server list.",
+            "name": "服务器名称",
+            "description": "您的服务器在公共服务器列表中的名称。",
             "env_variable": "HOSTNAME",
             "default_value": "A Rust Server",
             "user_viewable": true,
@@ -41,7 +41,7 @@
         },
         {
             "name": "OxideMod",
-            "description": "Set whether you want the server to use and auto update OxideMod or not. Valid options are \"1\" for true and \"0\" for false.",
+            "description": "设置您是否希望服务器使用并自动更新 OxideMod。有效选项是 \"1\" 代表 true，\"0\" 代表 false。",
             "env_variable": "OXIDE",
             "default_value": "0",
             "user_viewable": true,
@@ -50,7 +50,7 @@
         },
         {
             "name": "Level",
-            "description": "The world file for Rust to use.",
+            "description": "Rust 使用的 world 文件。",
             "env_variable": "LEVEL",
             "default_value": "Procedural Map",
             "user_viewable": true,
@@ -58,8 +58,8 @@
             "rules": "required|string|max:20"
         },
         {
-            "name": "Description",
-            "description": "The description under your server title. Commonly used for rules & info. Use \\n for newlines.",
+            "name": "描述",
+            "description": "服务器标题下的描述。通常用于规则&信息。使用 \\n 换行。",
             "env_variable": "DESCRIPTION",
             "default_value": "Powered by Pterodactyl",
             "user_viewable": true,
@@ -68,7 +68,7 @@
         },
         {
             "name": "URL",
-            "description": "The URL for your server. This is what comes up when clicking the \"Visit Website\" button.",
+            "description": "服务器的 URL。这是单击“访问网站”按钮时出现的内容。",
             "env_variable": "SERVER_URL",
             "default_value": "http:\/\/pterodactyl.io",
             "user_viewable": true,
@@ -76,8 +76,8 @@
             "rules": "nullable|url"
         },
         {
-            "name": "World Size",
-            "description": "The world size for a procedural map.",
+            "name": "世界规模",
+            "description": "程序性地图的世界大小。",
             "env_variable": "WORLD_SIZE",
             "default_value": "3000",
             "user_viewable": true,
@@ -85,8 +85,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "World Seed",
-            "description": "The seed for a procedural map.",
+            "name": "世界种子",
+            "description": "程序性地图的种子。",
             "env_variable": "WORLD_SEED",
             "default_value": "",
             "user_viewable": true,
@@ -94,8 +94,8 @@
             "rules": "nullable|string"
         },
         {
-            "name": "Max Players",
-            "description": "The maximum amount of players allowed in the server at once.",
+            "name": "最大玩家数",
+            "description": "服务器允许的最大玩家数量。",
             "env_variable": "MAX_PLAYERS",
             "default_value": "40",
             "user_viewable": true,
@@ -103,8 +103,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "Server Image",
-            "description": "The header image for the top of your server listing.",
+            "name": "服务器图片",
+            "description": "服务器列表顶部的标题图像。",
             "env_variable": "SERVER_IMG",
             "default_value": "",
             "user_viewable": true,
@@ -112,8 +112,8 @@
             "rules": "nullable|url"
         },
         {
-            "name": "RCON Port",
-            "description": "Port for RCON connections.",
+            "name": "RCON 端口",
+            "description": "RCON 连接的端口。",
             "env_variable": "RCON_PORT",
             "default_value": "28016",
             "user_viewable": true,
@@ -121,8 +121,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "RCON Password",
-            "description": "RCON access password.",
+            "name": "RCON 密码",
+            "description": "RCON 访问密码。",
             "env_variable": "RCON_PASS",
             "default_value": "CHANGEME",
             "user_viewable": true,
@@ -130,8 +130,8 @@
             "rules": "required|regex:\/^[\\w.-]*$\/|max:64"
         },
         {
-            "name": "Save Interval",
-            "description": "Sets the server\u2019s auto-save interval in seconds.",
+            "name": "保存时间间隔",
+            "description": "以秒为单位设置服务器自动保存时间间隔。",
             "env_variable": "SAVEINTERVAL",
             "default_value": "60",
             "user_viewable": true,
@@ -139,8 +139,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "Additional Arguments",
-            "description": "Add additional startup parameters to the server.",
+            "name": "附加参数",
+            "description": "向服务器添加其他启动参数。",
             "env_variable": "ADDITIONAL_ARGS",
             "default_value": "",
             "user_viewable": true,
@@ -148,8 +148,8 @@
             "rules": "nullable|string"
         },
         {
-            "name": "App Port",
-            "description": "Port for the Rust+ App. -1 to disable.",
+            "name": "应用程序端口",
+            "description": "Rust+ 应用程序的端口。-1 以禁用。",
             "env_variable": "APP_PORT",
             "default_value": "28082",
             "user_viewable": true,
@@ -157,8 +157,8 @@
             "rules": "required|integer"
         },
         {
-            "name": "Server Logo",
-            "description": "The circular server logo for the Rust+ app.",
+            "name": "服务器 Logo",
+            "description": "Rust+ 应用程序的服务器 Logo。",
             "env_variable": "SERVER_LOGO",
             "default_value": "",
             "user_viewable": true,
@@ -166,8 +166,8 @@
             "rules": "nullable|url"
         },
         {
-            "name": "Custom Map URL",
-            "description": "Overwrites the map with the one from the direct download URL. Invalid URLs will cause the server to crash.",
+            "name": "自定义地图 URL",
+            "description": "从 URL 中下载的地图将会覆盖现有地图。无效的 URL 将导致服务器崩溃。",
             "env_variable": "MAP_URL",
             "default_value": "",
             "user_viewable": true,

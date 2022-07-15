@@ -7,7 +7,7 @@
     "exported_at": "2022-06-17T08:11:58+03:00",
     "name": "Vanilla Minecraft",
     "author": "support@pterodactyl.io",
-    "description": "Minecraft is a game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles. Play in Creative Mode with unlimited resources or mine deep in Survival Mode, crafting weapons and armor to fend off dangerous mobs. Do all this alone or with friends.",
+    "description": "Minecraft 是一款关于放置积木和进行冒险的游戏。探索随机生成的世界，建造从最简单的房屋到最宏伟的城堡。在创造模式下用无限资源的玩游戏，或在生存模式中深入挖掘，制作武器和盔甲以抵御危险的怪物。独自或与朋友一起探险这个世界吧！",
     "features": [
         "eula",
         "java_version",
@@ -36,8 +36,8 @@
     },
     "variables": [
         {
-            "name": "Server Jar File",
-            "description": "The name of the server jarfile to run the server with.",
+            "name": "服务器 Jar 文件",
+            "description": "用于运行服务器的服务器核心文件名称。",
             "env_variable": "SERVER_JARFILE",
             "default_value": "server.jar",
             "user_viewable": true,
@@ -46,8 +46,8 @@
             "field_type": "text"
         },
         {
-            "name": "Server Version",
-            "description": "The version of Minecraft Vanilla to install. Use \"latest\" to install the latest version, or use \"snapshot\" to install the latest snapshot. Go to Settings > Reinstall Server to apply.",
+            "name": "服务器版本",
+            "description": "要安装的原版 Minecraft 版本。使用 \"latest\" 将安装最新版本，或使用 \"snapshot\" 安装最新快照版本。转到设置 > 重新安装服务器以应用此次更改。",
             "env_variable": "VANILLA_VERSION",
             "default_value": "latest",
             "user_viewable": true,

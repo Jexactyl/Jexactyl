@@ -7,7 +7,7 @@
     "exported_at": "2022-06-17T08:11:30+03:00",
     "name": "Paper",
     "author": "parker@pterodactyl.io",
-    "description": "High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies.",
+    "description": "旨在修复游戏玩法和机制不一致的高性能 Spigot 分支。",
     "features": [
         "eula",
         "java_version",
@@ -36,8 +36,8 @@
     },
     "variables": [
         {
-            "name": "Minecraft Version",
-            "description": "The version of minecraft to download. \r\n\r\nLeave at latest to always get the latest version. Invalid versions will default to latest.",
+            "name": "Minecraft 版本",
+            "description": "要下载的 Minecraft 版本。\r\n\r\n如果设置为 latest 将安装最新版本。无效版本将默认为最新版本。",
             "env_variable": "MINECRAFT_VERSION",
             "default_value": "latest",
             "user_viewable": true,
@@ -46,8 +46,8 @@
             "field_type": "text"
         },
         {
-            "name": "Server Jar File",
-            "description": "The name of the server jarfile to run the server with.",
+            "name": "服务器 Jar 文件",
+            "description": "用于运行服务器的服务器核心文件名称。",
             "env_variable": "SERVER_JARFILE",
             "default_value": "server.jar",
             "user_viewable": true,
@@ -56,8 +56,8 @@
             "field_type": "text"
         },
         {
-            "name": "Download Path",
-            "description": "A URL to use to download a server.jar rather than the ones in the install script. This is not user viewable.",
+            "name": "下载地址",
+            "description": "用于下载 server.jar 的 URL，而不是安装脚本中的 URL。这条变量用户不可见。",
             "env_variable": "DL_PATH",
             "default_value": "",
             "user_viewable": false,
@@ -66,8 +66,8 @@
             "field_type": "text"
         },
         {
-            "name": "Build Number",
-            "description": "The build number for the paper release.\r\n\r\nLeave at latest to always get the latest version. Invalid versions will default to latest.",
+            "name": "构建版本号",
+            "description": "paper 版本的构建版本号。\r\n\r\n如果设置为 latest 将安装最新版本。无效版本将默认为最新版本。",
             "env_variable": "BUILD_NUMBER",
             "default_value": "latest",
             "user_viewable": true,

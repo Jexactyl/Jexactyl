@@ -7,7 +7,7 @@
     "exported_at": "2022-01-18T07:04:20-05:00",
     "name": "Garrys Mod",
     "author": "support@pterodactyl.io",
-    "description": "Garrys Mod, is a sandbox physics game created by Garry Newman, and developed by his company, Facepunch Studios.",
+    "description": "盖瑞模组，原名 Garrys Mod 是一款由 Garry Newman 创建并由其公司 Facepunch Studios 开发的沙盒物理游戏。",
     "features": [
         "gsl_token",
         "steam_disk_space"
@@ -32,8 +32,8 @@
     },
     "variables": [
         {
-            "name": "Map",
-            "description": "The default map for the server.",
+            "name": "地图",
+            "description": "服务器的默认地图。",
             "env_variable": "SRCDS_MAP",
             "default_value": "gm_flatgrass",
             "user_viewable": true,
@@ -41,8 +41,8 @@
             "rules": "required|string|alpha_dash"
         },
         {
-            "name": "Steam Account Token",
-            "description": "The Steam Account Token required for the server to be displayed publicly.",
+            "name": "Steam 帐户令牌",
+            "description": "服务器公开显示所需的 Steam 帐户令牌。",
             "env_variable": "STEAM_ACC",
             "default_value": "",
             "user_viewable": true,
@@ -51,7 +51,7 @@
         },
         {
             "name": "Source AppID",
-            "description": "Required for game to update on server restart. Do not modify this.",
+            "description": "游戏在服务器重新启动时更新的必要内容。请不要修改这个。",
             "env_variable": "SRCDS_APPID",
             "default_value": "4020",
             "user_viewable": false,
@@ -59,8 +59,8 @@
             "rules": "required|string|max:20"
         },
         {
-            "name": "Workshop ID",
-            "description": "The ID of your workshop collection (the numbers at the end of the URL)",
+            "name": "创意工坊 ID",
+            "description": "您的创意工坊收藏 ID（网址末尾的数字）",
             "env_variable": "WORKSHOP_ID",
             "default_value": "",
             "user_viewable": true,
@@ -68,8 +68,8 @@
             "rules": "nullable|integer"
         },
         {
-            "name": "Gamemode",
-            "description": "The gamemode of your server.",
+            "name": "游戏模式",
+            "description": "服务器的游戏模式。",
             "env_variable": "GAMEMODE",
             "default_value": "sandbox",
             "user_viewable": true,
@@ -77,8 +77,8 @@
             "rules": "required|string"
         },
         {
-            "name": "Max Players",
-            "description": "The maximum amount of players allowed on your game server.",
+            "name": "最大玩家数",
+            "description": "您的游戏服务器上允许的最大玩家数。",
             "env_variable": "MAX_PLAYERS",
             "default_value": "32",
             "user_viewable": true,
@@ -87,7 +87,7 @@
         },
         {
             "name": "Tickrate",
-            "description": "The tickrate defines how fast the server will update each entity's location.",
+            "description": "tickrate 定义了服务器更新每个实体位置的速度。",
             "env_variable": "TICKRATE",
             "default_value": "22",
             "user_viewable": true,
@@ -95,8 +95,8 @@
             "rules": "required|integer|max:100"
         },
         {
-            "name": "Lua Refresh",
-            "description": "0 = disable Lua refresh,\r\n1 = enable Lua refresh",
+            "name": "Lua 热重载",
+            "description": "0 = 禁用 Lua 热重载，\r\n1 = 启用 Lua 热重载",
             "env_variable": "LUA_REFRESH",
             "default_value": "0",
             "user_viewable": true,
