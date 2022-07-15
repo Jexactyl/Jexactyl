@@ -1,14 +1,19 @@
+{{-- Pterodactyl CHINA - Panel --}}
+{{-- Simplified Chinese Translation Copyright (c) 2018 - 2022 ValiantShishu <vlssu@vlssu.com> --}}
+
+{{-- This software is licensed under the terms of the MIT license. --}}
+{{-- https://opensource.org/licenses/MIT --}}
 @extends('layouts.admin')
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'referrals'])
 
 @section('title')
-    Referral System
+    推荐系统
 @endsection
 
 @section('content-header')
-    <h1>Referral System<small>Allow users to refer others to the Panel to earn resources.</small></h1>
+    <h1>推荐系统<small>允许用户将其他人推荐给面板以赚取佣金。</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
+        <li><a href="{{ route('admin.index') }}">管理</a></li>
         <li class="active">Jexactyl</li>
     </ol>
 @endsection
