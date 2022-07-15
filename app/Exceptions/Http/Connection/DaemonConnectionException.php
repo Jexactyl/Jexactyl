@@ -50,9 +50,9 @@ class DaemonConnectionException extends DisplayException
         }
 
         if (is_null($response)) {
-            $message = 'Could not establish a connection to the machine running this server. Please try again.';
+            $message = '无法与运行此服务器的主机建立连接。请再试一次。';
         } else {
-            $message = sprintf('There was an error while communicating with the machine running this server. This error has been logged, please try again. (code: %s) (request_id: %s)', $response->getStatusCode(), $this->requestId ?? '<nil>');
+            $message = sprintf('与运行此服务器的主机通信时出错。已记录此错误，请重试。(code: %s) (request_id: %s)', $response->getStatusCode(), $this->requestId ?? '<nil>');
         }
 
         // Attempt to pull the actual error message off the response and return that if it is not

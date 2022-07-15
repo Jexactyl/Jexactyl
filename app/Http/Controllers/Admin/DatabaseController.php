@@ -112,7 +112,7 @@ class DatabaseController extends Controller
         } catch (Exception $exception) {
             if ($exception instanceof PDOException || $exception->getPrevious() instanceof PDOException) {
                 $this->alert->danger(
-                    sprintf('There was an error while trying to connect to the host or while executing a query: "%s"', $exception->getMessage())
+                    sprintf('在尝试连接到主机或执行查询的过程中出现错误："%s"', $exception->getMessage())
                 )->flash();
 
                 return redirect()->route('admin.databases')->withInput($request->validated());
@@ -143,7 +143,7 @@ class DatabaseController extends Controller
             // throw the exception like normal and move on with it.
             if ($exception instanceof PDOException || $exception->getPrevious() instanceof PDOException) {
                 $this->alert->danger(
-                    sprintf('There was an error while trying to connect to the host or while executing a query: "%s"', $exception->getMessage())
+                    sprintf('在尝试连接到主机或执行查询的过程中出现错误："%s"', $exception->getMessage())
                 )->flash();
 
                 return $redirect->withInput($request->normalize());
@@ -163,7 +163,7 @@ class DatabaseController extends Controller
     public function delete(int $host): RedirectResponse
     {
         $this->deletionService->handle($host);
-        $this->alert->success('The requested database host has been deleted from the system.')->flash();
+        $this->alert->success('已从系统中删除请求的数据库主机。')->flash();
 
         return redirect()->route('admin.databases');
     }

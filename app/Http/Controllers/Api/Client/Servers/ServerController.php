@@ -53,7 +53,7 @@ class ServerController extends ClientApiController
     /**
      * Deletes the requested server via the API and
      * returns the resources to the authenticated user.
-     * 
+     *
      * @throws DisplayException
      */
     public function delete(DeleteServerRequest $request, Server $server): JsonResponse
@@ -61,7 +61,7 @@ class ServerController extends ClientApiController
         $user = $request->user();
 
         if ($user->id != $server->owner_id) {
-            throw new DisplayException('You are not authorized to perform this action.');
+            throw new DisplayException('您无权执行此操作。');
         };
 
         try {
@@ -75,13 +75,13 @@ class ServerController extends ClientApiController
                 'store_databases' => $user->store_databases + $server->database_limit,
             ]);
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to add resources to user.');
+            throw new DisplayException('无法将资源添加到该用户。');
         };
 
         try {
             $this->deletionService->handle($server);
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to delete the server from the system.');
+            throw new DisplayException('无法从系统中删除服务器实例。');
         }
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);

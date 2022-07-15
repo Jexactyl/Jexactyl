@@ -78,7 +78,7 @@ class SoftwareVersionService
      */
     public function getDonations()
     {
-        return Arr::get(self::$result, 'donations') ?? 'https://paypal.me/PterodactylSoftware';
+        return Arr::get(self::$result, 'donations') ?? 'https://afdian.net/@vlssu';
     }
 
     /**

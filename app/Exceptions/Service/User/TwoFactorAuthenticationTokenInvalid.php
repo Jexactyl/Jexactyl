@@ -11,6 +11,6 @@ class TwoFactorAuthenticationTokenInvalid extends DisplayException
      */
     public function __construct()
     {
-        parent::__construct('The provided two-factor authentication token was not valid.');
+        parent::__construct('提供的动态口令无效。');
     }
 }

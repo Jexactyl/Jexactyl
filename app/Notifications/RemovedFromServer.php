@@ -1,7 +1,8 @@
 <?php
 /**
- * Pterodactyl - Panel
+ * Pterodactyl CHINA - Panel
  * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ * Simplified Chinese Translation Copyright (c) 2018 - 2022 ValiantShishu <vlssu@vlssu.com>
  *
  * This software is licensed under the terms of the MIT license.
  * https://opensource.org/licenses/MIT
@@ -54,9 +55,9 @@ class RemovedFromServer extends Notification implements ShouldQueue
     {
         return (new MailMessage())
             ->error()
-            ->greeting('Hello ' . $this->server->user . '.')
-            ->line('You have been removed as a subuser for the following server.')
-            ->line('Server Name: ' . $this->server->name)
-            ->action('Visit Panel', route('index'));
+            ->greeting('你好 ' . $this->server->user . '.')
+            ->line('您已作为以下服务器的子用户被删除,并失去其控制权限。')
+            ->line('服务器名称: ' . $this->server->name)
+            ->action('点此浏览面板', route('index'));
     }
 }

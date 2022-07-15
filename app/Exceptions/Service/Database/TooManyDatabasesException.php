@@ -8,6 +8,6 @@ class TooManyDatabasesException extends DisplayException
 {
     public function __construct()
     {
-        parent::__construct('Operation aborted: creating a new database would put this server over the defined limit.');
+        parent::__construct('操作中止：创建新数据库会使该服务器超出设定的限制。');
     }
 }

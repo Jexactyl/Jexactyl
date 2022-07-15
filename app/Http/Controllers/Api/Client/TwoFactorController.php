@@ -57,7 +57,7 @@ class TwoFactorController extends ClientApiController
     public function index(Request $request)
     {
         if ($request->user()->use_totp) {
-            throw new BadRequestHttpException('Two-factor authentication is already enabled on this account.');
+            throw new BadRequestHttpException('此帐户已启用动态口令认证。');
         }
 
         return new JsonResponse([
@@ -82,7 +82,7 @@ class TwoFactorController extends ClientApiController
 
         $data = $validator->validate();
         if (!password_verify($data['password'], $request->user()->password)) {
-            throw new BadRequestHttpException('The password provided was not valid.');
+            throw new BadRequestHttpException('提供的密码无效。');
         }
 
         $tokens = $this->toggleTwoFactorService->handle($request->user(), $data['code'], true);
@@ -107,7 +107,7 @@ class TwoFactorController extends ClientApiController
     public function delete(Request $request)
     {
         if (!password_verify($request->input('password') ?? '', $request->user()->password)) {
-            throw new BadRequestHttpException('The password provided was not valid.');
+            throw new BadRequestHttpException('提供的密码无效。');
         }
 
         /** @var \Pterodactyl\Models\User $user */

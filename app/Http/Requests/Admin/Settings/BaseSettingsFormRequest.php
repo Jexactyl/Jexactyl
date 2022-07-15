@@ -29,10 +29,10 @@ class BaseSettingsFormRequest extends AdminFormRequest
     public function attributes()
     {
         return [
-            'app:name' => 'Company Name',
-            'pterodactyl:auth:2fa_required' => 'Require 2-Factor Authentication',
-            'app:locale' => 'Default Language',
-            'app:logo' => 'Panel Logo',
+            'app:name' => '公司名称',
+            'pterodactyl:auth:2fa_required' => '需要动态口令认证',
+            'app:locale' => '默认语言',
+            'app:logo' => '面板 Logo',
         ];
     }
 }
