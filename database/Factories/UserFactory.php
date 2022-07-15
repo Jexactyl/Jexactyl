@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'name_first' => $this->faker->firstName,
             'name_last' => $this->faker->lastName,
             'password' => $password ?: $password = bcrypt('password'),
-            'language' => 'en',
+            'language' => 'zh',
             'root_admin' => false,
             'use_totp' => false,
             'created_at' => Carbon::now(),

@@ -16,7 +16,7 @@ class AddUsers extends Migration
             $table->string('email')->unique();
             $table->text('password');
             $table->string('remember_token')->nullable();
-            $table->char('language', 5)->default('en');
+            $table->char('language', 5)->default('zh');
             $table->tinyInteger('root_admin')->unsigned()->default(0);
             $table->tinyInteger('use_totp')->unsigned();
             $table->char('totp_secret', 16)->nullable();

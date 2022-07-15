@@ -31,10 +31,10 @@ class SettingComposer
         $view->with('asset', $this->assetHashService);
         $view->with('siteConfiguration', [
             'name' => config('app.name') ?? 'Pterodactyl',
-            'locale' => config('app.locale') ?? 'en',
+            'locale' => config('app.locale') ?? 'zh',
             'logo' => $this->settings->get('settings::app:logo', 'https://www.jexactyl.com/assets/images/logo.png'),
             'renewal' => $this->settings->get('jexactyl::renewal:enabled', false),
-    
+
             'recaptcha' => [
                 'enabled' => config('recaptcha.enabled', false),
                 'siteKey' => config('recaptcha.website_key') ?? '',
