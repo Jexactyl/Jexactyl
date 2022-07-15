@@ -42,12 +42,13 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
         </Form>
         <p css={tw`text-neutral-500 text-xs mt-6 sm:float-left`}>
             &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> built on{' '}
-            <a href={'https://pterodactyl.io'}>Pterodactyl.</a>
+            <a href={'https://pterodactyl.io'}>Pterodactyl.</a> which Sinicizated by{' '}
+            <a href={'https://pterodactyl.top'}>翼龙中国.</a>
         </p>
         <p css={tw`text-neutral-500 text-xs mt-6 sm:float-right`}>
             <a href={'https://jexactyl.com'}> Site </a>
             &bull;
-            <a href={'https://github.com/jexactyl/jexactyl'}> GitHub </a>
+            <a href={'https://github.com/Jexactyl-CN/Jexactyl'}> GitHub </a>
         </p>
     </Container>
 ));

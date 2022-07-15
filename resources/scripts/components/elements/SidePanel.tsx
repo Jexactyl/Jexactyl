@@ -58,32 +58,32 @@ export default () => {
                     <SearchContainer size={32} />
                 </div>
                 <NavLink to={'/'} className={'navigation-link'} exact>
-                    <Tooltip placement={'bottom'} content={'Servers'}>
+                    <Tooltip placement={'bottom'} content={'仪表盘'}>
                         <Icon.Server size={32} css={tw`my-8`} />
                     </Tooltip>
                 </NavLink>
                 <NavLink to={'/account'} className={'navigation-link'}>
-                    <Tooltip placement={'bottom'} content={'Account'}>
+                    <Tooltip placement={'bottom'} content={'管理员后台'}>
                         <Icon.User size={32} css={tw`my-8`} />
                     </Tooltip>
                 </NavLink>
                 {store === 'true' && (
                     <NavLink to={'/store'} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Store'}>
+                        <Tooltip placement={'bottom'} content={'商店'}>
                             <Icon.ShoppingCart size={32} css={tw`my-8`} />
                         </Tooltip>
                     </NavLink>
                 )}
                 {rootAdmin && (
                     <a href={'/admin'} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Admin'}>
+                        <Tooltip placement={'bottom'} content={'账号设置'}>
                             <Icon.Settings size={32} css={tw`my-8`} />
                         </Tooltip>
                     </a>
                 )}
                 <div id={'logo'}>
                     <button onClick={onTriggerLogout} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'Logout'}>
+                        <Tooltip placement={'bottom'} content={'登出'}>
                             <Icon.LogOut size={32} css={tw`flex flex-row fixed bottom-0 mb-8`} />
                         </Tooltip>
                     </button>

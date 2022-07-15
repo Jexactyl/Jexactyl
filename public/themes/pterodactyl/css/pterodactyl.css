@@ -462,12 +462,12 @@ label.control-label > span {
 }
 
 label.control-label > span.field-required:before {
-    content: "required";
+    content: "必填";
     color: #dd4b39;
 }
 
 label.control-label > span.field-optional:before {
-    content: "optional";
+    content: "选填";
     color: #bbbbbb;
 }
 

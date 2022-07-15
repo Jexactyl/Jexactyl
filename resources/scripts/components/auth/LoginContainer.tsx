@@ -72,19 +72,19 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             onSubmit={onSubmit}
             initialValues={{ username: '', password: '' }}
             validationSchema={object().shape({
-                username: string().required('A username or email must be provided.'),
-                password: string().required('Please enter your account password.'),
+                username: string().required('必须提供用户名或电子邮件。'),
+                password: string().required('请输入您的帐户密码。'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Login to ' + name} css={tw`w-full flex`}>
-                    <Field light type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
+                <LoginFormContainer title={'登入系统'} css={tw`w-full flex`}>
+                    <Field light type={'text'} label={'用户名或邮箱地址'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
-                        <Field light type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
+                        <Field light type={'password'} label={'密码'} name={'password'} disabled={isSubmitting} />
                     </div>
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} size={Button.Sizes.Large} css={tw`w-full`} disabled={isSubmitting}>
-                            Login
+                            登入
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -107,7 +107,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                             to={'/auth/password'}
                             css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                         >
-                            Forgot password?
+                            忘记密码?
                         </Link>
                     </div>
                     <div css={tw`mt-6 text-center`}>
@@ -116,7 +116,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                 to={'/auth/register'}
                                 css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
-                                Signup with Email
+                                使用电子邮箱注册
                             </Link>
                         )}
                         {discord === 'true' && (
@@ -124,8 +124,8 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                 to={'/auth/discord'}
                                 css={tw`text-xs ml-6 text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
-                                Authenticate with Discord
-                            </Link>
+                                使用 Discord 进行身份验证
+                        </Link>
                         )}
                     </div>
                 </LoginFormContainer>

@@ -31,24 +31,24 @@ export default () => {
 
     return (
         <PageContentBlock title={'Account Overview'}>
-            <h1 className={'j-left text-5xl'}>Account Overview</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>View and update account details.</h3>
+            <h1 className={'j-left text-5xl'}>账户概况</h1>
+            <h3 className={'j-left text-2xl text-neutral-500'}>需要启用动态口令认证.</h3>
             {state?.twoFactorRedirect && (
                 <Alert type={'error'}>
-                    Your account must have two-factor authentication enabled in order to continue.
+                    您的帐户必须启用动态口令认证才能继续使用。
                 </Alert>
             )}
             <Container
                 className={'j-up'}
                 css={[tw`lg:grid lg:grid-cols-3 mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}
             >
-                <ContentBox title={'Update Username'} showFlashes={'account:username'}>
+                <ContentBox title={'更新密码'} showFlashes={'account:username'}>
                     <UpdateUsernameForm />
                 </ContentBox>
-                <ContentBox css={tw`mt-8 sm:mt-0 sm:ml-8`} title={'Update Email Address'} showFlashes={'account:email'}>
+                <ContentBox css={tw`mt-8 sm:mt-0 sm:ml-8`} title={'更新电子邮箱地址'} showFlashes={'account:email'}>
                     <UpdateEmailAddressForm />
                 </ContentBox>
-                <ContentBox css={tw`mt-8 sm:mt-0 sm:ml-8`} title={'Referral Codes'} showFlashes={'account:referral'}>
+                <ContentBox css={tw`mt-8 sm:mt-0 sm:ml-8`} title={'推广码'} showFlashes={'account:referral'}>
                     <AddReferralCodeForm />
                 </ContentBox>
             </Container>

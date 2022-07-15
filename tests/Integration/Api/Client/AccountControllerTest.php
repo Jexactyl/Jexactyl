@@ -95,7 +95,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'email');
-        $response->assertJsonPath('errors.0.detail', 'The email must be a valid email address.');
+        $response->assertJsonPath('errors.0.detail', 'email 必须是有效的电子邮件地址。');
     }
 
     /**

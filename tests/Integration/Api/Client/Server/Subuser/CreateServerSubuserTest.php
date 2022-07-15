@@ -153,7 +153,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'ServerSubuserExistsException');
-        $response->assertJsonPath('errors.0.detail', 'description 不能大于 500 个字符。');
+        $response->assertJsonPath('errors.0.detail', 'email 必须是有效的电子邮件地址。');
     }
 
     public function permissionsDataProvider(): array

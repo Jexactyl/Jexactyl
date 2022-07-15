@@ -48,7 +48,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'BadRequestHttpException');
-        $response->assertJsonPath('errors.0.detail', 'Two-factor authentication is already enabled on this account.');
+        $response->assertJsonPath('errors.0.detail', '此帐户已启用动态口令认证。');
     }
 
     /**
@@ -138,7 +138,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
         $response->assertJsonPath('errors.0.code', 'BadRequestHttpException');
-        $response->assertJsonPath('errors.0.detail', 'The password provided was not valid.');
+        $response->assertJsonPath('errors.0.detail', '提供的密码无效。');
 
         $response = $this->actingAs($user)->deleteJson('/api/client/account/two-factor', [
             'password' => 'password',
@@ -183,7 +183,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
                 'password' => 'foo',
             ])
             ->assertStatus(Response::HTTP_BAD_REQUEST)
-            ->assertJsonPath('errors.0.detail', 'The password provided was not valid.');
+            ->assertJsonPath('errors.0.detail', '提供的密码无效。');
 
         $this->assertFalse($user->refresh()->use_totp);
     }
@@ -200,7 +200,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
                 'password' => 'foo',
             ])
             ->assertStatus(Response::HTTP_BAD_REQUEST)
-            ->assertJsonPath('errors.0.detail', 'The password provided was not valid.');
+            ->assertJsonPath('errors.0.detail', '提供的密码无效。');
 
         $this->assertTrue($user->refresh()->use_totp);
     }
