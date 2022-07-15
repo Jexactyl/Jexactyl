@@ -53,17 +53,17 @@
                         <p class="text-muted small">服务器实例的简介.</p>
                     </div>
                     <div class="form-group">
-                        <label for="renewable" class="control-label">续订系统 <span class="field-required"></span></label>
+                        <label for="renewable" class="control-label">订阅系统 <span class="field-required"></span></label>
                         <select name="renewable" class="form-control">
                             <option @if (!$server->renewable) selected @endif value="0">禁用</option>
                             <option @if ($server->renewable) selected @endif value="1">启用</option>
                         </select>
-                        <p class="text-muted small">确定此服务器是否由续订系统续订。</p>
+                        <p class="text-muted small">设置用户使用多长时间才需要重新付费订阅。</p>
                     </div>
                     <div class="form-group">
-                        <label for="renewal" class="control-label">距续订天数 <span class="field-required"></span></label>
+                        <label for="renewal" class="control-label">订阅时长 <span class="field-required"></span></label>
                         <input type="text" name="renewal" value="{{ $server->renewal }}" class="form-control" />
-                        <p class="text-muted small">设置服务器必须续订之前的天数。</p>
+                        <p class="text-muted small">设置服务器还有多少时间到期的天数。</p>
                     </div>
                 </div>
                 <div class="box-footer">
