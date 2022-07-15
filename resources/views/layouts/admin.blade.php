@@ -1,5 +1,6 @@
-{{-- Pterodactyl - Panel --}}
+{{-- Pterodactyl CHINA - Panel --}}
 {{-- Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com> --}}
+{{-- Simplified Chinese Translation Copyright (c) 2018 - 2022 ValiantShishu <vlssu@vlssu.com> --}}
 
 {{-- This software is licensed under the terms of the MIT license. --}}
 {{-- https://opensource.org/licenses/MIT --}}
@@ -48,7 +49,7 @@
                 </a>
                 <nav class="navbar navbar-static-top">
                     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">切换导航</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -57,15 +58,15 @@
                         <ul class="nav navbar-nav">
                             <li class="user-menu">
                                 <a href="{{ route('account') }}">
-                                    <img src="https://www.gravatar.com/avatar/{{ md5(strtolower(Auth::user()->email)) }}?s=160" class="user-image" alt="User Image">
+                                    <img src="https://cravatar.cn/avatar/{{ md5(strtolower(Auth::user()->email)) }}?s=160" class="user-image" alt="User Image">
                                     <span class="hidden-xs">{{ Auth::user()->name_first }} {{ Auth::user()->name_last }}</span>
                                 </a>
                             </li>
                             <li>
-                                <li><a href="{{ route('index') }}" data-toggle="tooltip" data-placement="bottom" title="Exit Admin Control"><i class="fa fa-server"></i></a></li>
+                                <li><a href="{{ route('index') }}" data-toggle="tooltip" data-placement="bottom" title="退出管理员后台"><i class="fa fa-server"></i></a></li>
                             </li>
                             <li>
-                                <li><a href="{{ route('auth.logout') }}" id="logoutButton" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                                <li><a href="{{ route('auth.logout') }}" id="logoutButton" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a></li>
                             </li>
                         </ul>
                     </div>
@@ -74,15 +75,15 @@
             <aside class="main-sidebar">
                 <section class="sidebar">
                     <ul class="sidebar-menu">
-                        <li class="header">BASIC ADMINISTRATION</li>
+                        <li class="header">基础管理</li>
                         <li class="{{ Route::currentRouteName() !== 'admin.index' ?: 'active' }}">
                             <a href="{{ route('admin.index') }}">
-                                <i class="fa fa-home"></i> <span>Overview</span>
+                                <i class="fa fa-home"></i> <span>概况</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.settings') ?: 'active' }}">
                             <a href="{{ route('admin.settings')}}">
-                                <i class="fa fa-wrench"></i> <span>Settings</span>
+                                <i class="fa fa-wrench"></i> <span>设置</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.jexactyl.index') ?: 'active' }}">
@@ -92,44 +93,44 @@
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.api') ?: 'active' }}">
                             <a href="{{ route('admin.api.index')}}">
-                                <i class="fa fa-gamepad"></i> <span>Application API</span>
+                                <i class="fa fa-gamepad"></i> <span>应用 API</span>
                             </a>
                         </li>
-                        <li class="header">MANAGEMENT</li>
+                        <li class="header">高级管理</li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.databases') ?: 'active' }}">
                             <a href="{{ route('admin.databases') }}">
-                                <i class="fa fa-database"></i> <span>Databases</span>
+                                <i class="fa fa-database"></i> <span>数据库主机</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.locations') ?: 'active' }}">
                             <a href="{{ route('admin.locations') }}">
-                                <i class="fa fa-globe"></i> <span>Locations</span>
+                                <i class="fa fa-globe"></i> <span>节点服务器组</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.nodes') ?: 'active' }}">
                             <a href="{{ route('admin.nodes') }}">
-                                <i class="fa fa-sitemap"></i> <span>Nodes</span>
+                                <i class="fa fa-sitemap"></i> <span>节点服务器</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.servers') ?: 'active' }}">
                             <a href="{{ route('admin.servers') }}">
-                                <i class="fa fa-server"></i> <span>Servers</span>
+                                <i class="fa fa-server"></i> <span>服务器实例</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.users') ?: 'active' }}">
                             <a href="{{ route('admin.users') }}">
-                                <i class="fa fa-users"></i> <span>Users</span>
+                                <i class="fa fa-users"></i> <span>用户</span>
                             </a>
                         </li>
-                        <li class="header">SERVICE MANAGEMENT</li>
+                        <li class="header">服务管理</li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.mounts') ?: 'active' }}">
                             <a href="{{ route('admin.mounts') }}">
-                                <i class="fa fa-magic"></i> <span>Mounts</span>
+                                <i class="fa fa-magic"></i> <span>存储挂载</span>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.nests') ?: 'active' }}">
                             <a href="{{ route('admin.nests') }}">
-                                <i class="fa fa-th-large"></i> <span>Nests</span>
+                                <i class="fa fa-th-large"></i> <span>预设组</span>
                             </a>
                         </li>
                     </ul>
@@ -144,7 +145,7 @@
                         <div class="col-xs-12">
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
-                                    There was an error validating the data provided.<br><br>
+                                    验证提供的数据时出错.<br><br>
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -169,7 +170,7 @@
                     <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
                     <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
                 </div>
-                Copyright &copy; 2015 - {{ date('Y') }} <a href="https://pterodactyl.io/">Pterodactyl Software</a>.
+                Copyright &copy; 2015 - {{ date('Y') }} <a href="https://pterodactyl.io/">Pterodactyl Software</a> which Sinicizated by <a href="https://pterodactyl.top">翼龙中国</a>.
             </footer>
         </div>
         @section('footer-scripts')
@@ -193,12 +194,12 @@
 
                         var that = this;
                         swal({
-                            title: 'Do you want to log out?',
+                            title: '你要登出此账户吗?',
                             type: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d9534f',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Log out'
+                            confirmButtonText: '登出'
                         }, function () {
                              $.ajax({
                                 type: 'POST',
