@@ -1,11 +1,11 @@
 [![Logo Image](https://cdn.discordapp.com/attachments/696713493168259106/935167710399201320/Jexactyl_textured.png)](https://jexactyl.com)
 
-![Tests](https://img.shields.io/github/workflow/status/jexactyl/jexactyl/Build%20Panel?style=for-the-badge)
+![Tests](https://img.shields.io/github/workflow/status/Jexactyl-CN/Jexactyl/Build%20Panel?style=for-the-badge)
 ![Maintained](https://img.shields.io/maintenance/yes/2022?style=for-the-badge)
 ![Discord](https://img.shields.io/discord/922284031129825280?style=for-the-badge)
-![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total?style=for-the-badge)
-![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total?style=for-the-badge)
-![Version](https://img.shields.io/github/v/release/jexactyl/jexactyl?style=for-the-badge)
+![Downloads - Total](https://img.shields.io/github/downloads/Jexactyl-CN/Jexactyl/total?style=for-the-badge)
+![Downloads - Latest](https://img.shields.io/github/downloads/Jexactyl-CN/Jexactyl/latest/total?style=for-the-badge)
+![Version](https://img.shields.io/github/v/release/Jexactyl-CN/Jexactyl?style=for-the-badge)
 
 # Jexactyl
 Jexactyl is a fast, advanced and customisable game management panel and billing system in one.

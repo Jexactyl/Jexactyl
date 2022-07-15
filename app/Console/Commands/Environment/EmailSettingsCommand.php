@@ -1,7 +1,8 @@
 <?php
 /**
- * Pterodactyl - Panel
+ * Pterodactyl CHINA - Panel
  * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
+ * Simplified Chinese Translation Copyright (c) 2021 - 2022 Ice Ling <iceling@ilwork.cn>
  *
  * This software is licensed under the terms of the MIT license.
  * https://opensource.org/licenses/MIT
@@ -25,15 +26,15 @@ class EmailSettingsCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Set or update the email sending configuration for the Panel.';
+    protected $description = '设置或更新面板前端的电子邮件发送配置.';
 
     /**
      * @var string
      */
     protected $signature = 'p:environment:mail
-                            {--driver= : The mail driver to use.}
-                            {--email= : Email address that messages from the Panel will originate from.}
-                            {--from= : The name emails from the Panel will appear to be from.}
+                            {--driver= : 要使用的邮件驱动程序.}
+                            {--email= : 邮件地址.}
+                            {--from= : 发件人地址.}
                             {--encryption=}
                             {--host=}
                             {--port=}
@@ -66,16 +67,16 @@ class EmailSettingsCommand extends Command
         $this->variables['MAIL_DRIVER'] = $this->option('driver') ?? $this->choice(
             trans('command/messages.environment.mail.ask_driver'),
             [
-                'smtp' => 'SMTP Server',
-                'mail' => 'PHP\'s Internal Mail Function',
-                'mailgun' => 'Mailgun Transactional Email',
-                'mandrill' => 'Mandrill Transactional Email',
-                'postmark' => 'Postmarkapp Transactional Email',
+                'smtp' => 'SMTP 服务器',
+                'mail' => 'PHP 的内部邮件功能',
+                'mailgun' => 'Mailgun 交易电子邮件',
+                'mandrill' => 'Mandrill 交易电子邮件',
+                'postmark' => 'Postmarkapp 交易电子邮件',
             ],
             $this->config->get('mail.driver', 'smtp')
         );
 
-        $method = 'setup' . studly_case($this->variables['MAIL_DRIVER']) . 'DriverVariables';
+        $method = 'setup' . studly_case($this->variables['MAIL_DRIVER']) . '驱动程序设置';
         if (method_exists($this, $method)) {
             $this->{$method}();
         }
@@ -98,7 +99,7 @@ class EmailSettingsCommand extends Command
 
         $this->writeToEnvironment($this->variables);
 
-        $this->line('Updating stored environment configuration file.');
+        $this->line('正在更新本地环境配置文件.');
         $this->line('');
     }
 

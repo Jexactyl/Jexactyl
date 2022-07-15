@@ -86,7 +86,7 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'required');
-        $response->assertJsonPath('errors.0.detail', 'The email field is required.');
+        $response->assertJsonPath('errors.0.detail', 'email 字段是必填字段。');
 
         $response = $this->actingAs($user)->putJson('/api/client/account/email', [
             'email' => 'invalid',
