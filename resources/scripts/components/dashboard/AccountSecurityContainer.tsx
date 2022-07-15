@@ -26,20 +26,20 @@ const Container = styled.div`
 
 export default () => (
     <PageContentBlock title={'Account Security'}>
-        <h1 className={'j-left text-5xl'}>Account Security</h1>
-        <h3 className={'j-left text-2xl text-neutral-500'}>Manage account logs and authentication.</h3>
+        <h1 className={'j-left text-5xl'}>账户安全</h1>
+        <h3 className={'j-left text-2xl text-neutral-500'}>管理帐户日志和身份验证。</h3>
         <Container css={tw`lg:grid lg:grid-cols-3 my-10`}>
             <div css={tw`flex-none w-full col-span-1`}>
-                <ContentBox className={'j-right'} title={'Update Password'} showFlashes={'account:password'}>
+                <ContentBox className={'j-right'} title={'更新密码'} showFlashes={'account:password'}>
                     <UpdatePasswordForm />
                 </ContentBox>
-                <ContentBox className={'j-right'} title={'Setup 2FA'} css={tw`mt-8`} showFlashes={'account:2fa'}>
+                <ContentBox className={'j-right'} title={'设置动态口令认证'} css={tw`mt-8`} showFlashes={'account:2fa'}>
                     <ConfigureTwoFactorForm />
                 </ContentBox>
             </div>
             <ContentBox
                 className={'j-left'}
-                title={'Account Logs'}
+                title={'帐户日志'}
                 css={tw`md:ml-8 mt-8 md:mt-0 col-span-2`}
                 showFlashes={'account:logs'}
             >

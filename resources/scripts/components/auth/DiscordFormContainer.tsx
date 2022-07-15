@@ -27,7 +27,7 @@ const DiscordFormContainer = ({ children }: { children: React.ReactNode }) => {
     return (
         <div>
             <Wrapper>
-                <h2 css={tw`text-3xl text-center text-neutral-100 font-medium py-4`}>Login to {name}</h2>
+                <h2 css={tw`text-3xl text-center text-neutral-100 font-medium py-4`}>登录到 {name}</h2>
                 <FlashMessageRender css={tw`mb-2 px-1`} />
                 <div css={tw`md:flex w-full bg-neutral-900 shadow-lg rounded-lg p-6 md:pl-0 mx-1`}>
                     <div css={tw`flex-none select-none mb-6 md:mb-0 self-center`}>
@@ -37,7 +37,8 @@ const DiscordFormContainer = ({ children }: { children: React.ReactNode }) => {
                 </div>
                 <p css={tw`text-neutral-500 text-xs mt-6 sm:float-left`}>
                     &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> built on{' '}
-                    <a href={'https://pterodactyl.io'}>Pterodactyl.</a>
+                    <a href={'https://pterodactyl.io'}>Pterodactyl.</a> which Sinicizated by{' '}
+                    <a href={'https://pterodactyl.top'}>翼龙中国.</a>
                 </p>
                 <p css={tw`text-neutral-500 text-xs mt-6 sm:float-right`}>
                     <a href={'https://jexactyl.com'}> Site </a>
