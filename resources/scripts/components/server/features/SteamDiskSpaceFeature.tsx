@@ -50,35 +50,33 @@ const SteamDiskSpaceFeature = () => {
             {isAdmin ? (
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>Out of available disk space...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100 `}>可用存储空间不足...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        This server has run out of available disk space and cannot complete the install or update
-                        process.
+                        此服务器已用完可用存储空间，无法完成安装或更新过程。
                     </p>
                     <p css={tw`mt-4`}>
-                        Ensure the machine has enough disk space by typing{' '}
-                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>df -h</code> on the machine hosting
-                        this server. Delete files or increase the available disk space to resolve the issue.
+                        通过在托管此服务器的主机上输入{' '}
+                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>df -h</code> 确保主机有足够的存储空间。删除文件或增加可用存储空间以解决问题。
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
-                            Close
+                            关闭
                         </Button>
                     </div>
                 </>
             ) : (
                 <>
                     <div css={tw`mt-4 sm:flex items-center`}>
-                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>Out of available disk space...</h2>
+                        <h2 css={tw`text-2xl mb-4 text-neutral-100`}>可用存储空间不足...</h2>
                     </div>
                     <p css={tw`mt-4`}>
-                        This server has run out of available disk space and cannot complete the install or update
-                        process. Please get in touch with the administrator(s) and inform them of disk space issues.
+                        此服务器已用完可用存储空间，无法完成安装或更新过程。
+                        请与管理员联系并告知他们存储空间问题。
                     </p>
                     <div css={tw`mt-8 sm:flex items-center justify-end`}>
                         <Button onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
-                            Close
+                            关闭
                         </Button>
                     </div>
                 </>

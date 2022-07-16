@@ -33,10 +33,10 @@ const BackupContainer = () => {
     }
 
     return (
-        <ServerContentBlock title={'Backups'}>
+        <ServerContentBlock title={'服务器备份'}>
             <FlashMessageRender byKey={'backups'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Backups</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Protect your data with backups.</h3>
+            <h1 className={'j-left text-5xl'}>服务器备份</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>通过备份保护您的数据。</h3>
             <Pagination data={backups} onPageSelect={setPage}>
                 {({ items }) =>
                     !items.length ? (
@@ -45,8 +45,8 @@ const BackupContainer = () => {
                         !backupLimit ? null : (
                             <p css={tw`text-center text-sm text-neutral-300`}>
                                 {page > 1
-                                    ? "Looks like we've run out of backups to show you, try going back a page."
-                                    : 'It looks like there are no backups currently stored for this server.'}
+                                    ? "看起来这页没有您的备份，请尝试返回上一个页面。"
+                                    : '目前似乎没有为此服务器存储的备份。'}
                             </p>
                         )
                     ) : (
@@ -58,14 +58,14 @@ const BackupContainer = () => {
             </Pagination>
             {backupLimit === 0 && (
                 <p css={tw`text-center text-sm text-neutral-300`}>
-                    Backups cannot be created for this server because the backup limit is set to 0.
+                    无法为此服务器创建备份，因为此服务器实例备份限制设置为0.
                 </p>
             )}
             <Can action={'backup.create'}>
                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
                     {backupLimit > 0 && backups.backupCount > 0 && (
                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                            {backups.backupCount} of {backupLimit} backups have been created for this server.
+                            {backups.backupCount} / {backupLimit} 个备份已为此服务器创建。
                         </p>
                     )}
                     {backupLimit > 0 && backupLimit > backups.backupCount && (

@@ -38,17 +38,17 @@ export default () => {
     }, []);
 
     return (
-        <ServerContentBlock title={'Schedules'}>
+        <ServerContentBlock title={'计划'}>
             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Schedules</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Manage functions for your server.</h3>
+            <h1 className={'j-left text-5xl'}>计划</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>管理你的服务器的功能。</h3>
             {!schedules.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (
                 <>
                     {schedules.length === 0 ? (
                         <p css={tw`text-sm text-center text-neutral-300`}>
-                            There are no schedules configured for this server.
+                            此服务器实例未创建计划。
                         </p>
                     ) : (
                         schedules.map((schedule) => (
@@ -70,7 +70,7 @@ export default () => {
                         <div css={tw`mt-8 flex justify-end`}>
                             <EditScheduleModal visible={visible} onModalDismissed={() => setVisible(false)} />
                             <Button type={'button'} onClick={() => setVisible(true)}>
-                                Create schedule
+                                创建计划
                             </Button>
                         </div>
                     </Can>

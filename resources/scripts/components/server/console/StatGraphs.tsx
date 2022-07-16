@@ -17,8 +17,8 @@ export default () => {
     const previous = useRef<Record<'tx' | 'rx', number>>({ tx: -1, rx: -1 });
 
     const cpu = useChartTickLabel('CPU', limits.cpu, '%', 2);
-    const memory = useChartTickLabel('Memory', limits.memory, 'MB');
-    const network = useChart('Network', {
+    const memory = useChartTickLabel('内存', limits.memory, 'MB');
+    const network = useChart('网络', {
         sets: 2,
         options: {
             scales: {
@@ -68,20 +68,20 @@ export default () => {
 
     return (
         <>
-            <ChartBlock title={'CPU Load'}>
+            <ChartBlock title={'CPU 使用率'}>
                 <Line {...cpu.props} />
             </ChartBlock>
-            <ChartBlock title={'Memory'}>
+            <ChartBlock title={'内存使用率'}>
                 <Line {...memory.props} />
             </ChartBlock>
             <ChartBlock
-                title={'Network'}
+                title={'网络'}
                 legend={
                     <>
-                        <Tooltip arrow content={'Inbound'}>
+                        <Tooltip arrow content={'入站'}>
                             <Icon.UploadCloud className={'mr-2 w-4 h-4 text-green-400'} />
                         </Tooltip>
-                        <Tooltip arrow content={'Outbound'}>
+                        <Tooltip arrow content={'出站'}>
                             <Icon.DownloadCloud className={'w-4 h-4 text-cyan-400'} />
                         </Tooltip>
                     </>

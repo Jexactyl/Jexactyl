@@ -172,7 +172,7 @@
                                         <input type="text" class="form-control" name="store:limit:cpu" value="{{ $limit_cpu }}" />
                                         <span class="input-group-addon">%</span>
                                     </div>
-                                    <p class="text-muted"><small>可以部署服务器的最大 CPU 量。</small></p>
+                                    <p class="text-muted"><small>可以部署服务器的最大 CPU 数量。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
@@ -182,7 +182,7 @@
                                         <input type="text" class="form-control" name="store:limit:memory" value="{{ $limit_memory }}" />
                                         <span class="input-group-addon">MB</span>
                                     </div>
-                                    <p class="text-muted"><small>可以部署服务器的最大内存量。</small></p>
+                                    <p class="text-muted"><small>可以部署服务器的最大内存大小。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
@@ -192,7 +192,7 @@
                                         <input type="text" class="form-control" name="store:limit:disk" value="{{ $limit_disk }}" />
                                         <span class="input-group-addon">MB</span>
                                     </div>
-                                    <p class="text-muted"><small>可以部署服务器的最大存储空间量。</small></p>
+                                    <p class="text-muted"><small>可以部署服务器的最大存储空间大小。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

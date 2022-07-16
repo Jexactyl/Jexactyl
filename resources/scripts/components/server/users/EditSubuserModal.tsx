@@ -97,9 +97,9 @@ const EditSubuserModal = ({ subuser }: Props) => {
             }
             validationSchema={object().shape({
                 email: string()
-                    .max(191, 'Email addresses must not exceed 191 characters.')
-                    .email('A valid email address must be provided.')
-                    .required('A valid email address must be provided.'),
+                    .max(191, '电子邮件地址不得超过 191 个字符。')
+                    .email('必须提供有效的电子邮件地址。')
+                    .required('必须提供有效的电子邮件地址。'),
                 permissions: array().of(string()),
             })}
         >
@@ -107,12 +107,12 @@ const EditSubuserModal = ({ subuser }: Props) => {
                 <div css={tw`flex justify-between`}>
                     <h2 css={tw`text-2xl`} ref={ref}>
                         {subuser
-                            ? `${canEditUser ? 'Modify' : 'View'} permissions for ${subuser.email}`
-                            : 'Create new subuser'}
+                            ? `${canEditUser ? '可更改' : '不可更改'} ${subuser.email} 的权限`
+                            : '创建新子用户'}
                     </h2>
                     <div>
                         <Button type={'submit'} css={tw`w-full sm:w-auto`}>
-                            {subuser ? 'Save' : 'Invite User'}
+                            {subuser ? '保存' : '邀请用户'}
                         </Button>
                     </div>
                 </div>
@@ -120,8 +120,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
                 {!isRootAdmin && loggedInPermissions[0] !== '*' && (
                     <div css={tw`mt-4 pl-4 py-2 border-l-4 border-cyan-400`}>
                         <p css={tw`text-sm text-neutral-300`}>
-                            Only permissions which your account is currently assigned may be selected when creating or
-                            modifying other users.
+                            创建或修改其他用户时，只能选择您帐户当前分配的权限。
                         </p>
                     </div>
                 )}
@@ -129,16 +128,16 @@ const EditSubuserModal = ({ subuser }: Props) => {
                     <div css={tw`mt-6`}>
                         <Field
                             name={'email'}
-                            label={'User Email'}
+                            label={'用户邮箱地址'}
                             description={
-                                'Enter the email address of the user you wish to invite as a subuser for this server.'
+                                '输入您希望邀请为该服务器子用户的用户的电子邮件地址。'
                             }
                         />
                     </div>
                 )}
                 <div css={tw`my-6`}>
                     <div css={tw`flex items-center mb-4 bg-neutral-600 p-2 rounded shadow-sm`}>
-                        <p css={tw`text-sm flex-1 ml-1 text-neutral-200`}>Select all permissions</p>
+                        <p css={tw`text-sm flex-1 ml-1 text-neutral-200`}>选择所有权限</p>
                         {canEditUser && (
                             <SelectAllPermissions isEditable={canEditUser} permissions={editablePermissions} />
                         )}
@@ -167,7 +166,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
                 <Can action={subuser ? 'user.update' : 'user.create'}>
                     <div css={tw`pb-6 flex justify-end`}>
                         <Button type={'submit'} css={tw`w-full sm:w-auto`}>
-                            {subuser ? 'Save' : 'Invite User'}
+                            {subuser ? '保存' : '邀请用户'}
                         </Button>
                     </div>
                 </Can>

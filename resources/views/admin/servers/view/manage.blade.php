@@ -29,7 +29,7 @@
                     <h3 class="box-title">重新安装服务器实例</h3>
                 </div>
                 <div class="box-body">
-                    <p>此操作将使用预设的安装程序对服务器初始化。<strong>微信!</strong> 这会覆盖一部分数据.</p>
+                    <p>此操作将使用预设的安装程序对服务器初始化。<strong>危险!</strong> 这会覆盖一部分数据.</p>
                 </div>
                 <div class="box-footer">
                     @if($server->isInstalled())

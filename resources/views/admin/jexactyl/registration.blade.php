@@ -105,24 +105,24 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">CPU 量</label>
+                                <label class="control-label">CPU 数量</label>
                                 <div>
                                     <input type="text" class="form-control" name="registration:cpu" value="{{ $cpu }}" />
-                                    <p class="text-muted"><small>注册时应分配给用户的 CPU 数额（以 % 为单位）。</small></p>
+                                    <p class="text-muted"><small>注册时应分配给用户的 CPU 数量（以 % 为单位）。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">内存量</label>
+                                <label class="control-label">内存大小</label>
                                 <div>
                                     <input type="text" class="form-control" name="registration:memory" value="{{ $memory }}" />
-                                    <p class="text-muted"><small>注册时应给用户的内存数额（以 MB 为单位）。</small></p>
+                                    <p class="text-muted"><small>注册时应给用户的内存大小（以 MB 为单位）。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">存储空间量</label>
+                                <label class="control-label">存储空间大小</label>
                                 <div>
                                     <input type="text" class="form-control" name="registration:disk" value="{{ $disk }}" />
-                                    <p class="text-muted"><small>注册时应提供给用户的存储量（以 MB 为单位）。</small></p>
+                                    <p class="text-muted"><small>注册时应提供给用户的存储大小（以 MB 为单位）。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

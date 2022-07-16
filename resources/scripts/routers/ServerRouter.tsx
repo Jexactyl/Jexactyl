@@ -45,20 +45,20 @@ const ConflictStateRenderer = () => {
 
     return status === 'installing' || status === 'install_failed' ? (
         <ScreenBlock
-            title={'Running Installer'}
+            title={'正在运行安装程序'}
             image={ServerInstallSvg}
-            message={'Your server should be ready soon, please try again in a few minutes.'}
+            message={'此服务器应该很快就准备好了，请几分钟后再试'}
         />
     ) : status === 'suspended' ? (
         <Suspended />
     ) : (
         <ScreenBlock
-            title={isTransferring ? 'Transferring' : 'Restoring from Backup'}
+            title={isTransferring ? '转移中' : '回档中'}
             image={ServerRestoreSvg}
             message={
                 isTransferring
-                    ? 'Your server is being transfered to a new node, please check back later.'
-                    : 'Your server is currently being restored from a backup, please check back in a few minutes.'
+                    ? '您的服务器正在转移到新节点服务器，请稍后再回来查看。'
+                    : '您的服务器当前正在从备份中恢复，请过几分钟再来查看。'
             }
         />
     );
@@ -112,90 +112,90 @@ export default () => {
                             <div>
                                 <NavLink to={`${match.url}`} exact>
                                     <div css={tw`flex items-center justify-between`}>
-                                        Console <Icon.Terminal css={tw`ml-1`} size={18} />
+                                        控制台 <Icon.Terminal css={tw`ml-1`} size={18} />
                                     </div>
                                 </NavLink>
                                 <Can action={'activity.*'}>
                                     <NavLink to={`${match.url}/activity`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Activity <Icon.Eye css={tw`ml-1`} size={18} />
+                                            活动日志 <Icon.Eye css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'plugin.*'}>
                                     <NavLink to={`${match.url}/plugins`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Plugins <Icon.Box css={tw`ml-1`} size={18} />
+                                            插件 <Icon.Box css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'file.*'}>
                                     <NavLink to={`${match.url}/files`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Files <Icon.Folder css={tw`ml-1`} size={18} />
+                                            文件管理器 <Icon.Folder css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'database.*'}>
                                     <NavLink to={`${match.url}/databases`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Databases <Icon.Database css={tw`ml-1`} size={18} />
+                                            数据库 <Icon.Database css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'schedule.*'}>
                                     <NavLink to={`${match.url}/schedules`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Tasks <Icon.Clock css={tw`ml-1`} size={18} />
+                                            计划 <Icon.Clock css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'user.*'}>
                                     <NavLink to={`${match.url}/users`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Users <Icon.Users css={tw`ml-1`} size={18} />
+                                            服务器管理子用户 <Icon.Users css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'backup.*'}>
                                     <NavLink to={`${match.url}/backups`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Backups <Icon.Archive css={tw`ml-1`} size={18} />
+                                            备份 <Icon.Archive css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'allocation.*'}>
                                     <NavLink to={`${match.url}/network`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Network <Icon.Share2 css={tw`ml-1`} size={18} />
+                                            网络 <Icon.Share2 css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={'startup.*'}>
                                     <NavLink to={`${match.url}/startup`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Startup <Icon.Play css={tw`ml-1`} size={18} />
+                                            服务器启动设置 <Icon.Play css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={['settings.*', 'file.sftp']} matchAny>
                                     <NavLink to={`${match.url}/settings`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Settings <Icon.Settings css={tw`ml-1`} size={18} />
+                                            设置 <Icon.Settings css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 <Can action={['settings.*']} matchAny>
                                     <NavLink to={`${match.url}/edit`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Edit <Icon.Edit css={tw`ml-1`} size={18} />
+                                            编辑 <Icon.Edit css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
                                 {rootAdmin && (
                                     <a href={'/admin/servers/view/' + serverId} rel='noreferrer' target={'_blank'}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            Admin <Icon.ExternalLink css={tw`ml-1`} size={18} />
+                                            管理 <Icon.ExternalLink css={tw`ml-1`} size={18} />
                                         </div>
                                     </a>
                                 )}

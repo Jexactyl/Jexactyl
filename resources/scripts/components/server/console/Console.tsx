@@ -74,20 +74,20 @@ export default () => {
         switch (status) {
             // Sent by either the source or target node if a failure occurs.
             case 'failure':
-                terminal.writeln(TERMINAL_PRELUDE + 'Transfer has failed.\u001b[0m');
+                terminal.writeln(TERMINAL_PRELUDE + '迁移失败.\u001b[0m');
                 return;
 
             // Sent by the source node whenever the server was archived successfully.
             case 'archive':
                 terminal.writeln(
                     TERMINAL_PRELUDE +
-                        'Server has been archived successfully, attempting connection to target node..\u001b[0m'
+                        '服务器文件已成功压缩打包，正在尝试连接到目标节点服务器....\u001b[0m'
                 );
         }
     };
 
     const popout = () => {
-        window.open(window.location.href + '/console', 'Server Console', 'height=400,width=800');
+        window.open(window.location.href + '/console', '服务器控制台', 'height=400,width=800');
     };
 
     const handleDaemonErrorOutput = (line: string) =>
@@ -96,7 +96,7 @@ export default () => {
         );
 
     const handlePowerChangeEvent = (state: string) =>
-        terminal.writeln(TERMINAL_PRELUDE + 'Server marked as ' + state + '...\u001b[0m');
+        terminal.writeln(TERMINAL_PRELUDE + '服务器运行状态更新为: ' + state + '...\u001b[0m');
 
     const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
@@ -201,15 +201,15 @@ export default () => {
             <div
                 className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}
             >
-                <div id={styles.terminal} ref={ref} />
-            </div>
+                    <div id={styles.terminal} ref={ref} />
+                </div>
             {canSendCommands && (
                 <div className={classNames('relative', styles.overflows_container)}>
                     <input
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
                         id={'console_input'}
-                        aria-label={'Console command input.'}
+                        aria-label={'控制台指令输入.'}
                         disabled={!instance || !connected}
                         onKeyDown={handleCommandKeyDown}
                         autoCorrect={'off'}
@@ -217,11 +217,11 @@ export default () => {
                     />
                     <div className={classNames('text-gray-100', styles.command_icon)}>
                         {!isConsoleDetached && (
-                            <Tooltip content={'Launch console in external window'}>
+                            <Tooltip content={'在外部窗口中启动控制台'}>
                                 <Icon.ExternalLink className={'w-4 h-4'} onClick={() => popout()} />
                             </Tooltip>
                         )}
-                        <Tooltip content={'Type a command...'}>
+                        <Tooltip content={'在此输入指令...'}>
                             <Icon.ChevronsRight
                                 className={'w-4 h-4 ml-2 hover:animate-pulse'}
                                 onClick={() => {

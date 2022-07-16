@@ -21,7 +21,7 @@ export default () => {
                 addFlash({
                     key: 'settings',
                     type: 'success',
-                    message: 'Your server has been deleted.',
+                    message: '您的服务器实例已被删除。',
                 });
             })
             .catch((error) => {
@@ -37,27 +37,25 @@ export default () => {
     }, []);
 
     return (
-        <TitledGreyBox title={'Delete Server'} css={tw`relative`}>
+        <TitledGreyBox title={'删除服务器实例'} css={tw`relative`}>
             <Dialog.Confirm
                 open={modalVisible}
-                title={'Confirm server deletion'}
-                confirm={'Yes, delete server'}
+                title={'确认删除服务器实例'}
+                confirm={'是，删除服务器实例'}
                 onClose={() => setModalVisible(false)}
                 onConfirmed={delServer}
             >
-                Your server will be deleted, with all files being purged and the server&apos;s resources being returned
-                to your account. Are you sure you wish to continue?
+                您的服务器将被删除, 所有文件都将被清除，且服务器资源将退回至您的账户。你确定继续吗?
             </Dialog.Confirm>
             <p css={tw`text-sm`}>
-                Deleting your server will shut down any processes, return the resources to your account and delete all
-                files associated with the instance - as well as backups, databases and settings.
+                删除您的服务器将关闭所有服务器进程，将资源退回到您的帐户并删除所有与实例关联的文件、备份、数据库和设置。
                 <strong css={tw`font-medium`}>
-                    All data will be permenantly lost if you continue with this action.
+                    如果您继续执行此操作，所有数据将永久丢失。
                 </strong>
             </p>
             <div css={tw`mt-6 text-right`}>
                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setModalVisible(true)}>
-                    Delete Server
+                    删除服务器实例
                 </Button.Danger>
             </div>
         </TitledGreyBox>

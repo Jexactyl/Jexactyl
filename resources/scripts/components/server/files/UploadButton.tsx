@@ -92,7 +92,7 @@ export default ({ className }: WithClassname) => {
 
         const formData: FormData[] = [];
         Array.from(files).forEach((file) => {
-            const form = new FormData();
+        const form = new FormData();
             form.append('files', file);
             formData.push(form);
         });
@@ -118,9 +118,9 @@ export default ({ className }: WithClassname) => {
                                 const timeout = setTimeout(() => removeFileUpload(name), 5000);
                                 setTimeouts((t) => [...t, timeout]);
                             }
-                        },
-                    })
-                )
+                    },
+                })
+            )
             )
         )
             .then(() => mutate())
@@ -150,7 +150,7 @@ export default ({ className }: WithClassname) => {
                     >
                         <div css={tw`w-full flex items-center justify-center`} style={{ pointerEvents: 'none' }}>
                             <InnerContainer>
-                                <p css={tw`text-lg text-neutral-200 text-center`}>Drag and drop files to upload.</p>
+                                <p css={tw`text-lg text-neutral-200 text-center`}>拖放文件以上传。</p>
                             </InnerContainer>
                         </div>
                     </ModalMask>
@@ -170,7 +170,7 @@ export default ({ className }: WithClassname) => {
                 }}
             />
             <Button className={className} onClick={() => fileUploadInput.current && fileUploadInput.current.click()}>
-                Upload
+                上传
             </Button>
         </>
     );

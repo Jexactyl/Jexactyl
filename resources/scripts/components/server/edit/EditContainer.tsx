@@ -51,31 +51,30 @@ export default () => {
                 addFlash({
                     key: 'server:edit',
                     type: 'success',
-                    message: 'Server resources have been edited successfully.',
+                    message: '已成功编辑服务器实例资源。',
                 });
             })
             .catch((error) => clearAndAddHttpError({ key: 'server:edit', error }));
     };
 
     return (
-        <ServerContentBlock title={'Edit Server'}>
+        <ServerContentBlock title={'编辑服务器实例'}>
             <SpinnerOverlay size={'large'} visible={submitting} />
             <Dialog.Confirm
                 open={submitting}
                 onClose={() => setSubmitting(false)}
-                title={'Confirm resource edit'}
+                title={'确认资源的编辑'}
                 onConfirmed={() => edit(resource, amount)}
             >
-                This will remove resources from your account and add them to your server. Are you sure you want to
-                continue?
+                这将从您的帐户中删除相应的资源并添加到您的服务器实例当中。你确定你要继续吗？
             </Dialog.Confirm>
             <FlashMessageRender byKey={'server:edit'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Edit Resources</h1>
+            <h1 className={'j-left text-5xl'}>编辑资源</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-                Add and remove resources from your server.
+                从您的服务器实例添加/删除资源。
             </h3>
             <Container css={tw`lg:grid lg:grid-cols-3 gap-4 my-10`}>
-                <TitledGreyBox title={'Edit server CPU limit'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'编辑服务器 CPU 限制'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Cpu size={40} />
                         <Button.Success
@@ -100,11 +99,11 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Change the amount of CPU assigned to the server.
+                        更改分配给服务器的 CPU 数量。
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Limit cannot be lower than 50%.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>限制不能低于 50%。</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Edit server RAM limit'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'编辑服务器内存限制'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.PieChart size={40} />
                         <Button.Success
@@ -129,11 +128,11 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Change the amount of RAM assigned to the server.
+                        更改分配给服务器的内存大小.
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Limit cannot be lower than 1GB.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>限制不能低于 1GB。</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Edit server storage limit'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'编辑服务器存储空间限制'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.HardDrive size={40} />
                         <Button.Success
@@ -158,11 +157,11 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Change the amount of storage assigned to the server.
+                        更改分配给服务器的存储空间大小。
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Limit cannot be lower than 1GB.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>限制不能低于 1GB。</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Edit server port quantity'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'编辑服务器端口数量'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Share2 size={40} />
                         <Button.Success
@@ -187,11 +186,11 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Change the limit of ports assigned to the server.
+                        更改分配给服务器的端口数量。
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Limit cannot be lower than 1.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>限制不能低于 1。</p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Edit server backup limit'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'编辑服务器备份限制'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Archive size={40} />
                         <Button.Success
@@ -216,10 +215,10 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Change the limit of backups assigned to the server.
+                        更改分配给服务器的可用备份数量。
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Edit server database limit'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'编辑服务器数据库限制'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Database size={40} />
                         <Button.Success
@@ -244,7 +243,7 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Change the limit of databases assigned to the server.
+                        更改分配给服务器的可用数据库数量。
                     </p>
                 </TitledGreyBox>
             </Container>

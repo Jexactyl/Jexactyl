@@ -37,10 +37,10 @@ export default () => {
     }, []);
 
     return (
-        <ServerContentBlock title={'Databases'}>
+        <ServerContentBlock title={'数据库'}>
             <FlashMessageRender byKey={'databases'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Databases</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Create databases for your application.</h3>
+            <h1 className={'j-left text-5xl'}>数据库</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>为您的应用程序创建数据库。</h3>
             {!databases.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (
@@ -57,16 +57,15 @@ export default () => {
                         ) : (
                             <p css={tw`text-center text-sm text-neutral-300`}>
                                 {databaseLimit > 0
-                                    ? 'It looks like you have no databases.'
-                                    : 'Databases cannot be created for this server.'}
+                                    ? '看起来此服务器实例没有数据库.'
+                                    : '此服务器实例无法创建数据库'}
                             </p>
                         )}
                         <Can action={'database.create'}>
                             <div css={tw`mt-6 flex items-center justify-end`}>
                                 {databaseLimit > 0 && databases.length > 0 && (
                                     <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                                        {databases.length} of {databaseLimit} databases have been allocated to this
-                                        server.
+                                        {databases.length} / {databaseLimit} 个数据库已为此服务器实例创建.
                                     </p>
                                 )}
                                 {databaseLimit > 0 && databaseLimit !== databases.length && (

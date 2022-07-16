@@ -80,24 +80,24 @@ export default () => {
     };
 
     return (
-        <ServerContentBlock title={'File Manager'} showFlashKey={'files'}>
-            <h1 className={'j-left text-5xl'}>File Manager</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Create, edit and view files.</h3>
-            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'Search for files and folders...'} />
+        <ServerContentBlock title={'文件管理器'} showFlashKey={'files'}>
+            <h1 className={'j-left text-5xl'}>文件管理器</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>创建、编辑和查看文件。</h3>
+            <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'搜索文件和文件夹...'} />
             <div css={tw`flex flex-wrap-reverse md:flex-nowrap justify-center mb-4`}>
-                <ErrorBoundary>
+            <ErrorBoundary>
                     <div className={'j-right'}>
-                        <FileManagerBreadcrumbs
+                    <FileManagerBreadcrumbs
                             css={tw`w-full`}
-                            renderLeft={
-                                <FileActionCheckbox
-                                    type={'checkbox'}
-                                    css={tw`mx-4`}
-                                    checked={selectedFilesLength === (files?.length === 0 ? -1 : files?.length)}
-                                    onChange={onSelectAllClick}
-                                />
-                            }
-                        />
+                        renderLeft={
+                            <FileActionCheckbox
+                                type={'checkbox'}
+                                css={tw`mx-4`}
+                                checked={selectedFilesLength === (files?.length === 0 ? -1 : files?.length)}
+                                onChange={onSelectAllClick}
+                            />
+                        }
+                    />
                     </div>
                     <Can action={'file.create'}>
                         <div className={classNames(style.manager_actions, 'j-left')}>
@@ -108,26 +108,25 @@ export default () => {
                                 to={`/server/${id}/files/new${window.location.hash}`}
                                 css={tw`flex-1 sm:flex-none sm:mt-0`}
                             >
-                                <Button css={tw`w-full`}>New File</Button>
+                                <Button css={tw`w-full`}>新文件</Button>
                             </NavLink>
                         </div>
                     </Can>
-                </ErrorBoundary>
+            </ErrorBoundary>
             </div>
             {!files ? (
                 <Spinner size={'large'} centered />
             ) : (
                 <>
                     {!files.length ? (
-                        <p css={tw`text-sm text-neutral-400 text-center`}>This directory seems to be empty.</p>
+                        <p css={tw`text-sm text-neutral-400 text-center`}>此目录为空.</p>
                     ) : (
                         <CSSTransition classNames={'fade'} timeout={150} appear in>
                             <>
                                 {files.length > 250 && (
                                     <div css={tw`rounded bg-yellow-400 mb-px p-3`}>
                                         <p css={tw`text-yellow-900 text-sm text-center`}>
-                                            This directory is too large to display in the browser, limiting the output
-                                            to the first 250 files.
+                                            此目录太大，无法在浏览器中显示，将输出限制为前 250 个文件。
                                         </p>
                                     </div>
                                 )}
@@ -141,15 +140,15 @@ export default () => {
                 </>
             )}
             <Can action={'file.sftp'}>
-                <TitledGreyBox title={'SFTP Details'} className={'j-up mt-8 md:mt-6'}>
+                <TitledGreyBox title={'SFTP 详细信息'} className={'j-up mt-8 md:mt-6'}>
                     <div>
-                        <Label>Server Address</Label>
+                        <Label>服务器地址</Label>
                         <CopyOnClick text={`sftp://${ip(sftp.ip)}:${sftp.port}`}>
                             <Input type={'text'} value={`sftp://${ip(sftp.ip)}:${sftp.port}`} readOnly />
                         </CopyOnClick>
                     </div>
                     <div css={tw`mt-6`}>
-                        <Label>Username</Label>
+                        <Label>用户名</Label>
                         <CopyOnClick text={`${username}.${id}`}>
                             <Input type={'text'} value={`${username}.${id}`} readOnly />
                         </CopyOnClick>

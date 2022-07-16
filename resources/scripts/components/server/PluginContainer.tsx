@@ -39,24 +39,24 @@ export default () => {
     };
 
     const doDownload = (id: number) => {
-        console.log('Installing plugin with ID ' + id);
+        console.log('正在安装插件 ID ' + id);
         installPlugin(uuid, id)
             .then(() => setOpen(false))
             .then(() =>
                 addFlash({
                     key: 'server:plugins',
                     type: 'success',
-                    message: 'Plugin installed successfully.',
+                    message: '插件安装成功。',
                 })
             )
             .catch((error) => clearAndAddHttpError(error));
     };
 
     return (
-        <ServerContentBlock title={'Plugins'}>
+        <ServerContentBlock title={'插件'}>
             <FlashMessageRender byKey={'server:plugins'} />
             <h1 className={'j-left text-5xl'}>Plugin Installer</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Search and download Spgiot plugins.</h3>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>搜索和下载 Spigot 插件。</h3>
             <Formik
                 onSubmit={submit}
                 initialValues={{ query: '' }}
@@ -70,7 +70,7 @@ export default () => {
                             <Field
                                 className={'p-2 bg-neutral-900 w-full'}
                                 name={'query'}
-                                placeholder={'Type to search...'}
+                                placeholder={'输入以搜索...'}
                             />
                         </div>
                         <Button type={'submit'}>
@@ -82,11 +82,11 @@ export default () => {
             {!data ? null : (
                 <>
                     {!data.plugins ? (
-                        <p className={'j-up text-gray-400 text-center'}>Waiting for a search query to be provided...</p>
+                        <p className={'j-up text-gray-400 text-center'}>等待提供搜索查询...</p>
                     ) : (
                         <>
                             {data.plugins.length < 1 ? (
-                                <p>Couldn&apos;t find any plugins.</p>
+                                <p>未找到插件。</p>
                             ) : (
                                 <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (
@@ -94,10 +94,10 @@ export default () => {
                                             <Dialog.Confirm
                                                 open={open}
                                                 onClose={() => setOpen(false)}
-                                                title={'Plugin Installation'}
+                                                title={'插件安装'}
                                                 onConfirmed={() => doDownload(plugin.id)}
                                             >
-                                                Are you sure you wish to download this plugin?
+                                                你确定要下载安装这个插件吗?
                                             </Dialog.Confirm>
                                             <TitledGreyBox title={plugin.name} key={key} className={'m-2'}>
                                                 <div className={'lg:grid lg:grid-cols-5'}>

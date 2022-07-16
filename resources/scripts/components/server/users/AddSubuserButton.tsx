@@ -8,7 +8,7 @@ export default () => {
     return (
         <>
             <EditSubuserModal visible={visible} onModalDismissed={() => setVisible(false)} />
-            <Button onClick={() => setVisible(true)}>New User</Button>
+            <Button onClick={() => setVisible(true)}>新用户</Button>
         </>
     );
 };

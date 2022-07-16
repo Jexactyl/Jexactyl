@@ -34,16 +34,15 @@ export default ({ subuser }: { subuser: Subuser }) => {
             <Dialog.Confirm
                 open={showConfirmation}
                 onClose={() => setShowConfirmation(false)}
-                title={'Confirm task deletion'}
-                confirm={'Yes, delete subuser'}
+                title={'确认删除任务'}
+                confirm={'是的，删除子用户'}
                 onConfirmed={doDeletion}
             >
-                Are you sure you wish to remove this subuser? They will have all access to this server revoked
-                immediately.
+                您确定要删除此子用户吗？ 他们将立即失去对该服务器的所有访问权限。
             </Dialog.Confirm>
             <button
                 type={'button'}
-                aria-label={'Delete subuser'}
+                aria-label={'删除子用户'}
                 css={tw`block text-sm p-2 text-neutral-500 hover:text-red-600 transition-colors duration-150`}
                 onClick={() => setShowConfirmation(true)}
             >

@@ -42,15 +42,15 @@ export default ({ scheduleId, onDeleted }: Props) => {
             <Dialog.Confirm
                 open={visible}
                 onClose={() => setVisible(false)}
-                title={'Delete Schedule'}
-                confirm={'Delete'}
+                title={'删除计划?'}
+                confirm={'是'}
                 onConfirmed={onDelete}
             >
                 <SpinnerOverlay visible={isLoading} />
-                All tasks will be removed and any running processes will be terminated.
+                确定要删除此计划吗？ 将删除所有计划下的任务和任何正在运行的进程将被终止。
             </Dialog.Confirm>
             <Button.Danger css={tw`flex-1 sm:flex-none mr-4 border-transparent`} onClick={() => setVisible(true)}>
-                Delete
+                删除
             </Button.Danger>
         </>
     );

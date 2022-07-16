@@ -8,7 +8,7 @@ const ServerConfigurationBlock = () => {
     const server = ServerContext.useStoreState((state) => state.server.data!);
 
     return (
-        <TitledGreyBox css={tw`break-words mt-4`} title={'Server Information'}>
+        <TitledGreyBox css={tw`break-words mt-4`} title={'服务器实例信息'}>
             <p css={tw`text-xs mt-2`}>
                 <div css={tw`flex flex-row`}>
                     <Icon.List css={tw`mr-1`} size={16} />

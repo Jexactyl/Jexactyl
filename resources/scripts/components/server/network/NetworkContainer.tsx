@@ -51,9 +51,9 @@ const NetworkContainer = () => {
     };
 
     return (
-        <ServerContentBlock showFlashKey={'server:network'} title={'Network'}>
-            <h1 className={'j-left text-5xl'}>Network</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Configure external networking and ports.</h3>
+        <ServerContentBlock showFlashKey={'server:network'} title={'网络'}>
+            <h1 className={'j-left text-5xl'}>网络</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>配置外部网络及端口。</h3>
             {!data ? (
                 <Spinner size={'large'} centered />
             ) : (
@@ -66,12 +66,11 @@ const NetworkContainer = () => {
                             <SpinnerOverlay visible={loading} />
                             <div css={tw`mt-6 sm:flex items-center justify-end`}>
                                 <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                                    You are currently using {data.length} of {allocationLimit} allowed allocations for
-                                    this server.
+                                    你正在使用 {data.length} / {allocationLimit} 个允许的网络设置。
                                 </p>
                                 {allocationLimit > data.length && (
-                                    <Button css={tw`w-full sm:w-auto`} onClick={onCreateAllocation}>
-                                        Create Allocation
+                                    <Button css={tw`w-full sm:w-auto`} color={'primary'} onClick={onCreateAllocation}>
+                                        创建新的网络设置
                                     </Button>
                                 )}
                             </div>

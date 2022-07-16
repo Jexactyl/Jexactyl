@@ -15,22 +15,22 @@ export default () => {
     const node = ServerContext.useStoreState((state) => state.server.data!.node);
 
     return (
-        <ServerContentBlock title={'Settings'}>
+        <ServerContentBlock title={'设置'}>
             <FlashMessageRender byKey={'settings'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Settings</h1>
+            <h1 className={'j-left text-5xl'}>设置</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-                Control important settings for your server.
+                控制您服务器实例的重要设置。
             </h3>
             <div className={'md:flex'}>
                 <div className={'j-right w-full md:flex-1 md:mr-10'}>
-                    <TitledGreyBox title={'Debug Information'} css={tw`mb-6 md:mb-10`}>
+                    <TitledGreyBox title={'调试信息'} css={tw`mb-6 md:mb-10`}>
                         <div css={tw`flex items-center justify-between text-sm`}>
-                            <p>Node</p>
+                            <p>节点服务器</p>
                             <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>{node}</code>
                         </div>
                         <CopyOnClick text={uuid}>
                             <div css={tw`flex items-center justify-between mt-2 text-sm`}>
-                                <p>Server ID</p>
+                                <p>服务器 ID</p>
                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>{uuid}</code>
                             </div>
                         </CopyOnClick>

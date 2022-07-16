@@ -32,10 +32,10 @@ export default () => {
     }, [error]);
 
     return (
-        <ServerContentBlock title={'Activity Log'}>
+        <ServerContentBlock title={'活动日志'}>
             <FlashMessageRender byKey={'server:activity'} />
-            <h1 className={'j-left text-5xl'}>Server Activity</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>View activity on this server.</h3>
+            <h1 className={'j-left text-5xl'}>服务器实例活动日志</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>查看此服务器上的活动日志。</h3>
             {(filters.filters?.event || filters.filters?.ip) && (
                 <div className={'flex justify-end mb-2'}>
                     <Link
@@ -43,14 +43,14 @@ export default () => {
                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
                         onClick={() => setFilters((value) => ({ ...value, filters: {} }))}
                     >
-                        Clear Filters <Icon.XCircle className={'w-4 h-4 ml-2'} />
+                        清除筛选 <Icon.XCircle className={'w-4 h-4 ml-2'} />
                     </Link>
                 </div>
             )}
             {!data && isValidating ? (
                 <Spinner centered />
             ) : !data?.items.length ? (
-                <p className={'j-up text-sm text-center text-gray-400'}>No activity logs available for this server.</p>
+                <p className={'text-sm text-center text-gray-400'}>此服务器没有可用的活动日志。</p>
             ) : (
                 <div className={'bg-neutral-900 j-up'}>
                     {data?.items.map((activity) => (

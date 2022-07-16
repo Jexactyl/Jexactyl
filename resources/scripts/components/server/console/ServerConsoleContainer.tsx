@@ -23,12 +23,12 @@ const ServerConsoleContainer = () => {
     const eggFeatures = ServerContext.useStoreState((state) => state.server.data!.eggFeatures, isEqual);
 
     return (
-        <ServerContentBlock title={'Console'}>
+        <ServerContentBlock title={'服务器控制台'}>
             {(isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isInstalling
-                        ? 'This server is currently running its installation process and most actions are unavailable.'
-                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
+                        ? '此服务器实例当前正在运行其安装过程，大多数操作都是不可用的。'
+                        : '此服务器实例当前正在转移到另一个节点服务器，所有操作都不可用。'}
                 </Alert>
             )}
             <FlashMessageRender byKey={'console:share'} className={'mb-2'} />
@@ -52,11 +52,11 @@ const ServerConsoleContainer = () => {
                 <ServerDetailsBlock className={'j-left col-span-4 lg:col-span-1 order-last lg:order-none'} />
             </div>
             {status !== 'offline' && (
-                <div className={'grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-4'}>
-                    <Spinner.Suspense>
-                        <StatGraphs />
-                    </Spinner.Suspense>
-                </div>
+            <div className={'grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-4'}>
+                <Spinner.Suspense>
+                    <StatGraphs />
+                </Spinner.Suspense>
+            </div>
             )}
             <Features enabled={eggFeatures} />
         </ServerContentBlock>
