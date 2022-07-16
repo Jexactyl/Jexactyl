@@ -27,12 +27,12 @@ export default ({ name, fingerprint }: { name: string; fingerprint: string }) =>
         <>
             <Dialog.Confirm
                 open={visible}
-                title={'Delete SSH Key'}
-                confirm={'Delete Key'}
+                title={'SSH 密钥删除确定'}
+                confirm={'确定删除'}
                 onConfirmed={onClick}
                 onClose={() => setVisible(false)}
             >
-                Removing the <Code>{name}</Code> SSH key will invalidate its usage across the Panel.
+                删除 <Code>{name}</Code> SSH 密钥将使其在整个面板中的使用无效。
             </Dialog.Confirm>
             <button css={tw`ml-4 p-2 text-sm`} onClick={() => setVisible(true)}>
                 <Icon.Trash css={tw`text-neutral-400 hover:text-red-400 transition-colors duration-150`} />

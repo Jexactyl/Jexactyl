@@ -17,7 +17,7 @@ interface Values {
 
 const schema = Yup.object().shape({
     username: Yup.string().min(3).required(),
-    password: Yup.string().required('You must provide your current account password.'),
+    password: Yup.string().required('您必须提供您当前的帐户密码。'),
 });
 
 export default () => {
@@ -31,14 +31,14 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'account:username',
-                    message: 'Your username has been changed.',
+                    message: '您的用户名已更改。',
                 })
             )
             .catch((error) =>
                 addFlash({
                     type: 'error',
                     key: 'account:username',
-                    title: 'Error',
+                    title: '错误',
                     message: httpErrorToHuman(error),
                 })
             )
@@ -54,17 +54,17 @@ export default () => {
                 <React.Fragment>
                     <SpinnerOverlay size={'large'} visible={isSubmitting} />
                     <Form css={tw`m-0`}>
-                        <Field id={'new_username'} type={'username'} name={'username'} label={'New Username'} />
+                        <Field id={'new_username'} type={'username'} name={'username'} label={'新用户名'} />
                         <div css={tw`mt-6`}>
                             <Field
                                 id={'confirm_password'}
                                 type={'password'}
                                 name={'password'}
-                                label={'Confirm Password'}
+                                label={'确认密码'}
                             />
                         </div>
                         <div css={tw`mt-6`}>
-                            <Button disabled={isSubmitting || !isValid}>Update Username</Button>
+                            <Button disabled={isSubmitting || !isValid}>更新用户名</Button>
                         </div>
                     </Form>
                 </React.Fragment>

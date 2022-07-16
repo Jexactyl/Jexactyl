@@ -16,7 +16,7 @@ interface Values {
 
 const schema = Yup.object().shape({
     code: Yup.string().length(16).required(),
-    password: Yup.string().required('You must provide your current account password.'),
+    password: Yup.string().required('您必须提供您当前的帐户密码。'),
 });
 
 export default () => {
@@ -35,14 +35,14 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'account:referral',
-                    message: 'You are now using a referral code.',
+                    message: '您现在正在使用推广码。',
                 })
             )
             .catch((error) =>
                 addFlash({
                     type: 'error',
                     key: 'account:referral',
-                    title: 'Error',
+                    title: '错误',
                     message: httpErrorToHuman(error),
                 })
             )
@@ -57,7 +57,7 @@ export default () => {
             {alreadyReferred ? (
                 <>
                     <p className={'my-2 text-gray-400'}>
-                        You have already used a referral code.
+                        您已经使用过推广码。
                         {' ('}
                         <span className={'text-gray-200 text-white bg-gray-800 rounded-xl w-fit px-2 text-center'}>
                             {alreadyReferred}
@@ -70,13 +70,13 @@ export default () => {
                     {({ isSubmitting, isValid }) => (
                         <React.Fragment>
                             <Form className={'m-0'}>
-                                <Field id={'code'} type={'text'} name={'code'} label={'Enter referral code'} />
+                                <Field id={'code'} type={'text'} name={'code'} label={'输入推广码'} />
                                 <div className={'mt-6'}>
                                     <Field
                                         id={'confirm_password'}
                                         type={'password'}
                                         name={'password'}
-                                        label={'Confirm Password'}
+                                        label={'确认密码'}
                                     />
                                 </div>
                                 <div className={'mt-6'}>
