@@ -7,11 +7,11 @@
 @include('partials/admin.jexactyl.nav', ['activeTab' => 'renewal'])
 
 @section('title')
-    Jexactyl 订阅
+    Jexactyl 续订
 @endsection
 
 @section('content-header')
-    <h1>Jexactyl 订阅<small>配置 Jexactyl 的服务器订阅系统。</small></h1>
+    <h1>Jexactyl 续订<small>配置 Jexactyl 的服务器续订系统。</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">管理</a></li>
         <li class="active">Jexactyl</li>
@@ -31,12 +31,12 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <h3 class="box-title">服务器订阅 <small>配置服务器订阅设置。</small></h3>
+                        <h3 class="box-title">服务器续订 <small>配置服务器续订设置。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">订阅系统</label>
+                                <label class="control-label">续订系统</label>
                                 <div>
                                     <select name="enabled" class="form-control">
                                         <option @if ($enabled == 'false') selected @endif value="false">禁用</option>
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">默认订阅计时器</label>
+                                <label class="control-label">默认续订计时器</label>
                                 <div>
                                     <div class="input-group">
                                         <input type="text" id="default" name="default" class="form-control" value="{{ $default }}" />
@@ -56,13 +56,13 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">订阅费用</label>
+                                <label class="control-label">续订费用</label>
                                 <div>
                                     <div class="input-group">
                                         <input type="text" id="cost" name="cost" class="form-control" value="{{ $cost }}" />
                                         <span class="input-group-addon">积分</span>
                                     </div>
-                                    <p class="text-muted"><small>设置订阅所需的积分额度。</small></p>
+                                    <p class="text-muted"><small>设置续订所需的积分额度。</small></p>
                                 </div>
                             </div>
                         </div>
