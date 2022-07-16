@@ -11,7 +11,7 @@
 @endsection
 
 @section('content-header')
-    <h1>Jexactyl 商店<small>配置 Jexactyl 店面。</small></h1>
+    <h1>Jexactyl 商店<small>配置 Jexactyl 商店。</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">管理</a></li>
         <li class="active">Jexactyl</li>
@@ -31,12 +31,12 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Jexactyl 店面<small>配置是否为商店启用某些选项。</small></h3>
+                        <h3 class="box-title">Jexactyl 商店<small>配置是否为商店启用某些选项。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="control-label">店面启用</label>
+                                <label class="control-label">商店启用</label>
                                 <div>
                                     <select name="store:enabled" class="form-control">
                                         <option @if ($enabled == 'false') selected @endif value="false">禁用</option>

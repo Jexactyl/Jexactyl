@@ -7,7 +7,7 @@
 @include('partials/admin.users.nav', ['activeTab' => 'storefront', 'user' => $user])
 
 @section('title')
-    店面详细信息： {{ $user->username }}
+    商店详细信息： {{ $user->username }}
 @endsection
 
 @section('content-header')
@@ -16,7 +16,7 @@
         <li><a href="{{ route('admin.index') }}">管理</a></li>
         <li><a href="{{ route('admin.users') }}">用户</a></li>
         <li class="{{ route('admin.users.view', ['user' => $user]) }}">{{ $user->username }}</li>
-        <li class="active">店面</li>
+        <li class="active">商店</li>
     </ol>
 @endsection
 
