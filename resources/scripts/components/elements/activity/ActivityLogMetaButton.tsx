@@ -8,7 +8,7 @@ export default ({ meta }: { meta: Record<string, unknown> }) => {
 
     return (
         <div className={'self-center md:px-4'}>
-            <Dialog open={open} onClose={() => setOpen(false)} hideCloseIcon title={'Metadata'}>
+            <Dialog open={open} onClose={() => setOpen(false)} hideCloseIcon title={'元数据'}>
                 <pre
                     className={
                         'bg-gray-900 rounded p-2 font-mono text-sm leading-relaxed overflow-x-scroll whitespace-pre-wrap'
@@ -17,7 +17,7 @@ export default ({ meta }: { meta: Record<string, unknown> }) => {
                     {JSON.stringify(meta, null, 2)}
                 </pre>
                 <Dialog.Footer>
-                    <Button.Text onClick={() => setOpen(false)}>Close</Button.Text>
+                    <Button.Text onClick={() => setOpen(false)}>关闭</Button.Text>
                 </Dialog.Footer>
             </Dialog>
             <button
