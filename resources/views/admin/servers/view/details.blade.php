@@ -61,7 +61,7 @@
                         <p class="text-muted small">设置用户使用多长时间才需要重新付费订阅。</p>
                     </div>
                     <div class="form-group">
-                        <label for="renewal" class="control-label">续订时长 <span class="field-required"></span></label>
+                        <label for="renewal" class="control-label">订阅时长 <span class="field-required"></span></label>
                         <input type="text" name="renewal" value="{{ $server->renewal }}" class="form-control" />
                         <p class="text-muted small">设置服务器还有多少时间到期的天数。</p>
                     </div>

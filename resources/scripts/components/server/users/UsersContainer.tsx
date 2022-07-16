@@ -48,9 +48,9 @@ export default () => {
     }
 
     return (
-        <ServerContentBlock title={'服务器管理子用户'}>
+        <ServerContentBlock title={'子用户'}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>服务器管理子用户</h1>
+            <h1 className={'j-left text-5xl'}>子用户</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>从您的服务器实例上添加或删除用户。</h3>
             {!subusers.length ? (
                 <p css={tw`text-center text-sm text-neutral-300`}>看起来您没有任何子用户。</p>

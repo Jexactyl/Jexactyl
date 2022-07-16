@@ -117,7 +117,7 @@ export default ({ className }: { className?: string }) => {
                     <Bar style={{ width: memoryUsed === undefined ? '100%' : `${memoryUsed}%` }} />
                 )}
             </StatBlock>
-            <StatBlock icon={faHdd} title={'Disk'}>
+            <StatBlock icon={faHdd} title={'存储空间'}>
                 <Limit limit={textLimits.disk}>{bytesToString(stats.disk)}</Limit>
                 {limits.disk === 0 || diskUsed > 90 ? (
                     <Bar style={{ width: '100%' }} css={tw`bg-red-500`} />
@@ -129,7 +129,7 @@ export default ({ className }: { className?: string }) => {
                 <ConsoleShareContainer />
             </StatBlock>
             {renewable && (
-                <StatBlock icon={faClock} title={'续订日期'}>
+                <StatBlock icon={faClock} title={'到期日期'}>
                     <RenewalInfo />
             </StatBlock>
             )}

@@ -59,7 +59,7 @@ class DaemonConnectionException extends DisplayException
         // a 500 level error.
         if ($this->statusCode < 500 && !is_null($response)) {
             $body = json_decode($response->getBody()->__toString(), true);
-            $message = sprintf('An error occurred on the remote host: %s. (request id: %s)', $body['error'] ?? $message, $this->requestId ?? '<nil>');
+            $message = sprintf('远程主机上出现错误: %s. (request id: %s)', $body['error'] ?? $message, $this->requestId ?? '<nil>');
         }
 
         $level = $this->statusCode >= 500 && $this->statusCode !== 504

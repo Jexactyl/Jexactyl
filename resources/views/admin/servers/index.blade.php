@@ -89,7 +89,7 @@
     <script>
         $('.console-popout').on('click', function (event) {
             event.preventDefault();
-            window.open($(this).attr('href'), 'Pterodactyl Console', 'width=800,height=400');
+            window.open($(this).attr('href'), 'Pterodactyl 控制台', 'width=800,height=400');
         });
     </script>
 @endsection

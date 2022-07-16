@@ -60,7 +60,7 @@ export default () => {
             open={open === 'renew'}
             onClose={() => setOpen(null)}
             title={'确认续费服务器'}
-            confirm={'Continue'}
+            confirm={'继续'}
             onConfirmed={() => doRenewal()}
         >
             <SpinnerOverlay visible={isSubmit} />
@@ -73,7 +73,7 @@ export default () => {
             open={open === 'delete'}
             onClose={() => setOpen(null)}
             title={'确认删除服务器'}
-            confirm={'Continue'}
+            confirm={'继续'}
             onConfirmed={() => doDeletion()}
         >
             <SpinnerOverlay visible={isSubmit} />

@@ -52,7 +52,7 @@ export default () => {
                 <span className={'text-gray-400'}>离线</span>
             ) : (
                 <div className={'cursor-pointer'} onClick={submit}>
-                    Save
+                    保存
                 </div>
             )}
         </>

@@ -104,14 +104,14 @@ class ServerEditService
             case 'database_limit':
                 return $server->database_limit;
             default:
-                throw new DisplayException('Unable to parse resource type.');
+                throw new DisplayException('无法解析资源类型。');
         }
     }
 
     /**
      * Ensure that the server is not going past the limits
      * for minimum resources per-container.
-     * 
+     *
      * @throws DisplayException
      */
     protected function verifyResources(EditServerRequest $request, Server $server)
@@ -119,24 +119,24 @@ class ServerEditService
         $resource = $request->input('resource');
         $amount = $request->input('amount');
         $user = $request->user();
-    
-        // Check that the server's limits are acceptable.
-        if ($resource == 'cpu' && $server->cpu <= 50 && $amount < 0) throw new DisplayException('Cannot have less than 50% CPU assigned to server.');
-        if ($resource == 'memory' && $server->memory <= 1024 && $amount < 0) throw new DisplayException('Cannot have less than 1GB RAM assigned to server.');
-        if ($resource == 'disk' && $server->disk <= 1024 && $amount < 0) throw new DisplayException('Cannot have less than 1GB RAM assigned to server.');
 
-        if ($resource == 'allocation_limit' && $server->allocation_limit <= 1 && $amount < 0) throw new DisplayException('Cannot have less than 1 network allocation assigned to server.');
-        if ($resource == 'backup_limit' && $server->backup_limit <= 0 && $amount < 0) throw new DisplayException('Cannot have less than 0 backup slots assigned to server.');
-        if ($resource == 'database_limit' && $server->database_limit <= 0 && $amount < 0) throw new DisplayException('Cannot have less than 0 database slots assigned to server.');
+        // Check that the server's limits are acceptable.
+        if ($resource == 'cpu' && $server->cpu <= 50 && $amount < 0) throw new DisplayException('分配给服务器的 CPU 不得低于 50%。');
+        if ($resource == 'memory' && $server->memory <= 1024 && $amount < 0) throw new DisplayException('分配给服务器的内存不能低于 1GB。');
+        if ($resource == 'disk' && $server->disk <= 1024 && $amount < 0) throw new DisplayException('分配给服务器的存储空间不能低于 1GB。');
+
+        if ($resource == 'allocation_limit' && $server->allocation_limit <= 1 && $amount < 0) throw new DisplayException('分配给服务器的网络分配不能少于 1 个。');
+        if ($resource == 'backup_limit' && $server->backup_limit <= 0 && $amount < 0) throw new DisplayException('分配给服务器的备份槽位不能少于 0 个。');
+        if ($resource == 'database_limit' && $server->database_limit <= 0 && $amount < 0) throw new DisplayException('分配给服务器的数据库槽位不能少于 0 个。');
 
 
         // Check whether the user has enough resource in their account.
-        if ($resource == 'cpu' && $user->store_cpu < $amount) throw new DisplayException('You do not have enough CPU in order to add more to your server.');
-        if ($resource == 'memory' && $user->store_memory < $amount) throw new DisplayException('You do not have enough RAM in order to add more to your server.');
-        if ($resource == 'disk' && $user->store_disk < $amount) throw new DisplayException('You do not have enough disk in order to add more to your server.');
+        if ($resource == 'cpu' && $user->store_cpu < $amount) throw new DisplayException('您没有足够的 CPU 来添加更多到您的服务器。');
+        if ($resource == 'memory' && $user->store_memory < $amount) throw new DisplayException('您没有足够的内存来添加更多到您的服务器实例。');
+        if ($resource == 'disk' && $user->store_disk < $amount) throw new DisplayException('您没有足够的存储空间来添加更多到您的服务器实例。');
 
-        if ($resource == 'allocation_limit' && $user->store_ports < $amount) throw new DisplayException('You do not have enough ports in order to add more to your server.');
-        if ($resource == 'backup_limit' && $user->store_backups < $amount) throw new DisplayException('You do not have enough backups in order to add more to your server.');
-        if ($resource == 'database_limit' && $user->store_databases < $amount) throw new DisplayException('You do not have enough databases in order to add more to your server.');
+        if ($resource == 'allocation_limit' && $user->store_ports < $amount) throw new DisplayException('您没有足够的端口来添加更多到您的服务器实例。');
+        if ($resource == 'backup_limit' && $user->store_backups < $amount) throw new DisplayException('您没有足够的备份来添加更多到您的服务器实例。');
+        if ($resource == 'database_limit' && $user->store_databases < $amount) throw new DisplayException('您没有足够的数据库来添加更多到您的服务器实例。');
     }
 }

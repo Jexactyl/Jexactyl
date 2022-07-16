@@ -80,7 +80,7 @@ export default () => {
                                     />
                                 </div>
                                 <div className={'mt-6'}>
-                                    <Button disabled={isSubmitting || !isValid}>Use Code</Button>
+                                    <Button disabled={isSubmitting || !isValid}>使用推广码</Button>
                                 </div>
                             </Form>
                         </React.Fragment>

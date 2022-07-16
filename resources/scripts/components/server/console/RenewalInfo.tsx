@@ -33,7 +33,7 @@ export default () => {
                 <SpinnerOverlay visible={loading} />
                 您将需要支付 {store.renewals.cost} {store.currency} 以增加 {store.renewals.days} 天，直到您的下一次续订到期。
             </Dialog.Confirm>
-            于 {renewal} 天{' '}
+            {renewal} 天内{' '}
             <span className={'text-blue-500 text-sm cursor-pointer'} onClick={() => setOpen(true)}>
                 {'('}续订{')'}
             </span>

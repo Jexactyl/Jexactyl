@@ -41,7 +41,7 @@ export default () => {
         <ServerContentBlock title={'计划'}>
             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
             <h1 className={'j-left text-5xl'}>计划</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>管理你的服务器的功能。</h3>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>管理你的服务器的计划任务。</h3>
             {!schedules.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (

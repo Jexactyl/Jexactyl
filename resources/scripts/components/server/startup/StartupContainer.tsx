@@ -89,7 +89,7 @@ const StartupContainer = () => {
                 在启动过程中对你的服务器的变量进行微调。
             </h3>
             <div className={'md:flex j-up'}>
-                <TitledGreyBox title={'Startup Command'} css={tw`flex-1`}>
+                <TitledGreyBox title={'启动命令'} css={tw`flex-1`}>
                     <div css={tw`px-1 py-2`}>
                         <p css={tw`font-mono bg-neutral-900 rounded py-2 px-4`}>{data.invocation}</p>
                     </div>

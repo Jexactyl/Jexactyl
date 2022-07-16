@@ -153,7 +153,7 @@ export default () => {
                                 <Can action={'user.*'}>
                                     <NavLink to={`${match.url}/users`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            服务器管理子用户 <Icon.Users css={tw`ml-1`} size={18} />
+                                            子用户 <Icon.Users css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
@@ -174,7 +174,7 @@ export default () => {
                                 <Can action={'startup.*'}>
                                     <NavLink to={`${match.url}/startup`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            服务器启动设置 <Icon.Play css={tw`ml-1`} size={18} />
+                                            启动设置 <Icon.Play css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>
@@ -188,7 +188,7 @@ export default () => {
                                 <Can action={['settings.*']} matchAny>
                                     <NavLink to={`${match.url}/edit`}>
                                         <div css={tw`flex items-center justify-between`}>
-                                            编辑 <Icon.Edit css={tw`ml-1`} size={18} />
+                                            编辑资源 <Icon.Edit css={tw`ml-1`} size={18} />
                                         </div>
                                     </NavLink>
                                 </Can>

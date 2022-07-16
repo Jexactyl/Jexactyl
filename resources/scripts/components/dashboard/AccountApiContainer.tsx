@@ -42,8 +42,8 @@ export default () => {
 
     return (
         <PageContentBlock title={'账户 API'}>
-            <h1 className={'j-left text-5xl'}>API Keys</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Create API keys to interact with the Panel.</h3>
+            <h1 className={'j-left text-5xl'}>API 密钥</h1>
+            <h3 className={'j-left text-2xl text-neutral-500'}>创建 API 密钥以与面板交互。</h3>
             <FlashMessageRender byKey={'account'} />
             <div className={'j-up md:flex flex-nowrap my-10'}>
                 <ContentBox title={'创建 API 密钥'} css={tw`flex-none w-full md:w-1/2`}>
