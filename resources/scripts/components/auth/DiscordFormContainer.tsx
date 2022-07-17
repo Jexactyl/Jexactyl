@@ -43,7 +43,7 @@ const DiscordFormContainer = ({ children }: { children: React.ReactNode }) => {
                 <p css={tw`text-neutral-500 text-xs mt-6 sm:float-right`}>
                     <a href={'https://jexactyl.com'}> Site </a>
                     &bull;
-                    <a href={'https://github.com/jexactyl/jexactyl'}> GitHub </a>
+                    <a href={'https://github.com/jexactyl-cn/jexactyl'}> GitHub </a>
                 </p>
             </Wrapper>
         </div>

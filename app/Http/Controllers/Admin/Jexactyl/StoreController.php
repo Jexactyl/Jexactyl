@@ -77,7 +77,7 @@ class StoreController extends Controller
             $this->settings->set('jexactyl::' . $key, $value);
         }
 
-        $this->alert->warning('如果您启用了支付网关，请记得配置它们。<a href="https://documentation.jexactyl.com">文档</a>')->flash();
+        $this->alert->warning('如果您启用了支付网关，请记得配置它们。<a href="https://docs.jexactyl.com">文档</a>')->flash();
         $this->alert->success('Jexactyl 商店已更新。')->flash();
 
         return redirect()->route('admin.jexactyl.store');
