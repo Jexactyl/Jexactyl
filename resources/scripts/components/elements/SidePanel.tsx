@@ -63,7 +63,7 @@ export default () => {
                     </Tooltip>
                 </NavLink>
                 <NavLink to={'/account'} className={'navigation-link'}>
-                    <Tooltip placement={'bottom'} content={'管理员后台'}>
+                    <Tooltip placement={'bottom'} content={'账号设置'}>
                         <Icon.User size={32} css={tw`my-8`} />
                     </Tooltip>
                 </NavLink>
@@ -76,7 +76,7 @@ export default () => {
                 )}
                 {rootAdmin && (
                     <a href={'/admin'} className={'navigation-link'}>
-                        <Tooltip placement={'bottom'} content={'账号设置'}>
+                        <Tooltip placement={'bottom'} content={'管理员后台'}>
                             <Icon.Settings size={32} css={tw`my-8`} />
                         </Tooltip>
                     </a>
