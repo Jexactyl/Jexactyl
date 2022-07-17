@@ -120,8 +120,7 @@ const OverviewContainer = () => {
                         <div css={tw`flex-1`}>
                             <h2 css={tw`text-xl mb-2`}>编辑您的服务器资源</h2>
                             <p>
-                                想要从您的服务器中添加或删除资源，或者完全删除它？
-								使用编辑功能立即对您的服务器进行更改。
+                                想要从您的服务器中添加或删除资源，或者完全删除它？使用编辑功能立即对您的服务器进行更改。
                             </p>
                             <Button css={tw`mt-6 w-full`} size={Button.Sizes.Large} onClick={() => redirect('edit')}>
                                 编辑

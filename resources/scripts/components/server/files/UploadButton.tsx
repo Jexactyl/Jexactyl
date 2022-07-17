@@ -92,7 +92,7 @@ export default ({ className }: WithClassname) => {
 
         const formData: FormData[] = [];
         Array.from(files).forEach((file) => {
-        const form = new FormData();
+            const form = new FormData();
             form.append('files', file);
             formData.push(form);
         });
@@ -118,9 +118,9 @@ export default ({ className }: WithClassname) => {
                                 const timeout = setTimeout(() => removeFileUpload(name), 5000);
                                 setTimeouts((t) => [...t, timeout]);
                             }
-                    },
-                })
-            )
+                        },
+                    })
+                )
             )
         )
             .then(() => mutate())

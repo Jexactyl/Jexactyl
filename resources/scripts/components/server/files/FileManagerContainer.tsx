@@ -85,19 +85,19 @@ export default () => {
             <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>创建、编辑和查看文件。</h3>
             <Input onChange={searchFiles} className={'mb-4 j-up'} placeholder={'搜索文件和文件夹...'} />
             <div css={tw`flex flex-wrap-reverse md:flex-nowrap justify-center mb-4`}>
-            <ErrorBoundary>
+                <ErrorBoundary>
                     <div className={'j-right'}>
                     <FileManagerBreadcrumbs
                             css={tw`w-full`}
-                        renderLeft={
-                            <FileActionCheckbox
-                                type={'checkbox'}
-                                css={tw`mx-4`}
-                                checked={selectedFilesLength === (files?.length === 0 ? -1 : files?.length)}
-                                onChange={onSelectAllClick}
-                            />
-                        }
-                    />
+                            renderLeft={
+                                <FileActionCheckbox
+                                    type={'checkbox'}
+                                    css={tw`mx-4`}
+                                    checked={selectedFilesLength === (files?.length === 0 ? -1 : files?.length)}
+                                    onChange={onSelectAllClick}
+                                />
+                            }
+                        />
                     </div>
                     <Can action={'file.create'}>
                         <div className={classNames(style.manager_actions, 'j-left')}>
@@ -112,7 +112,7 @@ export default () => {
                             </NavLink>
                         </div>
                     </Can>
-            </ErrorBoundary>
+                </ErrorBoundary>
             </div>
             {!files ? (
                 <Spinner size={'large'} centered />

@@ -69,7 +69,7 @@ const NetworkContainer = () => {
                                     你正在使用 {data.length} / {allocationLimit} 个允许的网络设置。
                                 </p>
                                 {allocationLimit > data.length && (
-                                    <Button css={tw`w-full sm:w-auto`} color={'primary'} onClick={onCreateAllocation}>
+                                    <Button css={tw`w-full sm:w-auto`} onClick={onCreateAllocation}>
                                         创建新的网络设置
                                     </Button>
                                 )}

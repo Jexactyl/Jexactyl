@@ -153,7 +153,7 @@ export default () => {
                     </Container>
                     <h1 className={'j-left text-5xl'}>资源限制</h1>
                     <h3 className={'j-left text-2xl text-neutral-500'}>为 CPU、内存等设置限制。</h3>
-                    <Container css={tw`lg:grid lg:grid-cols-3 my-10 gap-4`}>
+                    <Container className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
                         <TitledGreyBox title={'服务器 CPU 限制'} css={tw`mt-8 sm:mt-0`}>
                             <Field name={'cpu'} />
                             <p css={tw`mt-1 text-xs`}>分配可用 CPU 的限制。</p>
@@ -176,7 +176,7 @@ export default () => {
                     <h3 className={'j-left text-2xl text-neutral-500'}>
                         将数据库、网络分配和端口添加到您的服务器。
                     </h3>
-                    <Container css={tw`lg:grid lg:grid-cols-3 my-10 gap-4`}>
+                    <Container className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
                         <TitledGreyBox title={'网络分配'} css={tw`mt-8 sm:mt-0`}>
                             <Field name={'ports'} />
                             <p css={tw`mt-1 text-xs`}>为您的服务器分配多个端口。</p>
@@ -195,7 +195,7 @@ export default () => {
                     </Container>
                     <h1 className={'j-left text-5xl'}>服务器类型</h1>
                     <h3 className={'j-left text-2xl text-neutral-500'}>选择要使用的服务器分发类型。</h3>
-                    <Container css={tw`my-10 gap-4`}>
+                    <Container className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>
                         <TitledGreyBox title={'服务器预设组'} css={tw`mt-8 sm:mt-0`}>
                             <Select name={'nest'} onChange={(n) => changeNest(n)}>
                                 {nests.map((n) => (

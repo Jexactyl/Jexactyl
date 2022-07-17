@@ -201,8 +201,8 @@ export default () => {
             <div
                 className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}
             >
-                    <div id={styles.terminal} ref={ref} />
-                </div>
+                <div id={styles.terminal} ref={ref} />
+            </div>
             {canSendCommands && (
                 <div className={classNames('relative', styles.overflows_container)}>
                     <input
