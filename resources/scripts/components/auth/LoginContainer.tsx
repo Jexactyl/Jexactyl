@@ -125,7 +125,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                 css={tw`text-xs ml-6 text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                             >
                                 使用 Discord 进行身份验证
-                        </Link>
+                            </Link>
                         )}
                     </div>
                 </LoginFormContainer>
