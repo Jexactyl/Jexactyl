@@ -38,7 +38,7 @@ class RenewalController extends Controller
     public function index(): View
     {
         $prefix = 'jexactyl::renewal:';
-    
+
         return view('admin.jexactyl.renewal', [
             'enabled' => $this->settings->get($prefix.'enabled', false),
             'default' => $this->settings->get($prefix.'default', 7),
@@ -58,7 +58,7 @@ class RenewalController extends Controller
             $this->settings->set('jexactyl::renewal:' . $key, $value);
         }
 
-        $this->alert->success('Jexactyl Renewal System has been updated.')->flash();
+        $this->alert->success('Jexactyl 续订系统已更新。')->flash();
 
         return redirect()->route('admin.jexactyl.renewal');
     }

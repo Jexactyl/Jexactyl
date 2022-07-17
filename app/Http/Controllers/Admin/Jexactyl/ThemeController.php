@@ -27,7 +27,7 @@ class ThemeController extends Controller
     public function __construct(
         SettingsRepositoryInterface $settings,
         AlertsMessageBag $alert
-    ) 
+    )
     {
         $this->alert = $alert;
         $this->settings = $settings;
@@ -59,7 +59,7 @@ class ThemeController extends Controller
             'https://github.com/jexactyl-themes/' . $request->input('theme:current') . '/releases/latest/theme.tar.gz'
         );
 
-        $this->alert->success('Jexactyl Theme has been updated. Please run <code>yarn</code> and <code>yarn build</code> on your machine to update.')->flash();
+        $this->alert->success('Jexactyl 主题已更新。请在您的机器上运行 <code>yarn</code> 和 <code>yarn build</code> 来进行更新。')->flash();
         return redirect()->route('admin.jexactyl.theme');
     }
 }

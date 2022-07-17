@@ -59,7 +59,7 @@ class PayPalController extends ClientApiController
             'purchase_units' => [
                 [
                     'reference_id' => uniqid(),
-                    'description' => $amount . ' Credits | ' . $this->settings->get('settings::app:name'),
+                    'description' => $amount . ' 积分 | ' . $this->settings->get('settings::app:name'),
                     'amount' => [
                         'value' => $cost,
                         'currency_code' => strtoupper($currency),
@@ -82,7 +82,7 @@ class PayPalController extends ClientApiController
 
             return new JsonResponse($response->result->links[1]->href, 200, [], null, true);
         } catch (Exception $ex) {
-            throw new DisplayException('Unable to process order.');
+            throw new DisplayException('无法处理订单。');
         }
     }
 
@@ -116,7 +116,7 @@ class PayPalController extends ClientApiController
 
             return redirect('/store');
         } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to process order.');
+            throw new DisplayException('无法处理订单。');
         }
     }
 
