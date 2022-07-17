@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">实例数量</label>
+                                <label class="control-label">实例槽位</label>
                                 <div>
                                     <input type="text" class="form-control" name="registration:slot" value="{{ $slot }}" />
                                     <p class="text-muted"><small>注册时应提供给用户的服务器插槽数量。</small></p>
@@ -140,10 +140,10 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="control-label">备份数量</label>
+                                <label class="control-label">备份槽位</label>
                                 <div>
                                     <input type="text" class="form-control" name="registration:backup" value="{{ $backup }}" />
-                                    <p class="text-muted"><small>注册时应提供给用户的服务器备份量。</small></p>
+                                    <p class="text-muted"><small>注册时应提供给用户的服务器备份槽位。</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">

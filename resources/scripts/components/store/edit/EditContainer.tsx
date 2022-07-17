@@ -49,10 +49,10 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Edit a server'} showFlashKey={'store:edit'}>
-            <h1 className={'j-left text-5xl'}>Edit your servers</h1>
+        <PageContentBlock title={'编辑服务器资源'} showFlashKey={'store:edit'}>
+            <h1 className={'j-left text-5xl'}>编辑你的服务器资源</h1>
             <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
-                Configure limits and options for your instances.
+                为您的实例配置限制和选项。
             </h3>
             {rootAdmin && (
                 <div css={tw`mb-2 flex justify-end items-center`}>
@@ -78,7 +78,7 @@ export default () => {
                             ))
                         ) : (
                             <p css={tw`text-center text-sm text-neutral-400`}>
-                                There are no servers available to edit.
+                                没有可供编辑的服务器实例。
                             </p>
                         )
                     }

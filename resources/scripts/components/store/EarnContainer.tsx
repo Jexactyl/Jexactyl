@@ -36,26 +36,25 @@ export default () => {
     if (!resources) return <StoreError />;
 
     return (
-        <PageContentBlock title={'Account Balance'}>
-            <h1 className={'j-left text-5xl'}>Earn credits</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Passively earn credits by using the panel.</h3>
+        <PageContentBlock title={'账户余额'}>
+            <h1 className={'j-left text-5xl'}>获取积分</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>通过我们设置的一些途径免费获得积分。</h3>
             <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
-                <ContentBox title={'Current Account Balance'} showFlashes={'earn:balance'} css={tw`sm:mt-0`}>
+                <ContentBox title={'当前账户余额'} showFlashes={'earn:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>
                         ${resources.balance} {store.currency}
                     </h1>
                 </ContentBox>
-                <ContentBox title={'Earn Rate'} showFlashes={'earn:rate'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'获取速度'} showFlashes={'earn:rate'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>
-                        {earn.amount} {store.currency} / min
+                        {earn.amount} {store.currency} / 每分钟
                     </h1>
                 </ContentBox>
-                <ContentBox title={'How to earn'} showFlashes={'earn:how'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
-                    <p>You can earn credits by having any page of this panel open.</p>
+                <ContentBox title={'如何获取'} showFlashes={'earn:how'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                    <p>您可以通过打开此面板的任何页面来获得积分。</p>
                     <p css={tw`mt-1`}>
                         <span css={tw`text-green-500`}>{earn.amount}&nbsp;</span>
-                        credit(s) per minute will automatically be added to your account, as long as this site is open
-                        in a browser tab.
+                        只要网站一直在浏览器中打开，每分钟都会向你的账户添加积分.
                     </p>
                 </ContentBox>
             </Container>

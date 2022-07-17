@@ -48,7 +48,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'store:resources',
-                    message: 'Resource has been added to your account.',
+                    message: '资源已成功添加至你的账户。',
                 })
             )
             .catch((error) => {
@@ -57,22 +57,21 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Store Products'} showFlashKey={'store:resources'}>
+        <PageContentBlock title={'商店商品'} showFlashKey={'store:resources'}>
             <SpinnerOverlay size={'large'} visible={open} />
             <Dialog.Confirm
                 open={open}
                 onClose={() => setOpen(false)}
-                title={'Confirm resource seletion'}
-                confirm={'Continue'}
+                title={'确认资源选择'}
+                confirm={'确认'}
                 onConfirmed={() => purchase(resource)}
             >
-                Are you sure you want to purchase this resource? This will take credits from your account and add the
-                resource. This is not a reversible transaction.
+                您确定要购买此资源吗？这将从您的帐户中扣除积分并添加资源，且无法退还。
             </Dialog.Confirm>
-            <h1 className={'j-left text-5xl'}>Order resources</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Buy more resources to add to your server.</h3>
+            <h1 className={'j-left text-5xl'}>购买资源</h1>
+            <h3 className={'j-left text-2xl text-neutral-500'}>购买更多资源以添加到您的服务器。</h3>
             <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
-                <TitledGreyBox title={'Purchase CPU'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'购买 CPU'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Cpu size={40} />
                         <Button.Success
@@ -87,13 +86,13 @@ export default () => {
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase CPU to improve server performance.
+                        购买 CPU 以提高服务器性能。
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per 50% CPU: {cost.cpu} {currency}
+                        每 50% CPU: {cost.cpu} {currency}
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase RAM'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'购买内存'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.PieChart size={40} />
                         <Button.Success
@@ -104,17 +103,17 @@ export default () => {
                                 setResource('memory');
                             }}
                         >
-                            +1GB RAM
+                            +1GB 内存
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase RAM to improve server performance.
+                        购买内存以提高服务器性能。
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per 1GB RAM: {cost.memory} {currency}
+                        每 1GB 内存: {cost.memory} {currency}
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Disk'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'购买存储空间'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.HardDrive size={40} />
                         <Button.Success
@@ -125,19 +124,19 @@ export default () => {
                                 setResource('disk');
                             }}
                         >
-                            +1GB DISK
+                            +1GB 存储空间
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase disk space to improve server capacity.
+                        购买存储空间以提高服务器容量。
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per 1GB disk: {cost.disk} {currency}
+                        每 1GB 存储空间: {cost.disk} {currency}
                     </p>
                 </TitledGreyBox>
             </Container>
             <Container className={'j-up lg:grid lg:grid-cols-4 my-10'}>
-                <TitledGreyBox title={'Purchase Server Slot'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'购买实例槽位'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Server size={40} />
                         <Button.Success
@@ -148,17 +147,17 @@ export default () => {
                                 setResource('slots');
                             }}
                         >
-                            +1 slot
+                            +1 实例槽位
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase a server slot to deploy a server.
+                        购买服务器位以部署服务器实例。
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per slot: {cost.slot} {currency}
+                        每个位置: {cost.slot} {currency}
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Server Ports'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'购买服务器端口'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Share2 size={40} />
                         <Button.Success
@@ -169,17 +168,17 @@ export default () => {
                                 setResource('ports');
                             }}
                         >
-                            +1 port
+                            +1 端口
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase a port to connect to your server.
+                        购买端口以连接到您的服务器。
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per port: {cost.port} {currency}
+                        每个端口: {cost.port} {currency}
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Server Backups'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'购买服务器备份槽位'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Archive size={40} />
                         <Button.Success
@@ -190,17 +189,17 @@ export default () => {
                                 setResource('backups');
                             }}
                         >
-                            +1 backup
+                            +1 备份槽位
                         </Button.Success>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Purchase a backup to protect your data.
+                        购买备份槽位来保护你的数据。
                     </p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per backup slot: {cost.backup} {currency}
+                        每个备份槽位: {cost.backup} {currency}
                     </p>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Purchase Server Databases'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'购买服务器数据库'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Database size={40} />
                         <Button.Success
@@ -211,12 +210,12 @@ export default () => {
                                 setResource('databases');
                             }}
                         >
-                            +1 database
+                            +1 数据库
                         </Button.Success>
                     </Wrapper>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Purchase a database to store data.</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>购买数据库来存储数据。</p>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        Cost per database: {cost.database} {currency}
+                        每个数据库: {cost.database} {currency}
                     </p>
                 </TitledGreyBox>
             </Container>

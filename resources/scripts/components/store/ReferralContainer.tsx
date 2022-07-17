@@ -59,7 +59,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'referrals',
-                    message: 'Referral code has been created.',
+                    message: '推广码已创建。',
                 });
             })
             .catch((error) => clearAndAddHttpError(error))
@@ -78,7 +78,7 @@ export default () => {
                 addFlash({
                     type: 'success',
                     key: 'referrals',
-                    message: 'Referral code has been deleted.',
+                    message: '推广码已删除。',
                 });
             })
             .catch((error) => clearAndAddHttpError(error))
@@ -89,24 +89,24 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Referrals'}>
-            <h1 className={'j-left text-5xl'}>Referrals</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Create a code and share it with others.</h3>
+        <PageContentBlock title={'推广'}>
+            <h1 className={'j-left text-5xl'}>推广</h1>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>创建推广码共享给其他人</h3>
             <FlashMessageRender byKey={'referrals'} className={'mt-2'} />
             <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
-                <ContentBox title={'Your Referral Codes'} css={tw`sm:mt-0`}>
+                <ContentBox title={'你的推广码'} css={tw`sm:mt-0`}>
                     <Dialog.Confirm
-                        title={'Delete Referral Code'}
-                        confirm={'Delete Code'}
+                        title={'删除推广码'}
+                        confirm={'删除'}
                         open={!!code}
                         onClose={() => setCode('')}
                         onConfirmed={() => doDeletion(code)}
                     >
-                        Users will no longer be able to use this key for signup.
+                        用户将无法再使用此推广码进行注册。
                     </Dialog.Confirm>
                     <SpinnerOverlay visible={loading} />
                     {codes.length === 0 ? (
-                        <p css={tw`text-center my-2`}>{!loading && 'No referral codes exist for this account.'}</p>
+                        <p css={tw`text-center my-2`}>{!loading && '此账户下无可用推广码。'}</p>
                     ) : (
                         codes.map((code, index) => (
                             <GreyRowBox
@@ -117,8 +117,8 @@ export default () => {
                                 <div css={tw`ml-4 flex-1 overflow-hidden`}>
                                     <p css={tw`text-sm break-words`}>{code.code}</p>
                                     <p css={tw`text-2xs text-neutral-300 uppercase`}>
-                                        Created at:&nbsp;
-                                        {code.createdAt ? format(code.createdAt, 'MMM do, yyyy HH:mm') : 'Never'}
+                                        创建于:&nbsp;
+                                        {code.createdAt ? format(code.createdAt, 'MMM do, yyyy HH:mm') : '从未'}
                                     </p>
                                 </div>
                                 <button css={tw`ml-4 p-2 text-sm`} onClick={() => setCode(code.code)}>
@@ -130,17 +130,16 @@ export default () => {
                         ))
                     )}
                     <Button onClick={() => doCreation()} className={'mt-4'}>
-                        Create
+                        创建
                     </Button>
                 </ContentBox>
-                <ContentBox title={'Available Perks'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'可用特权'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <h1 css={tw`text-xl`}>
-                        You will recieve <span className={'text-green-500'}>{reward}</span> credits for every user you
-                        refer to this Panel.
+                        你每邀请一个用户，你将获得 <span className={'text-green-500'}>{reward}</span> 积分。
                     </h1>
                 </ContentBox>
-                <ContentBox title={'Users Referred'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
-                    <h1 css={tw`text-gray-400`}>Unable to view statistics at this time.</h1>
+                <ContentBox title={'已邀请的用户'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                    <h1 css={tw`text-gray-400`}>目前无法查看统计信息。</h1>
                 </ContentBox>
             </Container>
         </PageContentBlock>

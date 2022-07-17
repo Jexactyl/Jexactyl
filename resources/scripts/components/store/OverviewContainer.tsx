@@ -50,81 +50,81 @@ const OverviewContainer = () => {
     if (!resources) return <StoreError />;
 
     return (
-        <PageContentBlock title={'Storefront Overview'}>
+        <PageContentBlock title={'商店概览'}>
             <h1 className={'j-left text-5xl'}>👋 Hey, {username}!</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>欢迎来到 Jexactyl 商店。</h3>
+            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>欢迎来到服务器商店。</h3>
             <Container className={'j-right lg:grid lg:grid-cols-3 my-10'}>
-                <TitledGreyBox title={'Total CPU'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'总 CPU'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Cpu css={tw`mr-2`} /> {resources.cpu}%
                     </Wrapper>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Total RAM'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'总内存'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.PieChart css={tw`mr-2`} /> {megabytesToHuman(resources.memory)}
                     </Wrapper>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Total Disk'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'总存储空间'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.HardDrive css={tw`mr-2`} /> {megabytesToHuman(resources.disk)}
                     </Wrapper>
                 </TitledGreyBox>
             </Container>
             <Container className={'j-left lg:grid lg:grid-cols-4 my-10'}>
-                <TitledGreyBox title={'Total Slots'} css={tw`mt-8 sm:mt-0`}>
+                <TitledGreyBox title={'总实例槽位'} css={tw`mt-8 sm:mt-0`}>
                     <Wrapper>
                         <Icon.Server css={tw`mr-2`} /> {resources.slots}
                     </Wrapper>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Total Ports'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'总端口数'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Share2 css={tw`mr-2`} /> {resources.ports}
                     </Wrapper>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Total Backups'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'总备份数'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Archive css={tw`mr-2`} /> {resources.backups}
                     </Wrapper>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Total Databases'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <TitledGreyBox title={'总数据库数'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
                         <Icon.Database css={tw`mr-2`} /> {resources.databases}
                     </Wrapper>
                 </TitledGreyBox>
             </Container>
             <Container css={tw`lg:grid lg:grid-cols-2 my-10`}>
-                <TitledGreyBox title={'Create server'} className={'j-right'}>
+                <TitledGreyBox title={'创建服务器实例'} className={'j-right'}>
                     <div css={tw`md:flex w-full p-6 md:pl-0 mx-1`}>
                         <div css={tw`flex-none select-none mb-6 md:mb-0 self-center`}>
                             <img src={PlusSquareSvg} css={tw`block w-32 md:w-48 mx-auto p-8`} />
                         </div>
                         <div css={tw`flex-1`}>
-                            <h2 css={tw`text-xl mb-2`}>Create a server</h2>
+                            <h2 css={tw`text-xl mb-2`}>创建服务器实例</h2>
                             <p>
-                                Create your next server with your choice of resource limits, server type and more.
-                                Delete or edit your server at any time to take full advantage of your resources.
+                                使用您选择的资源、服务器类型等来创建您的服务器。
+                                随时删除或者编辑您的服务器以充分利用您的可用资源。
                             </p>
                             <Link to={'/store/create'}>
                                 <Button css={tw`mt-6 w-full`} size={Button.Sizes.Large}>
-                                    Create
+                                    创建
                                 </Button>
                             </Link>
                         </div>
                     </div>
                 </TitledGreyBox>
-                <TitledGreyBox title={'Edit server'} className={'j-left mt-8 sm:mt-0 sm:ml-8'}>
+                <TitledGreyBox title={'编辑服务器资源'} className={'j-left mt-8 sm:mt-0 sm:ml-8'}>
                     <div css={tw`md:flex w-full p-6 md:pl-0 mx-1`}>
                         <div css={tw`flex-none select-none mb-6 md:mb-0 self-center`}>
                             <img src={DivideSquareSvg} css={tw`block w-32 md:w-48 mx-auto p-8`} />
                         </div>
                         <div css={tw`flex-1`}>
-                            <h2 css={tw`text-xl mb-2`}>Edit your servers</h2>
+                            <h2 css={tw`text-xl mb-2`}>编辑您的服务器资源</h2>
                             <p>
-                                Want to add or remove resources from your server, or delete it entirely? Use the editing
-                                feature to make changes to your server instantly.
+                                想要从您的服务器中添加或删除资源，或者完全删除它？
+								使用编辑功能立即对您的服务器进行更改。
                             </p>
                             <Button css={tw`mt-6 w-full`} size={Button.Sizes.Large} onClick={() => redirect('edit')}>
-                                Edit
+                                编辑
                             </Button>
                         </div>
                     </div>

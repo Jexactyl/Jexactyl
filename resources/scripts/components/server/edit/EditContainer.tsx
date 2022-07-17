@@ -215,7 +215,7 @@ export default () => {
                         </Button.Danger>
                     </Wrapper>
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
-                        更改分配给服务器的可用备份数量。
+                        更改分配给服务器的可用备份槽位。
                     </p>
                 </TitledGreyBox>
                 <TitledGreyBox title={'编辑服务器数据库限制'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>

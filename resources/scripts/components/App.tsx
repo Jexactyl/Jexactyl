@@ -58,14 +58,14 @@ const App = () => {
     }
 
     function earn() {
-        console.log('Waiting to add credits');
+        console.log('等待添加积分');
         setTimeout(earn, 61000); // Allow 1 second for time inconsistencies.
 
         earnCredits()
             .then(() => {
-                console.log('Added credits');
+                console.log('已添加积分');
             })
-            .catch(() => console.error('Failed to add credits'));
+            .catch(() => console.error('添加积分失败'));
     }
 
     earn();

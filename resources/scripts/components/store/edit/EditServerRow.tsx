@@ -31,7 +31,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                 <div css={tw`flex-1 ml-4 sm:block hidden`}>
                     <div css={tw`flex justify-center`}>
                         <Icon.ArrowRightCircle size={20} css={tw`text-neutral-600`} />
-                        <IconDescription>Edit Server</IconDescription>
+                        <IconDescription>编辑服务器实例</IconDescription>
                     </div>
                 </div>
             </React.Fragment>
