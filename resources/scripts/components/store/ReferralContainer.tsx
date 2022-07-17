@@ -135,7 +135,7 @@ export default () => {
                 </ContentBox>
                 <ContentBox title={'可用特权'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <h1 css={tw`text-xl`}>
-                        你每邀请一个用户，你将获得 <span className={'text-green-500'}>{reward}</span> 积分。
+                        你每邀请一个用户，你和他都将获得 <span className={'text-green-500'}>{reward}</span> 积分。
                     </h1>
                 </ContentBox>
                 <ContentBox title={'已邀请的用户'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>

@@ -77,7 +77,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'登入系统'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'登录到 ' + name} css={tw`w-full flex`}>
                     <Field light type={'text'} label={'用户名或邮箱地址'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
                         <Field light type={'password'} label={'密码'} name={'password'} disabled={isSubmitting} />

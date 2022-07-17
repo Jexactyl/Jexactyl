@@ -57,7 +57,7 @@ export default () => {
             {alreadyReferred ? (
                 <>
                     <p className={'my-2 text-gray-400'}>
-                        您已经使用过推广码。
+                        您已经使用过推广码。推广码如下：
                         {' ('}
                         <span className={'text-gray-200 text-white bg-gray-800 rounded-xl w-fit px-2 text-center'}>
                             {alreadyReferred}
