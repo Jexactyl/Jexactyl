@@ -36,6 +36,7 @@ export default () => {
 
     return (
         <TitledGreyBox title={'通过 PayPal 购买'}>
+            <p css={tw`text-sm`}>100 {currency} 等于 1 美元。</p>
             <Dialog open={submitting} hideCloseIcon onClose={() => undefined}>
                 您现在将被带到 PayPal 网关以完成此交易。
             </Dialog>

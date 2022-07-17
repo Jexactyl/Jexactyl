@@ -69,7 +69,7 @@
                                 <label class="control-label">币种名称</label>
                                 <div>
                                     <input type="text" class="form-control" name="store:currency" value="{{ $currency }}" />
-                                    <p class="text-muted"><small>用于 Jexactyl 的币种名称。（默认：CNY）</small></p>
+                                    <p class="text-muted"><small>用于 Jexactyl 的币种名称，这只是积分的名称。（默认：JCR）</small></p>
                                 </div>
                             </div>
                         </div>

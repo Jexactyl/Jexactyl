@@ -36,6 +36,7 @@ export default () => {
 
     return (
         <TitledGreyBox title={'通过 Stripe 购买'}>
+            <p css={tw`text-sm`}>100 {currency} 等于 1 美元。</p>
             <Dialog open={submitting} hideCloseIcon onClose={() => undefined}>
                 您现在被带到 Stripe 网关以完成此交易。
             </Dialog>
