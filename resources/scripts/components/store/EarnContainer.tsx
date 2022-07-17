@@ -53,8 +53,7 @@ export default () => {
                 <ContentBox title={'如何获取'} showFlashes={'earn:how'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <p>您可以通过打开此面板的任何页面来获得积分。</p>
                     <p css={tw`mt-1`}>
-                        <span css={tw`text-green-500`}>{earn.amount}&nbsp;</span>
-                        只要网站一直在浏览器中打开，每分钟都会向你的账户添加积分.
+                        只要网站一直在浏览器中打开，每分钟都会向你的账户添加<span css={tw`text-green-500`}>&nbsp;{earn.amount}&nbsp;</span>积分.
                     </p>
                 </ContentBox>
             </Container>
