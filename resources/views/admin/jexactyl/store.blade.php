@@ -74,7 +74,7 @@
                                         <option @if ($currency == 'USD') selected @endif value="USD">USD (美元)</option>
                                         <option @if ($currency == 'JPY') selected @endif value="JPY">JPY (日元)</option>
                                         <option @if ($currency == 'GBP') selected @endif value="EUR">GBP (英镑)</option>
-                                        <option @if ($currency == 'CAD') selected @endif value="CAD">CAD (加元)</option>
+                                        <option @if ($currency == 'CAD') selected @endif value="CAD">CAD (加币)</option>
                                         <option @if ($currency == 'AUD') selected @endif value="AUD">AUD (澳元)</option>
                                     </select>
                                     <p class="text-muted"><small>用于 Jexactyl 的币种名称，这只是积分的名称。（默认：JCR）</small></p>
