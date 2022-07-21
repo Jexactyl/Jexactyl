@@ -65,6 +65,12 @@ class ServerController extends ClientApiController
         };
 
         try {
+            $this->deletionService->returnResources(true)->handle($server);
+        } catch (DisplayException $ex) {
+            throw new DisplayException('Unable to delete the server from the system.');
+        }
+
+        try {
             $user->update([
                 'store_cpu' => $user->store_cpu + $server->cpu,
                 'store_memory' => $user->store_memory + $server->memory,
@@ -77,12 +83,6 @@ class ServerController extends ClientApiController
         } catch (DisplayException $ex) {
             throw new DisplayException('无法将资源添加到该用户。');
         };
-
-        try {
-            $this->deletionService->handle($server);
-        } catch (DisplayException $ex) {
-            throw new DisplayException('无法从系统中删除服务器实例。');
-        }
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

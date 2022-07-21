@@ -68,7 +68,15 @@
                             <div class="form-group col-md-4">
                                 <label class="control-label">币种名称</label>
                                 <div>
-                                    <input type="text" class="form-control" name="store:currency" value="{{ $currency }}" />
+                                    <select name="store:currency" class="form-control">
+                                        <option @if ($currency == 'CNY') selected @endif value="CNY">CNY (人民币)</option>
+                                        <option @if ($currency == 'EUR') selected @endif value="EUR">EUR (欧元)</option>
+                                        <option @if ($currency == 'USD') selected @endif value="USD">USD (美元)</option>
+                                        <option @if ($currency == 'JPY') selected @endif value="JPY">JPY (日元)</option>
+                                        <option @if ($currency == 'GBP') selected @endif value="EUR">GBP (英镑)</option>
+                                        <option @if ($currency == 'CAD') selected @endif value="CAD">CAD (加元)</option>
+                                        <option @if ($currency == 'AUD') selected @endif value="AUD">AUD (澳元)</option>
+                                    </select>
                                     <p class="text-muted"><small>用于 Jexactyl 的币种名称，这只是积分的名称。（默认：JCR）</small></p>
                                 </div>
                             </div>

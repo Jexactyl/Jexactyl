@@ -23,41 +23,47 @@
 @section('content')
 @include('admin.servers.partials.navigation')
 <div class="row">
-    <div class="col-md-6">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">安全删除服务器实例</h3>
-            </div>
-            <div class="box-body">
-                <p>此操作将尝试从面板和守护程序中删除服务器。如果其中任何流程一个报告错误，则该操作将被取消.</p>
-                <p class="text-danger small">删除服务器是不可逆的操作. <strong>所有服务器数据</strong> (包括文件和用户) 都会被删除.</p>
-            </div>
-            <div class="box-footer">
-                <form id="deleteform" action="{{ route('admin.servers.view.delete', $server->id) }}" method="POST">
+    <form id="deleteform" action="{{ route('admin.servers.view.delete', $server->id) }}" method="POST">
+        <div class="col-md-6">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">安全删除服务器实例</h3>
+                </div>
+                <div class="box-body">
+                    <p>此操作将尝试从面板和守护程序中删除服务器实例数据。</p>
+                    <div class="checkbox checkbox-primary no-margin-bottom">
+                        <input id="pReturnResourcesSafe" name="return_resources" type="checkbox" value="1" />
+                        <label for="pReturnResourcesSafe">在服务器实例删除时将资源返还给用户？</label>
+                    </div>
+                </div>
+                <div class="box-footer">
                     {!! csrf_field() !!}
-                    <button id="deletebtn" class="btn btn-danger">安全删除此服务器实例</button>
-                </form>
+                    <button id="deletebtn" class="btn btn-warning">安全地删除该服务器</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="box box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title">强制删除服务器实例</h3>
-            </div>
-            <div class="box-body">
-                <p>此操作将尝试从面板和守护程序中删除服务器。如果守护进程没有响应，或报告错误，删除操作将继续.</p>
-                <p class="text-danger small">删除服务器是不可逆的操作. <strong>所有服务器数据</strong> (包括文件和用户) 都会被删除. 如果出现错误报告，此方法可能会在您的守护程序服务器上留下垃圾文件.</p>
-            </div>
-            <div class="box-footer">
-                <form id="forcedeleteform" action="{{ route('admin.servers.view.delete', $server->id) }}" method="POST">
+    </form>
+    <form id="forcedeleteform" action="{{ route('admin.servers.view.delete', $server->id) }}" method="POST">
+        <div class="col-md-6">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">强制删除服务器实例</h3>
+                </div>
+                <div class="box-body">
+                    <p>此操作将尝试从面板和守护程序中删除服务器。如果守护进程没有响应，或报告错误，删除操作将继续。</p>
+                    <div class="checkbox checkbox-primary no-margin-bottom">
+                        <input id="pReturnResources" name="return_resources" type="checkbox" value="1" />
+                        <label for="pReturnResources">在服务器实例删除时将资源返还给用户？</label>
+                    </div>
+                </div>
+                <div class="box-footer">
                     {!! csrf_field() !!}
                     <input type="hidden" name="force_delete" value="1" />
-                    <button id="forcedeletebtn"" class="btn btn-danger">强制删除此服务器实例</button>
-                </form>
+                    <button id="forcedeletebtn"" class="btn btn-danger">强制删除服务器实例</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 @endsection
 
@@ -67,12 +73,11 @@
     $('#deletebtn').click(function (event) {
         event.preventDefault();
         swal({
-            title: '',
-            type: 'warning',
+            title: '删除服务器实例',
             text: '您确定要删除此服务器吗？ 没有回头路，所有数据将立即被删除。',
             showCancelButton: true,
             confirmButtonText: '删除',
-            confirmButtonColor: '#d9534f',
+            confirmButtonColor: 'orange',
             closeOnConfirm: false
         }, function () {
             $('#deleteform').submit()
@@ -82,12 +87,11 @@
     $('#forcedeletebtn').click(function (event) {
         event.preventDefault();
         swal({
-            title: '',
-            type: 'warning',
+            title: '删除服务器实例',
             text: '您确定要删除此服务器吗？ 没有回头路，所有数据将立即被删除。',
             showCancelButton: true,
             confirmButtonText: '删除',
-            confirmButtonColor: '#d9534f',
+            confirmButtonColor: 'red',
             closeOnConfirm: false
         }, function () {
             $('#forcedeleteform').submit()

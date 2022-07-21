@@ -289,7 +289,11 @@ class ServersController extends Controller
      */
     public function delete(Request $request, Server $server)
     {
-        $this->deletionService->withForce($request->filled('force_delete'))->handle($server);
+        $this->deletionService
+            ->withForce($request->filled('force_delete'))
+            ->returnResources($request->filled('return_resources'))
+            ->handle($server);
+
         $this->alert->success(trans('admin/server.alerts.server_deleted'))->flash();
 
         return redirect()->route('admin.servers');
@@ -388,7 +392,7 @@ class ServersController extends Controller
 
         $mountServer->saveOrFail();
 
-        $this->alert->success('Mount was added successfully.')->flash();
+        $this->alert->success('已成功添加挂载。')->flash();
 
         return redirect()->route('admin.servers.view.mounts', $server->id);
     }
@@ -402,7 +406,7 @@ class ServersController extends Controller
     {
         MountServer::where('mount_id', $mount->id)->where('server_id', $server->id)->delete();
 
-        $this->alert->success('Mount was removed successfully.')->flash();
+        $this->alert->success('挂载已成功移除。')->flash();
 
         return redirect()->route('admin.servers.view.mounts', $server->id);
     }

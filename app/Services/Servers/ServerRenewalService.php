@@ -3,6 +3,7 @@
 namespace Pterodactyl\Services\Servers;
 
 use Pterodactyl\Models\Server;
+use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Services\Servers\SuspensionService;
 use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
@@ -27,35 +28,28 @@ class ServerRenewalService
     /**
      * Renews a server.
      *
-     * @return \Pterodactyl\Models\Server
-     *
-     * @throws \Throwable
+     * @throws DisplayException
      */
-    public function handle(ClientApiRequest $request, Server $server)
+    public function handle(ClientApiRequest $request, Server $server): Server
     {
         $user = $request->user();
-        $cost = $this->settings->get('jeactyl::renewal:cost', 200);
+        $cost = $this->settings->get('jexactyl::renewal:cost', 200);
 
         if ($user->store_balance < $cost) {
-            throw new DisplayException('You do not have enough credits to renew your server.');
+            throw new DisplayException('您没有足够的积分来续订服务器。');
         };
 
         try {
-            $server->update([
-                'renewal' => $server->renewal + 7,
-            ]);
-
-            $user->update([
-                'store_balance' => $user->store_balance - $cost,
-            ]);
+            $user->update(['store_balance' => $user->store_balance - $cost]);
+            $server->update(['renewal' => $server->renewal + $this->settings->get('jexactyl::renewal:default', 7)]);
         } catch (DisplayException $ex) {
-            throw new DisplayException('We ran into an error while renewing your server.');
+            throw new DisplayException('尝试更新您的服务器时出现意外错误。');
         };
 
-        if ($server->status == 'suspended') {
+        if ($server->status == 'suspended' && $server->renewal >= 0) {
             $this->suspensionService->toggle($server, 'unsuspend');
         };
-    
+
         return $server->refresh();
     }
 }
