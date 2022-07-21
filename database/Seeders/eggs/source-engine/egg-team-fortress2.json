@@ -13,7 +13,7 @@
         "steam_disk_space"
     ],
     "images": [
-        "ghcr.io\/pterodactyl\/games:source"
+        "registry.cn-shanghai.aliyuncs.com\/pterodactyl-china\/games:source"
     ],
     "file_denylist": [],
     "startup": ".\/srcds_run -game tf -console -port {{SERVER_PORT}} +map {{SRCDS_MAP}} +ip 0.0.0.0 -strictportbind -norestart +sv_setsteamaccount {{STEAM_ACC}}",
