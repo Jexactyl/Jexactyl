@@ -74,10 +74,9 @@ class DiscordController extends Controller
         } else {
             if ($this->settings->get('jexactyl::discord:enabled') == 'false') return;
 
-            $username = $this->genString();
             $data = [
                 'email' => $discord->email,
-                'username' => $username,
+                'username' => $discord->id,
                 'name_first' => $discord->username,
                 'name_last' => $discord->discriminator,
                 'password' => $this->genString(),
@@ -95,7 +94,7 @@ class DiscordController extends Controller
                 $this->creationService->handle($data);
             } catch (Exception $e) { return; }
 
-            $user = User::where('username', $username)->first();
+            $user = User::where('username', $discord->id)->first();
             Auth::loginUsingId($user->id, true);
 
             return redirect('/');
