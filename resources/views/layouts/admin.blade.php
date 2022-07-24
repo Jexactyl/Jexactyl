@@ -8,8 +8,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ config('app.name', 'Pterodactyl') }} - @yield('title')</title>
+        <title>{{ config('app.name', 'Jexactyl') }} - @yield('title')</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="_token" content="{{ csrf_token() }}">
 
@@ -34,103 +33,77 @@
             {!! Theme::css('css/pterodactyl.css?t={cache-version}') !!}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-            <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]-->
         @show
     </head>
-    <body class="hold-transition skin-blue fixed sidebar-mini">
+    <body class="skin-blue fixed">
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
-                    <span>{{ config('app.name', 'Pterodactyl') }}</span>
+                    <span>
+                        <img
+                            src="https://avatars.githubusercontent.com/u/91636558"
+                            width="48"
+                            height="48"
+                        />
+                    </span>
                 </a>
-                <nav class="navbar navbar-static-top">
-                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                        <span class="sr-only">切换导航</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
-                            <li class="user-menu">
-                                <a href="{{ route('account') }}">
-                                    <img src="https://cravatar.cn/avatar/{{ md5(strtolower(Auth::user()->email)) }}?s=160" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">{{ Auth::user()->name_first }} {{ Auth::user()->name_last }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <li><a href="{{ route('index') }}" data-toggle="tooltip" data-placement="bottom" title="退出管理员后台"><i class="fa fa-server"></i></a></li>
-                            </li>
-                            <li>
-                                <li><a href="{{ route('auth.logout') }}" id="logoutButton" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a></li>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
             </header>
             <aside class="main-sidebar">
                 <section class="sidebar">
                     <ul class="sidebar-menu">
-                        <li class="header">基础管理</li>
                         <li class="{{ Route::currentRouteName() !== 'admin.index' ?: 'active' }}">
                             <a href="{{ route('admin.index') }}">
-                                <i class="fa fa-home"></i> <span>概况</span>
+                                <i class="fa fa-home"></i> <label>概况</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.settings') ?: 'active' }}">
                             <a href="{{ route('admin.settings')}}">
-                                <i class="fa fa-wrench"></i> <span>设置</span>
+                                <i class="fa fa-wrench"></i> <label>设置</label>
                             </a>
                         </li>
-                        <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.jexactyl.index') ?: 'active' }}">
+                        <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.jexactyl') ?: 'active' }}">
                             <a href="{{ route('admin.jexactyl.index')}}">
-                                <i class="fa fa-code"></i> <span>Jexactyl</span>
+                                <i class="fa fa-code"></i> <label>Jexactyl</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.api') ?: 'active' }}">
                             <a href="{{ route('admin.api.index')}}">
-                                <i class="fa fa-gamepad"></i> <span>应用 API</span>
+                                <i class="fa fa-gamepad"></i> <label>API 密钥</label>
                             </a>
                         </li>
-                        <li class="header">高级管理</li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.databases') ?: 'active' }}">
                             <a href="{{ route('admin.databases') }}">
-                                <i class="fa fa-database"></i> <span>数据库主机</span>
+                                <i class="fa fa-database"></i> <label>数据库主机</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.locations') ?: 'active' }}">
                             <a href="{{ route('admin.locations') }}">
-                                <i class="fa fa-globe"></i> <span>节点服务器组</span>
+                                <i class="fa fa-globe"></i> <label>节点服务器组</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.nodes') ?: 'active' }}">
                             <a href="{{ route('admin.nodes') }}">
-                                <i class="fa fa-sitemap"></i> <span>节点服务器</span>
+                                <i class="fa fa-sitemap"></i> <label>节点服务器</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.servers') ?: 'active' }}">
                             <a href="{{ route('admin.servers') }}">
-                                <i class="fa fa-server"></i> <span>服务器实例</span>
+                                <i class="fa fa-server"></i> <label>服务器实例</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.users') ?: 'active' }}">
                             <a href="{{ route('admin.users') }}">
-                                <i class="fa fa-users"></i> <span>用户</span>
+                                <i class="fa fa-users"></i> <label>用户</label>
                             </a>
                         </li>
-                        <li class="header">服务管理</li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.mounts') ?: 'active' }}">
                             <a href="{{ route('admin.mounts') }}">
-                                <i class="fa fa-magic"></i> <span>存储挂载</span>
+                                <i class="fa fa-magic"></i> <label>存储挂载</label>
                             </a>
                         </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.nests') ?: 'active' }}">
                             <a href="{{ route('admin.nests') }}">
-                                <i class="fa fa-th-large"></i> <span>预设组</span>
+                                <i class="fa fa-th-large"></i> <label>预设组</label>
                             </a>
                         </li>
                     </ul>

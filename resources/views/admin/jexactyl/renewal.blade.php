@@ -31,7 +31,7 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <h3 class="box-title">服务器续订 <small>配置服务器续订设置。</small></h3>
+                        <i class="fa fa-clock-o"></i> <h3 class="box-title">服务器续订 <small>配置服务器续订设置。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -68,10 +68,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-footer">
-                    {!! csrf_field() !!}
-                    <button type="submit" name="_method" value="PATCH" class="btn btn-sm btn-primary pull-right">保存更改</button>
-                </div>
+                {!! csrf_field() !!}
+                <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">保存更改</button>
             </form>
         </div>
     </div>

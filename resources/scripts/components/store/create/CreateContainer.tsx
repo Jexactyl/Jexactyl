@@ -27,12 +27,12 @@ const Container = styled.div`
         ${tw`w-full`};
 
         ${breakpoint('sm')`
-      width: calc(50% - 1rem);
-    `}
+            width: calc(50% - 1rem);
+        `}
 
         ${breakpoint('md')`
-      ${tw`w-auto flex-1`};
-    `}
+            ${tw`w-auto flex-1`};
+        `}
     }
 `;
 
@@ -48,21 +48,27 @@ interface CreateValues {
 }
 
 export default () => {
-    const user = useStoreState((state) => state.user.data!);
     const limit = useStoreState((state) => state.storefront.data!.limit);
-    const [resources, setResources] = useState<Resources>();
+    const user = useStoreState((state) => state.user.data!);
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
     const [isSubmit, setSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [resources, setResources] = useState<Resources>();
     const [nests, setNests] = useState<Nest[]>();
-    const [nest, setNest] = useState(1);
+    const [nest, setNest] = useState<number>();
     const [eggs, setEggs] = useState<Egg[]>();
-    const [egg, setEgg] = useState(1);
+    const [egg, setEgg] = useState<number>();
 
     useEffect(() => {
         getResources().then((resources) => setResources(resources));
-        getNests().then((nests) => setNests(nests));
-        getEggs(1).then((eggs) => setEggs(eggs));
+        getNests().then((nests) => {
+            setNest(nests[0].id);
+            setNests(nests);
+        });
+        getEggs(-1).then((eggs) => {
+            setEgg(eggs[0].id);
+            setEggs(eggs);
+        });
     }, []);
 
     const changeNest = (x: ChangeEvent<HTMLSelectElement>) => {
@@ -83,20 +89,20 @@ export default () => {
                 // @ts-expect-error this is valid
                 window.location = '/';
             })
-            .then(() =>
+            .then(() => {
                 addFlash({
                     type: 'success',
                     key: 'store:create',
                     message: '您的服务器实例已部署完毕，正在安装中。',
-                })
-            )
+                });
+            })
             .catch((error) => {
                 setSubmit(false);
                 clearAndAddHttpError({ key: 'store:create', error });
             });
     };
 
-    if (!resources || !eggs || !nests) return <StoreError />;
+    if (!resources || !nests || !eggs) return <StoreError />;
     return (
         <PageContentBlock title={'创建服务器实例'} showFlashKey={'store:create'}>
             <Formik

@@ -41,6 +41,9 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
     Route::put('/use-referral', [Client\ReferralsController::class, 'use']);
     Route::delete('/referrals/{code}', [Client\ReferralsController::class, 'delete']);
 
+    Route::get('/discord', [Client\AccountController::class, 'discord'])->name('api:client.account.discord');
+    Route::get('/discord/callback', [Client\AccountController::class, 'discordCallback'])->name('api:client.account.discord.callback');
+
     Route::get('/api-keys', [Client\ApiKeyController::class, 'index']);
     Route::post('/api-keys', [Client\ApiKeyController::class, 'store']);
     Route::delete('/api-keys/{identifier}', [Client\ApiKeyController::class, 'delete']);
@@ -64,8 +67,8 @@ Route::group([
     'prefix' => '/store',
 ], function () {
     Route::get('/', [Client\Store\ResourceController::class, 'user'])->name('api:client:store.user');
-    Route::get('/eggs/{nest:id}', [Client\Store\ServerController::class, 'eggs'])->name('api:client:store.eggs');
     Route::get('/nests/', [Client\Store\ServerController::class, 'nests'])->name('api:client:store.nests');
+    Route::get('/eggs/{id}', [Client\Store\ServerController::class, 'eggs'])->name('api:client:store.eggs');
 
     Route::post('/create', [Client\Store\ServerController::class, 'store'])->name('api:client:store.create');
     Route::post('/earn', [Client\Store\ResourceController::class, 'earn'])->middleware('auth', 'throttle:1,1');
@@ -118,8 +121,8 @@ Route::group([
     Route::post('/power', [Client\Servers\PowerController::class, 'index']);
 
     // Routes for editing, deleting and renewing a server.
-    Route::post('/renew', [Client\Servers\RenewalController::class, 'index'])->name('api:client:server.renew');
-    Route::delete('/', [Client\Servers\ServerController::class, 'delete'])->name('api:client:server.delete');
+    Route::post('/renew', [Client\Servers\RenewalController::class, 'index'])->name('api:client:server.renew')->middleware('auth', 'throttle:1,1');
+    Route::delete('/', [Client\Servers\ServerController::class, 'delete'])->name('api:client:server.delete')->middleware('auth', 'throttle:1,1');
     Route::post('/edit', [Client\Servers\EditController::class, 'index'])->name('api:client:server.edit');
 
     Route::post('/plugins', [Client\Servers\PluginController::class, 'index'])->name('api:client:server.plugins');

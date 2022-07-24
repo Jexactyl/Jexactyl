@@ -31,7 +31,7 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <h3 class="box-title">推广 <small>允许用户推广此面板给其他人。</small></h3>
+                        <i class="fa fa-user-plus"></i> <h3 class="box-title">推广 <small>允许用户推广此面板给其他人。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -58,10 +58,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-footer">
-                    {!! csrf_field() !!}
-                    <button type="submit" name="_method" value="PATCH" class="btn btn-sm btn-primary pull-right">保存更改</button>
-                </div>
+                {!! csrf_field() !!}
+                <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">保存更改</button>
             </form>
         </div>
     </div>

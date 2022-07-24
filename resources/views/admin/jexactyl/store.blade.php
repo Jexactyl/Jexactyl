@@ -31,7 +31,7 @@
                     @endif
                 ">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Jexactyl 商店<small>配置是否为商店启用某些选项。</small></h3>
+                        <i class="fa fa-shopping-cart"></i> <h3 class="box-title">Jexactyl 商店<small>配置是否为商店启用某些选项。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -77,7 +77,7 @@
                                         <option @if ($currency == 'CAD') selected @endif value="CAD">CAD (加币)</option>
                                         <option @if ($currency == 'AUD') selected @endif value="AUD">AUD (澳元)</option>
                                     </select>
-                                    <p class="text-muted"><small>用于 Jexactyl 的币种名称，这只是积分的名称。（默认：JCR）</small></p>
+                                    <p class="text-muted"><small>用于 Jexactyl 的币种名称，这只是积分的名称。</small></p>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">挂机收入 <small>配置被动积分赚取的设置。</small></h3>
+                        <i class="fa fa-money"></i> <h3 class="box-title">挂机收入 <small>配置被动积分赚取的设置。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -111,7 +111,7 @@
                 </div>
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">资源价格 <small>为资源设置具体定价。</small></h3>
+                        <i class="fa fa-dollar"></i> <h3 class="box-title">资源价格 <small>为资源设置具体定价。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -169,7 +169,7 @@
                 </div>
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">资源限制 <small>设置服务器可以部署的每种资源的数量限制。</small></h3>
+                        <i class="fa fa-area-chart"></i> <h3 class="box-title">资源限制 <small>设置服务器可以部署的每种资源的数量限制。</small></h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
@@ -236,10 +236,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-footer">
-                    {!! csrf_field() !!}
-                    <button type="submit" name="_method" value="PATCH" class="btn btn-sm btn-primary pull-right">保存更改</button>
-                </div>
+                {!! csrf_field() !!}
+                <button type="submit" name="_method" value="PATCH" class="btn btn-default pull-right">保存更改</button>
             </form>
         </div>
     </div>

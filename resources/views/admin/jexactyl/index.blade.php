@@ -30,16 +30,93 @@
                 @endif
             ">
                 <div class="box-header with-border">
-                    <h3 class="box-title">软件发布 <small>验证 Jexactyl 是否为最新。</small></h3>
+                    <i class="fa fa-code-fork"></i> <h3 class="box-title">软件发布 <small>验证 Jexactyl 是否为最新。</small></h3>
                 </div>
                 <div class="box-body">
                     @if ($version->isLatestPanel())
                         您正在运行 Jexactyl <code>{{ config('app.version') }}</code>.
                     @else
-                        Jexactyl 不是最新的。最新版本是 <a href="https://github.com/Jexactyl-CN/Jexactyl/releases/v{{ $version->getPanel() }}" target="_blank"><code>{{ $version->getPanel() }}</code></a>.
+                        Jexactyl 不是最新的。最新版本是 <a href="https://github.com/Jexactyl-CN/jexactyl/releases/v{{ $version->getPanel() }}" target="_blank"></a>.
                     @endif
                 </div>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-bar-chart"></i> <h3 class="box-title">Resource Utilization <small>A glance of the total amount of resources used.</small></h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12 col-md-3">
+                        <canvas id="servers_chart" width="100%" height="50">
+                            <p class="text-muted">No data is available for this chart.</p>
+                        </canvas>
+                    </div>
+                    <div class="col-xs-12 col-md-3" style="margin-bottom: 20px;">
+                        <canvas id="status_chart" width="100%" height="50">
+                            <p class="text-muted">No data is available for this chart.</p>
+                        </canvas>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <canvas id="ram_chart" width="100%" height="50">
+                            <p class="text-muted">No data is available for this chart.</p>
+                        </canvas>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <canvas id="disk_chart" width="100%" height="50">
+                            <p class="text-muted">No data is available for this chart.</p>
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="fa fa-server"></i></span>
+                    <div class="info-box-content" style="padding: 23px 10px 0;">
+                        <span class="info-box-text">Total Servers</span>
+                        <span class="info-box-number">{{ count($servers) }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="fa fa-wifi"></i></span>
+                    <div class="info-box-content" style="padding: 23px 10px 0;">
+                        <span class="info-box-text">Total Allocations</span>
+                        <span class="info-box-number">{{ $allocations }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
+                    <div class="info-box-content" style="padding: 23px 10px 0;">
+                        <span class="info-box-text">Total RAM use</span>
+                        <span class="info-box-number">{{ $used['memory'] / 1024 }} GB of {{ $available['memory'] / 1024 }} GB ({{ $used['memory'] / $available['memory'] * 100}}%)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
+                    <div class="info-box-content" style="padding: 23px 10px 0;">
+                        <span class="info-box-text">Total disk use</span>
+                        <span class="info-box-number">{{ $used['disk'] / 1024 }} GB of {{ $available['disk'] / 1024 }} GB ({{ $used['disk'] / $available['disk'] * 100}}%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('footer-scripts')
+    @parent
+    {!! Theme::js('vendor/chartjs/chart.min.js') !!}
+    {!! Theme::js('js/admin/statistics.js') !!}
 @endsection
