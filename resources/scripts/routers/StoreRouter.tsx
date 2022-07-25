@@ -45,14 +45,14 @@ const StoreRouter = () => {
                             账户资源 <Icon.ShoppingCart css={tw`ml-1`} size={18} />
                         </div>
                     </NavLink>
-                    {earn.enabled === 'true' && (
+                    {earn.enabled && (
                         <NavLink to={`${match.url}/earn`}>
                             <div css={tw`flex items-center justify-between`}>
                                 获取积分 <Icon.DollarSign css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
                     )}
-                    {referrals.enabled === 'true' && (
+                    {referrals.enabled && (
                         <NavLink to={`${match.url}/referrals`}>
                             <div css={tw`flex items-center justify-between`}>
                                 推广 <Icon.Users css={tw`ml-1`} size={18} />
@@ -78,12 +78,12 @@ const StoreRouter = () => {
                     <Route path={`${match.path}/edit`} exact>
                         <EditContainer />
                     </Route>
-                    {earn.enabled === 'true' && (
+                    {earn.enabled && (
                         <Route path={`${match.path}/earn`} exact>
                             <EarnContainer />
                         </Route>
                     )}
-                    {referrals.enabled === 'true' && (
+                    {referrals.enabled && (
                         <Route path={`${match.path}/referrals`} exact>
                             <ReferralContainer />
                         </Route>

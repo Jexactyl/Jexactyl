@@ -107,7 +107,7 @@ const EditScheduleModal = ({ schedule }: Props) => {
                     <p css={tw`text-neutral-400 text-xs mt-2`}>
                         计划系统支持在定义任务何时开始运行时使用 Cronjob 语法。使用上面的字段来指定这些计划任务应该何时开始运行。
                     </p>
-                    <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                    <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <Switch
                             name={'show_cheatsheet'}
                             description={'显示 cronjob 的一些例子'}
@@ -121,14 +121,14 @@ const EditScheduleModal = ({ schedule }: Props) => {
                             </div>
                         )}
                     </div>
-                    <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                    <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'onlyWhenOnline'}
                             description={'仅在服务器处于运行状态时执行此计划。'}
                             label={'仅当服务器在线运行时'}
                         />
                     </div>
-                    <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                    <div css={tw`mt-6 bg-neutral-900 border border-neutral-800 shadow-inner p-4 rounded`}>
                         <FormikSwitch
                             name={'enabled'}
                             description={'如果启用，此计划将自动执行。'}

@@ -9,12 +9,14 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import SubNavigation from '@/components/elements/SubNavigation';
 import useWindowDimensions from '@/plugins/useWindowDimensions';
+import InformationBox from '@/components/elements/InformationBox';
 import MobileNavigation from '@/components/elements/MobileNavigation';
 import DashboardContainer from '@/components/dashboard/DashboardContainer';
 import AccountApiContainer from '@/components/dashboard/AccountApiContainer';
 import AccountSSHContainer from '@/components/dashboard/ssh/AccountSSHContainer';
 import AccountOverviewContainer from '@/components/dashboard/AccountOverviewContainer';
 import AccountSecurityContainer from '@/components/dashboard/AccountSecurityContainer';
+import { faCircle, faCoins, faScroll, faUserLock } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const location = useLocation();
@@ -23,7 +25,7 @@ export default () => {
     return (
         <>
             {width >= 1280 ? <SidePanel /> : <MobileNavigation />}
-            {location.pathname.startsWith('/account') && (
+            {location.pathname.startsWith('/account') ? (
                 <SubNavigation className={'j-down'}>
                     <div>
                         <NavLink to={'/account'} exact>
@@ -46,6 +48,23 @@ export default () => {
                                 SSH 密钥 <Icon.Terminal css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
+                    </div>
+                </SubNavigation>
+            ) : (
+                <SubNavigation className={'j-down'}>
+                    <div>
+                        <InformationBox icon={faCircle} iconCss={'animate-pulse text-green-500'}>
+                            赚取 <span className={'text-green-600'}>3</span> 积分 / 分钟。
+                        </InformationBox>
+                        <InformationBox icon={faCoins}>
+                            您有 <span className={'text-green-600'}>234723</span> 个积分可用。
+                        </InformationBox>
+                        <InformationBox icon={faUserLock}>
+                            <span className={'text-yellow-600'}>启用动态口令认证</span> 以保护您的帐户。
+                        </InformationBox>
+                        <InformationBox icon={faScroll}>
+                            <span className={'text-neutral-400'}>已登录</span> - 4 分钟前
+                        </InformationBox>
                     </div>
                 </SubNavigation>
             )}

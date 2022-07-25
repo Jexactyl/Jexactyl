@@ -93,6 +93,7 @@ return [
             'rename_other' => '在 :directory 路径下重命名了 :count 个文件',
             'write' => '写了一些新内容到 :file 中',
             'upload' => '上传了一些文件',
+            'uploaded' => '已上传 :directory:file',
         ],
         'sftp' => [
             'denied' => '由于权限原因阻止了 SFTP 访问',

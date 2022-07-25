@@ -13,6 +13,8 @@ import ServerRow from '@/components/dashboard/ServerRow';
 import Pagination from '@/components/elements/Pagination';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import PageContentBlock from '@/components/elements/PageContentBlock';
+import ScreenBlock from '@/components/elements/ScreenBlock';
+import NotFoundSvg from '@/assets/images/not_found.svg';
 
 export default () => {
     const { search } = useLocation();
@@ -68,20 +70,20 @@ export default () => {
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
                         items.length > 0 ? (
-                            items.map((server, index) => (
-                                <ServerRow
-                                    key={server.uuid}
-                                    server={server}
-                                    className={'j-up'}
-                                    css={index > 0 ? tw`mt-2` : undefined}
-                                />
-                            ))
+                            <div className={'lg:grid lg:grid-cols-3 gap-4'}>
+                                <>
+                                    {items.map((server) => (
+                                        <ServerRow key={server.uuid} server={server} className={'j-up'} />
+                                    ))}
+                                </>
+                            </div>
                         ) : (
-                            <p css={tw`text-center text-sm text-neutral-400`}>
-                                {showOnlyAdmin
-                                    ? '这里没有服务器可显示。'
-                                    : '你的账户下没有关联的服务器实例。'}
-                            </p>
+                            <ScreenBlock
+                                title={'这里似乎很安静...'}
+                                message={'没有可显示的可用服务器实例。'}
+                                image={NotFoundSvg}
+                                noContainer
+                            />
                         )
                     }
                 </Pagination>
