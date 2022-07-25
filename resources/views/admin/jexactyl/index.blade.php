@@ -46,27 +46,27 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <i class="fa fa-bar-chart"></i> <h3 class="box-title">Resource Utilization <small>A glance of the total amount of resources used.</small></h3>
+                    <i class="fa fa-bar-chart"></i> <h3 class="box-title">资源利用率 <small>总资源使用量一览图。</small></h3>
                 </div>
                 <div class="box-body">
                     <div class="col-xs-12 col-md-3">
                         <canvas id="servers_chart" width="100%" height="50">
-                            <p class="text-muted">No data is available for this chart.</p>
+                            <p class="text-muted">此图表无可用数据。</p>
                         </canvas>
                     </div>
                     <div class="col-xs-12 col-md-3" style="margin-bottom: 20px;">
                         <canvas id="status_chart" width="100%" height="50">
-                            <p class="text-muted">No data is available for this chart.</p>
+                            <p class="text-muted">此图表无可用数据。</p>
                         </canvas>
                     </div>
                     <div class="col-xs-12 col-md-3">
                         <canvas id="ram_chart" width="100%" height="50">
-                            <p class="text-muted">No data is available for this chart.</p>
+                            <p class="text-muted">此图表无可用数据。</p>
                         </canvas>
                     </div>
                     <div class="col-xs-12 col-md-3">
                         <canvas id="disk_chart" width="100%" height="50">
-                            <p class="text-muted">No data is available for this chart.</p>
+                            <p class="text-muted">此图表无可用数据。</p>
                         </canvas>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa fa-server"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
-                        <span class="info-box-text">Total Servers</span>
+                        <span class="info-box-text">服务器总数</span>
                         <span class="info-box-number">{{ count($servers) }}</span>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa fa-wifi"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
-                        <span class="info-box-text">Total Allocations</span>
+                        <span class="info-box-text">分配端口总数</span>
                         <span class="info-box-number">{{ $allocations }}</span>
                     </div>
                 </div>
@@ -97,8 +97,8 @@
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
-                        <span class="info-box-text">Total RAM use</span>
-                        <span class="info-box-number">{{ $used['memory'] / 1024 }} GB of {{ $available['memory'] / 1024 }} GB ({{ $used['memory'] / $available['memory'] * 100}}%)</span>
+                        <span class="info-box-text">总内存使用量</span>
+                        <span class="info-box-number">{{ $used['memory'] / 1024 }} GB / {{ $available['memory'] / 1024 }} GB ({{ $used['memory'] / $available['memory'] * 100}}%)</span>
                     </div>
                 </div>
             </div>
@@ -106,8 +106,8 @@
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
-                        <span class="info-box-text">Total disk use</span>
-                        <span class="info-box-number">{{ $used['disk'] / 1024 }} GB of {{ $available['disk'] / 1024 }} GB ({{ $used['disk'] / $available['disk'] * 100}}%)</span>
+                        <span class="info-box-text">存储空间使用量</span>
+                        <span class="info-box-number">{{ $used['disk'] / 1024 }} GB / {{ $available['disk'] / 1024 }} GB ({{ $used['disk'] / $available['disk'] * 100}}%)</span>
                     </div>
                 </div>
             </div>
