@@ -53,10 +53,13 @@ export default () => {
     return (
         <PageContentBlock title={'仪表盘'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard' || 'store:create'}>
             {rootAdmin && (
-                <div css={tw`mb-2 flex justify-end items-center`}>
-                    <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>
-                        {showOnlyAdmin ? "显示其他人的服务器" : '显示你的服务器'}
-                    </p>
+                <div css={tw`mb-10 flex justify-between items-center`}>
+                    <div>
+                        <h1 className={'j-left text-5xl'}>你的服务器实例</h1>
+                        <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
+                            选择一个服务器以查看、更新或修改。
+                        </h3>
+                    </div>
                     <Switch
                         name={'show_all_servers'}
                         defaultChecked={showOnlyAdmin}
@@ -73,7 +76,12 @@ export default () => {
                             <div className={'lg:grid lg:grid-cols-3 gap-4'}>
                                 <>
                                     {items.map((server) => (
-                                        <ServerRow key={server.uuid} server={server} className={'j-up'} />
+                                        <ServerRow
+                                            key={server.uuid}
+                                            server={server}
+                                            className={'j-up'}
+                                            css={tw`mt-2`}
+                                        />
                                     ))}
                                 </>
                             </div>

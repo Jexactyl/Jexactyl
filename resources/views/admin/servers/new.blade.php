@@ -166,7 +166,7 @@
                             <input type="text" id="pThreads" name="threads" class="form-control" value="{{ old('threads') }}" />
                         </div>
 
-                        <p class="text-muted small"><strong>A高级:</strong> 输入此进程可以运行的特定 CPU 线程，或留空以允许所有线程。这可以是单个数字，也可以是逗号分隔的列表. 例如: <code>0</code>, <code>0-1,3</code>, 或 <code>0,1,3,4</code>.</p>
+                        <p class="text-muted small"><strong>高级:</strong> 输入此进程可以运行的特定 CPU 线程，或留空以允许所有线程。这可以是单个数字，也可以是逗号分隔的列表. 例如: <code>0</code>, <code>0-1,3</code>, 或 <code>0,1,3,4</code>.</p>
                     </div>
                 </div>
 

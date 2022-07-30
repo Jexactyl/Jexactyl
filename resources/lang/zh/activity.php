@@ -83,7 +83,7 @@ return [
             'compress_other' => '在 :directory 路径下压缩了 :count 个文件',
             'read' => '查看了 :file 的内容',
             'copy' => '创建了 :file 的副本',
-            'create-directory' => '在 :directory 路径下创建了一个新目录 :name',
+            'create-directory' => '已创建目录 :directory:name',
             'decompress' => '解压了 :directory 路径下的 :files',
             'delete_one' => '删除了 :directory:files.0',
             'delete_other' => '删除了 :directory 路径下的 :count 个文件',
