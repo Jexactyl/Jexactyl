@@ -43,7 +43,7 @@ export default () => {
             <Container className={'j-up lg:grid lg:grid-cols-2 my-10'}>
                 <ContentBox title={'账户余额'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>
-                        {resources.balance} {store.currency}
+                        {resources.balance} 积分
                     </h1>
                 </ContentBox>
                 <ContentBox title={'购买积分'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>

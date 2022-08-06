@@ -4,14 +4,14 @@
 {{-- This software is licensed under the terms of the MIT license. --}}
 {{-- https://opensource.org/licenses/MIT --}}
 @extends('layouts.admin')
-@include('partials/admin.jexactyl.nav', ['activeTab' => 'renewal'])
+@include('partials/admin.jexactyl.nav', ['activeTab' => 'server'])
 
 @section('title')
-    Jexactyl 续订
+    Jexactyl 服务器
 @endsection
 
 @section('content-header')
-    <h1>Jexactyl 续订<small>配置 Jexactyl 的服务器续订系统。</small></h1>
+    <h1>服务器设置<small>配置 Jexactyl 的服务器设置。</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">管理</a></li>
         <li class="active">Jexactyl</li>
@@ -22,7 +22,7 @@
     @yield('jexactyl::nav')
     <div class="row">
         <div class="col-xs-12">
-            <form action="{{ route('admin.jexactyl.renewal') }}" method="POST">
+            <form action="{{ route('admin.jexactyl.server') }}" method="POST">
                 <div class="box
                     @if($enabled == 'true')
                         box-success
@@ -60,9 +60,34 @@
                                 <div>
                                     <div class="input-group">
                                         <input type="text" id="cost" name="cost" class="form-control" value="{{ $cost }}" />
-                                        <span class="input-group-addon">积分</span>
+                                        <span class="input-group-addon">credits</span>
                                     </div>
-                                    <p class="text-muted"><small>设置续订所需的积分额度。</small></p>
+                                    <p class="text-muted"><small>Determines the amount of credits that a renewal costs.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box
+                    @if($enabled == 'true')
+                        box-success
+                    @else
+                        box-danger
+                    @endif
+                ">
+                    <div class="box-header with-border">
+                        <i class="fa fa-clock-o"></i> <h3 class="box-title">服务器续订 <small>配置服务器续订设置。</small></h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">服务器资源编辑</label>
+                                <div>
+                                    <select name="editing" class="form-control">
+                                        <option @if ($editing == 'false') selected @endif value="false">禁用</option>
+                                        <option @if ($editing == 'true') selected @endif value="true">启用</option>
+                                    </select>
+                                    <p class="text-muted"><small>确定用户是否可以编辑分配给其服务器的资源量。</small></p>
                                 </div>
                             </div>
                         </div>

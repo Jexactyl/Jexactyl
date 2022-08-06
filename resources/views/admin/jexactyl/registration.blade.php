@@ -84,15 +84,8 @@
                             <div class="form-group col-md-4">
                                 <label class="control-label">Discord 客户端密钥</label>
                                 <div>
-                                    <input type="text" class="form-control" name="discord:secret" value="{{ $discord_secret }}" />
+                                    <input type="password" class="form-control" name="discord:secret" value="{{ $discord_secret }}" />
                                     <p class="text-muted"><small>您的 OAuth 应用程序的客户端密钥。</small></p>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Discord 的重定向 URL</label>
-                                <div>
-                                    <input type="text" class="form-control" name="discord:redirect" value="{{ $discord_redirect }}" />
-                                    <p class="text-muted"><small>Discord 登录成功后重定向到的 URL。将 <code>example.com</code> 更改为您的顶级域名。</small></p>
                                 </div>
                             </div>
                         </div>

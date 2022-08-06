@@ -69,11 +69,13 @@ export default () => {
     const location = useLocation();
     const { width } = useWindowDimensions();
 
-    const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
     const [error, setError] = useState('');
+    const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
+    const editEnabled = useStoreState((state) => state.storefront.data!.editing.enabled);
 
     const id = ServerContext.useStoreState((state) => state.server.data?.id);
     const uuid = ServerContext.useStoreState((state) => state.server.data?.uuid);
+    const eggFeatures = ServerContext.useStoreState((state) => state.server.data?.eggFeatures);
     const inConflictState = ServerContext.useStoreState((state) => state.server.inConflictState);
     const serverId = ServerContext.useStoreState((state) => state.server.data?.internalId);
     const getServer = ServerContext.useStoreActions((actions) => actions.server.getServer);
@@ -122,13 +124,15 @@ export default () => {
                                         </div>
                                     </NavLink>
                                 </Can>
-                                <Can action={'plugin.*'}>
-                                    <NavLink to={`${match.url}/plugins`}>
-                                        <div css={tw`flex items-center justify-between`}>
-                                            插件 <Icon.Box css={tw`ml-1`} size={18} />
-                                        </div>
-                                    </NavLink>
-                                </Can>
+                                {eggFeatures?.includes('eula') &&
+                                    <Can action={'plugin.*'}>
+                                        <NavLink to={`${match.url}/plugins`}>
+                                            <div css={tw`flex items-center justify-between`}>
+                                                插件 <Icon.Box css={tw`ml-1`} size={18} />
+                                            </div>
+                                        </NavLink>
+                                    </Can>
+                                }
                                 <Can action={'file.*'}>
                                     <NavLink to={`${match.url}/files`}>
                                         <div css={tw`flex items-center justify-between`}>
@@ -185,13 +189,15 @@ export default () => {
                                         </div>
                                     </NavLink>
                                 </Can>
-                                <Can action={['settings.*']} matchAny>
-                                    <NavLink to={`${match.url}/edit`}>
-                                        <div css={tw`flex items-center justify-between`}>
-                                            编辑资源 <Icon.Edit css={tw`ml-1`} size={18} />
-                                        </div>
-                                    </NavLink>
-                                </Can>
+                                {editEnabled &&
+                                    <Can action={['settings.*']} matchAny>
+                                        <NavLink to={`${match.url}/edit`}>
+                                            <div css={tw`flex items-center justify-between`}>
+                                                编辑资源 <Icon.Edit css={tw`ml-1`} size={18} />
+                                            </div>
+                                        </NavLink>
+                                    </Can>
+                                }
                                 {rootAdmin && (
                                     <a href={'/admin/servers/view/' + serverId} rel='noreferrer' target={'_blank'}>
                                         <div css={tw`flex items-center justify-between`}>
@@ -223,11 +229,13 @@ export default () => {
                                             <ServerActivityLogContainer />
                                         </RequireServerPermission>
                                     </Route>
-                                    <Route path={`${match.path}/plugins`} exact>
-                                        <RequireServerPermission permissions={'plugin.*'}>
-                                            <PluginContainer />
-                                        </RequireServerPermission>
-                                    </Route>
+                                    {eggFeatures?.includes('eula') &&
+                                        <Route path={`${match.path}/plugins`} exact>
+                                            <RequireServerPermission permissions={'plugin.*'}>
+                                                <PluginContainer />
+                                            </RequireServerPermission>
+                                        </Route>
+                                    }
                                     <Route path={`${match.path}/files/:action(edit|new)`} exact>
                                         <Spinner.Suspense>
                                             <FileEditContainer />
@@ -263,7 +271,9 @@ export default () => {
                                     </Route>
                                     <Route path={`${match.path}/startup`} component={StartupContainer} exact />
                                     <Route path={`${match.path}/settings`} component={SettingsContainer} exact />
-                                    <Route path={`${match.path}/edit`} component={EditContainer} exact />
+                                    {editEnabled &&
+                                        <Route path={`${match.path}/edit`} component={EditContainer} exact />
+                                    }
                                     <Route path={'*'} component={NotFound} />
                                 </Switch>
                             </TransitionRouter>

@@ -98,7 +98,7 @@
                     <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
                         <span class="info-box-text">总内存使用量</span>
-                        <span class="info-box-number">{{ $used['memory'] / 1024 }} GB / {{ $available['memory'] / 1024 }} GB ({{ $used['memory'] / $available['memory'] * 100}}%)</span>
+                        <span class="info-box-number">{{ $used['memory'] }} MB / {{ $available['memory'] }} MB</span>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                     <span class="info-box-icon"><i class="fa fa-hdd-o"></i></span>
                     <div class="info-box-content" style="padding: 23px 10px 0;">
                         <span class="info-box-text">总存储空间使用量</span>
-                        <span class="info-box-number">{{ $used['disk'] / 1024 }} GB / {{ $available['disk'] / 1024 }} GB ({{ $used['disk'] / $available['disk'] * 100}}%)</span>
+                        <span class="info-box-number">{{ $used['disk'] }} MB / {{ $available['disk'] }} MB </span>
                     </div>
                 </div>
             </div>

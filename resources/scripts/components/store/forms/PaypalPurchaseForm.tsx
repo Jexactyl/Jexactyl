@@ -2,7 +2,6 @@ import tw from 'twin.macro';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { useStoreState } from '@/state/hooks';
 import paypal from '@/api/store/gateways/paypal';
 import Select from '@/components/elements/Select';
 import { Dialog } from '@/components/elements/dialog';
@@ -15,7 +14,6 @@ export default () => {
     const { clearAndAddHttpError } = useFlash();
     const [amount, setAmount] = useState(0);
     const [submitting, setSubmitting] = useState(false);
-    const currency = useStoreState((state) => state.storefront.data!.currency);
 
     const submit = () => {
         setSubmitting(true);
@@ -59,16 +57,16 @@ export default () => {
                             选择金额...
                         </option>
                         <option key={'paypal:buy:100'} value={100}>
-                            购买 100 {currency}
+                            购买 100 积分
                         </option>
                         <option key={'paypal:buy:200'} value={200}>
-                            购买 200 {currency}
+                            购买 200 积分
                         </option>
                         <option key={'paypal:buy:500'} value={500}>
-                            购买 500 {currency}
+                            购买 500 积分
                         </option>
                         <option key={'paypal:buy:1000'} value={1000}>
-                            购买 1000 {currency}
+                            购买 1000 积分
                         </option>
                     </Select>
                     <div css={tw`mt-6`}>
