@@ -2,6 +2,7 @@
 
 /**
  * Pterodactyl CHINA - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
  * Simplified Chinese Translation Copyright (c) 2018 - 2022 ValiantShishu <vlssu@vlssu.com>.
  *
  * This software is licensed under the terms of the MIT license.
@@ -20,8 +21,8 @@ return [
     |
     */
     'password' => '密码必须至少为六个字符并与确认信息一致。',
-    'reset' => '您的密码已重置！',
-    'sent' => '我们已将您的密码重置链接通过电子邮件发送给您！',
-    'token' => '此密码重置令牌无效。',
-    'user' => "请检查电子邮箱是否正确，我们无法找到该电子邮箱的使用者。",
+    'reset' => '密码重置成功！',
+    'sent' => '密码重置邮件已发送给您！',
+    'token' => '密码重置令牌无效。',
+    'user' => '请检查邮箱是否正确，我们找不到该邮箱对应的用户。',
 ];

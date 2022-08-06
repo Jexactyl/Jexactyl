@@ -2,6 +2,7 @@
 
 /**
  * Pterodactyl CHINA - Panel
+ * Copyright (c) 2015 - 2017 Dane Everitt <dane@daneeveritt.com>.
  * Simplified Chinese Translation Copyright (c) 2018 - 2022 ValiantShishu <vlssu@vlssu.com>.
  *
  * This software is licensed under the terms of the MIT license.
@@ -11,7 +12,7 @@
 return [
     'sign_in' => '登入',
     'go_to_login' => '前往登录',
-    'failed' => '找不到与这些凭证相匹配的帐户。',
+    'failed' => '用户名或密码错误。',
 
     'forgot_password' => [
         'label' => '忘记密码？',

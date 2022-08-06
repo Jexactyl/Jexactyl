@@ -118,7 +118,7 @@ class ServerCreationServiceTest extends IntegrationTestCase
         } catch (ValidationException $exception) {
             $this->assertCount(1, $exception->errors());
             $this->assertArrayHasKey('environment.BUNGEE_VERSION', $exception->errors());
-            $this->assertSame('Bungeecord 版本 变量 字段是必填字段。', $exception->errors()['environment.BUNGEE_VERSION'][0]);
+            $this->assertSame('Bungeecord 版本 变量 不能为空。', $exception->errors()['environment.BUNGEE_VERSION'][0]);
         }
 
         $response = $this->getService()->handle($data, $deployment);

@@ -40,7 +40,7 @@ class PowerControllerTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'in');
-        $response->assertJsonPath('errors.0.detail', '所选的 signal 无效。');
+        $response->assertJsonPath('errors.0.detail', '已选的属性 signal 无效。');
     }
 
     /**

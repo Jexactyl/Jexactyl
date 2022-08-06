@@ -31,7 +31,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.code', 'ValidationException');
-        $response->assertJsonPath('errors.0.detail', 'value 只能包含字母和数字。');
+        $response->assertJsonPath('errors.0.detail', 'value 只能由字母和数字组成。');
 
         $response = $this->actingAs($user)->putJson($this->link($server) . '/startup/variable', [
             'key' => 'BUNGEE_VERSION',

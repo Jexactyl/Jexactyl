@@ -43,7 +43,7 @@ class StartupModificationServiceTest extends IntegrationTestCase
             $this->assertCount(1, $errors);
             $this->assertArrayHasKey('environment.BUNGEE_VERSION', $errors);
             $this->assertCount(1, $errors['environment.BUNGEE_VERSION']);
-            $this->assertSame('Bungeecord 版本 变量 只能包含字母和数字。', $errors['environment.BUNGEE_VERSION'][0]);
+            $this->assertSame('Bungeecord 版本 变量 只能由字母和数字组成。', $errors['environment.BUNGEE_VERSION'][0]);
         }
 
         ServerVariable::query()->where('variable_id', $server->variables[1]->id)->delete();
