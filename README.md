@@ -18,6 +18,21 @@ Built on [Pterodactyl](https://pterodactyl.io), this software is designed from t
 * Easy to set up and get started, with minimal install steps.
 * Many, many more quality-of-life improvements throughout the software.
 
+## Featuers
+*Want more features to Jexactyl? [Request Here.](https://github.com/pterodactyl/panel/issues)*
+------------------------------
+| Features            | Done |
+| ------------------- |------| 
+| Creating Sevrer     | ✔️   |
+| Modifiying Sevrer   | ✔️   |
+| Billing System      | ✔️   |
+| Referral System     | ✔️   |
+| Approval System     | ✔️   |
+| Registeration       | ✔️   |
+| Resource Utilizater | ✔️   |
+| Store System        | ✔️   |
+------------------------------
+
 ## Sponsors
 *Want to sponsor Jexactyl? [Donate Here.](https://donate.stripe.com/6oE02Zftd9cC34IbIS)*
 
