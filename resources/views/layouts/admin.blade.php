@@ -42,7 +42,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
-                    <img src="https://avatars.githubusercontent.com/u/91636558" width="48" height="48" />
+                    <img src="https://cdn.discordapp.com/attachments/1012411945141424218/1012413894402244658/jexactyl-logo.png" width="48" height="48" />
                 </a>
             </header>
             <aside class="main-sidebar">
