@@ -45,7 +45,7 @@ export default () => {
         <PanelDiv>
             <ProgressBar />
             <Link to={'/'}>
-                <img css={tw`p-4`} src={logo ?? 'https://avatars.githubusercontent.com/u/91636558'} />
+                <img css={tw`p-4`} src={logo ?? 'https://cdn.discordapp.com/attachments/1012411945141424218/1012413894402244658/jexactyl-logo.png'} />
             </Link>
             <div>
                 <div css={tw`mx-auto mb-8`} className={'navigation-link'}>
