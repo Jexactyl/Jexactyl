@@ -55,7 +55,7 @@ const OverviewContainer = () => {
                 </TitledGreyBox>
                 <TitledGreyBox title={'Total Ports'} className={'mt-8 sm:mt-0 sm:ml-8'}>
                     <Wrapper>
-                        <Icon.Share2 className={'mr-2'} /> {resources.ports}
+                        <Icon.Share2 className={'mr-2'} /> {resources.allocations}
                     </Wrapper>
                 </TitledGreyBox>
                 <TitledGreyBox title={'Total Backups'} className={'mt-8 sm:mt-0 sm:ml-8'}>

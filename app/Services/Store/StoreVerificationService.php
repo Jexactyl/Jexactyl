@@ -19,8 +19,8 @@ class StoreVerificationService {
 
         if (
             $user->store_slots < 1 ||
-            $user->store_ports < 1 ||
             $user->store_disk < $disk ||
+            $user->store_allocations < $request->input('allocations') ||
             $user->store_memory < $memory ||
             $user->store_cpu < $request->input('cpu') ||
             $user->store_backups < $request->input('backups') ||

@@ -12,7 +12,7 @@ class PurchaseResourceRequest extends ClientApiRequest
     public function rules(): array
     {
         return [
-            'resource' => 'required|string|in:cpu,memory,disk,slots,ports,backups,databases',
+            'resource' => 'required|string|in:cpu,memory,disk,slot,allocation,backup,database',
         ];
     }
 }

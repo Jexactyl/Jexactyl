@@ -24,11 +24,11 @@ class ResourceController extends ClientApiController
 
     /**
      * Get the resources for the authenticated user.
-     * 
+     *
      * This method is used instead of states so that we can retrieve
      * data via API calls, so the page does not need a full refresh
      * in order to retrieve the values.
-     * 
+     *
      * @throws DisplayException
      */
     public function user(GetStoreUserRequest $request)
@@ -40,7 +40,7 @@ class ResourceController extends ClientApiController
 
     /**
      * Allows a user to earn credits via passive earning.
-     * 
+     *
      * @throws DisplayException
      */
     public function earn(StoreEarnRequest $request)
@@ -50,7 +50,6 @@ class ResourceController extends ClientApiController
 
         if ($this->settings->get('jexactyl::earn:enabled') == 'false') {
             throw new DisplayException('Credit earning is currently disabled');
-            return;
         };
 
         try {
@@ -66,7 +65,7 @@ class ResourceController extends ClientApiController
 
     /**
      * Allows users to purchase resources via the store.
-     * 
+     *
      * @throws DisplayException
      */
     public function purchase(PurchaseResourceRequest $request): JsonResponse
@@ -84,7 +83,7 @@ class ResourceController extends ClientApiController
 
         $request->user()->update([
             'store_balance' => $balance - $cost,
-            'store_'.$resource => $type + $amount,
+            'store_'.$this->format($resource) => $type + $amount,
         ]);
 
         Activity::event('user:store.resource-purchase')
@@ -96,82 +95,67 @@ class ResourceController extends ClientApiController
 
     /**
      * Returns the price of the resource.
-     * 
+     *
      * @throws DisplayException
      */
     protected function getPrice(string $resource): int
     {
+        $settings = $this->settings;
         $prefix = 'jexactyl::store:cost:';
-
-        switch ($resource) {
-            case 'cpu':
-                return $this->settings->get($prefix.'cpu');
-            case 'memory':
-                return $this->settings->get($prefix.'memory');
-            case 'disk':
-                return $this->settings->get($prefix.'disk');
-            case 'slots':
-                return $this->settings->get($prefix.'slot');
-            case 'ports':
-                return $this->settings->get($prefix.'port');
-            case 'backups':
-                return $this->settings->get($prefix.'backup');
-            case 'databases':
-                return $this->settings->get($prefix.'database');
-            default:
-                throw new DisplayException('Unable to get resource price.');
-        }
+        return match ($resource) {
+            'cpu' =>  $settings->get($prefix.'cpu'),
+            'disk' => $settings->get($prefix.'disk'),
+            'slot' => $settings->get($prefix.'slot'),
+            'memory' => $settings->get($prefix.'memory'),
+            'backup' => $settings->get($prefix.'backup'),
+            'database' => $settings->get($prefix.'database'),
+            'allocation' => $settings->get($prefix.'allocation'),
+            default => throw new DisplayException('Unable to get resource price.')
+        };
     }
 
     /**
      * Returns how much of the resource to assign.
-     * 
+     *
      * @throws DisplayException
      */
     protected function getAmount(string $resource): int
     {
-        switch ($resource) {
-            case 'cpu':
-                return 50;
-            case 'memory':
-                return 1024;
-            case 'disk':
-                return 1024;
-            case 'slots':
-                return 1;
-            case 'ports':
-                return 1;
-            case 'backups':
-                return 1;
-            case 'databases':
-                return 1;
-            default:
-                throw new DisplayException('Unable to get resource details.');
-        }
+        return match ($resource) {
+            'cpu' => 50,
+            'disk', 'memory' => 1024,
+            'slot', 'backup', 'database', 'allocation' => 1,
+            default => throw new DisplayException('Unable to get resource details.')
+        };
     }
 
     /**
      * Return the resource type for database entries.
-     * 
+     *
      * @throws DisplayException
      */
-    protected function getResource(PurchaseResourceRequest $request)
+    protected function getResource(PurchaseResourceRequest $request): int
     {
-        switch ($request->input('resource')) {
-            case 'cpu':
-                return $request->user()->store_cpu;
-            case 'memory':
-                return $request->user()->store_memory;
-            case 'disk':
-                return $request->user()->store_disk;
-            case 'slots':
-                return $request->user()->store_slots;
-            case 'ports':
-                return $request->user()->store_ports;
-            case 'backups':
-                return $request->user()->store_backups;
-            case 'databases':
-                return $request->user()->store_databases;
-        }
+        return match ($request->input('resource')) {
+            'cpu' => $request->user()->store_cpu,
+            'disk' => $request->user()->store_disk,
+            'slot' => $request->user()->store_slots,
+            'memory' => $request->user()->store_memory,
+            'backup' => $request->user()->store_backups,
+            'database' => $request->user()->store_databases,
+            'allocation' => $request->user()->store_allocations,
+            default => throw new DisplayException('Unable to get resource type.')
+        };
+    }
+
+    protected function format(string $resource): string
+    {
+        return match ($resource) {
+            'slot' => 'slots',
+            'backup' => 'backups',
+            'database' => 'databases',
+            'allocation' => 'allocations',
+            default => $resource
+        };
     }
 }

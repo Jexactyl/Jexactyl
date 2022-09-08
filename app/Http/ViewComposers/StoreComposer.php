@@ -52,18 +52,18 @@ class StoreComposer extends Composer
                 'memory' => $this->setting('store:cost:memory', Composer::TYPE_INT),
                 'disk' => $this->setting('store:cost:disk', Composer::TYPE_INT),
                 'slot' => $this->setting('store:cost:slot', Composer::TYPE_INT),
-                'port' => $this->setting('store:cost:port', Composer::TYPE_INT),
                 'backup' => $this->setting('store:cost:backup', Composer::TYPE_INT),
                 'database' => $this->setting('store:cost:database', Composer::TYPE_INT),
+                'allocation' => $this->setting('store:cost:allocation', Composer::TYPE_INT),
             ],
 
             'limit' => [
                 'cpu' => $this->setting('store:limit:cpu', Composer::TYPE_INT),
                 'memory' => $this->setting('store:limit:memory', Composer::TYPE_INT),
                 'disk' => $this->setting('store:limit:disk', Composer::TYPE_INT),
-                'port' => $this->setting('store:limit:port', Composer::TYPE_INT),
-                'backup' => $this->setting('store:limit:backup', Composer::TYPE_INT),
-                'database' => $this->setting('store:limit:database', Composer::TYPE_INT),
+                'backups' => $this->setting('store:limit:backups', Composer::TYPE_INT),
+                'databases' => $this->setting('store:limit:databases', Composer::TYPE_INT),
+                'allocations' => $this->setting('store:limit:allocations', Composer::TYPE_INT),
             ]
         ]);
     }

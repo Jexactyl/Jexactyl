@@ -59,9 +59,9 @@ use Pterodactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
  * @property int $store_memory
  * @property int $store_disk
  * @property int $store_slots
- * @property int $store_ports
  * @property int $store_backups
  * @property int $store_databases
+ * @property int $store_allocations
  * @property string $referral_code
  * @property bool|null $approved
  *
@@ -147,7 +147,7 @@ class User extends Model implements
         'store_memory',
         'store_disk',
         'store_slots',
-        'store_ports',
+        'store_allocations',
         'store_backups',
         'store_databases',
         'referral_code',

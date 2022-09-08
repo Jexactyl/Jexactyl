@@ -6,9 +6,9 @@ export interface Resources {
     memory: number;
     disk: number;
     slots: number;
-    ports: number;
     backups: number;
     databases: number;
+    allocations: number;
 }
 
 export const rawDataToResources = ({ attributes: data }: FractalResponseData): Resources => ({
@@ -17,9 +17,9 @@ export const rawDataToResources = ({ attributes: data }: FractalResponseData): R
     memory: data.memory,
     disk: data.disk,
     slots: data.slots,
-    ports: data.ports,
     backups: data.backups,
     databases: data.databases,
+    allocations: data.allocations
 });
 
 export const getResources = async (): Promise<Resources> => {

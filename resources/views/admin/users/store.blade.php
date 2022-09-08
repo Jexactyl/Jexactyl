@@ -47,8 +47,8 @@
                                     <input type="text" id="store_slots" value="{{ $user->store_slots }}" name="store_slots" class="form-control form-autocomplete-stop">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="store_ports" class="control-label">Total Ports available</label>
-                                    <input type="text" id="store_ports" value="{{ $user->store_ports }}" name="store_ports" class="form-control form-autocomplete-stop">
+                                    <label for="store_allocations" class="control-label">Total Ports available</label>
+                                    <input type="text" id="store_allocations" value="{{ $user->store_allocations }}" name="store_allocations" class="form-control form-autocomplete-stop">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="store_backups" class="control-label">Total Backups available</label>

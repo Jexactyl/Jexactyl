@@ -119,7 +119,7 @@ class UserController extends Controller
 
     /**
      * Display user resource page.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function viewStore(User $user)
@@ -182,7 +182,7 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.view', $user->id);
     }
- 
+
     /**
      * Update a user's storefront balances.
      *
@@ -200,7 +200,7 @@ class UserController extends Controller
             'store_memory' => $request->input('store_memory'),
             'store_disk' => $request->input('store_disk'),
             'store_slots' => $request->input('store_slots'),
-            'store_ports' => $request->input('store_ports'),
+            'store_allocations' => $request->input('store_allocations'),
             'store_backups' => $request->input('store_backups'),
             'store_databases' => $request->input('store_databases'),
         ]);

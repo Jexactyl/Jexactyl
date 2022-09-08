@@ -20,17 +20,17 @@ export interface StorefrontSettings {
         memory: number;
         disk: number;
         slot: number;
-        port: number;
         backup: number;
         database: number;
+        allocation: number;
     };
     limit: {
         cpu: number;
         memory: number;
         disk: number;
-        port: number;
-        backup: number;
-        database: number;
+        backups: number;
+        databases: number;
+        allocations: number;
     };
     gateways: {
         paypal: boolean;

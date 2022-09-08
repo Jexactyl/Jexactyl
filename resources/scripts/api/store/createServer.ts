@@ -6,7 +6,7 @@ interface Params {
     cpu: number;
     memory: number;
     disk: number;
-    ports: number;
+    allocations: number;
     backups: number | null;
     databases: number | null;
 

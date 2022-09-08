@@ -39,7 +39,7 @@ class StoreCreationService {
     public function handle(CreateServerRequest $request): JsonResponse
     {
         $this->verification->handle($request);
-        
+
         $user = User::find($request->user()->id);
         $egg = Egg::find($request->input('egg'));
 
@@ -56,7 +56,7 @@ class StoreCreationService {
             'nest_id' => $nest->id,
             'node_id' => $node->id,
             'allocation_id' => $this->getAlloc($node->id),
-            'allocation_limit' => $request->input('ports'),
+            'allocation_limit' => $request->input('allocations'),
             'backup_limit' => $request->input('backups'),
             'database_limit' => $request->input('databases'),
             'environment' => [],

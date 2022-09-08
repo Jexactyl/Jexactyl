@@ -3,10 +3,10 @@
 namespace Pterodactyl\Services\Servers;
 
 use Pterodactyl\Models\User;
-use Illuminate\Http\Response;
 use Pterodactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Pterodactyl\Exceptions\DisplayException;
+use Symfony\Component\HttpFoundation\Response;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 use Pterodactyl\Http\Requests\Api\Client\Servers\EditServerRequest;
 
@@ -21,23 +21,20 @@ class ServerEditService
 
     /**
      * Updates the requested instance with new limits.
+     * @throws DisplayException
      */
-    public function handle(EditServerRequest $request, Server $server)
+    public function handle(EditServerRequest $request, Server $server): JsonResponse
     {
         $user = $request->user();
         $amount = $request->input('amount');
         $resource = $request->input('resource');
 
-        $verify = $this->verify($request);
-        if (!$verify) return;
+        $verify = $this->verify($request, $server);
+        if (!$verify) throw new DisplayException('Failed to verify.');
 
-        $server->update([
-            $resource => $this->getServerResource($request, $server) + $amount,
-        ]);
+        $server->update([$this->toServerDB($request) => $this->toServer($request, $server) + $amount]);
 
-        $user->update([
-            'store_' . (string) $request->input('resource') => $this->toUser($request, $user) - $amount,
-        ]);
+        $user->update(['store_' . (string) $request->input('resource') => $this->toUser($request, $user) - $amount]);
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
@@ -48,21 +45,20 @@ class ServerEditService
      *
      * @throws DisplayException
      */
-    protected function verify(EditServerRequest $request, Server $server, User $user): bool
+    protected function verify(EditServerRequest $request, Server $server): bool
     {
+        $user = $request->user();
         $amount = $request->input('amount');
-        $resource = $request->input('resource');
 
-        foreach ($resource as $r) {
-          $limit = $this->settings->get('jexactyl::store:limit:' . $r);
-
+        //foreach ($resource as $r) {
+          $limit = $this->settings->get('jexactyl::store:limit:' . $request->input('resource'));
           // Check if the amount requested goes over defined limits.
-          if (($amount + $this->toServer($r, $server)) > $limit) return false;
+          if (($amount + $this->toServer($request, $server)) > $limit) return false;
           // Verify baseline limits. We don't want servers with -4% CPU.
-          if ($this->toServer($r, $server) <= $this->toMin($r) && $amount < 0) return false;
+          if ($this->toServer($request, $server) <= $this->toMin($request) && $amount < 0) return false;
           // Verify that the user has the resource in their account.
-          if ($this->toUser($r, $user) < $amount) return false;
-        }
+          if ($this->toUser($request, $user) < $amount) return false;
+        //}
 
         // Return true if all checked.
         return true;
@@ -77,10 +73,10 @@ class ServerEditService
      {
          return match($request->input('resource')) {
              'cpu' => 50,
-             'allocation_limit' => 1,
+             'allocations' => 1,
              'disk', 'memory' => 1024,
-             'backup_limit', 'database_limit' => 0,
-             default => throw new DisplayException('Unable to parse resource type')
+             'backups', 'databases' => 0,
+             default => throw new DisplayException('Unable to parse resource type a')
          };
      }
 
@@ -96,10 +92,10 @@ class ServerEditService
              'cpu' => $user->store_cpu,
              'disk' => $user->store_disk,
              'memory' => $user->store_memory,
-             'backup_limit' => $user->store_backups,
-             'allocation_limit' => $user->store_ports,
-             'database_limit' => $user->store_databases,
-             default => throw new DisplayException('Unable to parse resource type')
+             'backups' => $user->store_backups,
+             'allocations' => $user->store_allocations,
+             'databases' => $user->store_databases,
+             default => throw new DisplayException('Unable to parse resource type b')
          };
      }
 
@@ -115,10 +111,20 @@ class ServerEditService
             'cpu' => $server->cpu,
             'disk' => $server->disk,
             'memory' => $server->memory,
-            'backup_limit' => $server->backup_limit,
-            'database_limit' => $server->database_limit,
-            'allocation_limit' => $server->allocation_limit,
-            default => throw new DisplayException('Unable to parse resource type')
+            'backups' => $server->backup_limit,
+            'databases' => $server->database_limit,
+            'allocations' => $server->allocation_limit,
+            default => throw new DisplayException('fuck')
+        };
+    }
+
+    protected function toServerDB(EditServerRequest $request): string
+    {
+        return match ($request->input('resource')) {
+            'backups' => 'backup_limit',
+            'databases' => 'database_limit',
+            'allocations' => 'allocation_limit',
+            default => $request->input('resource')
         };
     }
 }

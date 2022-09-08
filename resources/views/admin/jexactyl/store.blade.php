@@ -140,7 +140,7 @@
                             <div class="form-group col-md-4">
                                 <label class="control-label">Cost per 1 Network Allocation</label>
                                 <div>
-                                    <input type="text" class="form-control" name="store:cost:port" value="{{ $port }}" />
+                                    <input type="text" class="form-control" name="store:cost:allocation" value="{{ $allocation }}" />
                                     <p class="text-muted"><small>Used to calculate the total cost for 1 port.</small></p>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                 <label class="control-label">Network Allocation limit</label>
                                 <div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="store:limit:port" value="{{ $limit_port }}" />
+                                        <input type="text" class="form-control" name="store:limit:allocations" value="{{ $limit_allocations }}" />
                                         <span class="input-group-addon">ports</span>
                                     </div>
                                     <p class="text-muted"><small>The maximum amount of ports (allocations) a server can be deployed with. </small></p>
@@ -211,7 +211,7 @@
                                 <label class="control-label">Backup limit</label>
                                 <div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="store:limit:backup" value="{{ $limit_backup }}" />
+                                        <input type="text" class="form-control" name="store:limit:backups" value="{{ $limit_backups }}" />
                                         <span class="input-group-addon">backups</span>
                                     </div>
                                     <p class="text-muted"><small>The maximum amount of backups a server can be deployed with. </small></p>
@@ -221,7 +221,7 @@
                                 <label class="control-label">Database limit</label>
                                 <div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="store:limit:database" value="{{ $limit_database }}" />
+                                        <input type="text" class="form-control" name="store:limit:databases" value="{{ $limit_databases }}" />
                                         <span class="input-group-addon">databases</span>
                                     </div>
                                     <p class="text-muted"><small>The maximum amount of databases a server can be deployed with. </small></p>

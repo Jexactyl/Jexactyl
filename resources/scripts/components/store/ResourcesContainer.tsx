@@ -143,7 +143,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setOpen(true);
-                                setResource('slots');
+                                setResource('slot');
                             }}
                         >
                             +1 slot
@@ -162,7 +162,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setOpen(true);
-                                setResource('ports');
+                                setResource('allocation');
                             }}
                         >
                             +1 port
@@ -171,7 +171,7 @@ export default () => {
                     <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>
                         Purchase a port to connect to your server.
                     </p>
-                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Cost per port: {cost.port} credits</p>
+                    <p css={tw`mt-1 text-gray-500 text-xs flex justify-center`}>Cost per port: {cost.allocation} credits</p>
                 </TitledGreyBox>
                 <TitledGreyBox title={'Purchase Server Backups'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
                     <Wrapper>
@@ -181,7 +181,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setOpen(true);
-                                setResource('backups');
+                                setResource('backup');
                             }}
                         >
                             +1 backup
@@ -202,7 +202,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setOpen(true);
-                                setResource('databases');
+                                setResource('database');
                             }}
                         >
                             +1 database

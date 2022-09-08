@@ -169,7 +169,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setSubmitting(true);
-                                setResource('allocation_limit');
+                                setResource('allocations');
                                 setAmount(1);
                             }}
                         >
@@ -179,7 +179,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setSubmitting(true);
-                                setResource('allocation_limit');
+                                setResource('allocations');
                                 setAmount(-1);
                             }}
                         >
@@ -198,7 +198,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setSubmitting(true);
-                                setResource('backup_limit');
+                                setResource('backups');
                                 setAmount(1);
                             }}
                         >
@@ -208,7 +208,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setSubmitting(true);
-                                setResource('backup_limit');
+                                setResource('backups');
                                 setAmount(-1);
                             }}
                         >
@@ -226,7 +226,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setSubmitting(true);
-                                setResource('database_limit');
+                                setResource('databases');
                                 setAmount(1);
                             }}
                         >
@@ -236,7 +236,7 @@ export default () => {
                             css={tw`ml-4`}
                             onClick={() => {
                                 setSubmitting(true);
-                                setResource('database_limit');
+                                setResource('databases');
                                 setAmount(-1);
                             }}
                         >

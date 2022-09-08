@@ -22,7 +22,7 @@ class EditServerRequest extends ClientApiRequest
     public function rules(): array
     {
         return [
-            'resource' => 'required|string|in:cpu,memory,disk,allocation_limit,backup_limit,database_limit',
+            'resource' => 'required|string|in:cpu,memory,disk,allocations,backups,databases',
             'amount' => 'required|int',
         ];
     }

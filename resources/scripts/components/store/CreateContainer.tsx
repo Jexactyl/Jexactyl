@@ -40,7 +40,7 @@ interface CreateValues {
     cpu: number;
     memory: number;
     disk: number;
-    ports: number;
+    allocations: number;
     backups: number | null;
     databases: number | null;
 
@@ -132,7 +132,7 @@ export default () => {
                     cpu: resources.cpu,
                     memory: resources.memory / 1024,
                     disk: resources.disk / 1024,
-                    ports: resources.ports,
+                    allocations: resources.allocations,
                     backups: resources.backups,
                     databases: resources.databases,
                     nest: 1,
@@ -153,9 +153,9 @@ export default () => {
                         .min(1)
                         .max(resources.disk / 1024)
                         .max(limit.disk / 1024),
-                    ports: number().required().min(1).max(resources.ports).max(limit.port),
-                    backups: number().optional().max(resources.backups).max(limit.backup),
-                    databases: number().optional().max(resources.databases).max(limit.database),
+                    backups: number().optional().max(resources.backups).max(limit.backups),
+                    databases: number().optional().max(resources.databases).max(limit.databases),
+                    allocations: number().required().min(1).max(resources.allocations).max(limit.allocations),
                     nest: number().required().default(1),
                     egg: number().required().default(1),
                     node: number().required().min(1),
@@ -219,9 +219,9 @@ export default () => {
                     </h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
                         <TitledGreyBox title={'Server allocations'} icon={faNetworkWired} className={'mt-8 sm:mt-0'}>
-                            <Field name={'ports'} />
+                            <Field name={'allocations'} />
                             <p className={'mt-1 text-xs'}>Assign a number of ports to your server.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{resources.ports} available</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.allocations} available</p>
                         </TitledGreyBox>
                         <TitledGreyBox title={'Server backups'} icon={faArchive} className={'mt-8 sm:mt-0'}>
                             <Field name={'backups'} />

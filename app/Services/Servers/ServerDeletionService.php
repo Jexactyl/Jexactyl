@@ -139,9 +139,9 @@ class ServerDeletionService
             'store_memory' => $user->store_memory + $server->memory,
             'store_disk' => $user->store_disk + $server->disk,
             'store_slots' => $user->store_slots + 1, // Always one slot.
-            'store_ports' => $user->store_ports + $server->allocation_limit,
             'store_backups' => $user->store_backups + $server->backup_limit,
             'store_databases' => $user->store_databases + $server->database_limit,
+            'store_allocations' => $user->store_allocations + $server->allocation_limit,
         ]);
     }
 }

@@ -27,7 +27,7 @@ class UserTransformer extends BaseClientTransformer
             'memory' => $model->store_memory,
             'disk' => $model->store_disk,
             'slots' => $model->store_slots,
-            'ports' => $model->store_ports,
+            'allocations' => $model->store_allocations,
             'backups' => $model->store_backups,
             'databases' => $model->store_databases,
         ];
