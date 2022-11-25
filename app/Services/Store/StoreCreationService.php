@@ -18,9 +18,9 @@ use Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException;
 class StoreCreationService
 {
     public function __construct(
-        private ServerCreationService $creation,
         private SettingsRepositoryInterface $settings,
-        private StoreVerificationService $verification
+        private ServerCreationService $creationService,
+        private StoreVerificationService $verifyService
     ) {
     }
 
@@ -32,18 +32,18 @@ class StoreCreationService
     public function handle(CreateServerRequest $request): Server
     {
         $egg = Egg::find($request->input('egg'));
-        $nest = Nest::find($request->input('nest'));
-        $node = Node::find($request->input('node'));
+        $nest = Nest::find($request->input('nest'))->id;
+        $node = Node::find($request->input('node'))->id;
 
-        $this->verification->handle($request);
+        $this->verifyService->handle($request);
 
         $data = [
             'name' => $request->input('name'),
             'owner_id' => $request->user()->id,
             'egg_id' => $egg->id,
-            'nest_id' => $nest->id,
-            'node_id' => $node->id,
-            'allocation_id' => $this->getAllocation($node->id),
+            'nest_id' => $nest,
+            'node_id' => $node,
+            'allocation_id' => $this->getAllocation($node),
             'allocation_limit' => $request->input('ports'),
             'backup_limit' => $request->input('backups'),
             'database_limit' => $request->input('databases'),
@@ -68,13 +68,7 @@ class StoreCreationService
             $data['environment'][$var->env_variable] = $request->get($key, $var->default_value);
         }
 
-        try {
-            $server = $this->creation->handle($data);
-        } catch (Throwable $exception) {
-            throw new DisplayException('Unable to deploy server - Please contact an administrator.');
-        }
-
-        return $server;
+        return $this->creationService->handle($data);
     }
 
     /**
@@ -84,13 +78,9 @@ class StoreCreationService
      */
     protected function getAllocation(int $node): int
     {
-        $allocation = Allocation::where('node_id', $node)
-            ->where('server_id', null)
-            ->first();
+        $allocation = Allocation::where('node_id', $node)->where('server_id', null)->first();
 
-        if (!$allocation) {
-            throw new NoViableAllocationException('No allocations are available for deployment.');
-        }
+        if (!$allocation) throw new NoViableAllocationException('No allocations are available for deployment.');
 
         return $allocation->id;
     }

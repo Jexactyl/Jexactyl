@@ -16,7 +16,8 @@ class StoreVerificationService
     /**
      * This service ensures that users cannot create servers, gift
      * resources or edit a servers resource limits if they do not
-     * have sufficient resources in their account.
+     * have sufficient resources in their account - or if the requested
+     * amount goes over admin-defined limits.
      */
     public function handle(CreateServerRequest $request)
     {
