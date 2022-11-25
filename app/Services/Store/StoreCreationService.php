@@ -83,7 +83,7 @@ class StoreCreationService
      *
      * @throws NoViableAllocationException
      */
-    protected function getAllocatiom(int $node): int
+    protected function getAllocation(int $node): int
     {
         $allocation = Allocation::where('node_id', $node)
             ->where('server_id', null)

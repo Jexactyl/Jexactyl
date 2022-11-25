@@ -2,11 +2,16 @@
 
 namespace Pterodactyl\Services\Store;
 
+use Pterodactyl\Models\User;
 use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
 
 class StoreVerificationService
 {
+    public function __construct(private SettingsRepositoryInterface $settings) {
+    }
+
     /**
      * This service ensures that users cannot create servers, gift
      * resources or edit a servers resource limits if they do not
@@ -14,18 +19,41 @@ class StoreVerificationService
      */
     public function handle(CreateServerRequest $request)
     {
-        $user = $request->user();
+        $this->checkUserResources($request);
+        $this->checkResourceLimits($request);
+    }
 
-        if (
-            $user->store_slots < 1 ||
-            $user->store_ports < 1 ||
-            $user->store_cpu < $request->input('cpu') ||
-            $user->store_disk < $request->input('disk') ||
-            $user->store_memory < $request->input('memory') ||
-            $user->store_backups < $request->input('backups') ||
-            $user->store_databases < $request->input('databases')
-        ) {
-            throw new DisplayException('You do not have sufficient resources to deploy this server.');
-        }
+    private function checkUserResources(CreateServerRequest $request)
+    {
+        $types = array('cpu', 'memory', 'disk', 'slots', 'ports', 'backups', 'databases');
+
+        foreach ($types as $type) {
+            $value = User::find($request->user()->id)->value('store_' . $type);
+
+            if ($value < $request->input($type)) {
+                throw new DisplayException('You only have' . $value . ' ' . $type . ', so you cannot deploy this server.');
+            };
+        };
+    }
+
+    private function checkResourceLimits(CreateServerRequest $request)
+    {
+        $prefix = 'jexactyl::store:limit:';
+        $types = array('cpu', 'memory', 'disk', 'slot', 'port', 'backup', 'database');
+
+        foreach ($types as $type) {
+            $suffix = '';
+            $limit = $this->settings->get($prefix . $type);
+
+            if (in_array($type, array('slot', 'port', 'backup', 'database'))) {
+                $suffix = 's';
+            };
+
+            $amount = $request->input($type .= $suffix);
+
+            if ($limit < $amount) {
+                throw new DisplayException('You cannot deploy with ' . $amount .  ' ' . $type . ', as an admin has set a limit of ' . $limit);
+            };
+        };
     }
 }

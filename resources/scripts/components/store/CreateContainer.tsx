@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from 'easy-peasy';
 import { number, object, string } from 'yup';
-import { megabytesToHuman } from '@/helpers';
 import Field from '@/components/elements/Field';
 import Select from '@/components/elements/Select';
 import { Egg, getEggs } from '@/api/store/getEggs';
@@ -17,6 +16,7 @@ import InputSpinner from '@/components/elements/InputSpinner';
 import StoreError from '@/components/elements/store/StoreError';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
+import FlashMessageRender from '@/components/FlashMessageRender';
 import StoreContainer from '@/components/elements/StoreContainer';
 import { getResources, Resources } from '@/api/store/getResources';
 import PageContentBlock from '@/components/elements/PageContentBlock';
@@ -50,7 +50,6 @@ interface CreateValues {
 }
 
 export default () => {
-    const limit = useStoreState((state) => state.storefront.data!.limit);
     const user = useStoreState((state) => state.user.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const [loading, setLoading] = useState(false);
@@ -137,7 +136,7 @@ export default () => {
                 onSubmit={submit}
                 initialValues={{
                     name: `${user.username}'s server`,
-                    description: 'Write a short description here.',
+                    description: 'Write a server description here.',
                     cpu: resources.cpu,
                     memory: resources.memory,
                     disk: resources.disk,
@@ -152,13 +151,13 @@ export default () => {
                     name: string().required().min(3),
                     description: string().optional().min(3).max(191),
 
-                    cpu: number().required().min(25).max(resources.cpu).max(limit.cpu),
-                    memory: number().required().min(256).max(resources.memory).max(limit.memory),
-                    disk: number().required().min(256).max(resources.disk).max(limit.disk),
+                    cpu: number().required().min(25).max(resources.cpu),
+                    memory: number().required().min(256).max(resources.memory),
+                    disk: number().required().min(256).max(resources.disk),
 
-                    ports: number().required().min(1).max(resources.ports).max(limit.port),
-                    backups: number().optional().max(resources.backups).max(limit.backup),
-                    databases: number().optional().max(resources.databases).max(limit.database),
+                    ports: number().required().min(1).max(resources.ports),
+                    backups: number().optional().max(resources.backups),
+                    databases: number().optional().max(resources.databases),
 
                     node: number().required().default(node),
                     nest: number().required().default(nest),
@@ -210,9 +209,7 @@ export default () => {
                                 <p className={'absolute text-sm top-1.5 right-2 bg-gray-700 p-2 rounded-lg'}>MB</p>
                             </div>
                             <p className={'mt-1 text-xs'}>Assign a limit for usable RAM.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>
-                                {megabytesToHuman(resources.memory)} available
-                            </p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.memory}MB available</p>
                         </TitledGreyBox>
                         <TitledGreyBox title={'Server Storage limit'} icon={faHdd} className={'mt-8 sm:mt-0'}>
                             <div className={'relative'}>
@@ -220,7 +217,7 @@ export default () => {
                                 <p className={'absolute text-sm top-1.5 right-2 bg-gray-700 p-2 rounded-lg'}>MB</p>
                             </div>
                             <p className={'mt-1 text-xs'}>Assign a limit for usable storage.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{megabytesToHuman(resources.disk)} available</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.disk}MB available</p>
                         </TitledGreyBox>
                     </StoreContainer>
                     <h1 className={'j-left text-5xl'}>Feature Limits</h1>
@@ -282,6 +279,7 @@ export default () => {
                         </TitledGreyBox>
                     </StoreContainer>
                     <InputSpinner visible={loading}>
+                        <FlashMessageRender byKey={'store:create'} className={'my-2'} />
                         <div className={'text-right'}>
                             <Button
                                 type={'submit'}

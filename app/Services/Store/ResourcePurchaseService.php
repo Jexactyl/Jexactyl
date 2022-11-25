@@ -59,11 +59,7 @@ class ResourcePurchaseService
      */
     protected function get(string $resource): mixed
     {
-        if ($resource === 'slots' ||
-            $resource === 'ports' ||
-            $resource === 'backups' ||
-            $resource === 'databases'
-        ) {
+        if (in_array($resource, array('slots', 'ports', 'backups', 'databases'))) {
             $resource = rtrim($resource, 's');
         }
 

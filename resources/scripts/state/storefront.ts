@@ -24,14 +24,6 @@ export interface StorefrontSettings {
         backup: number;
         database: number;
     };
-    limit: {
-        cpu: number;
-        memory: number;
-        disk: number;
-        port: number;
-        backup: number;
-        database: number;
-    };
     gateways: {
         paypal: boolean;
         stripe: boolean;
