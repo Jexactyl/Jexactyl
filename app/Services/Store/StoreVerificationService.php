@@ -15,15 +15,13 @@ class StoreVerificationService
     public function handle(CreateServerRequest $request)
     {
         $user = $request->user();
-        $disk = $request->input('disk') * 1024;
-        $memory = $request->input('memory') * 1024;
 
         if (
             $user->store_slots < 1 ||
             $user->store_ports < 1 ||
-            $user->store_disk < $disk ||
-            $user->store_memory < $memory ||
             $user->store_cpu < $request->input('cpu') ||
+            $user->store_disk < $request->input('disk') ||
+            $user->store_memory < $request->input('memory') ||
             $user->store_backups < $request->input('backups') ||
             $user->store_databases < $request->input('databases')
         ) {

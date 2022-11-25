@@ -32,20 +32,15 @@ class StoreCreationService
      */
     public function handle(CreateServerRequest $request): Server
     {
-        $this->verification->handle($request);
-
-        $user = User::find($request->user()->id);
         $egg = Egg::find($request->input('egg'));
-
         $nest = Nest::find($request->input('nest'));
         $node = Node::find($request->input('node'));
 
-        $disk = $request->input('disk');
-        $memory = $request->input('memory');
+        $this->verification->handle($request);
 
         $data = [
             'name' => $request->input('name'),
-            'owner_id' => $user->id,
+            'owner_id' => $request->user()->id,
             'egg_id' => $egg->id,
             'nest_id' => $nest->id,
             'node_id' => $node->id,
@@ -54,8 +49,8 @@ class StoreCreationService
             'backup_limit' => $request->input('backups'),
             'database_limit' => $request->input('databases'),
             'environment' => [],
-            'memory' => $memory,
-            'disk' => $disk,
+            'memory' => $request->input('memory'),
+            'disk' => $request->input('disk'),
             'cpu' => $request->input('cpu'),
             'swap' => 0,
             'io' => 500,
