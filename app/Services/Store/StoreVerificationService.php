@@ -9,7 +9,8 @@ use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
 
 class StoreVerificationService
 {
-    public function __construct(private SettingsRepositoryInterface $settings) {
+    public function __construct(private SettingsRepositoryInterface $settings)
+    {
     }
 
     /**
@@ -25,35 +26,35 @@ class StoreVerificationService
 
     private function checkUserResources(CreateServerRequest $request)
     {
-        $types = array('cpu', 'memory', 'disk', 'slots', 'ports', 'backups', 'databases');
+        $types = ['cpu', 'memory', 'disk', 'slots', 'ports', 'backups', 'databases'];
 
         foreach ($types as $type) {
             $value = User::find($request->user()->id)->value('store_' . $type);
 
             if ($value < $request->input($type)) {
                 throw new DisplayException('You only have' . $value . ' ' . $type . ', so you cannot deploy this server.');
-            };
-        };
+            }
+        }
     }
 
     private function checkResourceLimits(CreateServerRequest $request)
     {
         $prefix = 'jexactyl::store:limit:';
-        $types = array('cpu', 'memory', 'disk', 'slot', 'port', 'backup', 'database');
+        $types = ['cpu', 'memory', 'disk', 'slot', 'port', 'backup', 'database'];
 
         foreach ($types as $type) {
             $suffix = '';
             $limit = $this->settings->get($prefix . $type);
 
-            if (in_array($type, array('slot', 'port', 'backup', 'database'))) {
+            if (in_array($type, ['slot', 'port', 'backup', 'database'])) {
                 $suffix = 's';
-            };
+            }
 
             $amount = $request->input($type .= $suffix);
 
             if ($limit < $amount) {
-                throw new DisplayException('You cannot deploy with ' . $amount .  ' ' . $type . ', as an admin has set a limit of ' . $limit);
-            };
-        };
+                throw new DisplayException('You cannot deploy with ' . $amount . ' ' . $type . ', as an admin has set a limit of ' . $limit);
+            }
+        }
     }
 }
