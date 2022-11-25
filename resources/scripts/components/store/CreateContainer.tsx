@@ -50,10 +50,12 @@ interface CreateValues {
 }
 
 export default () => {
-    const user = useStoreState((state) => state.user.data!);
-    const { clearFlashes, clearAndAddHttpError } = useFlash();
     const [loading, setLoading] = useState(false);
     const [resources, setResources] = useState<Resources>();
+
+    const user = useStoreState((state) => state.user.data!);
+    const { clearFlashes, clearAndAddHttpError } = useFlash();
+
     const [egg, setEgg] = useState<number>(0);
     const [eggs, setEggs] = useState<Egg[]>();
     const [nest, setNest] = useState<number>(0);
@@ -201,7 +203,7 @@ export default () => {
                         <TitledGreyBox title={'Server CPU limit'} icon={faMicrochip} className={'mt-8 sm:mt-0'}>
                             <Field name={'cpu'} />
                             <p className={'mt-1 text-xs'}>Assign a limit for usable CPU.</p>
-                            <p className={'mt-1 text-xs text-gray-400'}>{resources.cpu}% available</p>
+                            <p className={'mt-1 text-xs text-gray-400'}>{resources.cpu}% in account</p>
                         </TitledGreyBox>
                         <TitledGreyBox title={'Server RAM limit'} icon={faMemory} className={'mt-8 sm:mt-0'}>
                             <div className={'relative'}>

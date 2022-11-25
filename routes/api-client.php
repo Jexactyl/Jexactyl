@@ -71,6 +71,7 @@ Route::group([
     'prefix' => '/store',
 ], function () {
     Route::get('/', [Client\Store\ResourceController::class, 'user'])->name('api:client:store.user');
+    Route::get('/costs', [Client\Store\ResourceController::class, 'costs'])->name('api:client:store.costs');
     Route::get('/nodes', [Client\Store\ServerController::class, 'nodes'])->name('api:client:store.nests');
     Route::get('/nests', [Client\Store\ServerController::class, 'nests'])->name('api:client:store.nests');
 

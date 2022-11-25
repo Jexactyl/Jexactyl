@@ -2,12 +2,13 @@ import tw from 'twin.macro';
 import { breakpoint } from '@/theme';
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
 import styled from 'styled-components/macro';
-import { useStoreState } from '@/state/hooks';
+import React, { useState, useEffect } from 'react';
+import Spinner from '@/components/elements/Spinner';
 import { Button } from '@/components/elements/button';
 import { Dialog } from '@/components/elements/dialog';
+import { getCosts, Costs } from '@/api/store/getCosts';
 import purchaseResource from '@/api/store/purchaseResource';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
@@ -32,9 +33,13 @@ const Container = styled.div`
 
 export default () => {
     const [open, setOpen] = useState(false);
+    const [costs, setCosts] = useState<Costs>();
     const [resource, setResource] = useState('');
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
-    const cost = useStoreState((state) => state.storefront.data!.cost);
+
+    useEffect(() => {
+        getCosts().then((costs) => setCosts(costs));
+    }, []);
 
     const purchase = (resource: string) => {
         clearFlashes('store:resources');
@@ -51,6 +56,8 @@ export default () => {
             .catch((error) => clearAndAddHttpError({ key: 'store:resources', error }));
     };
 
+    if (!costs) return <Spinner size={'large'} centered />;
+
     return (
         <PageContentBlock title={'Store Products'} showFlashKey={'store:resources'}>
             <SpinnerOverlay size={'large'} visible={open} />
@@ -61,8 +68,8 @@ export default () => {
                 confirm={'Continue'}
                 onConfirmed={() => purchase(resource)}
             >
-                Are you sure you want to purchase more {resource}? This will take credits from your account and add the
-                resource. This is not a reversible transaction.
+                Are you sure you want to purchase this resource ({resource})? This will take the credits from your
+                account and add the resource. This is not a reversible transaction.
             </Dialog.Confirm>
             <div className={'my-10'}>
                 <Link to={'/store'}>
@@ -79,7 +86,7 @@ export default () => {
                     type={'CPU'}
                     amount={50}
                     suffix={'%'}
-                    cost={cost.cpu}
+                    cost={costs.cpu}
                     setOpen={setOpen}
                     icon={<Icon.Cpu />}
                     setResource={setResource}
@@ -89,7 +96,7 @@ export default () => {
                     type={'Memory'}
                     amount={1}
                     suffix={'GB'}
-                    cost={cost.memory}
+                    cost={costs.memory}
                     setOpen={setOpen}
                     icon={<Icon.PieChart />}
                     setResource={setResource}
@@ -99,7 +106,7 @@ export default () => {
                     type={'Disk'}
                     amount={1}
                     suffix={'GB'}
-                    cost={cost.disk}
+                    cost={costs.disk}
                     setOpen={setOpen}
                     icon={<Icon.HardDrive />}
                     setResource={setResource}
@@ -108,7 +115,7 @@ export default () => {
                 <PurchaseBox
                     type={'Slots'}
                     amount={1}
-                    cost={cost.slot}
+                    cost={costs.slots}
                     setOpen={setOpen}
                     icon={<Icon.Server />}
                     setResource={setResource}
@@ -119,7 +126,7 @@ export default () => {
                 <PurchaseBox
                     type={'Ports'}
                     amount={1}
-                    cost={cost.port}
+                    cost={costs.ports}
                     setOpen={setOpen}
                     icon={<Icon.Share2 />}
                     setResource={setResource}
@@ -128,7 +135,7 @@ export default () => {
                 <PurchaseBox
                     type={'Backups'}
                     amount={1}
-                    cost={cost.backup}
+                    cost={costs.backups}
                     setOpen={setOpen}
                     icon={<Icon.Archive />}
                     setResource={setResource}
@@ -137,7 +144,7 @@ export default () => {
                 <PurchaseBox
                     type={'Databases'}
                     amount={1}
-                    cost={cost.database}
+                    cost={costs.databases}
                     setOpen={setOpen}
                     icon={<Icon.Database />}
                     setResource={setResource}

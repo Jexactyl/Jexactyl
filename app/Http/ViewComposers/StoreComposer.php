@@ -22,10 +22,12 @@ class StoreComposer extends Composer
         $view->with('storeConfiguration', [
             'enabled' => $this->setting('store:enabled', Composer::TYPE_BOOL),
             'currency' => $this->setting('store:currency', Composer::TYPE_STR),
+
             'gateways' => [
                 'paypal' => $this->setting('store:paypal:enabled', Composer::TYPE_BOOL),
                 'stripe' => $this->setting('store:stripe:enabled', Composer::TYPE_BOOL),
             ],
+
             'renewals' => [
                 'enabled' => $this->setting('renewal:enabled', Composer::TYPE_BOOL),
                 'cost' => $this->setting('renewal:cost', Composer::TYPE_INT),
@@ -44,16 +46,6 @@ class StoreComposer extends Composer
             'earn' => [
                 'enabled' => $this->setting('earn:enabled', Composer::TYPE_BOOL),
                 'amount' => $this->setting('earn:amount', Composer::TYPE_INT),
-            ],
-
-            'cost' => [
-                'cpu' => $this->setting('store:cost:cpu', Composer::TYPE_INT),
-                'memory' => $this->setting('store:cost:memory', Composer::TYPE_INT),
-                'disk' => $this->setting('store:cost:disk', Composer::TYPE_INT),
-                'slot' => $this->setting('store:cost:slot', Composer::TYPE_INT),
-                'port' => $this->setting('store:cost:port', Composer::TYPE_INT),
-                'backup' => $this->setting('store:cost:backup', Composer::TYPE_INT),
-                'database' => $this->setting('store:cost:database', Composer::TYPE_INT),
             ],
         ]);
     }
