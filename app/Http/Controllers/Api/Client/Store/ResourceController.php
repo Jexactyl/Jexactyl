@@ -68,7 +68,7 @@ class ResourceController extends ClientApiController
         }
 
         try {
-            $request->user()->update(['store_balance' => $user->store_balance + $amount]);
+            $request->user()->update(['store_balance' => $request->user()->store_balance + $amount]);
         } catch (DisplayException $ex) {
             throw new DisplayException('Unable to passively earn coins.');
         }
