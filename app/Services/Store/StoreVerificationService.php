@@ -2,7 +2,7 @@
 
 namespace Pterodactyl\Services\Store;
 
-use Pterodactyl\Models\User;
+use Illuminate\Support\Facades\DB;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
@@ -30,7 +30,7 @@ class StoreVerificationService
         $types = ['cpu', 'memory', 'disk', 'slots', 'ports', 'backups', 'databases'];
 
         foreach ($types as $type) {
-            $value = User::find($request->user()->id)->value('store_' . $type);
+            $value = DB::table('users')->where('id', $request->user()->id)->value('store_' . $type);
 
             if ($value < $request->input($type)) {
                 throw new DisplayException('You only have' . $value . ' ' . $type . ', so you cannot deploy this server.');
