@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Services\Store;
 
-use Throwable;
 use Pterodactyl\Models\Egg;
 use Pterodactyl\Models\Nest;
 use Pterodactyl\Models\Node;
@@ -80,7 +79,9 @@ class StoreCreationService
     {
         $allocation = Allocation::where('node_id', $node)->where('server_id', null)->first();
 
-        if (!$allocation) throw new NoViableAllocationException('No allocations are available for deployment.');
+        if (!$allocation) {
+            throw new NoViableAllocationException('No allocations are available for deployment.');
+        }
 
         return $allocation->id;
     }

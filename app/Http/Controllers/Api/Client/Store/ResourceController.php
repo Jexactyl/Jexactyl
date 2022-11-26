@@ -7,8 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Services\Store\ResourcePurchaseService;
-use Pterodactyl\Transformers\Api\Client\Store\UserTransformer;
 use Pterodactyl\Transformers\Api\Client\Store\CostTransformer;
+use Pterodactyl\Transformers\Api\Client\Store\UserTransformer;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Pterodactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
 
@@ -34,20 +34,20 @@ class ResourceController extends ClientApiController
             ->toArray();
     }
 
-     /**
+    /**
      * Get the cost of resources.
      *
      * @throws DisplayException
      */
     public function costs(Request $request)
     {
-        $data = array();
+        $data = [];
         $prefix = 'jexactyl::store:cost:';
         $types = ['cpu', 'memory', 'disk', 'slot', 'port', 'backup', 'database'];
 
         foreach ($types as $type) {
             array_push($data, $this->settings->get($prefix . $type, 0));
-        };
+        }
 
         return $this->fractal->item($data)
             ->transformWith($this->getTransformer(CostTransformer::class))

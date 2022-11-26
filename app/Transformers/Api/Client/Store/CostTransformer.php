@@ -23,7 +23,7 @@ class CostTransformer extends BaseClientTransformer
         return [
             'cpu' => $model[0],
             'memory' => $model[1],
-            'disk' =>  $model[2],
+            'disk' => $model[2],
             'slots' => $model[3],
             'ports' => $model[4],
             'backups' => $model[5],
