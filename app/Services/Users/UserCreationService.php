@@ -5,6 +5,7 @@ namespace Pterodactyl\Services\Users;
 use Ramsey\Uuid\Uuid;
 use Pterodactyl\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Hashing\Hasher;
 use Pterodactyl\Notifications\VerifyEmail;
 use Illuminate\Database\ConnectionInterface;
