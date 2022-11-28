@@ -46,7 +46,7 @@ export default () => {
             .catch((error) =>
                 addFlash({
                     key: 'account:password',
-                    type: 'error',
+                    type: 'danger',
                     title: 'Error',
                     message: httpErrorToHuman(error),
                 })

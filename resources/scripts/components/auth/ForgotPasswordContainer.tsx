@@ -38,7 +38,7 @@ export default () => {
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
             });
 
             return;
@@ -51,7 +51,7 @@ export default () => {
             })
             .catch((error) => {
                 console.error(error);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
             })
             .then(() => {
                 setToken('');

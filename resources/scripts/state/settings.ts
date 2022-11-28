@@ -2,18 +2,26 @@ import { action, Action } from 'easy-peasy';
 
 export interface SiteSettings {
     name: string;
+    logo: string;
     locale: string;
+
+    approvals: boolean;
+    databases: boolean;
+
+    alert: {
+        type: 'success' | 'info' | 'warning' | 'danger';
+        message: string;
+    };
+
     recaptcha: {
         enabled: boolean;
         siteKey: string;
     };
-    logo: string;
+
     registration: {
         email: boolean;
         discord: boolean;
     };
-    approvals: boolean;
-    databases: boolean;
 }
 
 export interface SettingsStore {

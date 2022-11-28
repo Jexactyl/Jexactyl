@@ -33,6 +33,11 @@ class SettingComposer extends Composer
                 'siteKey' => config('recaptcha.website_key') ?? '',
             ],
 
+            'alert' => [
+                'type' => $this->setting('alert:type', Composer::TYPE_STR),
+                'message' => $this->setting('alert:message', Composer::TYPE_STR),
+            ],
+
             'registration' => [
                 'email' => $this->setting('registration:enabled', Composer::TYPE_BOOL),
                 'discord' => $this->setting('discord:enabled', Composer::TYPE_BOOL),

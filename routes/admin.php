@@ -2,46 +2,70 @@
 
 use Illuminate\Support\Facades\Route;
 use Pterodactyl\Http\Controllers\Admin;
+use Pterodactyl\Http\Controllers\Admin\Jexactyl;
 use Pterodactyl\Http\Middleware\Admin\Servers\ServerInstalled;
 
 /*
 |--------------------------------------------------------------------------
-| Jexactyl Controller Routes
+| Admin Controller Routes
 |--------------------------------------------------------------------------
 |
-| Endpoint: /admin/jexactyl
+| Endpoint: /admin
 |
 */
 Route::group(['prefix' => '/'], function () {
-    Route::get('/', [Admin\Jexactyl\IndexController::class, 'index'])->name('admin.index');
-    Route::get('/mail', [Admin\Jexactyl\MailController::class, 'index'])->name('admin.jexactyl.mail');
-    Route::get('/store', [Admin\Jexactyl\StoreController::class, 'index'])->name('admin.jexactyl.store');
-    Route::get('/server', [Admin\Jexactyl\ServerController::class, 'index'])->name('admin.jexactyl.server');
-    Route::get('/appearance', [Admin\Jexactyl\AppearanceController::class, 'index'])->name('admin.jexactyl.appearance');
-    Route::get('/advanced', [Admin\Jexactyl\AdvancedController::class, 'index'])->name('admin.jexactyl.advanced');
-    Route::get('/discord', [Admin\Jexactyl\RegistrationController::class, 'index'])->name('admin.jexactyl.discord');
-    Route::get('/referrals', [Admin\Jexactyl\ReferralsController::class, 'index'])->name('admin.jexactyl.referrals');
-    Route::get('/registration', [Admin\Jexactyl\RegistrationController::class, 'index'])->name('admin.jexactyl.registration');
+    Route::get('/', [Jexactyl\IndexController::class, 'index'])->name('admin.index');
 
-    Route::group(['prefix' => '/approvals'], function () {
-        Route::get('/', [Admin\Jexactyl\ApprovalsController::class, 'index'])->name('admin.jexactyl.approvals');
-
-        Route::patch('/', [Admin\Jexactyl\ApprovalsController::class, 'update'])->name('admin.jexactyl.approvals');
-        Route::post('/deny/{id}', [Admin\Jexactyl\ApprovalsController::class, 'deny'])->name('admin.jexactyl.approvals.deny');
-        Route::post('/approve/all', [Admin\Jexactyl\ApprovalsController::class, 'approveAll'])->name('admin.jexactyl.approvals.all');
-        Route::post('/approve/{id}', [Admin\Jexactyl\ApprovalsController::class, 'approve'])->name('admin.jexactyl.approvals.approve');
+    Route::group(['prefix' => '/appearance'], function () {
+        Route::get('/', [Jexactyl\AppearanceController::class, 'index']);
+        Route::patch('/', [Jexactyl\AppearanceController::class, 'update'])->name('admin.jexactyl.appearance');
     });
 
-    Route::post('/mail/test', [Admin\Jexactyl\MailController::class, 'test'])->name('admin.jexactyl.mail.test');
+    Route::group(['prefix' => '/mail'], function () {
+        Route::get('/', [Jexactyl\MailController::class, 'index']);
+        Route::patch('/', [Jexactyl\MailController::class, 'update'])->name('admin.jexactyl.mail');
+        Route::post('/test', [Jexactyl\MailController::class, 'test'])->name('admin.jexactyl.mail.test');
+    });
 
-    Route::patch('/mail', [Admin\Jexactyl\MailController::class, 'update'])->name('admin.jexactyl.mail');
-    Route::patch('/store', [Admin\Jexactyl\StoreController::class, 'update'])->name('admin.jexactyl.store');
-    Route::patch('/server', [Admin\Jexactyl\ServerController::class, 'update'])->name('admin.jexactyl.server');
-    Route::patch('/advanced', [Admin\Jexactyl\AdvancedController::class, 'update'])->name('admin.jexactyl.advanced');
-    Route::patch('/discord', [Admin\Jexactyl\RegistrationController::class, 'update'])->name('admin.jexactyl.discord');
-    Route::patch('/referrals', [Admin\Jexactyl\ReferralsController::class, 'update'])->name('admin.jexactyl.referrals');
-    Route::patch('/appearance', [Admin\Jexactyl\AppearanceController::class, 'update'])->name('admin.jexactyl.appearance');
-    Route::patch('/registration', [Admin\Jexactyl\RegistrationController::class, 'update'])->name('admin.jexactyl.registration');
+    Route::group(['prefix' => '/advanced'], function () {
+        Route::get('/', [Jexactyl\AdvancedController::class, 'index']);
+        Route::patch('/', [Jexactyl\AdvancedController::class, 'update'])->name('admin.jexactyl.advanced');
+    });
+
+    Route::group(['prefix' => '/store'], function () {
+        Route::get('/', [Jexactyl\StoreController::class, 'index']);
+        Route::patch('/', [Jexactyl\StoreController::class, 'update'])->name('admin.jexactyl.store');
+    });
+
+    Route::group(['prefix' => '/registration'], function () {
+        Route::get('/', [Jexactyl\RegistrationController::class, 'index']);
+        Route::patch('/', [Jexactyl\RegistrationController::class, 'update'])->name('admin.jexactyl.registration');
+    });
+
+    Route::group(['prefix' => '/approvals'], function () {
+        Route::get('/', [Jexactyl\ApprovalsController::class, 'index']);
+
+        Route::post('/deny/{id}', [Jexactyl\ApprovalsController::class, 'deny'])->name('admin.jexactyl.approvals.deny');
+        Route::post('/approve/all', [Jexactyl\ApprovalsController::class, 'approveAll'])->name('admin.jexactyl.approvals.all');
+        Route::post('/approve/{id}', [Jexactyl\ApprovalsController::class, 'approve'])->name('admin.jexactyl.approvals.approve');
+        Route::patch('/', [Jexactyl\ApprovalsController::class, 'update'])->name('admin.jexactyl.approvals');
+    });
+
+    Route::group(['prefix' => '/server'], function () {
+        Route::get('/', [Jexactyl\ServerController::class, 'index']);
+        Route::patch('/', [Jexactyl\ServerController::class, 'update'])->name('admin.jexactyl.server');
+    });
+
+    Route::group(['prefix' => '/referrals'], function () {
+        Route::get('/', [Jexactyl\ReferralsController::class, 'index']);
+        Route::patch('/', [Jexactyl\ReferralsController::class, 'update'])->name('admin.jexactyl.referrals');
+    });
+
+    Route::group(['prefix' => '/alerts'], function () {
+        Route::get('/', [Jexactyl\AlertsController::class, 'index']);
+        Route::patch('/', [Jexactyl\AlertsController::class, 'update'])->name('admin.jexactyl.alerts');
+        Route::post('/remove', [Jexactyl\AlertsController::class, 'remove'])->name('admin.jexactyl.alerts.remove');
+    });
 });
 
 /*

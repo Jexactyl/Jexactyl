@@ -38,7 +38,7 @@ export default () => {
             <h1 className={'j-left text-5xl'}>Account Overview</h1>
             <h3 className={'j-left text-2xl text-neutral-500'}>View and update account details.</h3>
             {state?.twoFactorRedirect && (
-                <Alert type={'error'}>
+                <Alert type={'danger'}>
                     Your account must have two-factor authentication enabled in order to continue.
                 </Alert>
             )}

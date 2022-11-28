@@ -1,5 +1,7 @@
 import tw from 'twin.macro';
 import React, { useEffect } from 'react';
+import { useStoreState } from '@/state/hooks';
+import { Alert } from '@/components/elements/alert';
 import { CSSTransition } from 'react-transition-group';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import ContentContainer from '@/components/elements/ContentContainer';
@@ -11,6 +13,8 @@ export interface PageContentBlockProps {
 }
 
 const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey, className, children }) => {
+    const alert = useStoreState((state) => state.settings.data!.alert);
+
     useEffect(() => {
         if (title) {
             document.title = title;
@@ -21,6 +25,11 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey
         <CSSTransition timeout={150} classNames={'fade'} appear in>
             <div css={tw`my-4`}>
                 <ContentContainer className={className}>
+                    {alert.message && (
+                        <Alert type={alert.type} className={'mb-4'}>
+                            {alert.message}
+                        </Alert>
+                    )}
                     {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
                     {children}
                 </ContentContainer>

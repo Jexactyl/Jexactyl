@@ -9,7 +9,7 @@ interface ErrorProps {
 
 export default ({ message, admin }: ErrorProps) => (
     <PageContentBlock>
-        <Alert type={'error'}>{message}</Alert>
+        <Alert type={'danger'}>{message}</Alert>
         <Alert type={'warning'} className={'mt-2'}>
             (Admin Message) {admin}
         </Alert>

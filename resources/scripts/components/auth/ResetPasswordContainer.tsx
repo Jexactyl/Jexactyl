@@ -39,7 +39,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
             });
     };
 

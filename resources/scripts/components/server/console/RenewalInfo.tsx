@@ -37,7 +37,7 @@ export default () => {
                 console.log(httpErrorToHuman(error));
                 addFlash({
                     key: 'console:share',
-                    type: 'error',
+                    type: 'danger',
                     message: 'Unable to renew your server. Are you sure you have enough credits?',
                 });
             });
