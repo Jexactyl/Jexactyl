@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('cr_amount');
             $table->dateTime('expires')->nullable();
             $table->boolean('expired')->default(false);
+            $table->timestamps();
         });
     }
 

@@ -5,7 +5,6 @@ namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use Pterodactyl\Models\Coupon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Exceptions\DisplayException;
@@ -26,7 +25,7 @@ class CouponsController extends Controller
     {
         return view('admin.jexactyl.coupons', [
             'enabled' => $this->settings->get('jexactyl::coupons:enabled'),
-            'coupons' => DB::table('coupons')->get()
+            'coupons' => Coupon::query()->get(),
         ]);
     }
 
@@ -65,6 +64,7 @@ class CouponsController extends Controller
 
         Coupon::query()->insert([
             'expires' => $expires_at,
+            'created_at' => Carbon::now(),
             'code' => $request->input('code'),
             'uses' => $request->input('uses'),
             'cr_amount' => $request->input('credits'),

@@ -94,7 +94,7 @@
                             <th>ID</th>
                             <th>Code</th>
                             <th>Credits</th>
-                            <th>Uses</th>
+                            <th>Uses Remaining</th>
                             <th>Expires At</th>
                             <th>Expired</th>
                         </tr>
