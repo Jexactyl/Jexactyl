@@ -66,6 +66,12 @@ Route::group(['prefix' => '/'], function () {
         Route::patch('/', [Jexactyl\AlertsController::class, 'update'])->name('admin.jexactyl.alerts');
         Route::post('/remove', [Jexactyl\AlertsController::class, 'remove'])->name('admin.jexactyl.alerts.remove');
     });
+
+    Route::group(['prefix' => '/coupons'], function () {
+        Route::get('/', [Jexactyl\CouponsController::class, 'index']);
+        Route::patch('/', [Jexactyl\CouponsController::class, 'update'])->name('admin.jexactyl.coupons');
+        Route::post('/store', [Jexactyl\CouponsController::class, 'store'])->name('admin.jexactyl.coupons.store');
+    });
 });
 
 /*
