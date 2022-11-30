@@ -21,6 +21,7 @@ export default () => {
     const [query, setQuery] = useState('');
     const [open, setOpen] = useState(false);
     const { clearFlashes, addFlash, clearAndAddHttpError } = useFlash();
+    const [pluginId, setPluginId] = useState<number>(0);
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
 
     const { data, error } = useSWR<Plugin>([uuid, query, '/plugins'], (uuid, query) => getPlugins(uuid, query));
@@ -81,6 +82,14 @@ export default () => {
                     </div>
                 </Form>
             </Formik>
+            <Dialog.Confirm
+                open={open}
+                onClose={() => setOpen(false)}
+                title={'Plugin Installation'}
+                onConfirmed={() => doDownload(pluginId)}
+            >
+                Are you sure you wish to download this plugin?
+            </Dialog.Confirm>
             {!data ? null : (
                 <>
                     {!data.plugins ? (
@@ -93,14 +102,6 @@ export default () => {
                                 <div className={'j-up lg:grid lg:grid-cols-3 p-2'}>
                                     {data.plugins.map((plugin, key) => (
                                         <>
-                                            <Dialog.Confirm
-                                                open={open}
-                                                onClose={() => setOpen(false)}
-                                                title={'Plugin Installation'}
-                                                onConfirmed={() => doDownload(plugin.id)}
-                                            >
-                                                Are you sure you wish to download this plugin?
-                                            </Dialog.Confirm>
                                             <TitledGreyBox title={plugin.name} key={key} className={'m-2'}>
                                                 <div className={'lg:grid lg:grid-cols-5'}>
                                                     <div className={'lg:col-span-4'}>
@@ -115,7 +116,11 @@ export default () => {
                                                                 <Icon.DownloadCloud size={18} />
                                                             </Button.Text>
                                                         ) : (
-                                                            <Button className={'m-1'} onClick={() => setOpen(true)}>
+                                                            <Button className={'m-1'} onClick={() =>{
+                                                                setPluginId(plugin.id)
+                                                                setOpen(true)
+                                                            }
+                                                            }>
                                                                 <Icon.DownloadCloud size={18} />
                                                             </Button>
                                                         )}
