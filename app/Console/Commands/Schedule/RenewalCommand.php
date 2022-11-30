@@ -9,9 +9,6 @@ use Pterodactyl\Services\Servers\ServerDeletionService;
 
 class RenewalCommand extends Command
 {
-    protected SuspensionService $suspensionService;
-    protected ServerDeletionService $deletionService;
-
     /**
      * @var string
      */
@@ -26,13 +23,10 @@ class RenewalCommand extends Command
      * DeleteUserCommand constructor.
      */
     public function __construct(
-        SuspensionService $suspensionService,
-        ServerDeletionService $deletionService
+        private SuspensionService $suspensionService,
+        private ServerDeletionService $deletionService
     ) {
         parent::__construct();
-
-        $this->suspensionService = $suspensionService;
-        $this->deletionService = $deletionService;
     }
 
     /**

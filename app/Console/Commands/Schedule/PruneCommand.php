@@ -21,9 +21,8 @@ class PruneCommand extends Command
     /**
      * DeleteUserCommand constructor.
      */
-    public function __construct(
-        private ServerDeletionService $deletionService
-    ) {
+    public function __construct(private ServerDeletionService $deletionService)
+    {
         parent::__construct();
     }
 
