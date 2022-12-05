@@ -116,11 +116,13 @@ export default () => {
                                                                 <Icon.DownloadCloud size={18} />
                                                             </Button.Text>
                                                         ) : (
-                                                            <Button className={'m-1'} onClick={() =>{
-                                                                setPluginId(plugin.id)
-                                                                setOpen(true)
-                                                            }
-                                                            }>
+                                                            <Button
+                                                                className={'m-1'}
+                                                                onClick={() => {
+                                                                    setPluginId(plugin.id);
+                                                                    setOpen(true);
+                                                                }}
+                                                            >
                                                                 <Icon.DownloadCloud size={18} />
                                                             </Button>
                                                         )}
