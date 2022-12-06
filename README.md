@@ -30,6 +30,7 @@ Built on [Pterodactyl](https://pterodactyl.io), this software is designed from t
 | [**GigaNodes**](https://client.giganodes.net) | A cheap host, with many locations like Europe, United States, Asia, United Kingdom | [Discord](https://discord.gg/dSgpmZ2C) |
 | [**ShieldCore**](https://crypto-hosting.eu) | ShieldCore offer high performance servers with extreme DDoS protection! | [Website](https://crypto-hosting.eu) |
 | [**ShadowHub**](https://shadowhub.tk/) | Server hosting for Discord Bots, Minecraft servers and more. | [Discord](https://discord.gg/sXxJ7PkhC3) |
+| [**NitroNodes**](https://nitronodes.xyz) | A freemium hosting service which is online 24/7 | [Website](https://nitronodes.xyz) |
 
 ## Previews
 ![image](https://user-images.githubusercontent.com/72230943/201116518-af5e3291-74f7-433a-b035-6d80e8c7e8f8.png)
