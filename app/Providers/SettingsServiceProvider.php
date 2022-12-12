@@ -40,11 +40,11 @@ class SettingsServiceProvider extends ServiceProvider
     protected array $emailKeys = [
         'mail:mailers:smtp:host',
         'mail:mailers:smtp:port',
-        'mail:from:address',
-        'mail:from:name',
         'mail:mailers:smtp:encryption',
         'mail:mailers:smtp:username',
         'mail:mailers:smtp:password',
+        'mail:from:address',
+        'mail:from:name',
     ];
 
     /**
