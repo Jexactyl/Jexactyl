@@ -16,14 +16,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property User|null $staff
  * @property int $client_id
  * @property int|null $staff_id
- * 
  * @property string $title
  * @property string $status
  * @property string $content
- *
  * @property int|null $message_count
  * @property Collection|TicketMessage[] $messages
- * 
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */

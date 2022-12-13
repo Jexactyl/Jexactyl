@@ -14,9 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property Ticket $ticket
  * @property int $ticket_id
- * 
  * @property string $content
- *
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -42,7 +40,6 @@ class TicketMessage extends Model
      * Fields that are not mass assignable.
      */
     protected $guarded = ['id', self::CREATED_AT, self::UPDATED_AT];
-
 
     /**
      * Gets the ticket which this message has been assigned to.

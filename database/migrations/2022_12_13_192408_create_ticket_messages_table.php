@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -16,7 +15,7 @@ return new class extends Migration
         Schema::create('ticket_messages', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->increments('ticket_id');
+            $table->unsignedInteger('ticket_id');
             $table->text('content');
             $table->timestamps();
         });

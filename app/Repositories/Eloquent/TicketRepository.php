@@ -10,7 +10,7 @@ class TicketRepository extends EloquentRepository implements TicketRepositoryInt
 {
     /**
      * Return the model backing this repository.
-     * 
+     *
      * @throws ModelNotFoundException
      */
     public function model(): string

@@ -33,8 +33,6 @@ class TicketController extends ClientApiController
      */
     public function use(ClientApiRequest $request): JsonResponse
     {
-        //
-
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 }
