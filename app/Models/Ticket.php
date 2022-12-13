@@ -2,9 +2,7 @@
 
 namespace Pterodactyl\Models;
 
-use Pterodactyl\Models\User;
 use Illuminate\Support\Carbon;
-use Pterodactyl\Models\TicketMessage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;

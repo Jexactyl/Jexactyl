@@ -76,6 +76,9 @@ export default () => {
                             <Icon.ShoppingCart size={20} />
                         </NavLink>
                     )}
+                    <NavLink to={'/tickets'}>
+                        <Icon.HelpCircle size={20} />
+                    </NavLink>
                     {rootAdmin && (
                         <a href={'/admin'} rel={'noreferrer'}>
                             <Icon.Settings size={20} />

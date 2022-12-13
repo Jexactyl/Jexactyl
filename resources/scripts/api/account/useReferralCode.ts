@@ -7,7 +7,7 @@ interface Data {
 
 export default ({ code, password }: Data): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.put('/api/client/account/use-referral', {
+        http.put('/api/client/account/referrals/use-code', {
             code: code,
             password: password,
         })

@@ -2,9 +2,7 @@
 
 namespace Pterodactyl\Models;
 
-use Pterodactyl\Models\User;
 use Illuminate\Support\Carbon;
-use Pterodactyl\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

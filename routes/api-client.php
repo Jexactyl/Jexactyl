@@ -39,11 +39,17 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
     Route::get('/activity', Client\ActivityLogController::class)->name('api:client.account.activity');
     Route::get('/activity/latest', [Client\ActivityLogController::class, 'latest'])->name('api:client.account.activity');
 
-    Route::get('/referrals', [Client\ReferralsController::class, 'index']);
-    Route::get('/referrals/activity', [Client\ReferralsController::class, 'activity']);
-    Route::post('/referrals', [Client\ReferralsController::class, 'store']);
-    Route::put('/use-referral', [Client\ReferralsController::class, 'use']);
-    Route::delete('/referrals/{code}', [Client\ReferralsController::class, 'delete']);
+    Route::prefix('/referrals')->group(function () {
+        Route::get('/', [Client\ReferralsController::class, 'index']);
+        Route::get('/activity', [Client\ReferralsController::class, 'activity']);
+
+        Route::post('/', [Client\ReferralsController::class, 'store']);
+        Route::put('/use-code', [Client\ReferralsController::class, 'use']);
+
+        Route::delete('/{code}', [Client\ReferralsController::class, 'delete']);
+    });
+
+    Route::get('/tickets', [Client\TicketsController::class, 'index'])->name('api:client.account.tickets');
 
     Route::get('/discord', [Client\AccountController::class, 'discord'])->name('api:client.account.discord');
     Route::get('/discord/callback', [Client\AccountController::class, 'discordCallback'])->name('api:client.account.discord.callback');
