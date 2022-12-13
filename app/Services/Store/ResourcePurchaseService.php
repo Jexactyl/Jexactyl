@@ -2,7 +2,7 @@
 
 namespace Pterodactyl\Services\Store;
 
-use Pterodactyl\Models\User;
+use Illuminate\Support\Facades\DB;
 use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 use Pterodactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
@@ -25,16 +25,20 @@ class ResourcePurchaseService
     public function handle(PurchaseResourceRequest $request)
     {
         $user = $request->user();
+        $balance = $user->store_balance;
         $resource = $request->input('resource');
         $cost = $this->get($resource);
-        $current = User::find($user->id)->value('store_' . $resource);
+        $current = DB::table('users')
+            ->where('id', $user->id)
+            ->pluck('store_' . $resource)
+            ->first();
 
-        if ($user->store_balance < $cost) {
+        if ($balance < $cost) {
             throw new DisplayException('You do not have enough credits.');
         }
 
         $user->update([
-            'store_balance' => $user->store_balance - $cost,
+            'store_balance' => $balance - $cost,
             'store_' . $resource => $current + $this->amount($resource),
         ]);
     }
