@@ -1,6 +1,5 @@
 import * as Icon from 'react-feather';
 import { Form, Formik } from 'formik';
-import { Link } from 'react-router-dom';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from 'easy-peasy';
 import { number, object, string } from 'yup';
@@ -133,7 +132,7 @@ export default () => {
     }
 
     return (
-        <PageContentBlock title={'Create a server'} showFlashKey={'store:create'}>
+        <PageContentBlock title={'Create Server'} showFlashKey={'store:create'}>
             <Formik
                 onSubmit={submit}
                 initialValues={{
@@ -167,20 +166,6 @@ export default () => {
                 })}
             >
                 <Form>
-                    <div className={'my-10'}>
-                        <Link to={'/store'}>
-                            <Button.Text className={'w-full lg:w-1/6 m-2'}>
-                                <Icon.ArrowLeft className={'mr-1'} />
-                                Return to Storefront
-                            </Button.Text>
-                        </Link>
-                        <Link to={'/store/resources'}>
-                            <Button className={'w-full lg:w-1/6 m-2'}>
-                                <Icon.ShoppingCart className={'mr-2'} />
-                                Need more resources?
-                            </Button>
-                        </Link>
-                    </div>
                     <h1 className={'j-left text-5xl'}>Basic Details</h1>
                     <h3 className={'j-left text-2xl text-neutral-500'}>Set the basic fields for your new server.</h3>
                     <StoreContainer className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>

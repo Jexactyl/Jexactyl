@@ -4,7 +4,6 @@ import Can from '@/components/elements/Can';
 import { ServerContext } from '@/state/server';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import RenameServerBox from '@/components/server/settings/RenameServerBox';
 import DeleteServerBox from '@/components/server/settings/DeleteServerBox';
@@ -16,12 +15,11 @@ export default () => {
     const node = ServerContext.useStoreState((state) => state.server.data!.node);
 
     return (
-        <ServerContentBlock title={'Settings'}>
-            <FlashMessageRender byKey={'settings'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Settings</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>
-                Control important settings for your server.
-            </h3>
+        <ServerContentBlock
+            title={'Settings'}
+            description={'Control important settings for your server.'}
+            showFlashKey={'settings'}
+        >
             <div className={'md:flex'}>
                 <div className={'j-right w-full md:flex-1 md:mr-10'}>
                     <TitledGreyBox title={'Debug Information'} css={tw`mb-6 md:mb-10`}>

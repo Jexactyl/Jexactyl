@@ -59,7 +59,11 @@ export default () => {
     if (!costs) return <Spinner size={'large'} centered />;
 
     return (
-        <PageContentBlock title={'Store Products'} showFlashKey={'store:resources'}>
+        <PageContentBlock
+            title={'Buy Resources'}
+            description={'Buy more resources to add to your server.'}
+            showFlashKey={'store:resources'}
+        >
             <SpinnerOverlay size={'large'} visible={open} />
             <Dialog.Confirm
                 open={open}
@@ -71,16 +75,6 @@ export default () => {
                 Are you sure you want to purchase this resource ({resource})? This will take the credits from your
                 account and add the resource. This is not a reversible transaction.
             </Dialog.Confirm>
-            <div className={'my-10'}>
-                <Link to={'/store'}>
-                    <Button.Text className={'w-full lg:w-1/6 m-2'}>
-                        <Icon.ArrowLeft className={'mr-1'} />
-                        Return to Storefront
-                    </Button.Text>
-                </Link>
-            </div>
-            <h1 className={'j-left text-5xl'}>Order resources</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Buy more resources to add to your server.</h3>
             <Container className={'j-up lg:grid lg:grid-cols-4 my-10 gap-8'}>
                 <PurchaseBox
                     type={'CPU'}

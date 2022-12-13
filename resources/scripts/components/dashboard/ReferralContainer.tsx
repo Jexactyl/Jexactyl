@@ -10,7 +10,6 @@ import { Dialog } from '@/components/elements/dialog';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import ContentBox from '@/components/elements/ContentBox';
 import useFlash, { useFlashKey } from '@/plugins/useFlash';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import deleteReferralCode from '@/api/account/deleteReferralCode';
 import createReferralCode from '@/api/account/createReferralCode';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
@@ -102,10 +101,11 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Referrals'}>
-            <h1 className={'j-left text-5xl'}>Referrals</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Create a code and share it with others.</h3>
-            <FlashMessageRender byKey={'referrals'} className={'mt-2'} />
+        <PageContentBlock
+            title={'Referrals'}
+            description={'Create a code and share it with others.'}
+            showFlashKey={'referrals'}
+        >
             <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
                 <ContentBox title={'Your Referral Codes'} css={tw`sm:mt-0`}>
                     <Dialog.Confirm
