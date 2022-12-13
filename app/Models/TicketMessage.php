@@ -1,0 +1,59 @@
+<?php
+
+namespace Pterodactyl\Models;
+
+use Pterodactyl\Models\User;
+use Illuminate\Support\Carbon;
+use Pterodactyl\Models\Ticket;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * Pterodactyl\Models\TicketMessage.
+ *
+ * @property int $id
+ * @property User $user
+ * @property int $user_id
+ * @property Ticket $ticket
+ * @property int $ticket_id
+ * 
+ * @property string $content
+ *
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ */
+class TicketMessage extends Model
+{
+    use HasFactory;
+
+    /**
+     * The resource name for this model when it is transformed into an
+     * API representation using fractal.
+     */
+    public const RESOURCE_NAME = 'ticket_messages';
+
+    /**
+     * The table associated with the model.
+     */
+    protected $table = 'ticket_messages';
+
+    /**
+     * The attributes that should be mutated to dates.
+     */
+    protected $dates = [self::CREATED_AT, self::UPDATED_AT];
+
+    /**
+     * Fields that are not mass assignable.
+     */
+    protected $guarded = ['id', self::CREATED_AT, self::UPDATED_AT];
+
+
+    /**
+     * Gets the ticket which this message has been assigned to.
+     */
+    public function ticket(): BelongsTo
+    {
+        return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
+}
