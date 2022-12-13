@@ -7,7 +7,6 @@ use Illuminate\Support\Carbon;
 use Pterodactyl\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Pterodactyl\Models\TicketMessage.
@@ -25,8 +24,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class TicketMessage extends Model
 {
-    use HasFactory;
-
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.

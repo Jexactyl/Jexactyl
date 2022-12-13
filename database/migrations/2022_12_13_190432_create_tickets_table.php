@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('staff_id');
+            $table->unsignedInteger('staff_id')->nullable();
             $table->unsignedInteger('client_id');
             $table->string('title');
-            $table->text('description');
+            $table->string('status');
+            $table->text('content');
             $table->mediumInteger('message_count');
             $table->timestamps();
         });

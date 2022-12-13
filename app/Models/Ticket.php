@@ -7,21 +7,21 @@ use Illuminate\Support\Carbon;
 use Pterodactyl\Models\TicketMessage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Pterodactyl\Models\Ticket.
  *
  * @property int $id
- * @property User $staff
  * @property User $client
- * @property int $staff_id
+ * @property User|null $staff
  * @property int $client_id
+ * @property int|null $staff_id
  * 
  * @property string $title
  * @property string $status
- * @property string $description
+ * @property string $content
  *
  * @property int|null $message_count
  * @property Collection|TicketMessage[] $messages
@@ -31,8 +31,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Ticket extends Model
 {
-    use HasFactory;
-
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.
