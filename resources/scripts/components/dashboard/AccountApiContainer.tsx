@@ -1,23 +1,22 @@
 import tw from 'twin.macro';
 import { format } from 'date-fns';
 import * as Icon from 'react-feather';
+import Code from '@/components/elements/Code';
+import { useFlashKey } from '@/plugins/useFlash';
 import React, { useEffect, useState } from 'react';
+import deleteApiKey from '@/api/account/deleteApiKey';
+import { Dialog } from '@/components/elements/dialog';
 import ContentBox from '@/components/elements/ContentBox';
-import CreateApiKeyForm from '@/components/dashboard/forms/CreateApiKeyForm';
+import GreyRowBox from '@/components/elements/GreyRowBox';
 import getApiKeys, { ApiKey } from '@/api/account/getApiKeys';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
-import deleteApiKey from '@/api/account/deleteApiKey';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@/components/elements/PageContentBlock';
-import GreyRowBox from '@/components/elements/GreyRowBox';
-import { Dialog } from '@/components/elements/dialog';
-import { useFlashKey } from '@/plugins/useFlash';
-import Code from '@/components/elements/Code';
+import CreateApiKeyForm from '@/components/dashboard/forms/CreateApiKeyForm';
 
 export default () => {
-    const [deleteIdentifier, setDeleteIdentifier] = useState('');
-    const [keys, setKeys] = useState<ApiKey[]>([]);
     const [loading, setLoading] = useState(true);
+    const [keys, setKeys] = useState<ApiKey[]>([]);
+    const [deleteIdentifier, setDeleteIdentifier] = useState('');
     const { clearAndAddHttpError } = useFlashKey('account');
 
     useEffect(() => {
@@ -41,10 +40,11 @@ export default () => {
     };
 
     return (
-        <PageContentBlock title={'Account API'}>
-            <h1 className={'j-left text-5xl'}>API Keys</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Create API keys to interact with the Panel.</h3>
-            <FlashMessageRender byKey={'account'} />
+        <PageContentBlock
+            title={'Account API'}
+            description={'Create API keys to interact with the Panel.'}
+            showFlashKey={'account'}
+        >
             <div className={'j-up md:flex flex-nowrap my-10'}>
                 <ContentBox title={'Create API Key'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateApiKeyForm onKeyCreated={(key) => setKeys((s) => [...s!, key])} />

@@ -6,7 +6,6 @@ import Spinner from '@/components/elements/Spinner';
 import Pagination from '@/components/elements/Pagination';
 import BackupRow from '@/components/server/backups/BackupRow';
 import React, { useContext, useEffect, useState } from 'react';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import CreateBackupButton from '@/components/server/backups/CreateBackupButton';
 import getServerBackups, { Context as ServerBackupContext } from '@/api/swr/getServerBackups';
@@ -33,10 +32,7 @@ const BackupContainer = () => {
     }
 
     return (
-        <ServerContentBlock title={'Backups'}>
-            <FlashMessageRender byKey={'backups'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Backups</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Protect your data with backups.</h3>
+        <ServerContentBlock title={'Backups'} description={'Protect your data with backups.'} showFlashKey={'backups'}>
             <Pagination data={backups} onPageSelect={setPage}>
                 {({ items }) =>
                     !items.length ? (

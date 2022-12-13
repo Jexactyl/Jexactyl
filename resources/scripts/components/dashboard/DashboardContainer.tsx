@@ -52,7 +52,7 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Dashboard'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard' || 'store:create'}>
+        <PageContentBlock title={'Dashboard'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard'}>
             <ResourceBar className={'my-10'} titles />
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>

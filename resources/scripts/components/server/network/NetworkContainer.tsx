@@ -51,9 +51,11 @@ const NetworkContainer = () => {
     };
 
     return (
-        <ServerContentBlock showFlashKey={'server:network'} title={'Network'}>
-            <h1 className={'j-left text-5xl'}>Network</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Configure external networking and ports.</h3>
+        <ServerContentBlock
+            title={'Network'}
+            description={'Configure external networking and ports.'}
+            showFlashKey={'server:network'}
+        >
             {!data ? (
                 <Spinner size={'large'} centered />
             ) : (
