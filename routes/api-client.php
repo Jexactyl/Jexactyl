@@ -49,8 +49,6 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
         Route::delete('/{code}', [Client\ReferralsController::class, 'delete']);
     });
 
-    Route::get('/tickets', [Client\TicketsController::class, 'index'])->name('api:client.account.tickets');
-
     Route::get('/discord', [Client\AccountController::class, 'discord'])->name('api:client.account.discord');
     Route::get('/discord/callback', [Client\AccountController::class, 'discordCallback'])->name('api:client.account.discord.callback');
 
@@ -62,6 +60,11 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
         Route::get('/', [Client\SSHKeyController::class, 'index']);
         Route::post('/', [Client\SSHKeyController::class, 'store']);
         Route::post('/remove', [Client\SSHKeyController::class, 'delete']);
+    });
+
+    Route::prefix('/tickets')->group(function () {
+        Route::get('/', [Client\TicketController::class, 'index']);
+        Route::post('/', [Client\TicketController::class, 'new']);
     });
 });
 

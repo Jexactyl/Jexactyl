@@ -42,6 +42,16 @@ class TicketMessage extends Model
     protected $guarded = ['id', self::CREATED_AT, self::UPDATED_AT];
 
     /**
+     * Fields that are mass-assignable.
+     */
+    protected $fillable = [
+        'user_id',
+        'ticket_id',
+        'content'
+    ];
+
+
+    /**
      * Gets the ticket which this message has been assigned to.
      */
     public function ticket(): BelongsTo

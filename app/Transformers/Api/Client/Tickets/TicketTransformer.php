@@ -23,7 +23,7 @@ class TicketTransformer extends BaseClientTransformer
 
         return [
             'id' => $model->id,
-            'staff_email' => $staff_email,
+            'staff_email' => $staff_email ?? 'admin@example.net',
             'title' => $model->title,
             'status' => $model->status,
             'content' => $model->content,

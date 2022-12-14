@@ -58,6 +58,17 @@ class Ticket extends Model
     protected $guarded = ['id', self::CREATED_AT, self::UPDATED_AT];
 
     /**
+     * Fields that are mass-assignable.
+     */
+    protected $fillable = [
+        'client_id',
+        'staff_id',
+        'title',
+        'status',
+        'content'
+    ];
+
+    /**
      * Gets the client who made the ticket.
      */
     public function client(): BelongsTo

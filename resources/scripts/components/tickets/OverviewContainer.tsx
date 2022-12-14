@@ -3,23 +3,23 @@ import { Button } from '@/components/elements/button';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import { getTickets, Ticket } from '@/api/account/tickets';
 import PageContentBlock from '@/components/elements/PageContentBlock';
+import NewTicketDialog from '@/components/tickets/forms/NewTicketDialog';
 
 export default () => {
+    const [visible, setVisible] = useState(false);
     const [tickets, setTickets] = useState<Ticket[]>();
-
-    const doCreation = () => {
-        // @ts-expect-error this is valid
-        window.location = '/tickets/new';
-    };
 
     useEffect(() => {
         getTickets().then((d) => setTickets(d));
     }, []);
 
     return (
-        <PageContentBlock title={'Support Tickets'}>
-            <h1 className={'j-left text-5xl'}>Support Tickets</h1>
-            <h3 className={'j-left text-2xl text-neutral-500'}>Create or reply to a support ticket.</h3>
+        <PageContentBlock
+            title={'Support Tickets'}
+            description={'Create or reply to a support ticket.'}
+            showFlashKey={'tickets'}
+        >
+            <NewTicketDialog open={visible} onClose={() => setVisible(false)} />
             {!tickets ? (
                 <p className={'text-gray-400 text-center my-4'}>There are no tickets available.</p>
             ) : (
@@ -32,7 +32,7 @@ export default () => {
                 </>
             )}
             <div className={'w-full flex lg:justify-end lg:items-end'}>
-                <Button onClick={doCreation}>Create New Ticket</Button>
+                <Button onClick={() => setVisible(true)}>Create New Ticket</Button>
             </div>
         </PageContentBlock>
     );

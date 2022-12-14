@@ -14,7 +14,7 @@ return new class () extends Migration {
     {
         Schema::create('ticket_messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('ticket_id');
             $table->text('content');
             $table->timestamps();
