@@ -61,7 +61,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <i class="fa fa-list"></i>
-                    <h3 class="box-title">Approval Requests <small>Allow or deny reqursts to create accounts.</small></h3>
+                    <h3 class="box-title">Approval Requests <small>Allow or deny requests to create accounts.</small></h3>
                     <form id="massapproveform" action="{{ route('admin.jexactyl.approvals.all') }}" method="POST">
                         {!! csrf_field() !!}
                         <button id="approvalAllBtn" class="btn btn-success pull-right">Approve All</button>

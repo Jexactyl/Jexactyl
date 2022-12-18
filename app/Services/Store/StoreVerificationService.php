@@ -30,7 +30,7 @@ class StoreVerificationService
         $types = ['cpu', 'memory', 'disk', 'slots', 'ports', 'backups', 'databases'];
 
         foreach ($types as $type) {
-            $value = DB::table('users')->where('id', $request->user()->id)->value('store_' . $type);
+            $value = DB::table('users')->where('id', $request->user()->id)->pluck('store_' . $type)->first();
 
             if ($value < $request->input($type)) {
                 throw new DisplayException('You only have' . $value . ' ' . $type . ', so you cannot deploy this server.');

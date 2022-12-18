@@ -7,11 +7,7 @@ The following versions of Jexactyl are receiving active support and maintenance.
 |---------|--------------------|
 | 3.5.x   | :white_check_mark: |
 | 3.4.x   | :white_check_mark: |
-| 3.3.x   | :white_check_mark: |
-| 3.2.x   | :white_check_mark: |
-| 3.1.x   | :white_check_mark: |
-| 3.0.x   | :white_check_mark: |
-| < 3.0.x | :x: |
+| < 3.4.x | :x:                |
 
 ## Reporting a Vulnerability
 

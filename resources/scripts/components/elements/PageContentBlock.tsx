@@ -8,11 +8,18 @@ import ContentContainer from '@/components/elements/ContentContainer';
 
 export interface PageContentBlockProps {
     title?: string;
+    description?: string | null;
     className?: string;
     showFlashKey?: string;
 }
 
-const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey, className, children }) => {
+const PageContentBlock: React.FC<PageContentBlockProps> = ({
+    title,
+    description,
+    showFlashKey,
+    className,
+    children,
+}) => {
     const alert = useStoreState((state) => state.settings.data!.alert);
 
     useEffect(() => {
@@ -26,11 +33,17 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey
             <div css={tw`my-4`}>
                 <ContentContainer className={className}>
                     {alert.message && (
-                        <Alert type={alert.type} className={'mb-4'}>
+                        <Alert type={alert.type} className={'my-4'}>
                             {alert.message}
                         </Alert>
                     )}
-                    {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
+                    {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`my-4`} />}
+                    {description && (
+                        <>
+                            <h1 className={'j-left text-5xl'}>{title}</h1>
+                            <h3 className={'j-left text-2xl text-neutral-500'}>{description}</h3>
+                        </>
+                    )}
                     {children}
                 </ContentContainer>
                 <ContentContainer css={tw`text-sm text-center my-4`}>

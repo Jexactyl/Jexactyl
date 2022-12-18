@@ -25,9 +25,7 @@ const Container = styled.div`
 `;
 
 export default () => (
-    <PageContentBlock title={'Account Security'}>
-        <h1 className={'j-left text-5xl'}>Account Security</h1>
-        <h3 className={'j-left text-2xl text-neutral-500'}>Manage account logs and authentication.</h3>
+    <PageContentBlock title={'Account Security'} description={'Manage account logs and authentication.'}>
         <Container css={tw`lg:grid lg:grid-cols-3 my-10`}>
             <div css={tw`flex-none w-full col-span-1`}>
                 <ContentBox className={'j-right'} title={'Update Password'} showFlashes={'account:password'}>

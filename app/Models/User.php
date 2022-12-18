@@ -282,6 +282,11 @@ class User extends Model implements
         return $this->hasMany(ReferralCode::class);
     }
 
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'client_id');
+    }
+
     public function sshKeys(): HasMany
     {
         return $this->hasMany(UserSSHKey::class);

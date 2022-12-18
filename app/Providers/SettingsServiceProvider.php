@@ -38,13 +38,13 @@ class SettingsServiceProvider extends ServiceProvider
      * when using the SMTP driver.
      */
     protected array $emailKeys = [
-        'mail:host',
-        'mail:port',
+        'mail:mailers:smtp:host',
+        'mail:mailers:smtp:port',
+        'mail:mailers:smtp:encryption',
+        'mail:mailers:smtp:username',
+        'mail:mailers:smtp:password',
         'mail:from:address',
         'mail:from:name',
-        'mail:encryption',
-        'mail:username',
-        'mail:password',
     ];
 
     /**
@@ -52,7 +52,7 @@ class SettingsServiceProvider extends ServiceProvider
      * configuration array.
      */
     protected static array $encrypted = [
-        'mail:password',
+        'mail:mailers:smtp:password',
     ];
 
     /**

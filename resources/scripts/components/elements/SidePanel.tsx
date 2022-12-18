@@ -76,6 +76,13 @@ export default () => {
                         </Tooltip>
                     </NavLink>
                 )}
+                <NavLink to={'/tickets'} className={'navigation-link'}>
+                    <Tooltip placement={'bottom'} content={'Tickets'}>
+                        <div className={'bg-gray-700 rounded-lg p-2 my-8'}>
+                            <Icon.HelpCircle size={32} />
+                        </div>
+                    </Tooltip>
+                </NavLink>
                 {rootAdmin && (
                     <a href={'/admin'} className={'navigation-link'}>
                         <Tooltip placement={'bottom'} content={'Admin'}>

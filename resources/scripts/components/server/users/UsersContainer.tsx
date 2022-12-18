@@ -6,7 +6,6 @@ import { ServerContext } from '@/state/server';
 import React, { useEffect, useState } from 'react';
 import Spinner from '@/components/elements/Spinner';
 import UserRow from '@/components/server/users/UserRow';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import getServerSubusers from '@/api/server/users/getServerSubusers';
 import AddSubuserButton from '@/components/server/users/AddSubuserButton';
@@ -48,10 +47,11 @@ export default () => {
     }
 
     return (
-        <ServerContentBlock title={'Users'}>
-            <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
-            <h1 className={'j-left text-5xl'}>Subusers</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500 mb-10'}>Add or remove users from your server.</h3>
+        <ServerContentBlock
+            title={'Users'}
+            description={'Add and remove users from your server.'}
+            showFlashKey={'users'}
+        >
             {!subusers.length ? (
                 <p css={tw`text-center text-sm text-neutral-300`}>It looks like you don&apos;t have any subusers.</p>
             ) : (

@@ -7,7 +7,6 @@ import Spinner from '@/components/elements/Spinner';
 import { Alert } from '@/components/elements/alert';
 import Console from '@/components/server/console/Console';
 import StatGraphs from '@/components/server/console/StatGraphs';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import PowerButtons from '@/components/server/console/PowerButtons';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
@@ -24,7 +23,7 @@ const ServerConsoleContainer = () => {
     const isNodeUnderMaintenance = ServerContext.useStoreState((state) => state.server.data!.isNodeUnderMaintenance);
 
     return (
-        <ServerContentBlock title={'Console'}>
+        <ServerContentBlock title={'Console'} showFlashKey={'console:share'}>
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isNodeUnderMaintenance
@@ -34,7 +33,6 @@ const ServerConsoleContainer = () => {
                         : 'This server is currently being transferred to another node and all actions are unavailable.'}
                 </Alert>
             )}
-            <FlashMessageRender byKey={'console:share'} className={'mb-2'} />
             <div className={'grid grid-cols-4 gap-4 mb-4'}>
                 <div className={'j-left hidden sm:block sm:col-span-2 lg:col-span-3 pr-4'}>
                     <h1 className={'font-header text-2xl text-gray-50 leading-relaxed line-clamp-1'}>{name}</h1>
