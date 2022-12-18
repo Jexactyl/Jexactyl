@@ -24,8 +24,10 @@ Built on [Pterodactyl](https://pterodactyl.io), this software is designed from t
 | Company | About | Sponsor |
 | ------- | ----- | ------- |
 | [**HostEZ**](https://hostez.io) | Providing North America Valheim, Minecraft and other popular games with low latency, high uptime and maximum availability. EZ! | [Website](https://hostez.io) |
-| [**Nero Nodes**](https://neronodes.net) | A Minecraft server provider that's completely free, 24/7. | [GitHub](https://github.com/lucatolton) |
+| [**Nero Nodes**](https://neronodes.net) | A Minecraft server provider that's completely free, 24/7. | [GitHub](https://github.com/nero-nodes) |
 | [**Lightbulb Host**](https://lightbulb.host) | A Discord bot host that offers free hosting, 24/7. | [Discord](https://discord.wumpus.host) |
+| [**ShadowHub Hosting**](https://shadowhub.tk) | Free discord bot & web server Hosting, with cheap VPS. | [Discord](https://discord.gg/sXxJ7PkhC3) |
+
 
 ## Previews
 ![image](https://user-images.githubusercontent.com/72230943/201116518-af5e3291-74f7-433a-b035-6d80e8c7e8f8.png)
