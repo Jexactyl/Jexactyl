@@ -65,7 +65,7 @@ class Ticket extends Model
         'staff_id',
         'title',
         'status',
-        'content'
+        'content',
     ];
 
     /**

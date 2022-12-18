@@ -284,7 +284,7 @@ class User extends Model implements
 
     public function tickets(): HasMany
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'client_id');
     }
 
     public function sshKeys(): HasMany

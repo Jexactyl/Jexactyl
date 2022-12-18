@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import TransitionRouter from '@/TransitionRouter';
 import SidePanel from '@/components/elements/SidePanel';
 import { NotFound } from '@/components/elements/ScreenBlock';
+import ViewContainer from '@/components/tickets/ViewContainer';
 import useWindowDimensions from '@/plugins/useWindowDimensions';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import MobileNavigation from '@/components/elements/MobileNavigation';
@@ -20,6 +21,9 @@ export default () => {
                 <Switch location={location}>
                     <Route path={match.path} exact>
                         <OverviewContainer />
+                    </Route>
+                    <Route path={`${match.path}/:id`} exact>
+                        <ViewContainer />
                     </Route>
                     <Route path={'*'}>
                         <NotFound />

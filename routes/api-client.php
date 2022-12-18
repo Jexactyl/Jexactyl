@@ -64,7 +64,12 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
 
     Route::prefix('/tickets')->group(function () {
         Route::get('/', [Client\TicketController::class, 'index']);
+        Route::get('/{id}', [Client\TicketController::class, 'view']);
+        Route::get('/{id}/messages', [Client\TicketController::class, 'viewMessages']);
+
         Route::post('/', [Client\TicketController::class, 'new']);
+        Route::post('/{id}/status', [Client\TicketController::class, 'status']);
+        Route::post('/{id}/messages', [Client\TicketController::class, 'newMessage']);
     });
 });
 

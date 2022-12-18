@@ -47,9 +47,8 @@ class TicketMessage extends Model
     protected $fillable = [
         'user_id',
         'ticket_id',
-        'content'
+        'content',
     ];
-
 
     /**
      * Gets the ticket which this message has been assigned to.
