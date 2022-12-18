@@ -58,19 +58,20 @@ class TicketController extends ClientApiController
     public function new(ClientApiRequest $request): JsonResponse
     {
         $user = $request->user()->id;
-        $ticket = $request->user()->tickets();
+        $title = $request->input('title');
+        $description = $request->input('description');
 
-        $model = $ticket->create([
-            'client_id' => $request->user()->id,
-            'title' => $request->input('title'),
+        $model = Ticket::create([
+            'client_id' => $user,
+            'title' => $title,
             'status' => Ticket::STATUS_PENDING,
-            'content' => $request->input('description'),
+            'content' => $description,
         ]);
 
-        $ticket->messages()->create([
+        TicketMessage::create([
             'user_id' => $user,
             'ticket_id' => $model->id,
-            'content' => $request->input('description'),
+            'content' => $description,
         ]);
 
         return new JsonResponse(['id' => $model->id]);
@@ -96,13 +97,14 @@ class TicketController extends ClientApiController
     }
 
     /**
-     * Updates the status of an existing ticket.
+     * Closes a ticket and deletes the associated messages.
      *
      * @throws DisplayException
      */
-    public function status(ClientApiRequest $request, int $id): JsonResponse
+    public function close(ClientApiRequest $request, int $id): JsonResponse
     {
-        Ticket::findOrFail($id)->update(['status' => $request->input('status')]);
+        Ticket::findOrFail($id)->delete();
+        TicketMessage::where('ticket_id', $id)->delete();
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }

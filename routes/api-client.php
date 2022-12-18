@@ -68,8 +68,9 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
         Route::get('/{id}/messages', [Client\TicketController::class, 'viewMessages']);
 
         Route::post('/', [Client\TicketController::class, 'new']);
-        Route::post('/{id}/status', [Client\TicketController::class, 'status']);
         Route::post('/{id}/messages', [Client\TicketController::class, 'newMessage']);
+
+        Route::delete('/{id}', [Client\TicketController::class, 'close']);
     });
 });
 

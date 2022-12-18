@@ -38,6 +38,8 @@ export const rawDataToTicketMessage = (data: any): TicketMessage => ({
     updatedAt: data.updated_at ? new Date(data.updated_at) : null,
 });
 
+// API actions for ticket handling.
+
 export const getTickets = (): Promise<Ticket[]> => {
     return new Promise((resolve, reject) => {
         http.get('/api/client/account/tickets')
@@ -46,13 +48,6 @@ export const getTickets = (): Promise<Ticket[]> => {
     });
 };
 
-export const getMessages = (id: number): Promise<TicketMessage[]> => {
-    return new Promise((resolve, reject) => {
-        http.get(`/api/client/account/tickets/${id}/messages`)
-            .then(({ data }) => resolve((data.data || []).map((d: any) => rawDataToTicketMessage(d.attributes))))
-            .catch(reject);
-    });
-};
 export const getTicket = (id: number): Promise<Ticket> => {
     return new Promise((resolve, reject) => {
         http.get(`/api/client/account/tickets/${id}`)
@@ -61,9 +56,9 @@ export const getTicket = (id: number): Promise<Ticket> => {
     });
 };
 
-export const updateTicketStatus = (id: number, status: TicketStatus): Promise<void> => {
+export const deleteTicket = (id: number): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.post(`/api/client/account/tickets/${id}/status`, { status })
+        http.delete(`/api/client/account/tickets/${id}`)
             .then((data) => resolve(data.data))
             .catch(reject);
     });
@@ -77,10 +72,20 @@ export const createTicket = (title: string, description: string): Promise<string
     });
 };
 
+// API actions for ticket messages.
+
 export const createMessage = (id: number, description: string): Promise<void> => {
     return new Promise((resolve, reject) => {
         http.post(`/api/client/account/tickets/${id}/messages`, { description })
             .then((data) => resolve(data.data))
+            .catch(reject);
+    });
+};
+
+export const getMessages = (id: number): Promise<TicketMessage[]> => {
+    return new Promise((resolve, reject) => {
+        http.get(`/api/client/account/tickets/${id}/messages`)
+            .then(({ data }) => resolve((data.data || []).map((d: any) => rawDataToTicketMessage(d.attributes))))
             .catch(reject);
     });
 };
