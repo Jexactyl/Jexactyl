@@ -70,6 +70,18 @@ Route::group(['prefix' => '/'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Ticket Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /admin/tickets
+|
+*/
+Route::group(['prefix' => 'tickets'], function () {
+    Route::get('/', [Admin\TicketsController::class, 'index'])->name('admin.tickets.index');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Location Controller Routes
 |--------------------------------------------------------------------------
 |
