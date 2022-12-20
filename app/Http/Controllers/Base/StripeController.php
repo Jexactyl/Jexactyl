@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Http\Controllers\Base;
 
-use Exception;
 use Stripe\Stripe;
 use Stripe\Webhook;
 use Illuminate\Http\Request;
@@ -27,7 +26,7 @@ class StripeController extends Controller
                 'checkout.session.completed' => $this->completed($data),
                 default => 'Ignored - Unhandled Event'
             };
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $msg = "Failed - {$e}";
         }
 

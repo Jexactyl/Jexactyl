@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Http\Controllers\Auth;
 
-use Exception;
 use Illuminate\Http\Request;
 use Pterodactyl\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -103,7 +102,7 @@ class DiscordController extends Controller
 
             try {
                 $this->creationService->handle($data);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return;
             }
 
