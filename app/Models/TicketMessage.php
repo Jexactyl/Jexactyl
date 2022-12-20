@@ -57,4 +57,12 @@ class TicketMessage extends Model
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');
     }
+
+    /**
+     * Gets the user associated with this ticket.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
 }

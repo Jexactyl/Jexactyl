@@ -8,7 +8,7 @@
     <h1>Tickets<small>View all of the tickets on the system.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Ticekts</li>
+        <li class="active">Tickets</li>
     </ol>
 @endsection
 
@@ -31,15 +31,15 @@
                         </tr>
                         @foreach ($tickets as $ticket)
                             <tr data-ticket="{{ $ticket->id }}">
-                                <td><a href="{{ route('admin.tickets.index', $ticket->id) }}">{{ $ticket->id }}</a></td>
+                                <td><a href="{{ route('admin.tickets.view', $ticket->id) }}">{{ $ticket->id }}</a></td>
                                 <td><a href="{{ route('admin.users.view', $ticket->client_id) }}">{{ $ticket->user->email }}</a></td>
                                 <td><code title="{{ $ticket->title }}">{{ $ticket->title }}</code></td>
                                 <td>{{ $ticket->created_at->diffForHumans() }}</td>
                                 <td class="text-center">
                                     @if($ticket->status == 'pending')
-                                        <span class="label bg-black">Pending</span>
+                                        <span class="label label-warning">Pending</span>
                                     @elseif($ticket->status == 'in-progress')
-                                        <span class="label label-warning">In Progress</span>
+                                        <span class="label label-primary">In Progress</span>
                                     @elseif($ticket->status == 'unresolved')
                                         <span class="label label-danger">Unresolved</span>
                                     @else

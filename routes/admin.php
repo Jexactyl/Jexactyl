@@ -78,6 +78,10 @@ Route::group(['prefix' => '/'], function () {
 */
 Route::group(['prefix' => 'tickets'], function () {
     Route::get('/', [Admin\TicketsController::class, 'index'])->name('admin.tickets.index');
+    Route::get('/{ticket:id}', [Admin\TicketsController::class, 'view'])->name('admin.tickets.view');
+
+    Route::post('/{ticket:id}/status', [Admin\TicketsController::class, 'status'])->name('admin.tickets.status');
+    Route::post('/{ticket:id}/delete', [Admin\TicketsController::class, 'delete'])->name('admin.tickets.delete');
 });
 
 /*

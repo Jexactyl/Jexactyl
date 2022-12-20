@@ -35,7 +35,7 @@ class Ticket extends Model
     public const STATUS_PENDING = 'pending';
     public const STATUS_RESOLVED = 'resolved';
     public const STATUS_UNRESOLVED = 'unresolved';
-    public const STATUS_IN_PROGRESS = 'in_progress';
+    public const STATUS_IN_PROGRESS = 'in-progress';
 
     /**
      * The table associated with the model.
