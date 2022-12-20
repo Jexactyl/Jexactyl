@@ -62,7 +62,7 @@
                                 <label class="control-label">Discord Client ID</label>
                                 <div>
                                     <input type="text" class="form-control" name="discord:id" value="{{ $discord_id }}" />
-                                    <p class="text-muted"><small>The client ID for your OAuth application. Typically 17-20 numbers long.</small></p>
+                                    <p class="text-muted"><small>The client ID for your OAuth application. Typically 17-20 digits long.</small></p>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
