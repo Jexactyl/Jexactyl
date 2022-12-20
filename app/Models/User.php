@@ -28,7 +28,7 @@ use Pterodactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
  * @property string $uuid
  * @property string $username
  * @property string $email
- * @property string $discord_id
+ * @property string|null $discord_id
  * @property string|null $name_first
  * @property string|null $name_last
  * @property string $password
@@ -185,6 +185,7 @@ class User extends Model implements
         'uuid' => 'required|string|size:36|unique:users,uuid',
         'email' => 'required|email|between:1,191|unique:users,email',
         'external_id' => 'sometimes|nullable|string|max:191|unique:users,external_id',
+        'discord_id' => 'nullable|string|regex:/^[0-9]{17,20}$/|unique:users,discord_id',
         'username' => 'required|between:1,191|unique:users,username',
         'name_first' => 'required|string|between:1,191',
         'name_last' => 'required|string|between:1,191',
