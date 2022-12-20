@@ -5,15 +5,16 @@ namespace Pterodactyl\Http\Controllers\Admin;
 use Illuminate\View\View;
 use Illuminate\View\Factory;
 use Pterodactyl\Models\Ticket;
+use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Models\TicketMessage;
-use Illuminate\Http\RedirectResponse;
 use Pterodactyl\Http\Controllers\Controller;
 use Pterodactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
 
 class TicketsController extends Controller
 {
-    public function __construct(protected Factory $view, protected AlertsMessageBag $alert) {
+    public function __construct(protected Factory $view, protected AlertsMessageBag $alert)
+    {
     }
 
     /**
@@ -49,7 +50,7 @@ class TicketsController extends Controller
      * Deletes a ticket and the associated messages.
      */
     public function delete(int $id): RedirectResponse
-    {        
+    {
         Ticket::findOrFail($id)->delete();
         TicketMessage::where('ticket_id', $id)->delete();
 
