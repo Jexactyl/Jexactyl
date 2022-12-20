@@ -4,7 +4,7 @@ namespace Pterodactyl\Http\Requests\Admin\Tickets;
 
 use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
 
-class TicketStatusRequest extends AdminFormRequest
+class TicketMessageRequest extends AdminFormRequest
 {
     /**
      * Rules to apply to requests for updating the status
@@ -13,7 +13,7 @@ class TicketStatusRequest extends AdminFormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|in:resolved,unresolved,pending,in-progress',
+            'content' => 'required|min:3|max:191',
         ];
     }
 }

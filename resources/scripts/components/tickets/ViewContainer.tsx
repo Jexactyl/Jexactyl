@@ -75,7 +75,7 @@ export default () => {
                 This ticket is marked as&nbsp;<p className={'font-bold'}>{ticket.status ?? 'unknown'}</p>.
             </Alert>
             <TitledGreyBox title={ticket.title}>
-                {ticket.content}
+                <p className={'line-clamp-5 truncate'}>{ticket.content}</p>
                 {ticket.createdAt && (
                     <p className={'text-right p-2 text-sm text-gray-400'}>
                         {format(ticket.createdAt, "MMM do 'at' h:mma")}
@@ -87,22 +87,16 @@ export default () => {
             ) : (
                 <>
                     {messages.map((message) => (
-                        <>
+                        <div key={message.id}>
                             {message.content === ticket.content ? undefined : (
                                 <>
                                     {message.userEmail === 'system' ? (
-                                        <div className={'my-4 p-2 bg-gray-900 opacity-75'}>
-                                            <p className={'text-lg text-center text-gray-400'} key={message.id}>
-                                                {message.content}
-                                            </p>
+                                        <div className={'my-4 p-2 bg-gray-800 opacity-25'}>
+                                            <p className={'text-lg text-center text-gray-400'}>{message.content}</p>
                                         </div>
                                     ) : (
-                                        <TitledGreyBox
-                                            title={`Response from ${message.userEmail}`}
-                                            key={message.id}
-                                            className={'mt-4'}
-                                        >
-                                            {message.content}
+                                        <TitledGreyBox title={`Response from ${message.userEmail}`} className={'mt-4'}>
+                                            <p className={'line-clamp-5 truncate'}>{message.content}</p>
                                             {message.createdAt && (
                                                 <p className={'text-right p-2 text-sm text-gray-400'}>
                                                     {format(message.createdAt, "MMM do 'at' h:mma")}
@@ -112,7 +106,7 @@ export default () => {
                                     )}
                                 </>
                             )}
-                        </>
+                        </div>
                     ))}
                 </>
             )}

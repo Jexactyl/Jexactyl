@@ -82,6 +82,7 @@ Route::group(['prefix' => 'tickets'], function () {
 
     Route::post('/{ticket:id}/status', [Admin\TicketsController::class, 'status'])->name('admin.tickets.status');
     Route::post('/{ticket:id}/delete', [Admin\TicketsController::class, 'delete'])->name('admin.tickets.delete');
+    Route::post('/{ticket:id}/message', [Admin\TicketsController::class, 'message'])->name('admin.tickets.message');
 });
 
 /*

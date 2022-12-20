@@ -54,7 +54,6 @@ export default ({ open, onClose }: DialogProps) => {
             onClose={onClose}
             title={'Add a message'}
             description={'This message will be visible to both you and the administrators on this Panel.'}
-            preventExternalClose
         >
             <Formik
                 onSubmit={submit}

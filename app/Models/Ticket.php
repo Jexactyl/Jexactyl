@@ -69,6 +69,17 @@ class Ticket extends Model
     ];
 
     /**
+     * Rules verifying that the data being stored matches the expectations of the database.
+     */
+    public static array $validationRules = [
+        'client_id' => 'required|int|unique:users,id',
+        'staff_id' => 'sometimes|int|unique:users,id',
+        'title' => 'required|string|min:3|max:191',
+        'status' => 'required|string',
+        'content' => 'required|string|min:3|max:191',
+    ];
+
+    /**
      * Gets the client who made the ticket.
      */
     public function client(): BelongsTo

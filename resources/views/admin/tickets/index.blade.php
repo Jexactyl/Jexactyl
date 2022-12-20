@@ -33,7 +33,12 @@
                             <tr data-ticket="{{ $ticket->id }}">
                                 <td><a href="{{ route('admin.tickets.view', $ticket->id) }}">{{ $ticket->id }}</a></td>
                                 <td><a href="{{ route('admin.users.view', $ticket->client_id) }}">{{ $ticket->user->email }}</a></td>
-                                <td><code title="{{ $ticket->title }}">{{ $ticket->title }}</code></td>
+                                <td style="
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    max-width: 32ch;
+                                "><code title="{{ $ticket->title }}">{{ $ticket->title }}</code></td>
                                 <td>{{ $ticket->created_at->diffForHumans() }}</td>
                                 <td class="text-center">
                                     @if($ticket->status == 'pending')

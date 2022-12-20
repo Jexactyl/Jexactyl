@@ -59,15 +59,19 @@
                                 <th>Content</th>
                                 <th></th>
                                 <th></th>
-                                <th>Sent At</th>
+                                <th>Message Sent</th>
                             </tr>
                             @foreach ($messages as $message)
                                 <tr>
-                                <td><a href="{{ route('admin.users.view', $ticket->user->id) }}">{{ $ticket->user->email }}</a> @if($ticket->user->root_admin)<i class="fa fa-star text-yellow"></i>@endif</td>
-                                    <td class="truncate">{{ $message->content }}</td>
+                                @if($message->user_id == 0)
+                                    <td>System Message <i class="fa fa-cog text-white"></i></td>
+                                @else
+                                    <td><a href="{{ route('admin.users.view', $ticket->user->id) }}">{{ $ticket->user->email }}</a> @if($ticket->user->root_admin)<i class="fa fa-star text-yellow"></i>@endif</td>
+                                @endif
+                                    <td>{{ $message->content }}</td>
                                     <td></td>
                                     <td></td>
-                                    <td>{{ $message->created_at->diffForHumans() }} ({{ $message->created_at }})</td>
+                                    <td>{{ $message->created_at->diffForHumans() }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -76,4 +80,28 @@
             </div>
         </div>
     </div>
+<div class="row">
+        <div class="col-xs-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Send a Message</h3>
+                    <form id="messageform" action="{{ route('admin.tickets.message', $ticket->id) }}" method="POST">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <div>
+                                        <input type="text" class="form-control" name="content" />
+                                        <p class="text-muted"><small>Send a message to the ticket which can be viewed by the client.</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {!! csrf_field() !!}
+                        <button type="submit" name="_method" value="POST" class="btn btn-default pull-right">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

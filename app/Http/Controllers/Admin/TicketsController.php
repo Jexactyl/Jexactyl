@@ -10,6 +10,7 @@ use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Models\TicketMessage;
 use Pterodactyl\Http\Controllers\Controller;
 use Pterodactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
 
 class TicketsController extends Controller
 {
@@ -42,6 +43,26 @@ class TicketsController extends Controller
     public function status(TicketStatusRequest $request, int $id): RedirectResponse
     {
         Ticket::findOrFail($id)->update(['status' => $request->input('status')]);
+
+        TicketMessage::create([
+            'user_id' => 0,
+            'ticket_id' => $id,
+            'content' => 'Ticket status has been set to ' . $request->input('status'),
+        ]);
+
+        return redirect()->route('admin.tickets.view', $id);
+    }
+
+    /**
+     * Add a message to the ticket.
+     */
+    public function message(TicketMessageRequest $request, int $id): RedirectResponse
+    {
+        TicketMessage::create([
+            'user_id' => $request->user()->id,
+            'ticket_id' => $id,
+            'content' => $request->input('content'),
+        ]);
 
         return redirect()->route('admin.tickets.view', $id);
     }

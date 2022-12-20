@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
 import { MoreHorizontal } from 'react-feather';
 import React, { useEffect, useState } from 'react';
+import Spinner from '@/components/elements/Spinner';
 import { Button } from '@/components/elements/button';
+import { format, formatDistanceToNow } from 'date-fns';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import { getTickets, Ticket } from '@/api/account/tickets';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 import NewTicketDialog from '@/components/tickets/forms/NewTicketDialog';
-import { format, formatDistanceToNow } from 'date-fns';
 
 export default () => {
     const [visible, setVisible] = useState(false);
@@ -15,6 +17,8 @@ export default () => {
         getTickets().then((d) => setTickets(d));
     }, []);
 
+    if (!tickets) return <Spinner centered />;
+
     return (
         <PageContentBlock
             title={'Support Tickets'}
@@ -22,12 +26,10 @@ export default () => {
             showFlashKey={'tickets'}
         >
             <NewTicketDialog open={visible} onClose={() => setVisible(false)} />
-            {!tickets ? (
-                <p className={'text-gray-400 text-center my-4'}>There are no tickets available.</p>
-            ) : (
-                <>
-                    {tickets.map((ticket) => (
-                        <GreyRowBox className={'flex-wrap md:flex-nowrap items-center my-1'} key={ticket.id}>
+            <div className={'my-10'}>
+                {tickets.map((ticket) => (
+                    <Link to={`/tickets/${ticket.id}`} key={ticket.id}>
+                        <GreyRowBox className={'flex-wrap md:flex-nowrap items-center my-1'}>
                             <div className={'flex items-center truncate w-full md:flex-1'}>
                                 <p className={'mr-4 text-xl font-bold'}>#{ticket.id}</p>
                                 <div className={'flex flex-col truncate'}>
@@ -57,9 +59,9 @@ export default () => {
                                 <MoreHorizontal />
                             </div>
                         </GreyRowBox>
-                    ))}
-                </>
-            )}
+                    </Link>
+                ))}
+            </div>
             <div className={'w-full flex lg:justify-end lg:items-end mt-2'}>
                 <Button onClick={() => setVisible(true)}>Create New Ticket</Button>
             </div>
