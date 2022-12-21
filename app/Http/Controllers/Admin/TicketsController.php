@@ -9,10 +9,10 @@ use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Models\TicketMessage;
 use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
 use Pterodactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
-use Pterodactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
 use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
 
 class TicketsController extends Controller
 {
@@ -20,8 +20,7 @@ class TicketsController extends Controller
         protected Factory $view,
         protected AlertsMessageBag $alert,
         protected SettingsRepositoryInterface $settings
-    )
-    {
+    ) {
     }
 
     /**
