@@ -44,9 +44,10 @@ const RightNavigation = styled.div`
 `;
 
 export default () => {
-    const rootAdmin = useStoreState((state: ApplicationStore) => state.user.data!.rootAdmin);
-    const store = useStoreState((state) => state.storefront.data!);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const tickets = useStoreState((state) => state.settings.data!.tickets);
+    const store = useStoreState((state) => state.storefront.data!.enabled);
+    const rootAdmin = useStoreState((state: ApplicationStore) => state.user.data!.rootAdmin);
 
     const onTriggerLogout = () => {
         setIsLoggingOut(true);
@@ -71,14 +72,16 @@ export default () => {
                     <NavLink to={'/account'}>
                         <Icon.User size={20} />
                     </NavLink>
-                    {store.enabled && (
+                    {store && (
                         <NavLink to={'/store'}>
                             <Icon.ShoppingCart size={20} />
                         </NavLink>
                     )}
-                    <NavLink to={'/tickets'}>
-                        <Icon.HelpCircle size={20} />
-                    </NavLink>
+                    {tickets && (
+                        <NavLink to={'/tickets'}>
+                            <Icon.HelpCircle size={20} />
+                        </NavLink>
+                    )}
                     {rootAdmin && (
                         <a href={'/admin'} rel={'noreferrer'}>
                             <Icon.Settings size={20} />

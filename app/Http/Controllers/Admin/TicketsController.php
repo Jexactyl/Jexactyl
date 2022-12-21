@@ -9,12 +9,18 @@ use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Models\TicketMessage;
 use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
 use Pterodactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
 use Pterodactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class TicketsController extends Controller
 {
-    public function __construct(protected Factory $view, protected AlertsMessageBag $alert)
+    public function __construct(
+        protected Factory $view,
+        protected AlertsMessageBag $alert,
+        protected SettingsRepositoryInterface $settings
+    )
     {
     }
 
@@ -23,7 +29,11 @@ class TicketsController extends Controller
      */
     public function index(): View
     {
-        return $this->view->make('admin.tickets.index', ['tickets' => Ticket::all()]);
+        return $this->view->make('admin.tickets.index', [
+            'tickets' => Ticket::all(),
+            'enabled' => $this->settings->get('jexactyl::tickets:enabled', false),
+            'max' => $this->settings->get('jexactyl::tickets:max', 3),
+        ]);
     }
 
     /**
@@ -35,6 +45,18 @@ class TicketsController extends Controller
             'ticket' => Ticket::findOrFail($id),
             'messages' => TicketMessage::where('ticket_id', $id)->get(),
         ]);
+    }
+
+    /**
+     * Enable or disable tickets on the system.
+     */
+    public function toggle(TicketToggleRequest $request): RedirectResponse
+    {
+        foreach ($request->normalize() as $key => $value) {
+            $this->settings->set('jexactyl::tickets:' . $key, $value);
+        }
+
+        return redirect()->route('admin.tickets.index');
     }
 
     /**

@@ -15,6 +15,36 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
+        <form action="{{ route('admin.tickets.index') }}" method="POST">
+            <div class="box @if($enabled == 'true') box-success @else box-danger @endif">
+                <div class="box-header with-border">
+                    <i class="fa fa-ticket"></i> <h3 class="box-title">Ticket System <small>Toggle whether tickets can be used.</small></h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Allow ticket creation?</label>
+                            <div>
+                                <select name="enabled" class="form-control">
+                                    <option @if ($enabled == 'false') selected @endif value="false">Disabled</option>
+                                    <option @if ($enabled == 'true') selected @endif value="true">Enabled</option>
+                                </select>
+                                <p class="text-muted"><small>Determines whether people can create tickets via the client UI.</small></p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                                <label class="control-label">Maximum ticket amount</label>
+                                <div>
+                                    <input type="text" class="form-control" name="max" value="{{ $max }}" />
+                                    <p class="text-muted"><small>Set the maximum amount of tickets a user can create.</small></p>
+                                </div>
+                            </div>
+                    </div>
+                    {!! csrf_field() !!}
+                    <button type="submit" name="_method" value="POST" class="btn btn-default pull-right">Save Changes</button>
+                </div>
+            </div>
+        </form>
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Ticket List</h3>

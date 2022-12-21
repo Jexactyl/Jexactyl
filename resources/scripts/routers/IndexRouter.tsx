@@ -14,9 +14,10 @@ const DashboardRouter = lazy(() => import(/* webpackChunkName: "dashboard" */ '@
 const AuthenticationRouter = lazy(() => import(/* webpackChunkName: "auth" */ '@/routers/AuthenticationRouter'));
 
 const IndexRouter = () => {
-    const store = useStoreState((state) => state.storefront.data!);
     const authenticated = useStoreState((state) => state.user?.data);
     const approved = useStoreState((state) => state.user.data?.approved);
+    const store = useStoreState((state) => state.storefront.data!.enabled);
+    const tickets = useStoreState((state) => state.settings.data!.tickets);
     const approvals = useStoreState((state) => state.settings.data!.approvals);
 
     if (approvals && !approved && authenticated) {
@@ -43,18 +44,20 @@ const IndexRouter = () => {
                         </ServerContext.Provider>
                     </Spinner.Suspense>
                 </AuthenticatedRoute>
-                {store.enabled && (
+                {store && (
                     <AuthenticatedRoute path={'/store'}>
                         <Spinner.Suspense>
                             <StoreRouter />
                         </Spinner.Suspense>
                     </AuthenticatedRoute>
                 )}
-                <AuthenticatedRoute path={'/tickets'}>
-                    <Spinner.Suspense>
-                        <TicketRouter />
-                    </Spinner.Suspense>
-                </AuthenticatedRoute>
+                {tickets && (
+                    <AuthenticatedRoute path={'/tickets'}>
+                        <Spinner.Suspense>
+                            <TicketRouter />
+                        </Spinner.Suspense>
+                    </AuthenticatedRoute>
+                )}
                 <AuthenticatedRoute path={'/'}>
                     <Spinner.Suspense>
                         <DashboardRouter />
