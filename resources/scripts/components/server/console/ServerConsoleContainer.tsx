@@ -6,7 +6,6 @@ import { ServerContext } from '@/state/server';
 import Spinner from '@/components/elements/Spinner';
 import { Alert } from '@/components/elements/alert';
 import Console from '@/components/server/console/Console';
-import StatGraphs from '@/components/server/console/StatGraphs';
 import PowerButtons from '@/components/server/console/PowerButtons';
 import ServerContentBlock from '@/components/elements/ServerContentBlock';
 import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
@@ -15,9 +14,8 @@ export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
 const ServerConsoleContainer = () => {
     const name = ServerContext.useStoreState((state) => state.server.data!.name);
-    const status = ServerContext.useStoreState((state) => state.status.value);
-    const description = ServerContext.useStoreState((state) => state.server.data!.description);
     const isInstalling = ServerContext.useStoreState((state) => state.server.isInstalling);
+    const description = ServerContext.useStoreState((state) => state.server.data!.description);
     const isTransferring = ServerContext.useStoreState((state) => state.server.data!.isTransferring);
     const eggFeatures = ServerContext.useStoreState((state) => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState((state) => state.server.data!.isNodeUnderMaintenance);
@@ -52,13 +50,6 @@ const ServerConsoleContainer = () => {
                 </div>
                 <ServerDetailsBlock className={'j-left col-span-4 lg:col-span-1 order-last lg:order-none'} />
             </div>
-            {status !== 'offline' && (
-                <div className={'grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-4'}>
-                    <Spinner.Suspense>
-                        <StatGraphs />
-                    </Spinner.Suspense>
-                </div>
-            )}
             <Features enabled={eggFeatures} />
         </ServerContentBlock>
     );

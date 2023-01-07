@@ -39,10 +39,10 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({
                     )}
                     {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`my-4`} />}
                     {description && (
-                        <>
-                            <h1 className={'j-left text-5xl'}>{title}</h1>
-                            <h3 className={'j-left text-2xl text-neutral-500'}>{description}</h3>
-                        </>
+                        <div className={'my-10 j-left'}>
+                            <h1 className={'text-5xl'}>{title}</h1>
+                            <h3 className={'text-2xl text-neutral-500'}>{description}</h3>
+                        </div>
                     )}
                     {children}
                 </ContentContainer>

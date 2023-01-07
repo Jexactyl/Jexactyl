@@ -115,12 +115,12 @@ export default () => {
                     <CSSTransition timeout={150} classNames={'fade'} appear in>
                         <SubNavigation className={'j-down'}>
                             <div>
-                                <NavLink to={`${match.url}`} exact>
+                                <NavLink to={match.url} exact>
                                     <div css={tw`flex items-center justify-between`}>
                                         Console <Icon.Terminal css={tw`ml-1`} size={18} />
                                     </div>
                                 </NavLink>
-                                {status !== 'offline' && (
+                                {status !== ('offline' || null) && (
                                     <NavLink to={`${match.url}/analytics`} exact>
                                         <div css={tw`flex items-center justify-between`}>
                                             Analytics <Icon.BarChart css={tw`ml-1`} size={18} />
