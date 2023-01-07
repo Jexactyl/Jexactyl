@@ -1,10 +1,10 @@
 [![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactyl.com)
 
-[![Discord](https://img.shields.io/discord/922284031129825280)](https://discord.com/invite/qttGR4Z5Pk)
-![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total)
-![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total)
-![Version](https://img.shields.io/github/v/release/jexactyl/jexactyl)
-![Contributors](https://img.shields.io/github/contributors-anon/jexactyl/jexactyl)
+[![Discord](https://img.shields.io/discord/922284031129825280?style=for-the-badge)](https://discord.com/invite/qttGR4Z5Pk)
+![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total?style=for-the-badge)
+![Downloads - Latest](https://img.shields.io/github/downloads/jexactyl/jexactyl/latest/total?style=for-the-badge)
+![Version](https://img.shields.io/github/v/release/jexactyl/jexactyl?style=for-the-badge)
+![Contributors](https://img.shields.io/github/contributors-anon/jexactyl/jexactyl?style=for-the-badge)
 
 <h1 align="center">Jexactyl</h1>
 <h5 align="center">
