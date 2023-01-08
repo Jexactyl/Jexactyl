@@ -38,6 +38,7 @@ class StoreCreationService
 
         $data = [
             'name' => $request->input('name'),
+            'description' => $request->input('description'),
             'owner_id' => $request->user()->id,
             'egg_id' => $egg->id,
             'nest_id' => $nest,

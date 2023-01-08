@@ -49,8 +49,9 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
         Route::delete('/{code}', [Client\ReferralsController::class, 'delete']);
     });
 
-    Route::get('/discord', [Client\AccountController::class, 'discord'])->name('api:client.account.discord');
-    Route::get('/discord/callback', [Client\AccountController::class, 'discordCallback'])->name('api:client.account.discord.callback');
+    Route::get('/discord', [Client\DiscordController::class, 'link'])->name('api:client.account.discord');
+    Route::get('/discord/callback', [Client\DiscordController::class, 'callback'])->name('api:client.account.discord.callback');
+    Route::post('/discord/unlink', [Client\DiscordController::class, 'unlink'])->name('api:client.account.discord.unlink');
 
     Route::get('/api-keys', [Client\ApiKeyController::class, 'index']);
     Route::post('/api-keys', [Client\ApiKeyController::class, 'store']);
@@ -68,8 +69,9 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
         Route::get('/{id}/messages', [Client\TicketController::class, 'viewMessages']);
 
         Route::post('/', [Client\TicketController::class, 'new']);
-        Route::post('/{id}/status', [Client\TicketController::class, 'status']);
         Route::post('/{id}/messages', [Client\TicketController::class, 'newMessage']);
+
+        Route::delete('/{id}', [Client\TicketController::class, 'close']);
     });
 });
 

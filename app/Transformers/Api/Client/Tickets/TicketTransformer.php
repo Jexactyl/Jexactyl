@@ -21,7 +21,7 @@ class TicketTransformer extends BaseClientTransformer
     {
         return [
             'id' => $model->id,
-            'staff_email' => User::where('id', $model->staff_id)->first()->email ?? 'Unknown User',
+            'staff_email' => User::where('id', $model->staff_id)->first()->email ?? 'system',
             'title' => $model->title,
             'status' => $model->status,
             'content' => $model->content,

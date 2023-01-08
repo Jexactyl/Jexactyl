@@ -21,7 +21,7 @@ class TicketMessageTransformer extends BaseClientTransformer
     {
         return [
             'id' => $model->id,
-            'user_email' => User::where('id', $model->user_id)->first()->email ?? 'Unknown User',
+            'user_email' => User::where('id', $model->user_id)->first()->email ?? 'system',
             'content' => $model->content,
             'created_at' => $model->created_at->toAtomString(),
             'updated_at' => $model->updated_at->toAtomString(),

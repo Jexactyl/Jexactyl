@@ -51,10 +51,27 @@ class TicketMessage extends Model
     ];
 
     /**
+     * Rules verifying that the data being stored matches the expectations of the database.
+     */
+    public static array $validationRules = [
+        'user_id' => 'required|int|unique:users,id',
+        'ticket_id' => 'required|int',
+        'content' => 'required|string|min:3|max:191',
+    ];
+
+    /**
      * Gets the ticket which this message has been assigned to.
      */
     public function ticket(): BelongsTo
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
+
+    /**
+     * Gets the user associated with this ticket.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'client_id');
     }
 }

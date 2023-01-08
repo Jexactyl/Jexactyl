@@ -235,8 +235,8 @@ export default () => {
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>
                                 {nodes.map((n) => (
                                     <option key={n.id} value={n.id}>
-                                        {n.name} - {n.fqdn} | {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}%
-                                        space remaining
+                                        {n.name} ({n.location}) |{' '}
+                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% space remaining
                                     </option>
                                 ))}
                             </Select>

@@ -6,6 +6,7 @@ export interface SiteSettings {
     locale: string;
 
     approvals: boolean;
+    tickets: boolean;
     databases: boolean;
 
     alert: {

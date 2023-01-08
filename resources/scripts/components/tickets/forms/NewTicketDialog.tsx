@@ -50,7 +50,6 @@ export default ({ open, onClose }: DialogProps) => {
             description={
                 'This ticket will be registered under your account and accessible to all administrators on the Panel.'
             }
-            preventExternalClose
         >
             <Formik
                 onSubmit={submit}

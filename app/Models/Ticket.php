@@ -35,7 +35,7 @@ class Ticket extends Model
     public const STATUS_PENDING = 'pending';
     public const STATUS_RESOLVED = 'resolved';
     public const STATUS_UNRESOLVED = 'unresolved';
-    public const STATUS_IN_PROGRESS = 'in_progress';
+    public const STATUS_IN_PROGRESS = 'in-progress';
 
     /**
      * The table associated with the model.
@@ -69,6 +69,17 @@ class Ticket extends Model
     ];
 
     /**
+     * Rules verifying that the data being stored matches the expectations of the database.
+     */
+    public static array $validationRules = [
+        'client_id' => 'required|int|unique:users,id',
+        'staff_id' => 'sometimes|int|unique:users,id',
+        'title' => 'required|string|min:3|max:191',
+        'status' => 'required|string',
+        'content' => 'required|string|min:3|max:191',
+    ];
+
+    /**
      * Gets the client who made the ticket.
      */
     public function client(): BelongsTo
@@ -90,6 +101,14 @@ class Ticket extends Model
     public function isResolved(): bool
     {
         return $this->status === self::STATUS_RESOLVED;
+    }
+
+    /**
+     * Gets the user associated with this ticket.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'client_id');
     }
 
     /**

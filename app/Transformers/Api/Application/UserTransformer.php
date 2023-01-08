@@ -30,6 +30,7 @@ class UserTransformer extends BaseTransformer
         return [
             'id' => $user->id,
             'external_id' => $user->external_id,
+            'discord_id' => $user->discord_id,
             'uuid' => $user->uuid,
             'username' => $user->username,
             'email' => $user->email,

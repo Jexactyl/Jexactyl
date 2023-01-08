@@ -1,7 +1,7 @@
 {
-    "name": "pterodactyl-panel",
+    "name": "jexactyl",
     "engines": {
-        "node": ">=14"
+        "node": ">=16"
     },
     "dependencies": {
         "@floating-ui/react-dom-interactions": "^0.6.6",
@@ -137,10 +137,10 @@
         "clean": "cd public/assets && find . \\( -name \"*.js\" -o -name \"*.map\" \\) -type f -delete",
         "test": "jest",
         "lint": "eslint ./resources/scripts/**/*.{ts,tsx} --ext .ts,.tsx",
-        "watch": "cross-env NODE_ENV=development ./node_modules/.bin/webpack --watch --progress",
+        "watch": "cross-env NODE_ENV=development ./node_modules/.bin/webpack --watch --progress --hot",
         "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack --progress",
         "build:production": "yarn run clean && cross-env NODE_ENV=production ./node_modules/.bin/webpack --mode production",
-        "serve": "yarn run clean && cross-env WEBPACK_PUBLIC_PATH=/webpack@hmr/ NODE_ENV=development webpack-dev-server --host 0.0.0.0 --port 8080 --public https://pterodactyl.test --hot"
+        "serve": "yarn run clean && cross-env WEBPACK_PUBLIC_PATH=/webpack@hmr/ NODE_ENV=development webpack-dev-server --host 0.0.0.0 --port 5050 --public https://jexactyl.test --hot"
     },
     "browserslist": [
         "> 0.5%",

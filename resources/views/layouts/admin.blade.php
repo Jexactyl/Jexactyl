@@ -48,6 +48,11 @@
                                 <i data-feather="tool" style="margin-left: 12px;"></i> 
                             </a>
                         </li>
+                        <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.tickets') ?: 'active' }}">
+                            <a href="{{ route('admin.tickets.index')}}">
+                                <i data-feather="help-circle" style="margin-left: 12px;"></i>
+                            </a>
+                        </li>
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.api') ?: 'active' }}">
                             <a href="{{ route('admin.api.index')}}">
                                 <i data-feather="git-branch" style="margin-left: 12px;"></i>

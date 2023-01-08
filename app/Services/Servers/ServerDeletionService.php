@@ -2,7 +2,6 @@
 
 namespace Pterodactyl\Services\Servers;
 
-use Exception;
 use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
 use Pterodactyl\Models\Server;
@@ -75,7 +74,7 @@ class ServerDeletionService
             foreach ($server->databases as $database) {
                 try {
                     $this->databaseManagementService->delete($database);
-                } catch (Exception $exception) {
+                } catch (\Exception $exception) {
                     if (!$this->force) {
                         throw $exception;
                     }
@@ -101,7 +100,7 @@ class ServerDeletionService
 
         try {
             $user = User::findOrFail($server->owner_id);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             throw $exception;
         }
 

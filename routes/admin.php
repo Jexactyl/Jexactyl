@@ -76,6 +76,24 @@ Route::group(['prefix' => '/'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Ticket Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /admin/tickets
+|
+*/
+Route::group(['prefix' => 'tickets'], function () {
+    Route::get('/', [Admin\TicketsController::class, 'index'])->name('admin.tickets.index');
+    Route::get('/{ticket:id}', [Admin\TicketsController::class, 'view'])->name('admin.tickets.view');
+
+    Route::post('/', [Admin\TicketsController::class, 'toggle'])->name('admin.tickets.index');
+    Route::post('/{ticket:id}/status', [Admin\TicketsController::class, 'status'])->name('admin.tickets.status');
+    Route::post('/{ticket:id}/delete', [Admin\TicketsController::class, 'delete'])->name('admin.tickets.delete');
+    Route::post('/{ticket:id}/message', [Admin\TicketsController::class, 'message'])->name('admin.tickets.message');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Location Controller Routes
 |--------------------------------------------------------------------------
 |
