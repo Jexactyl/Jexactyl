@@ -3,6 +3,8 @@
 namespace Pterodactyl\Http\Controllers\Api\Client;
 
 use Illuminate\Http\Request;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Models\Coupon;
 use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthManager;
@@ -104,6 +106,28 @@ class AccountController extends ClientApiController
         $request->user()->notify(new VerifyEmail($request->user(), $name, $token));
 
         return new JsonResponse(['success' => true, 'data' => []]);
+    }
+
+    /**
+     * @throws DisplayException
+     */
+    public function coupon(Request $request)
+    {
+        $code = $request->input('code');
+        $coupon = Coupon::query()->where('code', $code)->first();
+        if (!$coupon) {
+            throw new DisplayException('Invalid coupon code specified.');
+        }
+        if ($coupon->getAttribute('expired')) {
+            throw new DisplayException('This coupon has expired.');
+        }
+        if ($coupon->getAttribute('uses') < 1) {
+            throw new DisplayException('This coupon has no uses left.');
+        }
+        $balance = $request->user()->store_balance;
+        $request->user()->update(['store_balance' => $balance + $coupon->cr_amount]);
+        Coupon::query()->where('code', $code)->update(['uses' => $coupon->uses - 1]);
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
     private function genStr(): string

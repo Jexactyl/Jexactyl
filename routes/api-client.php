@@ -31,6 +31,7 @@ Route::prefix('/account')->middleware(AccountSubject::class)->group(function () 
     Route::delete('/logs', [Client\AccountLogController::class, 'delete'])->withoutMiddleware(RequireTwoFactorAuthentication::class);
 
     Route::post('/verify', [Client\AccountController::class, 'verify'])->name('api:client.account.verify');
+    Route::post('/coupon', [Client\AccountController::class, 'coupon'])->name('api:client.account.coupon');
 
     Route::put('/email', [Client\AccountController::class, 'updateEmail'])->name('api:client.account.update-email');
     Route::put('/password', [Client\AccountController::class, 'updatePassword'])->name('api:client.account.update-password');
