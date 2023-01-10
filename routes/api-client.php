@@ -154,6 +154,11 @@ Route::group([
     Route::post('/plugins', [Client\Servers\PluginController::class, 'index'])->name('api:client:server.plugins');
     Route::post('/plugins/install/{id}', [Client\Servers\PluginController::class, 'install'])->name('api:client:server.plugins');
 
+    Route::group(['prefix' => '/analytics'], function () {
+        Route::get('/', [Client\Servers\AnalyticsController::class, 'index']);
+        Route::get('/messages', [Client\Servers\AnalyticsController::class, 'messages']);
+    });
+
     Route::group(['prefix' => '/databases'], function () {
         Route::get('/', [Client\Servers\DatabaseController::class, 'index']);
         Route::post('/', [Client\Servers\DatabaseController::class, 'store']);

@@ -20,6 +20,9 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__ . '/Commands');
     }
 
+    // Refer to: https://github.com/illuminate/console/blob/master/Scheduling/ManagesFrequencies.php
+    // for time frequencies in terms of running commands, e.g. |->everyThirtyMinutes();|
+
     /**
      * Define the application's command schedule.
      */
@@ -33,6 +36,10 @@ class Kernel extends ConsoleKernel
             // Every 30 minutes, run the backup pruning command so that any abandoned backups can be deleted.
             $schedule->command(PruneOrphanedBackupsCommand::class)->everyThirtyMinutes();
         }
+
+        // Run analysis commands to collect and process data.
+        $schedule->command(AnalysisCollectionCommand::class)->everyFiftenMinutes();
+        $schedule->command(AnalysisReviewCommand::class)->everyThreeHours();
 
         if (config('activity.prune_days')) {
             $schedule->command(PruneCommand::class, ['--model' => [ActivityLog::class]])->daily();

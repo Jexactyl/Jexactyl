@@ -2,6 +2,7 @@ import { ServerContext } from '@/state/server';
 import React, { useEffect, useState } from 'react';
 import { Alert } from '@/components/elements/alert';
 import ContentBox from '@/components/elements/ContentBox';
+import { getMessages, Message } from '@/api/server/analytics';
 import StatGraphs from '@/components/server/console/StatGraphs';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
@@ -46,9 +47,11 @@ const UsageBox = ({ progress, title, content }: { progress: number; title: strin
 );
 
 export default () => {
+    const [messages, setMessages] = useState<Message[]>();
     const [stats, setStats] = useState<Stats>({ memory: 0, cpu: 0, disk: 0 });
 
     const status = ServerContext.useStoreState((state) => state.status.value);
+    const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
     const instance = ServerContext.useStoreState((state) => state.socket.instance);
     const connected = ServerContext.useStoreState((state) => state.socket.connected);
     const limits = ServerContext.useStoreState((state) => state.server.data!.limits);
@@ -73,6 +76,11 @@ export default () => {
     };
 
     useEffect(() => {
+        getMessages(uuid).then((data) => {
+            setMessages(data);
+            console.log(data);
+        });
+
         if (!connected || !instance) {
             return;
         }
@@ -109,26 +117,20 @@ export default () => {
                             />
                         </ContentBox>
                         <TitledGreyBox title={'Performance Metrics'} className={'rounded mt-4'}>
-                            <Alert type={'warning'}>
-                                <div>
-                                    Your RAM usage is very high.
-                                    <p className={'text-sm text-gray-400'}>Consider adding more RAM to your server.</p>
-                                </div>
-                            </Alert>
-                            <Alert type={'success'} className={'mt-2'}>
-                                <div>
-                                    Your CPU usage has decreased.
-                                    <p className={'text-sm text-gray-400'}>Down 46% on average in the last 24h</p>
-                                </div>
-                            </Alert>
-                            <Alert type={'info'} className={'mt-2'}>
-                                <div>
-                                    3 plugins require updating.
-                                    <p className={'text-sm text-gray-400'}>
-                                        Click <span className={'text-blue-400'}>here</span> to update.
-                                    </p>
-                                </div>
-                            </Alert>
+                            {!messages ? (
+                                <p className={'text-gray-400 text-center'}>No metrics are currently available.</p>
+                            ) : (
+                                <>
+                                    {messages.slice(0, 2).map((message) => (
+                                        <Alert type={message.type} key={message.id} className={'mb-2'}>
+                                            <div>
+                                                {message.title}
+                                                <p className={'text-sm text-gray-400'}>{message.content}</p>
+                                            </div>
+                                        </Alert>
+                                    ))}
+                                </>
+                            )}
                         </TitledGreyBox>
                     </div>
                 </div>
