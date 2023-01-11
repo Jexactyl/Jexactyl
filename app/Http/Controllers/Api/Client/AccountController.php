@@ -3,15 +3,15 @@
 namespace Pterodactyl\Http\Controllers\Api\Client;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Models\Coupon;
 use Pterodactyl\Models\User;
 use Illuminate\Http\Response;
+use Pterodactyl\Models\Coupon;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Pterodactyl\Facades\Activity;
 use Illuminate\Support\Facades\DB;
 use Pterodactyl\Notifications\VerifyEmail;
+use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Services\Users\UserUpdateService;
 use Pterodactyl\Transformers\Api\Client\AccountTransformer;
 use Pterodactyl\Http\Requests\Api\Client\Account\UpdateEmailRequest;
@@ -127,6 +127,7 @@ class AccountController extends ClientApiController
         $balance = $request->user()->store_balance;
         $request->user()->update(['store_balance' => $balance + $coupon->cr_amount]);
         Coupon::query()->where('code', $code)->update(['uses' => $coupon->uses - 1]);
+
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 

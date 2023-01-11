@@ -4,9 +4,9 @@ namespace Pterodactyl\Models;
 
 /**
  * @property string $code
- * @property integer $uses
- * @property integer $expires
- * @property integer $cr_amount
+ * @property int $uses
+ * @property int $expires
+ * @property int $cr_amount
  */
 class Coupon extends Model
 {

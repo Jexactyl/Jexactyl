@@ -36,7 +36,7 @@ class CouponsController extends Controller
     public function update(IndexFormRequest $request): RedirectResponse
     {
         foreach ($request->normalize() as $key => $value) {
-            $this->settings->set('jexactyl::coupons:'.$key, $value);
+            $this->settings->set('jexactyl::coupons:' . $key, $value);
         }
 
         $this->alert->success('The coupons system has been successfully updated.')->flash();

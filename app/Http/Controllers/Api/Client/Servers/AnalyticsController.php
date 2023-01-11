@@ -3,7 +3,6 @@
 namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
 
 use Pterodactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
 use Pterodactyl\Models\AnalyticsData;
 use Pterodactyl\Models\AnalyticsMessage;
 use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
@@ -36,6 +35,7 @@ class AnalyticsController extends ClientApiController
     public function messages(ClientApiRequest $request, Server $server): array
     {
         $data = AnalyticsMessage::where('server_id', $server->id)->orderBy('created_at', 'desc')->get();
+
         return $this->fractal->collection($data)
             ->transformWith($this->getTransformer(MessageTransformer::class))
             ->toArray();

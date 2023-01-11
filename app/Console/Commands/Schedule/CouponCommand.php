@@ -14,14 +14,13 @@ class CouponCommand extends Command
     public function handle(): void
     {
         $this->line('Beginning check for expired coupons.');
-        $time = Carbon::now()->timestamp;
         $coupons = Coupon::query()->get();
         foreach ($coupons as $coupon) {
             $carbon = new Carbon($coupon->expires);
             $expires = $carbon->timestamp;
-            if ($time >= $expires) {
+            if (Carbon::now()->timestamp >= $expires) {
                 $coupon->update(['expired' => true]);
-                $this->line('Coupon #'.$coupon->id.' has been set as expired.');
+                $this->line('Coupon #' . $coupon->id . ' has been set as expired.');
             }
         }
         $this->line('Completed check for expired coupons.');
