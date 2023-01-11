@@ -27,31 +27,30 @@ class PluginController extends ClientApiController
      *
      * @throws DisplayException
      */
-    public function index(Request $request): ?array
+    public function index(Request $request): JsonResponse
     {
+        $client = new Client();
         $query = $request->input('query');
+
         if (!$query) {
-            return null;
+            return [];
         }
 
-        $client = new Client();
-
-        $api = 'https://api.spiget.org/v2/search/resources/' . urlencode($query) . '?page=1&size=18';
-
         try {
-            $res = $client->request('GET', $api, ['headers' => ['User-Agent' => 'jexactyl/3.x']]);
+            $res = $client->request(
+                'GET',
+                'https://api.spiget.org/v2/search/resources/' . urlencode($query) . '?page=1&size=18',
+                [
+                    'headers' => [
+                        'User-Agent' => 'jexactyl/3.x',
+                    ],
+                ]
+            );
         } catch (DisplayException $e) {
             throw new DisplayException('Couldn\'t find any results for that query.');
         }
 
-        $plugins = json_decode($res->getBody(), true);
-
-        return [
-            'success' => true,
-            'data' => [
-                'plugins' => $plugins,
-            ],
-        ];
+        return new JsonResponse(['plugins' => json_decode($res->getBody(), true)]);
     }
 
     /**
