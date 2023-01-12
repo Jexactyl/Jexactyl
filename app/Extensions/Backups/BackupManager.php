@@ -163,7 +163,7 @@ class BackupManager
     /**
      * Register a custom adapter creator closure.
      */
-    public function extend(string $adapter, Closure $callback): self
+    public function extend(string $adapter, \Closure $callback): self
     {
         $this->customCreators[$adapter] = $callback;
 
