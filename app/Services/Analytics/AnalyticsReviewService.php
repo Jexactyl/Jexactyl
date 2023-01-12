@@ -39,12 +39,12 @@ class AnalyticsReviewService
     {
         $min = 25;
         $max = 50;
-        $size = sizeof($values);
+        $size = count($values);
 
         foreach ($values as $key => $value) {
             if ($value <= 25) {
                 $this->message($id, $size, $key, $value, false);
-            };
+            }
 
             if ($value >= 50) {
                 $this->message($id, $size, $key, $value, true);

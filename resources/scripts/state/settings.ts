@@ -7,6 +7,7 @@ export interface SiteSettings {
 
     approvals: boolean;
     tickets: boolean;
+    coupons: boolean;
     databases: boolean;
 
     alert: {

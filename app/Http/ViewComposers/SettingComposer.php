@@ -45,6 +45,7 @@ class SettingComposer extends Composer
 
             'approvals' => $this->setting('approvals:enabled', Composer::TYPE_BOOL),
             'tickets' => $this->setting('tickets:enabled', Composer::TYPE_BOOL),
+            'coupons' => $this->setting('coupons:enabled', Composer::TYPE_BOOL),
             'databases' => $this->getDatabaseAvailability(),
         ]);
     }

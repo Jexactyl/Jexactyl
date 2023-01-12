@@ -18,10 +18,12 @@ import InformationContainer from '@/components/elements/InformationContainer';
 import AccountSSHContainer from '@/components/dashboard/ssh/AccountSSHContainer';
 import AccountOverviewContainer from '@/components/dashboard/AccountOverviewContainer';
 import AccountSecurityContainer from '@/components/dashboard/AccountSecurityContainer';
+import CouponContainer from '@/components/dashboard/CouponContainer';
 
 export default () => {
     const location = useLocation();
     const { width } = useWindowDimensions();
+    const coupons = useStoreState((state) => state.settings.data!.coupons);
     const referrals = useStoreState((state) => state.storefront.data!.referrals.enabled);
 
     return (
@@ -57,6 +59,13 @@ export default () => {
                                 SSH Keys <Icon.Terminal css={tw`ml-1`} size={18} />
                             </div>
                         </NavLink>
+                        {coupons && (
+                            <NavLink to={'/account/coupons'}>
+                                <div className={'flex items-center justify-between'}>
+                                    Coupons <Icon.DollarSign className={'ml-1'} size={18} />
+                                </div>
+                            </NavLink>
+                        )}
                     </div>
                 </SubNavigation>
             ) : (
@@ -89,6 +98,11 @@ export default () => {
                         <Route path={'/account/ssh'} exact>
                             <AccountSSHContainer />
                         </Route>
+                        {coupons && (
+                            <Route path={'/account/coupons'} exact>
+                                <CouponContainer />
+                            </Route>
+                        )}
                         <Route path={'*'}>
                             <NotFound />
                         </Route>
