@@ -33,6 +33,8 @@ class AnalyticsCollectionCommand extends Command
     public function handle()
     {
         foreach (Server::all() as $server) {
+            $this->line($server->id . ' is being processed');
+
             $stats = $this->repository->setServer($server)->getDetails();
             $usage = $stats['utilization'];
 
@@ -40,8 +42,6 @@ class AnalyticsCollectionCommand extends Command
                 $this->line($server->id . ' is offline, skipping');
                 continue;
             }
-
-            $this->line($server->id . ' is being processed');
 
             if (AnalyticsData::where('server_id', $server->id)->count() >= 12) {
                 $this->line($server->id . ' exceeds 12 entries, deleting oldest');
@@ -55,6 +55,8 @@ class AnalyticsCollectionCommand extends Command
                     'memory' => ($usage['memory_bytes'] / 1024) / $server->memory / 10,
                     'disk' => ($usage['disk_bytes'] / 1024) / $server->disk / 10,
                 ]);
+
+                $this->line($server->id . ' analytics have been saved to database');
             } catch (\Exception $ex) {
                 $this->error($server->id . ' failed to write stats: ' . $ex->getMessage());
             }

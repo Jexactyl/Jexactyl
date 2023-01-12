@@ -23,22 +23,22 @@ const svgProps = {
     stroke: 'currentColor',
 };
 
-const Spinner = ({ progress, className }: { progress: number; className?: string }) => (
-    <svg viewBox={'0 0 32 32'} className={className}>
-        <circle {...svgProps} className={'opacity-25'} />
+const ProgressCircle = ({ data }: { data: number }) => (
+    <svg viewBox={'0 0 32 32'} className={'w-16 h-16'}>
+        <circle {...svgProps} className={'opacity-50'} />
         <circle
             {...svgProps}
-            stroke={progress >= 95 ? '#ef4444' : progress > 75 ? '#eab308' : '#22C55E'}
+            stroke={data >= 95 ? '#ef4444' : data >= 75 ? '#eab308' : '#22C55E'}
             strokeDasharray={28 * Math.PI}
             className={'rotate-[-90deg] origin-[50%_50%] transition-[stroke-dashoffset] duration-300'}
-            style={{ strokeDashoffset: ((100 - progress) / 100) * 28 * Math.PI }}
+            style={{ strokeDashoffset: ((100 - data) / 100) * 28 * Math.PI }}
         />
     </svg>
 );
 
 const UsageBox = ({ progress, title, content }: { progress: number; title: string; content: string }) => (
     <div className={'grid grid-cols-1 lg:grid-cols-5 gap-2 sm:gap-4 p-6'}>
-        <Spinner progress={progress} className={'w-16 h-16'} />
+        <ProgressCircle data={progress} />
         <div className={'col-span-4 inline-block align-text-middle'}>
             <p className={'text-2xl text-gray-200'}>{title}</p>
             <p className={'text-lg text-gray-400'}>{content}</p>
