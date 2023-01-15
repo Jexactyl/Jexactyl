@@ -34,15 +34,10 @@ class PayPalController extends ClientApiController
             throw new DisplayException('Unable to purchase via PayPal: module not enabled');
         }
 
-        $client = $this->getClient();
         $amount = $request->input('amount');
-        $cost = config('gateways.paypal.cost', 1) / 100 * $amount; // Calculate the cost of credits.
+        $cost = config('gateways.paypal.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'USD');
 
-        // This isn't the best way of doing things,
-        // but we'll store a temporary database entry
-        // whenever a purchase request is made so we
-        // can use the information later on.
         DB::table('paypal')->insert([
             'user_id' => $request->user()->id,
             'amount' => $amount,
@@ -67,20 +62,20 @@ class PayPalController extends ClientApiController
                 ],
             ],
             'application_context' => [
-                'cancel_url' => route('api.client.store.paypal.cancel'),
-                'return_url' => route('api.client.store.paypal.success'),
+                'cancel_url' => route('api:client.index'),
+                'return_url' => route('api:client:store.paypal.callback'),
                 'brand_name' => $this->settings->get('settings::app:name'),
                 'shipping_preference' => 'NO_SHIPPING',
             ],
         ];
 
         try {
-            $response = $client->execute($order);
-
-            return new JsonResponse($response->result->links[1]->href, 200, [], null, true);
+            $response = $this->getClient()->execute($order);
         } catch (\Exception $ex) {
             throw new DisplayException('Unable to process order.');
         }
+
+        return new JsonResponse($response->result->links[1]->href ?? '/', 200, [], null, true);
     }
 
     /**
@@ -88,41 +83,29 @@ class PayPalController extends ClientApiController
      *
      * @throws DisplayException
      */
-    public function success(Request $request): RedirectResponse
+    public function callback(Request $request): RedirectResponse
     {
-        $client = $this->getClient();
-        $id = $request->user()->id;
+        $user = $request->user();
+        $data = DB::table('paypal')>where('user_id', $user->id)->first();
+
+        $order = new OrdersCaptureRequest($request->input('token'));
+        $order->prefer('return=representation');
 
         try {
-            $order = new OrdersCaptureRequest($request->input('token'));
-            $order->prefer('return=representation');
-
-            $temp = DB::table('paypal')
-                ->where('user_id', $id)
-                ->first();
-
-            $res = $client->execute($order);
-
-            if ($res->statusCode == 200 | 201) {
-                $request->user()->update([
-                    'store_balance' => $request->user()->store_balance + $temp->amount,
-                ]);
-            }
-
-            DB::table('paypal')->where('user_id', $id)->delete();
-
-            return redirect('/store');
+            $res = $this->getClient()->execute($order);
         } catch (DisplayException $ex) {
             throw new DisplayException('Unable to process order.');
         }
-    }
 
-    /**
-     * Callback for when a payment is cancelled.
-     */
-    public function cancel(): RedirectResponse
-    {
-        return redirect()->route('api:client.index');
+        if ($res->statusCode == 200 || 201) {
+            $user->update([
+                'store_balance' => $user->store_balance + $data->amount,
+            ]);
+        }
+
+        DB::table('paypal')->where('user_id', $id)->delete();
+
+        return redirect('/store');
     }
 
     /**
@@ -133,18 +116,9 @@ class PayPalController extends ClientApiController
      */
     protected function getClient(): PayPalHttpClient
     {
-        if (env('APP_ENV') == 'production') {
-            $environment = new ProductionEnvironment(
-                config('gateways.paypal.client_id'),
-                config('gateways.paypal.client_secret')
-            );
-        } else {
-            $environment = new SandboxEnvironment(
-                config('gateways.paypal.client_id'),
-                config('gateways.paypal.client_secret')
-            );
-        }
-
-        return new PayPalHttpClient($environment);
+        return new PayPalHttpClient(new ProductionEnvironment(
+            config('gateways.paypal.client_id'),
+            config('gateways.paypal.client_secret')
+        ));
     }
 }
