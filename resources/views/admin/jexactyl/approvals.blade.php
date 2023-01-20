@@ -62,9 +62,13 @@
                 <div class="box-header with-border">
                     <i class="fa fa-list"></i>
                     <h3 class="box-title">Approval Requests <small>Allow or deny requests to create accounts.</small></h3>
-                    <form id="massapproveform" action="{{ route('admin.jexactyl.approvals.all') }}" method="POST">
+                    <form id="massdenyform" action="{{ route('admin.jexactyl.approvals.all', 'deny') }}" method="POST">
                         {!! csrf_field() !!}
-                        <button id="approvalAllBtn" class="btn btn-success pull-right">Approve All</button>
+                        <button id="denyAllBtn" class="btn btn-danger pull-right">Deny All</button>
+                    </form>
+                    <form id="massapproveform" action="{{ route('admin.jexactyl.approvals.all', 'approve') }}" method="POST">
+                        {!! csrf_field() !!}
+                        <button id="approveAllBtn" class="btn btn-success pull-right">Approve All</button>
                     </form>
                  </div>
                 <div class="box-body table-responsive no-padding">
@@ -153,7 +157,7 @@
         });
     });
 
-    $('#approvalAllBtn').click(function (event) {
+    $('#approveAllBtn').click(function (event) {
         event.preventDefault();
         swal({
             title: 'Approve All Users?',
@@ -164,6 +168,20 @@
             closeOnConfirm: false
         }, function () {
             $('#massapproveform').submit()
+        });
+    });
+
+    $('#denyAllBtn').click(function (event) {
+        event.preventDefault();
+        swal({
+            title: 'Deny All Users?',
+            text: 'This will deny all of the users waiting for approval.',
+            showCancelButton: true,
+            confirmButtonText: 'Deny All',
+            confirmButtonColor: 'red',
+            closeOnConfirm: false
+        }, function () {
+            $('#massdenyform').submit()
         });
     });
     </script>

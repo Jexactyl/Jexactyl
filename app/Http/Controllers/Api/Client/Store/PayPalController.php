@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use Pterodactyl\Exceptions\DisplayException;
-use PayPalCheckoutSdk\Core\SandboxEnvironment;
 use PayPalCheckoutSdk\Core\ProductionEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
@@ -86,7 +85,7 @@ class PayPalController extends ClientApiController
     public function callback(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $data = DB::table('paypal')>where('user_id', $user->id)->first();
+        $data = DB::table('paypal') > where('user_id', $user->id)->first();
 
         $order = new OrdersCaptureRequest($request->input('token'));
         $order->prefer('return=representation');

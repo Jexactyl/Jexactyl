@@ -45,10 +45,11 @@ Route::group(['prefix' => '/'], function () {
     Route::group(['prefix' => '/approvals'], function () {
         Route::get('/', [Jexactyl\ApprovalsController::class, 'index']);
 
-        Route::post('/deny/{id}', [Jexactyl\ApprovalsController::class, 'deny'])->name('admin.jexactyl.approvals.deny');
-        Route::post('/approve/all', [Jexactyl\ApprovalsController::class, 'approveAll'])->name('admin.jexactyl.approvals.all');
-        Route::post('/approve/{id}', [Jexactyl\ApprovalsController::class, 'approve'])->name('admin.jexactyl.approvals.approve');
         Route::patch('/', [Jexactyl\ApprovalsController::class, 'update'])->name('admin.jexactyl.approvals');
+
+        Route::post('/deny/{id}', [Jexactyl\ApprovalsController::class, 'deny'])->name('admin.jexactyl.approvals.deny');
+        Route::post('/approve/all', [Jexactyl\ApprovalsController::class, 'bulkAction'])->name('admin.jexactyl.approvals.all');
+        Route::post('/approve/{id}', [Jexactyl\ApprovalsController::class, 'approve'])->name('admin.jexactyl.approvals.approve');
     });
 
     Route::group(['prefix' => '/server'], function () {

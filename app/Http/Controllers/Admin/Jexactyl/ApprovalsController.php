@@ -54,13 +54,21 @@ class ApprovalsController extends Controller
     }
 
     /**
-     * Approve all users currently waiting to be approved.
+     * Perform a bulk action for approval status.
      */
-    public function approveAll(Request $request): RedirectResponse
+    public function bulkAction(Request $request, string $action): RedirectResponse
     {
-        User::query()->where('approved', false)->update(['approved' => true]);
+        if ($action === 'approve') {
+            User::query()->where('approved', false)->update(['approved' => true]);
+        } else {
+            try {
+                User::query()->where('approved', false)->delete();
+            } catch (DisplayException $ex) {
+                throw new DisplayException('Unable to complete action: ' . $ex->getMessage());
+            }
+        }
 
-        $this->alert->success('All users have been approved successfully.')->flash();
+        $this->alert->success('All users have been ' . $action === 'approve' ? 'approved ' : 'denied successfully.')->flash();
 
         return redirect()->route('admin.jexactyl.approvals');
     }
