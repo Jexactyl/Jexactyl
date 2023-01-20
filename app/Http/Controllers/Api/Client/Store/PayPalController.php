@@ -85,7 +85,7 @@ class PayPalController extends ClientApiController
     public function callback(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $data = DB::table('paypal') > where('user_id', $user->id)->first();
+        $data = DB::table('paypal')->where('user_id', $user->id)->first();
 
         $order = new OrdersCaptureRequest($request->input('token'));
         $order->prefer('return=representation');
@@ -102,7 +102,7 @@ class PayPalController extends ClientApiController
             ]);
         }
 
-        DB::table('paypal')->where('user_id', $id)->delete();
+        DB::table('paypal')->where('user_id', $user->id)->delete();
 
         return redirect('/store');
     }
