@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Jexactyl\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\ApiKey;
+use Jexactyl\Models\Node;
+use Jexactyl\Models\ApiKey;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Http\Controllers\Controller;
+use Jexactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Services\Api\KeyCreationService;
-use Pterodactyl\Repositories\Eloquent\ApiKeyRepository;
+use Jexactyl\Services\Api\KeyCreationService;
+use Jexactyl\Repositories\Eloquent\ApiKeyRepository;
 
 class NodeAutoDeployController extends Controller
 {
@@ -27,11 +27,11 @@ class NodeAutoDeployController extends Controller
      * Generates a new API key for the logged-in user with only permission to read
      * nodes, and returns that as the deployment key for a node.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function __invoke(Request $request, Node $node): JsonResponse
     {
-        /** @var \Pterodactyl\Models\ApiKey|null $key */
+        /** @var \Jexactyl\Models\ApiKey|null $key */
         $key = $this->repository->getApplicationKeys($request->user())
             ->filter(function (ApiKey $key) {
                 foreach ($key->getAttributes() as $permission => $value) {

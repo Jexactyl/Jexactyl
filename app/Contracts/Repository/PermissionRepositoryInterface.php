@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Contracts\Repository;
+namespace Jexactyl\Contracts\Repository;
 
 interface PermissionRepositoryInterface extends RepositoryInterface
 {

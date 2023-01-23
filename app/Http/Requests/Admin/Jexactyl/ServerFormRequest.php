@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin\Jexactyl;
+namespace Jexactyl\Http\Requests\Admin\Jexactyl;
 
-use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
+use Jexactyl\Http\Requests\Admin\AdminFormRequest;
 
 class ServerFormRequest extends AdminFormRequest
 {

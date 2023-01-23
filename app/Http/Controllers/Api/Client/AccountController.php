@@ -1,22 +1,22 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Jexactyl\Http\Controllers\Api\Client;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Coupon;
+use Jexactyl\Models\Coupon;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Facades\Activity;
+use Jexactyl\Facades\Activity;
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Notifications\VerifyEmail;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Services\Users\UserUpdateService;
-use Pterodactyl\Transformers\Api\Client\AccountTransformer;
-use Pterodactyl\Http\Requests\Api\Client\Account\UpdateEmailRequest;
-use Pterodactyl\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
-use Pterodactyl\Http\Requests\Api\Client\Account\UpdateUsernameRequest;
+use Jexactyl\Notifications\VerifyEmail;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Services\Users\UserUpdateService;
+use Jexactyl\Transformers\Api\Client\AccountTransformer;
+use Jexactyl\Http\Requests\Api\Client\Account\UpdateEmailRequest;
+use Jexactyl\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
+use Jexactyl\Http\Requests\Api\Client\Account\UpdateUsernameRequest;
 
 class AccountController extends ClientApiController
 {
@@ -82,8 +82,8 @@ class AccountController extends ClientApiController
     /**
      * Update the authenticated user's username.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function updateUsername(UpdateUsernameRequest $request): JsonResponse
     {

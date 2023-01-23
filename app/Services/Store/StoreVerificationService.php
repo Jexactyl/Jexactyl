@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Store;
+namespace Jexactyl\Services\Store;
 
-use Pterodactyl\Models\Node;
+use Jexactyl\Models\Node;
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Requests\Api\Client\Store\CreateServerRequest;
 
 class StoreVerificationService
 {

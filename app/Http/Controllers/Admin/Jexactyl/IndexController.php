@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
+namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Extensions\Spatie\Fractalistic\Fractal;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Traits\Controllers\PlainJavascriptInjection;
-use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
-use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Extensions\Spatie\Fractalistic\Fractal;
+use Jexactyl\Services\Helpers\SoftwareVersionService;
+use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Jexactyl\Traits\Controllers\PlainJavascriptInjection;
+use Jexactyl\Contracts\Repository\NodeRepositoryInterface;
+use Jexactyl\Contracts\Repository\ServerRepositoryInterface;
 
 class IndexController extends Controller
 {
@@ -74,8 +74,8 @@ class IndexController extends Controller
     /**
      * Handle settings update.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(BaseSettingsFormRequest $request): RedirectResponse
     {

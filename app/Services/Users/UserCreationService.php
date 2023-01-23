@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Services\Users;
+namespace Jexactyl\Services\Users;
 
 use Ramsey\Uuid\Uuid;
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Hashing\Hasher;
-use Pterodactyl\Notifications\VerifyEmail;
+use Jexactyl\Notifications\VerifyEmail;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use Pterodactyl\Notifications\AccountCreated;
-use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Notifications\AccountCreated;
+use Jexactyl\Contracts\Repository\UserRepositoryInterface;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class UserCreationService
 {
@@ -32,7 +32,7 @@ class UserCreationService
      * Create a new user on the system.
      *
      * @throws \Exception
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function handle(array $data): User
     {
@@ -48,7 +48,7 @@ class UserCreationService
             $data['password'] = $this->hasher->make(str_random(30));
         }
 
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Jexactyl\Models\User $user */
         $user = $this->repository->create(array_merge($data, [
             'uuid' => Uuid::uuid4()->toString(),
         ]), true, true);

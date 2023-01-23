@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
+namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
 
 use Carbon\Carbon;
 use Illuminate\View\View;
-use Pterodactyl\Models\Coupon;
+use Jexactyl\Models\Coupon;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Exceptions\Model\DataValidationException;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Jexactyl\Coupons\IndexFormRequest;
-use Pterodactyl\Http\Requests\Admin\Jexactyl\Coupons\StoreFormRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Exceptions\Model\DataValidationException;
+use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Requests\Admin\Jexactyl\Coupons\IndexFormRequest;
+use Jexactyl\Http\Requests\Admin\Jexactyl\Coupons\StoreFormRequest;
 
 class CouponsController extends Controller
 {

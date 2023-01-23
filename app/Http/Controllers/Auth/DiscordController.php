@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Auth;
+namespace Jexactyl\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Exceptions\Model\DataValidationException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Services\Users\UserCreationService;
+use Jexactyl\Exceptions\Model\DataValidationException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class DiscordController extends Controller
 {

@@ -1,30 +1,30 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Jexactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Node;
+use Jexactyl\Models\Node;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Allocation;
+use Jexactyl\Models\Allocation;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Nodes\NodeUpdateService;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Services\Nodes\NodeUpdateService;
 use Illuminate\Cache\Repository as CacheRepository;
-use Pterodactyl\Services\Nodes\NodeCreationService;
-use Pterodactyl\Services\Nodes\NodeDeletionService;
-use Pterodactyl\Services\Allocations\AssignmentService;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
-use Pterodactyl\Http\Requests\Admin\Node\NodeFormRequest;
-use Pterodactyl\Contracts\Repository\NodeRepositoryInterface;
-use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Node\AllocationFormRequest;
-use Pterodactyl\Services\Allocations\AllocationDeletionService;
-use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
-use Pterodactyl\Contracts\Repository\AllocationRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Node\AllocationAliasFormRequest;
+use Jexactyl\Services\Nodes\NodeCreationService;
+use Jexactyl\Services\Nodes\NodeDeletionService;
+use Jexactyl\Services\Allocations\AssignmentService;
+use Jexactyl\Services\Helpers\SoftwareVersionService;
+use Jexactyl\Http\Requests\Admin\Node\NodeFormRequest;
+use Jexactyl\Contracts\Repository\NodeRepositoryInterface;
+use Jexactyl\Contracts\Repository\ServerRepositoryInterface;
+use Jexactyl\Http\Requests\Admin\Node\AllocationFormRequest;
+use Jexactyl\Services\Allocations\AllocationDeletionService;
+use Jexactyl\Contracts\Repository\LocationRepositoryInterface;
+use Jexactyl\Contracts\Repository\AllocationRepositoryInterface;
+use Jexactyl\Http\Requests\Admin\Node\AllocationAliasFormRequest;
 
 class NodesController extends Controller
 {
@@ -66,7 +66,7 @@ class NodesController extends Controller
     /**
      * Post controller to create a new node on the system.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function store(NodeFormRequest $request): RedirectResponse
     {
@@ -79,9 +79,9 @@ class NodesController extends Controller
     /**
      * Updates settings for a node.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\DisplayException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function updateSettings(NodeFormRequest $request, Node $node): RedirectResponse
     {
@@ -94,7 +94,7 @@ class NodesController extends Controller
     /**
      * Removes a single allocation from a node.
      *
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\ServerUsingAllocationException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\ServerUsingAllocationException
      */
     public function allocationRemoveSingle(int $node, Allocation $allocation): Response
     {
@@ -106,7 +106,7 @@ class NodesController extends Controller
     /**
      * Removes multiple individual allocations from a node.
      *
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\ServerUsingAllocationException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\ServerUsingAllocationException
      */
     public function allocationRemoveMultiple(Request $request, int $node): Response
     {
@@ -140,8 +140,8 @@ class NodesController extends Controller
     /**
      * Sets an alias for a specific allocation on a node.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function allocationSetAlias(AllocationAliasFormRequest $request): \Symfony\Component\HttpFoundation\Response
     {
@@ -155,10 +155,10 @@ class NodesController extends Controller
     /**
      * Creates new allocations on a node.
      *
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function createAllocation(AllocationFormRequest $request, Node $node): RedirectResponse
     {
@@ -171,7 +171,7 @@ class NodesController extends Controller
     /**
      * Deletes a node from the system.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Jexactyl\Exceptions\DisplayException
      */
     public function delete(int|Node $node): RedirectResponse
     {

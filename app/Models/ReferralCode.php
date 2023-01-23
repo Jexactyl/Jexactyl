@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Jexactyl\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Pterodactyl\Models\ReferralCode.
+ * Jexactyl\Models\ReferralCode.
  *
  * @property int $user_id
  * @property string $code
  * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Pterodactyl\Models\User $user
+ * @property \Jexactyl\Models\User $user
  */
 class ReferralCode extends Model
 {

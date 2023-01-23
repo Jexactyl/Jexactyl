@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Services\Eggs\Sharing;
+namespace Jexactyl\Services\Eggs\Sharing;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Nest;
+use Jexactyl\Models\Egg;
+use Jexactyl\Models\Nest;
 use Illuminate\Http\UploadedFile;
-use Pterodactyl\Models\EggVariable;
+use Jexactyl\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Services\Eggs\EggParserService;
+use Jexactyl\Services\Eggs\EggParserService;
 
 class EggImporterService
 {
@@ -20,13 +20,13 @@ class EggImporterService
     /**
      * Take an uploaded JSON file and parse it into a new egg.
      *
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException|\Throwable
+     * @throws \Jexactyl\Exceptions\Service\InvalidFileUploadException|\Throwable
      */
     public function handle(UploadedFile $file, int $nest): Egg
     {
         $parsed = $this->parser->handle($file);
 
-        /** @var \Pterodactyl\Models\Nest $nest */
+        /** @var \Jexactyl\Models\Nest $nest */
         $nest = Nest::query()->with('eggs', 'eggs.variables')->findOrFail($nest);
 
         return $this->connection->transaction(function () use ($nest, $parsed) {

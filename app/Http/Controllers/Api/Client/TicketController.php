@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Jexactyl\Http\Controllers\Api\Client;
 
-use Pterodactyl\Models\Ticket;
+use Jexactyl\Models\Ticket;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Models\TicketMessage;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Transformers\Api\Client\Tickets\TicketTransformer;
-use Pterodactyl\Transformers\Api\Client\Tickets\TicketMessageTransformer;
+use Jexactyl\Models\TicketMessage;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Jexactyl\Transformers\Api\Client\Tickets\TicketTransformer;
+use Jexactyl\Transformers\Api\Client\Tickets\TicketMessageTransformer;
 
 class TicketController extends ClientApiController
 {

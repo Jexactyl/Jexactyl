@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Jexactyl\Services\Servers;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\User;
+use Jexactyl\Models\Server;
 
 class GetUserPermissionsService
 {
@@ -26,7 +26,7 @@ class GetUserPermissionsService
             return $permissions;
         }
 
-        /** @var \Pterodactyl\Models\Subuser|null $subuserPermissions */
+        /** @var \Jexactyl\Models\Subuser|null $subuserPermissions */
         $subuserPermissions = $server->subusers()->where('user_id', $user->id)->first();
 
         return $subuserPermissions ? $subuserPermissions->permissions : [];

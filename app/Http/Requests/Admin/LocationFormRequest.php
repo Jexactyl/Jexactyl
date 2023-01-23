@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin;
+namespace Jexactyl\Http\Requests\Admin;
 
-use Pterodactyl\Models\Location;
+use Jexactyl\Models\Location;
 
 class LocationFormRequest extends AdminFormRequest
 {

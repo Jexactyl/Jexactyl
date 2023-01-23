@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Admin;
-use Pterodactyl\Http\Controllers\Admin\Jexactyl;
-use Pterodactyl\Http\Middleware\Admin\Servers\ServerInstalled;
+use Jexactyl\Http\Controllers\Admin;
+use Jexactyl\Http\Controllers\Admin\Jexactyl;
+use Jexactyl\Http\Middleware\Admin\Servers\ServerInstalled;
 
 /*
 |--------------------------------------------------------------------------

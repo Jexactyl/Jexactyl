@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Services\Servers\ServerDeletionService;
-use Pterodactyl\Transformers\Api\Client\ServerTransformer;
-use Pterodactyl\Services\Servers\GetUserPermissionsService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\DeleteServerRequest;
-use Pterodactyl\Http\Requests\Api\Client\Servers\UpdateBackgroundRequest;
+use Jexactyl\Services\Servers\ServerDeletionService;
+use Jexactyl\Transformers\Api\Client\ServerTransformer;
+use Jexactyl\Services\Servers\GetUserPermissionsService;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
+use Jexactyl\Http\Requests\Api\Client\Servers\DeleteServerRequest;
+use Jexactyl\Http\Requests\Api\Client\Servers\UpdateBackgroundRequest;
 
 class ServerController extends ClientApiController
 {

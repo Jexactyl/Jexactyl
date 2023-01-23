@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Jexactyl\Transformers\Api\Application;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 
 class UserResourcesTransformer extends BaseTransformer
 {

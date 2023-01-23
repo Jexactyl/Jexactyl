@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands;
+namespace Jexactyl\Console\Commands;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Console\Kernel;
+use Jexactyl\Console\Kernel;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
 
@@ -133,7 +133,7 @@ class UpgradeCommand extends Command
 
         /** @var \Illuminate\Foundation\Application $app */
         $app = require __DIR__ . '/../../../bootstrap/app.php';
-        /** @var \Pterodactyl\Console\Kernel $kernel */
+        /** @var \Jexactyl\Console\Kernel $kernel */
         $kernel = $app->make(Kernel::class);
         $kernel->bootstrap();
         $this->setLaravel($app);
@@ -173,7 +173,7 @@ class UpgradeCommand extends Command
         });
 
         $this->newLine(2);
-        $this->info('Panel has been successfully upgraded. Please ensure you also update any Wings instances: https://pterodactyl.io/wings/1.0/upgrading.html');
+        $this->info('Panel has been successfully upgraded. Please ensure you also update any Wings instances: https://Jexactyl.io/wings/1.0/upgrading.html');
     }
 
     protected function withProgress(ProgressBar $bar, \Closure $callback)

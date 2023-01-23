@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Jexactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
 use Illuminate\View\Factory;
-use Pterodactyl\Models\Ticket;
+use Jexactyl\Models\Ticket;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Pterodactyl\Models\TicketMessage;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
-use Pterodactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
+use Jexactyl\Models\TicketMessage;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
+use Jexactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Requests\Admin\Tickets\TicketMessageRequest;
 
 class TicketsController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands;
+namespace Jexactyl\Console\Commands;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
+use Jexactyl\Services\Helpers\SoftwareVersionService;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class InfoCommand extends Command
@@ -30,7 +30,7 @@ class InfoCommand extends Command
             ['Panel Version', $this->config->get('app.version')],
             ['Latest Version', $this->versionService->getPanel()],
             ['Up-to-Date', $this->versionService->isLatestPanel() ? 'Yes' : $this->formatText('No', 'bg=red')],
-            ['Unique Identifier', $this->config->get('pterodactyl.service.author')],
+            ['Unique Identifier', $this->config->get('Jexactyl.service.author')],
         ], 'compact');
 
         $this->output->title('Application Configuration');

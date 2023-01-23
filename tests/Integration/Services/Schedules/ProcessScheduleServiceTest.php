@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Schedules;
+namespace Jexactyl\Tests\Integration\Services\Schedules;
 
 use Exception;
 use Carbon\CarbonImmutable;
-use Pterodactyl\Models\Task;
-use Pterodactyl\Models\Schedule;
+use Jexactyl\Models\Task;
+use Jexactyl\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Pterodactyl\Jobs\Schedule\RunTaskJob;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Services\Schedules\ProcessScheduleService;
+use Jexactyl\Jobs\Schedule\RunTaskJob;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Tests\Integration\IntegrationTestCase;
+use Jexactyl\Services\Schedules\ProcessScheduleService;
 
 class ProcessScheduleServiceTest extends IntegrationTestCase
 {
@@ -36,13 +36,13 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'cron_minute' => 'hodor', // this will break the getNextRunDate() function.
         ]);
 
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 1]);
 
         $this->expectException(\InvalidArgumentException::class);
@@ -64,10 +64,10 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
 
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
 
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'time_offset' => 10, 'sequence_id' => 1]);
 
         $this->getService()->handle($schedule, $now);
@@ -89,17 +89,17 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
      * Test that even if a schedule's task sequence gets messed up the first task based on
      * the ascending order of tasks is used.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2534
+     * @see https://github.com/Jexactyl/panel/issues/2534
      */
     public function testFirstSequenceTaskIsFound()
     {
         Bus::fake();
 
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
 
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task2 = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 4]);
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 2]);
         $task3 = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 3]);
@@ -120,16 +120,16 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
      * Tests that a task's processing state is reset correctly if using "dispatchNow" and there is
      * an exception encountered while running it.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2550
+     * @see https://github.com/Jexactyl/panel/issues/2550
      */
     public function testTaskDispatchedNowIsResetProperlyIfErrorIsEncountered()
     {
         $this->swap(Dispatcher::class, $dispatcher = \Mockery::mock(Dispatcher::class));
 
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id, 'last_run_at' => null]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 1]);
 
         $dispatcher->expects('dispatchNow')->andThrows(new \Exception('Test thrown exception'));

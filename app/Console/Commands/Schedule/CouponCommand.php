@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Schedule;
+namespace Jexactyl\Console\Commands\Schedule;
 
 use Carbon\Carbon;
-use Pterodactyl\Models\Coupon;
+use Jexactyl\Models\Coupon;
 use Illuminate\Console\Command;
 
 class CouponCommand extends Command

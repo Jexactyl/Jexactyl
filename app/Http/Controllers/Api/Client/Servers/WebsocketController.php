@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Carbon\CarbonImmutable;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Services\Nodes\NodeJWTService;
-use Pterodactyl\Exceptions\Http\HttpForbiddenException;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Services\Servers\GetUserPermissionsService;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Models\Permission;
+use Jexactyl\Services\Nodes\NodeJWTService;
+use Jexactyl\Exceptions\Http\HttpForbiddenException;
+use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Jexactyl\Services\Servers\GetUserPermissionsService;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
 
 class WebsocketController extends ClientApiController
 {

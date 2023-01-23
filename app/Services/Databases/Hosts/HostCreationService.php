@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Services\Databases\Hosts;
+namespace Jexactyl\Services\Databases\Hosts;
 
-use Pterodactyl\Models\DatabaseHost;
+use Jexactyl\Models\DatabaseHost;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Extensions\DynamicDatabaseConnection;
-use Pterodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
+use Jexactyl\Extensions\DynamicDatabaseConnection;
+use Jexactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class HostCreationService
 {

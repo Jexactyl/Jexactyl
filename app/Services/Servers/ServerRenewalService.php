@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Jexactyl\Services\Servers;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Models\Server;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class ServerRenewalService
 {

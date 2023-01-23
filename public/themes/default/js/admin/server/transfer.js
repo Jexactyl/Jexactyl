@@ -15,7 +15,7 @@ $(document).ready(function () {
 $('#pNodeId').on('change', function () {
     let currentNode = $(this).val();
 
-    $.each(Pterodactyl.nodeData, function (i, v) {
+    $.each(Jexactyl.nodeData, function (i, v) {
         if (v.id == currentNode) {
             $('#pAllocation').html('').select2({
                 data: v.allocations,
@@ -35,7 +35,7 @@ function updateAdditionalAllocations() {
     let currentAllocation = $('#pAllocation').val();
     let currentNode = $('#pNodeId').val();
 
-    $.each(Pterodactyl.nodeData, function (i, v) {
+    $.each(Jexactyl.nodeData, function (i, v) {
         if (v.id == currentNode) {
             let allocations = [];
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client\Server\Schedule;
+namespace Jexactyl\Tests\Integration\Api\Client\Server\Schedule;
 
-use Pterodactyl\Models\Task;
-use Pterodactyl\Models\Schedule;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Jexactyl\Models\Task;
+use Jexactyl\Models\Schedule;
+use Jexactyl\Models\Permission;
+use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class GetServerSchedulesTest extends ClientApiIntegrationTestCase
 {
@@ -29,9 +29,9 @@ class GetServerSchedulesTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount($permissions);
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 1, 'time_offset' => 0]);
 
         $response = $this->actingAs($user)

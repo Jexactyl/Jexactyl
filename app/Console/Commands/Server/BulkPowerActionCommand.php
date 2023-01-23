@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Server;
+namespace Jexactyl\Console\Commands\Server;
 
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Factory as ValidatorFactory;
-use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Jexactyl\Repositories\Wings\DaemonPowerRepository;
+use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BulkPowerActionCommand extends Command
 {

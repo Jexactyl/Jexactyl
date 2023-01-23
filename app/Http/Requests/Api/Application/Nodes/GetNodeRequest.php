@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Nodes;
+namespace Jexactyl\Http\Requests\Api\Application\Nodes;
 
 class GetNodeRequest extends GetNodesRequest
 {

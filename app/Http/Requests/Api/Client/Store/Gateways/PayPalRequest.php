@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Store\Gateways;
+namespace Jexactyl\Http\Requests\Api\Client\Store\Gateways;
 
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
 
 class PayPalRequest extends ClientApiRequest
 {

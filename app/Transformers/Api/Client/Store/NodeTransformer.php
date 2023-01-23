@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client\Store;
+namespace Jexactyl\Transformers\Api\Client\Store;
 
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Transformers\Api\Client\BaseClientTransformer;
+use Jexactyl\Models\Node;
+use Jexactyl\Models\Allocation;
+use Jexactyl\Transformers\Api\Client\BaseClientTransformer;
 
 class NodeTransformer extends BaseClientTransformer
 {

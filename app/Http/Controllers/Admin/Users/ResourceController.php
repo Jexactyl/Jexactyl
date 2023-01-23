@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Users;
+namespace Jexactyl\Http\Controllers\Admin\Users;
 
 use Illuminate\View\View;
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Users\UserUpdateService;
-use Pterodactyl\Exceptions\Model\DataValidationException;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Pterodactyl\Http\Requests\Admin\Users\ResourceFormRequest;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Services\Users\UserUpdateService;
+use Jexactyl\Exceptions\Model\DataValidationException;
+use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Jexactyl\Http\Requests\Admin\Users\ResourceFormRequest;
 
 class ResourceController extends Controller
 {

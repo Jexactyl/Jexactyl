@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Jexactyl\Http\Controllers\Api\Client;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Models\ReferralUses;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Services\Referrals\UseReferralService;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Transformers\Api\Client\Referrals\ReferralCodeTransformer;
-use Pterodactyl\Transformers\Api\Client\Referrals\ReferralActivityTransformer;
+use Jexactyl\Models\ReferralUses;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Services\Referrals\UseReferralService;
+use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Jexactyl\Transformers\Api\Client\Referrals\ReferralCodeTransformer;
+use Jexactyl\Transformers\Api\Client\Referrals\ReferralActivityTransformer;
 
 class ReferralsController extends ClientApiController
 {
@@ -82,7 +82,7 @@ class ReferralsController extends ClientApiController
      */
     public function delete(ClientApiRequest $request, string $code): JsonResponse
     {
-        /** @var \Pterodactyl\Models\ReferralCode $code */
+        /** @var \Jexactyl\Models\ReferralCode $code */
         $referralCode = $request->user()->referralCodes()
             ->where('code', $code)
             ->firstOrFail();

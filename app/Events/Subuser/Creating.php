@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Events\Subuser;
+namespace Jexactyl\Events\Subuser;
 
-use Pterodactyl\Events\Event;
-use Pterodactyl\Models\Subuser;
+use Jexactyl\Events\Event;
+use Jexactyl\Models\Subuser;
 use Illuminate\Queue\SerializesModels;
 
 class Creating extends Event

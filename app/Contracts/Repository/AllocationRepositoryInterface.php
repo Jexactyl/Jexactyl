@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Repository;
+namespace Jexactyl\Contracts\Repository;
 
-use Pterodactyl\Models\Allocation;
+use Jexactyl\Models\Allocation;
 
 interface AllocationRepositoryInterface extends RepositoryInterface
 {

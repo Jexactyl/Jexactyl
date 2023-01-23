@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Extensions\Lcobucci\JWT\Encoding;
+namespace Jexactyl\Extensions\Lcobucci\JWT\Encoding;
 
 use Lcobucci\JWT\ClaimsFormatter;
 use Lcobucci\JWT\Token\RegisteredClaims;

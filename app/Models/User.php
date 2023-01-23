@@ -1,27 +1,27 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Jexactyl\Models;
 
-use Pterodactyl\Rules\Username;
-use Pterodactyl\Facades\Activity;
+use Jexactyl\Rules\Username;
+use Jexactyl\Facades\Activity;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
-use Pterodactyl\Models\Traits\HasAccessTokens;
+use Jexactyl\Models\Traits\HasAccessTokens;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Pterodactyl\Traits\Helpers\AvailableLanguages;
+use Jexactyl\Traits\Helpers\AvailableLanguages;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Pterodactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
+use Jexactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
 
 /**
- * Pterodactyl\Models\User.
+ * Jexactyl\Models\User.
  *
  * @property int $id
  * @property string|null $external_id
@@ -41,18 +41,18 @@ use Pterodactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
  * @property bool $gravatar
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\ApiKey[] $apiKeys
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\ApiKey[] $apiKeys
  * @property int|null $api_keys_count
  * @property string $name
  * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property int|null $notifications_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\RecoveryToken[] $recoveryTokens
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\RecoveryToken[] $recoveryTokens
  * @property int|null $recovery_tokens_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Server[] $servers
  * @property int|null $servers_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\UserSSHKey[] $sshKeys
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\UserSSHKey[] $sshKeys
  * @property int|null $ssh_keys_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\ApiKey[] $tokens
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\ApiKey[] $tokens
  * @property int|null $tokens_count
  * @property int $store_balance
  * @property int $store_cpu

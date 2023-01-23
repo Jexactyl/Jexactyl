@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Jexactyl\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Query\JoinClause;
@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Pterodactyl\Exceptions\Http\Server\ServerStateConflictException;
+use Jexactyl\Exceptions\Http\Server\ServerStateConflictException;
 
 /**
- * \Pterodactyl\Models\Server.
+ * \Jexactyl\Models\Server.
  *
  * @property int $id
  * @property string|null $external_id
@@ -46,29 +46,29 @@ use Pterodactyl\Exceptions\Http\Server\ServerStateConflictException;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $installed_at
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\ActivityLog[] $activity
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\ActivityLog[] $activity
  * @property int|null $activity_count
- * @property \Pterodactyl\Models\Allocation|null $allocation
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Allocation[] $allocations
+ * @property \Jexactyl\Models\Allocation|null $allocation
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Allocation[] $allocations
  * @property int|null $allocations_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Backup[] $backups
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Backup[] $backups
  * @property int|null $backups_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Database[] $databases
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Database[] $databases
  * @property int|null $databases_count
- * @property \Pterodactyl\Models\Egg|null $egg
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Mount[] $mounts
+ * @property \Jexactyl\Models\Egg|null $egg
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Mount[] $mounts
  * @property int|null $mounts_count
- * @property \Pterodactyl\Models\Nest $nest
- * @property \Pterodactyl\Models\Node $node
+ * @property \Jexactyl\Models\Nest $nest
+ * @property \Jexactyl\Models\Node $node
  * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property int|null $notifications_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Schedule[] $schedules
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Schedule[] $schedules
  * @property int|null $schedules_count
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Subuser[] $subusers
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Subuser[] $subusers
  * @property int|null $subusers_count
- * @property \Pterodactyl\Models\ServerTransfer|null $transfer
- * @property \Pterodactyl\Models\User $user
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\EggVariable[] $variables
+ * @property \Jexactyl\Models\ServerTransfer|null $transfer
+ * @property \Jexactyl\Models\User $user
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\EggVariable[] $variables
  * @property int|null $variables_count
  *
  * @method static \Database\Factories\ServerFactory factory(...$parameters)
@@ -284,7 +284,7 @@ class Server extends Model
                 // would actually return all the variables and their values for _all_ servers using that egg,
                 // rather than only the server for this model.
                 //
-                // @see https://github.com/pterodactyl/panel/issues/2250
+                // @see https://github.com/Jexactyl/panel/issues/2250
                 $join->on('server_variables.variable_id', 'egg_variables.id')
                     ->where('server_variables.server_id', $this->id);
             });
@@ -358,7 +358,7 @@ class Server extends Model
      * exception is raised. This should be called whenever something needs to make
      * sure the server is not in a weird state that should block user access.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Server\ServerStateConflictException
+     * @throws \Jexactyl\Exceptions\Http\Server\ServerStateConflictException
      */
     public function validateCurrentState()
     {

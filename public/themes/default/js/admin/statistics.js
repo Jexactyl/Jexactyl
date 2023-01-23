@@ -2,12 +2,12 @@
 // Green: #189a1c
 // Gray: hsl(211, 22%, 21%)
 
-console.log(Pterodactyl);
+console.log(Jexactyl);
 
-const suspended = Pterodactyl.suspended;
-const active = Pterodactyl.servers.length - Pterodactyl.suspended;
-const freeDisk = Pterodactyl.diskTotal - Pterodactyl.diskUsed;
-const freeMemory = Pterodactyl.memoryTotal - Pterodactyl.memoryUsed;
+const suspended = Jexactyl.suspended;
+const active = Jexactyl.servers.length - Jexactyl.suspended;
+const freeDisk = Jexactyl.diskTotal - Jexactyl.diskUsed;
+const freeMemory = Jexactyl.memoryTotal - Jexactyl.memoryUsed;
 
 const diskChart = new Chart($("#disk_chart"), {
     type: "pie",
@@ -15,7 +15,7 @@ const diskChart = new Chart($("#disk_chart"), {
         labels: ["Free Disk", "Used Disk"],
         datasets: [{
             backgroundColor: ["#189a1c", "hsl(211, 22%, 21%)"],
-            data: [freeDisk, Pterodactyl.diskUsed]
+            data: [freeDisk, Jexactyl.diskUsed]
         }]
     }
 });
@@ -26,7 +26,7 @@ const ramChart = new Chart($("#ram_chart"), {
         labels: ["Free RAM", "Used RAM"],
         datasets: [{
             backgroundColor: ["#189a1c", "hsl(211, 22%, 21%)"],
-            data: [freeMemory, Pterodactyl.memoryUsed]
+            data: [freeMemory, Jexactyl.memoryUsed]
         }]
     }
 });

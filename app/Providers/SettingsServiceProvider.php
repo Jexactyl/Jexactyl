@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Jexactyl\Providers;
 
 use Psr\Log\LoggerInterface as Log;
 use Illuminate\Database\QueryException;
@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class SettingsServiceProvider extends ServiceProvider
 {
@@ -25,12 +25,12 @@ class SettingsServiceProvider extends ServiceProvider
         'recaptcha:secret_key',
         'recaptcha:website_key',
         'theme:user:background',
-        'pterodactyl:guzzle:timeout',
-        'pterodactyl:auth:2fa_required',
-        'pterodactyl:guzzle:connect_timeout',
-        'pterodactyl:client_features:allocations:enabled',
-        'pterodactyl:client_features:allocations:range_end',
-        'pterodactyl:client_features:allocations:range_start',
+        'Jexactyl:guzzle:timeout',
+        'Jexactyl:auth:2fa_required',
+        'Jexactyl:guzzle:connect_timeout',
+        'Jexactyl:client_features:allocations:enabled',
+        'Jexactyl:client_features:allocations:range_end',
+        'Jexactyl:client_features:allocations:range_start',
     ];
 
     /**

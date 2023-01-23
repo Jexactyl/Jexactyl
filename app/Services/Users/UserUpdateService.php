@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Services\Users;
+namespace Jexactyl\Services\Users;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Pterodactyl\Traits\Services\HasUserLevels;
+use Jexactyl\Traits\Services\HasUserLevels;
 
 class UserUpdateService
 {

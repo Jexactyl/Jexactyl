@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Node;
+namespace Jexactyl\Console\Commands\Node;
 
-use Pterodactyl\Models\Node;
+use Jexactyl\Models\Node;
 use Illuminate\Console\Command;
 
 class NodeListCommand extends Command

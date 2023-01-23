@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client\Analytics;
+namespace Jexactyl\Transformers\Api\Client\Analytics;
 
-use Pterodactyl\Models\AnalyticsData;
-use Pterodactyl\Transformers\Api\Client\BaseClientTransformer;
+use Jexactyl\Models\AnalyticsData;
+use Jexactyl\Transformers\Api\Client\BaseClientTransformer;
 
 class DataTransformer extends BaseClientTransformer
 {

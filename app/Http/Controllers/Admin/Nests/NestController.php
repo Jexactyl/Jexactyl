@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Nests;
+namespace Jexactyl\Http\Controllers\Admin\Nests;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Services\Nests\NestUpdateService;
-use Pterodactyl\Services\Nests\NestCreationService;
-use Pterodactyl\Services\Nests\NestDeletionService;
-use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Nest\StoreNestFormRequest;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Services\Nests\NestUpdateService;
+use Jexactyl\Services\Nests\NestCreationService;
+use Jexactyl\Services\Nests\NestDeletionService;
+use Jexactyl\Contracts\Repository\NestRepositoryInterface;
+use Jexactyl\Http\Requests\Admin\Nest\StoreNestFormRequest;
 
 class NestController extends Controller
 {
@@ -31,7 +31,7 @@ class NestController extends Controller
     /**
      * Render nest listing page.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function index(): View
     {
@@ -51,7 +51,7 @@ class NestController extends Controller
     /**
      * Handle the storage of a new nest.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function store(StoreNestFormRequest $request): RedirectResponse
     {
@@ -64,7 +64,7 @@ class NestController extends Controller
     /**
      * Return details about a nest including all the eggs and servers per egg.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function view(int $nest): View
     {
@@ -76,8 +76,8 @@ class NestController extends Controller
     /**
      * Handle request to update a nest.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(StoreNestFormRequest $request, int $nest): RedirectResponse
     {
@@ -90,7 +90,7 @@ class NestController extends Controller
     /**
      * Handle request to delete a nest.
      *
-     * @throws \Pterodactyl\Exceptions\Service\HasActiveServersException
+     * @throws \Jexactyl\Exceptions\Service\HasActiveServersException
      */
     public function destroy(int $nest): RedirectResponse
     {

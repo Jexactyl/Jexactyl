@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Services\Store;
+namespace Jexactyl\Services\Store;
 
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
 
 class ResourcePurchaseService
 {

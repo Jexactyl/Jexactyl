@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Services\Subusers;
+namespace Jexactyl\Services\Subusers;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Subuser;
+use Jexactyl\Models\Server;
+use Jexactyl\Models\Subuser;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Repositories\Eloquent\SubuserRepository;
-use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Exceptions\Service\Subuser\UserIsServerOwnerException;
-use Pterodactyl\Exceptions\Service\Subuser\ServerSubuserExistsException;
+use Jexactyl\Services\Users\UserCreationService;
+use Jexactyl\Repositories\Eloquent\SubuserRepository;
+use Jexactyl\Contracts\Repository\UserRepositoryInterface;
+use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Exceptions\Service\Subuser\UserIsServerOwnerException;
+use Jexactyl\Exceptions\Service\Subuser\ServerSubuserExistsException;
 
 class SubuserCreationService
 {
@@ -33,9 +33,9 @@ class SubuserCreationService
      * If the email address already belongs to a user on the system a new user will not
      * be created.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Service\Subuser\ServerSubuserExistsException
-     * @throws \Pterodactyl\Exceptions\Service\Subuser\UserIsServerOwnerException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Service\Subuser\ServerSubuserExistsException
+     * @throws \Jexactyl\Exceptions\Service\Subuser\UserIsServerOwnerException
      * @throws \Throwable
      */
     public function handle(Server $server, string $email, array $permissions): Subuser

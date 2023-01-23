@@ -55,7 +55,7 @@ $(document).on('click', function (event) {
 
 $('#pNodeId').on('change', function () {
     currentNode = $(this).val();
-    $.each(Pterodactyl.nodeData, function (i, v) {
+    $.each(Jexactyl.nodeData, function (i, v) {
         if (v.id == currentNode) {
             $('#pAllocation').html('').select2({
                 data: v.allocations,
@@ -69,7 +69,7 @@ $('#pNodeId').on('change', function () {
 
 $('#pNestId').on('change', function (event) {
     $('#pEggId').html('').select2({
-        data: $.map(_.get(Pterodactyl.nests, $(this).val() + '.eggs', []), function (item) {
+        data: $.map(_.get(Jexactyl.nests, $(this).val() + '.eggs', []), function (item) {
             return {
                 id: item.id,
                 text: item.name,
@@ -79,7 +79,7 @@ $('#pNestId').on('change', function (event) {
 });
 
 $('#pEggId').on('change', function (event) {
-    let parentChain = _.get(Pterodactyl.nests, $('#pNestId').val(), null);
+    let parentChain = _.get(Jexactyl.nests, $('#pNestId').val(), null);
     let objectChain = _.get(parentChain, 'eggs.' + $(this).val(), null);
 
     const images = _.get(objectChain, 'docker_images', {})
@@ -140,7 +140,7 @@ function updateAdditionalAllocations() {
     let currentAllocation = $('#pAllocation').val();
     let currentNode = $('#pNodeId').val();
 
-    $.each(Pterodactyl.nodeData, function (i, v) {
+    $.each(Jexactyl.nodeData, function (i, v) {
         if (v.id == currentNode) {
             let allocations = [];
 

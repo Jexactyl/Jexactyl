@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Jexactyl\Services\Servers;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Api\Client\Servers\EditServerRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Requests\Api\Client\Servers\EditServerRequest;
 
 class ServerEditService
 {

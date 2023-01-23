@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     | Application Version
     |--------------------------------------------------------------------------
-    | This value is set when creating a Pterodactyl release. You should not
+    | This value is set when creating a Jexactyl release. You should not
     | change this value if you are not maintaining your own internal versions.
     */
 
@@ -23,7 +23,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Pterodactyl'),
+    'name' => env('APP_NAME', 'Jexactyl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -203,16 +203,16 @@ return [
         /*
          * Application Service Providers...
          */
-        Pterodactyl\Providers\ActivityLogServiceProvider::class,
-        Pterodactyl\Providers\AppServiceProvider::class,
-        Pterodactyl\Providers\AuthServiceProvider::class,
-        Pterodactyl\Providers\BackupsServiceProvider::class,
-        Pterodactyl\Providers\BladeServiceProvider::class,
-        Pterodactyl\Providers\EventServiceProvider::class,
-        Pterodactyl\Providers\HashidsServiceProvider::class,
-        Pterodactyl\Providers\RouteServiceProvider::class,
-        Pterodactyl\Providers\RepositoryServiceProvider::class,
-        Pterodactyl\Providers\ViewComposerServiceProvider::class,
+        Jexactyl\Providers\ActivityLogServiceProvider::class,
+        Jexactyl\Providers\AppServiceProvider::class,
+        Jexactyl\Providers\AuthServiceProvider::class,
+        Jexactyl\Providers\BackupsServiceProvider::class,
+        Jexactyl\Providers\BladeServiceProvider::class,
+        Jexactyl\Providers\EventServiceProvider::class,
+        Jexactyl\Providers\HashidsServiceProvider::class,
+        Jexactyl\Providers\RouteServiceProvider::class,
+        Jexactyl\Providers\RepositoryServiceProvider::class,
+        Jexactyl\Providers\ViewComposerServiceProvider::class,
 
         /*
          * Additional Dependencies
@@ -235,11 +235,11 @@ return [
         'Alert' => Prologue\Alerts\Facades\Alert::class,
         'Carbon' => Carbon\Carbon::class,
         'JavaScript' => Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
-        'Theme' => Pterodactyl\Extensions\Facades\Theme::class,
+        'Theme' => Jexactyl\Extensions\Facades\Theme::class,
 
         // Custom Facades
-        'Activity' => Pterodactyl\Facades\Activity::class,
-        'LogBatch' => Pterodactyl\Facades\LogBatch::class,
-        'LogTarget' => Pterodactyl\Facades\LogTarget::class,
+        'Activity' => Jexactyl\Facades\Activity::class,
+        'LogBatch' => Jexactyl\Facades\LogBatch::class,
+        'LogTarget' => Jexactyl\Facades\LogTarget::class,
     ])->toArray(),
 ];

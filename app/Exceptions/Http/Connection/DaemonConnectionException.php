@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Http\Connection;
+namespace Jexactyl\Exceptions\Http\Connection;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Exception\GuzzleException;
-use Pterodactyl\Exceptions\DisplayException;
+use Jexactyl\Exceptions\DisplayException;
 
 /**
  * @method \GuzzleHttp\Exception\GuzzleException getPrevious()

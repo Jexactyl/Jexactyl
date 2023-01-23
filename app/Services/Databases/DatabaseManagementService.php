@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Services\Databases;
+namespace Jexactyl\Services\Databases;
 
 use Exception;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Database;
-use Pterodactyl\Helpers\Utilities;
+use Jexactyl\Models\Server;
+use Jexactyl\Models\Database;
+use Jexactyl\Helpers\Utilities;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Extensions\DynamicDatabaseConnection;
-use Pterodactyl\Repositories\Eloquent\DatabaseRepository;
-use Pterodactyl\Exceptions\Repository\DuplicateDatabaseNameException;
-use Pterodactyl\Exceptions\Service\Database\TooManyDatabasesException;
-use Pterodactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
+use Jexactyl\Extensions\DynamicDatabaseConnection;
+use Jexactyl\Repositories\Eloquent\DatabaseRepository;
+use Jexactyl\Exceptions\Repository\DuplicateDatabaseNameException;
+use Jexactyl\Exceptions\Service\Database\TooManyDatabasesException;
+use Jexactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException;
 
 class DatabaseManagementService
 {
@@ -20,7 +20,7 @@ class DatabaseManagementService
      * The regex used to validate that the database name passed through to the function is
      * in the expected format.
      *
-     * @see \Pterodactyl\Services\Databases\DatabaseManagementService::generateUniqueDatabaseName()
+     * @see \Jexactyl\Services\Databases\DatabaseManagementService::generateUniqueDatabaseName()
      */
     private const MATCH_NAME_REGEX = '/^(s[\d]+_)(.*)$/';
 
@@ -66,12 +66,12 @@ class DatabaseManagementService
      * Create a new database that is linked to a specific host.
      *
      * @throws \Throwable
-     * @throws \Pterodactyl\Exceptions\Service\Database\TooManyDatabasesException
-     * @throws \Pterodactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
+     * @throws \Jexactyl\Exceptions\Service\Database\TooManyDatabasesException
+     * @throws \Jexactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
      */
     public function create(Server $server, array $data): Database
     {
-        if (!config('pterodactyl.client_features.databases.enabled')) {
+        if (!config('Jexactyl.client_features.databases.enabled')) {
             throw new DatabaseClientFeatureNotEnabledException();
         }
 
@@ -153,7 +153,7 @@ class DatabaseManagementService
      * have the same name across multiple hosts, for the sake of keeping this logic easy to understand
      * and avoiding user confusion we will ignore the specific host and just look across all hosts.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\DuplicateDatabaseNameException
+     * @throws \Jexactyl\Exceptions\Repository\DuplicateDatabaseNameException
      * @throws \Throwable
      */
     protected function createModel(array $data): Database

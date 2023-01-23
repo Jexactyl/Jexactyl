@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Servers;
+namespace Jexactyl\Tests\Integration\Services\Servers;
 
 use Mockery\MockInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Allocation;
+use Jexactyl\Models\Server;
+use Jexactyl\Models\Allocation;
 use GuzzleHttp\Exception\RequestException;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Services\Servers\BuildModificationService;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Tests\Integration\IntegrationTestCase;
+use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Jexactyl\Services\Servers\BuildModificationService;
+use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BuildModificationServiceTest extends IntegrationTestCase
 {
@@ -37,7 +37,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
         $server = $this->createServerModel();
         $server2 = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Allocation[] $allocations */
+        /** @var \Jexactyl\Models\Allocation[] $allocations */
         $allocations = Allocation::factory()->times(4)->create(['node_id' => $server->node_id, 'notes' => 'Random notes']);
 
         $initialAllocationId = $server->allocation_id;
@@ -84,7 +84,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testExceptionIsThrownIfRemovingTheDefaultAllocation()
     {
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Allocation[] $allocations */
+        /** @var \Jexactyl\Models\Allocation[] $allocations */
         $allocations = Allocation::factory()->times(4)->create(['node_id' => $server->node_id]);
 
         $allocations[0]->update(['server_id' => $server->id]);
@@ -168,7 +168,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testNoExceptionIsThrownIfOnlyRemovingAllocation()
     {
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Allocation $allocation */
+        /** @var \Jexactyl\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id, 'server_id' => $server->id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andReturnUndefined();
@@ -191,7 +191,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testAllocationInBothAddAndRemoveIsAdded()
     {
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Allocation $allocation */
+        /** @var \Jexactyl\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andReturnUndefined();
@@ -210,9 +210,9 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testUsingSameAllocationIdMultipleTimesDoesNotError()
     {
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Allocation $allocation */
+        /** @var \Jexactyl\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id, 'server_id' => $server->id]);
-        /** @var \Pterodactyl\Models\Allocation $allocation2 */
+        /** @var \Jexactyl\Models\Allocation $allocation2 */
         $allocation2 = Allocation::factory()->create(['node_id' => $server->node_id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andReturnUndefined();
@@ -235,7 +235,7 @@ class BuildModificationServiceTest extends IntegrationTestCase
     public function testThatUpdatesAreRolledBackIfExceptionIsEncountered()
     {
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Allocation $allocation */
+        /** @var \Jexactyl\Models\Allocation $allocation */
         $allocation = Allocation::factory()->create(['node_id' => $server->node_id]);
 
         $this->daemonServerRepository->expects('setServer->sync')->andThrows(new DisplayException('Test'));

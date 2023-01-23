@@ -1,20 +1,20 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Jobs\Schedule;
+namespace Jexactyl\Tests\Integration\Jobs\Schedule;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use GuzzleHttp\Psr7\Request;
-use Pterodactyl\Models\Task;
+use Jexactyl\Models\Task;
 use GuzzleHttp\Psr7\Response;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Schedule;
+use Jexactyl\Models\Server;
+use Jexactyl\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
-use Pterodactyl\Jobs\Schedule\RunTaskJob;
+use Jexactyl\Jobs\Schedule\RunTaskJob;
 use GuzzleHttp\Exception\BadResponseException;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Jexactyl\Tests\Integration\IntegrationTestCase;
+use Jexactyl\Repositories\Wings\DaemonPowerRepository;
+use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class RunTaskJobTest extends IntegrationTestCase
 {
@@ -25,14 +25,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_processing' => true,
             'last_run_at' => null,
             'is_active' => false,
         ]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'is_queued' => true]);
 
         $job = new RunTaskJob($task);
@@ -52,9 +52,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'action' => 'foobar']);
 
         $job = new RunTaskJob($task);
@@ -71,14 +71,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_active' => !$isManualRun,
             'is_processing' => true,
             'last_run_at' => null,
         ]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -112,9 +112,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Jexactyl\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Jexactyl\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -148,7 +148,7 @@ class RunTaskJobTest extends IntegrationTestCase
     /**
      * Test that a schedule is not executed if the server is suspended.
      *
-     * @see https://github.com/pterodactyl/panel/issues/4008
+     * @see https://github.com/Jexactyl/panel/issues/4008
      */
     public function testTaskIsNotRunIfServerIsSuspended()
     {

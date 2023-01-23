@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client\Tickets;
+namespace Jexactyl\Transformers\Api\Client\Tickets;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Ticket;
-use Pterodactyl\Transformers\Api\Client\BaseClientTransformer;
+use Jexactyl\Models\User;
+use Jexactyl\Models\Ticket;
+use Jexactyl\Transformers\Api\Client\BaseClientTransformer;
 
 class TicketTransformer extends BaseClientTransformer
 {

@@ -38,7 +38,7 @@
                 <pre class="no-margin">{{ $node->getYamlConfiguration() }}</pre>
             </div>
             <div class="box-footer">
-                <p class="no-margin">This file should be placed in your daemon's root directory (usually <code>/etc/pterodactyl</code>) in a file called <code>config.yml</code>.</p>
+                <p class="no-margin">This file should be placed in your daemon's root directory (usually <code>/etc/Jexactyl</code>) in a file called <code>config.yml</code>.</p>
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
             swal({
                 type: 'success',
                 title: 'Token created.',
-                text: '<p>To auto-configure your node run the following command:<br /><small><pre>cd /etc/pterodactyl && sudo wings configure --panel-url {{ config('app.url') }} --token ' + data.token + ' --node ' + data.node + '{{ config('app.debug') ? ' --allow-insecure' : '' }}</pre></small></p>',
+                text: '<p>To auto-configure your node run the following command:<br /><small><pre>cd /etc/Jexactyl && sudo wings configure --panel-url {{ config('app.url') }} --token ' + data.token + ' --node ' + data.node + '{{ config('app.debug') ? ' --allow-insecure' : '' }}</pre></small></p>',
                 html: true
             })
         }).fail(function () {

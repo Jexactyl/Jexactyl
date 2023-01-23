@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Services\Api;
+namespace Jexactyl\Services\Api;
 
-use Pterodactyl\Models\ApiKey;
+use Jexactyl\Models\ApiKey;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Contracts\Repository\ApiKeyRepositoryInterface;
+use Jexactyl\Contracts\Repository\ApiKeyRepositoryInterface;
 
 class KeyCreationService
 {
@@ -33,7 +33,7 @@ class KeyCreationService
      * This will automatically generate an identifier and an encrypted token that are
      * stored in the database.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function handle(array $data, array $permissions = []): ApiKey
     {

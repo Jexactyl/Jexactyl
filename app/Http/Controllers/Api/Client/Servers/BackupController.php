@@ -1,23 +1,23 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Backup;
+use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Models\Permission;
+use Jexactyl\Facades\Activity;
+use Jexactyl\Models\Permission;
 use Illuminate\Auth\Access\AuthorizationException;
-use Pterodactyl\Services\Backups\DeleteBackupService;
-use Pterodactyl\Services\Backups\DownloadLinkService;
-use Pterodactyl\Repositories\Eloquent\BackupRepository;
-use Pterodactyl\Services\Backups\InitiateBackupService;
-use Pterodactyl\Repositories\Wings\DaemonBackupRepository;
-use Pterodactyl\Transformers\Api\Client\BackupTransformer;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Services\Backups\DeleteBackupService;
+use Jexactyl\Services\Backups\DownloadLinkService;
+use Jexactyl\Repositories\Eloquent\BackupRepository;
+use Jexactyl\Services\Backups\InitiateBackupService;
+use Jexactyl\Repositories\Wings\DaemonBackupRepository;
+use Jexactyl\Transformers\Api\Client\BackupTransformer;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Pterodactyl\Http\Requests\Api\Client\Servers\Backups\StoreBackupRequest;
+use Jexactyl\Http\Requests\Api\Client\Servers\Backups\StoreBackupRequest;
 
 class BackupController extends ClientApiController
 {

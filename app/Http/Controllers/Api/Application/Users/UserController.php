@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Users;
+namespace Jexactyl\Http\Controllers\Api\Application\Users;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Pterodactyl\Services\Users\UserUpdateService;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Services\Users\UserDeletionService;
-use Pterodactyl\Transformers\Api\Application\UserTransformer;
-use Pterodactyl\Http\Requests\Api\Application\Users\GetUsersRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\StoreUserRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\DeleteUserRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\UpdateUserRequest;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Jexactyl\Services\Users\UserUpdateService;
+use Jexactyl\Services\Users\UserCreationService;
+use Jexactyl\Services\Users\UserDeletionService;
+use Jexactyl\Transformers\Api\Application\UserTransformer;
+use Jexactyl\Http\Requests\Api\Application\Users\GetUsersRequest;
+use Jexactyl\Http\Requests\Api\Application\Users\StoreUserRequest;
+use Jexactyl\Http\Requests\Api\Application\Users\DeleteUserRequest;
+use Jexactyl\Http\Requests\Api\Application\Users\UpdateUserRequest;
+use Jexactyl\Http\Controllers\Api\Application\ApplicationApiController;
 
 class UserController extends ApplicationApiController
 {
@@ -64,8 +64,8 @@ class UserController extends ApplicationApiController
      * Revocation errors are returned under the 'revocation_errors' key in the response
      * meta. If there are no errors this is an empty array.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateUserRequest $request, User $user): array
     {
@@ -83,7 +83,7 @@ class UserController extends ApplicationApiController
      * header on successful creation.
      *
      * @throws \Exception
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
      */
     public function store(StoreUserRequest $request): JsonResponse
     {
@@ -103,7 +103,7 @@ class UserController extends ApplicationApiController
      * Handle a request to delete a user from the Panel. Returns a HTTP/204 response
      * on successful deletion.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Jexactyl\Exceptions\DisplayException
      */
     public function delete(DeleteUserRequest $request, User $user): JsonResponse
     {

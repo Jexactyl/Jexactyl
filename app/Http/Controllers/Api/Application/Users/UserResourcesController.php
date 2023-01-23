@@ -1,25 +1,25 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Users;
+namespace Jexactyl\Http\Controllers\Api\Application\Users;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Http\Response;
-use Pterodactyl\Services\Users\UserUpdateService;
-use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
-use Pterodactyl\Http\Requests\Api\Application\Users\GetUsersRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\UpdateUserRequest;
-use Pterodactyl\Transformers\Api\Application\UserResourcesTransformer;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Jexactyl\Services\Users\UserUpdateService;
+use Jexactyl\Contracts\Repository\UserRepositoryInterface;
+use Jexactyl\Http\Requests\Api\Application\Users\GetUsersRequest;
+use Jexactyl\Http\Requests\Api\Application\Users\UpdateUserRequest;
+use Jexactyl\Transformers\Api\Application\UserResourcesTransformer;
+use Jexactyl\Http\Controllers\Api\Application\ApplicationApiController;
 
 class UserResourcesController extends ApplicationApiController
 {
     /**
-     * @var \Pterodactyl\Contracts\Repository\UserRepositoryInterface
+     * @var \Jexactyl\Contracts\Repository\UserRepositoryInterface
      */
     private $repository;
 
     /**
-     * @var \Pterodactyl\Services\Users\UserUpdateService
+     * @var \Jexactyl\Services\Users\UserUpdateService
      */
     private $updateService;
 
@@ -55,8 +55,8 @@ class UserResourcesController extends ApplicationApiController
      * Revocation errors are returned under the 'revocation_errors' key in the response
      * meta. If there are no errors this is an empty array.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Model\DataValidationException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function update(UpdateUserRequest $request, User $user): array
     {

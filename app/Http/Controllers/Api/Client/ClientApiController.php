@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Jexactyl\Http\Controllers\Api\Client;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Transformers\Api\Client\BaseClientTransformer;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Jexactyl\Transformers\Api\Client\BaseClientTransformer;
+use Jexactyl\Http\Controllers\Api\Application\ApplicationApiController;
 
 abstract class ClientApiController extends ApplicationApiController
 {
@@ -39,7 +39,7 @@ abstract class ClientApiController extends ApplicationApiController
     /**
      * Return an instance of an application transformer.
      *
-     * @template T of \Pterodactyl\Transformers\Api\Client\BaseClientTransformer
+     * @template T of \Jexactyl\Transformers\Api\Client\BaseClientTransformer
      *
      * @param class-string<T> $abstract
      *

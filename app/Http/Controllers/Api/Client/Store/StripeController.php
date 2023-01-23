@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Store;
+namespace Jexactyl\Http\Controllers\Api\Client\Store;
 
 use Stripe\StripeClient;
 use Illuminate\Http\JsonResponse;
 use Stripe\Exception\ApiErrorException;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Store\Gateways\StripeRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Http\Requests\Api\Client\Store\Gateways\StripeRequest;
 
 class StripeController extends ClientApiController
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Auth;
+namespace Jexactyl\Http\Controllers\Auth;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use Pterodactyl\Http\Controllers\Controller;
+use Jexactyl\Http\Controllers\Controller;
 
 class VerifyAccountController extends Controller
 {

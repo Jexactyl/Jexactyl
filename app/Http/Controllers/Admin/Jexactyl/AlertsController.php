@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
+namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Exceptions\Model\DataValidationException;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Pterodactyl\Http\Requests\Admin\Jexactyl\AlertFormRequest;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Exceptions\Model\DataValidationException;
+use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Jexactyl\Http\Requests\Admin\Jexactyl\AlertFormRequest;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 
 class AlertsController extends Controller
 {

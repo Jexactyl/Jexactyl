@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Auth;
+namespace Jexactyl\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Password;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Events\Auth\FailedPasswordReset;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Events\Auth\FailedPasswordReset;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

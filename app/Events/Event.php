@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Events;
+namespace Jexactyl\Events;
 
 abstract class Event
 {

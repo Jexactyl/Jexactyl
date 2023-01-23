@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Auth;
+use Jexactyl\Http\Controllers\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +25,7 @@ Route::get('/discord/callback', [Auth\DiscordController::class, 'callback'])->na
 // Apply a throttle to authentication action endpoints, in addition to the
 // recaptcha endpoints to slow down manual attack spammers even more. 🤷
 //
-// @see \Pterodactyl\Providers\RouteServiceProvider
+// @see \Jexactyl\Providers\RouteServiceProvider
 Route::middleware(['throttle:authentication'])->group(function () {
     // Login endpoints.
     Route::post('/login', [Auth\LoginController::class, 'login'])->middleware('recaptcha');

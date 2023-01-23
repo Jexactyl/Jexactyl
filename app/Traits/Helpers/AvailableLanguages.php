@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Traits\Helpers;
+namespace Jexactyl\Traits\Helpers;
 
 use Matriphe\ISO639\ISO639;
 use Illuminate\Filesystem\Filesystem;

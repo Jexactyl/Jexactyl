@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Transformer;
+namespace Jexactyl\Exceptions\Transformer;
 
-use Pterodactyl\Exceptions\PterodactylException;
+use Jexactyl\Exceptions\JexactylException;
 
-class InvalidTransformerLevelException extends PterodactylException
+class InvalidTransformerLevelException extends JexactylException
 {
 }

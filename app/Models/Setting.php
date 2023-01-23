@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Jexactyl\Models;
 
 /**
- * Pterodactyl\Models\Setting.
+ * Jexactyl\Models\Setting.
  *
  * @property int $id
  * @property string $key

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Jexactyl\Transformers\Api\Application;
 
-use Pterodactyl\Models\User;
+use Jexactyl\Models\User;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
+use Jexactyl\Services\Acl\Api\AdminAcl;
 
 class UserTransformer extends BaseTransformer
 {
@@ -47,7 +47,7 @@ class UserTransformer extends BaseTransformer
     /**
      * Return the servers associated with this user.
      *
-     * @throws \Pterodactyl\Exceptions\Transformer\InvalidTransformerLevelException
+     * @throws \Jexactyl\Exceptions\Transformer\InvalidTransformerLevelException
      */
     public function includeServers(User $user): Collection|NullResource
     {

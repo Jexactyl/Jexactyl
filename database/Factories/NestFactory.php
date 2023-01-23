@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Ramsey\Uuid\Uuid;
-use Pterodactyl\Models\Nest;
+use Jexactyl\Models\Nest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NestFactory extends Factory

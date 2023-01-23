@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServerFactory extends Factory

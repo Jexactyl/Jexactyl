@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Jexactyl;
+namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\Contracts\Config\Repository;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Exceptions\Model\DataValidationException;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
-use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
-use Pterodactyl\Http\Requests\Admin\Jexactyl\AppearanceFormRequest;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Exceptions\Model\DataValidationException;
+use Jexactyl\Exceptions\Repository\RecordNotFoundException;
+use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Jexactyl\Http\Requests\Admin\Jexactyl\AppearanceFormRequest;
 
 class AppearanceController extends Controller
 {

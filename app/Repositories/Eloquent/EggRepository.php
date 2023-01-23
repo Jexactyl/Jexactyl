@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Repositories\Eloquent;
+namespace Jexactyl\Repositories\Eloquent;
 
-use Pterodactyl\Models\Egg;
+use Jexactyl\Models\Egg;
 use Webmozart\Assert\Assert;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Pterodactyl\Contracts\Repository\EggRepositoryInterface;
-use Pterodactyl\Exceptions\Repository\RecordNotFoundException;
+use Jexactyl\Contracts\Repository\EggRepositoryInterface;
+use Jexactyl\Exceptions\Repository\RecordNotFoundException;
 
 class EggRepository extends EloquentRepository implements EggRepositoryInterface
 {
@@ -22,7 +22,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
     /**
      * Return an egg with the variables relation attached.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithVariables(int $id): Egg
     {
@@ -46,7 +46,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
      *
      * @param int|string $value
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithCopyAttributes($value, string $column = 'id'): Egg
     {
@@ -62,7 +62,7 @@ class EggRepository extends EloquentRepository implements EggRepositoryInterface
     /**
      * Return all the data needed to export a service.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithExportAttributes(int $id): Egg
     {

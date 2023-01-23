@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Admin\Jexactyl;
+namespace Jexactyl\Http\Requests\Admin\Jexactyl;
 
 use Illuminate\Validation\Rule;
-use Pterodactyl\Http\Requests\Admin\AdminFormRequest;
+use Jexactyl\Http\Requests\Admin\AdminFormRequest;
 
 class MailFormRequest extends AdminFormRequest
 {

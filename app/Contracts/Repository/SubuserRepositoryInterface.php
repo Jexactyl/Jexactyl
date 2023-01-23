@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Repository;
+namespace Jexactyl\Contracts\Repository;
 
-use Pterodactyl\Models\Subuser;
+use Jexactyl\Models\Subuser;
 
 interface SubuserRepositoryInterface extends RepositoryInterface
 {
@@ -19,7 +19,7 @@ interface SubuserRepositoryInterface extends RepositoryInterface
     /**
      * Return a subuser and associated permissions given a user_id and server_id.
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     * @throws \Jexactyl\Exceptions\Repository\RecordNotFoundException
      */
     public function getWithPermissionsUsingUserAndServer(int $user, int $server): Subuser;
 }

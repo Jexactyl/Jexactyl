@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Events;
+namespace Jexactyl\Events;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\ActivityLog;
+use Jexactyl\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
 
 class ActivityLogged extends Event

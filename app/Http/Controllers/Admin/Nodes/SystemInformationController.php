@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin\Nodes;
+namespace Jexactyl\Http\Controllers\Admin\Nodes;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Node;
+use Jexactyl\Models\Node;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Repositories\Wings\DaemonConfigurationRepository;
+use Jexactyl\Http\Controllers\Controller;
+use Jexactyl\Repositories\Wings\DaemonConfigurationRepository;
 
 class SystemInformationController extends Controller
 {
@@ -21,7 +21,7 @@ class SystemInformationController extends Controller
     /**
      * Returns system information from the Daemon.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Jexactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function __invoke(Request $request, Node $node): JsonResponse
     {

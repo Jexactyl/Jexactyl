@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Nodes;
+namespace Jexactyl\Http\Controllers\Api\Application\Nodes;
 
-use Pterodactyl\Services\Deployment\FindViableNodesService;
-use Pterodactyl\Transformers\Api\Application\NodeTransformer;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
-use Pterodactyl\Http\Requests\Api\Application\Nodes\GetDeployableNodesRequest;
+use Jexactyl\Services\Deployment\FindViableNodesService;
+use Jexactyl\Transformers\Api\Application\NodeTransformer;
+use Jexactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Jexactyl\Http\Requests\Api\Application\Nodes\GetDeployableNodesRequest;
 
 class NodeDeploymentController extends ApplicationApiController
 {
@@ -22,7 +22,7 @@ class NodeDeploymentController extends ApplicationApiController
      * similarly to the server creation process, but allows you to pass the deployment object
      * to this endpoint and get back a list of all Nodes satisfying the requirements.
      *
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Jexactyl\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function __invoke(GetDeployableNodesRequest $request): array
     {

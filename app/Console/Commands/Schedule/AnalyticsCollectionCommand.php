@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Schedule;
+namespace Jexactyl\Console\Commands\Schedule;
 
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Console\Command;
-use Pterodactyl\Models\AnalyticsData;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Jexactyl\Models\AnalyticsData;
+use Jexactyl\Repositories\Wings\DaemonServerRepository;
 
 class AnalyticsCollectionCommand extends Command
 {

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Api\Application;
+use Jexactyl\Http\Controllers\Api\Application;
 
 /*
 |--------------------------------------------------------------------------

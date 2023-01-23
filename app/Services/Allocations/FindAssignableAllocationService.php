@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Allocations;
+namespace Jexactyl\Services\Allocations;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
-use Pterodactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;
+use Jexactyl\Models\Server;
+use Jexactyl\Models\Allocation;
+use Jexactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
+use Jexactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;
 
 class FindAssignableAllocationService
 {
@@ -22,22 +22,22 @@ class FindAssignableAllocationService
      * no allocation can be found, a new one will be created with a random port between the defined
      * range from the configuration.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Jexactyl\Exceptions\DisplayException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     public function handle(Server $server): Allocation
     {
-        if (!config('pterodactyl.client_features.allocations.enabled')) {
+        if (!config('Jexactyl.client_features.allocations.enabled')) {
             throw new AutoAllocationNotEnabledException();
         }
 
         // Attempt to find a given available allocation for a server. If one cannot be found
         // we will fall back to attempting to create a new allocation that can be used for the
         // server.
-        /** @var \Pterodactyl\Models\Allocation|null $allocation */
+        /** @var \Jexactyl\Models\Allocation|null $allocation */
         $allocation = $server->node->allocations()
             ->where('ip', $server->allocation->ip)
             ->whereNull('server_id')
@@ -56,16 +56,16 @@ class FindAssignableAllocationService
      * in the settings. If there are no matches in that range, or something is wrong with the
      * range information provided an exception will be raised.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\InvalidPortMappingException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\PortOutOfRangeException
-     * @throws \Pterodactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
+     * @throws \Jexactyl\Exceptions\DisplayException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\CidrOutOfRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\InvalidPortMappingException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\PortOutOfRangeException
+     * @throws \Jexactyl\Exceptions\Service\Allocation\TooManyPortsInRangeException
      */
     protected function createNewAllocation(Server $server): Allocation
     {
-        $start = config('pterodactyl.client_features.allocations.range_start', null);
-        $end = config('pterodactyl.client_features.allocations.range_end', null);
+        $start = config('Jexactyl.client_features.allocations.range_start', null);
+        $end = config('Jexactyl.client_features.allocations.range_end', null);
 
         if (!$start || !$end) {
             throw new NoAutoAllocationSpaceAvailableException();
@@ -100,7 +100,7 @@ class FindAssignableAllocationService
             'allocation_ports' => [$port],
         ]);
 
-        /** @var \Pterodactyl\Models\Allocation $allocation */
+        /** @var \Jexactyl\Models\Allocation $allocation */
         $allocation = $server->node->allocations()
             ->where('ip', $server->allocation->ip)
             ->where('port', $port)

@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Jexactyl\Services\Servers;
 
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Server;
+use Jexactyl\Models\Server;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Traits\Services\ReturnsUpdatedModels;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Jexactyl\Traits\Services\ReturnsUpdatedModels;
+use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DetailsModificationService
 {

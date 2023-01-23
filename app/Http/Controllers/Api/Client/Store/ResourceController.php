@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Store;
+namespace Jexactyl\Http\Controllers\Api\Client\Store;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Services\Store\ResourcePurchaseService;
-use Pterodactyl\Transformers\Api\Client\Store\CostTransformer;
-use Pterodactyl\Transformers\Api\Client\Store\UserTransformer;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
+use Jexactyl\Exceptions\DisplayException;
+use Jexactyl\Services\Store\ResourcePurchaseService;
+use Jexactyl\Transformers\Api\Client\Store\CostTransformer;
+use Jexactyl\Transformers\Api\Client\Store\UserTransformer;
+use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
+use Jexactyl\Http\Requests\Api\Client\Store\PurchaseResourceRequest;
 
 class ResourceController extends ClientApiController
 {

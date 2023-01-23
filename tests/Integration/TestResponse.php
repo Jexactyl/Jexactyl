@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration;
+namespace Jexactyl\Tests\Integration;
 
 use Illuminate\Http\Response;
 use Illuminate\Testing\Assert as PHPUnit;
-use Pterodactyl\Exceptions\DisplayException;
+use Jexactyl\Exceptions\DisplayException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Testing\TestResponse as IlluminateTestResponse;
 

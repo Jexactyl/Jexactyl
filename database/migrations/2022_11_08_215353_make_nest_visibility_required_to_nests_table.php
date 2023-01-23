@@ -1,6 +1,6 @@
 <?php
 
-use Pterodactyl\Models\Nest;
+use Jexactyl\Models\Nest;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

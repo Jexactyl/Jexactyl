@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\ViewComposers;
+namespace Jexactyl\Http\ViewComposers;
 
 use Illuminate\View\View;
-use Pterodactyl\Services\Helpers\AssetHashService;
+use Jexactyl\Services\Helpers\AssetHashService;
 
 class SettingComposer extends Composer
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Jexactyl\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property string $token
  * @property \Carbon\CarbonImmutable $created_at
- * @property \Pterodactyl\Models\User $user
+ * @property \Jexactyl\Models\User $user
  */
 class RecoveryToken extends Model
 {
