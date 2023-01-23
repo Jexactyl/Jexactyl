@@ -5,13 +5,13 @@ The following versions of Jexactyl are receiving active support and maintenance.
 
 | Panel   | Supported          |
 |---------|--------------------|
-| 3.5.x   | :white_check_mark: |
-| 3.4.x   | :white_check_mark: |
-| < 3.4.x | :x:                |
+| 3.7.x   | :white_check_mark: |
+| 3.6.x   | :white_check_mark: |
+| < 3.5.x | :x:                |
 
 ## Reporting a Vulnerability
 
-Please reach out directly to any project team member on Discord when reporting a security vulnerability, or you can email `contact@heyim.cam`.
+Please reach out directly to any project team member on Discord when reporting a security vulnerability, or you can email `cameron@jexactyl.com`.
 
 We make every effort to respond as soon as possible, although it may take a day or two for us to sync internally and determine the severity of the report and its impact. Please, _do not_ use a public facing channel or GitHub issues to report sensitive security issues.
 

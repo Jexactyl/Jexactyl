@@ -1,5 +1,7 @@
 # The MIT License (MIT)
 
+This license is retained from Jexactyl&apos;s parent project, <a href="https://github.com/pterodactyl/panel">Pterodactyl&reg;</a>.
+
 ```
 Pterodactyl®
 Copyright © Dane Everitt <dane@daneeveritt.com> and contributors
