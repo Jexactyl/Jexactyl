@@ -4,8 +4,8 @@ namespace Jexactyl\Services\Allocations;
 
 use IPTools\Network;
 use Jexactyl\Models\Node;
-use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Exceptions\DisplayException;
+use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Contracts\Repository\AllocationRepositoryInterface;
 use Jexactyl\Exceptions\Service\Allocation\CidrOutOfRangeException;
 use Jexactyl\Exceptions\Service\Allocation\PortOutOfRangeException;

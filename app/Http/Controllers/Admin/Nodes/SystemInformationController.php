@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Http\Controllers\Admin\Nodes;
 
+use Jexactyl\Models\Node;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Jexactyl\Models\Node;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Repositories\Wings\DaemonConfigurationRepository;

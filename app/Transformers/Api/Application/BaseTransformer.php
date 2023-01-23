@@ -4,13 +4,13 @@ namespace Jexactyl\Transformers\Api\Application;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
+use Jexactyl\Models\ApiKey;
 use Illuminate\Http\Request;
 use Webmozart\Assert\Assert;
-use Jexactyl\Models\ApiKey;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
-use League\Fractal\TransformerAbstract;
 use Jexactyl\Services\Acl\Api\AdminAcl;
+use League\Fractal\TransformerAbstract;
 
 /**
  * @method array transform(Model $model)

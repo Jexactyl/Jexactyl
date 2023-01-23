@@ -3,11 +3,11 @@
 namespace Jexactyl\Tests\Integration\Jobs\Schedule;
 
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use GuzzleHttp\Psr7\Request;
 use Jexactyl\Models\Task;
-use GuzzleHttp\Psr7\Response;
+use Carbon\CarbonImmutable;
 use Jexactyl\Models\Server;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Jexactyl\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
 use Jexactyl\Jobs\Schedule\RunTaskJob;

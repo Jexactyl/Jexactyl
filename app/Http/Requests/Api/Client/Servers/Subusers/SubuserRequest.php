@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Requests\Api\Client\Servers\Subusers;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
+use Illuminate\Http\Request;
 use Jexactyl\Models\Subuser;
 use Jexactyl\Exceptions\Http\HttpForbiddenException;
 use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;

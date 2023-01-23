@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Tests\Integration\Services\Databases;
 
-use Mockery\MockInterface;
 use Jexactyl\Models\Node;
+use Mockery\MockInterface;
 use Jexactyl\Models\Database;
 use Jexactyl\Models\DatabaseHost;
 use Jexactyl\Tests\Integration\IntegrationTestCase;

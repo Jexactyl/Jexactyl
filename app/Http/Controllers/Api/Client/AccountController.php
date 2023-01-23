@@ -2,13 +2,13 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
-use Illuminate\Http\Response;
 use Jexactyl\Models\Coupon;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Jexactyl\Facades\Activity;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Jexactyl\Facades\Activity;
 use Illuminate\Support\Facades\DB;
 use Jexactyl\Notifications\VerifyEmail;
 use Jexactyl\Exceptions\DisplayException;

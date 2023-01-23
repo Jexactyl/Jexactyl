@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Middleware\Activity;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Request;
 use Jexactyl\Facades\LogTarget;
 
 class ServerSubject

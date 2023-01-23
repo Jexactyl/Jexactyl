@@ -3,8 +3,8 @@
 namespace Jexactyl\Services\Servers;
 
 use Jexactyl\Models\User;
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;

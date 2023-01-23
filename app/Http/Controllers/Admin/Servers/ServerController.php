@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Admin\Servers;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Jexactyl\Http\Controllers\Controller;

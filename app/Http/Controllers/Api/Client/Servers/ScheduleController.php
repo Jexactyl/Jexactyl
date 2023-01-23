@@ -3,13 +3,13 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Carbon\Carbon;
+use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Server;
 use Jexactyl\Models\Schedule;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Helpers\Utilities;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Repositories\Eloquent\ScheduleRepository;
 use Jexactyl\Services\Schedules\ProcessScheduleService;

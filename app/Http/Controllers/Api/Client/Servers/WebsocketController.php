@@ -4,8 +4,8 @@ namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Carbon\CarbonImmutable;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Services\Nodes\NodeJWTService;
 use Jexactyl\Exceptions\Http\HttpForbiddenException;
 use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;

@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;

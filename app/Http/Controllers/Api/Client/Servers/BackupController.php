@@ -2,12 +2,12 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Backup;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 use Jexactyl\Services\Backups\DeleteBackupService;
 use Jexactyl\Services\Backups\DownloadLinkService;

@@ -4,8 +4,8 @@ namespace Jexactyl\Http\Controllers\Base;
 
 use Stripe\Stripe;
 use Stripe\Webhook;
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Jexactyl\Http\Controllers\Controller;
 use Stripe\Exception\SignatureVerificationException;

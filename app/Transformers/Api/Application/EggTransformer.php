@@ -2,15 +2,15 @@
 
 namespace Jexactyl\Transformers\Api\Application;
 
-use Illuminate\Support\Arr;
 use Jexactyl\Models\Egg;
 use Jexactyl\Models\Nest;
+use Illuminate\Support\Arr;
 use Jexactyl\Models\Server;
-use League\Fractal\Resource\Item;
 use Jexactyl\Models\EggVariable;
+use League\Fractal\Resource\Item;
+use Jexactyl\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Jexactyl\Services\Acl\Api\AdminAcl;
 
 class EggTransformer extends BaseTransformer
 {

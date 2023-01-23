@@ -3,10 +3,10 @@
 namespace Jexactyl\Tests\Integration\Api\Client;
 
 use Jexactyl\Models\User;
-use Illuminate\Http\Response;
 use Jexactyl\Models\ApiKey;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Http\Response;
 use Jexactyl\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 
 class ApiKeyControllerTest extends ClientApiIntegrationTestCase
 {

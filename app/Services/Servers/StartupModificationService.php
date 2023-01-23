@@ -2,13 +2,13 @@
 
 namespace Jexactyl\Services\Servers;
 
-use Illuminate\Support\Arr;
 use Jexactyl\Models\Egg;
 use Jexactyl\Models\User;
+use Illuminate\Support\Arr;
 use Jexactyl\Models\Server;
 use Jexactyl\Models\ServerVariable;
-use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Traits\Services\HasUserLevels;
+use Illuminate\Database\ConnectionInterface;
 
 class StartupModificationService
 {

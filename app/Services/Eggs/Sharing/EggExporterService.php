@@ -4,8 +4,8 @@ namespace Jexactyl\Services\Eggs\Sharing;
 
 use Carbon\Carbon;
 use Jexactyl\Models\Egg;
-use Illuminate\Support\Collection;
 use Jexactyl\Models\EggVariable;
+use Illuminate\Support\Collection;
 use Jexactyl\Contracts\Repository\EggRepositoryInterface;
 
 class EggExporterService

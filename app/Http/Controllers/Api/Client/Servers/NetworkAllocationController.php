@@ -3,9 +3,9 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Models\Allocation;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Repositories\Eloquent\ServerRepository;
 use Jexactyl\Transformers\Api\Client\AllocationTransformer;

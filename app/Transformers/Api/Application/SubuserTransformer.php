@@ -4,8 +4,8 @@ namespace Jexactyl\Transformers\Api\Application;
 
 use Jexactyl\Models\Subuser;
 use League\Fractal\Resource\Item;
-use League\Fractal\Resource\NullResource;
 use Jexactyl\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\NullResource;
 
 class SubuserTransformer extends BaseTransformer
 {

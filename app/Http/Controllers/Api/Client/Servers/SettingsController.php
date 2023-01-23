@@ -2,10 +2,10 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Jexactyl\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Repositories\Eloquent\ServerRepository;
 use Jexactyl\Services\Servers\ReinstallServerService;
 use Jexactyl\Http\Controllers\Api\Client\ClientApiController;

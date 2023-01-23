@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Http\Middleware\Admin\Servers;
 
+use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Server;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

@@ -3,11 +3,11 @@
 namespace Jexactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Illuminate\View\Factory;
 use Jexactyl\Models\Ticket;
+use Illuminate\View\Factory;
+use Jexactyl\Models\TicketMessage;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Models\TicketMessage;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Http\Requests\Admin\Tickets\TicketStatusRequest;
 use Jexactyl\Http\Requests\Admin\Tickets\TicketToggleRequest;

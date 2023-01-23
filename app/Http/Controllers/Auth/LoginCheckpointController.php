@@ -2,16 +2,16 @@
 
 namespace Jexactyl\Http\Controllers\Auth;
 
+use Jexactyl\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Jexactyl\Models\User;
 use Illuminate\Http\JsonResponse;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Jexactyl\Events\Auth\ProvidedAuthenticationToken;
 use Jexactyl\Http\Requests\Auth\LoginCheckpointRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
 class LoginCheckpointController extends AbstractLoginController

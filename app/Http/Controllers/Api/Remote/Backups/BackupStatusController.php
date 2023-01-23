@@ -3,16 +3,16 @@
 namespace Jexactyl\Http\Controllers\Api\Remote\Backups;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Backup;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Jexactyl\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Extensions\Backups\BackupManager;
 use Jexactyl\Extensions\Filesystem\S3Filesystem;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Jexactyl\Http\Requests\Api\Remote\ReportBackupCompleteRequest;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BackupStatusController extends Controller
 {

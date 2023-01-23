@@ -3,8 +3,8 @@
 namespace Jexactyl\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Mockery\MockInterface;
 use Jexactyl\Models\User;
+use Mockery\MockInterface;
 use Illuminate\Foundation\Application;
 use Jexactyl\Http\Middleware\LanguageMiddleware;
 

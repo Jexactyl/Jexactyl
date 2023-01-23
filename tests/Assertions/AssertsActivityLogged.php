@@ -3,8 +3,8 @@
 namespace Jexactyl\Tests\Assertions;
 
 use PHPUnit\Framework\Assert;
-use Illuminate\Support\Facades\Event;
 use Jexactyl\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Model;
 use Jexactyl\Models\ActivityLogSubject;
 

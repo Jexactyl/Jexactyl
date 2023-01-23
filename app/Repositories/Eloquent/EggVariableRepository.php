@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Repositories\Eloquent;
 
-use Illuminate\Support\Collection;
 use Jexactyl\Models\EggVariable;
+use Illuminate\Support\Collection;
 use Jexactyl\Contracts\Repository\EggVariableRepositoryInterface;
 
 class EggVariableRepository extends EloquentRepository implements EggVariableRepositoryInterface

@@ -3,10 +3,10 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Jexactyl\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Services\Nodes\NodeJWTService;
 use Jexactyl\Repositories\Wings\DaemonFileRepository;
 use Jexactyl\Transformers\Api\Client\FileObjectTransformer;

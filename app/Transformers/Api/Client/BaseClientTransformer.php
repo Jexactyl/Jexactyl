@@ -3,8 +3,8 @@
 namespace Jexactyl\Transformers\Api\Client;
 
 use Jexactyl\Models\User;
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Jexactyl\Transformers\Api\Application\BaseTransformer as BaseApplicationTransformer;
 
 abstract class BaseClientTransformer extends BaseApplicationTransformer

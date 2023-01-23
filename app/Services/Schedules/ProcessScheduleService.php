@@ -4,10 +4,10 @@ namespace Jexactyl\Services\Schedules;
 
 use Exception;
 use Jexactyl\Models\Schedule;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Jexactyl\Jobs\Schedule\RunTaskJob;
-use Illuminate\Database\ConnectionInterface;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Jexactyl\Exceptions\DisplayException;
+use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Repositories\Wings\DaemonServerRepository;
 use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
 

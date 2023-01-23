@@ -3,11 +3,11 @@
 namespace Jexactyl\Tests\Integration\Api\Client\Server\Backup;
 
 use Mockery\MockInterface;
-use Illuminate\Http\Response;
 use Jexactyl\Models\Backup;
+use Illuminate\Http\Response;
 use Jexactyl\Models\Permission;
-use Illuminate\Support\Facades\Event;
 use Jexactyl\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 use Jexactyl\Repositories\Wings\DaemonBackupRepository;
 use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 

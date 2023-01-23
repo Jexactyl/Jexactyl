@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Base;
 
 use Illuminate\View\View;
-use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Contracts\Repository\ServerRepositoryInterface;
 
 class IndexController extends Controller

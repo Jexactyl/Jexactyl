@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Api\Client;
 
 use Jexactyl\Models\ApiKey;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
 use Jexactyl\Transformers\Api\Client\ApiKeyTransformer;

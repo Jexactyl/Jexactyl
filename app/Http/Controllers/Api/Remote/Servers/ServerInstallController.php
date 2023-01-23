@@ -3,9 +3,9 @@
 namespace Jexactyl\Http\Controllers\Api\Remote\Servers;
 
 use Carbon\CarbonImmutable;
+use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Repositories\Eloquent\ServerRepository;

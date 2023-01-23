@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Repositories\Eloquent;
 
-use Illuminate\Support\Collection;
 use Jexactyl\Models\DatabaseHost;
+use Illuminate\Support\Collection;
 use Jexactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class DatabaseHostRepository extends EloquentRepository implements DatabaseHostRepositoryInterface

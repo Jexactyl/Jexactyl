@@ -6,10 +6,10 @@ use Illuminate\Support\Arr;
 use Jexactyl\Models\Server;
 use Jexactyl\Models\Allocation;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Exceptions\DisplayException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Repositories\Wings\DaemonServerRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BuildModificationService

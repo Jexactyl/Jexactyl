@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Api\Application\Nodes;
 
 use Jexactyl\Models\Node;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Models\Allocation;
+use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;

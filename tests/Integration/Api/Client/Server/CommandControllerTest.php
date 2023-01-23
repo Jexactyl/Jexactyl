@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Tests\Integration\Api\Client\Server;
 
+use Jexactyl\Models\Server;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Server;
 use Jexactyl\Models\Permission;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;

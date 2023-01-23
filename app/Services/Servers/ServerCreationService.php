@@ -3,13 +3,13 @@
 namespace Jexactyl\Services\Servers;
 
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Arr;
 use Jexactyl\Models\Egg;
 use Jexactyl\Models\User;
-use Webmozart\Assert\Assert;
+use Illuminate\Support\Arr;
 use Jexactyl\Models\Server;
-use Illuminate\Support\Collection;
+use Webmozart\Assert\Assert;
 use Jexactyl\Models\Allocation;
+use Illuminate\Support\Collection;
 use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Models\Objects\DeploymentObject;
 use Jexactyl\Repositories\Eloquent\ServerRepository;

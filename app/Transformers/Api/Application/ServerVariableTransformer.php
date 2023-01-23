@@ -2,10 +2,10 @@
 
 namespace Jexactyl\Transformers\Api\Application;
 
-use League\Fractal\Resource\Item;
 use Jexactyl\Models\EggVariable;
-use League\Fractal\Resource\NullResource;
+use League\Fractal\Resource\Item;
 use Jexactyl\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\NullResource;
 
 class ServerVariableTransformer extends BaseTransformer
 {

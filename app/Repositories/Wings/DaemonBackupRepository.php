@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Repositories\Wings;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Backup;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;

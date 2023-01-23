@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Tests\Integration\Http\Controllers\Admin;
 
+use Jexactyl\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Jexactyl\Models\User;
 use Jexactyl\Models\Subuser;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Jexactyl\Tests\Integration\IntegrationTestCase;

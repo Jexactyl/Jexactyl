@@ -3,12 +3,12 @@
 namespace Jexactyl\Http\Controllers\Api\Remote\Servers;
 
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Models\Allocation;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Jexactyl\Models\ServerTransfer;
-use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Repositories\Eloquent\ServerRepository;
 use Jexactyl\Repositories\Wings\DaemonServerRepository;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;

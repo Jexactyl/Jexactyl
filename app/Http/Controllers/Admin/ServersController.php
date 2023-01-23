@@ -2,11 +2,11 @@
 
 namespace Jexactyl\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
-use Illuminate\Http\Response;
 use Jexactyl\Models\Mount;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Jexactyl\Models\Database;
 use Jexactyl\Models\MountServer;
 use Illuminate\Http\RedirectResponse;
@@ -27,9 +27,9 @@ use Jexactyl\Services\Servers\StartupModificationService;
 use Jexactyl\Contracts\Repository\NestRepositoryInterface;
 use Jexactyl\Repositories\Eloquent\DatabaseHostRepository;
 use Jexactyl\Services\Databases\DatabaseManagementService;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Jexactyl\Contracts\Repository\ServerRepositoryInterface;
 use Jexactyl\Contracts\Repository\DatabaseRepositoryInterface;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Jexactyl\Contracts\Repository\AllocationRepositoryInterface;
 use Jexactyl\Services\Servers\ServerConfigurationStructureService;
 use Jexactyl\Http\Requests\Admin\Servers\Databases\StoreServerDatabaseRequest;

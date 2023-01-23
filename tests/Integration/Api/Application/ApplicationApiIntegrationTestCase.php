@@ -2,10 +2,10 @@
 
 namespace Jexactyl\Tests\Integration\Api\Application;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
-use PHPUnit\Framework\Assert;
 use Jexactyl\Models\ApiKey;
+use Illuminate\Http\Request;
+use PHPUnit\Framework\Assert;
 use Jexactyl\Services\Acl\Api\AdminAcl;
 use Jexactyl\Tests\Integration\IntegrationTestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

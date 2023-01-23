@@ -3,8 +3,8 @@
 namespace Jexactyl\Transformers\Api\Client;
 
 use Jexactyl\Models\Database;
-use League\Fractal\Resource\Item;
 use Jexactyl\Models\Permission;
+use League\Fractal\Resource\Item;
 use League\Fractal\Resource\NullResource;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Jexactyl\Contracts\Extensions\HashidsInterface;

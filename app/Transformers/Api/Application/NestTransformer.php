@@ -5,9 +5,9 @@ namespace Jexactyl\Transformers\Api\Application;
 use Jexactyl\Models\Egg;
 use Jexactyl\Models\Nest;
 use Jexactyl\Models\Server;
+use Jexactyl\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Jexactyl\Services\Acl\Api\AdminAcl;
 
 class NestTransformer extends BaseTransformer
 {

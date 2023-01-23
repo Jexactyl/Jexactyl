@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Repositories\Wings;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\TransferException;
 use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;

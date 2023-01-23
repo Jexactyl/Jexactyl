@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Services\Databases;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Jexactyl\Models\Database;
 use Jexactyl\Models\DatabaseHost;
 use Jexactyl\Exceptions\Service\Database\NoSuitableDatabaseHostException;

@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Store;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Nest;
 use Jexactyl\Models\Node;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Services\Store\StoreCreationService;

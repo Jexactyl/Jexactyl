@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Application\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Jexactyl\Models\Database;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Services\Databases\DatabasePasswordService;

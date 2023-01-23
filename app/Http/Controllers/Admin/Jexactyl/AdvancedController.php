@@ -6,11 +6,11 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Http\Controllers\Controller;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 use Jexactyl\Http\Requests\Admin\Jexactyl\AdvancedFormRequest;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class AdvancedController extends Controller
 {

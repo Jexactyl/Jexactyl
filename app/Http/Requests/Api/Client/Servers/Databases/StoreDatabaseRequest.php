@@ -2,10 +2,10 @@
 
 namespace Jexactyl\Http\Requests\Api\Client\Servers\Databases;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
-use Illuminate\Validation\Rule;
+use Webmozart\Assert\Assert;
 use Jexactyl\Models\Database;
+use Illuminate\Validation\Rule;
 use Jexactyl\Models\Permission;
 use Illuminate\Database\Query\Builder;
 use Jexactyl\Contracts\Http\ClientPermissionsRequest;

@@ -3,14 +3,14 @@
 namespace Jexactyl\Http\Controllers\Admin\Servers;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Request;
+use Jexactyl\Models\ServerTransfer;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Jexactyl\Models\ServerTransfer;
-use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Services\Nodes\NodeJWTService;
+use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Repositories\Eloquent\NodeRepository;
 use Jexactyl\Repositories\Wings\DaemonTransferRepository;
 use Jexactyl\Contracts\Repository\AllocationRepositoryInterface;

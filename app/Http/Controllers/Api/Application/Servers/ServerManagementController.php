@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Application\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Jexactyl\Services\Servers\SuspensionService;
 use Jexactyl\Services\Servers\ReinstallServerService;
 use Jexactyl\Http\Requests\Api\Application\Servers\ServerWriteRequest;

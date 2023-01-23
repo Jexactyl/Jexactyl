@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Services\Servers\ServerEditService;

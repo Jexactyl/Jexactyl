@@ -3,8 +3,8 @@
 namespace Jexactyl\Repositories\Wings;
 
 use Illuminate\Support\Arr;
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\TransferException;

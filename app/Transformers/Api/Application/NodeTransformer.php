@@ -4,9 +4,9 @@ namespace Jexactyl\Transformers\Api\Application;
 
 use Jexactyl\Models\Node;
 use League\Fractal\Resource\Item;
+use Jexactyl\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Jexactyl\Services\Acl\Api\AdminAcl;
 
 class NodeTransformer extends BaseTransformer
 {

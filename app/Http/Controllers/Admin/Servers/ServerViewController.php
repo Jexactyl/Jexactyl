@@ -3,18 +3,18 @@
 namespace Jexactyl\Http\Controllers\Admin\Servers;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Nest;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Request;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Services\Servers\EnvironmentService;
-use Illuminate\Contracts\View\Factory as ViewFactory;
 use Jexactyl\Repositories\Eloquent\NestRepository;
 use Jexactyl\Repositories\Eloquent\NodeRepository;
 use Jexactyl\Repositories\Eloquent\MountRepository;
 use Jexactyl\Repositories\Eloquent\ServerRepository;
 use Jexactyl\Traits\Controllers\JavascriptInjection;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Jexactyl\Repositories\Eloquent\LocationRepository;
 use Jexactyl\Repositories\Eloquent\DatabaseHostRepository;
 

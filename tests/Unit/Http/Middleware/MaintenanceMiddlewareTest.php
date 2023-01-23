@@ -3,10 +3,10 @@
 namespace Jexactyl\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Mockery\MockInterface;
 use Jexactyl\Models\Node;
-use Illuminate\Http\Response;
+use Mockery\MockInterface;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Jexactyl\Http\Middleware\MaintenanceMiddleware;
 

@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Services\Backups;
 
-use Carbon\CarbonImmutable;
 use Jexactyl\Models\User;
+use Carbon\CarbonImmutable;
 use Jexactyl\Models\Backup;
 use Jexactyl\Services\Nodes\NodeJWTService;
 use Jexactyl\Extensions\Backups\BackupManager;

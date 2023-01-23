@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client;
 
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;
 use Jexactyl\Transformers\Api\Client\UserSSHKeyTransformer;
 use Jexactyl\Http\Requests\Api\Client\Account\StoreSSHKeyRequest;

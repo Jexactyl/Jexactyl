@@ -4,8 +4,8 @@ namespace Jexactyl\Http\Resources\Wings;
 
 use Jexactyl\Models\Server;
 use Illuminate\Container\Container;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Jexactyl\Services\Eggs\EggConfigurationService;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Jexactyl\Services\Servers\ServerConfigurationStructureService;
 
 class ServerConfigurationCollection extends ResourceCollection

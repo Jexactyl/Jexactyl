@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Requests\Api\Application\Servers\Databases;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
 use Jexactyl\Services\Acl\Api\AdminAcl;

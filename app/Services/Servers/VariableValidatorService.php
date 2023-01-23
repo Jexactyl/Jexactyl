@@ -3,10 +3,10 @@
 namespace Jexactyl\Services\Servers;
 
 use Jexactyl\Models\User;
-use Illuminate\Support\Collection;
 use Jexactyl\Models\EggVariable;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Collection;
 use Jexactyl\Traits\Services\HasUserLevels;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
 class VariableValidatorService

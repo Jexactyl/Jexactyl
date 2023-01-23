@@ -3,11 +3,11 @@
 namespace Jexactyl\Services\Eggs\Sharing;
 
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Arr;
 use Jexactyl\Models\Egg;
 use Jexactyl\Models\Nest;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use Jexactyl\Models\EggVariable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Services\Eggs\EggParserService;
 

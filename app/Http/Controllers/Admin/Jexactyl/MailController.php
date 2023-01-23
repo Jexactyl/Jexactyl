@@ -5,17 +5,17 @@ namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Contracts\Console\Kernel;
 use Jexactyl\Notifications\MailTested;
-use Illuminate\View\Factory as ViewFactory;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Contracts\Console\Kernel;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\View\Factory as ViewFactory;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Jexactyl\Providers\SettingsServiceProvider;
 use Jexactyl\Http\Requests\Admin\Jexactyl\MailFormRequest;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class MailController extends Controller
 {

@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Application\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Jexactyl\Services\Servers\ServerCreationService;

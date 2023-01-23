@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Requests\Api\Client\Servers\Settings;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Illuminate\Validation\Rule;
 use Jexactyl\Models\Permission;
 use Jexactyl\Contracts\Http\ClientPermissionsRequest;

@@ -3,8 +3,8 @@
 namespace Jexactyl\Models\Traits;
 
 use Illuminate\Support\Str;
-use Laravel\Sanctum\Sanctum;
 use Jexactyl\Models\ApiKey;
+use Laravel\Sanctum\Sanctum;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Jexactyl\Extensions\Laravel\Sanctum\NewAccessToken;

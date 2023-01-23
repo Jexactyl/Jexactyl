@@ -2,19 +2,19 @@
 
 namespace Jexactyl\Tests\Integration\Services\Servers;
 
-use Mockery\MockInterface;
 use Jexactyl\Models\Egg;
-use GuzzleHttp\Psr7\Request;
 use Jexactyl\Models\Node;
 use Jexactyl\Models\User;
-use GuzzleHttp\Psr7\Response;
+use Mockery\MockInterface;
 use Jexactyl\Models\Server;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Jexactyl\Models\Location;
 use Jexactyl\Models\Allocation;
 use Illuminate\Foundation\Testing\WithFaker;
+use Jexactyl\Models\Objects\DeploymentObject;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Validation\ValidationException;
-use Jexactyl\Models\Objects\DeploymentObject;
 use Jexactyl\Tests\Integration\IntegrationTestCase;
 use Jexactyl\Services\Servers\ServerCreationService;
 use Jexactyl\Repositories\Wings\DaemonServerRepository;

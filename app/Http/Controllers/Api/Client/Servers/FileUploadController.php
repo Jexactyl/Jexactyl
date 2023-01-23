@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Carbon\CarbonImmutable;
 use Jexactyl\Models\User;
+use Carbon\CarbonImmutable;
 use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Services\Nodes\NodeJWTService;

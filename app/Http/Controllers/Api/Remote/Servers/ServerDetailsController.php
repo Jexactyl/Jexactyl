@@ -2,12 +2,12 @@
 
 namespace Jexactyl\Http\Controllers\Api\Remote\Servers;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Jexactyl\Facades\Activity;
-use Illuminate\Database\ConnectionInterface;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Services\Eggs\EggConfigurationService;
 use Jexactyl\Repositories\Eloquent\ServerRepository;
 use Jexactyl\Http\Resources\Wings\ServerConfigurationCollection;

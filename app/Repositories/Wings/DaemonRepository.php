@@ -4,8 +4,8 @@ namespace Jexactyl\Repositories\Wings;
 
 use GuzzleHttp\Client;
 use Jexactyl\Models\Node;
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Illuminate\Contracts\Foundation\Application;
 
 abstract class DaemonRepository

@@ -3,10 +3,10 @@
 namespace Jexactyl\Transformers\Api\Application;
 
 use Jexactyl\Models\Database;
-use League\Fractal\Resource\Item;
 use Jexactyl\Models\DatabaseHost;
-use League\Fractal\Resource\NullResource;
+use League\Fractal\Resource\Item;
 use Jexactyl\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\NullResource;
 use Illuminate\Contracts\Encryption\Encrypter;
 
 class ServerDatabaseTransformer extends BaseTransformer

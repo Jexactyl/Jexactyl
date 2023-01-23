@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Jexactyl\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Route;
 use Jexactyl\Http\Controllers\Admin\Jexactyl;
 use Jexactyl\Http\Middleware\Admin\Servers\ServerInstalled;
 

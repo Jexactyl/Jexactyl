@@ -3,9 +3,9 @@
 namespace Jexactyl\Services\Eggs\Sharing;
 
 use Jexactyl\Models\Egg;
+use Jexactyl\Models\EggVariable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Jexactyl\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Services\Eggs\EggParserService;
 

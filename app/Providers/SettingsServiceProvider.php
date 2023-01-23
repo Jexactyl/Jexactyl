@@ -7,8 +7,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class SettingsServiceProvider extends ServiceProvider
 {

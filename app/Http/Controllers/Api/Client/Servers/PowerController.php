@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Repositories\Wings\DaemonPowerRepository;
 use Jexactyl\Http\Controllers\Api\Client\ClientApiController;

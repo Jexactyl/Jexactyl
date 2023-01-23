@@ -3,8 +3,8 @@
 namespace Jexactyl\Services\Nodes;
 
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
 use Jexactyl\Models\Node;
+use Illuminate\Support\Str;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Jexactyl\Contracts\Repository\NodeRepositoryInterface;
 

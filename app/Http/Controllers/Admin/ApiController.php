@@ -3,14 +3,14 @@
 namespace Jexactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
+use Jexactyl\Models\ApiKey;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Jexactyl\Models\ApiKey;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Jexactyl\Services\Acl\Api\AdminAcl;
-use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Services\Api\KeyCreationService;
 use Jexactyl\Contracts\Repository\ApiKeyRepositoryInterface;
 use Jexactyl\Http\Requests\Admin\Api\StoreApplicationApiKeyRequest;

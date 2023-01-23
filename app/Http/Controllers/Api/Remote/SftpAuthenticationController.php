@@ -2,12 +2,12 @@
 
 namespace Jexactyl\Http\Controllers\Api\Remote;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use phpseclib3\Crypt\PublicKeyLoader;
 use Jexactyl\Http\Controllers\Controller;
 use phpseclib3\Exception\NoKeyLoadedException;

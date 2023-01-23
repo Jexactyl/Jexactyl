@@ -3,12 +3,12 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Jexactyl\Models\Task;
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Jexactyl\Models\Schedule;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Jexactyl\Repositories\Eloquent\TaskRepository;
 use Jexactyl\Exceptions\Http\HttpForbiddenException;
 use Jexactyl\Transformers\Api\Client\TaskTransformer;

@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Services\Allocations;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\Server;
+use Webmozart\Assert\Assert;
 use Jexactyl\Models\Allocation;
 use Jexactyl\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
 use Jexactyl\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;

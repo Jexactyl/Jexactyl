@@ -4,10 +4,10 @@ namespace Jexactyl\Transformers\Api\Application;
 
 use Jexactyl\Models\Node;
 use Jexactyl\Models\Server;
-use League\Fractal\Resource\Item;
 use Jexactyl\Models\Allocation;
-use League\Fractal\Resource\NullResource;
+use League\Fractal\Resource\Item;
 use Jexactyl\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\NullResource;
 
 class AllocationTransformer extends BaseTransformer
 {

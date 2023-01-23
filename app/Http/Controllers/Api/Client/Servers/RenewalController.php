@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Services\Servers\ServerRenewalService;
 use Jexactyl\Http\Requests\Api\Client\ClientApiRequest;

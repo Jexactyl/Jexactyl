@@ -6,11 +6,11 @@ use Ramsey\Uuid\Uuid;
 use Jexactyl\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Contracts\Hashing\Hasher;
 use Jexactyl\Notifications\VerifyEmail;
+use Illuminate\Contracts\Hashing\Hasher;
+use Jexactyl\Notifications\AccountCreated;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use Jexactyl\Notifications\AccountCreated;
 use Jexactyl\Contracts\Repository\UserRepositoryInterface;
 use Jexactyl\Contracts\Repository\SettingsRepositoryInterface;
 

@@ -2,11 +2,11 @@
 
 namespace Jexactyl\Http\Middleware\Api\Client\Server;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Task;
 use Jexactyl\Models\User;
 use Jexactyl\Models\Backup;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Request;
 use Jexactyl\Models\Subuser;
 use Jexactyl\Models\Database;
 use Jexactyl\Models\Schedule;

@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Admin\Nodes;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Node;
+use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Jexactyl\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory as ViewFactory;

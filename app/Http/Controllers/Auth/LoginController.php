@@ -2,12 +2,12 @@
 
 namespace Jexactyl\Http\Controllers\Auth;
 
+use Jexactyl\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Jexactyl\Models\User;
-use Illuminate\Http\JsonResponse;
 use Jexactyl\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

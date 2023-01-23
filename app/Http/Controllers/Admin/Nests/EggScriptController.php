@@ -2,12 +2,12 @@
 
 namespace Jexactyl\Http\Controllers\Admin\Nests;
 
-use Illuminate\View\View;
 use Jexactyl\Models\Egg;
+use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Services\Eggs\Scripts\InstallScriptService;
 use Jexactyl\Contracts\Repository\EggRepositoryInterface;
 use Jexactyl\Http\Requests\Admin\Egg\EggScriptFormRequest;

@@ -3,8 +3,8 @@
 namespace Jexactyl\Models;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Event;
 use Jexactyl\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Relations\HasOne;

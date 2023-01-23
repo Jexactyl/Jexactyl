@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Tests\Integration\Api\Application\Nests;
 
-use Illuminate\Support\Arr;
 use Jexactyl\Models\Egg;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Response;
 use Jexactyl\Transformers\Api\Application\EggTransformer;
 use Jexactyl\Tests\Integration\Api\Application\ApplicationApiIntegrationTestCase;

@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Api\Remote\Backups;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Backup;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Extensions\Backups\BackupManager;

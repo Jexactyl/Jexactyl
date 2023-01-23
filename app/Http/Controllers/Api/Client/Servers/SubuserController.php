@@ -2,11 +2,11 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Jexactyl\Facades\Activity;
 use Jexactyl\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Jexactyl\Repositories\Eloquent\SubuserRepository;
 use Jexactyl\Services\Subusers\SubuserCreationService;

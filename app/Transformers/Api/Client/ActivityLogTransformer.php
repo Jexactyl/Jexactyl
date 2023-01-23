@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Transformers\Api\Client;
 
-use Illuminate\Support\Str;
 use Jexactyl\Models\User;
+use Illuminate\Support\Str;
 use Jexactyl\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
 

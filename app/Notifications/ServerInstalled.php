@@ -3,9 +3,9 @@
 namespace Jexactyl\Notifications;
 
 use Jexactyl\Models\User;
-use Illuminate\Bus\Queueable;
 use Jexactyl\Events\Event;
 use Jexactyl\Models\Server;
+use Illuminate\Bus\Queueable;
 use Illuminate\Container\Container;
 use Jexactyl\Events\Server\Installed;
 use Illuminate\Notifications\Notification;

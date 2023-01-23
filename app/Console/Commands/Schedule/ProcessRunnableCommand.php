@@ -3,8 +3,8 @@
 namespace Jexactyl\Console\Commands\Schedule;
 
 use Exception;
-use Illuminate\Console\Command;
 use Jexactyl\Models\Schedule;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
 use Jexactyl\Services\Schedules\ProcessScheduleService;

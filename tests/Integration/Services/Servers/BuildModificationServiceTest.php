@@ -3,12 +3,12 @@
 namespace Jexactyl\Tests\Integration\Services\Servers;
 
 use Mockery\MockInterface;
+use Jexactyl\Models\Server;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Jexactyl\Models\Server;
 use Jexactyl\Models\Allocation;
-use GuzzleHttp\Exception\RequestException;
 use Jexactyl\Exceptions\DisplayException;
+use GuzzleHttp\Exception\RequestException;
 use Jexactyl\Tests\Integration\IntegrationTestCase;
 use Jexactyl\Repositories\Wings\DaemonServerRepository;
 use Jexactyl\Services\Servers\BuildModificationService;

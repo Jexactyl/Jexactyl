@@ -2,9 +2,9 @@
 
 namespace Jexactyl\Tests\Integration\Services\Backups;
 
+use Jexactyl\Models\Backup;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Jexactyl\Models\Backup;
 use GuzzleHttp\Exception\ClientException;
 use Jexactyl\Extensions\Backups\BackupManager;
 use Jexactyl\Extensions\Filesystem\S3Filesystem;

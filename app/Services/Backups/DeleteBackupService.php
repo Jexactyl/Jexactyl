@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Services\Backups;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Backup;
+use Illuminate\Http\Response;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\ConnectionInterface;
 use Jexactyl\Extensions\Backups\BackupManager;

@@ -3,15 +3,15 @@
 namespace Jexactyl\Http\Controllers\Admin\Nodes;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Node;
-use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
 use Jexactyl\Models\Allocation;
+use Illuminate\Support\Collection;
 use Jexactyl\Http\Controllers\Controller;
-use Illuminate\Contracts\View\Factory as ViewFactory;
 use Jexactyl\Repositories\Eloquent\NodeRepository;
 use Jexactyl\Repositories\Eloquent\ServerRepository;
 use Jexactyl\Traits\Controllers\JavascriptInjection;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Jexactyl\Services\Helpers\SoftwareVersionService;
 use Jexactyl\Repositories\Eloquent\LocationRepository;
 use Jexactyl\Repositories\Eloquent\AllocationRepository;

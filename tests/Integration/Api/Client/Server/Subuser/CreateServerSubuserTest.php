@@ -2,10 +2,10 @@
 
 namespace Jexactyl\Tests\Integration\Api\Client\Server\Subuser;
 
-use Illuminate\Support\Str;
 use Jexactyl\Models\User;
-use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Jexactyl\Models\Subuser;
+use Illuminate\Http\Response;
 use Jexactyl\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
 use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;

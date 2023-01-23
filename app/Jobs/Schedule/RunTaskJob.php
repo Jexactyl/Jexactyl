@@ -4,8 +4,8 @@ namespace Jexactyl\Jobs\Schedule;
 
 use Exception;
 use Jexactyl\Jobs\Job;
-use Carbon\CarbonImmutable;
 use Jexactyl\Models\Task;
+use Carbon\CarbonImmutable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

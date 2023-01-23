@@ -2,10 +2,10 @@
 
 namespace Jexactyl\Http\Middleware\Api\Client\Server;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Server;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Http\Request;
 use Jexactyl\Exceptions\Http\Server\ServerStateConflictException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthenticateServerAccess
 {

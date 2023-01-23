@@ -2,14 +2,14 @@
 
 namespace Jexactyl\Http\Requests\Api\Application;
 
-use Webmozart\Assert\Assert;
 use Jexactyl\Models\ApiKey;
+use Webmozart\Assert\Assert;
 use Laravel\Sanctum\TransientToken;
 use Illuminate\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Jexactyl\Services\Acl\Api\AdminAcl;
-use Illuminate\Foundation\Http\FormRequest;
 use Jexactyl\Exceptions\JexactylException;
+use Illuminate\Foundation\Http\FormRequest;
 
 abstract class ApplicationApiRequest extends FormRequest
 {

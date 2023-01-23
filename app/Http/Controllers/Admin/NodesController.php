@@ -3,18 +3,18 @@
 namespace Jexactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Jexactyl\Models\Node;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Jexactyl\Models\Allocation;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
-use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Http\Controllers\Controller;
+use Illuminate\View\Factory as ViewFactory;
 use Jexactyl\Services\Nodes\NodeUpdateService;
-use Illuminate\Cache\Repository as CacheRepository;
 use Jexactyl\Services\Nodes\NodeCreationService;
 use Jexactyl\Services\Nodes\NodeDeletionService;
+use Illuminate\Cache\Repository as CacheRepository;
 use Jexactyl\Services\Allocations\AssignmentService;
 use Jexactyl\Services\Helpers\SoftwareVersionService;
 use Jexactyl\Http\Requests\Admin\Node\NodeFormRequest;

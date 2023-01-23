@@ -3,9 +3,9 @@
 namespace Jexactyl\Transformers\Api\Application;
 
 use Jexactyl\Models\User;
+use Jexactyl\Services\Acl\Api\AdminAcl;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Jexactyl\Services\Acl\Api\AdminAcl;
 
 class UserTransformer extends BaseTransformer
 {

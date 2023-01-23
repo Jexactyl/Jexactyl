@@ -4,9 +4,9 @@ namespace Jexactyl\Services\Activity;
 
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
+use Jexactyl\Models\ActivityLog;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Jexactyl\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Jexactyl\Models\ActivityLogSubject;

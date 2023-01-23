@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Tests\Integration\Api\Client\Server;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Jexactyl\Models\Permission;
 use Jexactyl\Repositories\Wings\DaemonServerRepository;
 use Jexactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;

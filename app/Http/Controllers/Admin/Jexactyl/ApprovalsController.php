@@ -3,8 +3,8 @@
 namespace Jexactyl\Http\Controllers\Admin\Jexactyl;
 
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Jexactyl\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Prologue\Alerts\AlertsMessageBag;
 use Jexactyl\Http\Controllers\Controller;

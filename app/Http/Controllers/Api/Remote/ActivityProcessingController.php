@@ -3,12 +3,12 @@
 namespace Jexactyl\Http\Controllers\Api\Remote;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Jexactyl\Models\User;
-use Webmozart\Assert\Assert;
+use Illuminate\Support\Str;
 use Jexactyl\Models\Server;
-use Illuminate\Support\Facades\Log;
+use Webmozart\Assert\Assert;
 use Jexactyl\Models\ActivityLog;
+use Illuminate\Support\Facades\Log;
 use Jexactyl\Models\ActivityLogSubject;
 use Jexactyl\Http\Controllers\Controller;
 use Jexactyl\Http\Requests\Api\Remote\ActivityEventRequest;

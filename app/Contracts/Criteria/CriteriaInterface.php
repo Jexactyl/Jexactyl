@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Contracts\Criteria;
 
-use Illuminate\Database\Eloquent\Model;
 use Jexactyl\Repositories\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 interface CriteriaInterface
 {

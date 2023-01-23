@@ -2,8 +2,8 @@
 
 namespace Jexactyl\Tests\Integration\Api\Client;
 
-use Illuminate\Support\Str;
 use Jexactyl\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 

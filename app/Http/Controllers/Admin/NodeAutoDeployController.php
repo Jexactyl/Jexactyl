@@ -2,13 +2,13 @@
 
 namespace Jexactyl\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Jexactyl\Models\Node;
 use Jexactyl\Models\ApiKey;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Http\Controllers\Controller;
-use Illuminate\Contracts\Encryption\Encrypter;
 use Jexactyl\Services\Api\KeyCreationService;
+use Illuminate\Contracts\Encryption\Encrypter;
 use Jexactyl\Repositories\Eloquent\ApiKeyRepository;
 
 class NodeAutoDeployController extends Controller

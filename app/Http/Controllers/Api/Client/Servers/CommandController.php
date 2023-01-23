@@ -2,13 +2,13 @@
 
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Jexactyl\Models\Server;
+use Illuminate\Http\Response;
 use Jexactyl\Facades\Activity;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\BadResponseException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Jexactyl\Repositories\Wings\DaemonCommandRepository;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Jexactyl\Http\Controllers\Api\Client\ClientApiController;
 use Jexactyl\Http\Requests\Api\Client\Servers\SendCommandRequest;
 use Jexactyl\Exceptions\Http\Connection\DaemonConnectionException;

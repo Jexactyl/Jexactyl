@@ -3,12 +3,12 @@
 namespace Jexactyl\Tests\Integration\Services\Schedules;
 
 use Exception;
-use Carbon\CarbonImmutable;
 use Jexactyl\Models\Task;
+use Carbon\CarbonImmutable;
 use Jexactyl\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Jexactyl\Jobs\Schedule\RunTaskJob;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Tests\Integration\IntegrationTestCase;
 use Jexactyl\Services\Schedules\ProcessScheduleService;
