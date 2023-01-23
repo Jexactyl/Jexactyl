@@ -76,6 +76,13 @@
                             </small></p>
                     </div>
                     <div class="form-group col-xs-12">
+                        <label for="deploy_fee" class="control-label">Store Deployment Fee</label>
+                        <div>
+                            <input type="text" autocomplete="off" name="deploy_fee" class="form-control" value="{{ old('deploy_fee', $node->deploy_fee) }}" />
+                        </div>
+                        <p class="text-muted"><small>Entering a value here means that users deploying a server via the Storefront must pay a fee in credits to deploy to this node.</small></p>
+                    </div>
+                    <div class="form-group col-xs-12">
                         <label class="form-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span> Communicate Over SSL</label>
                         <div>
                             <div class="radio radio-success radio-inline">

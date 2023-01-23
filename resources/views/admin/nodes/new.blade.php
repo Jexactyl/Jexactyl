@@ -77,6 +77,11 @@
                         <p class="text-muted small">Please enter domain name (e.g <code>node.example.com</code>) to be used for connecting to the daemon. An IP address may be used <em>only</em> if you are not using SSL for this node.</p>
                     </div>
                     <div class="form-group">
+                        <label for="pDeployFee" class="form-label">Store Deployment Fee</label>
+                        <input type="text" name="deploy_fee" id="pDeployFee" class="form-control" value="{{ old('deploy_fee') ?? 0 }}"/>
+                        <p class="text-muted small">Entering a value here means that users deploying a server via the Storefront must pay a fee in credits to deploy to this node.</p>
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">Communicate Over SSL</label>
                         <div>
                             <div class="radio radio-success radio-inline">

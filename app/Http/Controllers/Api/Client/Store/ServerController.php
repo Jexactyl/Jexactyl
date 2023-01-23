@@ -68,6 +68,7 @@ class ServerController extends ClientApiController
     public function store(CreateServerRequest $request): JsonResponse
     {
         $user = $request->user();
+        $fee = Node::find($request->input('node'))->deploy_fee;
 
         if (!$user->verified) {
             throw new DisplayException('Server deployment is unavailable for unverified accounts.');
@@ -80,6 +81,7 @@ class ServerController extends ClientApiController
         $server = $this->creationService->handle($request);
 
         $user->update([
+            'store_balance' => $user->store_balance - $fee ?? 0,
             'store_cpu' => $user->store_cpu - $request->input('cpu'),
             'store_memory' => $user->store_memory - $request->input('memory'),
             'store_disk' => $user->store_disk - $request->input('disk'),

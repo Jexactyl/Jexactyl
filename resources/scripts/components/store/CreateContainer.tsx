@@ -236,7 +236,8 @@ export default () => {
                                 {nodes.map((n) => (
                                     <option key={n.id} value={n.id}>
                                         {n.name} ({n.location}) |{' '}
-                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% space remaining
+                                        {100 - parseInt(((n?.used / n?.total) * 100).toFixed(0))}% free | {n.deployFee}{' '}
+                                        credits
                                     </option>
                                 ))}
                             </Select>

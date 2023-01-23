@@ -28,6 +28,7 @@ class NodeTransformer extends BaseClientTransformer
         return [
             'id' => $model->id,
             'name' => $model->name,
+            'deploy_fee' => $model->deploy_fee,
             'location' => $model->location->short,
             'total' => $total,
             'used' => $used,

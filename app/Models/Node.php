@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int $memory_overallocate
  * @property int $disk
  * @property int $disk_overallocate
+ * @property int $deploy_fee
  * @property int $upload_size
  * @property string $daemon_token_id
  * @property string $daemon_token
@@ -86,7 +87,7 @@ class Node extends Model
         'fqdn', 'scheme', 'behind_proxy',
         'memory', 'memory_overallocate', 'disk',
         'disk_overallocate', 'upload_size', 'daemonBase',
-        'daemonSFTP', 'daemonListen',
+        'daemonSFTP', 'daemonListen', 'deploy_fee',
         'description', 'maintenance_mode',
     ];
 
@@ -103,6 +104,7 @@ class Node extends Model
         'memory_overallocate' => 'required|numeric|min:-1',
         'disk' => 'required|numeric|min:1',
         'disk_overallocate' => 'required|numeric|min:-1',
+        'deploy_fee' => 'required|numeric|min:0',
         'daemonBase' => 'sometimes|required|regex:/^([\/][\d\w.\-\/]+)$/',
         'daemonSFTP' => 'required|numeric|between:1,65535',
         'daemonListen' => 'required|numeric|between:1,65535',
