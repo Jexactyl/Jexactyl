@@ -66,7 +66,7 @@
                                 @if($message->user_id == 0)
                                     <td>System Message <i class="fa fa-cog text-white"></i></td>
                                 @else
-                                    <td><a href="{{ route('admin.users.view', $ticket->user->id) }}">{{ $ticket->user->email }}</a> @if($ticket->user->root_admin)<i class="fa fa-star text-yellow"></i>@endif</td>
+                                    <td><a href="{{ route('admin.users.view', $message->user->id) }}">{{ $message->user->email }}</a> @if($message->user->root_admin)<i class="fa fa-star text-yellow"></i>@endif</td>
                                 @endif
                                     <td>{{ $message->content }}</td>
                                     <td></td>
