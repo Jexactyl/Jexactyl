@@ -62,7 +62,6 @@ class StoreVerificationService
         }
     }
 
-
     /**
      * Ensures the user has enough credits in order to deploy to a given node.
      */
