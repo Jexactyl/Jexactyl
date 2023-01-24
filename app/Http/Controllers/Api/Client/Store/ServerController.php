@@ -78,6 +78,10 @@ class ServerController extends ClientApiController
             throw new DisplayException('This nest is private and cannot be deployed to.');
         }
 
+        if ($user->store_slots < 1) {
+            throw new DisplayException('You do not have enough server slots in order to deploy a server.');
+        }
+
         $server = $this->creationService->handle($request);
 
         $user->update([
