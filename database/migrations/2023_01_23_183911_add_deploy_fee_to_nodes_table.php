@@ -13,7 +13,7 @@ return new class () extends Migration {
     public function up()
     {
         Schema::table('nodes', function (Blueprint $table) {
-            $table->unsignedInteger('deploy_fee')->required()->default(0);
+            $table->unsignedInteger('deploy_fee')->nullable()->default(0);
         });
     }
 
