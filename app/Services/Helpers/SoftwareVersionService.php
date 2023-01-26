@@ -86,9 +86,9 @@ class SoftwareVersionService
      */
     protected function cacheVersionData(): array
     {
-        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('jexactyl'.cdn.cache_time', 60)), function () {
+        return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('jexactyl.cdn.cache_time', 60)), function () {
             try {
-                $response = $this->client->request('GET', config('jexactyl'.cdn.url'));
+                $response = $this->client->request('GET', config('jexactyl.cdn.url'));
 
                 if ($response->getStatusCode() === 200) {
                     return json_decode($response->getBody(), true);

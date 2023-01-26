@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Only load the settings service provider if the environment
         // is configured to allow it.
-        if (!config('jexactyl'.load_environment_only', false) && $this->app->environment() !== 'testing') {
+        if (!config('jexactyl.load_environment_only', false) && $this->app->environment() !== 'testing') {
             $this->app->register(SettingsServiceProvider::class);
         }
 
