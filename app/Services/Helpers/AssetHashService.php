@@ -61,7 +61,7 @@ class AssetHashService
             'referrerpolicy' => 'no-referrer',
         ];
 
-        if (config('Jexactyl.assets.use_hash')) {
+        if (config('jexactyl'.assets.use_hash')) {
             $attributes['integrity'] = $this->integrity($resource);
         }
 
@@ -83,7 +83,7 @@ class AssetHashService
             'crossorigin' => 'anonymous',
         ];
 
-        if (config('Jexactyl.assets.use_hash')) {
+        if (config('jexactyl'.assets.use_hash')) {
             $attributes['integrity'] = $this->integrity($resource);
         }
 

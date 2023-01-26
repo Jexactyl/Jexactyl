@@ -39,7 +39,7 @@ class ScheduleTaskController extends ClientApiController
      */
     public function store(StoreTaskRequest $request, Server $server, Schedule $schedule): array
     {
-        $limit = config('Jexactyl.client_features.schedules.per_schedule_task_limit', 10);
+        $limit = config('jexactyl'.client_features.schedules.per_schedule_task_limit', 10);
         if ($schedule->tasks()->count() >= $limit) {
             throw new ServiceLimitExceededException("Schedules may not have more than $limit tasks associated with them. Creating this task would put this schedule over the limit.");
         }

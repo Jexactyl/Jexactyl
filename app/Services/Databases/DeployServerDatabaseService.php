@@ -33,7 +33,7 @@ class DeployServerDatabaseService
         } else {
             $nodeHosts = $hosts->where('node_id', $server->node_id)->toBase();
 
-            if ($nodeHosts->isEmpty() && !config('Jexactyl.client_features.databases.allow_random')) {
+            if ($nodeHosts->isEmpty() && !config('jexactyl'.client_features.databases.allow_random')) {
                 throw new NoSuitableDatabaseHostException();
             }
         }

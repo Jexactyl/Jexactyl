@@ -60,7 +60,7 @@ class FileController extends ClientApiController
     {
         $response = $this->fileRepository->setServer($server)->getContent(
             $request->get('file'),
-            config('Jexactyl.files.max_edit_size')
+            config('jexactyl'.files.max_edit_size')
         );
 
         Activity::event('server:file.read')->property('file', $request->get('file'))->log();

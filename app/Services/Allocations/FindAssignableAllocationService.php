@@ -30,7 +30,7 @@ class FindAssignableAllocationService
      */
     public function handle(Server $server): Allocation
     {
-        if (!config('Jexactyl.client_features.allocations.enabled')) {
+        if (!config('jexactyl'.client_features.allocations.enabled')) {
             throw new AutoAllocationNotEnabledException();
         }
 
@@ -64,8 +64,8 @@ class FindAssignableAllocationService
      */
     protected function createNewAllocation(Server $server): Allocation
     {
-        $start = config('Jexactyl.client_features.allocations.range_start', null);
-        $end = config('Jexactyl.client_features.allocations.range_end', null);
+        $start = config('jexactyl'.client_features.allocations.range_start', null);
+        $end = config('jexactyl'.client_features.allocations.range_end', null);
 
         if (!$start || !$end) {
             throw new NoAutoAllocationSpaceAvailableException();

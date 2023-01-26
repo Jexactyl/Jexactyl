@@ -20,7 +20,7 @@ class RemoveDaemonSecretFromSubusersTable extends Migration
                 'user_id' => $subuser->user_id,
                 'server_id' => $subuser->server_id,
                 'secret' => DaemonKeyRepositoryInterface::INTERNAL_KEY_IDENTIFIER . str_random(40),
-                'expires_at' => Carbon::now()->addMinutes(config('Jexactyl.api.key_expire_time', 720))->toDateTimeString(),
+                'expires_at' => Carbon::now()->addMinutes(config('jexactyl'.api.key_expire_time', 720))->toDateTimeString(),
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString(),
             ];

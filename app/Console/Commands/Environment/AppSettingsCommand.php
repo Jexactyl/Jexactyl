@@ -69,7 +69,7 @@ class AppSettingsCommand extends Command
         $this->output->comment('Provide the email address that eggs exported by this Panel should be from. This should be a valid email address.');
         $this->variables['APP_SERVICE_AUTHOR'] = $this->option('author') ?? $this->ask(
             'Egg Author Email',
-            config('Jexactyl.service.author', 'unknown@unknown.com')
+            config('jexactyl'.service.author', 'unknown@unknown.com')
         );
 
         if (!filter_var($this->variables['APP_SERVICE_AUTHOR'], FILTER_VALIDATE_EMAIL)) {
