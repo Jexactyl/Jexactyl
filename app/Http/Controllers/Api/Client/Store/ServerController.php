@@ -52,7 +52,7 @@ class ServerController extends ClientApiController
     public function eggs(Request $request): array
     {
         $id = $request->input('id') ?? Nest::first()->id;
-        $eggs = Nest::query()->where('id', $id)->first()->eggs;
+        $eggs = Nest::query()->where('id', $id)->where('private', false)->first()->eggs;
 
         return $this->fractal->collection($eggs)
             ->transformWith($this->getTransformer(EggTransformer::class))
