@@ -31,8 +31,8 @@ class StripeController extends ClientApiController
         $currency = config('gateways.currency', 'USD');
 
         $checkout = $client->checkout->sessions->create([
-            'success_url' => config('app.url') . '/store/balance',
-            'cancel_url' => config('app.url') . '/store/error',
+            'success_url' => config('app.url') . '/store/credits',
+            'cancel_url' => config('app.url'),
             'mode' => 'payment',
             'customer_email' => $request->user()->email,
             'metadata' => ['credit_amount' => $amount, 'user_id' => $request->user()->id],
