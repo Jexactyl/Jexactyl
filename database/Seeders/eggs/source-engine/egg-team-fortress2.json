@@ -1,19 +1,19 @@
 {
-    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - Jexactyl.IO",
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - jexactyl.com",
     "meta": {
         "version": "PTDL_v1",
         "update_url": null
     },
     "exported_at": "2022-01-30T14:09:22-05:00",
     "name": "Team Fortress 2",
-    "author": "support@Jexactyl.io",
+    "author": "support@jexactyl.com",
     "description": "Team Fortress 2 is a team-based first-person shooter multiplayer video game developed and published by Valve Corporation. It is the sequel to the 1996 mod Team Fortress for Quake and its 1999 remake.",
     "features": [
         "gsl_token",
         "steam_disk_space"
     ],
     "images": [
-        "ghcr.io\/Jexactyl\/games:source"
+        "ghcr.io\/pterodactyl\/games:source"
     ],
     "file_denylist": [],
     "startup": ".\/srcds_run -game tf -console -port {{SERVER_PORT}} +map {{SRCDS_MAP}} +ip 0.0.0.0 -strictportbind -norestart +sv_setsteamaccount {{STEAM_ACC}}",

@@ -27,7 +27,7 @@ class EggExporterService
         $egg = $this->repository->getWithExportAttributes($egg);
 
         $struct = [
-            '_comment' => 'DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - Jexactyl.IO',
+            '_comment' => 'DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - jexactyl.com',
             'meta' => [
                 'version' => Egg::EXPORT_VERSION,
                 'update_url' => $egg->update_url,

@@ -1,12 +1,12 @@
 {
-    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - Jexactyl.IO",
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - jexactyl.com",
     "meta": {
         "version": "PTDL_v2",
         "update_url": null
     },
     "exported_at": "2023-02-04T14:45:12-05:00",
     "name": "Rust",
-    "author": "support@Jexactyl.io",
+    "author": "support@jexactyl.com",
     "description": "The only aim in Rust is to survive. To do this you will need to overcome struggles such as hunger, thirst and cold. Build a fire. Build a shelter. Kill animals for meat. Protect yourself from other players, and kill them for meat. Create alliances with other players and form a town. Do whatever it takes to survive.",
     "features": [
         "steam_disk_space"
@@ -74,7 +74,7 @@
             "name": "URL",
             "description": "The URL for your server. This is what comes up when clicking the \"Visit Website\" button.",
             "env_variable": "SERVER_URL",
-            "default_value": "http:\/\/Jexactyl.io",
+            "default_value": "http:\/\/jexactyl.com",
             "user_viewable": true,
             "user_editable": true,
             "rules": "nullable|url",

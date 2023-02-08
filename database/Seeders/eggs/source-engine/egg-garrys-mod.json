@@ -1,19 +1,19 @@
 {
-    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - Jexactyl.IO",
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY Jexactyl PANEL - jexactyl.com",
     "meta": {
         "version": "PTDL_v1",
         "update_url": null
     },
     "exported_at": "2022-01-18T07:04:20-05:00",
     "name": "Garrys Mod",
-    "author": "support@Jexactyl.io",
+    "author": "support@jexactyl.com",
     "description": "Garrys Mod, is a sandbox physics game created by Garry Newman, and developed by his company, Facepunch Studios.",
     "features": [
         "gsl_token",
         "steam_disk_space"
     ],
     "images": [
-        "ghcr.io\/Jexactyl\/games:source"
+        "ghcr.io\/pterodactyl\/games:source"
     ],
     "file_denylist": [],
     "startup": ".\/srcds_run -game garrysmod -console -port {{SERVER_PORT}} +ip 0.0.0.0 +host_workshop_collection {{WORKSHOP_ID}} +map {{SRCDS_MAP}} +gamemode {{GAMEMODE}} -strictportbind -norestart +sv_setsteamaccount {{STEAM_ACC}} +maxplayers {{MAX_PLAYERS}}  -tickrate {{TICKRATE}}  $( [ \"$LUA_REFRESH\" == \"1\" ] || printf %s '-disableluarefresh' )",

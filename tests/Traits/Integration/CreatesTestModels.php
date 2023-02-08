@@ -130,7 +130,7 @@ trait CreatesTestModels
     private function getBungeecordEgg(): Egg
     {
         /** @var \Jexactyl\Models\Egg $egg */
-        $egg = Egg::query()->where('author', 'support@Jexactyl.io')->where('name', 'Bungeecord')->firstOrFail();
+        $egg = Egg::query()->where('author', 'support@jexactyl.com')->where('name', 'Bungeecord')->firstOrFail();
 
         return $egg;
     }
