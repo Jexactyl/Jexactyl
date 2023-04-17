@@ -69,8 +69,7 @@ export default () => {
                 title={'Confirm resource edit'}
                 onConfirmed={() => edit(resource, amount)}
             >
-                This will remove resources from your account and add them to your server. Are you sure you want to
-                continue?
+                This will move resources between your account and the server. Are you sure you want to continue?
             </Dialog.Confirm>
             <Container css={tw`lg:grid lg:grid-cols-3 gap-4 my-10`}>
                 <TitledGreyBox title={'Edit server CPU limit'} css={tw`mt-8 sm:mt-0`}>
