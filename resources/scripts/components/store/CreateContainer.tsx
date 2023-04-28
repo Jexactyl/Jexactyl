@@ -67,8 +67,8 @@ export default () => {
 
         getResources().then((resources) => setResources(resources));
 
-        getEggs().then((eggs) => setEggs(eggs));
         getNests().then((nests) => setNests(nests));
+        getEggs(parseInt(nests[0].id)).then((eggs) => setEggs(eggs));
         getNodes().then((nodes) => setNodes(nodes));
     }, []);
 
