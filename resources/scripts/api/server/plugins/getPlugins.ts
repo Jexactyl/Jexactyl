@@ -9,5 +9,5 @@ export default async (uuid: string, query: string): Promise<Plugin> => {
         query,
     });
 
-    return data.data || [];
+    return data || [];
 };
