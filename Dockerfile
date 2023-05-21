@@ -2,15 +2,19 @@
 # Build the assets that are needed for the frontend. This build stage is then discarded
 # since we won't need NodeJS anymore in the future. This Docker image ships a final production
 # level distribution of Jexactyl.
-FROM --platform=$TARGETOS/$TARGETARCH mhart/alpine-node:16
+FROM node:18-alpine
 WORKDIR /app
 COPY . ./
+
+# Workaround for ssl not working
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 RUN yarn install --frozen-lockfile \
     && yarn run build:production
 
 # Stage 1:
 # Build the actual container with all of the needed PHP dependencies that will run the application.
-FROM --platform=$TARGETOS/$TARGETARCH php:8.1-fpm-alpine
+FROM php:8.1-fpm-alpine
 WORKDIR /app
 COPY . ./
 COPY --from=0 /app/public/assets ./public/assets
@@ -26,6 +30,7 @@ RUN apk add --no-cache --update ca-certificates dcron curl git supervisor tar un
     && chown -R nginx:nginx .
 
 RUN rm /usr/local/etc/php-fpm.conf \
+    && echo "0 0 * * * /usr/local/bin/php /app/artisan p:schedule:renewal >> /dev/null 2>&1" >> /var/spool/cron/crontabs/root \
     && echo "* * * * * /usr/local/bin/php /app/artisan schedule:run >> /dev/null 2>&1" >> /var/spool/cron/crontabs/root \
     && echo "0 23 * * * certbot renew --nginx --quiet" >> /var/spool/cron/crontabs/root \
     && sed -i s/ssl_session_cache/#ssl_session_cache/g /etc/nginx/nginx.conf \
