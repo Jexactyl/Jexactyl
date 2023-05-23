@@ -129,7 +129,7 @@ export default () => {
                     }}
                 />
             </div>
-            <div className={'j-up flex justify-end mt-4'}>
+            <div className={'flex justify-end mt-4'}>
                 <div className={'flex-1 sm:flex-none rounded bg-neutral-900 mr-4'}>
                     <Select value={mode} onChange={(e) => setMode(e.currentTarget.value)}>
                         {modes.map((mode) => (

@@ -45,7 +45,7 @@ export default () => {
             description={'Create API keys to interact with the Panel.'}
             showFlashKey={'account'}
         >
-            <div className={'j-up md:flex flex-nowrap my-10'}>
+            <div className={'md:flex flex-nowrap my-10'}>
                 <ContentBox title={'Create API Key'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateApiKeyForm onKeyCreated={(key) => setKeys((s) => [...s!, key])} />
                 </ContentBox>

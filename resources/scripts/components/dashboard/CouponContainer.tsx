@@ -36,8 +36,8 @@ export default () => {
 
     return (
         <PageContentBlock title={'Coupons'}>
-            <h1 className={'j-left text-5xl'}>Coupons</h1>
-            <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>Redeem coupons given to you.</h3>
+            <h1 className={'text-5xl'}>Coupons</h1>
+            <h3 className={'text-2xl mt-2 text-neutral-500'}>Redeem coupons given to you.</h3>
             <FlashMessageRender byKey={'coupons'} className={'mt-2'} />
             <ContentBox title={'Redeem'} className={'w-1/4 mt-6'}>
                 <Formik initialValues={{ code: '' }} onSubmit={submit} validationSchema={schema}>

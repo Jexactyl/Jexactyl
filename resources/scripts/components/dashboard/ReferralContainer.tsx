@@ -106,7 +106,7 @@ export default () => {
             description={'Create a code and share it with others.'}
             showFlashKey={'referrals'}
         >
-            <Container className={'j-up lg:grid lg:grid-cols-3 my-10'}>
+            <Container className={'lg:grid lg:grid-cols-3 my-10'}>
                 <ContentBox title={'Your Referral Codes'} css={tw`sm:mt-0`}>
                     <Dialog.Confirm
                         title={'Delete Referral Code'}

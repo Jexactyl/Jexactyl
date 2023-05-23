@@ -57,12 +57,10 @@ export default () => {
             {rootAdmin && (
                 <div css={tw`mb-10 flex justify-between items-center`}>
                     <div>
-                        <h1 className={'j-left text-5xl'}>
+                        <h1 className={'text-5xl'}>
                             {showOnlyAdmin ? "Showing others' servers" : 'Showing your servers'}
                         </h1>
-                        <h3 className={'j-left text-2xl mt-2 text-neutral-500'}>
-                            Select a server to view, update or modify.
-                        </h3>
+                        <h3 className={'text-2xl mt-2 text-neutral-500'}>Select a server to view, update or modify.</h3>
                     </div>
                     <Switch
                         name={'show_all_servers'}

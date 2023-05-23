@@ -29,7 +29,7 @@ export default () => {
             description={'Create SSH keys to connect to your servers.'}
             showFlashKey={'account'}
         >
-            <div className={'j-up md:flex flex-nowrap my-10'}>
+            <div className={'md:flex flex-nowrap my-10'}>
                 <ContentBox title={'Add SSH Key'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateSSHKeyForm />
                 </ContentBox>

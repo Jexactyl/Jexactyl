@@ -32,13 +32,13 @@ const ServerConsoleContainer = () => {
                 </Alert>
             )}
             <div className={'grid grid-cols-4 gap-4 mb-4'}>
-                <div className={'j-left hidden sm:block sm:col-span-2 lg:col-span-3 pr-4'}>
+                <div className={'hidden sm:block sm:col-span-2 lg:col-span-3 pr-4'}>
                     <h1 className={'font-header text-2xl text-gray-50 leading-relaxed line-clamp-1'}>{name}</h1>
                     <p className={'text-sm line-clamp-2'}>{description}</p>
                 </div>
                 <div className={'flex-1'}>
                     <Can action={['control.start', 'control.stop', 'control.restart']} matchAny>
-                        <PowerButtons className={'j-down flex sm:justify-end space-x-2'} />
+                        <PowerButtons className={'flex sm:justify-end space-x-2'} />
                     </Can>
                 </div>
             </div>
@@ -48,7 +48,7 @@ const ServerConsoleContainer = () => {
                         <Console />
                     </Spinner.Suspense>
                 </div>
-                <ServerDetailsBlock className={'j-left col-span-4 lg:col-span-1 order-last lg:order-none'} />
+                <ServerDetailsBlock className={'col-span-4 lg:col-span-1 order-last lg:order-none'} />
             </div>
             <Features enabled={eggFeatures} />
         </ServerContentBlock>

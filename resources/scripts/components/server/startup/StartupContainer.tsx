@@ -129,7 +129,7 @@ const StartupContainer = () => {
                 </TitledGreyBox>
             </div>
             <h3 css={tw`mt-8 mb-2 text-2xl`}>Variables</h3>
-            <div className={'j-up grid gap-8 md:grid-cols-2'}>
+            <div className={'grid gap-8 md:grid-cols-2'}>
                 {data.variables.map((variable) => (
                     <VariableBox key={variable.envVariable} variable={variable} />
                 ))}

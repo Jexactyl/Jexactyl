@@ -21,7 +21,7 @@ export default () => {
             showFlashKey={'settings'}
         >
             <div className={'md:flex'}>
-                <div className={'j-right w-full md:flex-1 md:mr-10'}>
+                <div className={'w-full md:flex-1 md:mr-10'}>
                     <TitledGreyBox title={'Debug Information'} css={tw`mb-6 md:mb-10`}>
                         <div css={tw`flex items-center justify-between text-sm`}>
                             <p>Node</p>
@@ -37,7 +37,7 @@ export default () => {
                     <DeleteServerBox />
                     <ChangeBackgroundBox />
                 </div>
-                <div className={'j-left w-full mt-6 md:flex-1 md:mt-0'}>
+                <div className={'w-full mt-6 md:flex-1 md:mt-0'}>
                     <Can action={'settings.rename'}>
                         <div css={tw`mb-6 md:mb-10`}>
                             <RenameServerBox />
