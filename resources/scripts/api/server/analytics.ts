@@ -12,6 +12,7 @@ export interface Message {
     title: string;
     content: string;
     type: 'success' | 'info' | 'warning' | 'danger';
+    createdAt: string;
 }
 
 export const rawDataToAnalytics = (data: any): Analytics => ({
@@ -26,6 +27,7 @@ export const rawDataToMessage = (data: any): Message => ({
     title: data.title,
     content: data.content,
     type: data.type,
+    createdAt: data.created_at,
 });
 
 export const getAnalytics = (uuid: string): Promise<Analytics> => {

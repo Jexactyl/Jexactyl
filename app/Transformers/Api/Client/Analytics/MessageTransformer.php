@@ -25,6 +25,7 @@ class MessageTransformer extends BaseClientTransformer
             'title' => $model->title,
             'content' => $model->content,
             'type' => $model->type,
+            'created_at' => $model->created_at->diffForHumans(),
         ];
     }
 }

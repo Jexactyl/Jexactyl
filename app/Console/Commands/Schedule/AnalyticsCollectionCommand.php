@@ -43,9 +43,9 @@ class AnalyticsCollectionCommand extends Command
                 continue;
             }
 
-            if (AnalyticsData::where('server_id', $server->id)->count() >= 12) {
-                $this->line($server->id . ' exceeds 12 entries, deleting oldest');
-                AnalyticsData::where('server_id', $server->id)->orderBy('id', 'asc')->first()->delete();
+            if (AnalyticsData::where('server_id', $server->id)->count() >= 6) {
+                $this->line($server->id . ' exceeds 6 entries, deleting oldest');
+                AnalyticsData::where('server_id', $server->id)->orderBy('created_at', 'asc')->first()->delete();
             }
 
             try {

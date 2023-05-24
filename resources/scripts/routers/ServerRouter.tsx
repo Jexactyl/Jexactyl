@@ -25,7 +25,6 @@ import RequireServerPermission from '@/hoc/RequireServerPermission';
 import ServerInstallSvg from '@/assets/images/server_installing.svg';
 import MobileNavigation from '@/components/elements/MobileNavigation';
 import UsersContainer from '@/components/server/users/UsersContainer';
-import AnalyticsContainer from '@/components/server/AnalyticsContainer';
 import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 import BackupContainer from '@/components/server/backups/BackupContainer';
 import FileEditContainer from '@/components/server/files/FileEditContainer';
@@ -35,6 +34,7 @@ import SettingsContainer from '@/components/server/settings/SettingsContainer';
 import ScheduleContainer from '@/components/server/schedules/ScheduleContainer';
 import DatabasesContainer from '@/components/server/databases/DatabasesContainer';
 import FileManagerContainer from '@/components/server/files/FileManagerContainer';
+import AnalyticsContainer from '@/components/server/analytics/AnalyticsContainer';
 import ScreenBlock, { NotFound, ServerError } from '@/components/elements/ScreenBlock';
 import ServerConsoleContainer from '@/components/server/console/ServerConsoleContainer';
 import ScheduleEditContainer from '@/components/server/schedules/ScheduleEditContainer';
@@ -76,7 +76,6 @@ export default () => {
     const editEnabled = useStoreState((state) => state.storefront.data!.editing.enabled);
 
     const id = ServerContext.useStoreState((state) => state.server.data?.id);
-    const status = ServerContext.useStoreState((state) => state.status.value);
     const uuid = ServerContext.useStoreState((state) => state.server.data?.uuid);
     const serverId = ServerContext.useStoreState((state) => state.server.data?.internalId);
     const getServer = ServerContext.useStoreActions((actions) => actions.server.getServer);
@@ -120,13 +119,11 @@ export default () => {
                                         Console <Icon.Terminal css={tw`ml-1`} size={18} />
                                     </div>
                                 </NavLink>
-                                {status !== ('offline' || null) && (
-                                    <NavLink to={`${match.url}/analytics`} exact>
-                                        <div css={tw`flex items-center justify-between`}>
-                                            Analytics <Icon.BarChart css={tw`ml-1`} size={18} />
-                                        </div>
-                                    </NavLink>
-                                )}
+                                <NavLink to={`${match.url}/analytics`} exact>
+                                    <div css={tw`flex items-center justify-between`}>
+                                        Analytics <Icon.BarChart css={tw`ml-1`} size={18} />
+                                    </div>
+                                </NavLink>
                                 <Can action={'activity.*'}>
                                     <NavLink to={`${match.url}/activity`}>
                                         <div css={tw`flex items-center justify-between`}>
