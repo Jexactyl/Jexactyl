@@ -88,10 +88,10 @@ export default ({ server, className }: { server: Server; className?: string }) =
             $status={stats?.status}
             $bg={server.bg}
         >
-            <div css={tw`flex items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
-                <div>
-                    <p css={tw`text-lg break-words`}>{server.name}</p>
-                    <p css={tw`text-sm text-neutral-300 break-words line-clamp-1`}>
+            <div css={tw`flex justify-center items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
+                <div className={'bg-gray-700 rounded-lg px-6 py-2 shadow-lg'}>
+                    <p css={tw`text-2xl break-words font-bold`}>{server.name}</p>
+                    <p css={tw`text-sm text-gray-400 break-words line-clamp-1 text-center`}>
                         {server.allocations
                             .filter((alloc) => alloc.isDefault)
                             .map((allocation) => (

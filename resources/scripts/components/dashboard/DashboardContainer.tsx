@@ -9,12 +9,9 @@ import { Server } from '@/api/server/getServer';
 import Switch from '@/components/elements/Switch';
 import React, { useEffect, useState } from 'react';
 import Spinner from '@/components/elements/Spinner';
-import NotFoundSvg from '@/assets/images/not_found.svg';
 import ServerRow from '@/components/dashboard/ServerRow';
 import Pagination from '@/components/elements/Pagination';
-import ScreenBlock from '@/components/elements/ScreenBlock';
 import { usePersistedState } from '@/plugins/usePersistedState';
-import ResourceBar from '@/components/elements/store/ResourceBar';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 
 export default () => {
@@ -24,6 +21,7 @@ export default () => {
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const uuid = useStoreState((state) => state.user.data!.uuid);
+    const username = useStoreState((state) => state.user.data!.username);
     const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
     const [showOnlyAdmin, setShowOnlyAdmin] = usePersistedState(`${uuid}:show_all_servers`, false);
 
@@ -53,29 +51,39 @@ export default () => {
 
     return (
         <PageContentBlock title={'Dashboard'} css={tw`mt-4 sm:mt-10`} showFlashKey={'dashboard'}>
-            <ResourceBar className={'my-10'} titles />
-            {rootAdmin && (
-                <div css={tw`mb-10 flex justify-between items-center`}>
+            <div css={tw`mb-10 flex justify-between items-center`}>
+                {rootAdmin ? (
+                    <>
+                        <div>
+                            <h1 className={'text-5xl'}>
+                                {showOnlyAdmin ? 'Showing other servers' : 'Showing your servers'}
+                            </h1>
+                            <h3 className={'text-2xl mt-2 text-neutral-500'}>
+                                Select a server to view, update or modify.
+                            </h3>
+                        </div>
+                        <Switch
+                            name={'show_all_servers'}
+                            defaultChecked={showOnlyAdmin}
+                            onChange={() => setShowOnlyAdmin((s) => !s)}
+                        />
+                    </>
+                ) : (
                     <div>
-                        <h1 className={'text-5xl'}>
-                            {showOnlyAdmin ? "Showing others' servers" : 'Showing your servers'}
-                        </h1>
-                        <h3 className={'text-2xl mt-2 text-neutral-500'}>Select a server to view, update or modify.</h3>
+                        <h1 className={'text-5xl'}>Welcome, {username}!</h1>
+                        <h3 className={'text-2xl mt-2 text-neutral-500'}>
+                            Select a server from the list of your servers below.
+                        </h3>
                     </div>
-                    <Switch
-                        name={'show_all_servers'}
-                        defaultChecked={showOnlyAdmin}
-                        onChange={() => setShowOnlyAdmin((s) => !s)}
-                    />
-                </div>
-            )}
+                )}
+            </div>
             {!servers ? (
                 <Spinner centered size={'large'} />
             ) : (
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
                         items.length > 0 ? (
-                            <div className={'lg:grid lg:grid-cols-3 gap-4'}>
+                            <div className={'lg:grid lg:grid-cols-2 gap-4'}>
                                 <>
                                     {items.map((server) => (
                                         <ServerRow
@@ -88,12 +96,9 @@ export default () => {
                                 </>
                             </div>
                         ) : (
-                            <ScreenBlock
-                                title={'Seems quite quiet here...'}
-                                message={'There are no available servers to display.'}
-                                image={NotFoundSvg}
-                                noContainer
-                            />
+                            <p className={'text-gray-400 text-lg font-semibold text-center'}>
+                                Doesn&apos;t look like you have any servers here.
+                            </p>
                         )
                     }
                 </Pagination>

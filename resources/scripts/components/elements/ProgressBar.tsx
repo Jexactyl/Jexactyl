@@ -7,7 +7,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 
 const BarFill = styled.div`
     ${tw`h-full bg-green-400 animate-pulse`};
-    transition: 250ms ease-in-out;
+    transition: 500ms ease-in-out;
 `;
 
 type Timer = ReturnType<typeof setTimeout>;
@@ -58,7 +58,7 @@ export default () => {
     }, [progress, continuous]);
 
     return (
-        <div css={tw`w-28 fixed`} style={{ height: '2px' }}>
+        <div css={tw`w-20 fixed`} style={{ height: '3px' }}>
             <CSSTransition timeout={150} appear in={visible} unmountOnExit classNames={'fade'}>
                 <BarFill style={{ width: progress === undefined ? '100%' : `${progress}%` }} />
             </CSSTransition>
