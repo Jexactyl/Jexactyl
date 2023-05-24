@@ -62,7 +62,7 @@
                         @foreach ($tickets as $ticket)
                             <tr data-ticket="{{ $ticket->id }}">
                                 <td><a href="{{ route('admin.tickets.view', $ticket->id) }}">{{ $ticket->id }}</a></td>
-                                <td><a href="{{ route('admin.users.view', $ticket->client_id) }}">{{ $ticket->user->email }}</a></td>
+                                <td><a href="{{ route('admin.users.view', $ticket->client_id) }}">{{ $ticket->user->email ?? 'N/A' }}</a></td>
                                 <td style="
                                     white-space: nowrap;
                                     overflow: hidden;
