@@ -19,7 +19,6 @@ class CouponsController extends Controller
 {
     public function __construct(private AlertsMessageBag $alert, private SettingsRepositoryInterface $settings)
     {
-        //
     }
 
     public function index(): View
