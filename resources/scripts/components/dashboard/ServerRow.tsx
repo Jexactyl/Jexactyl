@@ -88,19 +88,19 @@ export default ({ server, className }: { server: Server; className?: string }) =
             $status={stats?.status}
             $bg={server.bg}
         >
-            <div css={tw`flex justify-center items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
-                <div className={'bg-gray-700 rounded-lg px-6 py-2 shadow-lg'}>
-                    <p css={tw`text-2xl break-words font-bold`}>{server.name}</p>
-                    <p css={tw`text-sm text-gray-400 break-words line-clamp-1 text-center`}>
-                        {server.allocations
-                            .filter((alloc) => alloc.isDefault)
-                            .map((allocation) => (
-                                <React.Fragment key={allocation.ip + allocation.port.toString()}>
-                                    {allocation.alias || ip(allocation.ip)}:{allocation.port}
-                                </React.Fragment>
-                            ))}
-                    </p>
-                </div>
+            <div
+                css={tw`flex flex-wrap py-4 justify-between items-center col-span-12 sm:col-span-5 lg:col-span-6 bg-gray-700 rounded-lg shadow-lg`}
+            >
+                <p css={tw`px-6 text-2xl font-bold`}>{server.name}</p>
+                <p css={tw`px-6 text-sm text-gray-400 line-clamp-1 text-center`}>
+                    {server.allocations
+                        .filter((alloc) => alloc.isDefault)
+                        .map((allocation) => (
+                            <React.Fragment key={allocation.ip + allocation.port.toString()}>
+                                {allocation.alias || ip(allocation.ip)}:{allocation.port}
+                            </React.Fragment>
+                        ))}
+                </p>
             </div>
             <div css={tw`hidden col-span-8 lg:col-span-6 sm:flex items-baseline justify-center items-center`}>
                 {!stats || isSuspended ? (
