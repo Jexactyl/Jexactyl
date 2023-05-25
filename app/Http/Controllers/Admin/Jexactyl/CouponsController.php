@@ -17,15 +17,16 @@ use Jexactyl\Http\Requests\Admin\Jexactyl\Coupons\StoreFormRequest;
 
 class CouponsController extends Controller
 {
-    public function __construct(private readonly AlertsMessageBag $alert, private readonly SettingsRepositoryInterface $settings)
+    public function __construct(private AlertsMessageBag $alert, private SettingsRepositoryInterface $settings)
     {
+        //
     }
 
     public function index(): View
     {
         return view('admin.jexactyl.coupons', [
+            'coupons' => Coupon::all(),
             'enabled' => $this->settings->get('jexactyl::coupons:enabled'),
-            'coupons' => Coupon::query()->get(),
         ]);
     }
 
@@ -49,16 +50,13 @@ class CouponsController extends Controller
      */
     public function store(StoreFormRequest $request): RedirectResponse
     {
-        $expires = $request->input('expires');
-
-        if ($expires) {
-            $time = Carbon::now();
-            $expires_at = $time->addHours($request->input('expires'));
+        if ($request->input('expires')) {
+            $expires_at = Carbon::now()->addHours($request->input('expires'));
         } else {
             $expires_at = null;
         }
 
-        if (Coupon::query()->where(['code' => $request->input('code')])->exists()) {
+        if (Coupon::where(['code' => $request->input('code')])->exists()) {
             throw new DisplayException('You cannot create a coupon with an already existing code.');
         }
 
