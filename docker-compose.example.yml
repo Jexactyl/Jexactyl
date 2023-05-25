@@ -4,6 +4,7 @@ x-common:
     &db-environment
     # Do not remove the "&db-password" from the end of the line below, it is important
     # for Panel functionality.
+    MYSQL_USER: &db-user "jexactyl"
     MYSQL_PASSWORD: &db-password "CHANGE_ME"
     MYSQL_ROOT_PASSWORD: "CHANGE_ME_TOO"
   panel:
@@ -42,12 +43,15 @@ services:
     environment:
       <<: *db-environment
       MYSQL_DATABASE: "panel"
-      MYSQL_USER: "jexactyl"
+      MYSQL_USER: *db-user
   cache:
     image: redis:alpine
     restart: always
   panel:
-    image: ghcr.io/jexactyl/jexactyl:latest
+    #image: ghcr.io/jexactyl/jexactyl:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "80:80"
@@ -71,6 +75,7 @@ services:
       REDIS_HOST: "cache"
       DB_HOST: "database"
       DB_PORT: "3306"
+      DB_USERNAME: *db-user
 networks:
   default:
     ipam:
