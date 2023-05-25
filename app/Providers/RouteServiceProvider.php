@@ -88,6 +88,16 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(1)->by($request->user()->id);
         });
 
+        // Credit earning ratelimiting.
+        RateLimiter::for('earn', function (Request $request) {
+            return Limit::perMinute(1)->by($request->user()->id);
+        });
+
+        // Stops users from renewing or editing servers many times in quick succession.
+        RateLimiter::for('server-edit', function (Request $request) {
+            return Limit::perMinute(5)->by($request->user()->id);
+        });
+
         // Configure the throttles for both the application and client APIs below.
         // This is configurable per-instance in "config/http.php". By default this
         // limiter will be tied to the specific request user, and falls back to the
