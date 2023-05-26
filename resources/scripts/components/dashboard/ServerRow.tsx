@@ -89,7 +89,11 @@ export default ({ server, className }: { server: Server; className?: string }) =
             $bg={server.bg}
         >
             <div
-                css={tw`flex flex-wrap py-4 justify-between items-center col-span-12 sm:col-span-5 lg:col-span-6 bg-gray-700 rounded-lg shadow-lg`}
+                className={`${
+                    server.bg
+                        ? 'flex flex-wrap py-4 justify-between items-center col-span-12 sm:col-span-5 lg:col-span-6'
+                        : 'flex flex-wrap py-4 justify-between items-center col-span-12 sm:col-span-5 lg:col-span-6 bg-gray-700 rounded-lg shadow-lg'
+                }`}
             >
                 <p css={tw`px-6 text-2xl font-bold`}>{server.name}</p>
                 <p css={tw`px-6 text-sm text-gray-400 line-clamp-1 text-center`}>
