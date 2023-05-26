@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
         }
 
         // Run analysis commands to collect and process data.
-        $schedule->command(AnalysisCollectionCommand::class)->everyFiftenMinutes();
+        $schedule->command(AnalysisCollectionCommand::class)->everyFifteenMinutes();
         $schedule->command(AnalysisReviewCommand::class)->everyThreeHours();
 
         if (config('activity.prune_days')) {

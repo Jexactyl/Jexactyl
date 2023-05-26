@@ -100,7 +100,7 @@ Route::group([
     Route::post('/stripe', [Client\Store\StripeController::class, 'purchase'])->name('api:client:store.stripe');
     Route::post('/resources', [Client\Store\ResourceController::class, 'purchase'])->name('api:client:store.resources');
 
-    Route::group(['prefix' => '/earn', 'middleware' => 'throttle:storefront'], function () {
+    Route::group(['prefix' => '/earn', 'middleware' => 'throttle:earn'], function () {
         Route::post('/', [Client\Store\ResourceController::class, 'earn'])->name('api:client:store.earn');
     });
 
@@ -136,8 +136,11 @@ Route::group([
     Route::post('/power', [Client\Servers\PowerController::class, 'index']);
 
     // Routes for editing, deleting and renewing a server.
-    Route::middleware(['throttle:storefront'])->group(function () {
+    Route::middleware(['throttle:server-edit'])->group(function () {
         Route::post('/edit', [Client\Servers\EditController::class, 'index'])->name('api:client:server.edit');
+    });
+
+    Route::middleware(['throttle:storefront'])->group(function () {
         Route::post('/renew', [Client\Servers\RenewalController::class, 'index'])->name('api:client:server.renew');
         Route::post('/delete', [Client\Servers\ServerController::class, 'delete'])->name('api:client:server.delete');
     });

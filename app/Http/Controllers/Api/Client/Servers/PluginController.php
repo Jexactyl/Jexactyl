@@ -3,9 +3,9 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use GuzzleHttp\Client;
-use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Repositories\Wings\DaemonFileRepository;
@@ -27,30 +27,31 @@ class PluginController extends ClientApiController
      *
      * @throws DisplayException
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): ?array
     {
-        $client = new Client();
         $query = $request->input('query');
-
         if (!$query) {
-            return [];
+            return null;
         }
 
+        $client = new Client();
+
+        $api = 'https://api.spiget.org/v2/search/resources/' . urlencode($query) . '?page=1&size=18';
+
         try {
-            $res = $client->request(
-                'GET',
-                'https://api.spiget.org/v2/search/resources/' . urlencode($query) . '?page=1&size=18',
-                [
-                    'headers' => [
-                        'User-Agent' => 'jexactyl/3.x',
-                    ],
-                ]
-            );
+            $res = $client->request('GET', $api, ['headers' => ['User-Agent' => 'jexactyl/3.x']]);
         } catch (DisplayException $e) {
             throw new DisplayException('Couldn\'t find any results for that query.');
         }
 
-        return new JsonResponse(['plugins' => json_decode($res->getBody(), true)]);
+        $plugins = json_decode($res->getBody(), true);
+
+        return [
+            'success' => true,
+            'data' => [
+                'plugins' => $plugins,
+            ],
+        ];
     }
 
     /**
