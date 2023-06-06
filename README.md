@@ -35,6 +35,7 @@ If you need help at any point during the installation process, please let us kno
 | [**Nero Nodes**](https://neronodes.net) | A Minecraft server provider that's completely free, 24/7. | [GitHub](https://github.com/nero-nodes) |
 | [**Lightbulb Host**](https://lightbulb.host) | A Discord bot host that offers free hosting, 24/7. | [Discord](https://discord.wumpus.host) |
 | [**ShadowHub Hosting**](https://shadowhub.tk) | Free discord bot & web server Hosting, with cheap VPS. | [Discord](https://discord.gg/sXxJ7PkhC3) |
+| [**ZipCloud**](https://discord.gg/f4rbEmYAXb) | Game & VPS hosting with full DDoS protection and great uptime. | [Discord](https://discord.gg/f4rbEmYAXb) |
 
 ## Previews
 ![image](https://user-images.githubusercontent.com/72230943/201116518-af5e3291-74f7-433a-b035-6d80e8c7e8f8.png)
