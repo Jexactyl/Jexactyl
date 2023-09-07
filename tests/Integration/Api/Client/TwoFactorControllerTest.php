@@ -105,7 +105,7 @@ class TwoFactorControllerTest extends ClientApiIntegrationTestCase
         // Ensure the recovery tokens that were created include a "created_at" timestamp
         // value on them.
         //
-        // @see https://github.com/Jexactyl/panel/issues/3163
+        // @see https://github.com/pterodactyl/panel/issues/3163
         $this->assertNotNull($tokens[0]->created_at);
 
         $tokens = $tokens->pluck('token')->toArray();

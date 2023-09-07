@@ -148,7 +148,7 @@ class RunTaskJobTest extends IntegrationTestCase
     /**
      * Test that a schedule is not executed if the server is suspended.
      *
-     * @see https://github.com/Jexactyl/panel/issues/4008
+     * @see https://github.com/pterodactyl/panel/issues/4008
      */
     public function testTaskIsNotRunIfServerIsSuspended()
     {

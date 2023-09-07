@@ -19,7 +19,7 @@ class ManifestDoesNotExistSolution implements Solution
     public function getDocumentationLinks(): array
     {
         return [
-            'Docs' => 'https://github.com/Jexactyl/panel/blob/develop/package.json',
+            'Docs' => 'https://github.com/Jexactyl/Jexactyl/blob/develop/package.json',
         ];
     }
 }

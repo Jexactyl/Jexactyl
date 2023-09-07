@@ -119,7 +119,7 @@ class CreateServerScheduleTaskTest extends ClientApiIntegrationTestCase
      */
     public function testErrorIsReturnedIfTooManyTasksExistForSchedule()
     {
-        config()->set('Jexactyl.client_features.schedules.per_schedule_task_limit', 2);
+        config()->set('jexactyl.client_features.schedules.per_schedule_task_limit', 2);
 
         [$user, $server] = $this->generateTestAccount();
 

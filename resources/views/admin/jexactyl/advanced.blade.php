@@ -9,7 +9,7 @@
     <h1>Advanced<small>Configure advanced settings for the Panel.</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}">Admin</a></li>
-        <li class="active">Jexactyl</li>
+        <li class="active">jexactyl</li>
     </ol>
 @endsection
 
@@ -29,16 +29,16 @@
                                     <div>
                                         <div class="btn-group" data-toggle="buttons">
                                             @php
-                                                $level = old('Jexactyl:auth:2fa_required', config('jexactyl.auth.2fa_required'));
+                                                $level = old('jexactyl:auth:2fa_required', config('jexactyl.auth.2fa_required'));
                                             @endphp
                                             <label class="btn btn-primary @if ($level == 0) active @endif">
-                                                <input type="radio" name="Jexactyl:auth:2fa_required" autocomplete="off" value="0" @if ($level == 0) checked @endif> Not Required
+                                                <input type="radio" name="jexactyl:auth:2fa_required" autocomplete="off" value="0" @if ($level == 0) checked @endif> Not Required
                                             </label>
                                             <label class="btn btn-primary @if ($level == 1) active @endif">
-                                                <input type="radio" name="Jexactyl:auth:2fa_required" autocomplete="off" value="1" @if ($level == 1) checked @endif> Admin Only
+                                                <input type="radio" name="jexactyl:auth:2fa_required" autocomplete="off" value="1" @if ($level == 1) checked @endif> Admin Only
                                             </label>
                                             <label class="btn btn-primary @if ($level == 2) active @endif">
-                                                <input type="radio" name="Jexactyl:auth:2fa_required" autocomplete="off" value="2" @if ($level == 2) checked @endif> All Users
+                                                <input type="radio" name="jexactyl:auth:2fa_required" autocomplete="off" value="2" @if ($level == 2) checked @endif> All Users
                                             </label>
                                         </div>
                                         <p class="text-muted"><small>If enabled, any account falling into the selected grouping will be required to have 2-Factor authentication enabled to use the Panel.</small></p>
@@ -101,14 +101,14 @@
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Connection Timeout</label>
                                     <div>
-                                        <input type="number" required class="form-control" name="Jexactyl:guzzle:connect_timeout" value="{{ old('Jexactyl:guzzle:connect_timeout', config('jexactyl.guzzle.connect_timeout')) }}">
+                                        <input type="number" required class="form-control" name="jexactyl:guzzle:connect_timeout" value="{{ old('jexactyl:guzzle:connect_timeout', config('jexactyl.guzzle.connect_timeout')) }}">
                                         <p class="text-muted small">The amount of time in seconds to wait for a connection to be opened before throwing an error.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Request Timeout</label>
                                     <div>
-                                        <input type="number" required class="form-control" name="Jexactyl:guzzle:timeout" value="{{ old('Jexactyl:guzzle:timeout', config('jexactyl.guzzle.timeout')) }}">
+                                        <input type="number" required class="form-control" name="jexactyl:guzzle:timeout" value="{{ old('jexactyl:guzzle:timeout', config('jexactyl.guzzle.timeout')) }}">
                                         <p class="text-muted small">The amount of time in seconds to wait for a request to be completed before throwing an error.</p>
                                     </div>
                                 </div>
@@ -124,9 +124,9 @@
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Status</label>
                                     <div>
-                                        <select class="form-control" name="Jexactyl:client_features:allocations:enabled">
+                                        <select class="form-control" name="jexactyl:client_features:allocations:enabled">
                                             <option value="false">Disabled</option>
-                                            <option value="true" @if(old('Jexactyl:client_features:allocations:enabled', config('jexactyl.client_features.allocations.enabled'))) selected @endif>Enabled</option>
+                                            <option value="true" @if(old('jexactyl:client_features:allocations:enabled', config('jexactyl.client_features.allocations.enabled'))) selected @endif>Enabled</option>
                                         </select>
                                         <p class="text-muted small">If enabled users will have the option to automatically create new allocations for their server via the frontend.</p>
                                     </div>
@@ -134,14 +134,14 @@
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Starting Port</label>
                                     <div>
-                                        <input type="number" class="form-control" name="Jexactyl:client_features:allocations:range_start" value="{{ old('Jexactyl:client_features:allocations:range_start', config('jexactyl.client_features.allocations.range_start')) }}">
+                                        <input type="number" class="form-control" name="jexactyl:client_features:allocations:range_start" value="{{ old('jexactyl:client_features:allocations:range_start', config('jexactyl.client_features.allocations.range_start')) }}">
                                         <p class="text-muted small">The starting port in the range that can be automatically allocated.</p>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="control-label">Ending Port</label>
                                     <div>
-                                        <input type="number" class="form-control" name="Jexactyl:client_features:allocations:range_end" value="{{ old('Jexactyl:client_features:allocations:range_end', config('jexactyl.client_features.allocations.range_end')) }}">
+                                        <input type="number" class="form-control" name="jexactyl:client_features:allocations:range_end" value="{{ old('jexactyl:client_features:allocations:range_end', config('jexactyl.client_features.allocations.range_end')) }}">
                                         <p class="text-muted small">The ending port in the range that can be automatically allocated.</p>
                                     </div>
                                 </div>

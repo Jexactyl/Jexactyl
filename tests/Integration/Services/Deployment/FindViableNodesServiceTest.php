@@ -41,7 +41,7 @@ class FindViableNodesServiceTest extends IntegrationTestCase
     /**
      * Ensure that errors are not thrown back when passing in expected values.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2529
+     * @see https://github.com/pterodactyl/panel/issues/2529
      */
     public function testNoExceptionIsThrownIfStringifiedIntegersArePassedForLocations()
     {

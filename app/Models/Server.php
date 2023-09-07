@@ -284,7 +284,7 @@ class Server extends Model
                 // would actually return all the variables and their values for _all_ servers using that egg,
                 // rather than only the server for this model.
                 //
-                // @see https://github.com/Jexactyl/panel/issues/2250
+                // @see https://github.com/pterodactyl/panel/issues/2250
                 $join->on('server_variables.variable_id', 'egg_variables.id')
                     ->where('server_variables.server_id', $this->id);
             });

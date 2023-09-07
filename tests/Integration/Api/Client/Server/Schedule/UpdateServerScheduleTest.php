@@ -83,7 +83,7 @@ class UpdateServerScheduleTest extends ClientApiIntegrationTestCase
      * Test that the "is_processing" field gets reset to false when the schedule is enabled
      * or disabled so that an invalid state can be more easily fixed.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2425
+     * @see https://github.com/pterodactyl/panel/issues/2425
      */
     public function testScheduleIsProcessingIsSetToFalseWhenActiveStateChanges()
     {

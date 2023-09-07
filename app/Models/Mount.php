@@ -80,8 +80,8 @@ class Mount extends Model
      * Blacklisted source paths.
      */
     public static $invalidSourcePaths = [
-        '/etc/Jexactyl',
-        '/var/lib/Jexactyl/volumes',
+        '/etc/jexactyl',
+        '/var/lib/jexactyl/volumes',
         '/srv/daemon-data',
     ];
 

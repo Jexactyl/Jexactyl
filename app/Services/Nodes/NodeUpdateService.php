@@ -50,7 +50,7 @@ class NodeUpdateService
                 // This makes more sense anyways, because only the Panel uses the FQDN for connecting, the
                 // node doesn't actually care about this.
                 //
-                // @see https://github.com/Jexactyl/panel/issues/1931
+                // @see https://github.com/pterodactyl/panel/issues/1931
                 $node->fqdn = $updated->fqdn;
 
                 $this->configurationRepository->setNode($node)->update($updated);
@@ -64,7 +64,7 @@ class NodeUpdateService
                 // This avoids issues with proxies such as Cloudflare which will see Wings as offline and then
                 // inject their own response pages, causing this logic to get fucked up.
                 //
-                // @see https://github.com/Jexactyl/panel/issues/2712
+                // @see https://github.com/pterodactyl/panel/issues/2712
                 return [$updated, true];
             }
 

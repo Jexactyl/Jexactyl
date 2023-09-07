@@ -25,12 +25,12 @@ class SettingsServiceProvider extends ServiceProvider
         'recaptcha:secret_key',
         'recaptcha:website_key',
         'theme:user:background',
-        'Jexactyl:guzzle:timeout',
-        'Jexactyl:auth:2fa_required',
-        'Jexactyl:guzzle:connect_timeout',
-        'Jexactyl:client_features:allocations:enabled',
-        'Jexactyl:client_features:allocations:range_end',
-        'Jexactyl:client_features:allocations:range_start',
+        'jexactyl:guzzle:timeout',
+        'jexactyl:auth:2fa_required',
+        'jexactyl:guzzle:connect_timeout',
+        'jexactyl:client_features:allocations:enabled',
+        'jexactyl:client_features:allocations:range_end',
+        'jexactyl:client_features:allocations:range_start',
     ];
 
     /**

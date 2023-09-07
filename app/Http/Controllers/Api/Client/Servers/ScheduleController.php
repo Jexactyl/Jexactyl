@@ -118,7 +118,7 @@ class ScheduleController extends ClientApiController
         // Toggle the processing state of the scheduled task when it is enabled or disabled so that an
         // invalid state can be reset without manual database intervention.
         //
-        // @see https://github.com/Jexactyl/panel/issues/2425
+        // @see https://github.com/pterodactyl/panel/issues/2425
         if ($schedule->is_active !== $active) {
             $data['is_processing'] = false;
         }

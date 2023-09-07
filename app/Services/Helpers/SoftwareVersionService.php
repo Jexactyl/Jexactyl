@@ -11,7 +11,7 @@ use Jexactyl\Exceptions\Service\Helper\CdnVersionFetchingException;
 
 class SoftwareVersionService
 {
-    public const VERSION_CACHE_KEY = 'Jexactyl:versioning_data';
+    public const VERSION_CACHE_KEY = 'jexactyl:versioning_data';
 
     private static array $result;
 
@@ -46,7 +46,7 @@ class SoftwareVersionService
      */
     public function getDiscord(): string
     {
-        return Arr::get(self::$result, 'discord') ?? 'https://Jexactyl.io/discord';
+        return Arr::get(self::$result, 'discord') ?? 'https://discord.gg/qttGR4Z5Pk';
     }
 
     /**

@@ -12,27 +12,27 @@ class AdvancedFormRequest extends AdminFormRequest
     public function rules(): array
     {
         return [
-            'Jexactyl:auth:2fa_required' => 'required|integer|in:0,1,2',
+            'jexactyl:auth:2fa_required' => 'required|integer|in:0,1,2',
 
             'recaptcha:enabled' => 'required|in:true,false',
             'recaptcha:secret_key' => 'required|string|max:191',
             'recaptcha:website_key' => 'required|string|max:191',
-            'Jexactyl:guzzle:timeout' => 'required|integer|between:1,60',
-            'Jexactyl:guzzle:connect_timeout' => 'required|integer|between:1,60',
+            'jexactyl:guzzle:timeout' => 'required|integer|between:1,60',
+            'jexactyl:guzzle:connect_timeout' => 'required|integer|between:1,60',
 
-            'Jexactyl:client_features:allocations:enabled' => 'required|in:true,false',
-            'Jexactyl:client_features:allocations:range_start' => [
+            'jexactyl:client_features:allocations:enabled' => 'required|in:true,false',
+            'jexactyl:client_features:allocations:range_start' => [
                 'nullable',
-                'required_if:Jexactyl:client_features:allocations:enabled,true',
+                'required_if:jexactyl:client_features:allocations:enabled,true',
                 'integer',
                 'between:1024,65535',
             ],
-            'Jexactyl:client_features:allocations:range_end' => [
+            'jexactyl:client_features:allocations:range_end' => [
                 'nullable',
-                'required_if:Jexactyl:client_features:allocations:enabled,true',
+                'required_if:jexactyl:client_features:allocations:enabled,true',
                 'integer',
                 'between:1024,65535',
-                'gt:Jexactyl:client_features:allocations:range_start',
+                'gt:jexactyl:client_features:allocations:range_start',
             ],
         ];
     }
@@ -43,11 +43,11 @@ class AdvancedFormRequest extends AdminFormRequest
             'recaptcha:enabled' => 'reCAPTCHA Enabled',
             'recaptcha:secret_key' => 'reCAPTCHA Secret Key',
             'recaptcha:website_key' => 'reCAPTCHA Website Key',
-            'Jexactyl:guzzle:timeout' => 'HTTP Request Timeout',
-            'Jexactyl:guzzle:connect_timeout' => 'HTTP Connection Timeout',
-            'Jexactyl:client_features:allocations:enabled' => 'Auto Create Allocations Enabled',
-            'Jexactyl:client_features:allocations:range_start' => 'Starting Port',
-            'Jexactyl:client_features:allocations:range_end' => 'Ending Port',
+            'jexactyl:guzzle:timeout' => 'HTTP Request Timeout',
+            'jexactyl:guzzle:connect_timeout' => 'HTTP Connection Timeout',
+            'jexactyl:client_features:allocations:enabled' => 'Auto Create Allocations Enabled',
+            'jexactyl:client_features:allocations:range_start' => 'Starting Port',
+            'jexactyl:client_features:allocations:range_end' => 'Ending Port',
         ];
     }
 }

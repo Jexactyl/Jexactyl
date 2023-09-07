@@ -30,7 +30,7 @@ class InfoCommand extends Command
             ['Panel Version', $this->config->get('app.version')],
             ['Latest Version', $this->versionService->getPanel()],
             ['Up-to-Date', $this->versionService->isLatestPanel() ? 'Yes' : $this->formatText('No', 'bg=red')],
-            ['Unique Identifier', $this->config->get('Jexactyl.service.author')],
+            ['Unique Identifier', $this->config->get('jexactyl.service.author')],
         ], 'compact');
 
         $this->output->title('Application Configuration');
@@ -45,7 +45,7 @@ class InfoCommand extends Command
             ['Session Driver', $this->config->get('session.driver')],
             ['Filesystem Driver', $this->config->get('filesystems.default')],
             ['Default Theme', $this->config->get('themes.active')],
-            ['Proxies', $this->config->get('trustedproxies.proxies')],
+            ['Proxies', implode(", ", $this->config->get('trustedproxy.proxies'))],
         ], 'compact');
 
         $this->output->title('Database Configuration');
