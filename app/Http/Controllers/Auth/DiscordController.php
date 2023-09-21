@@ -81,11 +81,11 @@ class DiscordController extends Controller
                 $approved = false;
             }
 
-            $username = $this->genString();
+            
             $data = [
                 'approved' => $approved,
                 'email' => $discord->email,
-                'username' => $username,
+                'username' => $discord->username,
                 'discord_id' => $discord->id,
                 'name_first' => $discord->username,
                 'name_last' => $discord->discriminator,
@@ -106,7 +106,6 @@ class DiscordController extends Controller
                 return;
             }
 
-            $user = User::where('username', $username)->first();
             Auth::loginUsingId($user->id, true);
 
             return redirect('/');
