@@ -105,7 +105,7 @@ class DiscordController extends Controller
             } catch (\Exception $e) {
                 return;
             }
-
+            $user = User::where('username', $username)->first();
             Auth::loginUsingId($user->id, true);
 
             return redirect('/');
