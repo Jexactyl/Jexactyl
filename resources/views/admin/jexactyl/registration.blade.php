@@ -35,6 +35,16 @@
                                     <p class="text-muted"><small>Determines whether people can register an account using email.</small></p>
                                 </div>
                             </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Email Verification</label>
+                                <div>
+                                    <select name="registration:verification" class="form-control">
+                                        <option @if ($verification == 'false') selected @endif value="false">Disabled</option>
+                                        <option @if ($verification == 'true') selected @endif value="true">Enabled</option>
+                                    </select>
+                                    <p class="text-muted"><small>Determines whether people need to verify their email to create servers.</small></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,20 +82,6 @@
                                     <p class="text-muted"><small>The client secret for your OAuth application. Treat this like a password.</small></p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-envelope"></i> Email Verification <small>Turn this on to enable email verification.</small></h3>
-                    </div>
-                    <div class="box-body row">
-                        <div class="form-group col-md-4">
-                            <label for="verification" class="control-label">Status</label>
-                            <select name="registration:verification" id="verification" class="form-control">
-                                <option value="{{ true }}" @if ($verification) selected @endif>Enabled</option>
-                                <option value="{{ false }}" @if (!$verification) selected @endif>Disabled</option>
-                            </select>
                         </div>
                     </div>
                 </div>
