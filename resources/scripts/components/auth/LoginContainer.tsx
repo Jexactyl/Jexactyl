@@ -110,24 +110,26 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                             Forgot password?
                         </Link>
                     </div>
-                    <div css={tw`mt-6 text-center`}>
-                        {email && (
-                            <Link
-                                to={'/auth/register'}
-                                css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
-                            >
-                                Signup with Email
-                            </Link>
-                        )}
-                        {discord && (
-                            <Link
-                                to={'/auth/discord'}
-                                css={tw`text-xs ml-6 text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
-                            >
-                                Authenticate with Discord
-                            </Link>
-                        )}
-                    </div>
+                    {(email || discord) && (
+                        <div css={tw`mt-6 text-center`}>
+                            {email && (
+                                <Link
+                                    to={'/auth/register'}
+                                    css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
+                                >
+                                    Signup with Email
+                                </Link>
+                            )}
+                            {discord && (
+                                <Link
+                                    to={'/auth/discord'}
+                                    css={tw`text-xs ml-6 text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
+                                >
+                                    Authenticate with Discord
+                                </Link>
+                            )}
+                        </div>
+                    )}
                 </LoginFormContainer>
             )}
         </Formik>

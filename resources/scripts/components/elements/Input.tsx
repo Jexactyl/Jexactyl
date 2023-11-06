@@ -40,7 +40,7 @@ const inputStyle = css<Props>`
     // Reset to normal styling.
     resize: none;
     ${tw`appearance-none outline-none w-full min-w-0`};
-    ${tw`p-3 border-2 rounded text-sm transition-all duration-150`};
+    ${tw`p-2.5 border-2 rounded text-sm transition-all duration-150`};
     ${tw`bg-neutral-800 border-neutral-700 hover:border-neutral-600 text-neutral-200 shadow-none focus:ring-0`};
 
     & + .input-help {
