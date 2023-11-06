@@ -7,9 +7,9 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: {
-                'storeone': "url('https://wallpapershome.com/images/pages/pic_v/13964.jpg')",
-                'storetwo': "url('https://wallpapershome.com/images/pages/pic_v/13972.jpg')",
-                'storethree': "url('https://wallpapershome.com/images/wallpapers/minecraft-4k-edition-1440x2560-e3-2017-xbox-one-x-screenshot-13960.jpg')",
+                'storeone': "url('https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Block-Column-Image_Boat-Trip_800x800.jpg')",
+                'storetwo': "url('https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Block-Column-Image_Beach-Cabin_800x800.jpg')",
+                'storethree': "url('https://www.minecraft.net/content/dam/games/minecraft/key-art/MC-Vanilla_Block-Column-Image_Mining_800x800.jpg')",
             },
             colors: {
                 black: '#000',

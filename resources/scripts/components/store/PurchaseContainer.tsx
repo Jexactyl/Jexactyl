@@ -47,12 +47,15 @@ export default () => {
                     </h1>
                 </ContentBox>
                 <ContentBox title={'Purchase credits'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
-                    {paypal && <PaypalPurchaseForm />}
-                    {stripe && <StripePurchaseForm />}
-                    {!paypal && !stripe && (
-                        <p className={'text-gray-400 text-sm m-2'}>
-                            If no gateways appear here, it&apos;s because they haven&apos;t been configured yet.
+                    {!paypal && !stripe ? (
+                        <p className={'text-gray-400 text-sm text-center'}>
+                            Payment gateways are unavailable at this time.
                         </p>
+                    ) : (
+                        <>
+                            {paypal && <PaypalPurchaseForm />}
+                            {stripe && <StripePurchaseForm />}
+                        </>
                     )}
                 </ContentBox>
             </Container>
@@ -68,7 +71,11 @@ export default () => {
                                 {earn.amount} <span className={'text-base ml-4'}>credits / min</span>
                             </h1>
                         </ContentBox>
-                        <ContentBox title={'How to earn'} showFlashes={'earn:how'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                        <ContentBox
+                            title={'How to earn'}
+                            showFlashes={'earn:how'}
+                            css={tw`mt-8 sm:mt-0 sm:ml-8 text-gray-300`}
+                        >
                             <p>You can earn credits by having any page of this panel open.</p>
                             <p css={tw`mt-1`}>
                                 <span css={tw`text-green-500`}>{earn.amount}&nbsp;</span>
