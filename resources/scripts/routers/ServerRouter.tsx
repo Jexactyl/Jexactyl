@@ -220,7 +220,7 @@ export default () => {
                     <InstallListener />
                     <TransferListener />
                     <WebsocketHandler />
-                    {inConflictState ? (
+                    {inConflictState && (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${id}`))) ? (
                         <ConflictStateRenderer />
                     ) : (
                         <ErrorBoundary>
