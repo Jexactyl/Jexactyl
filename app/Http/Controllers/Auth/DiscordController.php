@@ -81,7 +81,6 @@ class DiscordController extends Controller
                 $approved = false;
             }
 
-            
             $data = [
                 'approved' => $approved,
                 'email' => $discord->email,

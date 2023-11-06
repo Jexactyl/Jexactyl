@@ -3,9 +3,9 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use GuzzleHttp\Client;
+use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Jexactyl\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Jexactyl\Exceptions\DisplayException;
 use Jexactyl\Repositories\Wings\DaemonFileRepository;
