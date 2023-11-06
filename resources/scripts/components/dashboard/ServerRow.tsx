@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Server } from '@/api/server/getServer';
 import Spinner from '@/components/elements/Spinner';
+import { bytesToString, ip } from '@/lib/formatters';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import React, { useEffect, useRef, useState } from 'react';
-import { bytesToString, ip } from '@/lib/formatters';
 import getServerResourceUsage, { ServerPowerState, ServerStats } from '@/api/server/getServerResourceUsage';
-import UptimeDuration from '@/components/server/UptimeDuration';
 
 // Determines if the current value is in an alarm threshold so we can show it in red rather
 // than the more faded default style.
@@ -16,7 +15,7 @@ const isAlarmState = (current: number, limit: number): boolean => limit > 0 && c
 
 const IconDescription = styled.p<{ $alarm?: boolean }>`
     ${tw`text-sm ml-2`};
-    ${(props) => (props.$alarm ? tw`text-white` : tw`text-neutral-400`)};
+    ${(props) => props.$alarm && tw`text-red-300`};
 `;
 
 const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | undefined; $bg: string }>`
@@ -28,8 +27,7 @@ const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | unde
     background-size: cover;
 
     & .status-bar {
-        ${tw`w-2 bg-red-500 absolute right-0 z-20 rounded-full m-1 opacity-50 transition-all duration-150`};
-        height: calc(100% - 0.5rem);
+        ${tw`w-4 h-4 bg-red-500 absolute right-0 top-0 z-20 rounded-full m-2 transition-all duration-150 animate-pulse`};
 
         ${({ $status }) =>
             !$status || $status === 'offline'
@@ -88,95 +86,66 @@ export default ({ server, className }: { server: Server; className?: string }) =
             $status={stats?.status}
             $bg={server.bg}
         >
-            <div
-                className={`${
-                    server.bg
-                        ? 'flex flex-wrap py-4 justify-between items-center col-span-12 sm:col-span-5 lg:col-span-6'
-                        : 'flex flex-wrap py-4 justify-between items-center col-span-12 sm:col-span-5 lg:col-span-6 bg-gray-700 rounded-lg shadow-lg'
-                }`}
-            >
-                <p css={tw`px-6 text-2xl font-bold`}>{server.name}</p>
-                <p css={tw`px-6 text-sm text-gray-400 line-clamp-1 text-center`}>
-                    {server.allocations
-                        .filter((alloc) => alloc.isDefault)
-                        .map((allocation) => (
-                            <React.Fragment key={allocation.ip + allocation.port.toString()}>
-                                {allocation.alias || ip(allocation.ip)}:{allocation.port}
-                            </React.Fragment>
-                        ))}
-                </p>
-            </div>
-            <div css={tw`hidden col-span-8 lg:col-span-6 sm:flex items-baseline justify-center items-center`}>
-                {!stats || isSuspended ? (
-                    isSuspended ? (
-                        <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-red-500 rounded px-2 py-1 text-red-100 text-xs`}>
-                                {server.status === 'suspended' ? 'Suspended' : 'Connection Error'}
-                            </span>
-                        </div>
-                    ) : server.isTransferring || server.status ? (
-                        <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-neutral-500 rounded px-2 py-1 text-neutral-100 text-xs`}>
-                                {server.isTransferring
-                                    ? 'Transferring'
-                                    : server.status === 'installing'
-                                    ? 'Installing'
-                                    : server.status === 'restoring_backup'
-                                    ? 'Restoring Backup'
-                                    : 'Unavailable'}
-                            </span>
-                        </div>
-                    ) : (
-                        <Spinner size={'small'} />
-                    )
-                ) : (
-                    <React.Fragment>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
-                                <Icon.Cpu size={20} css={tw`text-neutral-600`} />
-                                <IconDescription $alarm={alarms.cpu}>
-                                    {stats.cpuUsagePercent.toFixed(0)} %
-                                </IconDescription>
+            <div css={tw`hidden col-span-12 w-full sm:flex items-baseline justify-center items-center text-center`}>
+                <div>
+                    <p css={tw`text-xl font-medium break-words m-2 text-gray-200`}>{server.name}</p>
+                    <p css={tw`text-sm text-neutral-400 break-words line-clamp-1 mb-2`}>
+                        {server.allocations
+                            .filter((alloc) => alloc.isDefault)
+                            .map((allocation) => (
+                                <React.Fragment key={allocation.ip + allocation.port.toString()}>
+                                    {allocation.alias || ip(allocation.ip)}:{allocation.port}
+                                </React.Fragment>
+                            ))}
+                    </p>
+                </div>
+                {!stats ||
+                    (isSuspended &&
+                        (isSuspended ? (
+                            <div css={tw`flex-1 text-center`}>
+                                <span css={tw`bg-red-500 rounded px-2 py-1 text-red-100 text-xs`}>
+                                    {server.status === 'suspended' ? 'Suspended' : 'Connection Error'}
+                                </span>
                             </div>
-                        </div>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
-                                <Icon.PieChart size={20} css={tw`text-neutral-600`} />
-                                <IconDescription $alarm={alarms.memory}>
-                                    {bytesToString(stats.memoryUsageInBytes)}
-                                </IconDescription>
+                        ) : server.isTransferring || server.status ? (
+                            <div css={tw`flex-1 text-center`}>
+                                <span css={tw`bg-neutral-500 rounded px-2 py-1 text-neutral-100 text-xs`}>
+                                    {server.isTransferring
+                                        ? 'Transferring'
+                                        : server.status === 'installing'
+                                        ? 'Installing'
+                                        : server.status === 'restoring_backup'
+                                        ? 'Restoring Backup'
+                                        : 'Unavailable'}
+                                </span>
                             </div>
-                        </div>
-                    </React.Fragment>
-                )}
+                        ) : (
+                            <Spinner size={'small'} />
+                        )))}
             </div>
             {stats && (
                 <div css={tw`hidden col-span-12 sm:flex items-baseline justify-center items-center`}>
                     <React.Fragment>
                         <div css={tw`flex-1 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
-                                <Icon.HardDrive size={20} css={tw`text-neutral-600`} />
-                                <IconDescription>{bytesToString(stats?.diskUsageInBytes)}</IconDescription>
-                            </div>
-                        </div>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
-                                <Icon.Clock size={20} css={tw`text-neutral-600`} />
-                                <IconDescription>
-                                    {stats.uptime > 0 ? <UptimeDuration uptime={stats.uptime / 1000} /> : 'Offline'}
+                            <div css={tw`flex justify-center text-neutral-500`}>
+                                <Icon.Cpu size={20} />
+                                <IconDescription $alarm={alarms.cpu}>
+                                    {stats.cpuUsagePercent.toFixed(2)}%
                                 </IconDescription>
                             </div>
                         </div>
-                        <div css={tw`flex-1 ml-12 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
-                                <Icon.DownloadCloud size={20} css={tw`text-neutral-600`} />
-                                <IconDescription>{bytesToString(stats?.networkRxInBytes)}</IconDescription>
+                        <div css={tw`flex-1 sm:block hidden`}>
+                            <div css={tw`flex justify-center text-gray-500`}>
+                                <Icon.PieChart size={20} />
+                                <IconDescription $alarm={alarms.memory}>
+                                    {bytesToString(stats.memoryUsageInBytes)}
+                                </IconDescription>
                             </div>
                         </div>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
-                                <Icon.UploadCloud size={20} css={tw`text-neutral-600`} />
-                                <IconDescription>{bytesToString(stats?.networkTxInBytes)}</IconDescription>
+                        <div css={tw`flex-1 sm:block hidden`}>
+                            <div css={tw`flex justify-center text-gray-500`}>
+                                <Icon.HardDrive size={20} />
+                                <IconDescription>{bytesToString(stats?.diskUsageInBytes)}</IconDescription>
                             </div>
                         </div>
                     </React.Fragment>
