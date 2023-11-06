@@ -39,7 +39,7 @@ class ToggleTwoFactorService
     {
         $secret = $this->encrypter->decrypt($user->totp_secret);
 
-        $isValidToken = $this->google2FA->verifyKey($secret, $token, config()->get('Jexactyl.auth.2fa.window'));
+        $isValidToken = $this->google2FA->verifyKey($secret, $token, config()->get('jexactyl.auth.2fa.window'));
 
         if (!$isValidToken) {
             throw new TwoFactorAuthenticationTokenInvalid();

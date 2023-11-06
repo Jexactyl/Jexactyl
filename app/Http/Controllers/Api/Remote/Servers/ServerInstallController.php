@@ -69,9 +69,9 @@ class ServerInstallController extends Controller
         // If the server successfully installed, fire installed event.
         // This logic allows individually disabling install and reinstall notifications separately.
         $isInitialInstall = is_null($server->installed_at);
-        if ($isInitialInstall && config()->get('Jexactyl.email.send_install_notification', true)) {
+        if ($isInitialInstall && config()->get('jexactyl.email.send_install_notification', true)) {
             $this->eventDispatcher->dispatch(new ServerInstalled($server));
-        } elseif (!$isInitialInstall && config()->get('Jexactyl.email.send_reinstall_notification', true)) {
+        } elseif (!$isInitialInstall && config()->get('jexactyl.email.send_reinstall_notification', true)) {
             $this->eventDispatcher->dispatch(new ServerInstalled($server));
         }
 

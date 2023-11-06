@@ -30,7 +30,7 @@ class Handler extends ExceptionHandler
      * resulting in some weird rule names. This string will be parsed out and
      * replaced with 'p_' in the response code.
      */
-    private const Jexactyl_RULE_STRING = 'Jexactyl\_rules\_';
+    private const JEXACTYL_RULE_STRING = 'jexactyl\_rules\_';
 
     /**
      * A list of the exception types that should not be reported.
@@ -133,7 +133,7 @@ class Handler extends ExceptionHandler
         // much as possible at the code level, but there are a lot of spots that do a
         // ton of actions and were written before this bug discovery was made.
         //
-        // @see https://github.com/Jexactyl/panel/pull/1468
+        // @see https://github.com/pteroactyl/panel/pull/1468
         if ($connections->transactionLevel()) {
             $connections->rollBack(0);
         }
@@ -163,7 +163,7 @@ class Handler extends ExceptionHandler
             foreach ($errors as $key => $error) {
                 $meta = [
                     'source_field' => $field,
-                    'rule' => str_replace(self::Jexactyl_RULE_STRING, 'p_', Arr::get(
+                    'rule' => str_replace(self::JEXACTYL_RULE_STRING, 'p_', Arr::get(
                         $codes,
                         str_replace('.', '_', $field) . '.' . $key
                     )),

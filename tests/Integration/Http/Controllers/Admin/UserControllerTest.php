@@ -17,7 +17,7 @@ class UserControllerTest extends IntegrationTestCase
      * data with the number of servers they are assigned to, and the number of servers they
      * are a subuser of.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2469
+     * @see https://github.com/pterodactyl/panel/issues/2469
      */
     public function testIndexReturnsExpectedData()
     {

@@ -114,7 +114,7 @@ class UpdateStartupVariableTest extends ClientApiIntegrationTestCase
      * Test that an egg variable with a validation rule of 'nullable|string' works if no value
      * is passed through in the request.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2433
+     * @see https://github.com/pterodactyl/panel/issues/2433
      */
     public function testEggVariableWithNullableStringIsNotRequired()
     {

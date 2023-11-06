@@ -49,7 +49,7 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({
                 <ContentContainer css={tw`text-sm text-center my-4 pb-8`}>
                     <p css={tw`text-neutral-500 sm:float-left`}>
                         &copy; <a href={'https://jexactyl.com'}>Jexactyl,</a> built on{' '}
-                        <a href={'https://jexactyl.com'}>Jexactyl.</a>
+                        <a href={'https://pterodactyl.io'}>Pterodactyl.</a>
                     </p>
                     <p css={tw`text-neutral-500 sm:float-right`}>
                         <a href={'https://jexactyl.com'}> Site </a>

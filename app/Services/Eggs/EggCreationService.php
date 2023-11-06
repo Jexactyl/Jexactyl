@@ -40,7 +40,7 @@ class EggCreationService
 
         return $this->repository->create(array_merge($data, [
             'uuid' => Uuid::uuid4()->toString(),
-            'author' => $this->config->get('Jexactyl.service.author'),
+            'author' => $this->config->get('jexactyl.service.author'),
         ]), true, true);
     }
 }

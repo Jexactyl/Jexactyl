@@ -56,7 +56,7 @@ class DatabaseSettingsCommand extends Command
         $this->output->note('Using the "root" account for MySQL connections is not only highly frowned upon, it is also not allowed by this application. You\'ll need to have created a MySQL user for this software.');
         $this->variables['DB_USERNAME'] = $this->option('username') ?? $this->ask(
             'Database Username',
-            config('database.connections.mysql.username', 'Jexactyl')
+            config('database.connections.mysql.username', 'jexactyl')
         );
 
         $askForMySQLPassword = true;
@@ -76,7 +76,7 @@ class DatabaseSettingsCommand extends Command
             $this->output->error('Your connection credentials have NOT been saved. You will need to provide valid connection information before proceeding.');
 
             if ($this->confirm('Go back and try again?')) {
-                $this->database->disconnect('_Jexactyl_command_test');
+                $this->database->disconnect('_jexactyl_command_test');
 
                 return $this->handle();
             }
@@ -96,7 +96,7 @@ class DatabaseSettingsCommand extends Command
      */
     private function testMySQLConnection()
     {
-        config()->set('database.connections._Jexactyl_command_test', [
+        config()->set('database.connections._jexactyl_command_test', [
             'driver' => 'mysql',
             'host' => $this->variables['DB_HOST'],
             'port' => $this->variables['DB_PORT'],
@@ -108,6 +108,6 @@ class DatabaseSettingsCommand extends Command
             'strict' => true,
         ]);
 
-        $this->database->connection('_Jexactyl_command_test')->getPdo();
+        $this->database->connection('_jexactyl_command_test')->getPdo();
     }
 }

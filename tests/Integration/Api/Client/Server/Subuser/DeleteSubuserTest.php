@@ -20,7 +20,7 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
      * it to an integer. Then, in the deep API middlewares you would end up trying to load a user
      * with an ID of 12, which may or may not exist and be wrongly assigned to the model object.
      *
-     * @see https://github.com/Jexactyl/panel/issues/2359
+     * @see https://github.com/pterodactyl/panel/issues/2359
      */
     public function testCorrectSubuserIsDeletedFromServer()
     {
