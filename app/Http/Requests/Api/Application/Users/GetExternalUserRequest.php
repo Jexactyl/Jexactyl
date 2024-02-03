@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Users;
+namespace Everest\Http\Requests\Api\Application\Users;
 
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetExternalUserRequest extends ApplicationApiRequest
 {

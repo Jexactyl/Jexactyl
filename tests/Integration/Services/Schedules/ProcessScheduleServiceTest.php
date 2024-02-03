@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Schedules;
+namespace Everest\Tests\Integration\Services\Schedules;
 
 use Exception;
 use Carbon\CarbonImmutable;
-use Pterodactyl\Models\Task;
-use Pterodactyl\Models\Schedule;
+use Everest\Models\Task;
+use Everest\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Pterodactyl\Jobs\Schedule\RunTaskJob;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Services\Schedules\ProcessScheduleService;
+use Everest\Jobs\Schedule\RunTaskJob;
+use Everest\Exceptions\DisplayException;
+use Everest\Tests\Integration\IntegrationTestCase;
+use Everest\Services\Schedules\ProcessScheduleService;
 
 class ProcessScheduleServiceTest extends IntegrationTestCase
 {
@@ -36,13 +36,13 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'cron_minute' => 'hodor', // this will break the getNextRunDate() function.
         ]);
 
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 1]);
 
         $this->expectException(\InvalidArgumentException::class);
@@ -64,10 +64,10 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
 
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
 
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'time_offset' => 10, 'sequence_id' => 1]);
 
         $this->getService()->handle($schedule, $now);
@@ -96,10 +96,10 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
         Bus::fake();
 
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
 
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task2 = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 4]);
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 2]);
         $task3 = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 3]);
@@ -127,9 +127,9 @@ class ProcessScheduleServiceTest extends IntegrationTestCase
         $this->swap(Dispatcher::class, $dispatcher = \Mockery::mock(Dispatcher::class));
 
         $server = $this->createServerModel();
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id, 'last_run_at' => null]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'sequence_id' => 1]);
 
         $dispatcher->expects('dispatchNow')->andThrows(new \Exception('Test thrown exception'));

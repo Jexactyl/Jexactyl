@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Contracts\Http;
+namespace Everest\Contracts\Http;
 
 interface ClientPermissionsRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Everest\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

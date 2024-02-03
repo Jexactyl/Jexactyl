@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Database;
+namespace Everest\Exceptions\Service\Database;
 
-use Pterodactyl\Exceptions\DisplayException;
+use Everest\Exceptions\DisplayException;
 
 class NoSuitableDatabaseHostException extends DisplayException
 {

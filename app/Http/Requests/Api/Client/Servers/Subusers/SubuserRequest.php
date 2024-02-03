@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Subusers;
+namespace Everest\Http\Requests\Api\Client\Servers\Subusers;
 
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Exceptions\Http\HttpForbiddenException;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Services\Servers\GetUserPermissionsService;
+use Everest\Models\User;
+use Everest\Models\Subuser;
+use Everest\Exceptions\Http\HttpForbiddenException;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Services\Servers\GetUserPermissionsService;
 
 abstract class SubuserRequest extends ClientApiRequest
 {
@@ -52,7 +52,7 @@ abstract class SubuserRequest extends ClientApiRequest
     protected function validatePermissionsCanBeAssigned(array $permissions)
     {
         $user = $this->user();
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Everest\Models\Server $server */
         $server = $this->route()->parameter('server');
 
         // If we are a root admin or the server owner, no need to perform these checks.
@@ -63,7 +63,7 @@ abstract class SubuserRequest extends ClientApiRequest
         // Otherwise, get the current subuser's permission set, and ensure that the
         // permissions they are trying to assign are not _more_ than the ones they
         // already have.
-        /** @var \Pterodactyl\Services\Servers\GetUserPermissionsService $service */
+        /** @var \Everest\Services\Servers\GetUserPermissionsService $service */
         $service = $this->container->make(GetUserPermissionsService::class);
 
         if (count(array_diff($permissions, $service->handle($server, $user))) > 0) {

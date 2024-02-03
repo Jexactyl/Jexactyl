@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Egg;
+namespace Everest\Exceptions\Service\Egg;
 
-use Pterodactyl\Exceptions\DisplayException;
+use Everest\Exceptions\DisplayException;
 
 class NoParentConfigurationFoundException extends DisplayException
 {

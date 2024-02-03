@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Database;
+namespace Everest\Exceptions\Service\Database;
 
-use Pterodactyl\Exceptions\PterodactylException;
+use Everest\Exceptions\PterodactylException;
 
 class DatabaseClientFeatureNotEnabledException extends PterodactylException
 {

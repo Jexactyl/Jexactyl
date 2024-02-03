@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Everest\Transformers\Api\Application;
 
-use Pterodactyl\Models\AdminRole;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\AdminRole;
+use Everest\Transformers\Api\Transformer;
 
 class AdminRoleTransformer extends Transformer
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Pterodactyl\Models\Backup;
+use Everest\Models\Backup;
 
 return [
     // The backup driver to use for this Panel instance. All client generated server backups

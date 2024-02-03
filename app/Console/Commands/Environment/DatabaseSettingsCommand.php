@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Environment;
+namespace Everest\Console\Commands\Environment;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\DatabaseManager;
-use Pterodactyl\Traits\Commands\EnvironmentWriterTrait;
+use Everest\Traits\Commands\EnvironmentWriterTrait;
 
 class DatabaseSettingsCommand extends Command
 {
@@ -33,7 +33,7 @@ class DatabaseSettingsCommand extends Command
     /**
      * Handle command execution.
      *
-     * @throws \Pterodactyl\Exceptions\PterodactylException
+     * @throws \Everest\Exceptions\PterodactylException
      */
     public function handle(): int
     {

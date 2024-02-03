@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Admin;
+namespace Everest\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Pterodactyl\Http\Controllers\Controller;
+use Everest\Http\Controllers\Controller;
 
 class BaseController extends Controller
 {

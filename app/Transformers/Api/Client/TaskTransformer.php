@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Task;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\Task;
+use Everest\Transformers\Api\Transformer;
 
 class TaskTransformer extends Transformer
 {

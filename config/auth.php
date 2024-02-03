@@ -81,7 +81,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Pterodactyl\Models\User::class,
+            'model' => Everest\Models\User::class,
         ],
     ],
 

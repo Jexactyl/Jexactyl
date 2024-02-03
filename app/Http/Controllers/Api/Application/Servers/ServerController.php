@@ -1,23 +1,23 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Servers;
+namespace Everest\Http\Controllers\Api\Application\Servers;
 
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
-use Pterodactyl\Services\Servers\ServerCreationService;
-use Pterodactyl\Services\Servers\ServerDeletionService;
-use Pterodactyl\Services\Servers\BuildModificationService;
-use Pterodactyl\Services\Servers\DetailsModificationService;
-use Pterodactyl\Transformers\Api\Application\ServerTransformer;
-use Pterodactyl\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Pterodactyl\Http\Requests\Api\Application\Servers\GetServerRequest;
-use Pterodactyl\Http\Requests\Api\Application\Servers\GetServersRequest;
-use Pterodactyl\Http\Requests\Api\Application\Servers\ServerWriteRequest;
-use Pterodactyl\Http\Requests\Api\Application\Servers\StoreServerRequest;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
-use Pterodactyl\Http\Requests\Api\Application\Servers\UpdateServerRequest;
+use Everest\Services\Servers\ServerCreationService;
+use Everest\Services\Servers\ServerDeletionService;
+use Everest\Services\Servers\BuildModificationService;
+use Everest\Services\Servers\DetailsModificationService;
+use Everest\Transformers\Api\Application\ServerTransformer;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Http\Requests\Api\Application\Servers\GetServerRequest;
+use Everest\Http\Requests\Api\Application\Servers\GetServersRequest;
+use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
+use Everest\Http\Requests\Api\Application\Servers\StoreServerRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Servers\UpdateServerRequest;
 
 class ServerController extends ApplicationApiController
 {
@@ -58,10 +58,10 @@ class ServerController extends ApplicationApiController
      *
      * @throws \Throwable
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function store(StoreServerRequest $request): JsonResponse
     {
@@ -85,7 +85,7 @@ class ServerController extends ApplicationApiController
     /**
      * Deletes a server.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\DisplayException
      * @throws \Throwable
      */
     public function delete(ServerWriteRequest $request, Server $server, string $force = ''): Response
@@ -100,10 +100,10 @@ class ServerController extends ApplicationApiController
      *
      * @throws \Throwable
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function update(UpdateServerRequest $request, Server $server): array
     {

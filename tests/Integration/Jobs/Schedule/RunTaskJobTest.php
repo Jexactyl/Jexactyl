@@ -1,20 +1,20 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Jobs\Schedule;
+namespace Everest\Tests\Integration\Jobs\Schedule;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use GuzzleHttp\Psr7\Request;
-use Pterodactyl\Models\Task;
+use Everest\Models\Task;
 use GuzzleHttp\Psr7\Response;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Schedule;
+use Everest\Models\Server;
+use Everest\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
-use Pterodactyl\Jobs\Schedule\RunTaskJob;
+use Everest\Jobs\Schedule\RunTaskJob;
 use GuzzleHttp\Exception\BadResponseException;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Tests\Integration\IntegrationTestCase;
+use Everest\Repositories\Wings\DaemonPowerRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class RunTaskJobTest extends IntegrationTestCase
 {
@@ -25,14 +25,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_processing' => true,
             'last_run_at' => null,
             'is_active' => false,
         ]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'is_queued' => true]);
 
         $job = new RunTaskJob($task);
@@ -52,9 +52,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create(['schedule_id' => $schedule->id, 'action' => 'foobar']);
 
         $job = new RunTaskJob($task);
@@ -71,14 +71,14 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create([
             'server_id' => $server->id,
             'is_active' => !$isManualRun,
             'is_processing' => true,
             'last_run_at' => null,
         ]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,
@@ -112,9 +112,9 @@ class RunTaskJobTest extends IntegrationTestCase
     {
         $server = $this->createServerModel();
 
-        /** @var \Pterodactyl\Models\Schedule $schedule */
+        /** @var \Everest\Models\Schedule $schedule */
         $schedule = Schedule::factory()->create(['server_id' => $server->id]);
-        /** @var \Pterodactyl\Models\Task $task */
+        /** @var \Everest\Models\Task $task */
         $task = Task::factory()->create([
             'schedule_id' => $schedule->id,
             'action' => Task::ACTION_POWER,

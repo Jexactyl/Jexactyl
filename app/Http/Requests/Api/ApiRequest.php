@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api;
+namespace Everest\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * @method \Pterodactyl\Models\User user($guard = null)
+ * @method \Everest\Models\User user($guard = null)
  */
 abstract class ApiRequest extends FormRequest
 {

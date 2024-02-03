@@ -1,20 +1,20 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Servers\Databases;
+namespace Everest\Http\Requests\Api\Application\Servers\Databases;
 
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
-use Pterodactyl\Services\Databases\DatabaseManagementService;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Services\Databases\DatabaseManagementService;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreServerDatabaseRequest extends ApplicationApiRequest
 {
     public function rules(): array
     {
-        /** @var \Pterodactyl\Models\Server $server */
+        /** @var \Everest\Models\Server $server */
         $server = $this->route()->parameter('server');
 
         return [

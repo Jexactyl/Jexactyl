@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client\Server\Subuser;
+namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Models\Permission;
+use Everest\Models\Subuser;
+use Everest\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
-use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 {
@@ -32,7 +32,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
 
         $response->assertOk();
 
-        /** @var \Pterodactyl\Models\User $subuser */
+        /** @var \Everest\Models\User $subuser */
         $subuser = User::query()->where('email', $email)->firstOrFail();
 
         $response->assertJsonPath('object', Subuser::RESOURCE_NAME);
@@ -111,7 +111,7 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
     {
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Pterodactyl\Models\User $existing */
+        /** @var \Everest\Models\User $existing */
         $existing = User::factory()->create(['email' => $this->faker->email]);
 
         $response = $this->actingAs($user)->postJson($this->link($server) . '/users', [

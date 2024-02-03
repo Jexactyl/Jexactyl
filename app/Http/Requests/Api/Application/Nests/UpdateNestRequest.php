@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Nests;
+namespace Everest\Http\Requests\Api\Application\Nests;
 
-use Pterodactyl\Models\Nest;
+use Everest\Models\Nest;
 
 class UpdateNestRequest extends StoreNestRequest
 {

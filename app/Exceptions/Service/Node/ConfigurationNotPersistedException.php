@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Node;
+namespace Everest\Exceptions\Service\Node;
 
-use Pterodactyl\Exceptions\DisplayException;
+use Everest\Exceptions\DisplayException;
 
 class ConfigurationNotPersistedException extends DisplayException
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Http\Base;
+namespace Everest\Exceptions\Http\Base;
 
-use Pterodactyl\Exceptions\DisplayException;
+use Everest\Exceptions\DisplayException;
 
 class InvalidPasswordProvidedException extends DisplayException
 {

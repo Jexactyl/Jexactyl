@@ -1,22 +1,22 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client;
+namespace Everest\Tests\Integration\Api\Client;
 
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\Task;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Model;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Database;
-use Pterodactyl\Models\Location;
-use Pterodactyl\Models\Schedule;
+use Everest\Models\Node;
+use Everest\Models\Task;
+use Everest\Models\User;
+use Everest\Models\Model;
+use Everest\Models\Backup;
+use Everest\Models\Server;
+use Everest\Models\Database;
+use Everest\Models\Location;
+use Everest\Models\Schedule;
 use Illuminate\Support\Collection;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Models\DatabaseHost;
-use Pterodactyl\Transformers\Api\Transformer;
-use Pterodactyl\Tests\Integration\TestResponse;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Everest\Models\Allocation;
+use Everest\Models\DatabaseHost;
+use Everest\Transformers\Api\Transformer;
+use Everest\Tests\Integration\TestResponse;
+use Everest\Tests\Integration\IntegrationTestCase;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
@@ -86,7 +86,7 @@ abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
     protected function assertJsonTransformedWith(array $data, Model|EloquentModel $model)
     {
         $reflect = new \ReflectionClass($model);
-        $transformer = sprintf('\\Pterodactyl\\Transformers\\Api\\Client\\%sTransformer', $reflect->getShortName());
+        $transformer = sprintf('\\Everest\\Transformers\\Api\\Client\\%sTransformer', $reflect->getShortName());
 
         $transformer = new $transformer();
         $this->assertInstanceOf(Transformer::class, $transformer);

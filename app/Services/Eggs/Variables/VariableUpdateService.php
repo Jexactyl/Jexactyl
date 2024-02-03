@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Services\Eggs\Variables;
+namespace Everest\Services\Eggs\Variables;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Traits\Services\ValidatesValidationRules;
+use Everest\Models\Egg;
+use Everest\Models\EggVariable;
+use Everest\Exceptions\DisplayException;
+use Everest\Traits\Services\ValidatesValidationRules;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Pterodactyl\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
+use Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
 
 class VariableUpdateService
 {
@@ -33,8 +33,8 @@ class VariableUpdateService
     /**
      * Update a specific egg variable.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException
      */
     public function handle(Egg $egg, array $data): void
     {

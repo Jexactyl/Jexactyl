@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client\Server\Subuser;
+namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
 
 use Ramsey\Uuid\Uuid;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
+use Everest\Models\User;
+use Everest\Models\Subuser;
+use Everest\Models\Permission;
+use Everest\Repositories\Wings\DaemonServerRepository;
+use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteSubuserTest extends ClientApiIntegrationTestCase
 {
@@ -28,14 +28,14 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
 
         [$user, $server] = $this->generateTestAccount();
 
-        /** @var \Pterodactyl\Models\User $differentUser */
+        /** @var \Everest\Models\User $differentUser */
         $differentUser = User::factory()->create();
 
         $real = Uuid::uuid4()->toString();
         // Generate a UUID that lines up with a user in the database if it were to be cast to an int.
         $uuid = $differentUser->id . substr($real, strlen((string) $differentUser->id));
 
-        /** @var \Pterodactyl\Models\User $subuser */
+        /** @var \Everest\Models\User $subuser */
         $subuser = User::factory()->create(['uuid' => $uuid]);
 
         Subuser::query()->forceCreate([
@@ -51,7 +51,7 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
         // Try the same test, but this time with a UUID that if cast to an int (shouldn't) line up with
         // anything in the database.
         $uuid = '18180000' . substr(Uuid::uuid4()->toString(), 8);
-        /** @var \Pterodactyl\Models\User $subuser */
+        /** @var \Everest\Models\User $subuser */
         $subuser = User::factory()->create(['uuid' => $uuid]);
 
         Subuser::query()->forceCreate([

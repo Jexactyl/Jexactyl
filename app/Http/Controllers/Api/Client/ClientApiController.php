@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use Pterodactyl\Transformers\Api\Transformer;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Transformers\Api\Transformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 abstract class ClientApiController extends ApplicationApiController
 {

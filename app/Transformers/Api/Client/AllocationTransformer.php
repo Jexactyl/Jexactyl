@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\Allocation;
+use Everest\Transformers\Api\Transformer;
 
 class AllocationTransformer extends Transformer
 {

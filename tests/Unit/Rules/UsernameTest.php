@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Rules;
+namespace Everest\Tests\Unit\Rules;
 
-use Pterodactyl\Rules\Username;
-use Pterodactyl\Tests\TestCase;
+use Everest\Rules\Username;
+use Everest\Tests\TestCase;
 
 class UsernameTest extends TestCase
 {

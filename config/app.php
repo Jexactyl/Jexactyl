@@ -192,16 +192,16 @@ return [
         /*
          * Application Service Providers...
          */
-        Pterodactyl\Providers\ActivityLogServiceProvider::class,
-        Pterodactyl\Providers\AppServiceProvider::class,
-        Pterodactyl\Providers\AuthServiceProvider::class,
-        Pterodactyl\Providers\BackupsServiceProvider::class,
-        Pterodactyl\Providers\BladeServiceProvider::class,
-        Pterodactyl\Providers\EventServiceProvider::class,
-        Pterodactyl\Providers\HashidsServiceProvider::class,
-        Pterodactyl\Providers\RouteServiceProvider::class,
-        Pterodactyl\Providers\RepositoryServiceProvider::class,
-        Pterodactyl\Providers\ViewComposerServiceProvider::class,
+        Everest\Providers\ActivityLogServiceProvider::class,
+        Everest\Providers\AppServiceProvider::class,
+        Everest\Providers\AuthServiceProvider::class,
+        Everest\Providers\BackupsServiceProvider::class,
+        Everest\Providers\BladeServiceProvider::class,
+        Everest\Providers\EventServiceProvider::class,
+        Everest\Providers\HashidsServiceProvider::class,
+        Everest\Providers\RouteServiceProvider::class,
+        Everest\Providers\RepositoryServiceProvider::class,
+        Everest\Providers\ViewComposerServiceProvider::class,
     ],
 
     /*
@@ -220,8 +220,8 @@ return [
         'JavaScript' => Laracasts\Utilities\JavaScript\JavaScriptFacade::class,
 
         // Custom Facades
-        'Activity' => Pterodactyl\Facades\Activity::class,
-        'LogBatch' => Pterodactyl\Facades\LogBatch::class,
-        'LogTarget' => Pterodactyl\Facades\LogTarget::class,
+        'Activity' => Everest\Facades\Activity::class,
+        'LogBatch' => Everest\Facades\LogBatch::class,
+        'LogTarget' => Everest\Facades\LogTarget::class,
     ])->toArray(),
 ];

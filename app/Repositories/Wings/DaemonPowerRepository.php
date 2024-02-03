@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Repositories\Wings;
+namespace Everest\Repositories\Wings;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DaemonPowerRepository extends DaemonRepository
 {
     /**
      * Sends a power action to the server instance.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function send(string $action): ResponseInterface
     {

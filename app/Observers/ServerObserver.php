@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Everest\Observers;
 
-use Pterodactyl\Events;
-use Pterodactyl\Models\Server;
+use Everest\Events;
+use Everest\Models\Server;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class ServerObserver

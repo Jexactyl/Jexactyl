@@ -1,19 +1,19 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Roles;
+namespace Everest\Http\Controllers\Api\Application\Roles;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Models\AdminRole;
+use Everest\Models\AdminRole;
 use Spatie\QueryBuilder\QueryBuilder;
-use Pterodactyl\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Pterodactyl\Transformers\Api\Application\AdminRoleTransformer;
-use Pterodactyl\Http\Requests\Api\Application\Roles\GetRoleRequest;
-use Pterodactyl\Http\Requests\Api\Application\Roles\GetRolesRequest;
-use Pterodactyl\Http\Requests\Api\Application\Roles\StoreRoleRequest;
-use Pterodactyl\Http\Requests\Api\Application\Roles\DeleteRoleRequest;
-use Pterodactyl\Http\Requests\Api\Application\Roles\UpdateRoleRequest;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Transformers\Api\Application\AdminRoleTransformer;
+use Everest\Http\Requests\Api\Application\Roles\GetRoleRequest;
+use Everest\Http\Requests\Api\Application\Roles\GetRolesRequest;
+use Everest\Http\Requests\Api\Application\Roles\StoreRoleRequest;
+use Everest\Http\Requests\Api\Application\Roles\DeleteRoleRequest;
+use Everest\Http\Requests\Api\Application\Roles\UpdateRoleRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class RoleController extends ApplicationApiController
 {

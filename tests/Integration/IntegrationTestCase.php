@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration;
+namespace Everest\Tests\Integration;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Pterodactyl\Tests\TestCase;
+use Everest\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Pterodactyl\Events\ActivityLogged;
-use Pterodactyl\Tests\Assertions\AssertsActivityLogged;
-use Pterodactyl\Tests\Traits\Integration\CreatesTestModels;
+use Everest\Events\ActivityLogged;
+use Everest\Tests\Assertions\AssertsActivityLogged;
+use Everest\Tests\Traits\Integration\CreatesTestModels;
 
 abstract class IntegrationTestCase extends TestCase
 {

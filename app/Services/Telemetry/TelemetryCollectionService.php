@@ -1,24 +1,24 @@
 <?php
 
-namespace Pterodactyl\Services\Telemetry;
+namespace Everest\Services\Telemetry;
 
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Nest;
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Mount;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Location;
+use Everest\Models\Egg;
+use Everest\Models\Nest;
+use Everest\Models\Node;
+use Everest\Models\User;
+use Everest\Models\Mount;
+use Everest\Models\Backup;
+use Everest\Models\Server;
+use Everest\Models\Location;
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Models\Allocation;
+use Everest\Models\Allocation;
 use Illuminate\Support\Facades\Http;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
-use Pterodactyl\Repositories\Eloquent\SettingsRepository;
-use Pterodactyl\Repositories\Wings\DaemonConfigurationRepository;
+use Everest\Services\Helpers\SoftwareVersionService;
+use Everest\Repositories\Eloquent\SettingsRepository;
+use Everest\Repositories\Wings\DaemonConfigurationRepository;
 
 class TelemetryCollectionService
 {
@@ -49,7 +49,7 @@ class TelemetryCollectionService
     /**
      * Collects telemetry data and returns it as an array.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
     public function collect(): array
     {

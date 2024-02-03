@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Everest\Transformers\Api\Application;
 
 use League\Fractal\Resource\Item;
-use Pterodactyl\Models\Allocation;
+use Everest\Models\Allocation;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Services\Acl\Api\AdminAcl;
+use Everest\Transformers\Api\Transformer;
 
 class AllocationTransformer extends Transformer
 {

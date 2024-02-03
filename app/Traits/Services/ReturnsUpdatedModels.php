@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Traits\Services;
+namespace Everest\Traits\Services;
 
 trait ReturnsUpdatedModels
 {

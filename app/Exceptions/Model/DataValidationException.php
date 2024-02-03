@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Model;
+namespace Everest\Exceptions\Model;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Validation\Validator;
-use Pterodactyl\Exceptions\PterodactylException;
+use Everest\Exceptions\PterodactylException;
 use Illuminate\Contracts\Support\MessageProvider;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 

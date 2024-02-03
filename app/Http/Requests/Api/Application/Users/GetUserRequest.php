@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Users;
+namespace Everest\Http\Requests\Api\Application\Users;
 
 class GetUserRequest extends GetUsersRequest
 {

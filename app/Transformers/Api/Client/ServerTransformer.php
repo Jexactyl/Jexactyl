@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Server;
+use Everest\Models\Egg;
+use Everest\Models\Server;
 use League\Fractal\Resource\Item;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Models\Permission;
+use Everest\Models\Allocation;
+use Everest\Models\Permission;
 use Illuminate\Container\Container;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Transformers\Api\Transformer;
-use Pterodactyl\Services\Servers\StartupCommandService;
+use Everest\Transformers\Api\Transformer;
+use Everest\Services\Servers\StartupCommandService;
 
 class ServerTransformer extends Transformer
 {
@@ -30,7 +30,7 @@ class ServerTransformer extends Transformer
      */
     public function transform(Server $server): array
     {
-        /** @var \Pterodactyl\Services\Servers\StartupCommandService $service */
+        /** @var \Everest\Services\Servers\StartupCommandService $service */
         $service = Container::getInstance()->make(StartupCommandService::class);
 
         $user = $this->request->user();

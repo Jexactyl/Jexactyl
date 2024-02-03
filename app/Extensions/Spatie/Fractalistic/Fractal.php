@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Extensions\Spatie\Fractalistic;
+namespace Everest\Extensions\Spatie\Fractalistic;
 
 use League\Fractal\Scope;
 use Spatie\Fractal\Fractal as SpatieFractal;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Transformers\Api\Transformer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
-use Pterodactyl\Extensions\League\Fractal\Serializers\PterodactylSerializer;
+use Everest\Extensions\League\Fractal\Serializers\PterodactylSerializer;
 
 class Fractal extends SpatieFractal
 {

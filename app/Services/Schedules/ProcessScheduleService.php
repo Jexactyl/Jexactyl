@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Services\Schedules;
+namespace Everest\Services\Schedules;
 
 use Exception;
-use Pterodactyl\Models\Schedule;
+use Everest\Models\Schedule;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Pterodactyl\Jobs\Schedule\RunTaskJob;
+use Everest\Jobs\Schedule\RunTaskJob;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Exceptions\DisplayException;
+use Everest\Repositories\Wings\DaemonServerRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class ProcessScheduleService
 {
@@ -33,7 +33,7 @@ class ProcessScheduleService
             throw new DisplayException('Cannot process schedule for task execution: no tasks are registered.');
         }
 
-        /* @var \Pterodactyl\Models\Task $task */
+        /* @var \Everest\Models\Task $task */
         $this->connection->transaction(function () use ($schedule, $task) {
             $schedule->forceFill([
                 'is_processing' => true,

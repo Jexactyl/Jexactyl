@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Servers\Backups;
+namespace Everest\Http\Requests\Api\Client\Servers\Backups;
 
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Models\Permission;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
 
 class RestoreBackupRequest extends ClientApiRequest
 {

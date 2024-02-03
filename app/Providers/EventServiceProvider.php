@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Everest\Providers;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Observers\UserObserver;
-use Pterodactyl\Observers\ServerObserver;
-use Pterodactyl\Observers\SubuserObserver;
-use Pterodactyl\Observers\EggVariableObserver;
-use Pterodactyl\Listeners\Auth\AuthenticationListener;
-use Pterodactyl\Events\Server\Installed as ServerInstalledEvent;
-use Pterodactyl\Notifications\ServerInstalled as ServerInstalledNotification;
+use Everest\Models\User;
+use Everest\Models\Server;
+use Everest\Models\Subuser;
+use Everest\Models\EggVariable;
+use Everest\Observers\UserObserver;
+use Everest\Observers\ServerObserver;
+use Everest\Observers\SubuserObserver;
+use Everest\Observers\EggVariableObserver;
+use Everest\Listeners\Auth\AuthenticationListener;
+use Everest\Events\Server\Installed as ServerInstalledEvent;
+use Everest\Notifications\ServerInstalled as ServerInstalledNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

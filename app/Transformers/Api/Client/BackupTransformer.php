@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\Backup;
+use Everest\Transformers\Api\Transformer;
 
 class BackupTransformer extends Transformer
 {

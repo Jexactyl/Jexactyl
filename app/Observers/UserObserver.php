@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Everest\Observers;
 
-use Pterodactyl\Events;
-use Pterodactyl\Models\User;
+use Everest\Events;
+use Everest\Models\User;
 
 class UserObserver
 {

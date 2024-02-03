@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Services\Databases\Hosts;
+namespace Everest\Services\Databases\Hosts;
 
-use Pterodactyl\Models\DatabaseHost;
+use Everest\Models\DatabaseHost;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Extensions\DynamicDatabaseConnection;
-use Pterodactyl\Contracts\Repository\DatabaseHostRepositoryInterface;
+use Everest\Extensions\DynamicDatabaseConnection;
+use Everest\Contracts\Repository\DatabaseHostRepositoryInterface;
 
 class HostCreationService
 {

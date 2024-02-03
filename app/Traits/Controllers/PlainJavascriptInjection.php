@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Traits\Controllers;
+namespace Everest\Traits\Controllers;
 
 use JavaScript;
 

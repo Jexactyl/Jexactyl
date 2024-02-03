@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Contracts\Repository;
+namespace Everest\Contracts\Repository;
 
 interface UserRepositoryInterface extends RepositoryInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Roles;
+namespace Everest\Http\Requests\Api\Application\Roles;
 
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetRolesRequest extends ApplicationApiRequest
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Eggs\Variables;
+namespace Everest\Http\Requests\Api\Application\Eggs\Variables;
 
-use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Models\EggVariable;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreEggVariableRequest extends ApplicationApiRequest
 {

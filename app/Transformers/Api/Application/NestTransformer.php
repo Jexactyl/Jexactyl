@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Everest\Transformers\Api\Application;
 
-use Pterodactyl\Models\Nest;
+use Everest\Models\Nest;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Services\Acl\Api\AdminAcl;
+use Everest\Transformers\Api\Transformer;
 
 class NestTransformer extends Transformer
 {

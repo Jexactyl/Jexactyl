@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Everest\Services\Servers;
 
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Traits\Services\ReturnsUpdatedModels;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Traits\Services\ReturnsUpdatedModels;
+use Everest\Repositories\Wings\DaemonServerRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class DetailsModificationService
 {

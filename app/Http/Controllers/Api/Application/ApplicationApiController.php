@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application;
+namespace Everest\Http\Controllers\Api\Application;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Extensions\Spatie\Fractalistic\Fractal;
+use Everest\Http\Controllers\Controller;
+use Everest\Extensions\Spatie\Fractalistic\Fractal;
 
 abstract class ApplicationApiController extends Controller
 {

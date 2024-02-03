@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Nodes;
+namespace Everest\Http\Controllers\Api\Application\Nodes;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\Node;
+use Everest\Models\Node;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Cache\Repository as CacheRepository;
-use Pterodactyl\Repositories\Wings\DaemonConfigurationRepository;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Repositories\Wings\DaemonConfigurationRepository;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class NodeInformationController extends ApplicationApiController
 {
@@ -24,7 +24,7 @@ class NodeInformationController extends ApplicationApiController
     /**
      * Returns system information from the node.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function __invoke(Request $request, Node $node): JsonResponse
     {

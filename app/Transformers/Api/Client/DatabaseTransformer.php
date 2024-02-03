@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Database;
+use Everest\Models\Database;
 use League\Fractal\Resource\Item;
-use Pterodactyl\Models\Permission;
+use Everest\Models\Permission;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Transformers\Api\Transformer;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Pterodactyl\Contracts\Extensions\HashidsInterface;
+use Everest\Contracts\Extensions\HashidsInterface;
 
 class DatabaseTransformer extends Transformer
 {

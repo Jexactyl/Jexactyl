@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api;
+namespace Everest\Transformers\Api;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Webmozart\Assert\Assert;
 use League\Fractal\Resource\Item;
 use Illuminate\Container\Container;
@@ -13,7 +13,7 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
 /**
- * @method array transform(\Pterodactyl\Models\Model $model)
+ * @method array transform(\Everest\Models\Model $model)
  */
 abstract class Transformer extends TransformerAbstract
 {

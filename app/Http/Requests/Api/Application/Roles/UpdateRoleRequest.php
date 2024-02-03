@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Roles;
+namespace Everest\Http\Requests\Api\Application\Roles;
 
-use Pterodactyl\Models\AdminRole;
+use Everest\Models\AdminRole;
 
 class UpdateRoleRequest extends StoreRoleRequest
 {

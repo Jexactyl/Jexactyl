@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Schedule;
+use Everest\Models\Schedule;
 use League\Fractal\Resource\Collection;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Transformers\Api\Transformer;
 
 class ScheduleTransformer extends Transformer
 {

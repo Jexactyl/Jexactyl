@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client;
+namespace Everest\Http\Controllers\Api\Client;
 
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Permission;
+use Everest\Models\Server;
+use Everest\Models\Permission;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Pterodactyl\Models\Filters\MultiFieldServerFilter;
-use Pterodactyl\Transformers\Api\Client\ServerTransformer;
-use Pterodactyl\Http\Requests\Api\Client\GetServersRequest;
+use Everest\Models\Filters\MultiFieldServerFilter;
+use Everest\Transformers\Api\Client\ServerTransformer;
+use Everest\Http\Requests\Api\Client\GetServersRequest;
 
 class ClientController extends ClientApiController
 {

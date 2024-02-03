@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Servers\Databases;
+namespace Everest\Http\Requests\Api\Application\Servers\Databases;
 
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class GetServerDatabaseRequest extends ApplicationApiRequest
 {

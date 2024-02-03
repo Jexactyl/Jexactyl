@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Eggs;
+namespace Everest\Http\Requests\Api\Application\Eggs;
 
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class ExportEggRequest extends ApplicationApiRequest
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Node;
+namespace Everest\Console\Commands\Node;
 
-use Pterodactyl\Models\Node;
+use Everest\Models\Node;
 use Illuminate\Console\Command;
 
 class NodeConfigurationCommand extends Command
@@ -17,7 +17,7 @@ class NodeConfigurationCommand extends Command
     {
         $column = ctype_digit((string) $this->argument('node')) ? 'id' : 'uuid';
 
-        /** @var \Pterodactyl\Models\Node $node */
+        /** @var \Everest\Models\Node $node */
         $node = Node::query()->where($column, $this->argument('node'))->firstOr(function () {
             $this->error('The selected node does not exist.');
 

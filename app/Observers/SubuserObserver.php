@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Everest\Observers;
 
-use Pterodactyl\Events;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Notifications\AddedToServer;
-use Pterodactyl\Notifications\RemovedFromServer;
+use Everest\Events;
+use Everest\Models\Subuser;
+use Everest\Notifications\AddedToServer;
+use Everest\Notifications\RemovedFromServer;
 
 class SubuserObserver
 {

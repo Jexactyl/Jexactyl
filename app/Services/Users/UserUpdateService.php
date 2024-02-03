@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Services\Users;
+namespace Everest\Services\Users;
 
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Pterodactyl\Traits\Services\HasUserLevels;
+use Everest\Traits\Services\HasUserLevels;
 
 class UserUpdateService
 {

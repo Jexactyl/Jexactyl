@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Application;
+namespace Everest\Tests\Integration\Api\Application;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\ApiKey;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Everest\Models\User;
+use Everest\Models\ApiKey;
+use Everest\Services\Acl\Api\AdminAcl;
+use Everest\Tests\Integration\IntegrationTestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Pterodactyl\Tests\Traits\Integration\CreatesTestModels;
-use Pterodactyl\Tests\Traits\Http\IntegrationJsonRequestAssertions;
+use Everest\Tests\Traits\Integration\CreatesTestModels;
+use Everest\Tests\Traits\Http\IntegrationJsonRequestAssertions;
 
 abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase
 {

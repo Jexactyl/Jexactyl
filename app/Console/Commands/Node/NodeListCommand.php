@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Console\Commands\Node;
+namespace Everest\Console\Commands\Node;
 
-use Pterodactyl\Models\Node;
+use Everest\Models\Node;
 use Illuminate\Console\Command;
 
 class NodeListCommand extends Command

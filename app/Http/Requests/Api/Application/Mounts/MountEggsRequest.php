@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Mounts;
+namespace Everest\Http\Requests\Api\Application\Mounts;
 
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class MountEggsRequest extends ApplicationApiRequest
 {

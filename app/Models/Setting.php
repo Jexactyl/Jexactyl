@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Everest\Models;
 
 /**
- * Pterodactyl\Models\Setting.
+ * Everest\Models\Setting.
  *
  * @property int $id
  * @property string $key

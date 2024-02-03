@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Everest\Transformers\Api\Application;
 
-use Pterodactyl\Models\Database;
+use Everest\Models\Database;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Services\Acl\Api\AdminAcl;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Services\Acl\Api\AdminAcl;
+use Everest\Transformers\Api\Transformer;
 use Illuminate\Contracts\Encryption\Encrypter;
 
 class ServerDatabaseTransformer extends Transformer

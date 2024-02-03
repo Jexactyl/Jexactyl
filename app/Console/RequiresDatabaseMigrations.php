@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Console;
+namespace Everest\Console;
 
 /**
  * @mixin \Illuminate\Console\Command

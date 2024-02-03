@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Observers;
+namespace Everest\Observers;
 
-use Pterodactyl\Models\EggVariable;
+use Everest\Models\EggVariable;
 
 class EggVariableObserver
 {

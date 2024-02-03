@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\User;
+use Everest\Transformers\Api\Transformer;
 
 class UserTransformer extends Transformer
 {

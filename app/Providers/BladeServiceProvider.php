@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Everest\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

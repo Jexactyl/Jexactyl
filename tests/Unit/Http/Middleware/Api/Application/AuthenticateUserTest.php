@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Tests\Unit\Http\Middleware\Api\Application;
+namespace Everest\Tests\Unit\Http\Middleware\Api\Application;
 
-use Pterodactyl\Tests\Unit\Http\Middleware\MiddlewareTestCase;
+use Everest\Tests\Unit\Http\Middleware\MiddlewareTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Pterodactyl\Http\Middleware\Api\Application\AuthenticateApplicationUser;
+use Everest\Http\Middleware\Api\Application\AuthenticateApplicationUser;
 
 class AuthenticateUserTest extends MiddlewareTestCase
 {

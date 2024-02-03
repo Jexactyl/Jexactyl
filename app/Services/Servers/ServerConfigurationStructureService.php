@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Everest\Services\Servers;
 
-use Pterodactyl\Models\Mount;
-use Pterodactyl\Models\Server;
+use Everest\Models\Mount;
+use Everest\Models\Server;
 
 class ServerConfigurationStructureService
 {

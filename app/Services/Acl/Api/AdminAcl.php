@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Services\Acl\Api;
+namespace Everest\Services\Acl\Api;
 
-use Pterodactyl\Models\ApiKey;
+use Everest\Models\ApiKey;
 
 class AdminAcl
 {

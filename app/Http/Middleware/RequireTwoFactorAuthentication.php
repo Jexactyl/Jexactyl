@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Middleware;
+namespace Everest\Http\Middleware;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Pterodactyl\Models\User;
-use Pterodactyl\Exceptions\Http\TwoFactorAuthRequiredException;
+use Everest\Models\User;
+use Everest\Exceptions\Http\TwoFactorAuthRequiredException;
 
 class RequireTwoFactorAuthentication
 {
@@ -24,7 +24,7 @@ class RequireTwoFactorAuthentication
      * order to perform actions. If so, we check the level at which it is required (all users
      * or just admins) and then check if the user has enabled it for their account.
      *
-     * @throws \Pterodactyl\Exceptions\Http\TwoFactorAuthRequiredException
+     * @throws \Everest\Exceptions\Http\TwoFactorAuthRequiredException
      */
     public function handle(Request $request, \Closure $next): mixed
     {
@@ -42,7 +42,7 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
-        $level = (int) config('pterodactyl.auth.2fa_required');
+        $level = (int) config('everest.auth.2fa_required');
         // If this setting is not configured, or the user is already using 2FA then we can just
         // send them right through, nothing else needs to be checked.
         //

@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use Carbon\Carbon;
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 use Illuminate\Cache\Repository;
-use Pterodactyl\Transformers\Api\Client\StatsTransformer;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
-use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
-use Pterodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
+use Everest\Transformers\Api\Client\StatsTransformer;
+use Everest\Repositories\Wings\DaemonServerRepository;
+use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Servers\GetServerRequest;
 
 class ResourceUtilizationController extends ClientApiController
 {
@@ -25,7 +25,7 @@ class ResourceUtilizationController extends ClientApiController
      * 20 seconds at a time to ensure that repeated requests to this endpoint do not cause
      * a flood of unnecessary API calls.
      *
-     * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
+     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
      */
     public function __invoke(GetServerRequest $request, Server $server): array
     {

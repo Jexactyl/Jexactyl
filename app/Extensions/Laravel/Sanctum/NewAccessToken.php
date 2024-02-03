@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Extensions\Laravel\Sanctum;
+namespace Everest\Extensions\Laravel\Sanctum;
 
-use Pterodactyl\Models\ApiKey;
+use Everest\Models\ApiKey;
 use Laravel\Sanctum\NewAccessToken as SanctumAccessToken;
 
 /**
- * @property \Pterodactyl\Models\ApiKey $accessToken
+ * @property \Everest\Models\ApiKey $accessToken
  */
 class NewAccessToken extends SanctumAccessToken
 {

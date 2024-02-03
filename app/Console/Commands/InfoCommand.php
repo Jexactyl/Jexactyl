@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Console\Commands;
+namespace Everest\Console\Commands;
 
 use Illuminate\Console\Command;
-use Pterodactyl\Services\Helpers\SoftwareVersionService;
+use Everest\Services\Helpers\SoftwareVersionService;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class InfoCommand extends Command
@@ -30,7 +30,7 @@ class InfoCommand extends Command
             ['Panel Version', $this->softwareVersionService->getCurrentVersion()],
             ['Latest Version', $this->softwareVersionService->getLatestPanel()],
             ['Up-to-Date', $this->softwareVersionService->isLatestPanel() ? 'Yes' : $this->formatText('No', 'bg=red')],
-            ['Unique Identifier', $this->config->get('pterodactyl.service.author')],
+            ['Unique Identifier', $this->config->get('everest.service.author')],
         ], 'compact');
 
         $this->output->title('Application Configuration');

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\Egg;
+use Everest\Transformers\Api\Transformer;
 
 class EggTransformer extends Transformer
 {

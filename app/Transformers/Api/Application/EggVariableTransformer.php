@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Application;
+namespace Everest\Transformers\Api\Application;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\EggVariable;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\Egg;
+use Everest\Models\EggVariable;
+use Everest\Transformers\Api\Transformer;
 
 class EggVariableTransformer extends Transformer
 {

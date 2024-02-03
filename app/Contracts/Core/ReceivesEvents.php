@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Core;
+namespace Everest\Contracts\Core;
 
-use Pterodactyl\Events\Event;
+use Everest\Events\Event;
 
 interface ReceivesEvents
 {

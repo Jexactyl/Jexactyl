@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Events\Server;
+namespace Everest\Events\Server;
 
-use Pterodactyl\Events\Event;
-use Pterodactyl\Models\Server;
+use Everest\Events\Event;
+use Everest\Models\Server;
 use Illuminate\Queue\SerializesModels;
 
 class Creating extends Event

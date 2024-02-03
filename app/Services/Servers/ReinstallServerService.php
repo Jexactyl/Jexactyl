@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Everest\Services\Servers;
 
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Everest\Repositories\Wings\DaemonServerRepository;
 
 class ReinstallServerService
 {

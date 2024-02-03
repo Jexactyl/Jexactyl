@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Policies;
+namespace Everest\Policies;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
+use Everest\Models\User;
+use Everest\Models\Server;
 
 class ServerPolicy
 {

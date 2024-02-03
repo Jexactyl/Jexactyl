@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-use Pterodactyl\Helpers\Time;
+use Everest\Helpers\Time;
 
 return [
     /*

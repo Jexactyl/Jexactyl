@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Base;
+namespace Everest\Http\Controllers\Base;
 
 use Illuminate\View\View;
 use Illuminate\View\Factory as ViewFactory;
-use Pterodactyl\Http\Controllers\Controller;
-use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
+use Everest\Http\Controllers\Controller;
+use Everest\Contracts\Repository\ServerRepositoryInterface;
 
 class IndexController extends Controller
 {

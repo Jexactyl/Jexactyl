@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Events\Auth;
+namespace Everest\Events\Auth;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Events\Event;
+use Everest\Models\User;
+use Everest\Events\Event;
 
 class ProvidedAuthenticationToken extends Event
 {

@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Pterodactyl\Models\Permission;
+use Everest\Models\Permission;
 use Illuminate\Support\Facades\Schema;
-use Pterodactyl\Models\Permission as P;
+use Everest\Models\Permission as P;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 

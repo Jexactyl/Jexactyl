@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Exceptions;
+namespace Everest\Exceptions;
 
 use Exception;
 use Illuminate\Http\Request;

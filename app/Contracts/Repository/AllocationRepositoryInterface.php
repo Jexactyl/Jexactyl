@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Contracts\Repository;
+namespace Everest\Contracts\Repository;
 
-use Pterodactyl\Models\Allocation;
+use Everest\Models\Allocation;
 
 interface AllocationRepositoryInterface extends RepositoryInterface
 {

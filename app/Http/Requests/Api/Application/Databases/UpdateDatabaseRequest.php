@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Databases;
+namespace Everest\Http\Requests\Api\Application\Databases;
 
-use Pterodactyl\Models\DatabaseHost;
+use Everest\Models\DatabaseHost;
 
 class UpdateDatabaseRequest extends StoreDatabaseRequest
 {

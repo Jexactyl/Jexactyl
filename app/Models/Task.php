@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Everest\Models;
 
 use Illuminate\Container\Container;
 use Znck\Eloquent\Traits\BelongsToThrough;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Pterodactyl\Contracts\Extensions\HashidsInterface;
+use Everest\Contracts\Extensions\HashidsInterface;
 
 /**
  * @property int $id
@@ -19,8 +19,8 @@ use Pterodactyl\Contracts\Extensions\HashidsInterface;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $hashid
- * @property \Pterodactyl\Models\Schedule $schedule
- * @property \Pterodactyl\Models\Server $server
+ * @property \Everest\Models\Schedule $schedule
+ * @property \Everest\Models\Server $server
  */
 class Task extends Model
 {

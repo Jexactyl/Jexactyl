@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
 use Illuminate\Support\Str;
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use League\Fractal\Resource\Item;
-use Pterodactyl\Models\ActivityLog;
+use Everest\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Model;
 use League\Fractal\Resource\NullResource;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Transformers\Api\Transformer;
 
 class ActivityLogTransformer extends Transformer
 {

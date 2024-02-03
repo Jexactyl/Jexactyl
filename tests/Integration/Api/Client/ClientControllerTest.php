@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client;
+namespace Everest\Tests\Integration\Api\Client;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Subuser;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Models\Permission;
+use Everest\Models\User;
+use Everest\Models\Server;
+use Everest\Models\Subuser;
+use Everest\Models\Allocation;
+use Everest\Models\Permission;
 
 class ClientControllerTest extends ClientApiIntegrationTestCase
 {

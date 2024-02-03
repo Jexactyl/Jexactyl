@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Eggs;
+namespace Everest\Http\Requests\Api\Application\Eggs;
 
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Models\Egg;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class DeleteEggRequest extends ApplicationApiRequest
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Databases;
+namespace Everest\Http\Requests\Api\Application\Databases;
 
-use Pterodactyl\Models\DatabaseHost;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Models\DatabaseHost;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreDatabaseRequest extends ApplicationApiRequest
 {

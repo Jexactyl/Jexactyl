@@ -1,10 +1,10 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Servers;
+namespace Everest\Http\Requests\Api\Application\Servers;
 
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Models\Server;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class UpdateServerRequest extends ApplicationApiRequest
 {

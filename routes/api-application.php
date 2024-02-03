@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Pterodactyl\Http\Controllers\Api\Application;
+use Everest\Http\Controllers\Api\Application;
 
 Route::get('/version', [Application\VersionController::class, '__invoke']);
 

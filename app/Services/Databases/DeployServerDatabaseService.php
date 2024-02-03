@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Databases;
+namespace Everest\Services\Databases;
 
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Database;
-use Pterodactyl\Models\DatabaseHost;
-use Pterodactyl\Exceptions\Service\Database\NoSuitableDatabaseHostException;
+use Everest\Models\Server;
+use Everest\Models\Database;
+use Everest\Models\DatabaseHost;
+use Everest\Exceptions\Service\Database\NoSuitableDatabaseHostException;
 
 class DeployServerDatabaseService
 {
@@ -19,8 +19,8 @@ class DeployServerDatabaseService
 
     /**
      * @throws \Throwable
-     * @throws \Pterodactyl\Exceptions\Service\Database\TooManyDatabasesException
-     * @throws \Pterodactyl\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
+     * @throws \Everest\Exceptions\Service\Database\TooManyDatabasesException
+     * @throws \Everest\Exceptions\Service\Database\DatabaseClientFeatureNotEnabledException
      */
     public function handle(Server $server, array $data): Database
     {
@@ -29,7 +29,7 @@ class DeployServerDatabaseService
 
         $databaseHostId = $server->node->database_host_id;
         if (is_null($databaseHostId)) {
-            if (!config('pterodactyl.client_features.databases.allow_random')) {
+            if (!config('everest.client_features.databases.allow_random')) {
                 throw new NoSuitableDatabaseHostException();
             }
 
@@ -38,7 +38,7 @@ class DeployServerDatabaseService
                 throw new NoSuitableDatabaseHostException();
             }
 
-            /** @var \Pterodactyl\Models\DatabaseHost $databaseHost */
+            /** @var \Everest\Models\DatabaseHost $databaseHost */
             $databaseHost = $hosts->random();
             $databaseHostId = $databaseHost->id;
         }

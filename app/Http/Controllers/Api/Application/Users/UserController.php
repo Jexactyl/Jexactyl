@@ -1,25 +1,25 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Users;
+namespace Everest\Http\Controllers\Api\Application\Users;
 
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Pterodactyl\Services\Users\UserUpdateService;
-use Pterodactyl\Services\Users\UserCreationService;
-use Pterodactyl\Services\Users\UserDeletionService;
-use Pterodactyl\Transformers\Api\Application\UserTransformer;
-use Pterodactyl\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Pterodactyl\Http\Requests\Api\Application\Users\GetUserRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\GetUsersRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\StoreUserRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\DeleteUserRequest;
-use Pterodactyl\Http\Requests\Api\Application\Users\UpdateUserRequest;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Services\Users\UserUpdateService;
+use Everest\Services\Users\UserCreationService;
+use Everest\Services\Users\UserDeletionService;
+use Everest\Transformers\Api\Application\UserTransformer;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Http\Requests\Api\Application\Users\GetUserRequest;
+use Everest\Http\Requests\Api\Application\Users\GetUsersRequest;
+use Everest\Http\Requests\Api\Application\Users\StoreUserRequest;
+use Everest\Http\Requests\Api\Application\Users\DeleteUserRequest;
+use Everest\Http\Requests\Api\Application\Users\UpdateUserRequest;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class UserController extends ApplicationApiController
 {
@@ -111,7 +111,7 @@ class UserController extends ApplicationApiController
      * header on successful creation.
      *
      * @throws \Exception
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
     public function store(StoreUserRequest $request): JsonResponse
     {
@@ -126,7 +126,7 @@ class UserController extends ApplicationApiController
      * Handle a request to delete a user from the Panel. Returns a HTTP/204 response
      * on successful deletion.
      *
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\DisplayException
      */
     public function delete(DeleteUserRequest $request, User $user): Response
     {

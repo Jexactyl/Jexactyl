@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Everest\Models;
 
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property Allocation[]|Collection $allocations
- * @property \Pterodactyl\Models\DatabaseHost|null $databaseHost
+ * @property \Everest\Models\DatabaseHost|null $databaseHost
  * @property Location $location
  * @property Mount[]|Collection $mounts
  * @property int[]|\Illuminate\Support\Collection $ports

@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Providers;
+namespace Everest\Providers;
 
-use Pterodactyl\Models;
+use Everest\Models;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Only load the settings service provider if the environment
         // is configured to allow it.
-        if (!config('pterodactyl.load_environment_only', false) && $this->app->environment() !== 'testing') {
+        if (!config('everest.load_environment_only', false) && $this->app->environment() !== 'testing') {
             $this->app->register(SettingsServiceProvider::class);
         }
     }

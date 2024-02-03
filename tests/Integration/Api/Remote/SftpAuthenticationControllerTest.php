@@ -1,14 +1,14 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Remote;
+namespace Everest\Tests\Integration\Api\Remote;
 
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\User;
-use Pterodactyl\Models\Server;
-use Pterodactyl\Models\Permission;
-use Pterodactyl\Models\UserSSHKey;
+use Everest\Models\Node;
+use Everest\Models\User;
+use Everest\Models\Server;
+use Everest\Models\Permission;
+use Everest\Models\UserSSHKey;
 use phpseclib3\Crypt\EC\PrivateKey;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Everest\Tests\Integration\IntegrationTestCase;
 
 class SftpAuthenticationControllerTest extends IntegrationTestCase
 {

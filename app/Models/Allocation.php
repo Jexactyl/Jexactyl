@@ -1,11 +1,11 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Everest\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Pterodactyl\Models\Allocation.
+ * Everest\Models\Allocation.
  *
  * @property int $id
  * @property int $node_id
@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\Carbon|null $updated_at
  * @property string $alias
  * @property bool $has_alias
- * @property \Pterodactyl\Models\Server|null $server
- * @property \Pterodactyl\Models\Node $node
+ * @property \Everest\Models\Server|null $server
+ * @property \Everest\Models\Node $node
  * @property string $hashid
  *
  * @method static \Database\Factories\AllocationFactory factory(...$parameters)

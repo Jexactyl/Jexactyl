@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Mounts;
+namespace Everest\Http\Requests\Api\Application\Mounts;
 
-use Pterodactyl\Models\Mount;
-use Pterodactyl\Http\Requests\Api\Application\ApplicationApiRequest;
+use Everest\Models\Mount;
+use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreMountRequest extends ApplicationApiRequest
 {

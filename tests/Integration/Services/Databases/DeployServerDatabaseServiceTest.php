@@ -1,15 +1,15 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Services\Databases;
+namespace Everest\Tests\Integration\Services\Databases;
 
 use Mockery\MockInterface;
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\Database;
-use Pterodactyl\Models\DatabaseHost;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
-use Pterodactyl\Services\Databases\DatabaseManagementService;
-use Pterodactyl\Services\Databases\DeployServerDatabaseService;
-use Pterodactyl\Exceptions\Service\Database\NoSuitableDatabaseHostException;
+use Everest\Models\Node;
+use Everest\Models\Database;
+use Everest\Models\DatabaseHost;
+use Everest\Tests\Integration\IntegrationTestCase;
+use Everest\Services\Databases\DatabaseManagementService;
+use Everest\Services\Databases\DeployServerDatabaseService;
+use Everest\Exceptions\Service\Database\NoSuitableDatabaseHostException;
 
 class DeployServerDatabaseServiceTest extends IntegrationTestCase
 {
@@ -31,7 +31,7 @@ class DeployServerDatabaseServiceTest extends IntegrationTestCase
      */
     protected function tearDown(): void
     {
-        config()->set('pterodactyl.client_features.databases.allow_random', true);
+        config()->set('everest.client_features.databases.allow_random', true);
 
         Database::query()->delete();
         DatabaseHost::query()->delete();
@@ -64,7 +64,7 @@ class DeployServerDatabaseServiceTest extends IntegrationTestCase
         $host = DatabaseHost::factory()->create();
         $node = Node::factory()->create(['database_host_id' => $host->id, 'location_id' => $server->location->id]);
 
-        config()->set('pterodactyl.client_features.databases.allow_random', false);
+        config()->set('everest.client_features.databases.allow_random', false);
 
         $this->expectException(NoSuitableDatabaseHostException::class);
 

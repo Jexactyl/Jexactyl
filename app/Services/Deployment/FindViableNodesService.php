@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Services\Deployment;
+namespace Everest\Services\Deployment;
 
-use Pterodactyl\Models\Node;
+use Everest\Models\Node;
 use Webmozart\Assert\Assert;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException;
+use Everest\Exceptions\Service\Deployment\NoViableNodeException;
 
 class FindViableNodesService
 {
@@ -64,7 +64,7 @@ class FindViableNodesService
      *                       If "null" is provided as the value no pagination will
      *                       be used.
      *
-     * @throws \Pterodactyl\Exceptions\Service\Deployment\NoViableNodeException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
      */
     public function handle(int $perPage = null, int $page = null): LengthAwarePaginator|Collection
     {

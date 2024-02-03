@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Exceptions\Service\Server;
+namespace Everest\Exceptions\Service\Server;
 
-use Pterodactyl\Exceptions\PterodactylException;
+use Everest\Exceptions\PterodactylException;
 
 class RequiredVariableMissingException extends PterodactylException
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Pterodactyl\Services\Backups;
+namespace Everest\Services\Backups;
 
 use Ramsey\Uuid\Uuid;
 use Carbon\CarbonImmutable;
 use Webmozart\Assert\Assert;
-use Pterodactyl\Models\Backup;
-use Pterodactyl\Models\Server;
+use Everest\Models\Backup;
+use Everest\Models\Server;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Extensions\Backups\BackupManager;
-use Pterodactyl\Repositories\Eloquent\BackupRepository;
-use Pterodactyl\Repositories\Wings\DaemonBackupRepository;
-use Pterodactyl\Exceptions\Service\Backup\TooManyBackupsException;
+use Everest\Extensions\Backups\BackupManager;
+use Everest\Repositories\Eloquent\BackupRepository;
+use Everest\Repositories\Wings\DaemonBackupRepository;
+use Everest\Exceptions\Service\Backup\TooManyBackupsException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class InitiateBackupService
@@ -70,7 +70,7 @@ class InitiateBackupService
      * Initiates the backup process for a server on Wings.
      *
      * @throws \Throwable
-     * @throws \Pterodactyl\Exceptions\Service\Backup\TooManyBackupsException
+     * @throws \Everest\Exceptions\Service\Backup\TooManyBackupsException
      * @throws \Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException
      */
     public function handle(Server $server, string $name = null, bool $override = false): Backup

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Extensions\Backups;
+namespace Everest\Extensions\Backups;
 
 use Aws\S3\S3Client;
 use Illuminate\Support\Arr;
@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
 use Illuminate\Foundation\Application;
 use League\Flysystem\FilesystemAdapter;
-use Pterodactyl\Extensions\Filesystem\S3Filesystem;
+use Everest\Extensions\Filesystem\S3Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 

@@ -1,21 +1,21 @@
 <?php
 
-namespace Pterodactyl\Services\Eggs\Sharing;
+namespace Everest\Services\Eggs\Sharing;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Egg;
-use Pterodactyl\Models\Nest;
+use Everest\Models\Egg;
+use Everest\Models\Nest;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Http\UploadedFile;
-use Pterodactyl\Models\EggVariable;
+use Everest\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Exceptions\DisplayException;
-use Pterodactyl\Services\Eggs\EggParserService;
+use Everest\Exceptions\DisplayException;
+use Everest\Services\Eggs\EggParserService;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Pterodactyl\Exceptions\Service\Egg\BadJsonFormatException;
-use Pterodactyl\Exceptions\Service\Egg\BadYamlFormatException;
-use Pterodactyl\Exceptions\Service\InvalidFileUploadException;
+use Everest\Exceptions\Service\Egg\BadJsonFormatException;
+use Everest\Exceptions\Service\Egg\BadYamlFormatException;
+use Everest\Exceptions\Service\InvalidFileUploadException;
 
 class EggImporterService
 {
@@ -30,12 +30,12 @@ class EggImporterService
      *
      * @deprecated use `handleFile` or `handleContent` instead
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Egg\BadJsonFormatException
+     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
+     * @throws \Everest\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\DisplayException
      */
     public function handle(UploadedFile $file, int $nestId): Egg
     {
@@ -45,12 +45,12 @@ class EggImporterService
     /**
      * ?
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Egg\BadJsonFormatException
+     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
+     * @throws \Everest\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\DisplayException
      */
     public function handleFile(int $nestId, UploadedFile $file): Egg
     {
@@ -64,12 +64,12 @@ class EggImporterService
     /**
      * ?
      *
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\BadYamlFormatException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\BadJsonFormatException
-     * @throws \Pterodactyl\Exceptions\DisplayException
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
+     * @throws \Everest\Exceptions\Service\Egg\BadYamlFormatException
+     * @throws \Everest\Exceptions\Service\Egg\BadJsonFormatException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Model\DataValidationException
      */
     public function handleContent(int $nestId, string $content, string $contentType): Egg
     {
@@ -97,15 +97,15 @@ class EggImporterService
     /**
      * ?
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException
+     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
      */
     private function handleArray(int $nestId, array $parsed): Egg
     {
         $parsed = $this->eggParserService->handle($parsed);
 
-        /** @var \Pterodactyl\Models\Nest $nest */
+        /** @var \Everest\Models\Nest $nest */
         $nest = Nest::query()->with('eggs', 'eggs.variables')->findOrFail($nestId);
 
         return $this->connection->transaction(function () use ($nest, $parsed) {

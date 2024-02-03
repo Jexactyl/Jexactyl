@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Mounts;
+namespace Everest\Http\Requests\Api\Application\Mounts;
 
 class GetMountRequest extends GetMountsRequest
 {

@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Eggs;
+namespace Everest\Http\Controllers\Api\Application\Eggs;
 
-use Pterodactyl\Models\Egg;
+use Everest\Models\Egg;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\EggVariable;
+use Everest\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Services\Eggs\Variables\VariableUpdateService;
-use Pterodactyl\Services\Eggs\Variables\VariableCreationService;
-use Pterodactyl\Transformers\Api\Application\EggVariableTransformer;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
-use Pterodactyl\Http\Requests\Api\Application\Eggs\Variables\StoreEggVariableRequest;
-use Pterodactyl\Http\Requests\Api\Application\Eggs\Variables\UpdateEggVariablesRequest;
+use Everest\Services\Eggs\Variables\VariableUpdateService;
+use Everest\Services\Eggs\Variables\VariableCreationService;
+use Everest\Transformers\Api\Application\EggVariableTransformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Eggs\Variables\StoreEggVariableRequest;
+use Everest\Http\Requests\Api\Application\Eggs\Variables\UpdateEggVariablesRequest;
 
 class EggVariableController extends ApplicationApiController
 {
@@ -27,9 +27,9 @@ class EggVariableController extends ApplicationApiController
     /**
      * Creates a new egg variable.
      *
-     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\Variable\BadValidationRuleException
-     * @throws \Pterodactyl\Exceptions\Service\Egg\Variable\ReservedVariableNameException
+     * @throws \Everest\Exceptions\Model\DataValidationException
+     * @throws \Everest\Exceptions\Service\Egg\Variable\BadValidationRuleException
+     * @throws \Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException
      */
     public function store(StoreEggVariableRequest $request, Egg $egg): array
     {

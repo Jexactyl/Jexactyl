@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Listeners\Auth;
+namespace Everest\Listeners\Auth;
 
-use Pterodactyl\Facades\Activity;
-use Pterodactyl\Events\Auth\ProvidedAuthenticationToken;
+use Everest\Facades\Activity;
+use Everest\Events\Auth\ProvidedAuthenticationToken;
 
 class TwoFactorListener
 {

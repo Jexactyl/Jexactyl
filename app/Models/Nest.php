@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models;
+namespace Everest\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Server[] $servers
- * @property \Illuminate\Database\Eloquent\Collection|\Pterodactyl\Models\Egg[] $eggs
+ * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Egg[] $eggs
  */
 class Nest extends Model
 {

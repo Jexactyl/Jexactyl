@@ -1,21 +1,21 @@
 <?php
 
-namespace Pterodactyl\Http\Controllers\Api\Application\Databases;
+namespace Everest\Http\Controllers\Api\Application\Databases;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Pterodactyl\Models\DatabaseHost;
+use Everest\Models\DatabaseHost;
 use Spatie\QueryBuilder\QueryBuilder;
-use Pterodactyl\Services\Databases\Hosts\HostUpdateService;
-use Pterodactyl\Services\Databases\Hosts\HostCreationService;
-use Pterodactyl\Exceptions\Http\QueryValueOutOfRangeHttpException;
-use Pterodactyl\Transformers\Api\Application\DatabaseHostTransformer;
-use Pterodactyl\Http\Controllers\Api\Application\ApplicationApiController;
-use Pterodactyl\Http\Requests\Api\Application\Databases\GetDatabaseRequest;
-use Pterodactyl\Http\Requests\Api\Application\Databases\GetDatabasesRequest;
-use Pterodactyl\Http\Requests\Api\Application\Databases\StoreDatabaseRequest;
-use Pterodactyl\Http\Requests\Api\Application\Databases\DeleteDatabaseRequest;
-use Pterodactyl\Http\Requests\Api\Application\Databases\UpdateDatabaseRequest;
+use Everest\Services\Databases\Hosts\HostUpdateService;
+use Everest\Services\Databases\Hosts\HostCreationService;
+use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
+use Everest\Transformers\Api\Application\DatabaseHostTransformer;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Databases\GetDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Databases\GetDatabasesRequest;
+use Everest\Http\Requests\Api\Application\Databases\StoreDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Databases\DeleteDatabaseRequest;
+use Everest\Http\Requests\Api\Application\Databases\UpdateDatabaseRequest;
 
 class DatabaseController extends ApplicationApiController
 {

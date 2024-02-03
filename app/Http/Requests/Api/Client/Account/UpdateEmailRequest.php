@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Client\Account;
+namespace Everest\Http\Requests\Api\Client\Account;
 
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Hashing\Hasher;
-use Pterodactyl\Http\Requests\Api\Client\ClientApiRequest;
-use Pterodactyl\Exceptions\Http\Base\InvalidPasswordProvidedException;
+use Everest\Http\Requests\Api\Client\ClientApiRequest;
+use Everest\Exceptions\Http\Base\InvalidPasswordProvidedException;
 
 class UpdateEmailRequest extends ClientApiRequest
 {
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Pterodactyl\Exceptions\Http\Base\InvalidPasswordProvidedException
+     * @throws \Everest\Exceptions\Http\Base\InvalidPasswordProvidedException
      */
     public function authorize(): bool
     {

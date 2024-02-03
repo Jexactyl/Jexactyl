@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Locations;
+namespace Everest\Http\Requests\Api\Application\Locations;
 
-use Pterodactyl\Models\Location;
+use Everest\Models\Location;
 
 class UpdateLocationRequest extends StoreLocationRequest
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Http\Requests\Api\Application\Nodes;
+namespace Everest\Http\Requests\Api\Application\Nodes;
 
-use Pterodactyl\Models\Node;
+use Everest\Models\Node;
 
 class UpdateNodeRequest extends StoreNodeRequest
 {

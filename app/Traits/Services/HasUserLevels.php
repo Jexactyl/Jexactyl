@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Traits\Services;
+namespace Everest\Traits\Services;
 
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 
 trait HasUserLevels
 {

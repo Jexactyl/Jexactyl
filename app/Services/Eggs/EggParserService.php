@@ -1,18 +1,18 @@
 <?php
 
-namespace Pterodactyl\Services\Eggs;
+namespace Everest\Services\Eggs;
 
 use Illuminate\Support\Arr;
-use Pterodactyl\Models\Egg;
+use Everest\Models\Egg;
 use Illuminate\Support\Collection;
-use Pterodactyl\Exceptions\Service\InvalidFileUploadException;
+use Everest\Exceptions\Service\InvalidFileUploadException;
 
 class EggParserService
 {
     /**
      * Takes an uploaded file and parses out the egg configuration from within.
      *
-     * @throws \Pterodactyl\Exceptions\Service\InvalidFileUploadException
+     * @throws \Everest\Exceptions\Service\InvalidFileUploadException
      */
     public function handle(array $parsed): array
     {

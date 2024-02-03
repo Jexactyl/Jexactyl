@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Services\Servers;
+namespace Everest\Services\Servers;
 
-use Pterodactyl\Models\Server;
+use Everest\Models\Server;
 
 class StartupCommandService
 {

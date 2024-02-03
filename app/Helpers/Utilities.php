@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Helpers;
+namespace Everest\Helpers;
 
 use Carbon\Carbon;
 use Cron\CronExpression;

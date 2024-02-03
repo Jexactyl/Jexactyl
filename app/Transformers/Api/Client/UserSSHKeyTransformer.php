@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Transformers\Api\Client;
+namespace Everest\Transformers\Api\Client;
 
-use Pterodactyl\Models\UserSSHKey;
-use Pterodactyl\Transformers\Api\Transformer;
+use Everest\Models\UserSSHKey;
+use Everest\Transformers\Api\Transformer;
 
 class UserSSHKeyTransformer extends Transformer
 {

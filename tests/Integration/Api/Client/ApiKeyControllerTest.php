@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Client;
+namespace Everest\Tests\Integration\Api\Client;
 
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Illuminate\Http\Response;
-use Pterodactyl\Models\ApiKey;
+use Everest\Models\ApiKey;
 use Illuminate\Support\Facades\Event;
-use Pterodactyl\Events\ActivityLogged;
+use Everest\Events\ActivityLogged;
 
 class ApiKeyControllerTest extends ClientApiIntegrationTestCase
 {
@@ -25,9 +25,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeysAreReturned()
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Pterodactyl\Models\ApiKey $key */
+        /** @var \Everest\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
         ]);
@@ -49,7 +49,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyCanBeCreatedForAccount(array $data)
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
 
         // Small subtest to ensure we're always comparing the  number of keys to the
@@ -67,7 +67,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
             ->assertOk()
             ->assertJsonPath('object', ApiKey::RESOURCE_NAME);
 
-        /** @var \Pterodactyl\Models\ApiKey $key */
+        /** @var \Everest\Models\ApiKey $key */
         $key = ApiKey::query()->where('identifier', $response->json('attributes.identifier'))->firstOrFail();
 
         $this->assertJsonTransformedWith($response->json('attributes'), $key);
@@ -104,7 +104,7 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyLimitIsApplied()
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
         ApiKey::factory()->times(25)->for($user)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
@@ -160,9 +160,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyCanBeDeleted()
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Pterodactyl\Models\ApiKey $key */
+        /** @var \Everest\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
         ]);
@@ -179,9 +179,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testNonExistentApiKeyDeletionReturns404Error()
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Pterodactyl\Models\ApiKey $key */
+        /** @var \Everest\Models\ApiKey $key */
         $key = ApiKey::factory()->create([
             'user_id' => $user->id,
             'key_type' => ApiKey::TYPE_ACCOUNT,
@@ -200,11 +200,11 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApiKeyBelongingToAnotherUserCannotBeDeleted()
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Pterodactyl\Models\User $user2 */
+        /** @var \Everest\Models\User $user2 */
         $user2 = User::factory()->create();
-        /** @var \Pterodactyl\Models\ApiKey $key */
+        /** @var \Everest\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user2)->create([
             'key_type' => ApiKey::TYPE_ACCOUNT,
         ]);
@@ -223,9 +223,9 @@ class ApiKeyControllerTest extends ClientApiIntegrationTestCase
      */
     public function testApplicationApiKeyCannotBeDeleted()
     {
-        /** @var \Pterodactyl\Models\User $user */
+        /** @var \Everest\Models\User $user */
         $user = User::factory()->create();
-        /** @var \Pterodactyl\Models\ApiKey $key */
+        /** @var \Everest\Models\ApiKey $key */
         $key = ApiKey::factory()->for($user)->create([
             'key_type' => ApiKey::TYPE_APPLICATION,
         ]);

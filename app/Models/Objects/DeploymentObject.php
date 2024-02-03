@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models\Objects;
+namespace Everest\Models\Objects;
 
 class DeploymentObject
 {
