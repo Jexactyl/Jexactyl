@@ -28,11 +28,7 @@ class NodeInformationController extends ApplicationApiController
      */
     public function __invoke(Request $request, Node $node): JsonResponse
     {
-        $data = $this->cache
-            ->tags(['nodes'])
-            ->remember($node->uuid, Carbon::now()->addSeconds(30), function () use ($node) {
-                return $this->repository->setNode($node)->getSystemInformation();
-            });
+        $data = $this->repository->setNode($node)->getSystemInformation();
 
         return new JsonResponse([
             'version' => $data['version'] ?? null,
