@@ -10,7 +10,8 @@ import { object, ref, string } from 'yup';
 import Field from '@/components/elements/Field';
 import Input from '@/components/elements/Input';
 import tw from 'twin.macro';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
+import Label from '@/components/elements/Label';
 
 interface Values {
     password: string;
@@ -57,18 +58,17 @@ function ResetPasswordContainer() {
                     .min(8, 'Your new password should be at least 8 characters in length.'),
                 passwordConfirmation: string()
                     .required('Your new password does not match.')
-                    .oneOf([ref('password'), null], 'Your new password does not match.'),
+                    .oneOf([ref('password')], 'Your new password does not match.'),
             })}
         >
             {({ isSubmitting }) => (
                 <LoginFormContainer title={'Reset Password'} css={tw`w-full flex`}>
                     <div>
-                        <label>Email</label>
-                        <Input value={email} isLight disabled />
+                        <Label>Email Address</Label>
+                        <Input value={email} disabled />
                     </div>
                     <div css={tw`mt-6`}>
                         <Field
-                            light
                             label={'New Password'}
                             name={'password'}
                             type={'password'}
@@ -76,10 +76,10 @@ function ResetPasswordContainer() {
                         />
                     </div>
                     <div css={tw`mt-6`}>
-                        <Field light label={'Confirm New Password'} name={'passwordConfirmation'} type={'password'} />
+                        <Field label={'Confirm New Password'} name={'passwordConfirmation'} type={'password'} />
                     </div>
                     <div css={tw`mt-6`}>
-                        <Button size={'xlarge'} type={'submit'} disabled={isSubmitting} isLoading={isSubmitting}>
+                        <Button className={'w-full'} size={Button.Sizes.Large} type={'submit'} disabled={isSubmitting}>
                             Reset Password
                         </Button>
                     </div>

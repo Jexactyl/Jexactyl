@@ -7,7 +7,7 @@ import tw from 'twin.macro';
 
 import loginCheckpoint from '@/api/auth/loginCheckpoint';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field from '@/components/elements/Field';
 import useFlash from '@/plugins/useFlash';
 import type { FlashStore } from '@/state/flashes';
@@ -31,7 +31,6 @@ function LoginCheckpointContainer() {
         <LoginFormContainer title={'Device Checkpoint'} css={tw`w-full flex`}>
             <div css={tw`mt-6`}>
                 <Field
-                    light
                     name={isMissingDevice ? 'recoveryCode' : 'code'}
                     title={isMissingDevice ? 'Recovery Code' : 'Authentication Code'}
                     description={
@@ -45,27 +44,23 @@ function LoginCheckpointContainer() {
                 />
             </div>
             <div css={tw`mt-6`}>
-                <Button size={'xlarge'} type={'submit'} disabled={isSubmitting} isLoading={isSubmitting}>
+                <Button className={'w-full'} size={Button.Sizes.Large} type={'submit'} disabled={isSubmitting}>
                     Continue
                 </Button>
             </div>
-            <div css={tw`mt-6 text-center`}>
+            <div css={tw`mt-6 text-center text-neutral-500 text-xs tracking-wide no-underline`}>
                 <span
                     onClick={() => {
                         setFieldValue('code', '');
                         setFieldValue('recoveryCode', '');
                         setIsMissingDevice(s => !s);
                     }}
-                    css={tw`cursor-pointer text-xs text-neutral-500 tracking-wide uppercase no-underline hover:text-neutral-700`}
+                    css={tw`cursor-pointer hover:text-neutral-400 duration-300`}
                 >
                     {!isMissingDevice ? "I've Lost My Device" : 'I Have My Device'}
                 </span>
-            </div>
-            <div css={tw`mt-6 text-center`}>
-                <Link
-                    to={'/auth/login'}
-                    css={tw`text-xs text-neutral-500 tracking-wide uppercase no-underline hover:text-neutral-700`}
-                >
+                <span className={'mx-3'}>&bull;</span>
+                <Link to={'/auth/login'} css={tw`hover:text-neutral-400 duration-300`}>
                     Return to Login
                 </Link>
             </div>

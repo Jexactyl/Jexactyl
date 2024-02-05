@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import CollapsedIcon from '@/assets/images/pterodactyl.svg';
+import CollapsedIcon from '@/assets/images/logo.png';
 import OverviewContainer from '@/components/admin/overview/OverviewContainer';
 import SettingsContainer from '@/components/admin/settings/SettingsContainer';
 import DatabasesContainer from '@/components/admin/databases/DatabasesContainer';
@@ -43,7 +43,7 @@ import NewMountContainer from '@/components/admin/mounts/NewMountContainer';
 import MountEditContainer from '@/components/admin/mounts/MountEditContainer';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import type { ApplicationStore } from '@/state';
-import Sidebar from '@/components/admin/Sidebar';
+import Sidebar from '@/components/elements/Sidebar';
 // import useUserPersistedState from '@/plugins/useUserPersistedState';
 import UsersContainer from '@/components/admin/users/UsersContainer';
 
@@ -53,8 +53,7 @@ function AdminRouter() {
     const avatarURL = useStoreState((state: ApplicationStore) => state.user.data!.avatarURL);
     const applicationName = useStoreState((state: ApplicationStore) => state.settings.data!.name);
 
-    // const [collapsed, setCollapsed] = useUserPersistedState('admin_sidebar_collapsed', false);
-    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [collapsed, setCollapsed] = useState<boolean>(true);
 
     return (
         <div css={tw`h-screen flex`}>

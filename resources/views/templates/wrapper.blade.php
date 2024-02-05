@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{{ config('app.name', 'Pterodactyl') }}</title>
+        <title>{{ config('app.name', 'Everest') }}</title>
 
         @section('meta')
             <meta charset="utf-8">
@@ -43,7 +43,7 @@
         @viteReactRefresh
         @vite('resources/scripts/index.tsx')
     </head>
-    <body class="{{ $css['body'] ?? 'bg-neutral-50' }}">
+    <body class="{{ 'bg-black' }}">
         @section('content')
             @yield('above-container')
             @yield('container')

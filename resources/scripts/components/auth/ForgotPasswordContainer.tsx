@@ -10,7 +10,7 @@ import { object, string } from 'yup';
 import requestPasswordResetEmail from '@/api/auth/requestPasswordResetEmail';
 import { httpErrorToHuman } from '@/api/http';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field from '@/components/elements/Field';
 import useFlash from '@/plugins/useFlash';
 
@@ -77,8 +77,7 @@ function ForgotPasswordContainer() {
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={'Request Password Reset'} css={tw`w-full flex`}>
                     <Field
-                        light
-                        label={'Email'}
+                        label={'Email Address'}
                         description={
                             'Enter your account email address to receive instructions on resetting your password.'
                         }
@@ -86,7 +85,7 @@ function ForgotPasswordContainer() {
                         type={'email'}
                     />
                     <div css={tw`mt-6`}>
-                        <Button type={'submit'} size={'xlarge'} disabled={isSubmitting} isLoading={isSubmitting}>
+                        <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
                             Send Email
                         </Button>
                     </div>

@@ -29,7 +29,7 @@ const SpinnerComponent = styled.div<Props>`
     ${tw`w-8 h-8`};
     border-width: 3px;
     border-radius: 50%;
-    animation: ${spin} 1s cubic-bezier(0.55, 0.25, 0.25, 0.7) infinite;
+    animation: ${spin} 0.5s cubic-bezier(0.55, 0.25, 0.25, 0.7) infinite;
 
     ${props =>
         props.size === 'small'

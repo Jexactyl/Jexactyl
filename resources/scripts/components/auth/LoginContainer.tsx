@@ -10,7 +10,7 @@ import { object, string } from 'yup';
 import login from '@/api/auth/login';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import Field from '@/components/elements/Field';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import useFlash from '@/plugins/useFlash';
 
 interface Values {
@@ -21,6 +21,8 @@ interface Values {
 function LoginContainer() {
     const ref = useRef<Reaptcha>(null);
     const [token, setToken] = useState('');
+
+    const appName = useStoreState(state => state.settings.data!.name);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
@@ -78,13 +80,13 @@ function LoginContainer() {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Login to Continue'} css={tw`w-full flex`}>
-                    <Field light type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
+                <LoginFormContainer title={`Welcome to ${appName}`} css={tw`w-full flex`}>
+                    <Field type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
-                        <Field light type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
+                        <Field type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
                     </div>
                     <div css={tw`mt-6`}>
-                        <Button type={'submit'} size={'xlarge'} isLoading={isSubmitting} disabled={isSubmitting}>
+                        <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
                             Login
                         </Button>
                     </div>
