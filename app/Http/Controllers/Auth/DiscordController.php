@@ -84,7 +84,7 @@ class DiscordController extends Controller
             $data = [
                 'approved' => $approved,
                 'email' => $discord->email,
-                'username' => $discord->username,
+                'username' => $discord->id,
                 'discord_id' => $discord->id,
                 'name_first' => $discord->username,
                 'name_last' => $discord->discriminator,
@@ -104,7 +104,7 @@ class DiscordController extends Controller
             } catch (\Exception $e) {
                 return;
             }
-            $user = User::where('username', $discord->username)->first();
+            $user = User::where('username', $discord->id)->first();
             Auth::loginUsingId($user->id, true);
 
             return redirect('/');
