@@ -7,7 +7,6 @@ import {
     ReplyIcon,
     ServerIcon,
     TerminalIcon,
-    UserGroupIcon,
     UsersIcon,
     ViewGridIcon,
 } from '@heroicons/react/outline';
@@ -32,8 +31,6 @@ import NewServerContainer from '@/components/admin/servers/NewServerContainer';
 import ServerRouter from '@/components/admin/servers/ServerRouter';
 import NewUserContainer from '@/components/admin/users/NewUserContainer';
 import UserRouter from '@/components/admin/users/UserRouter';
-import RolesContainer from '@/components/admin/roles/RolesContainer';
-import RoleEditContainer from '@/components/admin/roles/RoleEditContainer';
 import NestsContainer from '@/components/admin/nests/NestsContainer';
 import NestEditContainer from '@/components/admin/nests/NestEditContainer';
 import NewEggContainer from '@/components/admin/nests/NewEggContainer';
@@ -49,11 +46,10 @@ import UsersContainer from '@/components/admin/users/UsersContainer';
 
 function AdminRouter() {
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
-    const roleName = useStoreState((state: ApplicationStore) => state.user.data!.roleName);
     const avatarURL = useStoreState((state: ApplicationStore) => state.user.data!.avatarURL);
     const applicationName = useStoreState((state: ApplicationStore) => state.settings.data!.name);
 
-    const [collapsed, setCollapsed] = useState<boolean>(true);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
 
     return (
         <div css={tw`h-screen flex`}>
@@ -99,10 +95,6 @@ function AdminRouter() {
                         <UsersIcon />
                         <span>Users</span>
                     </NavLink>
-                    <NavLink to="/admin/roles">
-                        <UserGroupIcon />
-                        <span>Roles</span>
-                    </NavLink>
                     <Sidebar.Section>Service Management</Sidebar.Section>
                     <NavLink to="/admin/nests">
                         <ViewGridIcon />
@@ -131,11 +123,6 @@ function AdminRouter() {
                         >
                             {email}
                         </span>
-                        <span
-                            css={tw`font-header font-normal text-xs text-neutral-300 whitespace-nowrap leading-tight select-none`}
-                        >
-                            {roleName}
-                        </span>
                     </div>
                 </Sidebar.User>
             </Sidebar>
@@ -159,8 +146,6 @@ function AdminRouter() {
                         <Route path="users" element={<UsersContainer />} />
                         <Route path="users/new" element={<NewUserContainer />} />
                         <Route path="users/:id/*" element={<UserRouter />} />
-                        <Route path="roles" element={<RolesContainer />} />
-                        <Route path="roles/:id" element={<RoleEditContainer />} />
                         <Route path="nests" element={<NestsContainer />} />
                         <Route path="nests/:nestId" element={<NestEditContainer />} />
                         <Route path="nests/:nestId/new" element={<NewEggContainer />} />
