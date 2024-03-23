@@ -13,7 +13,7 @@ import FormikSwitch from '@/components/elements/FormikSwitch';
 import Input from '@/components/elements/Input';
 import Label from '@/components/elements/Label';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field, { FieldRow } from '@/components/elements/Field';
 import type { User, UserRole } from '@definitions/admin';
 

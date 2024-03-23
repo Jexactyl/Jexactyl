@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import tw from 'twin.macro';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import asModal from '@/hoc/asModal';
 import ModalContext from '@/context/ModalContext';
 import CopyOnClick from '@/components/elements/CopyOnClick';

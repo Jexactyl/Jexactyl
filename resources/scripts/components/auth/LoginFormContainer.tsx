@@ -24,14 +24,14 @@ const Container = styled.div`
     `};
 
     ${breakpoint('xl')`
-        ${tw`w-full`}
+        ${tw`w-full pt-32`}
     `};
 `;
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => (
     <Container>
         <div className={'w-full grid lg:grid-cols-2'}>
-            <div className={'lg:w-1/2 lg:m-auto'}>
+            <div className={'lg:w-1/2 lg:mx-auto'}>
                 {title && <h2 css={tw`text-3xl text-center text-neutral-100 font-medium py-4`}>{title}</h2>}
                 <FlashMessageRender css={tw`mb-2 px-1`} />
                 <Form {...props} ref={ref}>
@@ -39,13 +39,13 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                         <div css={tw`flex-1`}>{props.children}</div>
                     </div>
                 </Form>
-                <p css={tw`text-center text-neutral-500 text-xs mt-4`}>
+                <p css={tw`text-center text-neutral-300 text-xs mt-4`}>
                     &copy; {new Date().getFullYear()}&nbsp;
                     <a
                         rel={'noopener nofollow noreferrer'}
                         href={'https://jexactyl.com'}
                         target={'_blank'}
-                        css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
+                        css={tw`no-underline text-neutral-300 hover:text-green-400 duration-300`}
                     >
                         Jexactyl
                     </a>
@@ -54,7 +54,7 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                         rel={'noopener nofollow noreferrer'}
                         href={'https://pterodactyl.io'}
                         target={'_blank'}
-                        css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
+                        css={tw`no-underline text-neutral-300 hover:text-green-400 duration-300`}
                     >
                         Pterodactyl.
                     </a>

@@ -6,7 +6,7 @@ import Field from '@/components/elements/Field';
 import chmodFiles from '@/api/server/files/chmodFiles';
 import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import useFlash from '@/plugins/useFlash';
 
 interface FormikValues {

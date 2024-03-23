@@ -9,24 +9,19 @@ import tw, { theme } from 'twin.macro';
 import styled from 'styled-components';
 import http from '@/api/http';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
-import Tooltip from '@/components/elements/tooltip/Tooltip';
 import Avatar from '@/components/Avatar';
 
 const RightNavigation = styled.div`
     & > a,
     & > button,
     & > .navigation-link {
-        ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-150`};
-
-        &:active,
-        &:hover {
-            ${tw`text-neutral-100 bg-black`};
-        }
+        ${tw`flex items-center h-full no-underline text-neutral-300 px-6 cursor-pointer transition-all duration-300 gap-x-2`};
+        ${tw`text-gray-400 font-medium`};
 
         &:active,
         &:hover,
         &.active {
-            box-shadow: inset 0 -2px ${theme`colors.cyan.600`.toString()};
+            box-shadow: inset 0 -1px ${theme`colors.green.600`.toString()};
         }
     }
 `;
@@ -46,7 +41,7 @@ export default () => {
     };
 
     return (
-        <div className="w-full overflow-x-auto bg-neutral-900 shadow-md">
+        <div className="w-full overflow-x-auto bg-zinc-800 shadow-md">
             <SpinnerOverlay visible={isLoggingOut} />
             <div className="mx-auto flex h-[3.5rem] w-full max-w-[1200px] items-center">
                 <div id="logo" className="flex-1">
@@ -61,33 +56,29 @@ export default () => {
                 <RightNavigation className="flex h-full items-center justify-center">
                     <SearchContainer />
 
-                    <Tooltip placement="bottom" content="Dashboard">
-                        <NavLink to="/" end>
-                            <FontAwesomeIcon icon={faLayerGroup} />
-                        </NavLink>
-                    </Tooltip>
+                    <NavLink to="/" end>
+                        <FontAwesomeIcon icon={faLayerGroup} />
+                        Servers
+                    </NavLink>
 
-                    <Tooltip placement="bottom" content="Account Settings">
-                        <NavLink to="/account">
-                            <span className="flex h-5 w-5 items-center">
-                                <Avatar.User />
-                            </span>
-                        </NavLink>
-                    </Tooltip>
+                    <NavLink to="/account">
+                        <span className="flex h-5 w-5 items-center">
+                            <Avatar.User />
+                        </span>
+                        Account
+                    </NavLink>
 
                     {rootAdmin && (
-                        <Tooltip placement="bottom" content="Admin">
-                            <a href="/admin" rel="noreferrer">
-                                <FontAwesomeIcon icon={faScrewdriverWrench} />
-                            </a>
-                        </Tooltip>
+                        <a href="/admin" rel="noreferrer">
+                            <FontAwesomeIcon icon={faScrewdriverWrench} />
+                            Settings
+                        </a>
                     )}
 
-                    <Tooltip placement="bottom" content="Sign Out">
-                        <button onClick={onTriggerLogout}>
-                            <FontAwesomeIcon icon={faSignOutAlt} />
-                        </button>
-                    </Tooltip>
+                    <button onClick={onTriggerLogout}>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                        Logout
+                    </button>
                 </RightNavigation>
             </div>
         </div>

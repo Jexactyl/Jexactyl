@@ -20,7 +20,7 @@ const AdminBox = ({ icon, title, className, isLoading, children, button, noPaddi
         <SpinnerOverlay visible={isLoading || false} />
         <div css={tw`flex flex-row bg-neutral-900 rounded-t px-4 xl:px-5 py-3 border-b border-black`}>
             {typeof title === 'string' ? (
-                <p css={tw`text-sm uppercase`}>
+                <p css={tw`font-semibold`}>
                     {icon && <FontAwesomeIcon icon={icon} css={tw`mr-2 text-neutral-300`} />}
                     {title}
                 </p>

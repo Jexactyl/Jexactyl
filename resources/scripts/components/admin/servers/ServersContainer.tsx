@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import ServersTable from '@/components/admin/servers/ServersTable';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 
 function ServersContainer() {
     return (

@@ -80,7 +80,7 @@ function LoginContainer() {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={`Welcome to ${appName}`} css={tw`w-full flex`}>
+                <LoginFormContainer title={`Welcome to ${appName}`}>
                     <Field type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
                         <Field type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
@@ -108,7 +108,7 @@ function LoginContainer() {
                     <div css={tw`mt-6 text-center`}>
                         <Link
                             to={'/auth/password'}
-                            css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
+                            css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
                         >
                             Forgot password?
                         </Link>

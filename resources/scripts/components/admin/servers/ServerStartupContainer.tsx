@@ -14,7 +14,7 @@ import updateServerStartup from '@/api/admin/servers/updateServerStartup';
 import EggSelect from '@/components/admin/servers/EggSelect';
 import NestSelector from '@/components/admin/servers/NestSelector';
 import FormikSwitch from '@/components/elements/FormikSwitch';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Input from '@/components/elements/Input';
 import AdminBox from '@/components/admin/AdminBox';
 import Field from '@/components/elements/Field';

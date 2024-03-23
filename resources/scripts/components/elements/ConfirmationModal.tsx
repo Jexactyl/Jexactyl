@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { useContext } from 'react';
 import tw from 'twin.macro';
 
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import ModalContext from '@/context/ModalContext';
 import asModal from '@/hoc/asModal';
 

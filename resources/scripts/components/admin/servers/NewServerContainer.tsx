@@ -21,7 +21,7 @@ import {
 import BaseSettingsBox from '@/components/admin/servers/settings/BaseSettingsBox';
 import FeatureLimitsBox from '@/components/admin/servers/settings/FeatureLimitsBox';
 import ServerResourceBox from '@/components/admin/servers/settings/ServerResourceBox';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field from '@/components/elements/Field';
 import FormikSwitch from '@/components/elements/FormikSwitch';
 import Label from '@/components/elements/Label';

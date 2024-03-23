@@ -28,13 +28,7 @@ const Field = forwardRef<HTMLInputElement, Props>(
                             {label}
                         </Label>
                     )}
-                    <Input
-                        id={id}
-                        {...field}
-                        {...props}
-                        isLight={light}
-                        hasError={!!(touched[field.name] && errors[field.name])}
-                    />
+                    <Input id={id} {...field} {...props} isLight={light} />
                     {touched[field.name] && errors[field.name] ? (
                         <p className={'input-help error'}>
                             {(errors[field.name] as string).charAt(0).toUpperCase() +
@@ -67,13 +61,7 @@ export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaProps>(func
                             {label}
                         </Label>
                     )}
-                    <Textarea
-                        id={id}
-                        {...field}
-                        {...props}
-                        isLight={light}
-                        hasError={!!(touched[field.name] && errors[field.name])}
-                    />
+                    <Textarea id={id} {...field} {...props} isLight={light} />
                     <InputError errors={errors} touched={touched} name={field.name}>
                         {description || null}
                     </InputError>

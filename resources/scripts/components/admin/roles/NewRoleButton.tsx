@@ -6,7 +6,7 @@ import { object, string } from 'yup';
 
 import { getRoles, createRole } from '@/api/admin/roles';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field from '@/components/elements/Field';
 import Modal from '@/components/elements/Modal';
 import useFlash from '@/plugins/useFlash';

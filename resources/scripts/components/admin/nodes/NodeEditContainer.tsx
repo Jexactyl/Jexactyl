@@ -12,8 +12,10 @@ import NodeLimitContainer from '@/components/admin/nodes/NodeLimitContainer';
 import NodeListenContainer from '@/components/admin/nodes/NodeListenContainer';
 import { Context } from '@/components/admin/nodes/NodeRouter';
 import NodeSettingsContainer from '@/components/admin/nodes/NodeSettingsContainer';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import type { ApplicationStore } from '@/state';
+import { useEffect } from 'react';
+import useFlash from '@/plugins/useFlash';
 
 interface Values {
     name: string;
@@ -37,11 +39,15 @@ interface Values {
 }
 
 export default () => {
-    const navigate = useNavigate();
-
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        clearFlashes('node');
+    }, []);
 
     const node = Context.useStoreState(state => state.node);
     const setNode = Context.useStoreActions(actions => actions.setNode);

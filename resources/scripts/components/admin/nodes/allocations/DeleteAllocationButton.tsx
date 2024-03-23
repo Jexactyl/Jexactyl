@@ -4,7 +4,7 @@ import { useState } from 'react';
 import tw from 'twin.macro';
 
 import deleteAllocation from '@/api/admin/nodes/allocations/deleteAllocation';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import ConfirmationModal from '@/components/elements/ConfirmationModal';
 import type { ApplicationStore } from '@/state';
 

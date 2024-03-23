@@ -20,7 +20,7 @@ import AdminTable, {
     ContentWrapper,
     useTableHooks,
 } from '@/components/admin/AdminTable';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 

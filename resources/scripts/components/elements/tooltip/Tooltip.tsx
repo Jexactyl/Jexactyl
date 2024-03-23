@@ -91,7 +91,7 @@ export default ({ children, ...props }: Props) => {
                         {...getFloatingProps({
                             ref: floating,
                             className:
-                                'bg-slate-900 text-sm text-slate-200 px-3 py-2 rounded pointer-events-none max-w-[24rem]',
+                                'bg-slate-900 text-sm text-slate-200 px-3 py-2 rounded pointer-events-none max-w-[24rem] normal-case',
                             style: {
                                 position: strategy,
                                 top: `${y || 0}px`,

@@ -23,6 +23,7 @@ export default () => {
             <Tooltip placement={'bottom'} content={'Search'}>
                 <div className={'navigation-link'} onClick={() => setVisible(true)}>
                     <FontAwesomeIcon icon={faSearch} />
+                    Search
                 </div>
             </Tooltip>
         </>

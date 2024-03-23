@@ -23,6 +23,9 @@ module.exports = {
             transitionDuration: {
                 250: '250ms',
             },
+            backgroundImage: {
+                'login': "url('http://papers.co/wallpaper/papers.co-me91-himalaya-sunset-dark-mountain-art-35-3840x2160-4k-wallpaper.jpg')",
+            },
             borderColor: theme => ({
                 default: theme('colors.neutral.400', 'currentColor'),
             }),

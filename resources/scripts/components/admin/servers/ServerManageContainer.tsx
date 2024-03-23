@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 
 import { useServerFromRoute } from '@/api/admin/server';
 import AdminBox from '@/components/admin/AdminBox';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 
 export default () => {
     const { data: server } = useServerFromRoute();

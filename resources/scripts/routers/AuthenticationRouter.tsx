@@ -7,8 +7,7 @@ import { NotFound } from '@/components/elements/ScreenBlock';
 import tw, { styled } from 'twin.macro';
 
 const Container = styled.div`
-    ${tw`h-screen`};
-    background: rgba(0, 0, 0, 0.65) url('https://wallpapercave.com/wp/wp10945193.jpg');
+    ${tw`h-screen bg-login bg-cover`};
     background-repeat: no-repeat;
     background-blend-mode: darken;
 `;

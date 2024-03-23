@@ -12,7 +12,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import AdminBox from '@/components/admin/AdminBox';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import RoleDeleteButton from '@/components/admin/roles/RoleDeleteButton';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field from '@/components/elements/Field';
 import Spinner from '@/components/elements/Spinner';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';

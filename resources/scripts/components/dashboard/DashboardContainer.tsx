@@ -13,6 +13,11 @@ import useSWR from 'swr';
 import { PaginatedResult } from '@/api/http';
 import Pagination from '@/components/elements/Pagination';
 import { useLocation } from 'react-router-dom';
+import ContentBox from '@/components/elements/ContentBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import Tooltip from '../elements/tooltip/Tooltip';
+import FlashMessageRender from '../FlashMessageRender';
 
 export default () => {
     const { search } = useLocation();
@@ -20,13 +25,14 @@ export default () => {
 
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const name = useStoreState(state => state.user.data!.username);
     const uuid = useStoreState(state => state.user.data!.uuid);
     const rootAdmin = useStoreState(state => state.user.data!.rootAdmin);
     const [showOnlyAdmin, setShowOnlyAdmin] = usePersistedState(`${uuid}:show_all_servers`, false);
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
         ['/api/client/servers', showOnlyAdmin && rootAdmin, page],
-        () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined }),
+        () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined, per_page: 5 }),
     );
 
     useEffect(() => {
@@ -49,7 +55,8 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Dashboard'} showFlashKey={'dashboard'}>
+        <PageContentBlock title={'Dashboard'}>
+            <p className={'text-xl lg:text-5xl my-4 lg:my-10 font-semibold'}>Welcome, {name}</p>
             {rootAdmin && (
                 <div css={tw`mb-2 flex justify-end items-center`}>
                     <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>
@@ -62,25 +69,58 @@ export default () => {
                     />
                 </div>
             )}
-            {!servers ? (
-                <Spinner centered size={'large'} />
-            ) : (
-                <Pagination data={servers} onPageSelect={setPage}>
-                    {({ items }) =>
-                        items.length > 0 ? (
-                            items.map((server, index) => (
-                                <ServerRow key={server.uuid} server={server} css={index > 0 ? tw`mt-2` : undefined} />
-                            ))
-                        ) : (
-                            <p css={tw`text-center text-sm text-neutral-400`}>
-                                {showOnlyAdmin
-                                    ? 'There are no other servers to display.'
-                                    : 'There are no servers associated with your account.'}
-                            </p>
-                        )
-                    }
-                </Pagination>
-            )}
+            <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
+            <div className={'grid lg:grid-cols-3 gap-4'}>
+                <div className="relative overflow-x-auto rounded-lg lg:col-span-2">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-zinc-800 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" className="px-6 py-3">
+                                    Identifier
+                                    <Tooltip placement={'top'} content={'This is the name of your server.'}>
+                                        <FontAwesomeIcon icon={faInfoCircle} className={'ml-1 pt-1'} />
+                                    </Tooltip>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    State
+                                    <Tooltip placement={'top'} content={'This indicates what state your server is in.'}>
+                                        <FontAwesomeIcon icon={faInfoCircle} className={'ml-1 pt-1'} />
+                                    </Tooltip>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    CPU
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Memory
+                                </th>
+                                <th scope="col" className="px-6 py-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {!servers ? (
+                                <Spinner centered size={'large'} />
+                            ) : (
+                                <Pagination data={servers} onPageSelect={setPage}>
+                                    {({ items }) =>
+                                        items.length > 0 ? (
+                                            items.map((server, _index) => (
+                                                <ServerRow key={server.uuid} server={server} />
+                                            ))
+                                        ) : (
+                                            <p className={'text-center'}>
+                                                {showOnlyAdmin
+                                                    ? 'There are no other servers to display.'
+                                                    : 'There are no servers associated with your account.'}
+                                            </p>
+                                        )
+                                    }
+                                </Pagination>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                <ContentBox>Hello</ContentBox>
+            </div>
         </PageContentBlock>
     );
 };
