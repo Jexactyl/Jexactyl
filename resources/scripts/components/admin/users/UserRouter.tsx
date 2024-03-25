@@ -7,12 +7,13 @@ import tw from 'twin.macro';
 import { getUser } from '@/api/admin/users';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import { SubNavigation, SubNavigationLink } from '@/components/admin/SubNavigation';
-import UserAboutContainer from '@/components/admin/users/UserAboutContainer';
-import UserServers from '@/components/admin/users/UserServers';
+import UserAboutContainer from '@/components/admin/users/view/AboutContainer';
+import UserServers from '@/components/admin/users/view/ServersContainer';
 import Spinner from '@/components/elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
+import { ServerIcon, UserIcon } from '@heroicons/react/outline';
 
 interface ctx {
     user: User | undefined;
@@ -77,23 +78,11 @@ const UserRouter = () => {
 
             <SubNavigation>
                 <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                            d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                        />
-                    </svg>
+                    <UserIcon />
                 </SubNavigationLink>
 
                 <SubNavigationLink to={`/admin/users/${params.id}/servers`} name={'Servers'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                            d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                        />
-                    </svg>
+                    <ServerIcon />
                 </SubNavigationLink>
             </SubNavigation>
 

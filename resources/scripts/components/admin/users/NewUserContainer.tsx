@@ -7,7 +7,7 @@ import tw from 'twin.macro';
 import type { UpdateUserValues } from '@/api/admin/users';
 import { createUser } from '@/api/admin/users';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
-import UserForm from '@/components/admin/users/UserForm';
+import UserForm from '@/components/admin/users/view/UserForm';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 
@@ -43,7 +43,7 @@ export default () => {
 
             <FlashMessageRender byKey={'user:create'} css={tw`mb-4`} />
 
-            <UserForm title={'Create User'} onSubmit={submit} role={null} />
+            <UserForm title={'Create User'} onSubmit={submit} />
         </AdminContentBlock>
     );
 };

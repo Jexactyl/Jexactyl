@@ -1,120 +1,163 @@
-import { LockOpenIcon, PlusIcon, SupportIcon, TrashIcon } from '@heroicons/react/solid';
-import { Fragment, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useGetUsers, Context as UsersContext } from '@/api/admin/users';
+import tw from 'twin.macro';
+import AdminTable, {
+    ContentWrapper,
+    Pagination,
+    TableHead,
+    TableHeader,
+    TableBody,
+    TableRow,
+    Loading,
+    NoItems,
+    useTableHooks,
+} from '../AdminTable';
+import AdminCheckbox from '../AdminCheckbox';
+import { AdminContext } from '@/state/admin';
+import { ChangeEvent, useContext, useEffect } from 'react';
+import CopyOnClick from '@/components/elements/CopyOnClick';
+import { Link, NavLink } from 'react-router-dom';
+import type { RealFilters } from '@/api/admin/users';
+import AdminContentBlock from '../AdminContentBlock';
+import { Button } from '@/components/elements/button';
 
-import { useGetUsers } from '@/api/admin/users';
-import type { UUID } from '@/api/definitions';
-import { Transition } from '@/components/elements/transitions';
-import { Button } from '@/components/elements/button/index';
-import Checkbox from '@/components/elements/inputs/Checkbox';
-import InputField from '@/components/elements/inputs/InputField';
-import UserTableRow from '@/components/admin/users/UserTableRow';
-import TFootPaginated from '@/components/elements/table/TFootPaginated';
-import type { User } from '@definitions/admin';
-import extractSearchFilters from '@/helpers/extractSearchFilters';
-import useDebouncedState from '@/plugins/useDebouncedState';
-import { Shape } from '@/components/elements/button/types';
-
-const filters = ['id', 'uuid', 'external_id', 'username', 'email'] as const;
-
-function UsersContainer() {
-    const [search, setSearch] = useDebouncedState('', 500);
-    const [selected, setSelected] = useState<UUID[]>([]);
-    const { data: users } = useGetUsers(
-        extractSearchFilters(search, filters, {
-            splitUnmatched: true,
-            returnUnmatched: true,
-        }),
-    );
-
-    useEffect(() => {
-        document.title = 'Admin | Users';
-    }, []);
-
-    const onRowChange = (user: User, checked: boolean) => {
-        setSelected(state => {
-            return checked ? [...state, user.uuid] : selected.filter(uuid => uuid !== user.uuid);
-        });
-    };
-
-    const selectAllChecked = users && users.items.length > 0 && selected.length > 0;
-    const onSelectAll = () =>
-        setSelected(state => (state.length > 0 ? [] : users?.items.map(({ uuid }) => uuid) || []));
+function RowCheckbox({ id }: { id: number }) {
+    const isChecked = AdminContext.useStoreState(state => state.users.selectedUsers.indexOf(id) >= 0);
+    const appendSelectedUser = AdminContext.useStoreActions(actions => actions.users.appendSelectedUser);
+    const removeSelectedUser = AdminContext.useStoreActions(actions => actions.users.removeSelectedUser);
 
     return (
-        <div>
-            <div className="mb-4 flex justify-end">
-                <NavLink to="/admin/users/new">
-                    <Button className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800">
-                        Add User <PlusIcon className="ml-2 h-5 w-5" />
-                    </Button>
-                </NavLink>
-            </div>
-
-            <div className="relative flex items-center rounded-t bg-neutral-700 px-4 py-2">
-                <div className="mr-6">
-                    <Checkbox
-                        checked={selectAllChecked}
-                        disabled={!users?.items.length}
-                        indeterminate={selected.length !== users?.items.length}
-                        onChange={onSelectAll}
-                    />
-                </div>
-                <div className="flex-1">
-                    <InputField
-                        type="text"
-                        name="filter"
-                        placeholder="Begin typing to filter..."
-                        className="w-56 focus:w-96"
-                        onChange={e => setSearch(e.currentTarget.value)}
-                    />
-                </div>
-                <Transition.Fade as={Fragment} show={selected.length > 0} duration="duration-75">
-                    <div className="absolute top-0 left-0 flex h-full w-full items-center justify-end space-x-4 rounded-t bg-neutral-700 px-4">
-                        <div className="flex-1">
-                            <Checkbox
-                                checked={selectAllChecked}
-                                indeterminate={selected.length !== users?.items.length}
-                                onChange={onSelectAll}
-                            />
-                        </div>
-                        <Button.Text shape={Shape.IconSquare}>
-                            <SupportIcon className="h-4 w-4" />
-                        </Button.Text>
-                        <Button.Text shape={Shape.IconSquare}>
-                            <LockOpenIcon className="h-4 w-4" />
-                        </Button.Text>
-                        <Button.Text shape={Shape.IconSquare}>
-                            <TrashIcon className="h-4 w-4" />
-                        </Button.Text>
-                    </div>
-                </Transition.Fade>
-            </div>
-            <table className="min-w-full rounded bg-neutral-700">
-                <thead className="bg-neutral-900">
-                    <tr>
-                        <th scope="col" className="w-8" />
-                        <th scope="col" className="w-full px-6 py-2 text-left">
-                            Email
-                        </th>
-                        <th scope="col" />
-                        <th scope="col" />
-                    </tr>
-                </thead>
-                <tbody>
-                    {users?.items.map(user => (
-                        <UserTableRow
-                            key={user.uuid}
-                            user={user}
-                            selected={selected.includes(user.uuid)}
-                            onRowChange={onRowChange}
-                        />
-                    ))}
-                </tbody>
-                {users ? <TFootPaginated span={4} pagination={users.pagination} /> : null}
-            </table>
-        </div>
+        <AdminCheckbox
+            name={id.toString()}
+            checked={isChecked}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                if (e.currentTarget.checked) {
+                    appendSelectedUser(id);
+                } else {
+                    removeSelectedUser(id);
+                }
+            }}
+        />
     );
 }
 
-export default UsersContainer;
+function UsersContainer() {
+    const { data: users } = useGetUsers();
+    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(UsersContext);
+
+    const setSelectedUsers = AdminContext.useStoreActions(actions => actions.users.setSelectedUsers);
+    const selectedUsersLength = AdminContext.useStoreState(state => state.users.selectedUsers.length);
+
+    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
+        setSelectedUsers(e.currentTarget.checked ? users?.items?.map(location => location.id) || [] : []);
+    };
+
+    const onSearch = (query: string): Promise<void> => {
+        return new Promise(resolve => {
+            if (query.length < 2) {
+                setFilters(null);
+            } else {
+                setFilters({ username: query });
+            }
+            return resolve();
+        });
+    };
+
+    useEffect(() => {
+        setSelectedUsers([]);
+    }, [page]);
+
+    return (
+        <AdminContentBlock title={'User Accounts'}>
+            <div css={tw`w-full flex flex-row items-center mb-8`}>
+                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>User Accounts</h2>
+                    <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
+                        All users that have access to the system.
+                    </p>
+                </div>
+
+                <div css={tw`flex ml-auto pl-4`}>
+                    <Link to={'/admin/users/new'}>
+                        <Button>New User</Button>
+                    </Link>
+                </div>
+            </div>
+            <AdminTable>
+                <ContentWrapper
+                    onSearch={onSearch}
+                    onSelectAllClick={onSelectAllClick}
+                    checked={selectedUsersLength === (users?.items.length === 0 ? -1 : users?.items.length)}
+                >
+                    <Pagination data={users} onPageSelect={setPage}>
+                        <div css={tw`overflow-x-auto`}>
+                            <table css={tw`w-full table-auto`}>
+                                <TableHead>
+                                    <TableHeader
+                                        name={'ID'}
+                                        direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
+                                        onClick={() => setSort('id')}
+                                    />
+                                    <TableHeader
+                                        name={'Username'}
+                                        direction={sort === 'username' ? (sortDirection ? 1 : 2) : null}
+                                        onClick={() => setSort('username')}
+                                    />
+                                    <TableHeader
+                                        name={'Email Address'}
+                                        direction={sort === 'email' ? (sortDirection ? 1 : 2) : null}
+                                        onClick={() => setSort('email')}
+                                    />
+                                    <TableHeader name={'Permission Level'} />
+                                </TableHead>
+                                <TableBody>
+                                    {users !== undefined &&
+                                        users.items.length > 0 &&
+                                        users.items.map(user => (
+                                            <TableRow key={user.id}>
+                                                <td css={tw`pl-6`}>
+                                                    <RowCheckbox id={user.id} />
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                    <CopyOnClick text={user.id}>
+                                                        <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                            {user.uuid.slice(0, 8)}
+                                                        </code>
+                                                    </CopyOnClick>
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                    <NavLink
+                                                        to={`/admin/users/${user.id}`}
+                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                    >
+                                                        {user.username}
+                                                    </NavLink>
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                    {user.email}
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                    {user.isRootAdmin ? 'Administrator' : 'Standard'}
+                                                </td>
+                                            </TableRow>
+                                        ))}
+                                </TableBody>
+                            </table>
+
+                            {users === undefined ? <Loading /> : users.items.length < 1 ? <NoItems /> : null}
+                        </div>
+                    </Pagination>
+                </ContentWrapper>
+            </AdminTable>
+        </AdminContentBlock>
+    );
+}
+
+export default () => {
+    const hooks = useTableHooks<RealFilters>();
+
+    return (
+        <UsersContext.Provider value={hooks}>
+            <UsersContainer />
+        </UsersContext.Provider>
+    );
+};

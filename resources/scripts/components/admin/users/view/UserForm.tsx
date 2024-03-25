@@ -7,7 +7,6 @@ import { bool, object, string } from 'yup';
 
 import type { UpdateUserValues } from '@/api/admin/users';
 import AdminBox from '@/components/admin/AdminBox';
-import RoleSelect from '@/components/admin/users/RoleSelect';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import FormikSwitch from '@/components/elements/FormikSwitch';
 import Input from '@/components/elements/Input';
@@ -15,7 +14,7 @@ import Label from '@/components/elements/Label';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import { Button } from '@/components/elements/button';
 import Field, { FieldRow } from '@/components/elements/Field';
-import type { User, UserRole } from '@definitions/admin';
+import type { User } from '@definitions/admin';
 
 interface ctx {
     user: User | undefined;
@@ -38,10 +37,9 @@ export interface Params {
     onSubmit: (values: UpdateUserValues, helpers: FormikHelpers<UpdateUserValues>) => void;
 
     uuid?: string;
-    role: UserRole | null;
 }
 
-export default function UserForm({ title, initialValues, children, onSubmit, uuid, role }: Params) {
+export default function UserForm({ title, initialValues, children, onSubmit, uuid }: Params) {
     const submit = (values: UpdateUserValues, helpers: FormikHelpers<UpdateUserValues>) => {
         onSubmit(values, helpers);
     };
@@ -117,7 +115,6 @@ export default function UserForm({ title, initialValues, children, onSubmit, uui
                                         'Leave empty to email the user a link where they will be required to set a password.'
                                     }
                                 />
-                                <RoleSelect selected={role} />
                             </FieldRow>
 
                             {/* TODO: Remove toggle once role permissions are implemented. */}

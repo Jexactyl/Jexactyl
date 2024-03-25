@@ -6,6 +6,7 @@ import type { FractalPaginatedResponse, PaginatedResult, QueryBuilderParams } fr
 import http, { getPaginationSet, withQueryBuilderParams } from '@/api/http';
 import type { User } from '@definitions/admin';
 import { Transformers } from '@definitions/admin';
+import { createContext } from '@/api/admin';
 
 export interface UpdateUserValues {
     externalId: string;
@@ -17,7 +18,15 @@ export interface UpdateUserValues {
 }
 
 const filters = ['id', 'uuid', 'external_id', 'username', 'email'] as const;
-type Filters = (typeof filters)[number];
+export type Filters = (typeof filters)[number];
+
+export interface RealFilters {
+    id?: number;
+    username?: string;
+    email?: string;
+}
+
+export const Context = createContext<RealFilters>();
 
 const useGetUsers = (
     params?: QueryBuilderParams<Filters>,
