@@ -7,15 +7,18 @@ import MailSettings from '@/components/admin/settings/MailSettings';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@/components/admin/SubNavigation';
 import GeneralSettings from '@/components/admin/settings/GeneralSettings';
+import { useStoreState } from '@/state/hooks';
 
-export default () => {
+const SettingsRouter = () => {
+    const appName = useStoreState(state => state.settings.data!.name);
+
     return (
         <AdminContentBlock title={'Settings'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Settings</h2>
                     <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
-                        Configure and manage settings for Pterodactyl.
+                        Configure and manage settings for {appName}.
                     </p>
                 </div>
             </div>
@@ -23,7 +26,7 @@ export default () => {
             <FlashMessageRender byKey={'admin:settings'} css={tw`mb-4`} />
 
             <SubNavigation>
-                <SubNavigationLink to="/admin/settings" name="General">
+                <SubNavigationLink to="/admin/settings" name="Core">
                     <ChipIcon />
                 </SubNavigationLink>
                 <SubNavigationLink to="/admin/settings/mail" name="Mail">
@@ -41,12 +44,14 @@ export default () => {
             </SubNavigation>
 
             <Routes>
-                <Route path="/admin/settings" element={<GeneralSettings />} />
-                <Route path="/admin/settings/mail" element={<MailSettings />} />
-                <Route path="/admin/settings/security" element={<p>Security</p>} />
-                <Route path="/admin/settings/features" element={<p>Features</p>} />
-                <Route path="/admin/settings/advanced" element={<p>Advanced</p>} />
+                <Route path="/" element={<GeneralSettings />} />
+                <Route path="/mail" element={<MailSettings />} />
+                <Route path="/security" element={<p>Coming soon...</p>} />
+                <Route path="/features" element={<p>Coming soon...</p>} />
+                <Route path="/advanced" element={<p>Coming soon...</p>} />
             </Routes>
         </AdminContentBlock>
     );
 };
+
+export default SettingsRouter;

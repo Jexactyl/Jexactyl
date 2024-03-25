@@ -17,7 +17,7 @@ import tw from 'twin.macro';
 
 import CollapsedIcon from '@/assets/images/logo.png';
 import OverviewContainer from '@/components/admin/overview/OverviewContainer';
-import SettingsContainer from '@/components/admin/settings/SettingsContainer';
+import SettingsContainer from '@/components/admin/settings/SettingsRouter';
 import DatabasesContainer from '@/components/admin/databases/DatabasesContainer';
 import NewDatabaseContainer from '@/components/admin/databases/NewDatabaseContainer';
 import DatabaseEditContainer from '@/components/admin/databases/DatabaseEditContainer';
@@ -61,7 +61,7 @@ function AdminRouter() {
                     {!collapsed ? (
                         <h1 css={tw`text-2xl text-neutral-50 whitespace-nowrap font-medium`}>{applicationName}</h1>
                     ) : (
-                        <img src={CollapsedIcon} css={tw`mt-4 w-20`} alt={'Pterodactyl Icon'} />
+                        <img src={CollapsedIcon} css={tw`mt-4 w-20`} alt={'Everest Icon'} />
                     )}
                 </div>
                 <Sidebar.Wrapper>

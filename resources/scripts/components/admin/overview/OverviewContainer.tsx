@@ -6,8 +6,11 @@ import type { VersionData } from '@/api/admin/getVersion';
 import getVersion from '@/api/admin/getVersion';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Spinner from '@/components/elements/Spinner';
 import useFlash from '@/plugins/useFlash';
+import { faDesktop } from '@fortawesome/free-solid-svg-icons';
+import AdminBox from '../AdminBox';
+import Spinner from '@/components/elements/Spinner';
+import CopyOnClick from '@/components/elements/CopyOnClick';
 
 const Code = ({ children }: { children: ReactNode }) => {
     return (
@@ -47,57 +50,23 @@ export default () => {
 
             <FlashMessageRender byKey={'overview'} css={tw`mb-4`} />
 
-            <div css={tw`flex flex-col w-full rounded-lg shadow-md bg-neutral-700`}>
+            <AdminBox title={'Version Information'} icon={faDesktop}>
                 {loading ? (
-                    <div css={tw`w-full flex flex-col items-center justify-center`} style={{ height: '16rem' }}>
-                        <Spinner size={'base'} />
-                    </div>
+                    <Spinner size={'large'} centered />
                 ) : (
-                    <div css={tw`rounded shadow-md bg-neutral-700`}>
-                        <div css={tw`bg-neutral-900 rounded-t border-b border-black px-4 py-3`}>
-                            <p css={tw`text-sm uppercase`}>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    css={tw`inline-block mr-2`}
-                                    style={{ height: '1rem' }}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
-                                    />
-                                </svg>
-                                System Information
-                            </p>
-                        </div>
-
-                        <div css={tw`px-4 py-4`}>
-                            {versionData?.panel.current === 'canary' ? (
-                                <p css={tw`text-neutral-200`}>
-                                    I hope you enjoy living on the edge because you are running a{' '}
-                                    <Code>{versionData?.panel.current}</Code> version of Pterodactyl.
-                                </p>
-                            ) : versionData?.panel.latest === versionData?.panel.current ? (
-                                <p css={tw`text-neutral-200`}>
-                                    Your panel is <span css={tw`text-neutral-100`}>up-to-date</span>. The latest version
-                                    is <Code>{versionData?.panel.latest}</Code> and you are running version{' '}
-                                    <Code>{versionData?.panel.current}</Code>.
-                                </p>
-                            ) : (
-                                <p css={tw`text-neutral-200`}>
-                                    Your panel is <span css={tw`text-neutral-100`}>not up-to-date</span>. The latest
-                                    version is <Code>{versionData?.panel.latest}</Code> and you are running version{' '}
-                                    <Code>{versionData?.panel.current}</Code>.
-                                </p>
-                            )}
-                        </div>
-                    </div>
+                    <>
+                        You are currently running version&nbsp;
+                        <CopyOnClick text={versionData?.panel.current}>
+                            <Code>{versionData?.panel.current}</Code>
+                        </CopyOnClick>
+                        , with the latest release being &nbsp;
+                        <CopyOnClick text={versionData?.panel.latest}>
+                            <Code>{versionData?.panel.latest}</Code>
+                        </CopyOnClick>
+                        .
+                    </>
                 )}
-            </div>
+            </AdminBox>
         </AdminContentBlock>
     );
 };
