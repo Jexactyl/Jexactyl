@@ -1,17 +1,14 @@
-import type { Actions } from 'easy-peasy';
-import { useStoreActions } from 'easy-peasy';
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import tw from 'twin.macro';
-
 import type { NodeInformation } from '@/api/admin/nodes/getNodeInformation';
 import getNodeInformation from '@/api/admin/nodes/getNodeInformation';
 import AdminBox from '@/components/admin/AdminBox';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import { Context } from '@/components/admin/nodes/NodeRouter';
-import type { ApplicationStore } from '@/state';
 import { Alert } from '@/components/elements/alert';
 import { faServer } from '@fortawesome/free-solid-svg-icons';
+import useFlash from '@/plugins/useFlash';
 
 const Code = ({ className, children }: { className?: string; children: ReactNode }) => {
     return (
@@ -22,10 +19,8 @@ const Code = ({ className, children }: { className?: string; children: ReactNode
 };
 
 export default () => {
+    const { clearFlashes } = useFlash();
     const [error, setError] = useState<boolean>(false);
-    const { clearFlashes, clearAndAddHttpError } = useStoreActions(
-        (actions: Actions<ApplicationStore>) => actions.flashes,
-    );
 
     const [loading, setLoading] = useState(true);
     const [info, setInfo] = useState<NodeInformation | null>(null);
@@ -98,8 +93,6 @@ export default () => {
                     </tbody>
                 </table>
             )}
-
-            {/* TODO: Description code-block with edit option */}
         </AdminBox>
     );
 };
