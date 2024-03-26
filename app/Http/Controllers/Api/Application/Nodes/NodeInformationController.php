@@ -2,10 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Application\Nodes;
 
-use Carbon\Carbon;
+use Everest\Models\Node;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Models\Node;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Cache\Repository as CacheRepository;
 use Everest\Repositories\Wings\DaemonConfigurationRepository;

@@ -4,12 +4,12 @@ namespace Everest\Services\Activity;
 
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
+use Everest\Models\ActivityLog;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Everest\Models\ActivityLog;
+use Everest\Models\ActivityLogSubject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
-use Everest\Models\ActivityLogSubject;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 

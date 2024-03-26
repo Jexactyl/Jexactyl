@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Servers;
 
-use Webmozart\Assert\Assert;
 use Everest\Models\Server;
+use Webmozart\Assert\Assert;
 use Everest\Repositories\Wings\DaemonServerRepository;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 

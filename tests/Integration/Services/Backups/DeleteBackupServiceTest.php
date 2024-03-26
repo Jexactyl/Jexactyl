@@ -2,9 +2,9 @@
 
 namespace Everest\Tests\Integration\Services\Backups;
 
+use Everest\Models\Backup;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Everest\Models\Backup;
 use GuzzleHttp\Exception\ClientException;
 use Everest\Extensions\Backups\BackupManager;
 use Everest\Extensions\Filesystem\S3Filesystem;

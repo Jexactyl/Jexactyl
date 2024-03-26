@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Servers;
 
-use Illuminate\Support\Arr;
 use Everest\Models\Server;
+use Illuminate\Support\Arr;
 use Illuminate\Database\ConnectionInterface;
 use Everest\Traits\Services\ReturnsUpdatedModels;
 use Everest\Repositories\Wings\DaemonServerRepository;

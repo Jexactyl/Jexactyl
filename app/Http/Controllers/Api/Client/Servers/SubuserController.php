@@ -2,11 +2,11 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Request;
 use Everest\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Everest\Facades\Activity;
 use Everest\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Everest\Repositories\Eloquent\SubuserRepository;
 use Everest\Services\Subusers\SubuserCreationService;

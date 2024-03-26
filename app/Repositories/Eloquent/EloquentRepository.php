@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Webmozart\Assert\Assert;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 use Everest\Repositories\Repository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Everest\Contracts\Repository\RepositoryInterface;
 use Everest\Exceptions\Model\DataValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Everest\Exceptions\Repository\RecordNotFoundException;
 
 abstract class EloquentRepository extends Repository implements RepositoryInterface

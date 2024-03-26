@@ -5,8 +5,8 @@ namespace Everest\Tests\Integration;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Everest\Tests\TestCase;
-use Illuminate\Support\Facades\Event;
 use Everest\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 use Everest\Tests\Assertions\AssertsActivityLogged;
 use Everest\Tests\Traits\Integration\CreatesTestModels;
 

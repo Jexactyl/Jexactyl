@@ -3,11 +3,11 @@
 namespace Everest\Services\Eggs\Sharing;
 
 use Everest\Models\Egg;
+use Everest\Models\EggVariable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Everest\Models\EggVariable;
-use Illuminate\Database\ConnectionInterface;
 use Everest\Services\Eggs\EggParserService;
+use Illuminate\Database\ConnectionInterface;
 use Everest\Exceptions\Service\Egg\BadJsonFormatException;
 use Everest\Exceptions\Service\InvalidFileUploadException;
 

@@ -4,9 +4,9 @@ namespace Everest\Transformers\Api\Application;
 
 use Everest\Models\Subuser;
 use League\Fractal\Resource\Item;
-use League\Fractal\Resource\NullResource;
 use Everest\Services\Acl\Api\AdminAcl;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 
 class SubuserTransformer extends Transformer
 {

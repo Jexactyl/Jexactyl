@@ -4,8 +4,8 @@ namespace Everest\Services\Allocations;
 
 use IPTools\Network;
 use Everest\Models\Node;
-use Illuminate\Database\ConnectionInterface;
 use Everest\Exceptions\DisplayException;
+use Illuminate\Database\ConnectionInterface;
 use Everest\Contracts\Repository\AllocationRepositoryInterface;
 use Everest\Exceptions\Service\Allocation\CidrOutOfRangeException;
 use Everest\Exceptions\Service\Allocation\PortOutOfRangeException;

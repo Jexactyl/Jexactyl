@@ -4,8 +4,8 @@ namespace Everest\Tests\Traits\Http;
 
 use Mockery as m;
 use Mockery\Mock;
-use Illuminate\Http\Request;
 use Everest\Models\User;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 trait RequestMockHelpers

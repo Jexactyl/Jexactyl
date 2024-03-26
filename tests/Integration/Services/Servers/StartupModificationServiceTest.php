@@ -9,8 +9,8 @@ use Everest\Models\Server;
 use Everest\Models\ServerVariable;
 use Illuminate\Validation\ValidationException;
 use Everest\Tests\Integration\IntegrationTestCase;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Everest\Services\Servers\StartupModificationService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class StartupModificationServiceTest extends IntegrationTestCase
 {

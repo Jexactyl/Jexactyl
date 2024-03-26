@@ -2,10 +2,10 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Everest\Models\Server;
-use Illuminate\Http\JsonResponse;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Services\Servers\ReinstallServerService;
 use Everest\Http\Controllers\Api\Client\ClientApiController;

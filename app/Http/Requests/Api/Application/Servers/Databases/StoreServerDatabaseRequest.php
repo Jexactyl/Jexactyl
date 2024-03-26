@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Requests\Api\Application\Servers\Databases;
 
+use Everest\Models\Server;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
-use Everest\Models\Server;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
 use Everest\Services\Databases\DatabaseManagementService;

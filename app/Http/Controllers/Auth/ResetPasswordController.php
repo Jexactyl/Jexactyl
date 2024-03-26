@@ -2,15 +2,15 @@
 
 namespace Everest\Http\Controllers\Auth;
 
-use Illuminate\Support\Str;
 use Everest\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
+use Everest\Exceptions\DisplayException;
+use Everest\Http\Controllers\Controller;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Events\Dispatcher;
-use Everest\Exceptions\DisplayException;
-use Everest\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Everest\Http\Requests\Auth\ResetPasswordRequest;
 use Everest\Contracts\Repository\UserRepositoryInterface;

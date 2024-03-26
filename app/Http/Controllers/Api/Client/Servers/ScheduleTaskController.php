@@ -3,12 +3,12 @@
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use Everest\Models\Task;
-use Illuminate\Http\Response;
 use Everest\Models\Server;
 use Everest\Models\Schedule;
-use Illuminate\Http\JsonResponse;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Everest\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Database\ConnectionInterface;
 use Everest\Repositories\Eloquent\TaskRepository;
 use Everest\Exceptions\Http\HttpForbiddenException;

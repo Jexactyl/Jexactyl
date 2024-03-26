@@ -2,11 +2,11 @@
 
 namespace Everest\Transformers\Api\Application;
 
-use League\Fractal\Resource\Item;
 use Everest\Models\Allocation;
-use League\Fractal\Resource\NullResource;
+use League\Fractal\Resource\Item;
 use Everest\Services\Acl\Api\AdminAcl;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 
 class AllocationTransformer extends Transformer
 {

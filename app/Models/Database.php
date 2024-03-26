@@ -3,8 +3,8 @@
 namespace Everest\Models;
 
 use Illuminate\Container\Container;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Everest\Contracts\Extensions\HashidsInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id

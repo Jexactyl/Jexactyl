@@ -3,9 +3,9 @@
 namespace Everest\Tests\Integration\Services\Servers;
 
 use Mockery\MockInterface;
+use Everest\Models\Database;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Everest\Models\Database;
 use Everest\Models\DatabaseHost;
 use GuzzleHttp\Exception\BadResponseException;
 use Everest\Tests\Integration\IntegrationTestCase;

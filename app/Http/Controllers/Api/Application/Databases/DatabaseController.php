@@ -3,8 +3,8 @@
 namespace Everest\Http\Controllers\Api\Application\Databases;
 
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Everest\Models\DatabaseHost;
+use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Services\Databases\Hosts\HostUpdateService;
 use Everest\Services\Databases\Hosts\HostCreationService;

@@ -5,8 +5,8 @@ namespace Everest\Tests\Integration\Api\Client;
 use Carbon\Carbon;
 use Everest\Models\User;
 use Illuminate\Http\Response;
-use PragmaRX\Google2FA\Google2FA;
 use Everest\Models\RecoveryToken;
+use PragmaRX\Google2FA\Google2FA;
 use PHPUnit\Framework\ExpectationFailedException;
 
 class TwoFactorControllerTest extends ClientApiIntegrationTestCase

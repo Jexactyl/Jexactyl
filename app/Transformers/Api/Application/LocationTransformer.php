@@ -3,10 +3,10 @@
 namespace Everest\Transformers\Api\Application;
 
 use Everest\Models\Location;
-use League\Fractal\Resource\Collection;
-use League\Fractal\Resource\NullResource;
 use Everest\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\Collection;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 
 class LocationTransformer extends Transformer
 {

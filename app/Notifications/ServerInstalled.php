@@ -3,14 +3,14 @@
 namespace Everest\Notifications;
 
 use Everest\Models\User;
-use Illuminate\Bus\Queueable;
 use Everest\Events\Event;
 use Everest\Models\Server;
+use Illuminate\Bus\Queueable;
 use Illuminate\Container\Container;
 use Everest\Events\Server\Installed;
+use Everest\Contracts\Core\ReceivesEvents;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Everest\Contracts\Core\ReceivesEvents;
 use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Notifications\Messages\MailMessage;
 

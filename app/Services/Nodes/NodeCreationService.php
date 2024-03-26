@@ -3,8 +3,8 @@
 namespace Everest\Services\Nodes;
 
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
 use Everest\Models\Node;
+use Illuminate\Support\Str;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Everest\Contracts\Repository\NodeRepositoryInterface;
 

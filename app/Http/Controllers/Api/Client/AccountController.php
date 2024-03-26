@@ -3,10 +3,10 @@
 namespace Everest\Http\Controllers\Api\Client;
 
 use Illuminate\Http\Request;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Everest\Facades\Activity;
 use Everest\Services\Users\UserUpdateService;
 use Everest\Transformers\Api\Client\AccountTransformer;
 use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;

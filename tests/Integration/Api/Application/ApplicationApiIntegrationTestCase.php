@@ -6,8 +6,8 @@ use Everest\Models\User;
 use Everest\Models\ApiKey;
 use Everest\Services\Acl\Api\AdminAcl;
 use Everest\Tests\Integration\IntegrationTestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Everest\Tests\Traits\Integration\CreatesTestModels;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Everest\Tests\Traits\Http\IntegrationJsonRequestAssertions;
 
 abstract class ApplicationApiIntegrationTestCase extends IntegrationTestCase

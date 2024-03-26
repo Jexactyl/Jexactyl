@@ -2,9 +2,9 @@
 
 namespace Everest\Models\Traits;
 
+use Everest\Models\ApiKey;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
-use Everest\Models\ApiKey;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Everest\Extensions\Laravel\Sanctum\NewAccessToken;

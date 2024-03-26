@@ -4,8 +4,8 @@ namespace Everest\Services\Eggs\Sharing;
 
 use Carbon\Carbon;
 use Everest\Models\Egg;
-use Illuminate\Support\Collection;
 use Everest\Models\EggVariable;
+use Illuminate\Support\Collection;
 use Everest\Contracts\Repository\EggRepositoryInterface;
 
 class EggExporterService

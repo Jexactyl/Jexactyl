@@ -2,9 +2,9 @@
 
 namespace Everest\Services\Subusers;
 
-use Illuminate\Support\Str;
 use Everest\Models\Server;
 use Everest\Models\Subuser;
+use Illuminate\Support\Str;
 use Illuminate\Database\ConnectionInterface;
 use Everest\Services\Users\UserCreationService;
 use Everest\Repositories\Eloquent\SubuserRepository;

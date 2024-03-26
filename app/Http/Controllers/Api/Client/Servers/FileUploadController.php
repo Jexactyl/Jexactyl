@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use Carbon\CarbonImmutable;
 use Everest\Models\User;
 use Everest\Models\Server;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\JsonResponse;
 use Everest\Services\Nodes\NodeJWTService;
 use Everest\Http\Controllers\Api\Client\ClientApiController;

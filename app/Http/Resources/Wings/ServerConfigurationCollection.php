@@ -4,8 +4,8 @@ namespace Everest\Http\Resources\Wings;
 
 use Everest\Models\Server;
 use Illuminate\Container\Container;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Everest\Services\Eggs\EggConfigurationService;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Everest\Services\Servers\ServerConfigurationStructureService;
 
 class ServerConfigurationCollection extends ResourceCollection

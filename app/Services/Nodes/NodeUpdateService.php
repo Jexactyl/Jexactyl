@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Nodes;
 
-use Illuminate\Support\Str;
 use Everest\Models\Node;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Encryption\Encrypter;

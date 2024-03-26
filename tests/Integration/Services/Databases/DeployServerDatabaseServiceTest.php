@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Services\Databases;
 
-use Mockery\MockInterface;
 use Everest\Models\Node;
+use Mockery\MockInterface;
 use Everest\Models\Database;
 use Everest\Models\DatabaseHost;
 use Everest\Tests\Integration\IntegrationTestCase;

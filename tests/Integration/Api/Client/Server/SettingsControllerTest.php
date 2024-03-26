@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Api\Client\Server;
 
-use Illuminate\Http\Response;
 use Everest\Models\Server;
+use Illuminate\Http\Response;
 use Everest\Models\Permission;
 use Everest\Repositories\Wings\DaemonServerRepository;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;

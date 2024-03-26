@@ -4,8 +4,8 @@ namespace Everest\Repositories\Wings;
 
 use GuzzleHttp\Client;
 use Everest\Models\Node;
-use Webmozart\Assert\Assert;
 use Everest\Models\Server;
+use Webmozart\Assert\Assert;
 use Illuminate\Contracts\Foundation\Application;
 
 abstract class DaemonRepository

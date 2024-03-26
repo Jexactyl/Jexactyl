@@ -4,8 +4,8 @@ namespace Everest\Exceptions\Http\Connection;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use GuzzleHttp\Exception\GuzzleException;
 use Everest\Exceptions\DisplayException;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * @method \GuzzleHttp\Exception\GuzzleException getPrevious()

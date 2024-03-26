@@ -5,8 +5,8 @@ namespace Everest\Http\Controllers\Base;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Translation\Translator;
-use Illuminate\Contracts\Translation\Loader;
 use Everest\Http\Controllers\Controller;
+use Illuminate\Contracts\Translation\Loader;
 
 class LocaleController extends Controller
 {

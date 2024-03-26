@@ -10,17 +10,17 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Everest\Models\Traits\HasAccessTokens;
+use Everest\Traits\Helpers\AvailableLanguages;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Everest\Traits\Helpers\AvailableLanguages;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Everest\Notifications\SendPasswordReset as ResetPasswordNotification;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Everest\Notifications\SendPasswordReset as ResetPasswordNotification;
 
 /**
  * Everest\Models\User.

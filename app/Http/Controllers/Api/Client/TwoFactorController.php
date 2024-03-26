@@ -4,9 +4,9 @@ namespace Everest\Http\Controllers\Api\Client;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Facades\Activity;
 use Everest\Services\Users\TwoFactorSetupService;
 use Everest\Services\Users\ToggleTwoFactorService;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;

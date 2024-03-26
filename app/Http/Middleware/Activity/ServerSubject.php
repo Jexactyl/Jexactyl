@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Middleware\Activity;
 
-use Illuminate\Http\Request;
 use Everest\Models\Server;
+use Illuminate\Http\Request;
 use Everest\Facades\LogTarget;
 
 class ServerSubject

@@ -2,12 +2,12 @@
 
 namespace Everest\Tests\Integration\Api\Client\Server\Backup;
 
+use Everest\Models\Backup;
 use Mockery\MockInterface;
 use Illuminate\Http\Response;
-use Everest\Models\Backup;
 use Everest\Models\Permission;
-use Illuminate\Support\Facades\Event;
 use Everest\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 use Everest\Repositories\Wings\DaemonBackupRepository;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 

@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Application\Roles;
 
+use Everest\Models\AdminRole;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Everest\Models\AdminRole;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Transformers\Api\Application\AdminRoleTransformer;

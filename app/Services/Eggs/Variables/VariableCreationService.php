@@ -4,8 +4,8 @@ namespace Everest\Services\Eggs\Variables;
 
 use Everest\Models\EggVariable;
 use Everest\Traits\Services\ValidatesValidationRules;
-use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Everest\Contracts\Repository\EggVariableRepositoryInterface;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Everest\Exceptions\Service\Egg\Variable\ReservedVariableNameException;
 
 class VariableCreationService

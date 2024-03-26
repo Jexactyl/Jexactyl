@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
 use Everest\Models\Server;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServerFactory extends Factory

@@ -3,8 +3,8 @@
 namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
 
 use Everest\Models\Task;
-use Illuminate\Http\Response;
 use Everest\Models\Schedule;
+use Illuminate\Http\Response;
 use Everest\Models\Permission;
 use Illuminate\Support\Facades\Bus;
 use Everest\Jobs\Schedule\RunTaskJob;

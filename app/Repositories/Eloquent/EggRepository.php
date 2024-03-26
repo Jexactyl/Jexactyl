@@ -5,8 +5,8 @@ namespace Everest\Repositories\Eloquent;
 use Everest\Models\Egg;
 use Webmozart\Assert\Assert;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Everest\Contracts\Repository\EggRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Everest\Exceptions\Repository\RecordNotFoundException;
 
 class EggRepository extends EloquentRepository implements EggRepositoryInterface

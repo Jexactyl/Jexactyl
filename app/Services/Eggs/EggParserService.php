@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Eggs;
 
-use Illuminate\Support\Arr;
 use Everest\Models\Egg;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Everest\Exceptions\Service\InvalidFileUploadException;
 

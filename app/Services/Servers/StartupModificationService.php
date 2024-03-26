@@ -2,13 +2,13 @@
 
 namespace Everest\Services\Servers;
 
-use Illuminate\Support\Arr;
 use Everest\Models\Egg;
 use Everest\Models\User;
 use Everest\Models\Server;
+use Illuminate\Support\Arr;
 use Everest\Models\ServerVariable;
-use Illuminate\Database\ConnectionInterface;
 use Everest\Traits\Services\HasUserLevels;
+use Illuminate\Database\ConnectionInterface;
 
 class StartupModificationService
 {

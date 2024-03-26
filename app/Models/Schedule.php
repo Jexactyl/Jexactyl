@@ -5,9 +5,9 @@ namespace Everest\Models;
 use Cron\CronExpression;
 use Carbon\CarbonImmutable;
 use Illuminate\Container\Container;
+use Everest\Contracts\Extensions\HashidsInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Everest\Contracts\Extensions\HashidsInterface;
 
 /**
  * @property int $id

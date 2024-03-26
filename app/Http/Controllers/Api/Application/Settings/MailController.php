@@ -2,10 +2,6 @@
 
 namespace Everest\Http\Controllers\Api\Application\Settings;
 
-use Throwable;
-use Exception;
-use Everest\Models\Setting;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
@@ -18,21 +14,20 @@ class MailController extends ApplicationApiController
      */
     public function __construct(
         private SettingsRepositoryInterface $settings
-    )
-    {
+    ) {
         parent::__construct();
     }
 
     /**
      * Update the mail settings on the Panel.
-     * 
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function update(UpdateMailSettingsRequest $request): Response
     {
         if (config('mail.default') !== 'smtp') {
-            throw new Exception('This feature is only available if SMTP is the selected email driver for the Panel.');
-        };
+            throw new \Exception('This feature is only available if SMTP is the selected email driver for the Panel.');
+        }
 
         // TODO(jex): Mail settings update
 

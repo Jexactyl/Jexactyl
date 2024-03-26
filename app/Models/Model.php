@@ -10,8 +10,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Everest\Exceptions\Model\DataValidationException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 

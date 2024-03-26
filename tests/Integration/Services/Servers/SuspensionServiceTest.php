@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Services\Servers;
 
-use Mockery\MockInterface;
 use Everest\Models\Server;
+use Mockery\MockInterface;
 use Everest\Services\Servers\SuspensionService;
 use Everest\Tests\Integration\IntegrationTestCase;
 use Everest\Repositories\Wings\DaemonServerRepository;

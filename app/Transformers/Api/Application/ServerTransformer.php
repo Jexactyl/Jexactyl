@@ -4,10 +4,10 @@ namespace Everest\Transformers\Api\Application;
 
 use Everest\Models\Server;
 use League\Fractal\Resource\Item;
-use League\Fractal\Resource\Collection;
-use League\Fractal\Resource\NullResource;
 use Everest\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\Collection;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 use Everest\Services\Servers\EnvironmentService;
 
 class ServerTransformer extends Transformer

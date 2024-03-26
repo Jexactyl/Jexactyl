@@ -3,12 +3,12 @@
 namespace Everest\Tests\Integration\Jobs\Schedule;
 
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use GuzzleHttp\Psr7\Request;
 use Everest\Models\Task;
-use GuzzleHttp\Psr7\Response;
 use Everest\Models\Server;
+use Carbon\CarbonImmutable;
 use Everest\Models\Schedule;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Bus;
 use Everest\Jobs\Schedule\RunTaskJob;
 use GuzzleHttp\Exception\BadResponseException;

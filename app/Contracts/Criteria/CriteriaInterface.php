@@ -2,8 +2,8 @@
 
 namespace Everest\Contracts\Criteria;
 
-use Illuminate\Database\Eloquent\Model;
 use Everest\Repositories\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 interface CriteriaInterface
 {

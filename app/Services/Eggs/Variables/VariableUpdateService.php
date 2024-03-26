@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Eggs\Variables;
 
-use Illuminate\Support\Str;
 use Everest\Models\Egg;
+use Illuminate\Support\Str;
 use Everest\Models\EggVariable;
 use Everest\Exceptions\DisplayException;
 use Everest\Traits\Services\ValidatesValidationRules;

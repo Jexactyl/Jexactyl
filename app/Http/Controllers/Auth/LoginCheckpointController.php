@@ -2,16 +2,16 @@
 
 namespace Everest\Http\Controllers\Auth;
 
+use Everest\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Everest\Models\User;
 use Illuminate\Http\JsonResponse;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Everest\Events\Auth\ProvidedAuthenticationToken;
 use Everest\Http\Requests\Auth\LoginCheckpointRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
 class LoginCheckpointController extends AbstractLoginController

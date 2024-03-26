@@ -3,10 +3,10 @@
 namespace Everest\Transformers\Api\Application;
 
 use Everest\Models\Nest;
-use League\Fractal\Resource\Collection;
-use League\Fractal\Resource\NullResource;
 use Everest\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\Collection;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 
 class NestTransformer extends Transformer
 {

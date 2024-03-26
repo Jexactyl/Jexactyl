@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Api\Client\Server\Schedule;
 
-use Illuminate\Http\Response;
 use Everest\Models\Schedule;
+use Illuminate\Http\Response;
 use Everest\Models\Permission;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 

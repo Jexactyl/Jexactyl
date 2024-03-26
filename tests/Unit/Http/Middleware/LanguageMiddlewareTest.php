@@ -3,8 +3,8 @@
 namespace Everest\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Mockery\MockInterface;
 use Everest\Models\User;
+use Mockery\MockInterface;
 use Illuminate\Foundation\Application;
 use Everest\Http\Middleware\LanguageMiddleware;
 

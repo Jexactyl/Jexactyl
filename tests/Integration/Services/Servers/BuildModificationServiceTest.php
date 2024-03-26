@@ -2,13 +2,13 @@
 
 namespace Everest\Tests\Integration\Services\Servers;
 
+use Everest\Models\Server;
 use Mockery\MockInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Everest\Models\Server;
 use Everest\Models\Allocation;
-use GuzzleHttp\Exception\RequestException;
 use Everest\Exceptions\DisplayException;
+use GuzzleHttp\Exception\RequestException;
 use Everest\Tests\Integration\IntegrationTestCase;
 use Everest\Repositories\Wings\DaemonServerRepository;
 use Everest\Services\Servers\BuildModificationService;

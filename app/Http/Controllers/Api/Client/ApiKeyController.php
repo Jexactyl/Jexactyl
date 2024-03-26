@@ -3,8 +3,8 @@
 namespace Everest\Http\Controllers\Api\Client;
 
 use Everest\Models\ApiKey;
-use Illuminate\Http\JsonResponse;
 use Everest\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
 use Everest\Transformers\Api\Client\ApiKeyTransformer;

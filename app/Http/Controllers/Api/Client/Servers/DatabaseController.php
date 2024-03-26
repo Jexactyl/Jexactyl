@@ -2,10 +2,10 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Everest\Models\Server;
 use Everest\Models\Database;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Everest\Services\Databases\DatabasePasswordService;
 use Everest\Transformers\Api\Client\DatabaseTransformer;
 use Everest\Services\Databases\DatabaseManagementService;

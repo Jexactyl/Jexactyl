@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Api\Client;
 
-use Illuminate\Support\Str;
 use Everest\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 

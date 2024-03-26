@@ -2,10 +2,10 @@
 
 namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
 
-use Illuminate\Support\Str;
 use Everest\Models\User;
-use Illuminate\Http\Response;
 use Everest\Models\Subuser;
+use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 use Everest\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;

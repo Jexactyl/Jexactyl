@@ -4,8 +4,8 @@ namespace Everest\Tests\Integration\Api\Client\Server;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Response;
-use Lcobucci\JWT\Configuration;
 use Everest\Models\Permission;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;

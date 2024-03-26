@@ -3,13 +3,13 @@
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Everest\Models\Server;
 use Everest\Models\Schedule;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Everest\Helpers\Utilities;
+use Illuminate\Http\JsonResponse;
 use Everest\Exceptions\DisplayException;
 use Everest\Repositories\Eloquent\ScheduleRepository;
 use Everest\Services\Schedules\ProcessScheduleService;

@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Middleware\Api\Client;
 
-use Illuminate\Http\Request;
 use Everest\Models\ApiKey;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class RequireClientApiKey

@@ -2,13 +2,13 @@
 
 namespace Everest\Transformers\Api\Client;
 
-use Illuminate\Support\Str;
 use Everest\Models\User;
-use League\Fractal\Resource\Item;
+use Illuminate\Support\Str;
 use Everest\Models\ActivityLog;
+use League\Fractal\Resource\Item;
 use Illuminate\Database\Eloquent\Model;
-use League\Fractal\Resource\NullResource;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 
 class ActivityLogTransformer extends Transformer
 {

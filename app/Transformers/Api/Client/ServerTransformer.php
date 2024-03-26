@@ -4,13 +4,13 @@ namespace Everest\Transformers\Api\Client;
 
 use Everest\Models\Egg;
 use Everest\Models\Server;
-use League\Fractal\Resource\Item;
 use Everest\Models\Allocation;
 use Everest\Models\Permission;
+use League\Fractal\Resource\Item;
 use Illuminate\Container\Container;
 use League\Fractal\Resource\Collection;
-use League\Fractal\Resource\NullResource;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 use Everest\Services\Servers\StartupCommandService;
 
 class ServerTransformer extends Transformer

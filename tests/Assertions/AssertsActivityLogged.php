@@ -3,10 +3,10 @@
 namespace Everest\Tests\Assertions;
 
 use PHPUnit\Framework\Assert;
-use Illuminate\Support\Facades\Event;
 use Everest\Events\ActivityLogged;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Event;
 use Everest\Models\ActivityLogSubject;
+use Illuminate\Database\Eloquent\Model;
 
 trait AssertsActivityLogged
 {

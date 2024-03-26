@@ -6,8 +6,8 @@ use Everest\Models\Server;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Factory as ValidatorFactory;
 use Everest\Repositories\Wings\DaemonPowerRepository;
+use Illuminate\Validation\Factory as ValidatorFactory;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BulkPowerActionCommand extends Command

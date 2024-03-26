@@ -2,16 +2,16 @@
 
 namespace Everest\Http\Controllers\Api\Remote\Servers;
 
+use Everest\Models\Server;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Everest\Models\Server;
 use Illuminate\Http\JsonResponse;
 use Everest\Http\Controllers\Controller;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Events\Server\Installed as ServerInstalled;
-use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Everest\Http\Requests\Api\Remote\InstallationDataRequest;
+use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 
 class ServerInstallController extends Controller
 {

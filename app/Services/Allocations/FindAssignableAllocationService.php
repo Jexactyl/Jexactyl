@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Allocations;
 
-use Webmozart\Assert\Assert;
 use Everest\Models\Server;
+use Webmozart\Assert\Assert;
 use Everest\Models\Allocation;
 use Everest\Exceptions\Service\Allocation\AutoAllocationNotEnabledException;
 use Everest\Exceptions\Service\Allocation\NoAutoAllocationSpaceAvailableException;

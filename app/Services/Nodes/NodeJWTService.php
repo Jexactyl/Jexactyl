@@ -2,10 +2,10 @@
 
 namespace Everest\Services\Nodes;
 
-use Carbon\CarbonImmutable;
-use Illuminate\Support\Str;
 use Everest\Models\Node;
 use Everest\Models\User;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Str;
 use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;

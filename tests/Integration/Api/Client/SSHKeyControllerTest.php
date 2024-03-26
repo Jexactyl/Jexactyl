@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Api\Client;
 
-use phpseclib3\Crypt\EC;
 use Everest\Models\User;
+use phpseclib3\Crypt\EC;
 use Everest\Models\UserSSHKey;
 
 class SSHKeyControllerTest extends ClientApiIntegrationTestCase

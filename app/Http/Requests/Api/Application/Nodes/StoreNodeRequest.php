@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Requests\Api\Application\Nodes;
 
-use Illuminate\Support\Arr;
 use Everest\Models\Node;
+use Illuminate\Support\Arr;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreNodeRequest extends ApplicationApiRequest

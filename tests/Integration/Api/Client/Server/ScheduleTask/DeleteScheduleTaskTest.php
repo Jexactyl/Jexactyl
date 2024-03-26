@@ -4,8 +4,8 @@ namespace Everest\Tests\Integration\Api\Client\Server\ScheduleTask;
 
 use Everest\Models\Task;
 use Everest\Models\User;
-use Illuminate\Http\Response;
 use Everest\Models\Schedule;
+use Illuminate\Http\Response;
 use Everest\Models\Permission;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 

@@ -4,8 +4,8 @@ namespace Everest\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Password;
 use Everest\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Password;
 use Everest\Events\Auth\FailedPasswordReset;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 

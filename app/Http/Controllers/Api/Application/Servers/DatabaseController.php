@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Application\Servers;
 
-use Illuminate\Http\Response;
 use Everest\Models\Server;
 use Everest\Models\Database;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Everest\Services\Databases\DatabasePasswordService;
 use Everest\Services\Databases\DatabaseManagementService;

@@ -2,9 +2,9 @@
 
 namespace Everest\Providers;
 
-use Laravel\Sanctum\Sanctum;
 use Everest\Models\ApiKey;
 use Everest\Models\Server;
+use Laravel\Sanctum\Sanctum;
 use Everest\Policies\ServerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

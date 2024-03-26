@@ -5,9 +5,9 @@ namespace Everest\Services\Users;
 use Ramsey\Uuid\Uuid;
 use Everest\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
+use Everest\Notifications\AccountCreated;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use Everest\Notifications\AccountCreated;
 use Everest\Contracts\Repository\UserRepositoryInterface;
 
 class UserCreationService

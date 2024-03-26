@@ -2,9 +2,9 @@
 
 namespace Everest\Tests\Integration\Api\Client\Server;
 
+use Everest\Models\Server;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
-use Everest\Models\Server;
 use Everest\Models\Permission;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;

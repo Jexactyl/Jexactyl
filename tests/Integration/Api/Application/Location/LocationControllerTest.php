@@ -2,8 +2,8 @@
 
 namespace Everest\Tests\Integration\Api\Application\Location;
 
-use Illuminate\Http\Response;
 use Everest\Models\Location;
+use Illuminate\Http\Response;
 use Everest\Transformers\Api\Application\NodeTransformer;
 use Everest\Transformers\Api\Application\ServerTransformer;
 use Everest\Transformers\Api\Application\LocationTransformer;

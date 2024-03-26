@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use Illuminate\Http\Response;
 use Everest\Models\Server;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Everest\Repositories\Wings\DaemonPowerRepository;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
 use Everest\Http\Requests\Api\Client\Servers\SendPowerRequest;

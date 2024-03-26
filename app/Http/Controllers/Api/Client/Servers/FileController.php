@@ -2,11 +2,11 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
-use Carbon\CarbonImmutable;
-use Illuminate\Http\Response;
 use Everest\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Carbon\CarbonImmutable;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Everest\Services\Nodes\NodeJWTService;
 use Everest\Repositories\Wings\DaemonFileRepository;
 use Everest\Transformers\Api\Client\FileObjectTransformer;

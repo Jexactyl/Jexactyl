@@ -3,8 +3,8 @@
 namespace Everest\Jobs\Schedule;
 
 use Everest\Jobs\Job;
-use Carbon\CarbonImmutable;
 use Everest\Models\Task;
+use Carbon\CarbonImmutable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -2,13 +2,13 @@
 
 namespace Everest\Http\Controllers\Api\Remote\Servers;
 
-use Illuminate\Http\Request;
 use Everest\Models\Backup;
 use Everest\Models\Server;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Everest\Facades\Activity;
-use Illuminate\Database\ConnectionInterface;
+use Illuminate\Http\JsonResponse;
 use Everest\Http\Controllers\Controller;
+use Illuminate\Database\ConnectionInterface;
 use Everest\Services\Eggs\EggConfigurationService;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Http\Resources\Wings\ServerConfigurationCollection;

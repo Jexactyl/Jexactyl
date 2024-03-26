@@ -4,10 +4,10 @@ namespace Everest\Services\Schedules;
 
 use Exception;
 use Everest\Models\Schedule;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Everest\Jobs\Schedule\RunTaskJob;
-use Illuminate\Database\ConnectionInterface;
 use Everest\Exceptions\DisplayException;
+use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Database\ConnectionInterface;
 use Everest\Repositories\Wings\DaemonServerRepository;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 

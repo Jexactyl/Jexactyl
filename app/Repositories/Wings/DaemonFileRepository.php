@@ -2,9 +2,9 @@
 
 namespace Everest\Repositories\Wings;
 
+use Everest\Models\Server;
 use Illuminate\Support\Arr;
 use Webmozart\Assert\Assert;
-use Everest\Models\Server;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\TransferException;

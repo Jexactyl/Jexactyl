@@ -2,8 +2,8 @@
 
 namespace Everest\Services\Locations;
 
-use Webmozart\Assert\Assert;
 use Everest\Models\Location;
+use Webmozart\Assert\Assert;
 use Everest\Contracts\Repository\NodeRepositoryInterface;
 use Everest\Contracts\Repository\LocationRepositoryInterface;
 use Everest\Exceptions\Service\Location\HasActiveNodesException;

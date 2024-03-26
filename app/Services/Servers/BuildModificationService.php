@@ -2,14 +2,14 @@
 
 namespace Everest\Services\Servers;
 
-use Illuminate\Support\Arr;
 use Everest\Models\Server;
+use Illuminate\Support\Arr;
 use Everest\Models\Allocation;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Database\ConnectionInterface;
 use Everest\Exceptions\DisplayException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\ConnectionInterface;
 use Everest\Repositories\Wings\DaemonServerRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class BuildModificationService

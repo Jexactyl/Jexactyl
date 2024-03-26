@@ -2,8 +2,6 @@
 
 namespace Everest\Http\Controllers\Api\Application\Settings;
 
-use Throwable;
-use Everest\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
@@ -16,15 +14,14 @@ class GeneralController extends ApplicationApiController
      */
     public function __construct(
         private SettingsRepositoryInterface $settings
-    )
-    {
+    ) {
         parent::__construct();
     }
 
     /**
      * Update the general settings on the Panel.
-     * 
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function update(Request $request): Response
     {

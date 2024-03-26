@@ -2,8 +2,8 @@
 
 namespace Everest\Repositories\Eloquent;
 
-use Illuminate\Support\Collection;
 use Everest\Models\EggVariable;
+use Illuminate\Support\Collection;
 use Everest\Contracts\Repository\EggVariableRepositoryInterface;
 
 class EggVariableRepository extends EloquentRepository implements EggVariableRepositoryInterface

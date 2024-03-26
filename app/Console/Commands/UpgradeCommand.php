@@ -2,8 +2,8 @@
 
 namespace Everest\Console\Commands;
 
-use Illuminate\Console\Command;
 use Everest\Console\Kernel;
+use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
 

@@ -3,10 +3,10 @@
 namespace Everest\Tests\Integration\Api\Client;
 
 use Everest\Models\User;
-use Illuminate\Http\Response;
 use Everest\Models\ApiKey;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Http\Response;
 use Everest\Events\ActivityLogged;
+use Illuminate\Support\Facades\Event;
 
 class ApiKeyControllerTest extends ClientApiIntegrationTestCase
 {

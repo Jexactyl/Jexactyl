@@ -3,16 +3,16 @@
 namespace Everest\Http\Controllers\Api\Remote\Servers;
 
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Everest\Models\Allocation;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 use Everest\Models\ServerTransfer;
-use Illuminate\Database\ConnectionInterface;
+use Illuminate\Support\Facades\Log;
 use Everest\Http\Controllers\Controller;
+use Illuminate\Database\ConnectionInterface;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Repositories\Wings\DaemonServerRepository;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class ServerTransferController extends Controller
 {

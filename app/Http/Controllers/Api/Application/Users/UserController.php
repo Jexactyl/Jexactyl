@@ -2,7 +2,6 @@
 
 namespace Everest\Http\Controllers\Api\Application\Users;
 
-use Exception;
 use Everest\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Response;
@@ -131,8 +130,8 @@ class UserController extends ApplicationApiController
     public function suspend(User $user): Response
     {
         if ($user->root_admin) {
-            throw new Exception('You cannot suspend an administrator.');
-        };
+            throw new \Exception('You cannot suspend an administrator.');
+        }
 
         $user->update(['state' => $user->isSuspended() ? '' : 'suspended']);
 

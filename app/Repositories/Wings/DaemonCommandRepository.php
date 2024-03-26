@@ -2,8 +2,8 @@
 
 namespace Everest\Repositories\Wings;
 
-use Webmozart\Assert\Assert;
 use Everest\Models\Server;
+use Webmozart\Assert\Assert;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;

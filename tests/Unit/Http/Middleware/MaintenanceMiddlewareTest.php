@@ -3,10 +3,10 @@
 namespace Everest\Tests\Unit\Http\Middleware;
 
 use Mockery as m;
-use Mockery\MockInterface;
 use Everest\Models\Node;
-use Illuminate\Http\Response;
 use Everest\Models\Server;
+use Mockery\MockInterface;
+use Illuminate\Http\Response;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Everest\Http\Middleware\MaintenanceMiddleware;
 

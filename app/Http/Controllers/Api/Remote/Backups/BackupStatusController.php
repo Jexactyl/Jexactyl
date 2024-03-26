@@ -2,17 +2,17 @@
 
 namespace Everest\Http\Controllers\Api\Remote\Backups;
 
+use Everest\Models\Backup;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
-use Everest\Models\Backup;
-use Illuminate\Http\JsonResponse;
 use Everest\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Controller;
 use Everest\Extensions\Backups\BackupManager;
 use Everest\Extensions\Filesystem\S3Filesystem;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Everest\Http\Requests\Api\Remote\ReportBackupCompleteRequest;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BackupStatusController extends Controller
 {

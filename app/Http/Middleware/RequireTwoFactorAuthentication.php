@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Middleware;
 
+use Everest\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Models\User;
 use Everest\Exceptions\Http\TwoFactorAuthRequiredException;
 
 class RequireTwoFactorAuthentication

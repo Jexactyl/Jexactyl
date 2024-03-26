@@ -3,15 +3,15 @@
 namespace Everest\Services\Eggs\Sharing;
 
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Arr;
 use Everest\Models\Egg;
 use Everest\Models\Nest;
+use Illuminate\Support\Arr;
+use Everest\Models\EggVariable;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Http\UploadedFile;
-use Everest\Models\EggVariable;
-use Illuminate\Database\ConnectionInterface;
 use Everest\Exceptions\DisplayException;
 use Everest\Services\Eggs\EggParserService;
+use Illuminate\Database\ConnectionInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Everest\Exceptions\Service\Egg\BadJsonFormatException;
 use Everest\Exceptions\Service\Egg\BadYamlFormatException;

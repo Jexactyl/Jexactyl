@@ -2,9 +2,9 @@
 
 namespace Everest\Services\Databases;
 
-use Webmozart\Assert\Assert;
 use Everest\Models\Server;
 use Everest\Models\Database;
+use Webmozart\Assert\Assert;
 use Everest\Models\DatabaseHost;
 use Everest\Exceptions\Service\Database\NoSuitableDatabaseHostException;
 

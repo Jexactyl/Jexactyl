@@ -2,9 +2,9 @@
 
 namespace Everest\Services\Eggs;
 
+use Everest\Models\Server;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Everest\Models\Server;
 use Everest\Services\Servers\ServerConfigurationStructureService;
 
 class EggConfigurationService

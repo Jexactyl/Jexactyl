@@ -2,12 +2,12 @@
 
 namespace Everest\Http\Controllers\Auth;
 
+use Everest\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Everest\Models\User;
-use Illuminate\Http\JsonResponse;
 use Everest\Facades\Activity;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

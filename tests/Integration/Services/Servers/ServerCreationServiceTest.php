@@ -2,19 +2,19 @@
 
 namespace Everest\Tests\Integration\Services\Servers;
 
-use Mockery\MockInterface;
 use Everest\Models\Egg;
-use GuzzleHttp\Psr7\Request;
 use Everest\Models\Node;
 use Everest\Models\User;
-use GuzzleHttp\Psr7\Response;
 use Everest\Models\Server;
+use Mockery\MockInterface;
 use Everest\Models\Location;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Everest\Models\Allocation;
+use Everest\Models\Objects\DeploymentObject;
 use Illuminate\Foundation\Testing\WithFaker;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Validation\ValidationException;
-use Everest\Models\Objects\DeploymentObject;
 use Everest\Tests\Integration\IntegrationTestCase;
 use Everest\Services\Servers\ServerCreationService;
 use Everest\Repositories\Wings\DaemonServerRepository;

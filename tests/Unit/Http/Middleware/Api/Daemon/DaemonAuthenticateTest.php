@@ -3,8 +3,8 @@
 namespace Everest\Tests\Unit\Http\Middleware\Api\Daemon;
 
 use Mockery as m;
-use Mockery\MockInterface;
 use Everest\Models\Node;
+use Mockery\MockInterface;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Everest\Repositories\Eloquent\NodeRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;

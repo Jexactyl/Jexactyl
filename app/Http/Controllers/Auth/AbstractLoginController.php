@@ -2,14 +2,14 @@
 
 namespace Everest\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use Everest\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Event;
 use Everest\Events\Auth\DirectLogin;
+use Illuminate\Support\Facades\Event;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Authenticatable;

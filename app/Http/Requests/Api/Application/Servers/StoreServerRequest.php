@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Requests\Api\Application\Servers;
 
-use Illuminate\Support\Arr;
 use Everest\Models\Server;
+use Illuminate\Support\Arr;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreServerRequest extends ApplicationApiRequest

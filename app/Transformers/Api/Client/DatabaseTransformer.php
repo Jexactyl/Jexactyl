@@ -3,10 +3,10 @@
 namespace Everest\Transformers\Api\Client;
 
 use Everest\Models\Database;
-use League\Fractal\Resource\Item;
 use Everest\Models\Permission;
-use League\Fractal\Resource\NullResource;
+use League\Fractal\Resource\Item;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Everest\Contracts\Extensions\HashidsInterface;
 

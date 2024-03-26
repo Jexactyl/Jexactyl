@@ -2,7 +2,6 @@
 
 namespace Everest\Http\Middleware\Api\Client\Server;
 
-use Illuminate\Http\Request;
 use Everest\Models\Task;
 use Everest\Models\User;
 use Everest\Models\Backup;
@@ -10,6 +9,7 @@ use Everest\Models\Server;
 use Everest\Models\Subuser;
 use Everest\Models\Database;
 use Everest\Models\Schedule;
+use Illuminate\Http\Request;
 use Everest\Models\Allocation;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

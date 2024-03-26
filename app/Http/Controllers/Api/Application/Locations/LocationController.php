@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Controllers\Api\Application\Locations;
 
-use Illuminate\Http\Response;
 use Everest\Models\Location;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Services\Locations\LocationUpdateService;

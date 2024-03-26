@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Everest\Http\Controllers\Base;
+use Illuminate\Support\Facades\Route;
 use Everest\Http\Middleware\RequireTwoFactorAuthentication;
 
 Route::get('/', [Base\IndexController::class, 'index'])->name('index')->fallback();

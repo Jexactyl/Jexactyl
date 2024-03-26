@@ -3,9 +3,9 @@
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use Everest\Models\Server;
-use Illuminate\Http\JsonResponse;
 use Everest\Facades\Activity;
 use Everest\Models\Allocation;
+use Illuminate\Http\JsonResponse;
 use Everest\Exceptions\DisplayException;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Transformers\Api\Client\AllocationTransformer;

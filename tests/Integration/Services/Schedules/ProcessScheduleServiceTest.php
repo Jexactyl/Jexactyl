@@ -3,13 +3,13 @@
 namespace Everest\Tests\Integration\Services\Schedules;
 
 use Exception;
-use Carbon\CarbonImmutable;
 use Everest\Models\Task;
+use Carbon\CarbonImmutable;
 use Everest\Models\Schedule;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Everest\Jobs\Schedule\RunTaskJob;
 use Everest\Exceptions\DisplayException;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Everest\Tests\Integration\IntegrationTestCase;
 use Everest\Services\Schedules\ProcessScheduleService;
 
