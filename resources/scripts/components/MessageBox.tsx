@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
 
 export type FlashMessageType = 'success' | 'info' | 'warning' | 'error';
 

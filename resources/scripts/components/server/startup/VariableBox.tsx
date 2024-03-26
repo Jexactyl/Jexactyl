@@ -128,9 +128,7 @@ const VariableBox = ({ variable }: Props) => {
                 )}
             </InputSpinner>
 
-            <p className="mt-1 text-xs text-neutral-300">
-                {variable.description}
-            </p>
+            <p className="mt-1 text-xs text-neutral-300">{variable.description}</p>
         </TitledGreyBox>
     );
 };
