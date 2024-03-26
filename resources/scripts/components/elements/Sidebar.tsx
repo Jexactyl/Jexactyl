@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
         &:active,
         &.active {
-            ${tw`text-neutral-50 bg-neutral-800 rounded`};
+            ${tw`text-neutral-50 bg-zinc-800/50 rounded-full`};
         }
     }
 `;
@@ -33,11 +33,11 @@ const Section = styled.div`
 `;
 
 const User = styled.div`
-    ${tw`h-16 w-full flex items-center bg-neutral-700 justify-center`};
+    ${tw`h-16 w-full flex items-center bg-zinc-800 justify-center`};
 `;
 
 const Sidebar = styled.div<{ $collapsed?: boolean }>`
-    ${tw`h-screen hidden md:flex flex-col items-center flex-shrink-0 bg-neutral-900 overflow-x-hidden ease-linear`};
+    ${tw`h-screen hidden md:flex flex-col items-center flex-shrink-0 bg-zinc-900 overflow-x-hidden ease-linear`};
     ${tw`transition-[width] duration-150 ease-in`};
     ${tw`w-[17.5rem]`};
 

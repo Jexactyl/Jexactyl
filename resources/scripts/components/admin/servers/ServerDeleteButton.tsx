@@ -53,7 +53,7 @@ export default () => {
             </ConfirmationModal>
 
             <Button.Danger type="button" onClick={() => setVisible(true)} className="flex items-center justify-center">
-                <TrashIcon className="mr-2 h-5 w-5" /> Delete Server
+                <TrashIcon className="h-5 w-5" />
             </Button.Danger>
         </>
     );

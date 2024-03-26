@@ -206,7 +206,7 @@ export default function EggVariablesContainer() {
                             </div>
                         )}
 
-                        <div css={tw`bg-neutral-700 rounded shadow-md py-2 px-4 mt-6`}>
+                        <div css={tw`bg-zinc-800 rounded shadow-md py-2 px-4 mt-6`}>
                             <div css={tw`flex flex-row`}>
                                 <NewVariableButton />
 

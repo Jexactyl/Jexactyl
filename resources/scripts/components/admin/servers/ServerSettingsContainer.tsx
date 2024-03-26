@@ -77,7 +77,7 @@ export default () => {
                         <div css={tw`flex flex-col`}>
                             <ServerResourceBox />
 
-                            <div css={tw`bg-neutral-700 rounded shadow-md px-4 xl:px-5 py-4 mt-6`}>
+                            <div css={tw`bg-zinc-800 rounded shadow-md px-4 xl:px-5 py-4 mt-6`}>
                                 <div css={tw`flex flex-row`}>
                                     <ServerDeleteButton />
 

@@ -81,7 +81,7 @@ export const TableHeader = ({
 
 export const TableHead = ({ children }: { children: ReactNode }) => {
     return (
-        <thead css={tw`bg-neutral-900 border-t border-b border-neutral-500`}>
+        <thead css={tw`bg-zinc-900 border-t border-b border-zinc-500`}>
             <tr>
                 <TableHeader />
                 {children}
@@ -342,7 +342,7 @@ export const ContentWrapper = ({ checked, onSelectAllClick, onSearch, children }
 export default ({ children }: { children: ReactNode }) => {
     return (
         <div css={tw`flex flex-col w-full`}>
-            <div css={tw`rounded-lg shadow-md bg-neutral-700`}>{children}</div>
+            <div css={tw`rounded-lg shadow-md bg-zinc-800`}>{children}</div>
         </div>
     );
 };

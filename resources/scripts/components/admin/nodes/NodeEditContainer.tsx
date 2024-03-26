@@ -15,7 +15,6 @@ import NodeSettingsContainer from '@/components/admin/nodes/NodeSettingsContaine
 import { Button } from '@/components/elements/button';
 import type { ApplicationStore } from '@/state';
 import { useEffect } from 'react';
-import useFlash from '@/plugins/useFlash';
 
 interface Values {
     name: string;
@@ -123,7 +122,7 @@ export default () => {
                                 <NodeLimitContainer />
                             </div>
 
-                            <div css={tw`rounded shadow-md bg-neutral-700 mt-4 py-2 px-6`}>
+                            <div css={tw`rounded shadow-md bg-zinc-800 mt-4 py-2 px-6`}>
                                 <div css={tw`flex flex-row`}>
                                     <NodeDeleteButton nodeId={node?.id} onDeleted={() => navigate('/admin/nodes')} />
                                     <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>

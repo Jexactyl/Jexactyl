@@ -194,9 +194,9 @@ function ServerStartupForm({
                         ))}
                 </div>
 
-                <div className="bg-neutral-700 rounded shadow-md py-2 pr-6 mt-6">
+                <div className="bg-zinc-800 rounded shadow-md py-2 pr-6 mt-6">
                     <div className="flex flex-row">
-                        <Button type="submit" size="small" className="ml-auto" disabled={isSubmitting || !isValid}>
+                        <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
                             Save Changes
                         </Button>
                     </div>
