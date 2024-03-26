@@ -104,7 +104,7 @@ export default () => {
 
                         <EggProcessContainer ref={ref} css={tw`mb-6`} />
 
-                        <div css={tw`bg-neutral-700 rounded shadow-md py-2 px-6 mb-16`}>
+                        <div css={tw`bg-zinc-800 rounded shadow-md py-2 px-6 mb-16`}>
                             <div css={tw`flex flex-row`}>
                                 <Button type="submit" css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
                                     Create
