@@ -7,6 +7,19 @@ Route::get('/version', [Application\VersionController::class, '__invoke']);
 
 /*
 |--------------------------------------------------------------------------
+| Settings Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/settings
+|
+*/
+Route::group(['prefix' => '/settings'], function () {
+    Route::patch('/', [Application\Settings\GeneralController::class, 'update']);
+    Route::patch('/mail', [Application\Settings\MailController::class, 'update']);
+});
+
+/*
+|--------------------------------------------------------------------------
 | Database Controller Routes
 |--------------------------------------------------------------------------
 |

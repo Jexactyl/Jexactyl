@@ -6,7 +6,7 @@ export interface GeneralSettings {
 
 export const updateGeneralSettings = async (settings: Partial<GeneralSettings>): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.patch(`/api/application/settings/general`, settings)
+        http.patch(`/api/application/settings`, settings)
             .then(() => resolve())
             .catch(reject);
     });
