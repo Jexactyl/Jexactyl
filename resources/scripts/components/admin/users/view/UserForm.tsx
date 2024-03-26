@@ -51,6 +51,7 @@ export default function UserForm({ title, initialValues, children, onSubmit, uui
             email: '',
             password: '',
             adminRoleId: null,
+            state: '',
             rootAdmin: false,
         };
     }
@@ -80,15 +81,17 @@ export default function UserForm({ title, initialValues, children, onSubmit, uui
                                         </CopyOnClick>
                                     </div>
                                 )}
-                                <Field
-                                    id={'externalId'}
-                                    name={'externalId'}
-                                    label={'External ID'}
-                                    type={'text'}
-                                    description={
-                                        'Used by external integrations, this field should not be modified unless you know what you are doing.'
-                                    }
-                                />
+                                {uuid && (
+                                    <Field
+                                        id={'externalId'}
+                                        name={'externalId'}
+                                        label={'External ID'}
+                                        type={'text'}
+                                        description={
+                                            'Used by external integrations, this field should not be modified unless you know what you are doing.'
+                                        }
+                                    />
+                                )}
                                 <Field
                                     id={'username'}
                                     name={'username'}

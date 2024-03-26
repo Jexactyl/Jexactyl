@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Everest\Http\Controllers\Api\Client;
+use Everest\Http\Middleware\SuspendedAccount;
 use Everest\Http\Middleware\Activity\ServerSubject;
 use Everest\Http\Middleware\Activity\AccountSubject;
 use Everest\Http\Middleware\RequireTwoFactorAuthentication;
@@ -19,7 +20,7 @@ use Everest\Http\Middleware\Api\Client\Server\AuthenticateServerAccess;
 Route::get('/', [Client\ClientController::class, 'index'])->name('api:client.index');
 Route::get('/permissions', [Client\ClientController::class, 'permissions']);
 
-Route::prefix('/account')->middleware(AccountSubject::class)->group(function () {
+Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::class])->group(function () {
     Route::prefix('/')->withoutMiddleware(RequireTwoFactorAuthentication::class)->group(function () {
         Route::get('/', [Client\AccountController::class, 'index'])->name('api:client.account');
         Route::get('/two-factor', [Client\TwoFactorController::class, 'index']);
@@ -55,6 +56,7 @@ Route::group([
     'prefix' => '/servers/{server}',
     'middleware' => [
         ServerSubject::class,
+        SuspendedAccount::class,
         AuthenticateServerAccess::class,
         ResourceBelongsToServer::class,
     ],

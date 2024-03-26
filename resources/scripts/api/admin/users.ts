@@ -15,6 +15,7 @@ export interface UpdateUserValues {
     password: string;
     adminRoleId: number | null;
     rootAdmin: boolean;
+    state: string;
 }
 
 const filters = ['id', 'uuid', 'external_id', 'username', 'email'] as const;
@@ -95,6 +96,14 @@ const updateUser = (id: number, values: Partial<UpdateUserValues>, include: stri
     });
 };
 
+const suspendUser = (id: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.post(`/api/application/users/${id}/suspend`)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
+
 const deleteUser = (id: number): Promise<void> => {
     return new Promise((resolve, reject) => {
         http.delete(`/api/application/users/${id}`)
@@ -103,4 +112,4 @@ const deleteUser = (id: number): Promise<void> => {
     });
 };
 
-export { useGetUsers, getUser, searchUserAccounts, createUser, updateUser, deleteUser };
+export { useGetUsers, getUser, searchUserAccounts, createUser, updateUser, suspendUser, deleteUser };

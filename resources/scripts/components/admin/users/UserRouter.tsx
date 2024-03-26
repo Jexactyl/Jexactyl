@@ -13,7 +13,8 @@ import Spinner from '@/components/elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
-import { ServerIcon, UserIcon } from '@heroicons/react/outline';
+import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
+import ManageContainer from './view/ManageContainer';
 
 interface ctx {
     user: User | undefined;
@@ -84,11 +85,16 @@ const UserRouter = () => {
                 <SubNavigationLink to={`/admin/users/${params.id}/servers`} name={'Servers'}>
                     <ServerIcon />
                 </SubNavigationLink>
+
+                <SubNavigationLink to={`/admin/users/${params.id}/manage`} name={'Manage'}>
+                    <CogIcon />
+                </SubNavigationLink>
             </SubNavigation>
 
             <Routes>
                 <Route path="" element={<UserAboutContainer />} />
                 <Route path="servers" element={<UserServers />} />
+                <Route path="manage" element={<ManageContainer />} />
             </Routes>
         </AdminContentBlock>
     );

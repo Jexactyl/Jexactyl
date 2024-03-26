@@ -40,6 +40,7 @@ class UserTransformer extends Transformer
             'avatar_url' => $model->avatar_url,
             'admin_role_id' => $model->admin_role_id,
             'role_name' => $model->admin_role_name,
+            'state' => $model->state,
             'created_at' => self::formatTimestamp($model->created_at),
             'updated_at' => self::formatTimestamp($model->updated_at),
         ];

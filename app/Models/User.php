@@ -35,6 +35,7 @@ use Everest\Notifications\SendPasswordReset as ResetPasswordNotification;
  * @property string $language
  * @property int|null $admin_role_id
  * @property bool $root_admin
+ * @property string|null $state
  * @property bool $use_totp
  * @property string|null $totp_secret
  * @property \Illuminate\Support\Carbon|null $totp_authenticated_at
@@ -128,6 +129,7 @@ class User extends Model implements
         'totp_secret',
         'totp_authenticated_at',
         'gravatar',
+        'state',
         'root_admin',
     ];
 
@@ -155,6 +157,7 @@ class User extends Model implements
         'language' => 'en',
         'use_totp' => false,
         'totp_secret' => null,
+        'state' => null,
     ];
 
     /**
@@ -168,6 +171,7 @@ class User extends Model implements
         'password' => 'sometimes|nullable|string',
         'root_admin' => 'boolean',
         'language' => 'string',
+        'state' => 'sometimes|nullable|string',
         'use_totp' => 'boolean',
         'totp_secret' => 'nullable|string',
     ];
@@ -238,6 +242,11 @@ class User extends Model implements
         return Attribute::make(
             get: fn () => md5(strtolower($this->email)),
         );
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->state === 'suspended';
     }
 
     /**

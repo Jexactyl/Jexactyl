@@ -221,6 +221,7 @@ Route::group(['prefix' => '/users'], function () {
     Route::get('/external/{external_id}', [Application\Users\ExternalUserController::class, 'index']);
 
     Route::post('/', [Application\Users\UserController::class, 'store']);
+    Route::post('/{user:id}/suspend', [Application\Users\UserController::class, 'suspend']);
 
     Route::patch('/{user:id}', [Application\Users\UserController::class, 'update']);
 

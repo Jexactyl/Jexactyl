@@ -10,6 +10,7 @@ export interface UserData {
     useTotp: boolean;
     avatarURL: string;
     roleName: string;
+    state: string;
     createdAt: Date;
     updatedAt: Date;
 }

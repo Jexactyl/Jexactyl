@@ -126,6 +126,7 @@ export default class Transformers {
             language: attributes.language,
             adminRoleId: attributes.adminRoleId || null,
             roleName: attributes.role_name,
+            state: attributes.state || null,
             isRootAdmin: attributes.root_admin,
             isUsingTwoFactor: attributes['2fa'] || false,
             avatarUrl: attributes.avatar_url,

@@ -2,8 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Application\Users;
 
-use Illuminate\Support\Arr;
+use Exception;
 use Everest\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -120,6 +121,22 @@ class UserController extends ApplicationApiController
         return $this->fractal->item($user)
             ->transformWith(UserTransformer::class)
             ->respond(201);
+    }
+
+    /**
+     * Toggles the suspension state of a user account.
+     *
+     * @throws \Throwable
+     */
+    public function suspend(User $user): Response
+    {
+        if ($user->root_admin) {
+            throw new Exception('You cannot suspend an administrator.');
+        };
+
+        $user->update(['state' => $user->isSuspended() ? '' : 'suspended']);
+
+        return $this->returnNoContent();
     }
 
     /**

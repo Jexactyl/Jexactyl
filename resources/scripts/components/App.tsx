@@ -1,17 +1,17 @@
-import { StoreProvider } from 'easy-peasy';
 import { lazy } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import '@/assets/tailwind.css';
-import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
-import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
-import ProgressBar from '@/components/elements/ProgressBar';
-import { NotFound } from '@/components/elements/ScreenBlock';
-import Spinner from '@/components/elements/Spinner';
 import { store } from '@/state';
+import { StoreProvider } from 'easy-peasy';
+import { AdminContext } from '@/state/admin';
 import { ServerContext } from '@/state/server';
 import { SiteSettings } from '@/state/settings';
-import { AdminContext } from '@/state/admin';
+import Spinner from '@/components/elements/Spinner';
+import NotFoundSvg from '@/assets/images/not_found.svg';
+import ProgressBar from '@/components/elements/ProgressBar';
+import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
+import ScreenBlock, { NotFound } from '@/components/elements/ScreenBlock';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -30,6 +30,7 @@ interface ExtendedWindow extends Window {
         language: string;
         avatar_url: string;
         admin_role_name: string;
+        state: string;
         updated_at: string;
         created_at: string;
         /* eslint-enable camelcase */
@@ -49,6 +50,7 @@ function App() {
             rootAdmin: PterodactylUser.root_admin,
             avatarURL: PterodactylUser.avatar_url,
             roleName: PterodactylUser.admin_role_name,
+            state: PterodactylUser.state,
             useTotp: PterodactylUser.use_totp,
             createdAt: new Date(PterodactylUser.created_at),
             updatedAt: new Date(PterodactylUser.updated_at),
@@ -59,11 +61,19 @@ function App() {
         store.getActions().settings.setSettings(SiteConfiguration!);
     }
 
+    if (PterodactylUser?.state === 'suspended') {
+        return (
+            <ScreenBlock
+                image={NotFoundSvg}
+                title={'Account Suspended'}
+                message={'Your account has been suspended. Please contact an administrator.'}
+            />
+        );
+    }
+
     return (
         <>
-            {/* @ts-expect-error go away */}
             <GlobalStylesheet />
-
             <StoreProvider store={store}>
                 <ProgressBar />
 

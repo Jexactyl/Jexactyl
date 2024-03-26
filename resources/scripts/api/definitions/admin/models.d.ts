@@ -13,6 +13,7 @@ interface User extends ModelWithRelationships {
     isRootAdmin: boolean;
     isUsingTwoFactor: boolean;
     avatarUrl: string;
+    state: string;
     createdAt: Date;
     updatedAt: Date;
     relationships: {
