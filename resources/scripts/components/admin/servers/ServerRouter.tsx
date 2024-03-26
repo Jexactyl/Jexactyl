@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import ServerManageContainer from '@/components/admin/servers/ServerManageContainer';
+import ServerManageContainer from '@/components/admin/servers/manage/ServerManageContainer';
 import ServerStartupContainer from '@/components/admin/servers/ServerStartupContainer';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import Spinner from '@/components/elements/Spinner';
@@ -11,7 +11,14 @@ import { SubNavigation, SubNavigationLink } from '@/components/admin/SubNavigati
 import ServerSettingsContainer from '@/components/admin/servers/ServerSettingsContainer';
 import useFlash from '@/plugins/useFlash';
 import { useServerFromRoute } from '@/api/admin/server';
-import { AdjustmentsIcon, CogIcon, DatabaseIcon, FolderIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
+import {
+    AdjustmentsIcon,
+    CogIcon,
+    DatabaseIcon,
+    ExternalLinkIcon,
+    FolderIcon,
+    ShieldExclamationIcon,
+} from '@heroicons/react/outline';
 
 export default () => {
     const params = useParams<'id'>();
@@ -64,6 +71,7 @@ export default () => {
                     name={'Manage'}
                     icon={ShieldExclamationIcon}
                 />
+                <SubNavigationLink to={`/server/${server.uuid.split('-')[0]}`} name={'View'} icon={ExternalLinkIcon} />
             </SubNavigation>
 
             <Routes>

@@ -71,3 +71,29 @@
         @apply bg-red-600/75 text-red-50/75;
     }
 }
+
+.info {
+    @apply bg-blue-600 text-slate-50;
+    @apply hover:bg-blue-500 active:bg-blue-500 focus:ring-blue-400 focus:ring-opacity-75;
+
+    &.secondary {
+        @apply hover:bg-blue-600 active:bg-blue-600;
+    }
+
+    &:disabled {
+        @apply bg-blue-600/75 text-blue-50/75;
+    }
+}
+
+.warn {
+    @apply bg-yellow-600 text-slate-50;
+    @apply hover:bg-yellow-500 active:bg-yellow-500 focus:ring-yellow-400 focus:ring-opacity-75;
+
+    &.secondary {
+        @apply hover:bg-yellow-600 active:bg-yellow-600;
+    }
+
+    &:disabled {
+        @apply bg-yellow-600/75 text-yellow-50/75;
+    }
+}

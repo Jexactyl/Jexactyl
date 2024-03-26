@@ -2,8 +2,8 @@
 
 namespace Everest\Http\Controllers\Api\Application\Servers;
 
-use Illuminate\Http\Response;
 use Everest\Models\Server;
+use Illuminate\Http\Response;
 use Everest\Services\Servers\SuspensionService;
 use Everest\Services\Servers\ReinstallServerService;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
@@ -16,7 +16,7 @@ class ServerManagementController extends ApplicationApiController
      */
     public function __construct(
         private ReinstallServerService $reinstallServerService,
-        private SuspensionService $suspensionService
+        private SuspensionService $suspensionService,
     ) {
         parent::__construct();
     }
@@ -53,6 +53,22 @@ class ServerManagementController extends ApplicationApiController
     public function reinstall(ServerWriteRequest $request, Server $server): Response
     {
         $this->reinstallServerService->handle($server);
+
+        return $this->returnNoContent();
+    }
+
+    /**
+     * Toggles the installation status for a server.
+     *
+     * @throws \Throwable
+     */
+    public function toggle(Server $server): Response
+    {
+        if ($server->status === Server::STATUS_INSTALL_FAILED) {
+            throw new \Exception('The server failed to install, so we cannot change the state.');
+        }
+
+        $server->update(['status' => $server->isInstalled() ? Server::STATUS_INSTALLING : null]);
 
         return $this->returnNoContent();
     }

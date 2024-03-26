@@ -174,6 +174,7 @@ Route::group(['prefix' => '/servers'], function () {
     Route::patch('/{server:id}/startup', [Application\Servers\StartupController::class, 'index']);
 
     Route::post('/', [Application\Servers\ServerController::class, 'store']);
+    Route::post('/{server:id}/toggle', [Application\Servers\ServerManagementController::class, 'toggle']);
     Route::post('/{server:id}/suspend', [Application\Servers\ServerManagementController::class, 'suspend']);
     Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);
     Route::post('/{server:id}/reinstall', [Application\Servers\ServerManagementController::class, 'reinstall']);
