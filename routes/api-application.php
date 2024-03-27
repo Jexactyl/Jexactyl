@@ -20,6 +20,20 @@ Route::group(['prefix' => '/settings'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| API Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/api
+|
+*/
+Route::group(['prefix' => '/api'], function () {
+    Route::get('/', [Application\Api\ApiController::class, 'index']);
+    Route::post('/', [Application\Api\ApiController::class, 'store']);
+    Route::delete('/{key:id}', [Application\Api\ApiController::class, 'delete']);
+});
+
+/*
+|--------------------------------------------------------------------------
 | Database Controller Routes
 |--------------------------------------------------------------------------
 |

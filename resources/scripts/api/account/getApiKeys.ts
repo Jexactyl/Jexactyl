@@ -1,6 +1,7 @@
 import http from '@/api/http';
 
 export interface ApiKey {
+    id?: number;
     identifier: string;
     description: string;
     allowedIps: string[];
@@ -9,6 +10,7 @@ export interface ApiKey {
 }
 
 export const rawDataToApiKey = (data: any): ApiKey => ({
+    id: data.id,
     identifier: data.identifier,
     description: data.description,
     allowedIps: data.allowed_ips,

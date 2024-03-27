@@ -6,6 +6,7 @@ import * as Models from '@definitions/admin/models';
 import { Location } from '@/api/admin/location';
 import { Egg, EggVariable } from '@/api/admin/egg';
 import { Nest } from '@/api/admin/nest';
+import { ApiKey } from '@/api/account/getApiKeys';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 
@@ -114,6 +115,15 @@ export default class Transformers {
         name: attributes.name,
         description: attributes.description,
         relationships: {},
+    });
+
+    static toApiKey = ({ attributes }: FractalResponseData): ApiKey => ({
+        id: attributes.id,
+        identifier: attributes.identifier,
+        description: attributes.description,
+        allowedIps: attributes.allowed_ips,
+        createdAt: new Date(attributes.created_at),
+        lastUsedAt: new Date(attributes.last_used_at),
     });
 
     static toUser = ({ attributes }: FractalResponseData): Models.User => {

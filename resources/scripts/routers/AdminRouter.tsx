@@ -1,4 +1,5 @@
 import {
+    CodeIcon,
     CogIcon,
     DatabaseIcon,
     FolderIcon,
@@ -43,6 +44,8 @@ import type { ApplicationStore } from '@/state';
 import Sidebar from '@/components/elements/Sidebar';
 // import useUserPersistedState from '@/plugins/useUserPersistedState';
 import UsersContainer from '@/components/admin/users/UsersContainer';
+import ApiContainer from '@/components/admin/api/ApiContainer';
+import NewApiKeyContainer from '@/components/admin/api/NewApiKeyContainer';
 
 function AdminRouter() {
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
@@ -73,6 +76,10 @@ function AdminRouter() {
                     <NavLink to="/admin/settings">
                         <CogIcon />
                         <span>Settings</span>
+                    </NavLink>
+                    <NavLink to="/admin/api">
+                        <CodeIcon />
+                        <span>API</span>
                     </NavLink>
                     <Sidebar.Section>Management</Sidebar.Section>
                     <NavLink to="/admin/databases">
@@ -132,6 +139,8 @@ function AdminRouter() {
                     <Routes>
                         <Route path="" element={<OverviewContainer />} />
                         <Route path="settings/*" element={<SettingsContainer />} />
+                        <Route path="api" element={<ApiContainer />} />
+                        <Route path="api/new" element={<NewApiKeyContainer />} />
                         <Route path="databases" element={<DatabasesContainer />} />
                         <Route path="databases/new" element={<NewDatabaseContainer />} />
                         <Route path="databases/:id" element={<DatabaseEditContainer />} />

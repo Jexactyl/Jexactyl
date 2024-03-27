@@ -18,9 +18,12 @@ import type { AdminServerStore } from '@/state/admin/servers';
 import servers from '@/state/admin/servers';
 import type { AdminUserStore } from '@/state/admin/users';
 import users from '@/state/admin/users';
+import type { AdminApiStore } from '@/state/admin/api';
+import api from '@/state/admin/api';
 
 interface AdminStore {
     allocations: AdminAllocationStore;
+    api: AdminApiStore;
     databases: AdminDatabaseStore;
     locations: AdminLocationStore;
     mounts: AdminMountStore;
@@ -33,6 +36,7 @@ interface AdminStore {
 
 export const AdminContext = createContextStore<AdminStore>({
     allocations,
+    api,
     databases,
     locations,
     mounts,
