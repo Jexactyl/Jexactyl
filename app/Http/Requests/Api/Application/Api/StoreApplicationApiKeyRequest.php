@@ -10,6 +10,12 @@ class StoreApplicationApiKeyRequest extends ApplicationApiRequest
 {
     public function getKeyPermissions(): array
     {
-        return (array) $this->all()['permissions'];
+        $arr = [];
+
+        foreach ($this->all()['permissions'] as $key => $value) {
+            $arr[$key] = $value;
+        };
+
+        return $arr;
     }
 }

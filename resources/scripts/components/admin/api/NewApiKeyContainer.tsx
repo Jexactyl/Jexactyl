@@ -19,15 +19,15 @@ import PermissionRow from '@/components/admin/api/PermissionRow';
 const initialValues: Values = {
     memo: 'Your API Key',
     permissions: {
-        r_allocations: 0,
-        r_database_hosts: 0,
-        r_eggs: 0,
-        r_locations: 0,
-        r_nests: 0,
-        r_nodes: 0,
-        r_server_databases: 0,
-        r_servers: 0,
-        r_users: 0,
+        r_allocations: '0',
+        r_database_hosts: '0',
+        r_eggs: '0',
+        r_locations: '0',
+        r_nests: '0',
+        r_nodes: '0',
+        r_server_databases: '0',
+        r_servers: '0',
+        r_users: '0',
     },
 };
 
@@ -53,7 +53,7 @@ export default () => {
     };
 
     return (
-        <AdminContentBlock title={'New Node'}>
+        <AdminContentBlock title={'New API Key'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>New Api Key</h2>

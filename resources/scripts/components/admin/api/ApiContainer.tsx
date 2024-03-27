@@ -69,7 +69,7 @@ function ApiContainer() {
     }, [page]);
 
     return (
-        <AdminContentBlock title={'User Accounts'}>
+        <AdminContentBlock title={'API Keys'}>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Application API</h2>

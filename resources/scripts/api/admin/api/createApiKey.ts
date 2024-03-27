@@ -7,15 +7,15 @@ export interface Values {
 }
 
 export interface Permission {
-    r_allocations: number;
-    r_database_hosts: number;
-    r_eggs: number;
-    r_locations: number;
-    r_nests: number;
-    r_nodes: number;
-    r_server_databases: number;
-    r_servers: number;
-    r_users: number;
+    r_allocations: string;
+    r_database_hosts: string;
+    r_eggs: string;
+    r_locations: string;
+    r_nests: string;
+    r_nodes: string;
+    r_server_databases: string;
+    r_servers: string;
+    r_users: string;
 }
 
 export default (values: Values): Promise<ApiKey> => {

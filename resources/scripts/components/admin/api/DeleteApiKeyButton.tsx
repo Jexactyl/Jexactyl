@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { useNavigate } from 'react-router-dom';
 import { Dialog } from '@/components/elements/dialog';
 import { Button } from '@/components/elements/button';
 import deleteApiKey from '@/api/admin/api/deleteApiKey';
@@ -8,7 +7,6 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default ({ id }: { id: number }) => {
-    const navigate = useNavigate();
     const [visible, setVisible] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
@@ -16,7 +14,7 @@ export default ({ id }: { id: number }) => {
         clearFlashes('api');
 
         deleteApiKey(id)
-            .then(() => navigate('/admin/api'))
+            .then(() => window.location.reload())
             .catch(error => clearAndAddHttpError({ key: 'api', error }));
 
         setVisible(false);
