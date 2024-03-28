@@ -10,6 +10,10 @@ export interface SiteSettings {
     registration: {
         enabled: boolean;
     };
+    security: {
+        force2fa: boolean;
+        attempts: number;
+    };
 }
 
 export interface SettingsStore {

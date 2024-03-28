@@ -42,16 +42,14 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
-        $level = (int) config('everest.auth.2fa_required');
+        $twoFactorRequired = (bool) config('modules.security.force2fa');
         // If this setting is not configured, or the user is already using 2FA then we can just
         // send them right through, nothing else needs to be checked.
         //
         // If the level is set as admin and the user is not an admin, pass them through as well.
-        if ($level === self::LEVEL_NONE || $user->use_totp) {
+        if (!$twoFactorRequired) {
             return $next($request);
-        } elseif ($level === self::LEVEL_ADMIN && !$user->root_admin) {
-            return $next($request);
-        }
+        };
 
         // For API calls return an exception which gets rendered nicely in the API response.
         if ($request->isJson() || Str::startsWith($uri, '/api/')) {

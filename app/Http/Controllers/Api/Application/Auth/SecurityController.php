@@ -7,10 +7,10 @@ use Illuminate\Http\Response;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
-class RegistrationController extends ApplicationApiController
+class SecurityController extends ApplicationApiController
 {
     /**
-     * RegistrationController constructor.
+     * SecurityController constructor.
      */
     public function __construct(
         private SettingsRepositoryInterface $settings
@@ -19,7 +19,7 @@ class RegistrationController extends ApplicationApiController
     }
 
     /**
-     * Update the general registration settings on the Panel.
+     * Update the auth security settings on the Panel.
      * Currently, it is only possible to update one value at once.
      *
      * @throws \Throwable
@@ -27,7 +27,7 @@ class RegistrationController extends ApplicationApiController
     public function update(Request $request): Response
     {
         $this->settings->set(
-            'settings::modules:registration:' . $request->input('key'),
+            'settings::modules:security:' . $request->input('key'),
             $request->input('value')
         );
 
