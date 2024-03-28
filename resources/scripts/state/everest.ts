@@ -13,6 +13,10 @@ export interface EverestSettings {
             discord: {
                 enabled: boolean;
             };
+            onboarding: {
+                enabled: boolean;
+                content?: string;
+            };
         };
     };
 }

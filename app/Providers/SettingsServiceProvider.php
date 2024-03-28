@@ -36,6 +36,9 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:security:attempts',
 
         'modules:auth:discord:enabled',
+
+        'modules:auth:onboarding:enabled',
+        'modules:auth:onboarding:content',
     ];
 
     /**

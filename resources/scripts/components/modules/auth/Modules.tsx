@@ -2,6 +2,7 @@ import Box from '@/components/modules/auth/Box';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { faDiscord, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useStoreState } from '@/state/hooks';
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const modules = useStoreState(state => state.everest.data!.auth.modules);
@@ -23,6 +24,18 @@ export default () => {
                 title={'Discord SSO'}
                 disabled={modules.discord.enabled}
                 description={'This module allows users to sign up and login via the Discord Authentication API.'}
+            />
+            <Box
+                icon={faDoorOpen}
+                name={'onboarding'}
+                title={'Onboarding'}
+                disabled={modules.onboarding.enabled}
+                recommended={
+                    "It is strongly recommended you use this module with OAuth modules. If you don't, users may be without a password."
+                }
+                description={
+                    'This module allows users to create usernames and passwords after signing up with an OAuth provider.'
+                }
             />
             <Box
                 name={'google'}

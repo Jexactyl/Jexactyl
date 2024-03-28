@@ -24,6 +24,10 @@ class EverestComposer
                     'discord' => [
                         'enabled' => boolval(config('modules.auth.discord.enabled', false)),
                     ],
+                    'onboarding' => [
+                        'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
+                        'content' => config('modules.auth.onboarding.content', ''),
+                    ]
                 ]
             ],
         ]);

@@ -12,6 +12,12 @@ import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import Field from '@/components/elements/Field';
 import { Button } from '@/components/elements/button';
 import useFlash from '@/plugins/useFlash';
+import useOauthLogin from '@/api/auth/useOauthLogin';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+import Label from '../elements/Label';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import Tooltip from '../elements/tooltip/Tooltip';
 
 interface Values {
     username: string;
@@ -23,6 +29,7 @@ function LoginContainer() {
     const [token, setToken] = useState('');
 
     const appName = useStoreState(state => state.settings.data!.name);
+    const modules = useStoreState(state => state.everest.data!.auth.modules);
     const registration = useStoreState(state => state.everest.data!.auth.registration.enabled);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
@@ -33,6 +40,16 @@ function LoginContainer() {
     useEffect(() => {
         clearFlashes();
     }, []);
+
+    const useOauth = (name: string) => {
+        useOauthLogin(name)
+            .then(url => {
+                console.log(url);
+                // @ts-expect-error this is fine
+                window.location = url;
+            })
+            .catch(error => clearAndAddHttpError({ key: 'auth:register', error }));
+    };
 
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
@@ -84,7 +101,16 @@ function LoginContainer() {
                 <LoginFormContainer title={`Welcome to ${appName}`}>
                     <Field type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
-                        <Field type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
+                        <Label>
+                            Password
+                            <Link
+                                to={'/auth/password'}
+                                className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
+                            >
+                                Forgot Password?
+                            </Link>
+                        </Label>
+                        <Field type={'password'} name={'password'} disabled={isSubmitting} />
                     </div>
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
@@ -106,24 +132,25 @@ function LoginContainer() {
                             }}
                         />
                     )}
-                    <div css={tw`mt-6 text-center`}>
-                        <Link
-                            to={'/auth/password'}
-                            css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
-                        >
-                            Forgot password?
-                        </Link>
+                    <p className={'text-xs text-gray-300 uppercase font-medium text-center my-3'}>
+                        Or, authenticate with
+                    </p>
+                    <div className={'w-full flex flex-wrap gap-4 grid-cols-6 justify-center items-center'}>
+                        {modules.discord.enabled && (
+                            <Tooltip content={'Register and login with Discord'}>
+                                <Button.Info onClick={() => useOauth('discord')} className={'w-12 h-12'}>
+                                    <FontAwesomeIcon icon={faDiscord} />
+                                </Button.Info>
+                            </Tooltip>
+                        )}
+                        {registration && (
+                            <Tooltip content={'Register with your email address'}>
+                                <Button.Text onClick={() => navigate('/auth/register')} className={'w-12 h-12'}>
+                                    <FontAwesomeIcon icon={faEnvelope} />
+                                </Button.Text>
+                            </Tooltip>
+                        )}
                     </div>
-                    {registration && (
-                        <div css={tw`mt-6 text-center`}>
-                            <Link
-                                to={'/auth/register'}
-                                css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
-                            >
-                                Create an Account
-                            </Link>
-                        </div>
-                    )}
                 </LoginFormContainer>
             )}
         </Formik>

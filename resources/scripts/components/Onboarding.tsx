@@ -9,6 +9,7 @@ import setup, { Values } from '@/api/account/setup';
 
 export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const content = useStoreState(state => state.everest.data!.auth.modules.onboarding.content);
     const appName = useStoreState(state => state.settings.data!.name);
 
     const submit = (values: Values) => {
@@ -35,7 +36,7 @@ export default () => {
                 <Form>
                     <p className={'mt-2'}>We are missing some details - please enter them now.</p>
                     <p className={'text-sm text-gray-400'}>
-                        You can change these at any time in the &apos;Account&apos; tab.
+                        {content ?? "You can change these at any time in the 'Account' tab."}
                     </p>
                     <div className={'my-6'}>
                         <Field

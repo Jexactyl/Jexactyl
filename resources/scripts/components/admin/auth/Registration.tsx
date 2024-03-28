@@ -9,6 +9,7 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import updateRegistrationSettings from '@/api/admin/auth/updateRegistrationSettings';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { useStoreState } from '@/state/hooks';
+import { Alert } from '@/components/elements/alert';
 
 export default () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -53,6 +54,14 @@ export default () => {
                     Toggle whether users can register using the built-in pages.
                 </p>
             </div>
+            {!settings.enabled && (
+                <Alert type={'warning'} className={'mt-6'}>
+                    <span className={'text-xs'}>
+                        Since registration is disabled, OAuth modules like Discord will only allow users to login - not
+                        register.
+                    </span>
+                </Alert>
+            )}
         </AdminBox>
     );
 };

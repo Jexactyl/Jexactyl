@@ -13,9 +13,6 @@ import { Button } from '@/components/elements/button';
 import useFlash from '@/plugins/useFlash';
 import register from '@/api/auth/register';
 import login from '@/api/auth/login';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import useOauthLogin from '@/api/auth/useOauthLogin';
 
 interface Values {
     username: string;
@@ -29,22 +26,11 @@ function RegisterContainer() {
     const [token, setToken] = useState('');
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const modules = useStoreState(state => state.everest.data!.auth.modules);
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
 
     useEffect(() => {
         clearFlashes();
     }, []);
-
-    const useOauth = (name: string) => {
-        useOauthLogin(name)
-            .then(url => {
-                console.log(url);
-                // @ts-expect-error this is fine
-                window.location = url;
-            })
-            .catch(error => clearAndAddHttpError({ key: 'auth:register', error }));
-    };
 
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
@@ -130,14 +116,6 @@ function RegisterContainer() {
                             }}
                         />
                     )}
-                    <p className={'text-xs text-gray-300 uppercase font-medium text-center my-3'}>OR</p>
-                    <div className={'grid grid-cols-2 gap-4'}>
-                        {modules.discord.enabled && (
-                            <Button.Info onClick={() => useOauth('discord')}>
-                                Register using Discord <FontAwesomeIcon icon={faDiscord} className={'ml-1'} />
-                            </Button.Info>
-                        )}
-                    </div>
                     <div css={tw`mt-6 text-center`}>
                         <Link
                             to={'/auth/login'}

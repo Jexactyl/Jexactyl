@@ -1,20 +1,22 @@
 import AdminBox from '@/components/admin/AdminBox';
 import { Button } from '@/components/elements/button';
 import { PlusCircleIcon } from '@heroicons/react/solid';
-import { faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
+import { faPuzzlePiece, faStar } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import enableModule from '@/api/admin/auth/enableModule';
 import useFlash from '@/plugins/useFlash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
     name: string;
     title: string;
     disabled?: boolean;
     description: string;
+    recommended?: string;
     icon?: IconDefinition | undefined;
 }
 
-export default ({ name, title, disabled, description, icon }: Props) => {
+export default ({ name, title, disabled, recommended, description, icon }: Props) => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
     const submit = () => {
@@ -39,6 +41,12 @@ export default ({ name, title, disabled, description, icon }: Props) => {
                 Add to Panel
             </Button>
             {description}
+            {recommended && (
+                <div className={'mt-2 bg-zinc-700 p-2 rounded-lg text-xs text-gray-400'}>
+                    <FontAwesomeIcon icon={faStar} className={'text-yellow-500 mr-1'} />
+                    {recommended}
+                </div>
+            )}
         </AdminBox>
     );
 };

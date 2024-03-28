@@ -8,6 +8,7 @@ import { Dialog } from '@/components/elements/dialog';
 import AuthModules from '@/components/modules/auth/Modules';
 import { useStoreState } from '@/state/hooks';
 import DiscordSSO from './modules/DiscordSSO';
+import Onboarding from '@/components/admin/auth/modules/Onboarding';
 
 export default () => {
     const [visible, setVisible] = useState<boolean>(false);
@@ -44,6 +45,7 @@ export default () => {
                 <Registration />
                 <Security />
                 {modules.discord.enabled && <DiscordSSO />}
+                {modules.onboarding.enabled && <Onboarding />}
             </div>
         </AdminContentBlock>
     );

@@ -83,7 +83,8 @@ function App() {
             <GlobalStylesheet />
             <StoreProvider store={store}>
                 <ProgressBar />
-                {PterodactylUser?.username.startsWith('null_user_') ? (
+                {PterodactylUser?.username.startsWith('null_user_') &&
+                EverestConfiguration?.auth.modules.onboarding.enabled ? (
                     <Onboarding />
                 ) : (
                     <div className="mx-auto w-auto">
