@@ -56,13 +56,13 @@ class DiscordLoginController extends AbstractLoginController
             'grant_type' => 'authorization_code',
             'code' => $request->input('code'),
             'redirect_uri' => route('auth.modules.discord.authenticate'),
-        ])->getBody();
+        ])->body();
 
         $response = json_decode($response);
 
-        $account = Http::get('https://discord.com/api/users/@me', [
+        $account = Http::asForm()->get('https://discord.com/api/users/@me')->withHeaders([
             'Authorization' => 'Bearer ' . $response->access_token,
-        ])->getBody();
+        ])->body();
 
         $account = json_decode($account);
 
