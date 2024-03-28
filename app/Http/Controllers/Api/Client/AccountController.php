@@ -9,6 +9,7 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Everest\Services\Users\UserUpdateService;
 use Everest\Transformers\Api\Client\AccountTransformer;
+use Everest\Http\Requests\Api\Client\Account\SetupUserRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
 
@@ -71,5 +72,15 @@ class AccountController extends ClientApiController
         Activity::event('user:account.password-changed')->log();
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Set up an account when registered with OAuth2.
+     */
+    public function setup(SetupUserRequest $request): JsonResponse
+    {
+        $user = $this->updateService->handle($request->user(), $request->validated());
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT); 
     }
 }

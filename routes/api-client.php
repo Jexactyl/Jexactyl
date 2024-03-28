@@ -42,6 +42,8 @@ Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::
         Route::post('/', [Client\SSHKeyController::class, 'store']);
         Route::post('/remove', [Client\SSHKeyController::class, 'delete']);
     });
+
+    Route::post('/setup', [Client\AccountController::class, 'setup']);
 });
 
 /*

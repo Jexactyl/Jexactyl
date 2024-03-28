@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\RedirectResponse;
 use Everest\Services\Users\UserCreationService;
 use Everest\Http\Controllers\Auth\AbstractLoginController;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
@@ -48,9 +49,9 @@ class DiscordLoginController extends AbstractLoginController
     /**
      * Authenticate with the Discord OAuth2 service.
      */
-    public function authenticate(Request $request): void
+    public function authenticate(Request $request): RedirectResponse
     {
-        $response = Http::post('https://discord.com/api/oauth2/token', [
+        $response = Http::asForm()->post('https://discord.com/api/oauth2/token', [
             'client_id' => $this->settings->get('settings::modules:auth:discord:client_id'),
             'client_secret' => $this->settings->get('settings::modules:auth:discord:client_secret'),
             'grant_type' => 'authorization_code',
@@ -60,9 +61,9 @@ class DiscordLoginController extends AbstractLoginController
 
         $response = json_decode($response);
 
-        $account = Http::asForm()->get('https://discord.com/api/users/@me')->withHeaders([
+        $account = Http::withHeaders([
             'Authorization' => 'Bearer ' . $response->access_token,
-        ])->body();
+        ])->asForm()->get('https://discord.com/api/users/@me')->body();
 
         $account = json_decode($account);
 
@@ -70,15 +71,15 @@ class DiscordLoginController extends AbstractLoginController
             $user = User::where('email', $account->email)->first();
 
             $this->sendLoginResponse($user, $request);
+            return redirect('/account/setup');
         } else {
-            $user = $this->createAccount(['email' => $account->email, 'username' => $discord->username]);
+            $user = $this->createAccount(['email' => $account->email, 'username' => 'null_user_' . $this->randStr(16)]);
 
             $this->sendLoginResponse($user, $request);
+            return redirect('/account/setup');
         }
 
-        $this->sendFailedLoginResponse($request, $user);
-
-        return;
+        return redirect()->route('auth.login');
     }
 
     /**
@@ -87,5 +88,13 @@ class DiscordLoginController extends AbstractLoginController
     public function createAccount(array $data): User
     {
         return $this->creationService->handle($data);
+    }
+
+    /**
+     * Create a random string we can use for a temporary username.
+     */
+    public function randStr(int $length = 10): string
+    {
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
     }
 }

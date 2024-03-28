@@ -13,6 +13,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
 import ScreenBlock, { NotFound } from '@/components/elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
+import Onboarding from '@/components/Onboarding';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -82,58 +83,61 @@ function App() {
             <GlobalStylesheet />
             <StoreProvider store={store}>
                 <ProgressBar />
-
-                <div className="mx-auto w-auto">
-                    <BrowserRouter>
-                        <Routes>
-                            <Route
-                                path="/auth/*"
-                                element={
-                                    <Spinner.Suspense>
-                                        <AuthenticationRouter />
-                                    </Spinner.Suspense>
-                                }
-                            />
-
-                            <Route
-                                path="/server/:id/*"
-                                element={
-                                    <AuthenticatedRoute>
+                {PterodactylUser?.username.startsWith('null_user_') ? (
+                    <Onboarding />
+                ) : (
+                    <div className="mx-auto w-auto">
+                        <BrowserRouter>
+                            <Routes>
+                                <Route
+                                    path="/auth/*"
+                                    element={
                                         <Spinner.Suspense>
-                                            <ServerContext.Provider>
-                                                <ServerRouter />
-                                            </ServerContext.Provider>
+                                            <AuthenticationRouter />
                                         </Spinner.Suspense>
-                                    </AuthenticatedRoute>
-                                }
-                            />
+                                    }
+                                />
 
-                            <Route
-                                path="/admin/*"
-                                element={
-                                    <Spinner.Suspense>
-                                        <AdminContext.Provider>
-                                            <AdminRouter />
-                                        </AdminContext.Provider>
-                                    </Spinner.Suspense>
-                                }
-                            />
+                                <Route
+                                    path="/server/:id/*"
+                                    element={
+                                        <AuthenticatedRoute>
+                                            <Spinner.Suspense>
+                                                <ServerContext.Provider>
+                                                    <ServerRouter />
+                                                </ServerContext.Provider>
+                                            </Spinner.Suspense>
+                                        </AuthenticatedRoute>
+                                    }
+                                />
 
-                            <Route
-                                path="/*"
-                                element={
-                                    <AuthenticatedRoute>
+                                <Route
+                                    path="/admin/*"
+                                    element={
                                         <Spinner.Suspense>
-                                            <DashboardRouter />
+                                            <AdminContext.Provider>
+                                                <AdminRouter />
+                                            </AdminContext.Provider>
                                         </Spinner.Suspense>
-                                    </AuthenticatedRoute>
-                                }
-                            />
+                                    }
+                                />
 
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                    </BrowserRouter>
-                </div>
+                                <Route
+                                    path="/*"
+                                    element={
+                                        <AuthenticatedRoute>
+                                            <Spinner.Suspense>
+                                                <DashboardRouter />
+                                            </Spinner.Suspense>
+                                        </AuthenticatedRoute>
+                                    }
+                                />
+
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </BrowserRouter>
+                    </div>
+                )}
             </StoreProvider>
         </>
     );
