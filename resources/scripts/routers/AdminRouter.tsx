@@ -1,13 +1,16 @@
 import {
+    CashIcon,
     CodeIcon,
     CogIcon,
     DatabaseIcon,
     FolderIcon,
     GlobeIcon,
+    KeyIcon,
     OfficeBuildingIcon,
     ReplyIcon,
     ServerIcon,
     TerminalIcon,
+    TicketIcon,
     UsersIcon,
     ViewGridIcon,
 } from '@heroicons/react/outline';
@@ -46,6 +49,7 @@ import Sidebar from '@/components/elements/Sidebar';
 import UsersContainer from '@/components/admin/users/UsersContainer';
 import ApiContainer from '@/components/admin/api/ApiContainer';
 import NewApiKeyContainer from '@/components/admin/api/NewApiKeyContainer';
+import AuthContainer from '@/components/admin/auth/AuthContainer';
 
 function AdminRouter() {
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
@@ -80,6 +84,19 @@ function AdminRouter() {
                     <NavLink to="/admin/api">
                         <CodeIcon />
                         <span>API</span>
+                    </NavLink>
+                    <Sidebar.Section>Modules</Sidebar.Section>
+                    <NavLink to="/admin/auth">
+                        <KeyIcon />
+                        <span>Auth</span>
+                    </NavLink>
+                    <NavLink to="/admin/billing">
+                        <CashIcon />
+                        <span>Billing</span>
+                    </NavLink>
+                    <NavLink to="/admin/tickets">
+                        <TicketIcon />
+                        <span>Tickets</span>
                     </NavLink>
                     <Sidebar.Section>Management</Sidebar.Section>
                     <NavLink to="/admin/databases">
@@ -141,6 +158,7 @@ function AdminRouter() {
                         <Route path="settings/*" element={<SettingsContainer />} />
                         <Route path="api" element={<ApiContainer />} />
                         <Route path="api/new" element={<NewApiKeyContainer />} />
+                        <Route path="auth" element={<AuthContainer />} />
                         <Route path="databases" element={<DatabasesContainer />} />
                         <Route path="databases/new" element={<NewDatabaseContainer />} />
                         <Route path="databases/:id" element={<DatabaseEditContainer />} />

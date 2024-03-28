@@ -18,6 +18,9 @@ class AssetComposer
                 'enabled' => config('recaptcha.enabled', false),
                 'siteKey' => config('recaptcha.website_key') ?? '',
             ],
+            'registration' => [
+                'enabled' => boolval(config('registration.enabled', false)),
+            ],
         ]);
     }
 }

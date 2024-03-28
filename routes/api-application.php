@@ -20,6 +20,18 @@ Route::group(['prefix' => '/settings'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Auth Settings Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/auth
+|
+*/
+Route::group(['prefix' => '/auth'], function () {
+    Route::put('/registration', [Application\Auth\RegistrationController::class, 'update']);
+});
+
+/*
+|--------------------------------------------------------------------------
 | API Controller Routes
 |--------------------------------------------------------------------------
 |
