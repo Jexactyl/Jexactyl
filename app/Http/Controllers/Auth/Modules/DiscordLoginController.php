@@ -2,12 +2,12 @@
 
 namespace Everest\Http\Controllers\Auth\Modules;
 
-use GuzzleHttp\Client;
 use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Http;
 use Everest\Services\Users\UserCreationService;
 use Everest\Http\Controllers\Auth\AbstractLoginController;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
@@ -50,7 +50,7 @@ class DiscordLoginController extends AbstractLoginController
      */
     public function authenticate(Request $request): void
     {
-        $response = (new Client())->request('POST', 'https://discord.com/api/oauth2/token', [
+        $response = Http::post('https://discord.com/api/oauth2/token', [
             'client_id' => $this->settings->get('settings::modules:auth:discord:client_id'),
             'client_secret' => $this->settings->get('settings::modules:auth:discord:client_secret'),
             'grant_type' => 'authorization_code',
@@ -60,7 +60,7 @@ class DiscordLoginController extends AbstractLoginController
 
         $response = json_decode($response);
 
-        $account = (new Client())->request('GET', 'https://discord.com/api/users/@me', [
+        $account = Http::get('https://discord.com/api/users/@me', [
             'Authorization' => 'Bearer ' . $response->access_token,
         ])->getBody();
 
