@@ -68,6 +68,7 @@ export default () => {
                     id={'client_id'}
                     type={'password'}
                     name={'client_id'}
+                    placeholder={'••••••••••••••••'}
                     onChange={e => update('client_id', e.target.value)}
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>
@@ -79,11 +80,12 @@ export default () => {
                 </p>
             </div>
             <div className={'mt-6'}>
-                <Label>Client Identifier</Label>
+                <Label>Client Secret</Label>
                 <Input
                     id={'client_secret'}
                     type={'password'}
                     name={'client_secret'}
+                    placeholder={'••••••••••••••••'}
                     onChange={e => update('client_secret', e.target.value)}
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>

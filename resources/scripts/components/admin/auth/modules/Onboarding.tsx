@@ -11,12 +11,14 @@ import { Dialog } from '@/components/elements/dialog';
 import disableModule from '@/api/admin/auth/disableModule';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
+import { Alert } from '@/components/elements/alert';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const force2fa = useStoreState(state => state.everest.data!.auth.security.force2fa);
     const content = useStoreState(state => state.everest.data!.auth.modules.onboarding.content);
 
     const update = async (key: string, value: any) => {
@@ -77,6 +79,14 @@ export default () => {
                     you wish.
                 </p>
             </div>
+            {force2fa && (
+                <Alert type={'info'} className={'mt-6'}>
+                    <span className={'text-xs'}>
+                        Since &apos;Force 2FA&apos; is enabled, a box will be shown to users in the Onboarding dialog
+                        which informs users they must enable two-factor to use the Panel.
+                    </span>
+                </Alert>
+            )}
         </AdminBox>
     );
 };

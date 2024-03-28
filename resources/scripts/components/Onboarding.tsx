@@ -6,11 +6,14 @@ import { Dialog } from '@/components/elements/dialog';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from './FlashMessageRender';
 import setup, { Values } from '@/api/account/setup';
+import { Alert } from './elements/alert';
+import { Link } from 'react-router-dom';
 
 export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const content = useStoreState(state => state.everest.data!.auth.modules.onboarding.content);
     const appName = useStoreState(state => state.settings.data!.name);
+    const force2fa = useStoreState(state => state.everest.data!.auth.security.force2fa);
+    const content = useStoreState(state => state.everest.data!.auth.modules.onboarding.content);
 
     const submit = (values: Values) => {
         clearFlashes();
@@ -62,7 +65,19 @@ export default () => {
                             Your password must be at least 8 characters and include at least 1 special character.
                         </p>
                     </div>
+                    {force2fa && (
+                        <Alert type={'warning'} className={'my-6'}>
+                            The security policies on this Panel indicate you must enable Two Factor Authentication for
+                            secure access. You can enable it by clicking the &apos;Setup 2FA&apos; button at the bottom
+                            of this dialog.
+                        </Alert>
+                    )}
                     <div className={'text-right'}>
+                        {force2fa && (
+                            <Link to={'/account'} className={'mr-4'}>
+                                <Button.Text>Setup 2FA</Button.Text>
+                            </Link>
+                        )}
                         <Button type={'submit'}>Save Changes</Button>
                     </div>
                 </Form>
