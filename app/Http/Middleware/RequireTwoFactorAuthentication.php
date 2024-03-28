@@ -47,7 +47,7 @@ class RequireTwoFactorAuthentication
         // send them right through, nothing else needs to be checked.
         //
         // If the level is set as admin and the user is not an admin, pass them through as well.
-        if (!$twoFactorRequired) {
+        if (!$twoFactorRequired || $user->use_totp) {
             return $next($request);
         };
 
