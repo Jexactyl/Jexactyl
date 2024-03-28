@@ -30,7 +30,7 @@ Route::middleware(['throttle:authentication'])->group(function () {
     Route::post('/register', [Auth\LoginController::class, 'register'])->middleware('recaptcha');
 
     Route::post('/modules/discord', [Auth\Modules\DiscordLoginController::class, 'requestToken'])->middleware('recaptcha');
-    Route::post('/modules/discord/authenticate', [Auth\Modules\DiscordLoginController::class, 'authenticate'])
+    Route::get('/modules/discord/authenticate', [Auth\Modules\DiscordLoginController::class, 'authenticate'])
         ->middleware('recaptcha')
         ->name('auth.modules.discord.authenticate');
 
