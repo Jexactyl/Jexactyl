@@ -7,13 +7,6 @@ export interface SiteSettings {
         enabled: boolean;
         siteKey: string;
     };
-    registration: {
-        enabled: boolean;
-    };
-    security: {
-        force2fa: boolean;
-        attempts: number;
-    };
 }
 
 export interface SettingsStore {

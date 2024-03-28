@@ -29,6 +29,11 @@ Route::middleware(['throttle:authentication'])->group(function () {
 
     Route::post('/register', [Auth\LoginController::class, 'register'])->middleware('recaptcha');
 
+    Route::post('/modules/discord', [Auth\Modules\DiscordLoginController::class, 'requestToken'])->middleware('recaptcha');
+    Route::post('/modules/discord/authenticate', [Auth\Modules\DiscordLoginController::class, 'authenticate'])
+        ->middleware('recaptcha')
+        ->name('auth.modules.discord.authenticate');
+
     // Forgot password route. A post to this endpoint will trigger an
     // email to be sent containing a reset token.
     Route::post('/password', [Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])

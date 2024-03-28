@@ -27,7 +27,7 @@ class RegistrationController extends ApplicationApiController
     public function update(Request $request): Response
     {
         $this->settings->set(
-            'settings::modules:registration:' . $request->input('key'),
+            'settings::modules:auth:registration:' . $request->input('key'),
             $request->input('value')
         );
 

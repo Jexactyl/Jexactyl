@@ -18,13 +18,6 @@ class AssetComposer
                 'enabled' => config('recaptcha.enabled', false),
                 'siteKey' => config('recaptcha.website_key') ?? '',
             ],
-            'registration' => [
-                'enabled' => boolval(config('modules.registration.enabled', false)),
-            ],
-            'security' => [
-                'force2fa' => boolval(config('modules.security.force2fa', false)),
-                'attempts' => config('modules.security.attempts', 3),
-            ]
         ]);
     }
 }

@@ -14,7 +14,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const settings = useStoreState(state => state.settings.data!.registration);
+    const settings = useStoreState(state => state.everest.data!.auth.registration);
 
     const update = async (key: string, value: any) => {
         clearFlashes();

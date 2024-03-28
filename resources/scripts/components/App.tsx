@@ -12,6 +12,7 @@ import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
 import ScreenBlock, { NotFound } from '@/components/elements/ScreenBlock';
+import { EverestSettings } from '@/state/everest';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -20,6 +21,7 @@ const ServerRouter = lazy(() => import('@/routers/ServerRouter'));
 
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
+    EverestConfiguration?: EverestSettings;
     PterodactylUser?: {
         uuid: string;
         username: string;
@@ -40,7 +42,7 @@ interface ExtendedWindow extends Window {
 // setupInterceptors(history);
 
 function App() {
-    const { PterodactylUser, SiteConfiguration } = window as ExtendedWindow;
+    const { PterodactylUser, SiteConfiguration, EverestConfiguration } = window as ExtendedWindow;
     if (PterodactylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
             uuid: PterodactylUser.uuid,
@@ -59,6 +61,10 @@ function App() {
 
     if (!store.getState().settings.data) {
         store.getActions().settings.setSettings(SiteConfiguration!);
+    }
+
+    if (!store.getState().everest.data) {
+        store.getActions().everest.setEverest(EverestConfiguration!);
     }
 
     if (PterodactylUser?.state === 'suspended') {

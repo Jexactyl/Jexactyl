@@ -23,7 +23,7 @@ function LoginContainer() {
     const [token, setToken] = useState('');
 
     const appName = useStoreState(state => state.settings.data!.name);
-    const registration = useStoreState(state => state.settings.data!.registration);
+    const registration = useStoreState(state => state.everest.data!.auth.registration.enabled);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
@@ -114,7 +114,7 @@ function LoginContainer() {
                             Forgot password?
                         </Link>
                     </div>
-                    {registration.enabled && (
+                    {registration && (
                         <div css={tw`mt-6 text-center`}>
                             <Link
                                 to={'/auth/register'}

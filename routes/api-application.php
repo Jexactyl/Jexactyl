@@ -29,6 +29,15 @@ Route::group(['prefix' => '/settings'], function () {
 Route::group(['prefix' => '/auth'], function () {
     Route::put('/security', [Application\Auth\SecurityController::class, 'update']);
     Route::put('/registration', [Application\Auth\RegistrationController::class, 'update']);
+
+    Route::group(['prefix' => '/modules'], function () {
+        Route::post('/enable', [Application\Auth\ModuleController::class, 'enable']);
+        Route::post('/disable', [Application\Auth\ModuleController::class, 'disable']);
+
+        // Your modules go here!
+
+        Route::put('/discord', [Application\Auth\Modules\DiscordController::class, 'update']);
+    });
 });
 
 /*

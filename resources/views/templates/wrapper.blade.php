@@ -30,6 +30,11 @@
                     window.SiteConfiguration = {!! json_encode($siteConfiguration) !!};
                 </script>
             @endif
+            @if(!empty($everestConfiguration))
+                <script>
+                    window.EverestConfiguration = {!! json_encode($everestConfiguration) !!};
+                </script>
+            @endif
         @show
         <style>
             @import url('//fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');

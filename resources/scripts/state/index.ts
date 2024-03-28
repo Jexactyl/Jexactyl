@@ -4,6 +4,7 @@ import user, { UserStore } from '@/state/user';
 import permissions, { GloablPermissionsStore } from '@/state/permissions';
 import settings, { SettingsStore } from '@/state/settings';
 import progress, { ProgressStore } from '@/state/progress';
+import everest, { EverestStore } from '@/state/everest';
 
 export interface ApplicationStore {
     permissions: GloablPermissionsStore;
@@ -11,6 +12,7 @@ export interface ApplicationStore {
     user: UserStore;
     settings: SettingsStore;
     progress: ProgressStore;
+    everest: EverestStore;
 }
 
 const state: ApplicationStore = {
@@ -19,6 +21,7 @@ const state: ApplicationStore = {
     user,
     settings,
     progress,
+    everest,
 };
 
 export const store = createStore(state);

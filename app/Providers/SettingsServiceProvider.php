@@ -31,9 +31,11 @@ class SettingsServiceProvider extends ServiceProvider
         'pterodactyl:client_features:allocations:range_start',
         'pterodactyl:client_features:allocations:range_end',
 
-        'modules:registration:enabled',
-        'modules:security:force2fa',
-        'modules:security:attempts',
+        'modules:auth:registration:enabled',
+        'modules:auth:security:force2fa',
+        'modules:auth:security:attempts',
+
+        'modules:auth:discord:enabled',
     ];
 
     /**

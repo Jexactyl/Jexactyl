@@ -15,7 +15,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const settings = useStoreState(state => state.settings.data!.security);
+    const settings = useStoreState(state => state.everest.data!.auth.security);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -55,7 +55,7 @@ export default () => {
             <div className={'mt-6'}>
                 <Label>Login Attempt Limit</Label>
                 <Input
-                    placeholder={`${settings.attempts}`}
+                    placeholder={`${settings.attempts ?? 3}`}
                     id={'attempts'}
                     type={'number'}
                     name={'attempts'}

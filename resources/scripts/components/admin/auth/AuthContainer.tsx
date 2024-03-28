@@ -1,12 +1,27 @@
 import tw from 'twin.macro';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
-import Registration from '@/components/admin/auth/modules/Registration';
-import Security from './modules/Security';
+import Registration from '@/components/admin/auth/Registration';
+import Security from './Security';
+import { Button } from '@/components/elements/button';
+import { useState } from 'react';
+import { Dialog } from '@/components/elements/dialog';
+import AuthModules from '@/components/modules/auth/Modules';
+import { useStoreState } from '@/state/hooks';
 import DiscordSSO from './modules/DiscordSSO';
 
 export default () => {
+    const [visible, setVisible] = useState<boolean>(false);
+    const modules = useStoreState(state => state.everest.data!.auth.modules);
+
     return (
-        <AdminContentBlock title={'API Keys'}>
+        <AdminContentBlock title={'Authentication'}>
+            {visible && (
+                <Dialog title={'Add Modules'} open={visible} onClose={() => setVisible(false)}>
+                    <div className={'space-y-3'}>
+                        <AuthModules />
+                    </div>
+                </Dialog>
+            )}
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Authentication</h2>
@@ -14,11 +29,21 @@ export default () => {
                         Configure and manage the authentication flow for users.
                     </p>
                 </div>
+                <div css={tw`flex ml-auto pl-4`}>
+                    <Button
+                        type={'button'}
+                        size={Button.Sizes.Large}
+                        onClick={() => setVisible(true)}
+                        css={tw`h-10 px-4 py-0 whitespace-nowrap`}
+                    >
+                        Add Module
+                    </Button>
+                </div>
             </div>
             <div className={'grid md:grid-cols-2 xl:grid-cols-3 gap-4'}>
                 <Registration />
                 <Security />
-                <DiscordSSO />
+                {modules.discord.enabled && <DiscordSSO />}
             </div>
         </AdminContentBlock>
     );
