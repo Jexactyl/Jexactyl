@@ -5,6 +5,8 @@ import ResetPasswordContainer from '@/components/auth/ResetPasswordContainer';
 import LoginCheckpointContainer from '@/components/auth/LoginCheckpointContainer';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import tw, { styled } from 'twin.macro';
+import { useStoreState } from '@/state/hooks';
+import RegisterContainer from '@/components/auth/RegisterContainer';
 
 const Container = styled.div`
     ${tw`h-screen bg-login bg-cover`};
@@ -14,6 +16,7 @@ const Container = styled.div`
 
 export default () => {
     const navigate = useNavigate();
+    const registration = useStoreState(state => state.settings.data!.registration.enabled);
 
     return (
         <Container>
@@ -21,6 +24,7 @@ export default () => {
                 <Routes>
                     <Route path="login" element={<LoginContainer />} />
                     <Route path="login/checkpoint/*" element={<LoginCheckpointContainer />} />
+                    {registration && <Route path={'register'} element={<RegisterContainer />} />}
                     <Route path="password" element={<ForgotPasswordContainer />} />
                     <Route path="password/reset/:token" element={<ResetPasswordContainer />} />
                     <Route path="*" element={<NotFound onBack={() => navigate('/auth/login')} />} />

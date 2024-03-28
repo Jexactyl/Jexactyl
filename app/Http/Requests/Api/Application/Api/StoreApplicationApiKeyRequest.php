@@ -2,8 +2,6 @@
 
 namespace Everest\Http\Requests\Api\Application\Api;
 
-use Everest\Models\ApiKey;
-use Illuminate\Http\Request;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
 class StoreApplicationApiKeyRequest extends ApplicationApiRequest
@@ -14,7 +12,7 @@ class StoreApplicationApiKeyRequest extends ApplicationApiRequest
 
         foreach ($this->all()['permissions'] as $key => $value) {
             $arr[$key] = $value;
-        };
+        }
 
         return $arr;
     }

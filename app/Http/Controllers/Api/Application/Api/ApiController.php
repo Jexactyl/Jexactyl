@@ -20,8 +20,7 @@ class ApiController extends ApplicationApiController
      */
     public function __construct(
         private KeyCreationService $keyCreationService,
-    )
-    {
+    ) {
         parent::__construct();
     }
 

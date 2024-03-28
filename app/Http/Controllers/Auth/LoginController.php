@@ -7,12 +7,25 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Everest\Facades\Activity;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
+use Everest\Services\Users\UserCreationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Everest\Contracts\Repository\SettingsRepositoryInterface;
 
 class LoginController extends AbstractLoginController
 {
+    /**
+     * LoginController constructor.
+     */
+    public function __construct(
+        private UserCreationService $creationService,
+        private SettingsRepositoryInterface $settings,
+    ) {
+        parent::__construct();
+    }
+
     /**
      * Handle all incoming requests for the authentication routes and render the
      * base authentication view component. React will take over at this point and
@@ -71,5 +84,49 @@ class LoginController extends AbstractLoginController
                 'confirmation_token' => $token,
             ],
         ]);
+    }
+
+    /**
+     * Handle a user registration request.
+     */
+    public function register(Request $request): JsonResponse
+    {
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            $this->sendLockoutResponse($request);
+        }
+
+        $email = $request->input('email');
+        $username = $request->input('username');
+        $password = $request->input('password');
+        $passwordConfirm = $request->input('confirm_password');
+
+        if (!$this->settings->get('settings::registration:enabled')) {
+            throw new DisplayException('User registration is not enabled.');
+        };
+
+        if (User::where('email', $email)->exists()) {
+            throw new DisplayException('This email is already in use.');
+        }
+
+        if (User::where('username', $username)->exists()) {
+            throw new DisplayException('This username is already in use.');
+        }
+
+        if ($password !== $passwordConfirm) {
+            throw new DisplayException('The passwords entered do not match.');
+        }
+
+        try {
+            $this->creationService->handle([
+                'email' => $email,
+                'username' => $username,
+                'password' => $password,
+            ]);
+        } catch (DisplayException $ex) {
+            throw new DisplayException('Unable to register user. Please contact an administrator.');
+        }
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
