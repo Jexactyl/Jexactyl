@@ -7,7 +7,8 @@ import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from './FlashMessageRender';
 import setup, { Values } from '@/api/account/setup';
 import { Alert } from './elements/alert';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
@@ -21,7 +22,7 @@ export default () => {
         setup(values)
             .then(() => {
                 // @ts-expect-error this is fine
-                window.location = '/';
+                window.location = '/auth/login';
             })
             .catch(error => clearAndAddHttpError({ key: 'onboarding', error }));
     };
@@ -68,16 +69,15 @@ export default () => {
                     {force2fa && (
                         <Alert type={'warning'} className={'my-6'}>
                             The security policies on this Panel indicate you must enable Two Factor Authentication for
-                            secure access. You can enable it by clicking the &apos;Setup 2FA&apos; button at the bottom
-                            of this dialog.
+                            secure access. You can enable it by clicking the &apos;Setup 2FA&apos; button on the next
+                            page.
                         </Alert>
                     )}
-                    <div className={'text-right'}>
-                        {force2fa && (
-                            <Link to={'/account'} className={'mr-4'}>
-                                <Button.Text>Setup 2FA</Button.Text>
-                            </Link>
-                        )}
+                    <div className={'flex w-full justify-between'}>
+                        <p className={'my-auto text-xs text-gray-400'}>
+                            <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-yellow-600'} />
+                            This action will cause your account to logout.
+                        </p>
                         <Button type={'submit'}>Save Changes</Button>
                     </div>
                 </Form>
