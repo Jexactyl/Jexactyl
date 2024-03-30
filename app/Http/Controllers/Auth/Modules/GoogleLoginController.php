@@ -20,6 +20,12 @@ class GoogleLoginController extends AbstractLoginController
         private SettingsRepositoryInterface $settings,
     ) {
         parent::__construct();
+
+        $this->config = [
+            'redirect' => route('auth.modules.google.authenticate'),
+            'client_id' => $this->settings->get('settings::modules:auth:google:client_id'),
+            'client_secret' => $this->settings->get('settings::modules:auth:google:client_secret'),
+        ];
     }
 
     /**
@@ -28,20 +34,16 @@ class GoogleLoginController extends AbstractLoginController
      * @throws \Everest\Exceptions\DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function requestToken(Request $request): RedirectResponse
+    public function requestToken(Request $request): string
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             $this->sendLockoutResponse($request);
         }
 
-        $config = [
-            'redirect' => route('auth.modules.google.authenticate'),
-            'client_id' => $this->settings->get('settings::modules:auth:google:client_id'),
-            'client_id' => $this->settings->get('settings::modules:auth:google:client_secret'),
-        ];
-
-        return Socialite::buildProvider(\Laravel\Socialite\Two\GoogleProvider::class, $config)->redirect();
+        return Socialite::buildProvider(\Laravel\Socialite\Two\GoogleProvider::class, $this->config)
+            ->redirect()
+            ->getTargetUrl();
     }
 
     /**
@@ -49,14 +51,14 @@ class GoogleLoginController extends AbstractLoginController
      */
     public function authenticate(Request $request): RedirectResponse
     {
-        $response = Socialite::driver('google')->stateless()->user();
+        $response = Socialite::buildProvider(\Laravel\Socialite\Two\GoogleProvider::class, $this->config)->user();
 
         if (User::where('email', $response->email)->exists()) {
             $user = User::where('email', $response->email)->first();
 
             $this->sendLoginResponse($user, $request);
 
-            return redirect('/account/setup');
+            return redirect('/');
         } else {
             $user = $this->createAccount(['email' => $response->email, 'username' => 'null_user_' . $this->randStr(16)]);
 
