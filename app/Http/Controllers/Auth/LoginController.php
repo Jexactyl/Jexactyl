@@ -10,6 +10,7 @@ use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
+use Everest\Exceptions\DisplayException;
 use Everest\Services\Users\UserCreationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
@@ -101,7 +102,7 @@ class LoginController extends AbstractLoginController
         $password = $request->input('password');
         $passwordConfirm = $request->input('confirm_password');
 
-        if (!$this->settings->get('settings::registration:enabled')) {
+        if (!boolval($this->settings->get('settings::modules:auth:registration:enabled'))) {
             throw new DisplayException('User registration is not enabled.');
         };
 
