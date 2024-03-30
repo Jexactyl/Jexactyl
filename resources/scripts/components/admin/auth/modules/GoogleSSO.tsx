@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
+import { useStoreState } from '@/state/hooks';
 import Label from '@/components/elements/Label';
 import Input from '@/components/elements/Input';
 import AdminBox from '@/components/admin/AdminBox';
@@ -10,12 +11,14 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
 import updateGoogleSettings from '@/api/admin/auth/modules/updateGoogleSettings';
+import RequiredFieldIcon from '@/components/elements/RequiredFieldIcon';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const settings = useStoreState(state => state.everest.data!.auth.modules.google);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -62,24 +65,25 @@ export default () => {
                 onClick={() => setConfirm(true)}
             />
             <div>
-                <Label>Client Identifier</Label>
+                <Label>Client Identifier {!settings.clientId && <RequiredFieldIcon />}</Label>
                 <Input
                     id={'client_id'}
                     type={'password'}
                     name={'client_id'}
-                    placeholder={'••••••••••••••••'}
                     onChange={e => update('client_id', e.target.value)}
+                    placeholder={settings.clientId ? '••••••••••••••••' : ''}
                 />
+
                 <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client ID.</p>
             </div>
             <div className={'mt-6'}>
-                <Label>Client Secret</Label>
+                <Label>Client Secret {!settings.clientSecret && <RequiredFieldIcon />}</Label>
                 <Input
                     id={'client_secret'}
                     type={'password'}
                     name={'client_secret'}
-                    placeholder={'••••••••••••••••'}
                     onChange={e => update('client_secret', e.target.value)}
+                    placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client Secret.</p>
             </div>

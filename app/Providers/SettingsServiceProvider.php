@@ -36,8 +36,12 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:security:attempts',
 
         'modules:auth:discord:enabled',
+        'modules:auth:discord:client_id',
+        'modules:auth:discord:client_secret',
 
         'modules:auth:google:enabled',
+        'modules:auth:google:client_id',
+        'modules:auth:google:client_secret',
 
         'modules:auth:onboarding:enabled',
         'modules:auth:onboarding:content',

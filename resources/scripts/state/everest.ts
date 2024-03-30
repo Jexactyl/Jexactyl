@@ -12,9 +12,13 @@ export interface EverestSettings {
         modules: {
             discord: {
                 enabled: boolean;
+                clientId: boolean;
+                clientSecret: boolean;
             };
             google: {
                 enabled: boolean;
+                clientId: boolean;
+                clientSecret: boolean;
             };
             onboarding: {
                 enabled: boolean;

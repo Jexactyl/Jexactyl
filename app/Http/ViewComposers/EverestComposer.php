@@ -23,9 +23,13 @@ class EverestComposer
                 'modules' => [
                     'discord' => [
                         'enabled' => boolval(config('modules.auth.discord.enabled', false)),
+                        'client_id' => boolval(config('modules.auth.discord.client_id', false)),
+                        'client_secret' => boolval(config('modules.auth.discord.client_secret', false)),
                     ],
                     'google' => [
                         'enabled' => boolval(config('modules.auth.google.enabled', false)),
+                        'client_id' => boolval(config('modules.auth.google.client_id', false)),
+                        'client_secret' => boolval(config('modules.auth.google.client_secret', false)),
                     ],
                     'onboarding' => [
                         'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
