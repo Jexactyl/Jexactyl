@@ -4,9 +4,7 @@ namespace Everest\Http\Controllers\Auth\Modules;
 
 use Everest\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
 use Everest\Services\Users\UserCreationService;
@@ -42,8 +40,12 @@ class DiscordLoginController extends AbstractLoginController
             'https://discord.com/api/oauth2/authorize?'
             . 'client_id=' . $this->settings->get('settings::modules:auth:discord:client_id')
             . '&redirect_uri=' . route('auth.modules.discord.authenticate')
-            . '&response_type=code&scope=identify%20email'
-        , 200, [], null, false);
+            . '&response_type=code&scope=identify%20email',
+            200,
+            [],
+            null,
+            false
+        );
     }
 
     /**
@@ -71,11 +73,13 @@ class DiscordLoginController extends AbstractLoginController
             $user = User::where('email', $account->email)->first();
 
             $this->sendLoginResponse($user, $request);
+
             return redirect('/account/setup');
         } else {
             $user = $this->createAccount(['email' => $account->email, 'username' => 'null_user_' . $this->randStr(16)]);
 
             $this->sendLoginResponse($user, $request);
+
             return redirect('/account/setup');
         }
 
@@ -95,6 +99,6 @@ class DiscordLoginController extends AbstractLoginController
      */
     public function randStr(int $length = 10): string
     {
-        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+        return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
     }
 }

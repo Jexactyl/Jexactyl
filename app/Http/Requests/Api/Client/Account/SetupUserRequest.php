@@ -2,10 +2,7 @@
 
 namespace Everest\Http\Requests\Api\Client\Account;
 
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Hashing\Hasher;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
-use Everest\Exceptions\Http\Base\InvalidPasswordProvidedException;
 
 class SetupUserRequest extends ClientApiRequest
 {

@@ -42,14 +42,14 @@ class RequireTwoFactorAuthentication
             return $next($request);
         }
 
-        $twoFactorRequired = (bool) config('modules.security.force2fa');
+        $twoFactorRequired = (bool) config('modules.auth.security.force2fa');
         // If this setting is not configured, or the user is already using 2FA then we can just
         // send them right through, nothing else needs to be checked.
         //
         // If the level is set as admin and the user is not an admin, pass them through as well.
         if (!$twoFactorRequired || $user->use_totp) {
             return $next($request);
-        };
+        }
 
         // For API calls return an exception which gets rendered nicely in the API response.
         if ($request->isJson() || Str::startsWith($uri, '/api/')) {

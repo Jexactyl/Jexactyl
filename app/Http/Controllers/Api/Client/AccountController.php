@@ -81,6 +81,6 @@ class AccountController extends ClientApiController
     {
         $user = $this->updateService->handle($request->user(), $request->validated());
 
-        return new JsonResponse([], Response::HTTP_NO_CONTENT); 
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }

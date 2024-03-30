@@ -37,6 +37,7 @@ Route::group(['prefix' => '/auth'], function () {
         // Your modules go here!
 
         Route::put('/discord', [Application\Auth\Modules\DiscordController::class, 'update']);
+        Route::put('/google', [Application\Auth\Modules\GoogleController::class, 'update']);
     });
 });
 

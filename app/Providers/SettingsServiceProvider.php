@@ -37,6 +37,8 @@ class SettingsServiceProvider extends ServiceProvider
 
         'modules:auth:discord:enabled',
 
+        'modules:auth:google:enabled',
+
         'modules:auth:onboarding:enabled',
         'modules:auth:onboarding:content',
     ];

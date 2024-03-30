@@ -34,6 +34,11 @@ Route::middleware(['throttle:authentication'])->group(function () {
         ->middleware('recaptcha')
         ->name('auth.modules.discord.authenticate');
 
+    Route::post('/modules/google', [Auth\Modules\GoogleLoginController::class, 'requestToken'])->middleware('recaptcha');
+    Route::get('/modules/google/authenticate', [Auth\Modules\GoogleLoginController::class, 'authenticate'])
+        ->middleware('recaptcha')
+        ->name('auth.modules.google.authenticate');
+
     // Forgot password route. A post to this endpoint will trigger an
     // email to be sent containing a reset token.
     Route::post('/password', [Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])

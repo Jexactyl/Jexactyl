@@ -32,6 +32,7 @@
         "laravel/framework": "~10.1.3",
         "laravel/helpers": "~1.6.0",
         "laravel/sanctum": "~3.2.1",
+        "laravel/socialite": "^5.12",
         "laravel/tinker": "~2.8.1",
         "laravel/ui": "~4.2.1",
         "lcobucci/jwt": "~4.3.0",

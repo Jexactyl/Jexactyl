@@ -1,8 +1,8 @@
-import Box from '@/components/modules/auth/Box';
-import FlashMessageRender from '@/components/FlashMessageRender';
-import { faDiscord, faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useStoreState } from '@/state/hooks';
+import Box from '@/components/modules/auth/Box';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import FlashMessageRender from '@/components/FlashMessageRender';
+import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 export default () => {
     const modules = useStoreState(state => state.everest.data!.auth.modules);
@@ -19,13 +19,6 @@ export default () => {
         <>
             <FlashMessageRender byKey={'auth:modules'} />
             <Box
-                name={'discord'}
-                icon={faDiscord}
-                title={'Discord SSO'}
-                disabled={modules.discord.enabled}
-                description={'This module allows users to sign up and login via the Discord Authentication API.'}
-            />
-            <Box
                 icon={faDoorOpen}
                 name={'onboarding'}
                 title={'Onboarding'}
@@ -38,16 +31,18 @@ export default () => {
                 }
             />
             <Box
+                name={'discord'}
+                icon={faDiscord}
+                title={'Discord SSO'}
+                disabled={modules.discord.enabled}
+                description={'This module allows users to sign up and login via the Discord Authentication API.'}
+            />
+            <Box
                 name={'google'}
                 icon={faGoogle}
                 title={'Google SSO'}
-                description={'This module allows your users to sign in via the Google Logins API.'}
-            />
-            <Box
-                name={'github'}
-                icon={faGithub}
-                title={'GitHub SSO'}
-                description={'This module allows your users to sign in via the Github Auth API.'}
+                disabled={modules.google.enabled}
+                description={'This module allows users to sign up and login via the Google Auth API.'}
             />
         </>
     );

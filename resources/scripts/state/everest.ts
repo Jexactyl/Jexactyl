@@ -13,6 +13,9 @@ export interface EverestSettings {
             discord: {
                 enabled: boolean;
             };
+            google: {
+                enabled: boolean;
+            };
             onboarding: {
                 enabled: boolean;
                 content?: string;

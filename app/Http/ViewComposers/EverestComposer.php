@@ -24,11 +24,14 @@ class EverestComposer
                     'discord' => [
                         'enabled' => boolval(config('modules.auth.discord.enabled', false)),
                     ],
+                    'google' => [
+                        'enabled' => boolval(config('modules.auth.google.enabled', false)),
+                    ],
                     'onboarding' => [
                         'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
                         'content' => config('modules.auth.onboarding.content', ''),
-                    ]
-                ]
+                    ],
+                ],
             ],
         ]);
     }

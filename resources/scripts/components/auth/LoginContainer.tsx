@@ -14,7 +14,7 @@ import { Button } from '@/components/elements/button';
 import useFlash from '@/plugins/useFlash';
 import useOauthLogin from '@/api/auth/useOauthLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Label from '../elements/Label';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '../elements/tooltip/Tooltip';
@@ -140,6 +140,13 @@ function LoginContainer() {
                             <Tooltip content={'Register and login with Discord'}>
                                 <Button.Info onClick={() => useOauth('discord')} className={'w-12 h-12'}>
                                     <FontAwesomeIcon icon={faDiscord} />
+                                </Button.Info>
+                            </Tooltip>
+                        )}
+                        {modules.google.enabled && (
+                            <Tooltip content={'Register and login with Google'}>
+                                <Button.Info onClick={() => useOauth('google')} className={'w-12 h-12'}>
+                                    <FontAwesomeIcon icon={faGoogle} />
                                 </Button.Info>
                             </Tooltip>
                         )}

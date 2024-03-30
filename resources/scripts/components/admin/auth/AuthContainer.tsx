@@ -11,6 +11,7 @@ import DiscordSSO from './modules/DiscordSSO';
 import Onboarding from '@/components/admin/auth/modules/Onboarding';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotateBackward } from '@fortawesome/free-solid-svg-icons';
+import GoogleSSO from './modules/GoogleSSO';
 
 export default () => {
     const [visible, setVisible] = useState<boolean>(false);
@@ -57,8 +58,9 @@ export default () => {
             <div className={'grid md:grid-cols-2 xl:grid-cols-3 gap-4'}>
                 <Registration />
                 <Security />
-                {modules.discord.enabled && <DiscordSSO />}
                 {modules.onboarding.enabled && <Onboarding />}
+                {modules.discord.enabled && <DiscordSSO />}
+                {modules.google.enabled && <GoogleSSO />}
             </div>
         </AdminContentBlock>
     );

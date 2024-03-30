@@ -104,7 +104,7 @@ class LoginController extends AbstractLoginController
 
         if (!boolval($this->settings->get('settings::modules:auth:registration:enabled'))) {
             throw new DisplayException('User registration is not enabled.');
-        };
+        }
 
         if (User::where('email', $email)->exists()) {
             throw new DisplayException('This email is already in use.');
