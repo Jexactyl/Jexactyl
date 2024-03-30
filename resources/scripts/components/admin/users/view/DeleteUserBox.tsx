@@ -21,10 +21,7 @@ export default () => {
                 navigate('/admin/users');
             })
             .catch(error => {
-                clearAndAddHttpError({
-                    key: 'user:manage',
-                    error: `Failed to delete user: ${error.message}`,
-                });
+                clearAndAddHttpError({ key: 'user:manage', error });
             });
 
         setVisible(false);

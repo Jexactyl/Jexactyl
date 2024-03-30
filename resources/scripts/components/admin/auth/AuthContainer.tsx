@@ -9,6 +9,8 @@ import AuthModules from '@/components/modules/auth/Modules';
 import { useStoreState } from '@/state/hooks';
 import DiscordSSO from './modules/DiscordSSO';
 import Onboarding from '@/components/admin/auth/modules/Onboarding';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateBackward } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const [visible, setVisible] = useState<boolean>(false);
@@ -31,6 +33,17 @@ export default () => {
                     </p>
                 </div>
                 <div css={tw`flex ml-auto pl-4`}>
+                    <Button.Text
+                        type={'button'}
+                        size={Button.Sizes.Large}
+                        onClick={() => {
+                            // @ts-expect-error this is fine
+                            window.location = '/admin/auth';
+                        }}
+                        css={tw`h-10 px-4 mr-4 py-0 whitespace-nowrap`}
+                    >
+                        <FontAwesomeIcon icon={faRotateBackward} />
+                    </Button.Text>
                     <Button
                         type={'button'}
                         size={Button.Sizes.Large}
