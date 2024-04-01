@@ -50,6 +50,7 @@ import UsersContainer from '@/components/admin/users/UsersContainer';
 import ApiContainer from '@/components/admin/api/ApiContainer';
 import NewApiKeyContainer from '@/components/admin/api/NewApiKeyContainer';
 import AuthContainer from '@/components/admin/auth/AuthContainer';
+import TicketRouter from '@/components/admin/tickets/TicketRouter';
 
 function AdminRouter() {
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
@@ -159,6 +160,7 @@ function AdminRouter() {
                         <Route path="api" element={<ApiContainer />} />
                         <Route path="api/new" element={<NewApiKeyContainer />} />
                         <Route path="auth" element={<AuthContainer />} />
+                        <Route path="tickets/*" element={<TicketRouter />} />
                         <Route path="databases" element={<DatabasesContainer />} />
                         <Route path="databases/new" element={<NewDatabaseContainer />} />
                         <Route path="databases/:id" element={<DatabaseEditContainer />} />

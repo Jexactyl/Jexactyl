@@ -41,8 +41,6 @@ export default () => {
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('api:create');
 
-        clearAndAddHttpError({ key: 'api:create', error: 'hi' });
-
         createApiKey(values)
             .then(() => navigate(`/admin/api`))
             .catch(error => {

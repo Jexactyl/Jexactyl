@@ -9,6 +9,7 @@ import { TableCheckbox } from '@/components/admin/AdminCheckbox';
 import Input from '@/components/elements/Input';
 import InputSpinner from '@/components/elements/InputSpinner';
 import Spinner from '@/components/elements/Spinner';
+import classNames from 'classnames';
 
 export function useTableHooks<T>(initialState?: T | (() => T)): TableHooks<T> {
     const [page, setPage] = useState<number>(1);
@@ -339,10 +340,10 @@ export const ContentWrapper = ({ checked, onSelectAllClick, onSearch, children }
     );
 };
 
-export default ({ children }: { children: ReactNode }) => {
+export default ({ className, children }: { className?: string; children: ReactNode }) => {
     return (
         <div css={tw`flex flex-col w-full`}>
-            <div css={tw`rounded-lg shadow-md bg-zinc-800`}>{children}</div>
+            <div className={classNames(className, 'rounded-lg shadow-md bg-zinc-800')}>{children}</div>
         </div>
     );
 };

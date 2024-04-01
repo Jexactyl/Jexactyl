@@ -18,8 +18,6 @@ export type Filters = (typeof filters)[number];
 export interface ContextFilters {
     id: number;
     identifier: string;
-    description: string;
-    allowedIps: string[];
     createdAt: Date;
     lastUsedAt?: Date | null;
 }

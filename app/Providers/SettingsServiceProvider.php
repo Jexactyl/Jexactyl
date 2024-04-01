@@ -45,6 +45,9 @@ class SettingsServiceProvider extends ServiceProvider
 
         'modules:auth:onboarding:enabled',
         'modules:auth:onboarding:content',
+
+        'tickets:enabled',
+        'tickets:max_count',
     ];
 
     /**

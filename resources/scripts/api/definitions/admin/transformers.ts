@@ -7,6 +7,7 @@ import { Location } from '@/api/admin/location';
 import { Egg, EggVariable } from '@/api/admin/egg';
 import { Nest } from '@/api/admin/nest';
 import { ApiKey } from '@/api/account/getApiKeys';
+import { Ticket, TicketMessage } from '@/api/admin/tickets/getTickets';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 
@@ -124,6 +125,27 @@ export default class Transformers {
         allowedIps: attributes.allowed_ips,
         createdAt: new Date(attributes.created_at),
         lastUsedAt: new Date(attributes.last_used_at),
+    });
+
+    static toTicket = ({ attributes }: FractalResponseData): Ticket => ({
+        id: attributes.id,
+        title: attributes.title,
+        status: attributes.status,
+        user: attributes.user,
+        assignedTo: attributes.assigned_to,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
+        relationships: {
+            messages: transform(attributes.relationships?.messages as FractalResponseList, this.toTicketMessage),
+        },
+    });
+
+    static toTicketMessage = ({ attributes }: FractalResponseData): TicketMessage => ({
+        id: attributes.id,
+        message: attributes.message,
+        author: attributes.author,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
     });
 
     static toUser = ({ attributes }: FractalResponseData): Models.User => {

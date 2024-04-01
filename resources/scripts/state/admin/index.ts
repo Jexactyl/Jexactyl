@@ -20,6 +20,8 @@ import type { AdminUserStore } from '@/state/admin/users';
 import users from '@/state/admin/users';
 import type { AdminApiStore } from '@/state/admin/api';
 import api from '@/state/admin/api';
+import { AdminTicketStore } from '@/state/admin/tickets';
+import tickets from '@/state/admin/tickets';
 
 interface AdminStore {
     allocations: AdminAllocationStore;
@@ -32,6 +34,7 @@ interface AdminStore {
     roles: AdminRoleStore;
     servers: AdminServerStore;
     users: AdminUserStore;
+    tickets: AdminTicketStore;
 }
 
 export const AdminContext = createContextStore<AdminStore>({
@@ -45,4 +48,5 @@ export const AdminContext = createContextStore<AdminStore>({
     roles,
     servers,
     users,
+    tickets,
 });

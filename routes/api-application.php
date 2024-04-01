@@ -57,6 +57,28 @@ Route::group(['prefix' => '/api'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Tickets Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/tickets
+|
+*/
+Route::group(['prefix' => '/tickets'], function () {
+    Route::get('/', [Application\Tickets\TicketController::class, 'index']);
+    Route::post('/', [Application\Tickets\TicketController::class, 'store']);
+    Route::put('/', [Application\Tickets\TicketController::class, 'store']);
+
+    Route::get('/{ticket:id}', [Application\Tickets\TicketController::class, 'view']);
+    Route::put('/{ticket:id}', [Application\Tickets\TicketController::class, 'update']);
+    Route::delete('/{ticket:id}', [Application\Tickets\TicketController::class, 'delete']);
+
+    Route::get('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'index']);
+    Route::post('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'store']);
+});
+
+
+/*
+|--------------------------------------------------------------------------
 | Database Controller Routes
 |--------------------------------------------------------------------------
 |
