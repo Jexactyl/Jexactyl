@@ -9,6 +9,7 @@ import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import { format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 export const statusToColor = (status: string): string => {
     switch (status) {
@@ -51,40 +52,42 @@ export default () => {
                             </p>
                         ) : (
                             tickets.map((ticket, index) => (
-                                <GreyRowBox key={ticket.id} className={index > 0 ? 'mt-4' : 'mt-0'}>
-                                    <div className={'flex items-center truncate w-full md:flex-1'}>
-                                        <p className={'mr-4 text-xl font-bold'}>#{ticket.id}</p>
-                                        <div className={'flex flex-col truncate'}>
-                                            <div className={'flex items-center mb-1'}>
-                                                <p className={'break-words truncate text-lg'}>{ticket.title}</p>
-                                                <span
-                                                    className={classNames(
-                                                        statusToColor(ticket.status),
-                                                        'capitalize px-2 ml-4 inline-flex text-xs leading-5 font-medium rounded-full hidden sm:inline',
-                                                    )}
-                                                >
-                                                    {ticket.status}
-                                                </span>
+                                <Link to={`/account/tickets/${ticket.id}`} key={ticket.id}>
+                                    <GreyRowBox className={index > 0 ? 'mt-4' : 'mt-0'}>
+                                        <div className={'flex items-center truncate w-full md:flex-1'}>
+                                            <p className={'mr-4 text-xl font-bold'}>#{ticket.id}</p>
+                                            <div className={'flex flex-col truncate'}>
+                                                <div className={'flex items-center mb-1'}>
+                                                    <p className={'break-words truncate text-lg'}>{ticket.title}</p>
+                                                    <span
+                                                        className={classNames(
+                                                            statusToColor(ticket.status),
+                                                            'capitalize px-2 ml-4 inline-flex text-xs leading-5 font-medium rounded-full hidden sm:inline',
+                                                        )}
+                                                    >
+                                                        {ticket.status}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    {ticket.createdAt && (
-                                        <div
-                                            className={
-                                                'flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center'
-                                            }
-                                        >
-                                            <p className={'text-sm'}>{format(ticket.createdAt, 'MMMM do, yyyy')}</p>
-                                            <p className={'text-2xs text-gray-300 uppercase mt-1'}>
-                                                Created{' '}
-                                                {formatDistanceToNow(ticket.createdAt, {
-                                                    includeSeconds: true,
-                                                    addSuffix: true,
-                                                })}
-                                            </p>
-                                        </div>
-                                    )}
-                                </GreyRowBox>
+                                        {ticket.createdAt && (
+                                            <div
+                                                className={
+                                                    'flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center'
+                                                }
+                                            >
+                                                <p className={'text-sm'}>{format(ticket.createdAt, 'MMMM do, yyyy')}</p>
+                                                <p className={'text-2xs text-gray-300 uppercase mt-1'}>
+                                                    Created{' '}
+                                                    {formatDistanceToNow(ticket.createdAt, {
+                                                        includeSeconds: true,
+                                                        addSuffix: true,
+                                                    })}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </GreyRowBox>
+                                </Link>
                             ))
                         )}
                     </ContentBox>

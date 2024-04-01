@@ -25,6 +25,17 @@ interface Ticket extends Model {
     status: 'resolved' | 'unresolved' | 'pending' | 'in-progress';
     createdAt: Date;
     updatedAt: Date | null;
+    relationships: {
+        messages: TicketMessage[] | null;
+    };
+}
+
+interface TicketMessage extends Model {
+    id: number;
+    message: string;
+    author: User;
+    createdAt: Date;
+    updatedAt?: Date | null;
 }
 
 interface ActivityLog extends Model<'actor'> {

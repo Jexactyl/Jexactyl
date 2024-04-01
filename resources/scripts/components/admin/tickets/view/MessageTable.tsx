@@ -28,34 +28,36 @@ const MessagesTable = ({ messages }: { messages?: TicketMessage[] }) => {
                     <TableBody>
                         {messages !== undefined &&
                             length > 0 &&
-                            messages.map(message => (
-                                <TableRow key={message.id}>
-                                    {message.author ? (
+                            messages
+                                .map(message => (
+                                    <TableRow key={message.id}>
+                                        {message.author ? (
+                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <Link
+                                                    to={`/admin/users/${message.author.id}`}
+                                                    className={'text-primary-400'}
+                                                >
+                                                    {message.author.email}
+                                                </Link>
+                                            </td>
+                                        ) : (
+                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <Link to={`/admin/users`} className={'text-primary-400'}>
+                                                    Ticket Owner
+                                                </Link>
+                                            </td>
+                                        )}
                                         <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                            <Link
-                                                to={`/admin/users/${message.author.id}`}
-                                                className={'text-primary-400'}
-                                            >
-                                                {message.author.email}
-                                            </Link>
+                                            {message.message}
                                         </td>
-                                    ) : (
                                         <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                            <Link to={`/admin/users`} className={'text-primary-400'}>
-                                                Ticket Owner
-                                            </Link>
+                                            {Math.abs(differenceInHours(message.createdAt, new Date())) > 48
+                                                ? format(message.createdAt!, 'MMM do, yyyy h:mma')
+                                                : formatDistanceToNow(message.createdAt!, { addSuffix: true })}
                                         </td>
-                                    )}
-                                    <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                        {message.message}
-                                    </td>
-                                    <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                        {Math.abs(differenceInHours(message.createdAt, new Date())) > 48
-                                            ? format(message.createdAt!, 'MMM do, yyyy h:mma')
-                                            : formatDistanceToNow(message.createdAt!, { addSuffix: true })}
-                                    </td>
-                                </TableRow>
-                            ))}
+                                    </TableRow>
+                                ))
+                                .toReversed()}
                     </TableBody>
                 </table>
 

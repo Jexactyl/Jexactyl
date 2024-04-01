@@ -4,14 +4,14 @@ import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import tw from 'twin.macro';
 import { Button } from '@/components/elements/button';
-import Input, { Textarea } from '@/components/elements/Input';
+import { Textarea } from '@/components/elements/Input';
 import styled from 'styled-components';
 import { useFlashKey } from '@/plugins/useFlash';
-import { createTicket, useTickets } from '@/api/account/tickets';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import { createMessage } from '@/api/account/tickets';
+import DeleteTicketDialog from './DeleteTicketDialog';
 
 interface Values {
-    title: string;
     message: string;
 }
 
@@ -19,17 +19,15 @@ const CustomTextarea = styled(Textarea)`
     ${tw`h-32`}
 `;
 
-export default () => {
-    const { clearAndAddHttpError } = useFlashKey('account:tickets');
-    const { mutate } = useTickets();
+export default ({ ticketId }: { ticketId: number }) => {
+    const { clearAndAddHttpError } = useFlashKey('account:tickets:view');
 
-    const submit = (values: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
+    const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearAndAddHttpError();
 
-        createTicket(values.title, values.message)
-            .then(ticket => {
-                resetForm();
-                mutate(data => (data || []).concat(ticket));
+        createMessage(ticketId, values.message)
+            .then(() => {
+                window.location.reload();
             })
             .catch(error => clearAndAddHttpError(error))
             .then(() => setSubmitting(false));
@@ -39,33 +37,25 @@ export default () => {
         <>
             <Formik
                 onSubmit={submit}
-                initialValues={{ title: '', message: '' }}
+                initialValues={{ message: '' }}
                 validationSchema={object().shape({
-                    title: string().required(),
                     message: string().required().min(3).max(300),
                 })}
             >
                 {({ isSubmitting }) => (
                     <Form>
-                        <FlashMessageRender byKey={'account:tickets'} className={'mb-4'} />
+                        <FlashMessageRender byKey={'account:tickets:view'} className={'mb-4'} />
                         <SpinnerOverlay visible={isSubmitting} />
                         <FormikFieldWrapper
-                            name={'title'}
-                            css={tw`mb-6`}
-                            label={'Ticket Name'}
-                            description={'Enter a user-friendly name for this ticket.'}
-                        >
-                            <Field name={'title'} as={Input} />
-                        </FormikFieldWrapper>
-                        <FormikFieldWrapper
-                            label={'Message'}
+                            label={'Message Content'}
                             name={'message'}
                             description={'Enter a message for this ticket.'}
                         >
                             <Field name={'message'} as={CustomTextarea} />
                         </FormikFieldWrapper>
                         <div css={tw`flex justify-end mt-6`}>
-                            <Button>Save</Button>
+                            <DeleteTicketDialog />
+                            <Button>Add to Ticket</Button>
                         </div>
                     </Form>
                 )}

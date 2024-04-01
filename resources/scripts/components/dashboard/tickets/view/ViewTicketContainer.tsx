@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
-import { useTicketFromRoute, useTickets } from '@/api/account/tickets';
 import ContentBox from '@/components/elements/ContentBox';
+import { useTicketFromRoute } from '@/api/account/tickets';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@/components/elements/PageContentBlock';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
-import GreyRowBox from '@/components/elements/GreyRowBox';
-import { format, formatDistanceToNow } from 'date-fns';
+import AddTicketMessageForm from '@/components/dashboard/tickets/view/AddTicketMessageForm';
+import Spinner from '@/components/elements/Spinner';
 import classNames from 'classnames';
-import AddTicketMessageForm from './AddTicketMessageForm';
+import GreyRowBox from '@/components/elements/GreyRowBox';
+import { formatDistanceToNow } from 'date-fns';
 
 export const statusToColor = (status: string): string => {
     switch (status) {
@@ -24,26 +24,66 @@ export const statusToColor = (status: string): string => {
 };
 
 export default () => {
-    const { data: ticket, error } = useTicketFromRoute();
+    const { data: ticket, error, isLoading } = useTicketFromRoute();
     const { clearAndAddHttpError } = useFlashKey('account:tickets');
-
-    if (!ticket) return <></>;
 
     useEffect(() => {
         clearAndAddHttpError(error);
     }, [error]);
 
     return (
-        <PageContentBlock title={`Ticket ${ticket.id}`}>
+        <PageContentBlock title={`View Ticket`}>
             <FlashMessageRender byKey={'account:tickets'} />
-            <div className={'grid lg:grid-cols-3 gap-4'}>
-                <div className={'lg:col-span-2'}>
-                    <ContentBox title={'Ticket Messages'}>Messages will eventually go in this box.</ContentBox>
+            {isLoading || !ticket ? (
+                <Spinner size={'large'} centered />
+            ) : (
+                <div className={'grid lg:grid-cols-3 gap-4'}>
+                    <div className={'lg:col-span-2'}>
+                        <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>
+                            {ticket.title}
+                            <span
+                                className={classNames(
+                                    statusToColor(ticket.status),
+                                    'px-2 py-1 ml-2 text-sm font-medium rounded-full hidden sm:inline',
+                                )}
+                            >
+                                {ticket.status[0]?.toUpperCase() + ticket.status.slice(1)}
+                            </span>
+                        </h2>
+                        <ContentBox>
+                            {!ticket.relationships.messages ? (
+                                'There are no messages assigned to this ticket.'
+                            ) : (
+                                <>
+                                    {ticket.relationships.messages
+                                        .map(message => (
+                                            <>
+                                                <GreyRowBox key={message.id} className={'mt-4'}>
+                                                    <p className={'mr-2 font-semibold text-primary-400'}>
+                                                        {message.author ? message.author.email : 'You'}:
+                                                    </p>
+                                                    {message.message.toString()}
+                                                </GreyRowBox>
+                                                <p className={'text-2xs text-gray-300 mt-1 text-right'}>
+                                                    Sent&nbsp;
+                                                    {formatDistanceToNow(message.createdAt, {
+                                                        includeSeconds: true,
+                                                        addSuffix: true,
+                                                    })}
+                                                </p>
+                                            </>
+                                        ))
+                                        .toReversed()}
+                                </>
+                            )}
+                        </ContentBox>
+                        <p className={'text-xs text-gray-400 mt-2'}>Sorted by latest message</p>
+                    </div>
+                    <ContentBox title={'Add Message'}>
+                        <AddTicketMessageForm ticketId={ticket.id} />
+                    </ContentBox>
                 </div>
-                <ContentBox title={'Add Message'}>
-                    <AddTicketMessageForm />
-                </ContentBox>
-            </div>
+            )}
         </PageContentBlock>
     );
 };

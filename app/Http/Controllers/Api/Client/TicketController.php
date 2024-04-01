@@ -36,7 +36,7 @@ class TicketController extends ClientApiController
      */
     public function store(Request $request): array
     {
-        if (!intval($this->settings->get('settings::tickets:enabled'))) {
+        if (!intval($this->settings->get('settings::tickets:enabled', 0))) {
             throw new DisplayException('You cannot create a ticket as the module is disabled.');
         };
 
@@ -46,6 +46,7 @@ class TicketController extends ClientApiController
 
         TicketMessage::create([
             'ticket_id' => $ticket->id,
+            'user_id' => $request->user()->id,
             'message' => $request->input('message'),
         ]);
 
@@ -59,6 +60,30 @@ class TicketController extends ClientApiController
      */
     public function view(Ticket $ticket, Request $request): array
     {
+        if ($request->user()->id !== $ticket->user_id) {
+            throw new DisplayException('You do not own this ticket.');
+        };
+
+        return $this->fractal->item($ticket)
+            ->transformWith(TicketTransformer::class)
+            ->toArray();
+    }
+
+    /**
+     * Add a message to a ticket.
+     */
+    public function message(Ticket $ticket, Request $request): array
+    {
+        if ($request->user()->id !== $ticket->user_id) {
+            throw new DisplayException('You do not own this ticket.');
+        };
+
+        TicketMessage::create([
+            'ticket_id' => $ticket->id,
+            'user_id' => $request->user()->id,
+            'message' => $request->input('message'),
+        ]);
+
         return $this->fractal->item($ticket)
             ->transformWith(TicketTransformer::class)
             ->toArray();
@@ -67,13 +92,11 @@ class TicketController extends ClientApiController
     /**
      * Deletes an Ticket from the user's account.
      */
-    public function delete(ClientApiRequest $request): JsonResponse
+    public function delete(Ticket $ticket, ClientApiRequest $request): JsonResponse
     {
-        $this->validate($request, ['ticketId' => ['required', 'string']]);
-
-        $ticket = $request->user()->tickets()
-            ->where('id', $request->input('ticketId'))
-            ->first();
+        if ($request->user()->id !== $ticket->user_id) {
+            throw new DisplayException('You do not own this ticket.');
+        };
 
         if (!is_null($ticket)) {
             $ticket->delete();

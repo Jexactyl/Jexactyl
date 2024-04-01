@@ -1,6 +1,6 @@
-import * as Models from '@definitions/user/models';
-import { FractalResponseData } from '@/api/http';
+import { FractalResponseData, FractalResponseList } from '@/api/http';
 import { transform } from '@definitions/helpers';
+import * as Models from '@definitions/user/models';
 
 export default class Transformers {
     static toSSHKey = (data: Record<any, any>): Models.SSHKey => {
@@ -12,15 +12,28 @@ export default class Transformers {
         };
     };
 
-    static toTicket = (attributes: Record<any, any>): Models.Ticket => {
+    static toTicket = ({ attributes }: FractalResponseData): Models.Ticket => {
+        const { messages } = attributes.relationships || {};
+
         return {
             id: attributes.id,
             title: attributes.title,
             status: attributes.status,
             createdAt: new Date(attributes.created_at),
             updatedAt: attributes.updatedAt ? new Date(attributes.updated_at) : null,
+            relationships: {
+                messages: transform(messages as FractalResponseList, this.toTicketMessage, null),
+            },
         };
     };
+
+    static toTicketMessage = ({ attributes }: FractalResponseData): Models.TicketMessage => ({
+        id: attributes.id,
+        author: attributes.author,
+        message: attributes.message,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
+    });
 
     static toUser = ({ attributes }: FractalResponseData): Models.User => {
         return {
