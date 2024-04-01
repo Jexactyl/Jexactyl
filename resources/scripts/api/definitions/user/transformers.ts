@@ -12,6 +12,16 @@ export default class Transformers {
         };
     };
 
+    static toTicket = (attributes: Record<any, any>): Models.Ticket => {
+        return {
+            id: attributes.id,
+            title: attributes.title,
+            status: attributes.status,
+            createdAt: new Date(attributes.created_at),
+            updatedAt: attributes.updatedAt ? new Date(attributes.updated_at) : null,
+        };
+    };
+
     static toUser = ({ attributes }: FractalResponseData): Models.User => {
         return {
             uuid: attributes.uuid,

@@ -284,6 +284,11 @@ class User extends Model implements
         return $this->hasMany(UserSSHKey::class);
     }
 
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     /**
      * Returns all the servers that a user can access by way of being the owner of the
      * server, or because they are assigned as a subuser for that server.

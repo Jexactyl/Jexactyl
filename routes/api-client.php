@@ -43,6 +43,14 @@ Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::
         Route::post('/remove', [Client\SSHKeyController::class, 'delete']);
     });
 
+    Route::prefix('/tickets')->group(function () {
+        Route::get('/', [Client\TicketController::class, 'index']);
+        Route::post('/', [Client\TicketController::class, 'store']);
+        Route::delete('/', [Client\TicketController::class, 'delete']);
+
+        Route::get('/{ticket}', [Client\TicketController::class, 'view']);
+    });
+
     Route::post('/setup', [Client\AccountController::class, 'setup']);
 });
 

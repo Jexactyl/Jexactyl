@@ -26,6 +26,9 @@ export interface EverestSettings {
             };
         };
     };
+    tickets: {
+        enabled: boolean;
+    };
 }
 
 export interface EverestStore {

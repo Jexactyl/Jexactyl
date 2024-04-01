@@ -66,7 +66,7 @@ Route::group(['prefix' => '/api'], function () {
 Route::group(['prefix' => '/tickets'], function () {
     Route::get('/', [Application\Tickets\TicketController::class, 'index']);
     Route::post('/', [Application\Tickets\TicketController::class, 'store']);
-    Route::put('/', [Application\Tickets\TicketController::class, 'store']);
+    Route::put('/settings', [Application\Tickets\TicketController::class, 'settings']);
 
     Route::get('/{ticket:id}', [Application\Tickets\TicketController::class, 'view']);
     Route::put('/{ticket:id}', [Application\Tickets\TicketController::class, 'update']);

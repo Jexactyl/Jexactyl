@@ -19,6 +19,14 @@ interface SSHKey extends Model {
     createdAt: Date;
 }
 
+interface Ticket extends Model {
+    id: number;
+    title: string;
+    status: 'resolved' | 'unresolved' | 'pending' | 'in-progress';
+    createdAt: Date;
+    updatedAt: Date | null;
+}
+
 interface ActivityLog extends Model<'actor'> {
     id: string;
     batch: UUID | null;

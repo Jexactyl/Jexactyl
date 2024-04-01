@@ -1,5 +1,5 @@
-import type { ComponentType } from 'react';
 import { lazy } from 'react';
+import type { ComponentType } from 'react';
 
 import DatabasesContainer from '@/components/server/databases/DatabasesContainer';
 import ScheduleContainer from '@/components/server/schedules/ScheduleContainer';

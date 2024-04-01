@@ -133,7 +133,7 @@ export default () => {
                     <NewMessageDialog />
                 </div>
             </div>
-            <MessageTable />
+            <MessageTable messages={ticket.relationships.messages} />
         </AdminContentBlock>
     );
 };

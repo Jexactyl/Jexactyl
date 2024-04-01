@@ -25,7 +25,7 @@ class TicketMessageController extends ApplicationApiController
     /**
      * Return all the ticket messages currently registered on the Panel.
      */
-    public function index(Request $request): array
+    public function index(Ticket $ticket, Request $request): array
     {
         $perPage = (int) $request->query('per_page', '10');
         if ($perPage < 1 || $perPage > 100) {
@@ -35,6 +35,7 @@ class TicketMessageController extends ApplicationApiController
         $messages = QueryBuilder::for(TicketMessage::query())
             ->allowedFilters(['id'])
             ->allowedSorts(['id'])
+            ->where('ticket_id', $ticket->id)
             ->paginate($perPage);
 
         return $this->fractal->collection($messages)
