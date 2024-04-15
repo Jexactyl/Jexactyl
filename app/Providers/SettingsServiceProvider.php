@@ -17,6 +17,7 @@ class SettingsServiceProvider extends ServiceProvider
      * if they exist.
      */
     protected array $keys = [
+        // Pterodactyl-specific keys
         'app:name',
         'app:locale',
         'recaptcha:enabled',
@@ -31,6 +32,7 @@ class SettingsServiceProvider extends ServiceProvider
         'pterodactyl:client_features:allocations:range_start',
         'pterodactyl:client_features:allocations:range_end',
 
+        // Authentication module settings
         'modules:auth:registration:enabled',
         'modules:auth:security:force2fa',
         'modules:auth:security:attempts',
@@ -46,6 +48,7 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:onboarding:enabled',
         'modules:auth:onboarding:content',
 
+        // Ticket module settings
         'tickets:enabled',
         'tickets:max_count',
     ];

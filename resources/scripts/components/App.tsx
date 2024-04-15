@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import '@/assets/tailwind.css';
 import { store } from '@/state';
+import { SiteTheme } from '@/state/theme';
 import { StoreProvider } from 'easy-peasy';
 import { AdminContext } from '@/state/admin';
 import { ServerContext } from '@/state/server';
@@ -9,6 +10,7 @@ import Spinner from '@/components/elements/Spinner';
 import NotFoundSvg from '@/assets/images/not_found.svg';
 import ProgressBar from '@/components/elements/ProgressBar';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
+import applyTheme from '@/assets/css/customTheme';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
 import ScreenBlock, { NotFound } from '@/components/elements/ScreenBlock';
@@ -22,6 +24,7 @@ const ServerRouter = lazy(() => import('@/routers/ServerRouter'));
 
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
+    ThemeConfiguration?: SiteTheme;
     EverestConfiguration?: EverestSettings;
     PterodactylUser?: {
         uuid: string;
@@ -43,7 +46,7 @@ interface ExtendedWindow extends Window {
 // setupInterceptors(history);
 
 function App() {
-    const { PterodactylUser, SiteConfiguration, EverestConfiguration } = window as ExtendedWindow;
+    const { PterodactylUser, SiteConfiguration, EverestConfiguration, ThemeConfiguration } = window as ExtendedWindow;
     if (PterodactylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
             uuid: PterodactylUser.uuid,
@@ -62,6 +65,12 @@ function App() {
 
     if (!store.getState().settings.data) {
         store.getActions().settings.setSettings(SiteConfiguration!);
+    }
+
+    if (!store.getState().theme.data) {
+        store.getActions().theme.setTheme(ThemeConfiguration!);
+
+        applyTheme(ThemeConfiguration!);
     }
 
     if (!store.getState().everest.data) {

@@ -191,6 +191,9 @@ dependencies:
   swr:
     specifier: 2.0.3
     version: 2.0.3(react@18.2.0)
+  tailwind-override:
+    specifier: ^0.6.1
+    version: 0.6.1
   xterm:
     specifier: 5.1.0
     version: 5.1.0
@@ -5222,6 +5225,10 @@ packages:
 
   /tabbable@6.1.1:
     resolution: {integrity: sha512-4kl5w+nCB44EVRdO0g/UGoOp3vlwgycUVtkk/7DPyeLZUCuNFFKCFG6/t/DgHLrUPHjrZg6s5tNm+56Q2B0xyg==}
+    dev: false
+
+  /tailwind-override@0.6.1:
+    resolution: {integrity: sha512-FOxLFcXTe9eqC85SNCREyWw/CG8hyNSBJNrp+rjMDV7m63UoJzpkNJtXNrA0y3tE9m0d3ccNj8HBVQG/hfmNxA==}
     dev: false
 
   /tailwindcss@2.2.19(autoprefixer@10.4.13)(postcss@8.4.21):

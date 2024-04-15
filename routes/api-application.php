@@ -76,6 +76,18 @@ Route::group(['prefix' => '/tickets'], function () {
     Route::post('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'store']);
 });
 
+/*
+|--------------------------------------------------------------------------
+| Theme controller routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/tickets
+|
+*/
+Route::group(['prefix' => '/tickets'], function () {
+    Route::put('/', [Application\Theme\ThemeController::class, 'update']);
+});
+
 
 /*
 |--------------------------------------------------------------------------

@@ -35,10 +35,19 @@
                     window.EverestConfiguration = {!! json_encode($everestConfiguration) !!};
                 </script>
             @endif
+            @if(!empty($themeConfiguration))
+                <script>
+                    window.ThemeConfiguration = {!! json_encode($themeConfiguration) !!};
+                </script>
+            @endif
         @show
         <style>
             @import url('//fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
             @import url('//fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:500&display=swap');
+
+            body {
+                background-color: {{ $themeConfiguration['colors']['background'] }}
+            }
         </style>
 
         @yield('assets')
@@ -48,7 +57,7 @@
         @viteReactRefresh
         @vite('resources/scripts/index.tsx')
     </head>
-    <body class="{{ 'bg-black' }}">
+    <body>
         @section('content')
             @yield('above-container')
             @yield('container')
