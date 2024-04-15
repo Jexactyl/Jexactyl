@@ -39,7 +39,7 @@ class ThemeServiceProvider extends ServiceProvider
         }
 
         foreach ($this->keys as $key) {
-            $value = array_get($values, $key, $config->get(str_replace(':', '.', $key)));
+            $value = array_get($values, 'theme::' . $key, $config->get(str_replace(':', '.', $key)));
 
             switch (strtolower($value)) {
                 case 'true':

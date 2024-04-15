@@ -10,7 +10,6 @@ import Spinner from '@/components/elements/Spinner';
 import NotFoundSvg from '@/assets/images/not_found.svg';
 import ProgressBar from '@/components/elements/ProgressBar';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
-import applyTheme from '@/assets/css/customTheme';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
 import ScreenBlock, { NotFound } from '@/components/elements/ScreenBlock';
@@ -47,6 +46,7 @@ interface ExtendedWindow extends Window {
 
 function App() {
     const { PterodactylUser, SiteConfiguration, EverestConfiguration, ThemeConfiguration } = window as ExtendedWindow;
+
     if (PterodactylUser && !store.getState().user.data) {
         store.getActions().user.setUserData({
             uuid: PterodactylUser.uuid,
@@ -69,8 +69,6 @@ function App() {
 
     if (!store.getState().theme.data) {
         store.getActions().theme.setTheme(ThemeConfiguration!);
-
-        applyTheme(ThemeConfiguration!);
     }
 
     if (!store.getState().everest.data) {

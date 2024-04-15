@@ -2,7 +2,7 @@
 
 namespace Everest\Repositories\Eloquent;
 
-use Everest\Models\Setting;
+use Everest\Models\Theme;
 use Everest\Contracts\Repository\ThemeRepositoryInterface;
 
 class ThemeRepository extends EloquentRepository implements ThemeRepositoryInterface
@@ -16,7 +16,7 @@ class ThemeRepository extends EloquentRepository implements ThemeRepositoryInter
      */
     public function model(): string
     {
-        return Setting::class;
+        return Theme::class;
     }
 
     /**

@@ -9,7 +9,7 @@ namespace Everest\Models;
  * @property string $key
  * @property string $value
  */
-class Setting extends Model
+class Theme extends Model
 {
     /**
      * The table associated with the model.

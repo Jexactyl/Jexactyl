@@ -48,6 +48,11 @@
             body {
                 background-color: {{ $themeConfiguration['colors']['background'] }}
             }
+
+            :root {
+                --theme-colors-primary: $themeConfiguration['colors']['primary'];
+            }
+
         </style>
 
         @yield('assets')

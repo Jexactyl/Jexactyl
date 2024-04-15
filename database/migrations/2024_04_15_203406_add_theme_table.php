@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('theme', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('key')->unique();
             $table->text('value');
         });

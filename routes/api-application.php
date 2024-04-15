@@ -81,11 +81,11 @@ Route::group(['prefix' => '/tickets'], function () {
 | Theme controller routes
 |--------------------------------------------------------------------------
 |
-| Endpoint: /api/application/tickets
+| Endpoint: /api/application/theme
 |
 */
-Route::group(['prefix' => '/tickets'], function () {
-    Route::put('/', [Application\Theme\ThemeController::class, 'update']);
+Route::group(['prefix' => '/theme'], function () {
+    Route::put('/colors', [Application\Theme\ThemeController::class, 'colors']);
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Application\Theme;
 
+use Everest\Models\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\ThemeRepositoryInterface;
@@ -19,13 +20,13 @@ class ThemeController extends ApplicationApiController
     }
 
     /**
-     * Update the theme on the Panel.
+     * Update the colors for the panel theme.
      *
      * @throws \Throwable
      */
-    public function update(Request $request): Response
+    public function colors(Request $request): Response
     {
-        $this->settings->set($request->input('key'), $request->input('value'));
+        $this->settings->set('theme::colors:' . $request->input('key'), $request->input('value'));
 
         return $this->returnNoContent();
     }
