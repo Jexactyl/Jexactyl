@@ -65,6 +65,7 @@ export const statusToColor = (status: TicketStatus): string => {
 
 export default () => {
     const { data: tickets } = useGetTickets();
+    const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(TicketContext);
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -193,7 +194,8 @@ export default () => {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/tickets/${ticket.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {ticket.title}
                                                     </NavLink>

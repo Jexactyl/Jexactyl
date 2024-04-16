@@ -20,6 +20,7 @@ import DeleteAllocationButton from '@/components/admin/nodes/allocations/DeleteA
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { AdminContext } from '@/state/admin';
+import { useStoreState } from '@/state/hooks';
 
 function RowCheckbox({ id }: { id: number }) {
     const isChecked = AdminContext.useStoreState(state => state.allocations.selectedAllocations.indexOf(id) >= 0);
@@ -51,6 +52,7 @@ interface Props {
 }
 
 function AllocationsTable({ nodeId, filters }: Props) {
+    const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(AllocationsContext);
@@ -160,7 +162,8 @@ function AllocationsTable({ nodeId, filters }: Props) {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/servers/${allocation.serverId}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {allocation.relations.server.name}
                                                     </NavLink>

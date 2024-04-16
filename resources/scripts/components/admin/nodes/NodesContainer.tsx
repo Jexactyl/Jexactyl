@@ -23,6 +23,7 @@ import AdminTable, {
 import { Button } from '@/components/elements/button';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
+import { useStoreState } from '@/state/hooks';
 
 const RowCheckbox = ({ id }: { id: number }) => {
     const isChecked = AdminContext.useStoreState(state => state.nodes.selectedNodes.indexOf(id) >= 0);
@@ -45,6 +46,7 @@ const RowCheckbox = ({ id }: { id: number }) => {
 };
 
 const NodesContainer = () => {
+    const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(NodesContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: nodes, error, isValidating } = getNodes(['location']);
@@ -94,7 +96,7 @@ const NodesContainer = () => {
 
                 <div css={tw`flex ml-auto pl-4`}>
                     <NavLink to={`/admin/nodes/new`}>
-                        <Button type={'button'} size={'large'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
+                        <Button type={'button'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
                             New Node
                         </Button>
                     </NavLink>
@@ -169,7 +171,8 @@ const NodesContainer = () => {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/nodes/${node.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {node.name}
                                                     </NavLink>

@@ -23,6 +23,7 @@ import AdminTable, {
 import { Button } from '@/components/elements/button';
 import { Size } from '@/components/elements/button/types';
 import CopyOnClick from '@/components/elements/CopyOnClick';
+import { useStoreState } from '@/state/hooks';
 
 const RowCheckbox = ({ id }: { id: number }) => {
     const isChecked = AdminContext.useStoreState(state => state.databases.selectedDatabases.indexOf(id) >= 0);
@@ -45,6 +46,7 @@ const RowCheckbox = ({ id }: { id: number }) => {
 };
 
 const DatabasesContainer = () => {
+    const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(DatabasesContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: databases, error, isValidating } = getDatabases();
@@ -149,7 +151,8 @@ const DatabasesContainer = () => {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/databases/${database.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {database.name}
                                                     </NavLink>

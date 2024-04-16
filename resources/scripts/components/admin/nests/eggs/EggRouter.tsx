@@ -11,11 +11,13 @@ import Spinner from '@/components/elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@/components/admin/SubNavigation';
 import EggSettingsContainer from '@/components/admin/nests/eggs/EggSettingsContainer';
+import { useStoreState } from '@/state/hooks';
 
 const EggRouter = () => {
     const { id, nestId } = useParams<'nestId' | 'id'>();
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const theme = useStoreState(state => state.theme.data!);
     const { data: egg, error, isValidating, mutate } = useEggFromRoute();
 
     useEffect(() => {
@@ -48,7 +50,7 @@ const EggRouter = () => {
 
             <FlashMessageRender byKey={'egg'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to={`/admin/nests/${nestId ?? ''}/eggs/${id ?? ''}`} name={'About'}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path

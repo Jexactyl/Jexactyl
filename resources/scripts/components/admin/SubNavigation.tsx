@@ -1,8 +1,9 @@
+import { SiteTheme } from '@/state/theme';
 import type { ComponentType, ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 
-export const SubNavigation = styled.div`
+export const SubNavigation = styled.div<{ theme: SiteTheme }>`
     ${tw`flex flex-row items-center flex-shrink-0 h-12 mb-4 border-b border-neutral-700`};
 
     & > a {
@@ -14,7 +15,8 @@ export const SubNavigation = styled.div`
 
         &:active,
         &.active {
-            ${tw`text-primary-300 border-primary-300`};
+            color: ${({ theme }) => theme.colors.primary};
+            border-color: ${({ theme }) => theme.colors.primary};
         }
     }
 `;

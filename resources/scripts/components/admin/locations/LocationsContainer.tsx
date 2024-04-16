@@ -23,6 +23,7 @@ import CopyOnClick from '@/components/elements/CopyOnClick';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { AdminContext } from '@/state/admin';
+import { useStoreState } from '@/state/hooks';
 
 function RowCheckbox({ id }: { id: number }) {
     const isChecked = AdminContext.useStoreState(state => state.locations.selectedLocations.indexOf(id) >= 0);
@@ -45,6 +46,7 @@ function RowCheckbox({ id }: { id: number }) {
 }
 
 function LocationsContainer() {
+    const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(LocationsContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: locations, error, isValidating } = getLocations();
@@ -148,7 +150,8 @@ function LocationsContainer() {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/locations/${location.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {location.short}
                                                     </NavLink>

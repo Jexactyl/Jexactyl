@@ -20,6 +20,7 @@ import AdminTable, {
 import { Context } from '@/components/admin/nests/NestEditContainer';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
+import { useStoreState } from '@/state/hooks';
 
 const RowCheckbox = ({ id }: { id: number }) => {
     const isChecked = Context.useStoreState(state => state.selectedEggs.indexOf(id) >= 0);
@@ -46,6 +47,7 @@ const EggsTable = () => {
 
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(EggsContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const { colors } = useStoreState(state => state.theme.data!);
     const { data: eggs, error, isValidating } = getEggs(Number(params.nestId));
 
     useEffect(() => {
@@ -127,7 +129,8 @@ const EggsTable = () => {
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <NavLink
                                                     to={`/admin/nests/${params.nestId}/eggs/${egg.id}`}
-                                                    css={tw`text-primary-400 hover:text-primary-300`}
+                                                    style={{ color: colors.primary }}
+                                                    className={'hover:brightness-125 duration-300'}
                                                 >
                                                     {egg.name}
                                                 </NavLink>

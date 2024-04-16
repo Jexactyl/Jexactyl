@@ -23,6 +23,7 @@ import NewNestButton from '@/components/admin/nests/NewNestButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { AdminContext } from '@/state/admin';
+import { useStoreState } from '@/state/hooks';
 
 const RowCheckbox = ({ id }: { id: number }) => {
     const isChecked = AdminContext.useStoreState(state => state.nests.selectedNests.indexOf(id) >= 0);
@@ -46,6 +47,7 @@ const RowCheckbox = ({ id }: { id: number }) => {
 
 const NestsContainer = () => {
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(NestsContext);
+    const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: nests, error, isValidating } = getNests();
 
@@ -144,7 +146,8 @@ const NestsContainer = () => {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/nests/${nest.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {nest.name}
                                                     </NavLink>

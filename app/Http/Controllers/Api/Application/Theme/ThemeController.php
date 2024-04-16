@@ -30,4 +30,16 @@ class ThemeController extends ApplicationApiController
 
         return $this->returnNoContent();
     }
+
+    /**
+     * Reset all of the theme keys to factory defaults.
+     */
+    public function reset(): Response
+    {
+        foreach ($this->settings->all() as $setting) {
+            $setting->delete();
+        };
+
+        return $this->returnNoContent();
+    }
 }

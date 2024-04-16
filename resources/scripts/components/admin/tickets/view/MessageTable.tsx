@@ -12,9 +12,11 @@ import AdminTable, {
 import { ContextFilters, Context as MessagesContext } from '@/api/admin/tickets/messages/getMessages';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import { TicketMessage } from '@/api/admin/tickets/getTickets';
+import { useStoreState } from '@/state/hooks';
 
 const MessagesTable = ({ messages }: { messages?: TicketMessage[] }) => {
     const length = messages?.length || 0;
+    const { colors } = useStoreState(state => state.theme.data!);
 
     return (
         <AdminTable className={'mt-6'}>
@@ -35,14 +37,19 @@ const MessagesTable = ({ messages }: { messages?: TicketMessage[] }) => {
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <Link
                                                     to={`/admin/users/${message.author.id}`}
-                                                    className={'text-primary-400'}
+                                                    style={{ color: colors.primary }}
+                                                    className={'hover:brightness-125 duration-300'}
                                                 >
                                                     {message.author.email}
                                                 </Link>
                                             </td>
                                         ) : (
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                                <Link to={`/admin/users`} className={'text-primary-400'}>
+                                                <Link
+                                                    to={`/admin/users`}
+                                                    style={{ color: colors.primary }}
+                                                    className={'hover:brightness-125 duration-300'}
+                                                >
                                                     Ticket Owner
                                                 </Link>
                                             </td>

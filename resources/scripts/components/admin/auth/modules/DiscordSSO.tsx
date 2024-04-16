@@ -19,6 +19,7 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const { colors } = useStoreState(state => state.theme.data!);
     const settings = useStoreState(state => state.everest.data!.auth.modules.discord);
 
     const update = async (key: string, value: any) => {
@@ -76,7 +77,11 @@ export default () => {
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>
                     Set the Discord Client ID. You can find this in the{' '}
-                    <Link to={'https://discord.com/developers/docs/intro'} className={'text-primary-400'}>
+                    <Link
+                        to={'https://discord.com/developers/docs/intro'}
+                        style={{ color: colors.primary }}
+                        className={'hover:brightness-125 duration-300'}
+                    >
                         Developer Portal
                     </Link>
                     .
@@ -93,7 +98,11 @@ export default () => {
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>
                     Set the Discord Client Secret. You can find this in the{' '}
-                    <Link to={'https://discord.com/developers/docs/intro'} className={'text-primary-400'}>
+                    <Link
+                        to={'https://discord.com/developers/docs/intro'}
+                        style={{ color: colors.primary }}
+                        className={'hover:brightness-125 duration-300'}
+                    >
                         Developer Portal
                     </Link>
                     .

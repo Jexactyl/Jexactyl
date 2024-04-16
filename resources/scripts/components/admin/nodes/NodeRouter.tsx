@@ -16,6 +16,7 @@ import NodeConfigurationContainer from '@/components/admin/nodes/NodeConfigurati
 import NodeAllocationContainer from '@/components/admin/nodes/NodeAllocationContainer';
 import NodeServers from '@/components/admin/nodes/NodeServers';
 import type { ApplicationStore } from '@/state';
+import { useStoreState } from '@/state/hooks';
 
 interface ctx {
     node: Node | undefined;
@@ -33,6 +34,7 @@ export const Context = createContextStore<ctx>({
 const NodeRouter = () => {
     const params = useParams<'id'>();
 
+    const theme = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
@@ -78,7 +80,7 @@ const NodeRouter = () => {
 
             <FlashMessageRender byKey={'node'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to={`/admin/nodes/${node.id}`} name={'About'}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path

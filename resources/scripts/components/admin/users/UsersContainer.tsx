@@ -19,6 +19,7 @@ import { Link, NavLink } from 'react-router-dom';
 import type { RealFilters } from '@/api/admin/users';
 import AdminContentBlock from '../AdminContentBlock';
 import { Button } from '@/components/elements/button';
+import { useStoreState } from '@/state/hooks';
 
 function RowCheckbox({ id }: { id: number }) {
     const isChecked = AdminContext.useStoreState(state => state.users.selectedUsers.indexOf(id) >= 0);
@@ -42,6 +43,7 @@ function RowCheckbox({ id }: { id: number }) {
 
 function UsersContainer() {
     const { data: users } = useGetUsers();
+    const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(UsersContext);
 
     const setSelectedUsers = AdminContext.useStoreActions(actions => actions.users.setSelectedUsers);
@@ -127,7 +129,8 @@ function UsersContainer() {
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <NavLink
                                                         to={`/admin/users/${user.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {user.username}
                                                     </NavLink>

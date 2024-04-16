@@ -14,13 +14,14 @@ import AdminCheckbox from '../AdminCheckbox';
 import { AdminContext } from '@/state/admin';
 import { ChangeEvent, useContext, useEffect } from 'react';
 import CopyOnClick from '@/components/elements/CopyOnClick';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AdminContentBlock from '../AdminContentBlock';
 import { Button } from '@/components/elements/button';
 import { useGetApiKeys, Context as ApiContext, ContextFilters } from '@/api/admin/api/getApiKeys';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import DeleteApiKeyButton from './DeleteApiKeyButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import { useStoreState } from '@/state/hooks';
 
 function RowCheckbox({ id }: { id: number }) {
     const isChecked = AdminContext.useStoreState(state => state.api.selectedApiKeys.indexOf(id) >= 0);
@@ -44,6 +45,7 @@ function RowCheckbox({ id }: { id: number }) {
 
 function ApiContainer() {
     const { data: apiKeys } = useGetApiKeys();
+    const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(ApiContext);
 
     const setSelectedApiKeys = AdminContext.useStoreActions(actions => actions.api.setSelectedApiKeys);
@@ -125,12 +127,12 @@ function ApiContainer() {
                                                     </CopyOnClick>
                                                 </td>
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                                    <NavLink
-                                                        to={`/admin/api/${key.id}`}
-                                                        css={tw`text-primary-400 hover:text-primary-300`}
+                                                    <div
+                                                        style={{ color: colors.primary }}
+                                                        className={'hover:brightness-125 duration-300'}
                                                     >
                                                         {key.identifier}
-                                                    </NavLink>
+                                                    </div>
                                                 </td>
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     {key.lastUsedAt && new Date(key.lastUsedAt).getTime() > 0

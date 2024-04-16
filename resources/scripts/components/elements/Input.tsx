@@ -8,9 +8,6 @@ export interface Props {
 
 const light = css<Props>`
     ${tw`bg-white border-neutral-200 text-neutral-800`};
-    &:focus {
-        ${tw`border-primary-400`}
-    }
 
     &:disabled {
         ${tw`bg-neutral-100 border-neutral-200`};
@@ -29,11 +26,6 @@ const checkboxStyle = css<Props>`
         background-color: currentColor;
         background-size: 100% 100%;
     }
-
-    &:focus {
-        ${tw`outline-none border-primary-300`};
-        box-shadow: 0 0 0 1px rgba(9, 103, 210, 0.25);
-    }
 `;
 
 const inputStyle = css<Props>`
@@ -41,7 +33,7 @@ const inputStyle = css<Props>`
     resize: none;
     ${tw`appearance-none outline-none w-full min-w-0`};
     ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
-    ${tw`bg-zinc-900 border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none focus:ring-0`};
+    ${tw`bg-zinc-900 border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
 
     & + .input-help {
         ${tw`mt-1 text-xs`};
@@ -51,11 +43,6 @@ const inputStyle = css<Props>`
     &:required,
     &:invalid {
         ${tw`shadow-none`};
-    }
-
-    &:not(:disabled):not(:read-only):focus {
-        ${tw`shadow-md border-primary-300 ring-2 ring-primary-400 ring-opacity-50`};
-        ${props => props.hasError && tw`border-red-300 ring-red-200`};
     }
 
     &:disabled {

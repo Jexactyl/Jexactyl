@@ -12,7 +12,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 className={classNames(
                     styles.button,
-                    styles.primary,
+                    styles.text,
                     {
                         [styles.secondary]: variant === Options.Variant.Secondary,
                         [styles.square]: shape === Options.Shape.IconSquare,

@@ -86,6 +86,8 @@ Route::group(['prefix' => '/tickets'], function () {
 */
 Route::group(['prefix' => '/theme'], function () {
     Route::put('/colors', [Application\Theme\ThemeController::class, 'colors']);
+
+    Route::post('/reset', [Application\Theme\ThemeController::class, 'reset']);
 });
 
 

@@ -15,6 +15,7 @@ import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
 import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
 import ManageContainer from './view/ManageContainer';
+import { useStoreState } from '@/state/hooks';
 
 interface ctx {
     user: User | undefined;
@@ -39,6 +40,8 @@ const UserRouter = () => {
 
     const user = Context.useStoreState(state => state.user);
     const setUser = Context.useStoreActions(actions => actions.setUser);
+
+    const theme = useStoreState(state => state.theme.data!);
 
     useEffect(() => {
         clearFlashes('user');
@@ -77,7 +80,7 @@ const UserRouter = () => {
 
             <FlashMessageRender byKey={'user'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'}>
                     <UserIcon />
                 </SubNavigationLink>

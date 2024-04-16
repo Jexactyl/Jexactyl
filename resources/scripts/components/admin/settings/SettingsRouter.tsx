@@ -10,6 +10,7 @@ import GeneralSettings from '@/components/admin/settings/GeneralSettings';
 import { useStoreState } from '@/state/hooks';
 
 const SettingsRouter = () => {
+    const theme = useStoreState(state => state.theme.data!);
     const appName = useStoreState(state => state.settings.data!.name);
 
     return (
@@ -25,7 +26,7 @@ const SettingsRouter = () => {
 
             <FlashMessageRender byKey={'admin:settings'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to="/admin/settings" name="Core">
                     <ChipIcon />
                 </SubNavigationLink>

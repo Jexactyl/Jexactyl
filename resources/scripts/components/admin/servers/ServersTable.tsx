@@ -19,6 +19,7 @@ import AdminTable, {
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import { AdminContext } from '@/state/admin';
 import useFlash from '@/plugins/useFlash';
+import { useStoreState } from '@/state/hooks';
 
 function RowCheckbox({ id }: { id: number }) {
     const isChecked = AdminContext.useStoreState(state => state.servers.selectedServers.indexOf(id) >= 0);
@@ -45,6 +46,7 @@ interface Props {
 }
 
 function ServersTable({ filters }: Props) {
+    const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(ServersContext);
@@ -143,7 +145,8 @@ function ServersTable({ filters }: Props) {
                                             <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
                                                 <NavLink
                                                     to={`/admin/servers/${server.id}`}
-                                                    css={tw`text-primary-400 hover:text-primary-300`}
+                                                    style={{ color: colors.primary }}
+                                                    className={'hover:brightness-125 duration-300'}
                                                 >
                                                     {server.name}
                                                 </NavLink>
@@ -167,10 +170,7 @@ function ServersTable({ filters }: Props) {
 
                                             {/* TODO: Have permission check for displaying node information. */}
                                             <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
-                                                <NavLink
-                                                    to={`/admin/nodes/${server.relations.node?.id}`}
-                                                    css={tw`text-primary-400 hover:text-primary-300`}
-                                                >
+                                                <NavLink to={`/admin/nodes/${server.relations.node?.id}`}>
                                                     <div css={tw`text-sm text-neutral-200`}>
                                                         {server.relations.node?.name}
                                                     </div>

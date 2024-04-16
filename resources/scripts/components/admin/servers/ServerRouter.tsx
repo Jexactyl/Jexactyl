@@ -19,11 +19,13 @@ import {
     FolderIcon,
     ShieldExclamationIcon,
 } from '@heroicons/react/outline';
+import { useStoreState } from '@/state/hooks';
 
 export default () => {
     const params = useParams<'id'>();
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const theme = useStoreState(state => state.theme.data!);
     const { data: server, error, isValidating, mutate } = useServerFromRoute();
 
     useEffect(() => {
@@ -57,7 +59,7 @@ export default () => {
 
             <FlashMessageRender byKey={'server'} css={tw`mb-4`} />
 
-            <SubNavigation>
+            <SubNavigation theme={theme}>
                 <SubNavigationLink to={`/admin/servers/${params.id}`} name={'Settings'} icon={CogIcon} />
                 <SubNavigationLink to={`/admin/servers/${params.id}/startup`} name={'Startup'} icon={AdjustmentsIcon} />
                 <SubNavigationLink
