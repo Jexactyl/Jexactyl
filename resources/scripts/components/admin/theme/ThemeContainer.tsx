@@ -1,12 +1,14 @@
-import ColorSelect from '@/components/admin/theme/ColorSelect';
-import AdminContentBlock from '@/components/admin/AdminContentBlock';
-import { Button } from '@/components/elements/button';
 import { useState } from 'react';
+import useFlash from '@/plugins/useFlash';
+import { Button } from '@/components/elements/button';
 import { Dialog } from '@/components/elements/dialog';
 import resetTheme from '@/api/admin/theme/resetTheme';
-import useFlash from '@/plugins/useFlash';
+import Preview from '@/components/admin/theme/Preview';
+import ColorSelect from '@/components/admin/theme/ColorSelect';
+import AdminContentBlock from '@/components/admin/AdminContentBlock';
 
 export default () => {
+    const [reload, setReload] = useState<boolean>(false);
     const [visible, setVisible] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
@@ -53,7 +55,8 @@ export default () => {
                 </div>
             </div>
             <div className={'grid md:grid-cols-2 xl:grid-cols-3 gap-4'}>
-                <ColorSelect />
+                <ColorSelect setReload={setReload} />
+                <Preview reload={reload} />
             </div>
         </AdminContentBlock>
     );

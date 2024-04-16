@@ -1,33 +1,50 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { useStoreState } from '@/state/hooks';
 import Label from '@/components/elements/Label';
 import Input from '@/components/elements/Input';
 import AdminBox from '@/components/admin/AdminBox';
 import Spinner from '@/components/elements/Spinner';
 import updateColors from '@/api/admin/theme/updateColors';
 import { CheckCircleIcon } from '@heroicons/react/outline';
+import { useStoreActions, useStoreState } from '@/state/hooks';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { faPaintbrush } from '@fortawesome/free-solid-svg-icons';
 
-export default () => {
+interface Props {
+    setReload: Dispatch<SetStateAction<boolean>>;
+}
+
+export default ({ setReload }: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const colors = useStoreState(state => state.theme.data!.colors);
+    const setTheme = useStoreActions(actions => actions.theme.setTheme);
 
-    const update = async (key: string, value: any) => {
+    const update = async (key: string, value: string) => {
         clearFlashes();
+        setReload(true);
         setLoading(true);
         setSuccess(false);
 
+        setTheme({
+            colors: {
+                primary: key === 'primary' ? value : colors.primary,
+                secondary: key === 'secondary' ? value : colors.secondary,
+
+                background: key === 'background' ? value : colors.background,
+                headers: key === 'headers' ? value : colors.headers,
+                sidebar: key === 'sidebar' ? value : colors.sidebar,
+            },
+        });
+
         updateColors(key, value)
             .then(() => {
+                setReload(false);
                 setSuccess(true);
                 setLoading(false);
 
-                // @ts-expect-error this is fine
-                window.location = '/admin/theme';
+                setTimeout(() => setSuccess(false), 2000);
             })
             .catch(error => {
                 clearAndAddHttpError({ key: 'auth:modules:discord', error });
