@@ -15,6 +15,7 @@ import NodeSettingsContainer from '@/components/admin/nodes/NodeSettingsContaine
 import { Button } from '@/components/elements/button';
 import type { ApplicationStore } from '@/state';
 import { useEffect } from 'react';
+import { useStoreState } from '@/state/hooks';
 
 interface Values {
     name: string;
@@ -50,6 +51,7 @@ export default () => {
 
     const node = Context.useStoreState(state => state.node);
     const setNode = Context.useStoreActions(actions => actions.setNode);
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
 
     if (node === undefined) {
         return <></>;
@@ -122,7 +124,7 @@ export default () => {
                                 <NodeLimitContainer />
                             </div>
 
-                            <div css={tw`rounded shadow-md bg-zinc-800 mt-4 py-2 px-6`}>
+                            <div css={tw`rounded shadow-md mt-4 py-2 px-6`} style={{ backgroundColor: secondary }}>
                                 <div css={tw`flex flex-row`}>
                                     <NodeDeleteButton nodeId={node?.id} onDeleted={() => navigate('/admin/nodes')} />
                                     <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>

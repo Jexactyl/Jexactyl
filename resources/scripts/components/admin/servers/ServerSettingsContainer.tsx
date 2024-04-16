@@ -13,9 +13,11 @@ import FeatureLimitsBox from '@/components/admin/servers/settings/FeatureLimitsB
 import NetworkingBox from '@/components/admin/servers/settings/NetworkingBox';
 import ServerResourceBox from '@/components/admin/servers/settings/ServerResourceBox';
 import { Button } from '@/components/elements/button';
+import { useStoreState } from '@/state/hooks';
 
 export default () => {
     const { data: server } = useServerFromRoute();
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(actions => actions.flashes);
 
     if (!server) return null;
@@ -77,7 +79,10 @@ export default () => {
                         <div css={tw`flex flex-col`}>
                             <ServerResourceBox />
 
-                            <div css={tw`bg-zinc-800 rounded shadow-md px-4 xl:px-5 py-4 mt-6`}>
+                            <div
+                                style={{ backgroundColor: secondary }}
+                                css={tw`rounded shadow-md px-4 xl:px-5 py-4 mt-6`}
+                            >
                                 <div css={tw`flex flex-row`}>
                                     <ServerDeleteButton />
 

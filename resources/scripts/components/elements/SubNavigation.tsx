@@ -1,7 +1,8 @@
+import tw from 'twin.macro';
+import { SiteTheme } from '@/state/theme';
 import styled from 'styled-components/macro';
-import tw, { theme } from 'twin.macro';
 
-const SubNavigation = styled.div`
+const SubNavigation = styled.div<{ theme: SiteTheme }>`
     ${tw`bg-zinc-800 mt-6 mb-3 rounded-full mx-auto px-3 max-w-5xl lg:w-[fit-content] overflow-x-auto container-snap`};
 
     & > div {
@@ -17,13 +18,13 @@ const SubNavigation = styled.div`
 
             &:hover {
                 ${tw`text-neutral-100`};
-                box-shadow: inset 0 1px ${theme`colors.green.700`.toString()};
+                box-shadow: inset 0 2px ${({ theme }) => theme.colors.primary};
             }
 
             &:active,
             &.active {
                 ${tw`text-neutral-100`};
-                box-shadow: inset 0 1px ${theme`colors.green.600`.toString()};
+                box-shadow: inset 0 2px ${({ theme }) => theme.colors.primary};
             }
         }
     }

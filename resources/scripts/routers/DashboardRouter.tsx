@@ -13,6 +13,7 @@ import ViewTicketContainer from '@/components/dashboard/tickets/view/ViewTicketC
 
 function DashboardRouter() {
     const location = useLocation();
+    const theme = useStoreState(state => state.theme.data!);
     const ticketsEnabled = useStoreState(state => state.everest.data!.tickets.enabled);
 
     return (
@@ -20,7 +21,7 @@ function DashboardRouter() {
             <NavigationBar />
 
             {location.pathname.startsWith('/account') && (
-                <SubNavigation>
+                <SubNavigation theme={theme}>
                     <div>
                         {routes.account
                             .filter(route => route.path !== undefined)

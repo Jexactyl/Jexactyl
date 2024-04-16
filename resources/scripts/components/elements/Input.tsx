@@ -1,3 +1,4 @@
+import { useStoreState } from '@/state/hooks';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -28,37 +29,44 @@ const checkboxStyle = css<Props>`
     }
 `;
 
-const inputStyle = css<Props>`
-    // Reset to normal styling.
-    resize: none;
-    ${tw`appearance-none outline-none w-full min-w-0`};
-    ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
-    ${tw`bg-zinc-900 border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
+const inputStyle = () => {
+    const theme = useStoreState(state => state.theme.data!);
 
-    & + .input-help {
-        ${tw`mt-1 text-xs`};
-        ${props => (props.hasError ? tw`text-red-200` : tw`text-neutral-200`)};
-    }
+    return css<Props>`
+        // Reset to normal styling.
+        resize: none;
+        ${tw`appearance-none outline-none w-full min-w-0`};
+        ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
+        ${tw`border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
 
-    &:required,
-    &:invalid {
-        ${tw`shadow-none`};
-    }
+        background-color: ${theme.colors.secondary};
+        filter: brightness(75%);
 
-    &:disabled {
-        ${tw`opacity-75`};
-    }
+        & + .input-help {
+            ${tw`mt-1 text-xs`};
+            ${props => (props.hasError ? tw`text-red-200` : tw`text-neutral-200`)};
+        }
 
-    ${props =>
-        props.isLight
-            ? light
-            : css`
-                  &:not(.ignoreReadOnly):read-only {
-                      ${tw`border-neutral-800 bg-neutral-900`};
-                  }
-              `};
-    ${props => props.hasError && tw`text-red-100 border-red-400 hover:border-red-300`};
-`;
+        &:required,
+        &:invalid {
+            ${tw`shadow-none`};
+        }
+
+        &:disabled {
+            ${tw`opacity-75`};
+        }
+
+        ${props =>
+            props.isLight
+                ? light
+                : css`
+                      &:not(.ignoreReadOnly):read-only {
+                          ${tw`border-neutral-800 bg-neutral-900`};
+                      }
+                  `};
+        ${props => props.hasError && tw`text-red-100 border-red-400 hover:border-red-300`};
+    `;
+};
 
 const Input = styled.input<Props>`
     &:not([type='checkbox']):not([type='radio']) {
@@ -74,6 +82,7 @@ const Input = styled.input<Props>`
         }
     }
 `;
+
 const Textarea = styled.textarea<Props>`
     ${inputStyle}
 `;

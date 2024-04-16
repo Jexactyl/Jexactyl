@@ -6,8 +6,11 @@ import { Button } from '@/components/elements/button';
 import Field, { FieldRow } from '@/components/elements/Field';
 import Label from '@/components/elements/Label';
 import Select from '@/components/elements/Select';
+import { useStoreState } from '@/state/hooks';
 
 export default () => {
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
+
     const submit = () => {
         //
     };
@@ -88,7 +91,7 @@ export default () => {
                         </FieldRow>
                     </AdminBox>
 
-                    <div css={tw`bg-zinc-800 rounded shadow-md px-4 xl:px-5 py-4 mt-6`}>
+                    <div css={tw`rounded shadow-md px-4 xl:px-5 py-4 mt-6`} style={{ backgroundColor: secondary }}>
                         <div css={tw`flex flex-row`}>
                             <Button type="submit" css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
                                 Save Changes

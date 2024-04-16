@@ -11,6 +11,10 @@ function ProgressBar() {
     const timeout = useRef<Timer>();
     const [visible, setVisible] = useState(false);
 
+    const {
+        colors: { primary },
+    } = useStoreState(state => state.theme.data!);
+
     const continuous = useStoreState(state => state.progress.continuous);
     const progress = useStoreState(state => state.progress.progress);
     const setProgress = useStoreActions(actions => actions.progress.setProgress);
@@ -67,8 +71,12 @@ function ProgressBar() {
                 unmount
             >
                 <div
-                    className="h-full bg-cyan-400 shadow-[0_-2px_10px_2px] shadow-[#3CE7E1] transition-all duration-[250ms] ease-in-out"
-                    style={{ width: progress === undefined ? '100%' : `${progress}%` }}
+                    className="h-px shadow-[0_-2px_10px_2px] transition-all duration-[250ms] ease-in-out"
+                    style={{
+                        width: progress === undefined ? '100%' : `${progress}%`,
+                        backgroundColor: primary,
+                        boxShadow: primary,
+                    }}
                 />
             </Transition>
         </div>

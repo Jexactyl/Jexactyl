@@ -1,6 +1,5 @@
 import AdminBox from '@/components/admin/AdminBox';
 import { Button } from '@/components/elements/button';
-import { PlusCircleIcon } from '@heroicons/react/solid';
 import { faPuzzlePiece, faStar } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import enableModule from '@/api/admin/auth/enableModule';
@@ -36,8 +35,7 @@ export default ({ name, title, disabled, recommended, description, icon }: Props
 
     return (
         <AdminBox title={title} icon={icon ?? faPuzzlePiece}>
-            <Button value={name} onClick={() => submit()} className={'h-8 absolute top-0 right-0 m-2 text-green-500'}>
-                <PlusCircleIcon className={'w-5 h-5 mr-1'} />
+            <Button value={name} onClick={() => submit()} className={'h-8 absolute top-0 right-0 m-2'}>
                 Add to Panel
             </Button>
             {description}

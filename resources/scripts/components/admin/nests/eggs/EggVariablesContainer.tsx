@@ -19,6 +19,7 @@ import Field, { FieldRow, TextareaField } from '@/components/elements/Field';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
 import Label from '@/components/elements/Label';
+import { useStoreState } from '@/state/hooks';
 
 export const validationSchema = object().shape({
     name: string().required().min(1).max(191),
@@ -156,6 +157,8 @@ export default function EggVariablesContainer() {
 
     const { data: egg, mutate } = useEggFromRoute();
 
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
+
     if (!egg) {
         return null;
     }
@@ -206,7 +209,7 @@ export default function EggVariablesContainer() {
                             </div>
                         )}
 
-                        <div css={tw`bg-zinc-800 rounded shadow-md py-2 px-4 mt-6`}>
+                        <div css={tw`rounded shadow-md py-2 px-4 mt-6`} style={{ backgroundColor: secondary }}>
                             <div css={tw`flex flex-row`}>
                                 <NewVariableButton />
 

@@ -10,6 +10,7 @@ import Input from '@/components/elements/Input';
 import InputSpinner from '@/components/elements/InputSpinner';
 import Spinner from '@/components/elements/Spinner';
 import classNames from 'classnames';
+import { useStoreState } from '@/state/hooks';
 
 export function useTableHooks<T>(initialState?: T | (() => T)): TableHooks<T> {
     const [page, setPage] = useState<number>(1);
@@ -81,8 +82,10 @@ export const TableHeader = ({
 };
 
 export const TableHead = ({ children }: { children: ReactNode }) => {
+    const { colors } = useStoreState(state => state.theme.data!);
+
     return (
-        <thead css={tw`bg-zinc-900 border-t border-b border-zinc-500`}>
+        <thead css={tw`border-t border-b border-gray-800`} style={{ backgroundColor: colors.headers }}>
             <tr>
                 <TableHeader />
                 {children}
@@ -341,9 +344,16 @@ export const ContentWrapper = ({ checked, onSelectAllClick, onSearch, children }
 };
 
 export default ({ className, children }: { className?: string; children: ReactNode }) => {
+    const { colors } = useStoreState(state => state.theme.data!);
+
     return (
         <div css={tw`flex flex-col w-full`}>
-            <div className={classNames(className, 'rounded-lg shadow-md bg-zinc-800')}>{children}</div>
+            <div
+                className={classNames(className, 'rounded-lg shadow-md')}
+                style={{ backgroundColor: colors.secondary }}
+            >
+                {children}
+            </div>
         </div>
     );
 };

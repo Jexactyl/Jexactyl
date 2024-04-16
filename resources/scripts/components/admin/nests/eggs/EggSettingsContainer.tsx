@@ -21,6 +21,7 @@ import Input from '@/components/elements/Input';
 import Label from '@/components/elements/Label';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
+import { useStoreState } from '@/state/hooks';
 
 export function EggInformationContainer() {
     const { isSubmitting } = useFormikContext();
@@ -176,6 +177,8 @@ export default function EggSettingsContainer() {
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
+
     const { data: egg } = useEggFromRoute();
 
     if (!egg) {
@@ -242,7 +245,7 @@ export default function EggSettingsContainer() {
 
                     <EggProcessContainer ref={ref} css={tw`mb-6`} />
 
-                    <div css={tw`bg-zinc-800 rounded shadow-md px-4 xl:px-5 py-4 mb-16`}>
+                    <div css={tw`rounded shadow-md px-4 xl:px-5 py-4 mb-16`} style={{ backgroundColor: secondary }}>
                         <div css={tw`flex flex-row`}>
                             <EggDeleteButton eggId={egg.id} onDeleted={() => navigate('/admin/nests')} />
                             <EggExportButton css={tw`ml-auto mr-4`} />

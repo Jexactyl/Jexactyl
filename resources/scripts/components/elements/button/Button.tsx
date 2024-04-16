@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import type { ButtonProps } from '@/components/elements/button/types';
 import { Options } from '@/components/elements/button/types';
 import styles from './style.module.css';
+import { useStoreState } from '@/state/hooks';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children, shape, size, variant, className, ...rest }, ref) => {
@@ -12,7 +13,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 className={classNames(
                     styles.button,
-                    styles.text,
                     {
                         [styles.secondary]: variant === Options.Variant.Secondary,
                         [styles.square]: shape === Options.Shape.IconSquare,
@@ -28,6 +28,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         );
     },
 );
+
+const StandardButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => {
+    const { primary } = useStoreState(state => state.theme.data!.colors);
+
+    return (
+        // @ts-expect-error not sure how to get this correct
+        <Button ref={ref} className={className} style={{ backgroundColor: primary }} {...props} />
+    );
+});
 
 const TextButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
     // @ts-expect-error not sure how to get this correct
@@ -49,7 +58,7 @@ const WarnButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...p
     <Button ref={ref} className={classNames(styles.warn, className)} {...props} />
 ));
 
-const _Button = Object.assign(Button, {
+const _Button = Object.assign(StandardButton, {
     Sizes: Options.Size,
     Shapes: Options.Shape,
     Variants: Options.Variant,

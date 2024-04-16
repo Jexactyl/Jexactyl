@@ -5,13 +5,14 @@ import { faLayerGroup, faScrewdriverWrench, faSignOutAlt } from '@fortawesome/fr
 import { useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
-import tw, { theme } from 'twin.macro';
+import tw from 'twin.macro';
 import styled from 'styled-components';
 import http from '@/api/http';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import Avatar from '@/components/Avatar';
+import { SiteTheme } from '@/state/theme';
 
-const RightNavigation = styled.div`
+const RightNavigation = styled.div<{ theme: SiteTheme }>`
     & > a,
     & > button,
     & > .navigation-link {
@@ -21,12 +22,13 @@ const RightNavigation = styled.div`
         &:active,
         &:hover,
         &.active {
-            box-shadow: inset 0 -1px ${theme`colors.green.600`.toString()};
+            box-shadow: inset 0 -1px ${({ theme }) => theme.colors.primary};
         }
     }
 `;
 
 export default () => {
+    const theme = useStoreState(state => state.theme.data!);
     const name = useStoreState((state: ApplicationStore) => state.settings.data!.name);
     const rootAdmin = useStoreState((state: ApplicationStore) => state.user.data!.rootAdmin);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -41,7 +43,7 @@ export default () => {
     };
 
     return (
-        <div className="w-full overflow-x-auto bg-zinc-800 shadow-md">
+        <div className="w-full overflow-x-auto shadow-md" style={{ backgroundColor: theme.colors.sidebar }}>
             <SpinnerOverlay visible={isLoggingOut} />
             <div className="mx-auto flex h-[3.5rem] w-full max-w-[1200px] items-center">
                 <div id="logo" className="flex-1">
@@ -53,7 +55,7 @@ export default () => {
                     </Link>
                 </div>
 
-                <RightNavigation className="flex h-full items-center justify-center">
+                <RightNavigation className="flex h-full items-center justify-center" theme={theme}>
                     <SearchContainer />
 
                     <NavLink to="/" end>

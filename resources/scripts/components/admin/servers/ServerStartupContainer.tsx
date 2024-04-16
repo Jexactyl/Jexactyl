@@ -22,6 +22,7 @@ import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import Label from '@/components/elements/Label';
 import type { ApplicationStore } from '@/state';
 import { WithRelationships } from '@/api/admin';
+import { useStoreState } from '@/state/hooks';
 
 function ServerStartupLineContainer({ egg, server }: { egg?: Egg; server: Server }) {
     const { isSubmitting, setFieldValue } = useFormikContext();
@@ -160,6 +161,8 @@ function ServerStartupForm({
         values: { environment },
     } = useFormikContext<Values>();
 
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
+
     return (
         <Form>
             <div className="flex flex-col mb-16">
@@ -194,7 +197,7 @@ function ServerStartupForm({
                         ))}
                 </div>
 
-                <div className="bg-zinc-800 rounded shadow-md py-2 pr-6 mt-6">
+                <div className="rounded shadow-md py-2 pr-6 mt-6" style={{ backgroundColor: secondary }}>
                     <div className="flex flex-row">
                         <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
                             Save Changes

@@ -18,7 +18,7 @@ import { useStoreState } from 'easy-peasy';
 import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
-
+import Avatar from '@/components/Avatar';
 import CollapsedIcon from '@/assets/images/logo.png';
 import OverviewContainer from '@/components/admin/overview/OverviewContainer';
 import SettingsContainer from '@/components/admin/settings/SettingsRouter';
@@ -45,7 +45,6 @@ import MountEditContainer from '@/components/admin/mounts/MountEditContainer';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import type { ApplicationStore } from '@/state';
 import Sidebar from '@/components/elements/Sidebar';
-// import useUserPersistedState from '@/plugins/useUserPersistedState';
 import UsersContainer from '@/components/admin/users/UsersContainer';
 import ApiContainer from '@/components/admin/api/ApiContainer';
 import NewApiKeyContainer from '@/components/admin/api/NewApiKeyContainer';
@@ -55,15 +54,15 @@ import { PencilIcon } from '@heroicons/react/solid';
 import ThemeContainer from '@/components/admin/theme/ThemeContainer';
 
 function AdminRouter() {
+    const theme = useStoreState(state => state.theme.data!);
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
-    const avatarURL = useStoreState((state: ApplicationStore) => state.user.data!.avatarURL);
     const applicationName = useStoreState((state: ApplicationStore) => state.settings.data!.name);
 
     const [collapsed, setCollapsed] = useState<boolean>(false);
 
     return (
         <div css={tw`h-screen flex`}>
-            <Sidebar css={tw`flex-none`} $collapsed={collapsed}>
+            <Sidebar css={tw`flex-none`} $collapsed={collapsed} theme={theme}>
                 <div
                     css={tw`h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer`}
                     onClick={() => setCollapsed(!collapsed)}
@@ -141,13 +140,9 @@ function AdminRouter() {
                     <span>Return</span>
                 </NavLink>
                 <Sidebar.User>
-                    {avatarURL && (
-                        <img
-                            src={`${avatarURL}?s=64`}
-                            alt="Profile Picture"
-                            css={tw`h-10 w-10 rounded-full select-none`}
-                        />
-                    )}
+                    <span className="flex items-center">
+                        <Avatar.User />
+                    </span>
                     <div css={tw`flex flex-col ml-3`}>
                         <span
                             css={tw`font-sans font-normal text-sm text-neutral-50 whitespace-nowrap leading-tight select-none`}

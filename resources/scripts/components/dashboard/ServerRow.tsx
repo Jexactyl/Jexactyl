@@ -8,6 +8,7 @@ import getServerResourceUsage, { ServerPowerState, ServerStats } from '@/api/ser
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 import { Button } from '@/components/elements/button';
 import ServerRowDialog from './ServerRowDialog';
+import classNames from 'classnames';
 
 export function statusToColor(state?: ServerPowerState): string {
     switch (state) {
@@ -22,11 +23,11 @@ export function statusToColor(state?: ServerPowerState): string {
 
 type Timer = ReturnType<typeof setInterval>;
 
-export default ({ server }: { server: Server }) => {
+export default ({ index, server }: { index: number; server: Server }) => {
     const [open, setOpen] = useState<boolean>(false);
+    const [stats, setStats] = useState<ServerStats | null>(null);
     const interval = useRef<Timer>(null) as React.MutableRefObject<Timer>;
     const [isSuspended, setIsSuspended] = useState(server.status === 'suspended');
-    const [stats, setStats] = useState<ServerStats | null>(null);
 
     const getStats = () =>
         getServerResourceUsage(server.uuid)
@@ -55,7 +56,7 @@ export default ({ server }: { server: Server }) => {
 
     return (
         <>
-            <tr className="bg-zinc-700/50 w-full">
+            <tr className={classNames('bg-zinc-700/50 w-full', index % 5 === 0 && 'bg-black')}>
                 <Link to={`/server/${server.id}`}>
                     <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {server.name}
@@ -63,7 +64,7 @@ export default ({ server }: { server: Server }) => {
                 </Link>
                 {!stats || stats.status === 'offline' ? (
                     <>
-                        <td className="px-6 py-4 text-red-500 capitalize">{server.status ?? 'offline'}</td>
+                        <td className="px-6 py-4 text-red-400 capitalize">{server.status ?? 'offline'}</td>
                         <td className="px-6 py-4">...</td>
                         <td className="px-6p y-4">...</td>
                     </>

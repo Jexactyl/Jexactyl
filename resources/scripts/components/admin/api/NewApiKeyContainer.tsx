@@ -15,6 +15,7 @@ import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import { faCog, faElevator } from '@fortawesome/free-solid-svg-icons';
 import AdminBox from '@/components/admin/AdminBox';
 import PermissionRow from '@/components/admin/api/PermissionRow';
+import { useStoreState } from '@/state/hooks';
 
 const initialValues: Values = {
     memo: 'Your API Key',
@@ -37,6 +38,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('api:create');
@@ -99,7 +101,7 @@ export default () => {
                                         </p>
                                     </div>
                                 </AdminBox>
-                                <div css={tw`rounded shadow-md bg-zinc-800 mt-4 py-2 pr-6`}>
+                                <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                                     <div css={tw`flex flex-row`}>
                                         <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
                                             Create

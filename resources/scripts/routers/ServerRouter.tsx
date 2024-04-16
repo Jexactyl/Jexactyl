@@ -26,6 +26,7 @@ function ServerRouter() {
     const rootAdmin = useStoreState(state => state.user.data!.rootAdmin);
     const [error, setError] = useState('');
 
+    const theme = useStoreState(state => state.theme.data!);
     const id = ServerContext.useStoreState(state => state.server.data?.id);
     const uuid = ServerContext.useStoreState(state => state.server.data?.uuid);
     const inConflictState = ServerContext.useStoreState(state => state.server.inConflictState);
@@ -33,12 +34,9 @@ function ServerRouter() {
     const getServer = ServerContext.useStoreActions(actions => actions.server.getServer);
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
 
-    useEffect(
-        () => () => {
-            clearServerState();
-        },
-        [],
-    );
+    useEffect(() => {
+        clearServerState();
+    }, []);
 
     useEffect(() => {
         setError('');
@@ -68,7 +66,7 @@ function ServerRouter() {
                 )
             ) : (
                 <>
-                    <SubNavigation>
+                    <SubNavigation theme={theme}>
                         <div>
                             {routes.server
                                 .filter(route => route.path !== undefined)

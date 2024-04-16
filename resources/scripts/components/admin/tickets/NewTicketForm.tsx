@@ -15,6 +15,7 @@ import createTicket from '@/api/admin/tickets/createTicket';
 import { object, string, number } from 'yup';
 import { faTicket } from '@fortawesome/free-solid-svg-icons';
 import UserSelect from './UserSelect';
+import { useStoreState } from '@/state/hooks';
 
 const initialValues: Values = {
     title: '',
@@ -27,6 +28,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('ticket:create');
@@ -77,7 +79,7 @@ export default () => {
                                         <UserSelect />
                                     </FieldRow>
                                 </AdminBox>
-                                <div css={tw`rounded shadow-md bg-zinc-800 mt-4 py-2 pr-6`}>
+                                <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                                     <div css={tw`flex flex-row`}>
                                         <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
                                             Create
