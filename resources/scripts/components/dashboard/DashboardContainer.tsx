@@ -18,11 +18,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '../elements/tooltip/Tooltip';
 import FlashMessageRender from '../FlashMessageRender';
+import NotFoundSvg from '@/assets/images/not_found.svg';
 
 export default () => {
     const { search } = useLocation();
     const defaultPage = Number(new URLSearchParams(search).get('page') || '1');
 
+    const colors = useStoreState(state => state.theme.data!.colors);
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const name = useStoreState(state => state.user.data!.username);
@@ -57,43 +59,54 @@ export default () => {
     return (
         <PageContentBlock title={'Dashboard'}>
             <p className={'text-xl lg:text-5xl my-4 lg:my-10 font-semibold'}>Welcome, {name}</p>
-            {rootAdmin && (
-                <div css={tw`mb-2 flex justify-end items-center`}>
-                    <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>
-                        {showOnlyAdmin ? "Showing others' servers" : 'Showing your servers'}
-                    </p>
-                    <Switch
-                        name={'show_all_servers'}
-                        defaultChecked={showOnlyAdmin}
-                        onChange={() => setShowOnlyAdmin(s => !s)}
-                    />
-                </div>
-            )}
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
             <div className={'grid lg:grid-cols-3 gap-4'}>
-                <div className="relative overflow-x-auto rounded-lg lg:col-span-2">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-zinc-800 dark:text-gray-400">
+                <div className="relative overflow-x-auto lg:col-span-2">
+                    <h2 css={tw`text-neutral-300 mb-4 px-4 text-2xl inline-flex`}>
+                        {rootAdmin && (
+                            <div className={'mr-3 mt-1.5'}>
+                                <Switch
+                                    name={'show_all_servers'}
+                                    defaultChecked={showOnlyAdmin}
+                                    onChange={() => setShowOnlyAdmin(s => !s)}
+                                />
+                            </div>
+                        )}
+                        {showOnlyAdmin ? 'Other' : 'Your'} Servers
+                    </h2>
+                    <table className="w-full text-sm text-left text-gray-300">
+                        <thead className="text-xs text-gray-400 uppercase" style={{ backgroundColor: colors.headers }}>
                             <tr>
-                                <th scope="col" className="px-6 py-3">
-                                    Identifier
-                                    <Tooltip placement={'top'} content={'This is the name of your server.'}>
-                                        <FontAwesomeIcon icon={faInfoCircle} className={'ml-1 pt-1'} />
-                                    </Tooltip>
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    State
-                                    <Tooltip placement={'top'} content={'This indicates what state your server is in.'}>
-                                        <FontAwesomeIcon icon={faInfoCircle} className={'ml-1 pt-1'} />
-                                    </Tooltip>
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    CPU
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Memory
-                                </th>
-                                <th scope="col" className="px-6 py-3"></th>
+                                {!servers || servers.items.length < 1 ? (
+                                    <th scope="col" className="px-6 py-3">
+                                        No results found
+                                    </th>
+                                ) : (
+                                    <>
+                                        <th scope="col" className="px-6 py-3">
+                                            Identifier
+                                            <Tooltip placement={'top'} content={'This is the name of your server.'}>
+                                                <FontAwesomeIcon icon={faInfoCircle} className={'ml-1 pt-1'} />
+                                            </Tooltip>
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            State
+                                            <Tooltip
+                                                placement={'top'}
+                                                content={'This indicates what state your server is in.'}
+                                            >
+                                                <FontAwesomeIcon icon={faInfoCircle} className={'ml-1 pt-1'} />
+                                            </Tooltip>
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            CPU
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Memory
+                                        </th>
+                                        <th scope="col" className="px-6 py-3" />
+                                    </>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
@@ -107,11 +120,23 @@ export default () => {
                                                 <ServerRow key={server.uuid} server={server} />
                                             ))
                                         ) : (
-                                            <p className={'text-center'}>
-                                                {showOnlyAdmin
-                                                    ? 'There are no other servers to display.'
-                                                    : 'There are no servers associated with your account.'}
-                                            </p>
+                                            <tr className={'w-full'} style={{ backgroundColor: colors.secondary }}>
+                                                <td className={'px-6 py-4 text-gray-300'}>
+                                                    <div css={tw`flex justify-center`}>
+                                                        <div
+                                                            css={tw`w-full sm:w-3/4 md:w-1/2 rounded-lg text-center relative`}
+                                                        >
+                                                            <img
+                                                                src={NotFoundSvg}
+                                                                css={tw`w-2/3 h-auto select-none mx-auto`}
+                                                            />
+                                                            <h2 css={tw`mt-10 mb-6 text-white font-medium text-xl`}>
+                                                                No servers could be found.
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         )
                                     }
                                 </Pagination>
@@ -119,7 +144,7 @@ export default () => {
                         </tbody>
                     </table>
                 </div>
-                <ContentBox>Hello</ContentBox>
+                <ContentBox title={'Test Box'}>Hello, I&apos;m a test box.</ContentBox>
             </div>
         </PageContentBlock>
     );
