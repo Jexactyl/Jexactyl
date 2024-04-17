@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import tw from 'twin.macro';
-
 import ContentContainer from '@/components/elements/ContentContainer';
 import FlashMessageRender from '@/components/FlashMessageRender';
 
@@ -29,15 +28,15 @@ function PageContentBlock({ title, showFlashKey, className, children }: PageCont
 
             <ContentContainer css={tw`mb-4`}>
                 <p css={tw`text-center text-neutral-500 text-xs`}>
+                    Powered by&nbsp;
                     <a
                         rel={'noopener nofollow noreferrer'}
-                        href={'https://pterodactyl.io'}
+                        href={'https://jexactyl.com'}
                         target={'_blank'}
                         css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
                     >
-                        Pterodactyl&reg;
+                        Jexactyl&reg;
                     </a>
-                    &nbsp;&copy; 2015 - {new Date().getFullYear()}
                 </p>
             </ContentContainer>
         </>

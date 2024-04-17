@@ -7,6 +7,7 @@ import CopyOnClick from '@/components/elements/CopyOnClick';
 import Icon from '@/components/elements/Icon';
 
 import styles from './style.module.css';
+import { useStoreState } from '@/state/hooks';
 
 interface StatBlockProps {
     title: string;
@@ -18,20 +19,15 @@ interface StatBlockProps {
 }
 
 function StatBlock({ title, copyOnClick, icon, color, className, children }: StatBlockProps) {
+    const colors = useStoreState(state => state.theme.data!.colors);
     const { fontSize, ref } = useFitText({ minFontSize: 8, maxFontSize: 500 });
 
     return (
         <CopyOnClick text={copyOnClick}>
-            <div className={classNames(styles.stat_block, 'bg-slate-600', className)}>
-                <div className={classNames(styles.status_bar, color || 'bg-slate-700')} />
-                <div className={classNames(styles.icon, color || 'bg-slate-700')}>
-                    <Icon
-                        icon={icon}
-                        className={classNames({
-                            'text-slate-100': !color || color === 'bg-slate-700',
-                            'text-slate-50': color && color !== 'bg-slate-700',
-                        })}
-                    />
+            <div className={classNames(styles.stat_block, className)} style={{ backgroundColor: colors.secondary }}>
+                <div className={classNames(styles.status_bar || 'bg-slate-700')} />
+                <div className={classNames(styles.icon, 'bg-black/50')}>
+                    <Icon icon={icon} style={{ color: color ?? colors.primary }} />
                 </div>
                 <div className={'flex w-full flex-col justify-center overflow-hidden'}>
                     <p className={'font-header text-xs leading-tight text-slate-200 md:text-sm'}>{title}</p>

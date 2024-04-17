@@ -21,6 +21,7 @@ import { ServerContext } from '@/state/server';
 
 import 'xterm/css/xterm.css';
 import styles from './style.module.css';
+import { useStoreState } from '@/state/hooks';
 
 const theme: ITheme = {
     background: '#000000',
@@ -59,7 +60,8 @@ const terminalInitOnlyProps: ITerminalInitOnlyOptions = {
 };
 
 export default () => {
-    const TERMINAL_PRELUDE = '\u001b[1m\u001b[33mEverest Container: \u001b[0m';
+    const { secondary } = useStoreState(state => state.theme.data!.colors);
+    const TERMINAL_PRELUDE = '\n\u001b[1m\u001b[33mEverest Container: \u001b[0m';
     const ref = useRef<HTMLDivElement>(null);
     const terminal = useMemo(() => new Terminal({ ...terminalProps, ...terminalInitOnlyProps }), []);
     const fitAddon = new FitAddon();
@@ -73,6 +75,7 @@ export default () => {
     const isTransferring = ServerContext.useStoreState(state => state.server.data!.isTransferring);
     const [history, setHistory] = usePersistedState<string[]>(`${serverId}:command_history`, []);
     const [historyIndex, setHistoryIndex] = useState(-1);
+
     // SearchBarAddon has hardcoded z-index: 999 :(
     const zIndex = `
     .xterm-search-bar__addon {
@@ -86,18 +89,18 @@ export default () => {
         switch (status) {
             // Sent by either the source or target node if a failure occurs.
             case 'failure':
-                terminal.writeln(TERMINAL_PRELUDE + 'Transfer has failed.\u001b[0m');
+                terminal.writeln(TERMINAL_PRELUDE + 'Transfer has failed.\u001b[0m\n');
                 return;
         }
     };
 
     const handleDaemonErrorOutput = (line: string) =>
         terminal.writeln(
-            TERMINAL_PRELUDE + '\u001b[1m\u001b[41m' + line.replace(/(?:\r\n|\r|\n)$/im, '') + '\u001b[0m',
+            TERMINAL_PRELUDE + '\u001b[1m\u001b[41m' + line.replace(/(?:\r\n|\r|\n)$/im, '') + '\u001b[0m\n',
         );
 
     const handlePowerChangeEvent = (state: string) =>
-        terminal.writeln(TERMINAL_PRELUDE + 'Server marked as ' + state + '...\u001b[0m');
+        terminal.writeln(TERMINAL_PRELUDE + 'Server marked as ' + state + '...\u001b[0m\n');
 
     const handleCommandKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
@@ -209,7 +212,7 @@ export default () => {
     }, [connected, instance]);
 
     return (
-        <div className={classNames(styles.terminal, 'relative')}>
+        <div className={classNames(styles.terminal, 'relative p-2 rounded-lg')} style={{ backgroundColor: secondary }}>
             <SpinnerOverlay visible={!connected} size={'large'} />
             <div
                 className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}

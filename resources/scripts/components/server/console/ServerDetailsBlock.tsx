@@ -1,16 +1,7 @@
-import {
-    faClock,
-    faCloudDownloadAlt,
-    faCloudUploadAlt,
-    faHdd,
-    faMemory,
-    faMicrochip,
-    faWifi,
-} from '@fortawesome/free-solid-svg-icons';
+import { faClock, faHdd, faMemory, faMicrochip, faWifi } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
-
 import { SocketEvent, SocketRequest } from '@/components/server/events';
 import UptimeDuration from '@/components/server/UptimeDuration';
 import StatBlock from '@/components/server/console/StatBlock';
@@ -26,9 +17,9 @@ function getBackgroundColor(value: number, max: number | null): string | undefin
 
     if (delta > 0.8) {
         if (delta > 0.9) {
-            return 'bg-red-500';
+            return '#ef4444';
         }
-        return 'bg-yellow-500';
+        return '#f59e0b';
     }
 
     return undefined;
@@ -93,7 +84,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
     });
 
     return (
-        <div className={classNames('grid grid-cols-6 gap-2 md:gap-4', className)}>
+        <div className={classNames('grid grid-cols-10 gap-2 md:gap-4 mb-6', className)}>
             <StatBlock icon={faWifi} title={'Address'} copyOnClick={allocation}>
                 {allocation}
             </StatBlock>
@@ -130,12 +121,6 @@ function ServerDetailsBlock({ className }: { className?: string }) {
             </StatBlock>
             <StatBlock icon={faHdd} title={'Disk'} color={getBackgroundColor(stats.disk / 1024, limits.disk * 1024)}>
                 <Limit limit={textLimits.disk}>{bytesToString(stats.disk)}</Limit>
-            </StatBlock>
-            <StatBlock icon={faCloudDownloadAlt} title={'Network (Inbound)'}>
-                {status === 'offline' ? <span className={'text-slate-400'}>Offline</span> : bytesToString(stats.rx)}
-            </StatBlock>
-            <StatBlock icon={faCloudUploadAlt} title={'Network (Outbound)'}>
-                {status === 'offline' ? <span className={'text-slate-400'}>Offline</span> : bytesToString(stats.tx)}
             </StatBlock>
         </div>
     );

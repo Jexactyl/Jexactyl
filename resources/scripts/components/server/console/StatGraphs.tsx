@@ -10,13 +10,15 @@ import { CloudDownloadIcon, CloudUploadIcon } from '@heroicons/react/solid';
 import { theme } from 'twin.macro';
 import ChartBlock from '@/components/server/console/ChartBlock';
 import Tooltip from '@/components/elements/tooltip/Tooltip';
+import { useStoreState } from '@/state/hooks';
 
 export default () => {
+    const { primary } = useStoreState(state => state.theme.data!.colors);
     const status = ServerContext.useStoreState(state => state.status.value);
     const limits = ServerContext.useStoreState(state => state.server.data!.limits);
     const previous = useRef<Record<'tx' | 'rx', number>>({ tx: -1, rx: -1 });
 
-    const cpu = useChartTickLabel('CPU', limits.cpu, '%', 2);
+    const cpu = useChartTickLabel('CPU', limits.cpu, '%', 0);
     const memory = useChartTickLabel('Memory', limits.memory, 'MiB');
     const network = useChart('Network', {
         sets: 2,
@@ -35,8 +37,8 @@ export default () => {
             return {
                 ...opts,
                 label: !index ? 'Network In' : 'Network Out',
-                borderColor: !index ? theme('colors.cyan.400') : theme('colors.yellow.400'),
-                backgroundColor: hexToRgba(!index ? theme('colors.cyan.700') : theme('colors.yellow.700'), 0.5),
+                borderColor: !index ? theme('colors.cyan.400') : primary,
+                backgroundColor: hexToRgba(!index ? theme('colors.cyan.700') : primary, 0.5),
             };
         },
     });
@@ -68,7 +70,7 @@ export default () => {
 
     return (
         <>
-            <ChartBlock title={'CPU Load'}>
+            <ChartBlock title={'CPU'}>
                 <Line {...cpu.props} />
             </ChartBlock>
             <ChartBlock title={'Memory'}>
@@ -79,7 +81,7 @@ export default () => {
                 legend={
                     <>
                         <Tooltip arrow content={'Inbound'}>
-                            <CloudDownloadIcon className={'mr-2 h-4 w-4 text-yellow-400'} />
+                            <CloudDownloadIcon className={'mr-2 h-4 w-4 text-green-400'} />
                         </Tooltip>
                         <Tooltip arrow content={'Outbound'}>
                             <CloudUploadIcon className={'h-4 w-4 text-cyan-400'} />

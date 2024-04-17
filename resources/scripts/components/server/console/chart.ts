@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { deepmerge, deepmergeCustom } from 'deepmerge-ts';
 import { theme } from 'twin.macro';
 import { hexToRgba } from '@/lib/helpers';
+import { useStoreState } from '@/state/hooks';
 
 ChartJS.register(LineElement, PointElement, Filler, LinearScale);
 
@@ -79,6 +80,7 @@ type ChartDatasetCallback = (value: ChartDataset<'line'>, index: number) => Char
 
 function getEmptyData(label: string, sets = 1, callback?: ChartDatasetCallback | undefined): ChartData<'line'> {
     const next = callback || (value => value);
+    const { primary } = useStoreState(state => state.theme.data!.colors);
 
     return {
         labels: Array(20)
@@ -92,8 +94,10 @@ function getEmptyData(label: string, sets = 1, callback?: ChartDatasetCallback |
                         fill: true,
                         label,
                         data: Array(20).fill(-5),
-                        borderColor: theme('colors.cyan.400'),
-                        backgroundColor: hexToRgba(theme('colors.cyan.700'), 0.5),
+                        // The color of the line on the chart
+                        borderColor: primary,
+                        // The color of the line's background
+                        backgroundColor: hexToRgba(primary, 0.5),
                     },
                     index,
                 ),

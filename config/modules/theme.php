@@ -12,8 +12,8 @@ return [
     |
     */
     'colors' => [
-        'primary' => env('THEME_COLORS_PRIMARY', '#4ade80'),
-        'secondary' => env('THEME_COLORS_SECONDARY', '#404040'),
+        'primary' => env('THEME_COLORS_PRIMARY', '#16a34a'),
+        'secondary' => env('THEME_COLORS_SECONDARY', '#27272a'),
 
         'background' => env('THEME_COLORS_BACKGROUND', '#000000'),
         'headers' => env('THEME_COLORS_HEADERS', '#171717'),

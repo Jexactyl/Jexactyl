@@ -5,6 +5,8 @@ import Can from '@/components/elements/Can';
 import { ServerContext } from '@/state/server';
 import { PowerAction } from '@/components/server/console/ServerConsoleContainer';
 import { Dialog } from '@/components/elements/dialog';
+import { PlayIcon, StopIcon, DotsCircleHorizontalIcon, BanIcon } from '@heroicons/react/outline';
+import SaveButton from '@/components/server/console/SaveButton';
 
 interface PowerButtonProps {
     className?: string;
@@ -49,27 +51,31 @@ export default ({ className }: PowerButtonProps) => {
             >
                 Forcibly stopping a server can lead to data corruption.
             </Dialog.Confirm>
+            <SaveButton />
             <Can action={'control.start'}>
-                <Button
-                    className={'flex-1'}
-                    disabled={status !== 'offline'}
-                    onClick={onButtonClick.bind(this, 'start')}
-                >
-                    Start
-                </Button>
+                <Button.Text disabled={status !== 'offline'} onClick={onButtonClick.bind(this, 'start')}>
+                    <PlayIcon className={'w-5 mr-1'} /> Start
+                </Button.Text>
             </Can>
             <Can action={'control.restart'}>
-                <Button.Text className={'flex-1'} disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
-                    Restart
+                <Button.Text disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
+                    <DotsCircleHorizontalIcon className={'w-5 mr-1'} /> Restart
                 </Button.Text>
             </Can>
             <Can action={'control.stop'}>
                 <Button.Danger
-                    className={'flex-1'}
                     disabled={status === 'offline'}
                     onClick={onButtonClick.bind(this, killable ? 'kill' : 'stop')}
                 >
-                    {killable ? 'Kill' : 'Stop'}
+                    {killable ? (
+                        <>
+                            <BanIcon className={'w-5 mr-1'} /> Kill
+                        </>
+                    ) : (
+                        <>
+                            <StopIcon className={'w-5 mr-1'} /> Stop
+                        </>
+                    )}
                 </Button.Danger>
             </Can>
         </div>
