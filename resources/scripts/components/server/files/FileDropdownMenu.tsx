@@ -1,23 +1,10 @@
-import { memo, useRef, useState } from 'react';
-import * as React from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faBoxOpen,
-    faCopy,
-    faEllipsisH,
-    faFileArchive,
-    faFileCode,
-    faFileDownload,
-    faLevelUpAlt,
-    faPencilAlt,
-    faTrashAlt,
-    IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import RenameFileModal from '@/components/server/files/RenameFileModal';
 import { ServerContext } from '@/state/server';
 import { join } from 'pathe';
 import deleteFiles from '@/api/server/files/deleteFiles';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import copyFile from '@/api/server/files/copyFile';
 import Can from '@/components/elements/Can';
 import getFileDownloadUrl from '@/api/server/files/getFileDownloadUrl';
@@ -26,38 +13,29 @@ import tw from 'twin.macro';
 import { FileObject } from '@/api/server/files/loadDirectory';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import DropdownMenu from '@/components/elements/DropdownMenu';
-import styled from 'styled-components';
 import useEventListener from '@/plugins/useEventListener';
 import compressFiles from '@/api/server/files/compressFiles';
 import decompressFiles from '@/api/server/files/decompressFiles';
 import isEqual from 'react-fast-compare';
 import ChmodFileModal from '@/components/server/files/ChmodFileModal';
 import { Dialog } from '@/components/elements/dialog';
+import { Button } from '@/components/elements/button';
+import {
+    ArchiveIcon,
+    ArrowUpIcon,
+    ClipboardCopyIcon,
+    CogIcon,
+    DownloadIcon,
+    InboxIcon,
+    PencilIcon,
+    TrashIcon,
+} from '@heroicons/react/outline';
 
 type ModalType = 'rename' | 'move' | 'chmod';
 
-const StyledRow = styled.div<{ $danger?: boolean }>`
-    ${tw`p-2 flex items-center rounded`};
-    ${props =>
-        props.$danger ? tw`hover:bg-red-100 hover:text-red-700` : tw`hover:bg-neutral-100 hover:text-neutral-700`};
-`;
-
-interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
-    icon: IconDefinition;
-    title: string;
-    $danger?: boolean;
-}
-
-const Row = ({ icon, title, ...props }: RowProps) => (
-    <StyledRow {...props}>
-        <FontAwesomeIcon icon={icon} css={tw`text-xs`} fixedWidth />
-        <span css={tw`ml-2`}>{title}</span>
-    </StyledRow>
-);
-
 const FileDropdownMenu = ({ file }: { file: FileObject }) => {
     const onClickRef = useRef<DropdownMenu>(null);
-    const [showSpinner, setShowSpinner] = useState(false);
+    const [visible, setVisible] = useState<boolean>(false);
     const [modal, setModal] = useState<ModalType | null>(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -71,6 +49,12 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
             onClickRef.current.triggerMenu(e.detail);
         }
     });
+
+    useEffect(() => {
+        if (modal || showConfirmation) {
+            setVisible(false);
+        }
+    }, [modal, showConfirmation]);
 
     const doDeletion = async () => {
         clearFlashes('files');
@@ -86,17 +70,17 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
     };
 
     const doCopy = () => {
-        setShowSpinner(true);
         clearFlashes('files');
 
         copyFile(uuid, join(directory, file.name))
-            .then(() => mutate())
-            .catch(error => clearAndAddHttpError({ key: 'files', error }))
-            .then(() => setShowSpinner(false));
+            .then(() => {
+                mutate();
+                setVisible(false);
+            })
+            .catch(error => clearAndAddHttpError({ key: 'files', error }));
     };
 
     const doDownload = () => {
-        setShowSpinner(true);
         clearFlashes('files');
 
         getFileDownloadUrl(uuid, join(directory, file.name))
@@ -104,32 +88,51 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 // @ts-expect-error this is valid
                 window.location = url;
             })
-            .catch(error => clearAndAddHttpError({ key: 'files', error }))
-            .then(() => setShowSpinner(false));
+            .catch(error => clearAndAddHttpError({ key: 'files', error }));
     };
 
     const doArchive = () => {
-        setShowSpinner(true);
         clearFlashes('files');
 
         compressFiles(uuid, directory, [file.name])
-            .then(() => mutate())
-            .catch(error => clearAndAddHttpError({ key: 'files', error }))
-            .then(() => setShowSpinner(false));
+            .then(() => {
+                mutate();
+                setVisible(false);
+            })
+            .catch(error => clearAndAddHttpError({ key: 'files', error }));
     };
 
     const doUnarchive = () => {
-        setShowSpinner(true);
         clearFlashes('files');
 
         decompressFiles(uuid, directory, file.name)
-            .then(() => mutate())
-            .catch(error => clearAndAddHttpError({ key: 'files', error }))
-            .then(() => setShowSpinner(false));
+            .then(() => {
+                mutate();
+                setVisible(false);
+            })
+            .catch(error => clearAndAddHttpError({ key: 'files', error }));
     };
 
     return (
         <>
+            {modal ? (
+                modal === 'chmod' ? (
+                    <ChmodFileModal
+                        visible
+                        appear
+                        files={[{ file: file.name, mode: file.modeBits }]}
+                        onDismissed={() => setModal(null)}
+                    />
+                ) : (
+                    <RenameFileModal
+                        visible
+                        appear
+                        files={[file.name]}
+                        useMoveTerminology={modal === 'move'}
+                        onDismissed={() => setModal(null)}
+                    />
+                )
+            ) : null}
             <Dialog.Confirm
                 open={showConfirmation}
                 onClose={() => setShowConfirmation(false)}
@@ -140,57 +143,67 @@ const FileDropdownMenu = ({ file }: { file: FileObject }) => {
                 You will not be able to recover the contents of&nbsp;
                 <span className={'font-semibold text-slate-50'}>{file.name}</span> once deleted.
             </Dialog.Confirm>
-            <DropdownMenu
-                ref={onClickRef}
-                renderToggle={onClick => (
-                    <div css={tw`px-4 py-2 hover:text-white`} onClick={onClick}>
-                        <FontAwesomeIcon icon={faEllipsisH} />
-                        {modal ? (
-                            modal === 'chmod' ? (
-                                <ChmodFileModal
-                                    visible
-                                    appear
-                                    files={[{ file: file.name, mode: file.modeBits }]}
-                                    onDismissed={() => setModal(null)}
-                                />
-                            ) : (
-                                <RenameFileModal
-                                    visible
-                                    appear
-                                    files={[file.name]}
-                                    useMoveTerminology={modal === 'move'}
-                                    onDismissed={() => setModal(null)}
-                                />
-                            )
-                        ) : null}
-                        <SpinnerOverlay visible={showSpinner} fixed size={'large'} />
-                    </div>
-                )}
+            <div
+                css={tw`absolute top-0 right-0 p-2 hover:text-white text-gray-400 duration-250`}
+                onClick={() => setVisible(true)}
             >
-                <Can action={'file.update'}>
-                    <Row onClick={() => setModal('rename')} icon={faPencilAlt} title={'Rename'} />
-                    <Row onClick={() => setModal('move')} icon={faLevelUpAlt} title={'Move'} />
-                    <Row onClick={() => setModal('chmod')} icon={faFileCode} title={'Permissions'} />
-                </Can>
-                {file.isFile && (
-                    <Can action={'file.create'}>
-                        <Row onClick={doCopy} icon={faCopy} title={'Copy'} />
-                    </Can>
-                )}
-                {file.isArchiveType() ? (
-                    <Can action={'file.create'}>
-                        <Row onClick={doUnarchive} icon={faBoxOpen} title={'Unarchive'} />
-                    </Can>
-                ) : (
-                    <Can action={'file.archive'}>
-                        <Row onClick={doArchive} icon={faFileArchive} title={'Archive'} />
-                    </Can>
-                )}
-                {file.isFile && <Row onClick={doDownload} icon={faFileDownload} title={'Download'} />}
-                <Can action={'file.delete'}>
-                    <Row onClick={() => setShowConfirmation(true)} icon={faTrashAlt} title={'Delete'} $danger />
-                </Can>
-            </DropdownMenu>
+                <FontAwesomeIcon icon={faEllipsisH} className={'p-1 bg-black/25 rounded'} />
+            </div>
+            {visible && (
+                <Dialog open={visible} onClose={() => setVisible(false)} title={'File Options'}>
+                    <div className={'grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 mt-6'}>
+                        <Can action={'file.update'}>
+                            <Button.Text onClick={() => setModal('rename')} className={'w-full'}>
+                                <PencilIcon className={'w-4 mt-0.5 mr-2'} />
+                                Rename
+                            </Button.Text>
+                            <Button.Text onClick={() => setModal('move')} className={'w-full'}>
+                                <ArrowUpIcon className={'w-4 mt-0.5 mr-2'} />
+                                Move
+                            </Button.Text>
+                            <Button.Text onClick={() => setModal('chmod')} className={'w-full'}>
+                                <CogIcon className={'w-4 mt-0.5 mr-2'} />
+                                Permissions
+                            </Button.Text>
+                        </Can>
+                        {file.isFile && (
+                            <Can action={'file.create'}>
+                                <Button.Text onClick={doCopy}>
+                                    <ClipboardCopyIcon className={'w-4 mt-0.5 mr-2'} />
+                                    Copy File
+                                </Button.Text>
+                            </Can>
+                        )}
+                        {file.isArchiveType() ? (
+                            <Can action={'file.create'}>
+                                <Button.Text onClick={doUnarchive}>
+                                    <InboxIcon className={'w-4 mt-0.5 mr-2'} />
+                                    Extract Files
+                                </Button.Text>
+                            </Can>
+                        ) : (
+                            <Can action={'file.archive'}>
+                                <Button.Text onClick={doArchive}>
+                                    <ArchiveIcon className={'w-4 mt-0.5 mr-2'} />
+                                    Archive File
+                                </Button.Text>
+                            </Can>
+                        )}
+                        {file.isFile && (
+                            <Button.Text onClick={doDownload}>
+                                <DownloadIcon className={'w-4 mt-0.5 mr-2'} />
+                                Download
+                            </Button.Text>
+                        )}
+                        <Can action={'file.archive'}>
+                            <Button.Danger onClick={() => setShowConfirmation(true)}>
+                                <TrashIcon className={'w-4 mt-0.5 mr-2'} />
+                                Delete
+                            </Button.Danger>
+                        </Can>
+                    </div>
+                </Dialog>
+            )}
         </>
     );
 };
