@@ -1,7 +1,7 @@
 import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
 import { AdminContext } from '@/state/admin';
-import { useContext, ChangeEvent, useEffect, useState } from 'react';
+import { useContext, ChangeEvent, useEffect } from 'react';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import AdminTable, {
     ContentWrapper,
@@ -19,16 +19,8 @@ import { Button } from '@/components/elements/button';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
-import Select from '@/components/elements/Select';
-import AdminBox from '../AdminBox';
-import { faGears } from '@fortawesome/free-solid-svg-icons';
-import Label from '@/components/elements/Label';
-import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
-import FlashMessageRender from '@/components/FlashMessageRender';
-import Spinner from '@/components/elements/Spinner';
-import { CheckCircleIcon } from '@heroicons/react/outline';
-import updateTicketSettings from '@/api/admin/tickets/updateTicketSettings';
+import ToggleTicketsButton from './ToggleTicketsButton';
 
 function RowCheckbox({ id }: { id: number }) {
     const isChecked = AdminContext.useStoreState(state => state.tickets.selectedTickets.indexOf(id) >= 0);
@@ -67,28 +59,7 @@ export default () => {
     const { data: tickets } = useGetTickets();
     const { colors } = useStoreState(state => state.theme.data!);
     const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(TicketContext);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [success, setSuccess] = useState<boolean>(false);
-    const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const enabled = useStoreState(state => state.everest.data!.tickets.enabled);
 
-    const update = async (key: string, value: any) => {
-        clearFlashes();
-        setLoading(true);
-        setSuccess(false);
-
-        updateTicketSettings(key, value)
-            .then(() => {
-                setSuccess(true);
-                setLoading(false);
-            })
-            .catch(error => {
-                setLoading(false);
-                clearAndAddHttpError({ key: 'tickets', error });
-            });
-
-        setTimeout(() => setSuccess(false), 2000);
-    };
     const setSelectedTickets = AdminContext.useStoreActions(actions => actions.tickets.setSelectedTickets);
     const selectedTicketsLength = AdminContext.useStoreState(state => state.tickets.selectedTickets.length);
 
@@ -121,30 +92,12 @@ export default () => {
                     </p>
                 </div>
                 <div css={tw`flex ml-auto pl-4`}>
+                    <ToggleTicketsButton />
                     <Link to={'/admin/tickets/new'}>
                         <Button>New Ticket</Button>
                     </Link>
                 </div>
             </div>
-            <AdminBox title={'Ticket Options'} icon={faGears} className={'mb-10'}>
-                <FlashMessageRender byKey={'tickets'} className={'my-2'} />
-                {loading && <Spinner className={'absolute top-0 right-0 m-3.5'} size={'small'} />}
-                {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-green-500'} />}
-                <div className={'grid lg:grid-cols-3 gap-4'}>
-                    <div>
-                        <Label>Allow Ticket Creation</Label>
-                        <Select id={'enabled'} name={'enabled'} onChange={e => update('enabled', e.target.value)}>
-                            <option value={1} selected={enabled}>
-                                Enabled
-                            </option>
-                            <option value={0} selected={!enabled}>
-                                Disabled
-                            </option>
-                        </Select>
-                        <p className={'text-xs text-gray-400 mt-1'}>Toggle whether users can create tickets.</p>
-                    </div>
-                </div>
-            </AdminBox>
             <AdminTable>
                 <ContentWrapper
                     onSearch={onSearch}

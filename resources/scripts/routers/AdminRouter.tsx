@@ -52,6 +52,7 @@ import AuthContainer from '@/components/admin/auth/AuthContainer';
 import TicketRouter from '@/components/admin/tickets/TicketRouter';
 import { PencilIcon } from '@heroicons/react/solid';
 import ThemeContainer from '@/components/admin/theme/ThemeContainer';
+import BillingRouter from '@/components/admin/billing/BillingRouter';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
@@ -161,6 +162,7 @@ function AdminRouter() {
                         <Route path="api" element={<ApiContainer />} />
                         <Route path="api/new" element={<NewApiKeyContainer />} />
                         <Route path="auth" element={<AuthContainer />} />
+                        <Route path="billing/*" element={<BillingRouter />} />
                         <Route path="tickets/*" element={<TicketRouter />} />
                         <Route path="theme" element={<ThemeContainer />} />
                         <Route path="databases" element={<DatabasesContainer />} />
