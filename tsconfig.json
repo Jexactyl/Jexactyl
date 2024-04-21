@@ -15,6 +15,9 @@
             ],
             "@feature/*": [
                 "./resources/scripts/components/server/features/*"
+            ],
+            "@admin/*": [
+                "./resources/scripts/components/admin/*"
             ]
         },
         "plugins": [

@@ -52,6 +52,7 @@ export default defineConfig({
                 'server',
                 'features',
             ),
+            '@admin': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts', 'components', 'admin'),
         },
     },
 

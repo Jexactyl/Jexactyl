@@ -1,4 +1,4 @@
-import AdminBox from '@/components/admin/AdminBox';
+import AdminBox from '@/components/elements/AdminBox';
 import { Button } from '@/components/elements/button';
 import { faPuzzlePiece, faStar } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';

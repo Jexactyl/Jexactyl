@@ -20,39 +20,39 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 import Avatar from '@/components/Avatar';
 import CollapsedIcon from '@/assets/images/logo.png';
-import OverviewContainer from '@/components/admin/overview/OverviewContainer';
-import SettingsContainer from '@/components/admin/settings/SettingsRouter';
-import DatabasesContainer from '@/components/admin/databases/DatabasesContainer';
-import NewDatabaseContainer from '@/components/admin/databases/NewDatabaseContainer';
-import DatabaseEditContainer from '@/components/admin/databases/DatabaseEditContainer';
-import NodesContainer from '@/components/admin/nodes/NodesContainer';
-import NewNodeContainer from '@/components/admin/nodes/NewNodeContainer';
-import NodeRouter from '@/components/admin/nodes/NodeRouter';
-import LocationsContainer from '@/components/admin/locations/LocationsContainer';
-import LocationEditContainer from '@/components/admin/locations/LocationEditContainer';
-import ServersContainer from '@/components/admin/servers/ServersContainer';
-import NewServerContainer from '@/components/admin/servers/NewServerContainer';
-import ServerRouter from '@/components/admin/servers/ServerRouter';
-import NewUserContainer from '@/components/admin/users/NewUserContainer';
-import UserRouter from '@/components/admin/users/UserRouter';
-import NestsContainer from '@/components/admin/nests/NestsContainer';
-import NestEditContainer from '@/components/admin/nests/NestEditContainer';
-import NewEggContainer from '@/components/admin/nests/NewEggContainer';
-import EggRouter from '@/components/admin/nests/eggs/EggRouter';
-import MountsContainer from '@/components/admin/mounts/MountsContainer';
-import NewMountContainer from '@/components/admin/mounts/NewMountContainer';
-import MountEditContainer from '@/components/admin/mounts/MountEditContainer';
+import OverviewContainer from '@admin/general/overview/OverviewContainer';
+import SettingsContainer from '@admin/general/settings/SettingsRouter';
+import DatabasesContainer from '@admin/management/databases/DatabasesContainer';
+import NewDatabaseContainer from '@admin/management/databases/NewDatabaseContainer';
+import DatabaseEditContainer from '@admin/management/databases/DatabaseEditContainer';
+import NodesContainer from '@admin/management/nodes/NodesContainer';
+import NewNodeContainer from '@admin/management/nodes/NewNodeContainer';
+import NodeRouter from '@admin/management/nodes/NodeRouter';
+import LocationsContainer from '@admin/management/locations/LocationsContainer';
+import LocationEditContainer from '@admin/management/locations/LocationEditContainer';
+import ServersContainer from '@admin/management/servers/ServersContainer';
+import NewServerContainer from '@admin/management/servers/NewServerContainer';
+import ServerRouter from '@admin/management/servers/ServerRouter';
+import NewUserContainer from '@admin/management/users/NewUserContainer';
+import UserRouter from '@admin/management/users/UserRouter';
+import NestsContainer from '@admin/service/nests/NestsContainer';
+import NestEditContainer from '@admin/service/nests/NestEditContainer';
+import NewEggContainer from '@admin/service/nests/NewEggContainer';
+import EggRouter from '@admin/service/nests/eggs/EggRouter';
+import MountsContainer from '@admin/service/mounts/MountsContainer';
+import NewMountContainer from '@admin/service/mounts/NewMountContainer';
+import MountEditContainer from '@admin/service/mounts/MountEditContainer';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import type { ApplicationStore } from '@/state';
 import Sidebar from '@/components/elements/Sidebar';
-import UsersContainer from '@/components/admin/users/UsersContainer';
-import ApiContainer from '@/components/admin/api/ApiContainer';
-import NewApiKeyContainer from '@/components/admin/api/NewApiKeyContainer';
-import AuthContainer from '@/components/admin/auth/AuthContainer';
-import TicketRouter from '@/components/admin/tickets/TicketRouter';
+import UsersContainer from '@admin/management/users/UsersContainer';
+import ApiContainer from '@admin/general/api/ApiContainer';
+import NewApiKeyContainer from '@admin/general/api/NewApiKeyContainer';
+import AuthContainer from '@admin/modules/auth/AuthContainer';
+import TicketRouter from '@admin/modules/tickets/TicketRouter';
 import { PencilIcon } from '@heroicons/react/solid';
-import ThemeContainer from '@/components/admin/theme/ThemeContainer';
-import BillingRouter from '@/components/admin/billing/BillingRouter';
+import ThemeContainer from '@admin/modules/theme/ThemeContainer';
+import BillingRouter from '@admin/modules/billing/BillingRouter';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
@@ -75,7 +75,7 @@ function AdminRouter() {
                     )}
                 </div>
                 <Sidebar.Wrapper>
-                    <Sidebar.Section>Administration</Sidebar.Section>
+                    <Sidebar.Section>General</Sidebar.Section>
                     <NavLink to="/admin" end>
                         <OfficeBuildingIcon />
                         <span>Overview</span>
@@ -126,7 +126,7 @@ function AdminRouter() {
                         <UsersIcon />
                         <span>Users</span>
                     </NavLink>
-                    <Sidebar.Section>Service Management</Sidebar.Section>
+                    <Sidebar.Section>Services</Sidebar.Section>
                     <NavLink to="/admin/nests">
                         <ViewGridIcon />
                         <span>Nests</span>
