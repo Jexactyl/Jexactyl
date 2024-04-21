@@ -1,8 +1,8 @@
 import { useStoreState } from '@/state/hooks';
-import { Button } from '@elements/button';
+import FeatureContainer from '@elements/FeatureContainer';
 import BillingSvg from '@/assets/images/themed/BillingSvg';
 import { faMoneyBillWave } from '@fortawesome/free-solid-svg-icons';
-import FeatureContainer from '@elements/FeatureContainer';
+import ToggleFeatureButton from '@admin/modules/billing/ToggleFeatureButton';
 
 export default () => {
     const primary = useStoreState(state => state.theme.data!.colors.primary);
@@ -13,7 +13,7 @@ export default () => {
             balances. View PDF invoices, manually change subscription details and so much more with our easy-to-use
             interface and deep integration with third-party payment gateways like Stripe and PayPal.
             <p className={'text-right mt-2'}>
-                <Button.Text disabled>Coming Soon</Button.Text>
+                <ToggleFeatureButton />
             </p>
         </FeatureContainer>
     );

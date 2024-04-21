@@ -38,9 +38,12 @@ class EverestComposer
                 ],
             ],
             'tickets' => [
-                'enabled' => boolval(config('tickets.enabled', false)),
-                'maxCount' => config('tickets.max_count', 3),
-            ]
+                'enabled' => boolval(config('modules.tickets.enabled', false)),
+                'maxCount' => config('modules.tickets.max_count', 3),
+            ],
+            'billing' => [
+                'enabled' => boolval(config('billing.enabled', false)),
+            ],
         ]);
     }
 }

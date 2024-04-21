@@ -41,6 +41,20 @@ Route::group(['prefix' => '/auth'], function () {
     });
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Billing Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/billing
+|
+*/
+Route::group(['prefix' => '/billing'], function () {
+    Route::get('/settings', [Application\Billing\BillingSettingsController::class, 'view']);
+    Route::put('/settings', [Application\Billing\BillingSettingsController::class, 'update']);
+});
+
 /*
 |--------------------------------------------------------------------------
 | API Controller Routes
@@ -222,25 +236,6 @@ Route::group(['prefix' => '/nodes'], function () {
         Route::post('/', [Application\Nodes\AllocationController::class, 'store']);
         Route::delete('/{allocation:id}', [Application\Nodes\AllocationController::class, 'delete']);
     });
-});
-
-/*
-|--------------------------------------------------------------------------
-| Role Controller Routes
-|--------------------------------------------------------------------------
-|
-| Endpoint: /api/application/roles
-|
-*/
-Route::group(['prefix' => '/roles'], function () {
-    Route::get('/', [Application\Roles\RoleController::class, 'index']);
-    Route::get('/{role:id}', [Application\Roles\RoleController::class, 'view']);
-
-    Route::post('/', [Application\Roles\RoleController::class, 'store']);
-
-    Route::patch('/{role:id}', [Application\Roles\RoleController::class, 'update']);
-
-    Route::delete('/{role:id}', [Application\Roles\RoleController::class, 'delete']);
 });
 
 /*
