@@ -22,13 +22,13 @@ const AdminBox = ({ icon, title, className, isLoading, children, button, noPaddi
     return (
         <div
             className={className}
-            css={tw`relative rounded shadow-md`}
+            css={tw`relative rounded shadow-md transition duration-300`}
             style={{ backgroundColor: theme.colors.secondary }}
         >
             <SpinnerOverlay visible={isLoading || false} />
             <div
                 style={{ backgroundColor: theme.colors.headers }}
-                css={tw`flex flex-row rounded-t px-4 xl:px-5 py-3 border-b border-black`}
+                css={tw`flex flex-row rounded-t px-4 xl:px-5 py-3 border-b border-black transition duration-300`}
             >
                 {typeof title === 'string' ? (
                     <p css={tw`font-semibold`}>
