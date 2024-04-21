@@ -90,7 +90,7 @@ export default () => {
         <>
             {count > 0 && (
                 <Tooltip content={`${count} files are uploading, click to view`}>
-                    <button className={'flex h-10 w-10 items-center justify-center'} onClick={() => setOpen(false)}>
+                    <button className={'flex h-10 w-10 items-center justify-center'} onClick={() => setOpen(true)}>
                         <Spinner progress={(progress.uploaded / progress.total) * 100} className={'h-8 w-8'} />
                         <CloudUploadIcon className={'absolute mx-auto h-3 animate-pulse'} />
                     </button>
