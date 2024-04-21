@@ -101,9 +101,6 @@ dependencies:
   '@lezer/highlight':
     specifier: 1.1.3
     version: 1.1.3
-  '@preact/signals-react':
-    specifier: 1.2.2
-    version: 1.2.2(react@18.2.0)
   axios:
     specifier: 0.27.2
     version: 0.27.2
@@ -1665,20 +1662,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
-
-  /@preact/signals-core@1.2.3:
-    resolution: {integrity: sha512-Kui4p7PMcEQevBgsTO0JBo3gyQ88Q3qzEvsVCuSp11t0JcN4DmGCTJcGRVSCq7Bn7lGxJBO+57jNSzDoDJ+QmA==}
-    dev: false
-
-  /@preact/signals-react@1.2.2(react@18.2.0):
-    resolution: {integrity: sha512-GoESQ9n1bns2FD+8yqH7lBvQMavboKLCNEW+s0hs3Wcp5B1VHvVxwJo6aFs6rpxoh1/q8Tvwbi4vIeehBD2mzA==}
-    peerDependencies:
-      react: 17.x || 18.x
-    dependencies:
-      '@preact/signals-core': 1.2.3
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /@remix-run/router@1.3.2:
     resolution: {integrity: sha512-t54ONhl/h75X94SWsHGQ4G/ZrCEguKSRQr7DrjTciJXW0YU1QhlwYeycvK5JgkzlxmvrK7wq1NB/PLtHxoiDcA==}

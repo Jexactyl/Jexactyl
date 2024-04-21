@@ -1,6 +1,5 @@
 import { CloudUploadIcon, XIcon } from '@heroicons/react/solid';
-import { useSignal } from '@preact/signals-react';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { Button } from '@elements/button/index';
 import { Dialog, DialogWrapperContext } from '@elements/dialog';
@@ -73,7 +72,7 @@ const FileUploadListDialog = asDialog({
 })(FileUploadList);
 
 export default () => {
-    const open = useSignal(false);
+    const [open, setOpen] = useState(false);
 
     const count = ServerContext.useStoreState(state => Object.keys(state.files.uploads).length);
     const progress = ServerContext.useStoreState(state => ({
@@ -83,7 +82,7 @@ export default () => {
 
     useEffect(() => {
         if (count === 0) {
-            open.value = false;
+            setOpen(false);
         }
     }, [count]);
 
@@ -91,16 +90,13 @@ export default () => {
         <>
             {count > 0 && (
                 <Tooltip content={`${count} files are uploading, click to view`}>
-                    <button
-                        className={'flex h-10 w-10 items-center justify-center'}
-                        onClick={() => (open.value = true)}
-                    >
+                    <button className={'flex h-10 w-10 items-center justify-center'} onClick={() => setOpen(false)}>
                         <Spinner progress={(progress.uploaded / progress.total) * 100} className={'h-8 w-8'} />
                         <CloudUploadIcon className={'absolute mx-auto h-3 animate-pulse'} />
                     </button>
                 </Tooltip>
             )}
-            <FileUploadListDialog open={open.value} onClose={() => (open.value = false)} />
+            <FileUploadListDialog open={open} onClose={() => setOpen(false)} />
         </>
     );
 };

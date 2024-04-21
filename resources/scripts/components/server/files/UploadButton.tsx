@@ -1,7 +1,6 @@
 import { CloudUploadIcon } from '@heroicons/react/outline';
-import { useSignal } from '@preact/signals-react';
 import axios from 'axios';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import tw from 'twin.macro';
 
 import getFileUploadUrl from '@/api/server/files/getFileUploadUrl';
@@ -26,8 +25,8 @@ function isFileOrDirectory(event: DragEvent): boolean {
 export default ({ className }: WithClassname) => {
     const fileUploadInput = useRef<HTMLInputElement>(null);
 
-    const visible = useSignal(false);
-    const timeouts = useSignal<NodeJS.Timeout[]>([]);
+    const [visible, setVisible] = useState(false);
+    const [timeouts, _setTimeouts] = useState<NodeJS.Timeout[]>([]);
 
     const { mutate } = useFileManagerSwr();
     const { addError, clearAndAddHttpError } = useFlashKey('files');
@@ -44,18 +43,18 @@ export default ({ className }: WithClassname) => {
             e.preventDefault();
             e.stopPropagation();
             if (isFileOrDirectory(e)) {
-                visible.value = true;
+                setVisible(true);
             }
         },
         { capture: true },
     );
 
-    useEventListener('dragexit', () => (visible.value = false), { capture: true });
+    useEventListener('dragexit', () => setVisible(false), { capture: true });
 
-    useEventListener('keydown', () => (visible.value = false));
+    useEventListener('keydown', () => setVisible(false));
 
     useEffect(() => {
-        return () => timeouts.value.forEach(clearTimeout);
+        return () => timeouts.forEach(clearTimeout);
     }, []);
 
     const onUploadProgress = (data: ProgressEvent, name: string) => {
@@ -89,7 +88,7 @@ export default ({ className }: WithClassname) => {
                                 onUploadProgress: data => onUploadProgress(data, file.name),
                             },
                         )
-                        .then(() => timeouts.value.push(setTimeout(() => removeFileUpload(file.name), 500))),
+                        .then(() => timeouts.push(setTimeout(() => removeFileUpload(file.name), 500))),
                 );
         });
 
@@ -104,15 +103,16 @@ export default ({ className }: WithClassname) => {
     return (
         <>
             <Portal>
-                <FadeTransition show={visible.value} duration="duration-75" key="upload_modal_mask" appear unmount>
+                <FadeTransition show={visible} duration="duration-75" key="upload_modal_mask" appear unmount>
                     <ModalMask
-                        onClick={() => (visible.value = false)}
+                        onClick={() => setVisible(false)}
                         onDragOver={e => e.preventDefault()}
                         onDrop={e => {
                             e.preventDefault();
                             e.stopPropagation();
 
-                            visible.value = false;
+                            setVisible(false);
+
                             if (!e.dataTransfer?.files.length) {
                                 return;
                             }
