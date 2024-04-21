@@ -1,45 +1,34 @@
-import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
 import Label from '@/components/elements/Label';
 import Select from '@/components/elements/Select';
 import AdminBox from '@/components/admin/AdminBox';
-import Spinner from '@/components/elements/Spinner';
-import { CheckCircleIcon } from '@heroicons/react/solid';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import updateRegistrationSettings from '@/api/admin/auth/updateRegistrationSettings';
-import FlashMessageRender from '@/components/FlashMessageRender';
 import { useStoreState } from '@/state/hooks';
 import { Alert } from '@/components/elements/alert';
+import useStatus from '@/plugins/useStatus';
 
 export default () => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [success, setSuccess] = useState<boolean>(false);
+    const { status, setStatus } = useStatus();
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const settings = useStoreState(state => state.everest.data!.auth.registration);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
-        setLoading(true);
-        setSuccess(false);
+        setStatus('loading');
 
         updateRegistrationSettings(key, value)
             .then(() => {
-                setSuccess(true);
-                setLoading(false);
+                setStatus('success');
             })
             .catch(error => {
-                setLoading(false);
+                setStatus('error');
                 clearAndAddHttpError({ key: 'auth:registration', error });
             });
-
-        setTimeout(() => setSuccess(false), 2000);
     };
 
     return (
-        <AdminBox title={'Registration Module'} icon={faUserPlus}>
-            <FlashMessageRender byKey={'auth:registration'} className={'my-2'} />
-            {loading && <Spinner className={'absolute top-0 right-0 m-3.5'} size={'small'} />}
-            {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-0 m-3.5 text-green-500'} />}
+        <AdminBox title={'Registration Module'} icon={faUserPlus} byKey={'auth:registration'} status={status}>
             <div>
                 <Label>Allow User Registration</Label>
                 <Select id={'enabled'} name={'enabled'} onChange={e => update('enabled', e.target.value)}>

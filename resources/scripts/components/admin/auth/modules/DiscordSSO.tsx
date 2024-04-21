@@ -5,38 +5,34 @@ import { useStoreState } from '@/state/hooks';
 import Label from '@/components/elements/Label';
 import Input from '@/components/elements/Input';
 import AdminBox from '@/components/admin/AdminBox';
-import Spinner from '@/components/elements/Spinner';
+import { TrashIcon } from '@heroicons/react/outline';
 import { Dialog } from '@/components/elements/dialog';
 import disableModule from '@/api/admin/auth/disableModule';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import FlashMessageRender from '@/components/FlashMessageRender';
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
 import RequiredFieldIcon from '@/components/elements/RequiredFieldIcon';
 import updateDiscordSettings from '@/api/admin/auth/modules/updateDiscordSettings';
+import useStatus from '@/plugins/useStatus';
 
 export default () => {
+    const { status, setStatus } = useStatus();
     const [confirm, setConfirm] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { colors } = useStoreState(state => state.theme.data!);
     const settings = useStoreState(state => state.everest.data!.auth.modules.discord);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
-        setLoading(true);
-        setSuccess(false);
+        setStatus('loading');
 
         updateDiscordSettings(key, value)
             .then(() => {
-                setSuccess(true);
-                setLoading(false);
-                setTimeout(() => setSuccess(false), 2000);
+                setStatus('success');
+                setTimeout(() => setStatus('none'), 2000);
             })
             .catch(error => {
                 clearAndAddHttpError({ key: 'auth:modules:discord', error });
 
-                setLoading(false);
+                setStatus('none');
             });
     };
 
@@ -50,10 +46,13 @@ export default () => {
     };
 
     return (
-        <AdminBox title={'Discord SSO Module'} icon={faDiscord}>
-            <FlashMessageRender byKey={'auth:modules:discord'} className={'my-2'} />
-            {loading && <Spinner className={'absolute top-0 right-8 m-3.5'} size={'small'} />}
-            {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-8 m-3.5 text-green-500'} />}
+        <AdminBox
+            title={'Discord SSO Module'}
+            icon={faDiscord}
+            byKey={'auth:modules:discord'}
+            status={status}
+            canDelete
+        >
             <Dialog.Confirm
                 open={confirm}
                 title={'Confirm module removal'}

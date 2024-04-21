@@ -1,40 +1,36 @@
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
+import useStatus from '@/plugins/useStatus';
 import { useStoreState } from '@/state/hooks';
 import Label from '@/components/elements/Label';
 import Input from '@/components/elements/Input';
 import AdminBox from '@/components/admin/AdminBox';
-import Spinner from '@/components/elements/Spinner';
+import { TrashIcon } from '@heroicons/react/outline';
 import { Dialog } from '@/components/elements/dialog';
 import disableModule from '@/api/admin/auth/disableModule';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
 import updateGoogleSettings from '@/api/admin/auth/modules/updateGoogleSettings';
 import RequiredFieldIcon from '@/components/elements/RequiredFieldIcon';
 
 export default () => {
+    const { status, setStatus } = useStatus();
     const [confirm, setConfirm] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const settings = useStoreState(state => state.everest.data!.auth.modules.google);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
-        setLoading(true);
-        setSuccess(false);
+        setStatus('loading');
 
         updateGoogleSettings(key, value)
             .then(() => {
-                setSuccess(true);
-                setLoading(false);
-                setTimeout(() => setSuccess(false), 2000);
+                setStatus('success');
             })
             .catch(error => {
                 clearAndAddHttpError({ key: 'auth:modules:google', error });
 
-                setLoading(false);
+                setStatus('error');
             });
     };
 
@@ -48,10 +44,8 @@ export default () => {
     };
 
     return (
-        <AdminBox title={'Google SSO Module'} icon={faGoogle}>
+        <AdminBox title={'Google SSO Module'} icon={faGoogle} byKey={'auth:modules:google'} status={status} canDelete>
             <FlashMessageRender byKey={'auth:modules:google'} className={'my-2'} />
-            {loading && <Spinner className={'absolute top-0 right-8 m-3.5'} size={'small'} />}
-            {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-8 m-3.5 text-green-500'} />}
             <Dialog.Confirm
                 open={confirm}
                 title={'Confirm module removal'}
