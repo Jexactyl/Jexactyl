@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import type { Database } from '@/api/admin/databases/getDatabases';
 import searchDatabases from '@/api/admin/databases/searchDatabases';
-import SearchableSelect, { Option } from '@/components/elements/SearchableSelect';
+import SearchableSelect, { Option } from '@elements/SearchableSelect';
 
 export default ({ selected }: { selected: Database | null }) => {
     const context = useFormikContext();

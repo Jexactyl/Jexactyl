@@ -1,4 +1,4 @@
-import Tooltip from '@/components/elements/tooltip/Tooltip';
+import Tooltip from '@elements/tooltip/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 

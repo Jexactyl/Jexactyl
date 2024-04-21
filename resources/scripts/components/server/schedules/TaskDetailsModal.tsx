@@ -4,19 +4,19 @@ import { Field as FormikField, Form, Formik, FormikHelpers, useField } from 'for
 import { ServerContext } from '@/state/server';
 import createOrUpdateScheduleTask from '@/api/server/schedules/createOrUpdateScheduleTask';
 import { httpErrorToHuman } from '@/api/http';
-import Field from '@/components/elements/Field';
+import Field from '@elements/Field';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { boolean, number, object, string } from 'yup';
 import useFlash from '@/plugins/useFlash';
-import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
+import FormikFieldWrapper from '@elements/FormikFieldWrapper';
 import tw from 'twin.macro';
-import Label from '@/components/elements/Label';
-import { Textarea } from '@/components/elements/Input';
-import { Button } from '@/components/elements/button/index';
-import Select from '@/components/elements/Select';
+import Label from '@elements/Label';
+import { Textarea } from '@elements/Input';
+import { Button } from '@elements/button/index';
+import Select from '@elements/Select';
 import ModalContext from '@/context/ModalContext';
 import asModal from '@/hoc/asModal';
-import FormikSwitch from '@/components/elements/FormikSwitch';
+import FormikSwitch from '@elements/FormikSwitch';
 
 interface Props {
     schedule: Schedule;

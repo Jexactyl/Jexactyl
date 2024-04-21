@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
-import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
+import FormikFieldWrapper from '@elements/FormikFieldWrapper';
 import createApiKey from '@/api/account/createApiKey';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { ApiKey } from '@/api/account/getApiKeys';
 import tw from 'twin.macro';
-import { Button } from '@/components/elements/button';
-import Input, { Textarea } from '@/components/elements/Input';
+import { Button } from '@elements/button';
+import Input, { Textarea } from '@elements/Input';
 import styled from 'styled-components';
 import ApiKeyModal from '@/components/dashboard/ApiKeyModal';
 

@@ -14,11 +14,11 @@ import AdminTable, {
 import AdminCheckbox from '../../../elements/AdminCheckbox';
 import { AdminContext } from '@/state/admin';
 import { ChangeEvent, useContext, useEffect } from 'react';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import { Link, NavLink } from 'react-router-dom';
 import type { RealFilters } from '@/api/admin/users';
 import AdminContentBlock from '../../../elements/AdminContentBlock';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import { useStoreState } from '@/state/hooks';
 
 function RowCheckbox({ id }: { id: number }) {

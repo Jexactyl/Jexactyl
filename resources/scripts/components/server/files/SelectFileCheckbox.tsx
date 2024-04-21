@@ -2,7 +2,7 @@ import * as React from 'react';
 import tw from 'twin.macro';
 import { ServerContext } from '@/state/server';
 import styled from 'styled-components';
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 
 export const FileActionCheckbox = styled(Input)`
     && {

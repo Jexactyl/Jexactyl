@@ -7,18 +7,18 @@ import { array, boolean, object, string } from 'yup';
 
 import deleteEggVariable from '@/api/admin/eggs/deleteEggVariable';
 import updateEggVariables from '@/api/admin/eggs/updateEggVariables';
-import { NoItems } from '@/components/elements/AdminTable';
-import ConfirmationModal from '@/components/elements/ConfirmationModal';
+import { NoItems } from '@elements/AdminTable';
+import ConfirmationModal from '@elements/ConfirmationModal';
 import type { EggVariable } from '@/api/admin/egg';
 import { useEggFromRoute } from '@/api/admin/egg';
 import NewVariableButton from '@admin/service/nests/eggs/NewVariableButton';
-import AdminBox from '@/components/elements/AdminBox';
-import { Button } from '@/components/elements/button';
-import Checkbox from '@/components/elements/Checkbox';
-import Field, { FieldRow, TextareaField } from '@/components/elements/Field';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import AdminBox from '@elements/AdminBox';
+import { Button } from '@elements/button';
+import Checkbox from '@elements/Checkbox';
+import Field, { FieldRow, TextareaField } from '@elements/Field';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
-import Label from '@/components/elements/Label';
+import Label from '@elements/Label';
 import { useStoreState } from '@/state/hooks';
 
 export const validationSchema = object().shape({

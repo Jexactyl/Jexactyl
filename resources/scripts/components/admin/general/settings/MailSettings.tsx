@@ -1,11 +1,11 @@
 import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
 
-import AdminBox from '@/components/elements/AdminBox';
-import { Button } from '@/components/elements/button';
-import Field, { FieldRow } from '@/components/elements/Field';
-import Label from '@/components/elements/Label';
-import Select from '@/components/elements/Select';
+import AdminBox from '@elements/AdminBox';
+import { Button } from '@elements/button';
+import Field, { FieldRow } from '@elements/Field';
+import Label from '@elements/Label';
+import Select from '@elements/Select';
 import { useStoreState } from '@/state/hooks';
 
 export default () => {

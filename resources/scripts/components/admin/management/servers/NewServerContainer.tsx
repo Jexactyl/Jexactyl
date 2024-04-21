@@ -11,7 +11,7 @@ import type { CreateServerRequest } from '@/api/admin/servers/createServer';
 import createServer from '@/api/admin/servers/createServer';
 import type { Allocation, Node } from '@/api/admin/node';
 import { getAllocations } from '@/api/admin/node';
-import AdminBox from '@/components/elements/AdminBox';
+import AdminBox from '@elements/AdminBox';
 import NodeSelect from '@admin/management/servers/NodeSelect';
 import {
     ServerImageContainer,
@@ -21,15 +21,15 @@ import {
 import BaseSettingsBox from '@admin/management/servers/settings/BaseSettingsBox';
 import FeatureLimitsBox from '@admin/management/servers/settings/FeatureLimitsBox';
 import ServerResourceBox from '@admin/management/servers/settings/ServerResourceBox';
-import { Button } from '@/components/elements/button';
-import Field from '@/components/elements/Field';
-import FormikSwitch from '@/components/elements/FormikSwitch';
-import Label from '@/components/elements/Label';
-import Select from '@/components/elements/Select';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import { Button } from '@elements/button';
+import Field from '@elements/Field';
+import FormikSwitch from '@elements/FormikSwitch';
+import Label from '@elements/Label';
+import Select from '@elements/Select';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import { WithRelationships } from '@/api/admin';
 
 function InternalForm() {

@@ -4,7 +4,7 @@ import type { FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import MountForm from '@admin/service/mounts/MountForm';
 import createMount from '@/api/admin/mounts/createMount';

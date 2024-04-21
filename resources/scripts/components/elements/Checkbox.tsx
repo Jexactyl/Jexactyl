@@ -1,7 +1,7 @@
 import type { FieldProps } from 'formik';
 import { Field } from 'formik';
 
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 
 interface Props {
     id: string;

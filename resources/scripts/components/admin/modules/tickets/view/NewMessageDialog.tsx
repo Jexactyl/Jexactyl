@@ -4,15 +4,15 @@ import { useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import type { ApplicationStore } from '@/state';
-import { Dialog } from '@/components/elements/dialog';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import { Dialog } from '@elements/dialog';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { useTicketFromRoute } from '@/api/admin/tickets/getTicket';
 import createMessage from '@/api/admin/tickets/messages/createMessage';
 import type { Values } from '@/api/admin/tickets/messages/createMessage';
 import { useState } from 'react';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { TextareaField } from '@/components/elements/Field';
+import { TextareaField } from '@elements/Field';
 
 const initialValues: Values = {
     message: '',

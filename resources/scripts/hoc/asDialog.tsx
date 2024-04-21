@@ -1,6 +1,6 @@
 import type { ComponentProps, ComponentType, FunctionComponent } from 'react';
 import { useState } from 'react';
-import { Dialog, DialogProps, DialogWrapperContext, WrapperProps } from '@/components/elements/dialog';
+import { Dialog, DialogProps, DialogWrapperContext, WrapperProps } from '@elements/dialog';
 
 function asDialog(
     initialProps?: WrapperProps,

@@ -7,11 +7,11 @@ import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { Formik, FormikHelpers } from 'formik';
 import { object, ref, string } from 'yup';
-import Field from '@/components/elements/Field';
-import Input from '@/components/elements/Input';
+import Field from '@elements/Field';
+import Input from '@elements/Input';
 import tw from 'twin.macro';
-import { Button } from '@/components/elements/button';
-import Label from '@/components/elements/Label';
+import { Button } from '@elements/button';
+import Label from '@elements/Label';
 
 interface Values {
     password: string;

@@ -20,7 +20,7 @@ import Select, {
 import Async from 'react-select/async';
 import Creatable from 'react-select/creatable';
 import tw, { theme } from 'twin.macro';
-import Label from '@/components/elements/Label';
+import Label from '@elements/Label';
 import { ValueType } from 'react-select/src/types';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import { MenuPortalProps, NoticeProps } from 'react-select/src/components/Menu';

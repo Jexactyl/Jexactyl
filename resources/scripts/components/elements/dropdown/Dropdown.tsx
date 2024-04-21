@@ -4,8 +4,8 @@ import type { ElementType, ReactNode } from 'react';
 import { Children as ReactChildren } from 'react';
 import { forwardRef, useMemo } from 'react';
 
-import { DropdownButton } from '@/components/elements/dropdown/DropdownButton';
-import { DropdownItem } from '@/components/elements/dropdown/DropdownItem';
+import { DropdownButton } from '@elements/dropdown/DropdownButton';
+import { DropdownItem } from '@elements/dropdown/DropdownItem';
 import styles from './style.module.css';
 
 interface Props {

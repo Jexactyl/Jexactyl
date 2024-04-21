@@ -6,14 +6,14 @@ import tw from 'twin.macro';
 import { bool, object, string } from 'yup';
 
 import type { UpdateUserValues } from '@/api/admin/users';
-import AdminBox from '@/components/elements/AdminBox';
-import CopyOnClick from '@/components/elements/CopyOnClick';
-import FormikSwitch from '@/components/elements/FormikSwitch';
-import Input from '@/components/elements/Input';
-import Label from '@/components/elements/Label';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
-import { Button } from '@/components/elements/button';
-import Field, { FieldRow } from '@/components/elements/Field';
+import AdminBox from '@elements/AdminBox';
+import CopyOnClick from '@elements/CopyOnClick';
+import FormikSwitch from '@elements/FormikSwitch';
+import Input from '@elements/Input';
+import Label from '@elements/Label';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
+import { Button } from '@elements/button';
+import Field, { FieldRow } from '@elements/Field';
 import type { User } from '@definitions/admin';
 
 interface ctx {

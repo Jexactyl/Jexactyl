@@ -8,7 +8,7 @@ import AdminTable, {
     Loading,
     NoItems,
     useTableHooks,
-} from '@/components/elements/AdminTable';
+} from '@elements/AdminTable';
 import { ContextFilters, Context as MessagesContext } from '@/api/admin/tickets/messages/getMessages';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import { TicketMessage } from '@/api/admin/tickets/getTickets';

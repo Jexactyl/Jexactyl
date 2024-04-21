@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
-import Select from '@/components/elements/Select';
-import Spinner from '@/components/elements/Spinner';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import Select from '@elements/Select';
+import Spinner from '@elements/Spinner';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 const Container = styled.div<{ visible?: boolean }>`
     ${tw`relative`};

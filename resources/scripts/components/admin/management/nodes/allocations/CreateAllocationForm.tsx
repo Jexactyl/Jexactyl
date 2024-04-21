@@ -7,10 +7,10 @@ import { array, number, object, string } from 'yup';
 import createAllocation from '@/api/admin/nodes/allocations/createAllocation';
 import getAllocations from '@/api/admin/nodes/getAllocations';
 import getAllocations2 from '@/api/admin/nodes/allocations/getAllocations';
-import { Button } from '@/components/elements/button';
-import Field from '@/components/elements/Field';
-import type { Option } from '@/components/elements/SelectField';
-import SelectField from '@/components/elements/SelectField';
+import { Button } from '@elements/button';
+import Field from '@elements/Field';
+import type { Option } from '@elements/SelectField';
+import SelectField from '@elements/SelectField';
 
 interface Values {
     ips: string[];

@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faUnlockAlt, faUserLock } from '@fortawesome/free-solid-svg-icons';
 import RemoveSubuserButton from '@/components/server/users/RemoveSubuserButton';
 import EditSubuserModal from '@/components/server/users/EditSubuserModal';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import { useStoreState } from 'easy-peasy';
 import tw from 'twin.macro';
-import GreyRowBox from '@/components/elements/GreyRowBox';
+import GreyRowBox from '@elements/GreyRowBox';
 
 interface Props {
     subuser: Subuser;

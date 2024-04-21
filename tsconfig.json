@@ -13,6 +13,9 @@
             "@definitions/*": [
                 "./resources/scripts/api/definitions/*"
             ],
+            "@elements/*": [
+                "./resources/scripts/components/elements/*"
+            ],
             "@feature/*": [
                 "./resources/scripts/components/server/features/*"
             ],

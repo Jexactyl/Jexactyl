@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import Label from '@/components/elements/Label';
-import Input from '@/components/elements/Input';
+import Label from '@elements/Label';
+import Input from '@elements/Input';
 
 const ToggleContainer = styled.div`
     ${tw`relative select-none w-12 leading-normal`};

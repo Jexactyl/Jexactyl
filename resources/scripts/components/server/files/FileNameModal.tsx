@@ -4,10 +4,10 @@ import { join } from 'pathe';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
 
-import { Button } from '@/components/elements/button';
-import Field from '@/components/elements/Field';
-import type { RequiredModalProps } from '@/components/elements/Modal';
-import Modal from '@/components/elements/Modal';
+import { Button } from '@elements/button';
+import Field from '@elements/Field';
+import type { RequiredModalProps } from '@elements/Modal';
+import Modal from '@elements/Modal';
 import { ServerContext } from '@/state/server';
 
 type Props = RequiredModalProps & {

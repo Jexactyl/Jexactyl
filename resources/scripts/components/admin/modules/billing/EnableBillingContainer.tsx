@@ -1,8 +1,8 @@
 import { useStoreState } from '@/state/hooks';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import BillingSvg from '@/assets/images/themed/BillingSvg';
 import { faMoneyBillWave } from '@fortawesome/free-solid-svg-icons';
-import FeatureContainer from '@/components/elements/FeatureContainer';
+import FeatureContainer from '@elements/FeatureContainer';
 
 export default () => {
     const primary = useStoreState(state => state.theme.data!.colors.primary);

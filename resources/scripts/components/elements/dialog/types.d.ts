@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconPosition } from '@/components/elements/dialog/DialogIcon';
+import { IconPosition } from '@elements/dialog/DialogIcon';
 
 type Callback<T> = ((value: T) => void) | React.Dispatch<React.SetStateAction<T>>;
 

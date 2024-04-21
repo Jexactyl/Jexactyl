@@ -1,6 +1,6 @@
 import tw from 'twin.macro';
 import { Field as FormikField } from 'formik';
-import Label from '@/components/elements/Label';
+import Label from '@elements/Label';
 
 interface Props {
     id: string;

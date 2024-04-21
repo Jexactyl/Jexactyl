@@ -2,7 +2,7 @@ import { faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import AdminBox from '@/components/elements/AdminBox';
+import AdminBox from '@elements/AdminBox';
 import AllocationTable from '@admin/management/nodes/allocations/AllocationTable';
 import CreateAllocationForm from '@admin/management/nodes/allocations/CreateAllocationForm';
 

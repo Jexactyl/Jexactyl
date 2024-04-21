@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 import type { Filters } from '@/api/admin/nodes/allocations/getAllocations';
 import getAllocations, { Context as AllocationsContext } from '@/api/admin/nodes/allocations/getAllocations';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
+import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -15,9 +15,9 @@ import AdminTable, {
     TableHead,
     TableHeader,
     useTableHooks,
-} from '@/components/elements/AdminTable';
+} from '@elements/AdminTable';
 import DeleteAllocationButton from '@admin/management/nodes/allocations/DeleteAllocationButton';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { AdminContext } from '@/state/admin';
 import { useStoreState } from '@/state/hooks';

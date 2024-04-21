@@ -1,7 +1,7 @@
 import { useStoreState } from '@/state/hooks';
 import SupportSvg from '@/assets/images/themed/SupportSvg';
 import { faTicket } from '@fortawesome/free-solid-svg-icons';
-import FeatureContainer from '@/components/elements/FeatureContainer';
+import FeatureContainer from '@elements/FeatureContainer';
 import ToggleTicketsButton from '@admin/modules/tickets/ToggleTicketsButton';
 
 export default () => {

@@ -8,10 +8,10 @@ import tw from 'twin.macro';
 import type { Mount } from '@/api/admin/mounts/getMounts';
 import getMount from '@/api/admin/mounts/getMount';
 import updateMount from '@/api/admin/mounts/updateMount';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import MountDeleteButton from '@admin/service/mounts/MountDeleteButton';
 import MountForm from '@admin/service/mounts/MountForm';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 

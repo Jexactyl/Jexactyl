@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { ServerError } from '@/components/elements/ScreenBlock';
+import { ServerError } from '@elements/ScreenBlock';
 import { usePermissions } from '@/plugins/usePermissions';
 
 interface Props {

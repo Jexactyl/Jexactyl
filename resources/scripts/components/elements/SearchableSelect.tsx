@@ -1,9 +1,9 @@
 import { debounce } from 'debounce';
 import React, { createRef, ReactElement, useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
-import Input from '@/components/elements/Input';
-import InputSpinner from '@/components/elements/InputSpinner';
-import Label from '@/components/elements/Label';
+import Input from '@elements/Input';
+import InputSpinner from '@elements/InputSpinner';
+import Label from '@elements/Label';
 
 const Dropdown = styled.div<{ expanded: boolean }>`
     ${tw`absolute z-10 w-full mt-1 rounded-md shadow-lg bg-neutral-900`};

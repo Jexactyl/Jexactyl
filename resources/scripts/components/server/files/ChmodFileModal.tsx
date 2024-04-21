@@ -1,12 +1,12 @@
 import { fileBitsToString } from '@/helpers';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
-import Modal, { RequiredModalProps } from '@/components/elements/Modal';
+import Modal, { RequiredModalProps } from '@elements/Modal';
 import { Form, Formik, FormikHelpers } from 'formik';
-import Field from '@/components/elements/Field';
+import Field from '@elements/Field';
 import chmodFiles from '@/api/server/files/chmodFiles';
 import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
 
 interface FormikValues {

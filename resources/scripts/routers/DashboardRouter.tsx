@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import NavigationBar from '@/components/NavigationBar';
 import DashboardContainer from '@/components/dashboard/DashboardContainer';
-import { NotFound } from '@/components/elements/ScreenBlock';
-import Spinner from '@/components/elements/Spinner';
-import SubNavigation from '@/components/elements/SubNavigation';
+import { NotFound } from '@elements/ScreenBlock';
+import Spinner from '@elements/Spinner';
+import SubNavigation from '@elements/SubNavigation';
 import routes from '@/routers/routes';
 import { useStoreState } from '@/state/hooks';
 

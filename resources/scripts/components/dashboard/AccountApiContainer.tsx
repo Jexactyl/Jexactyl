@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import ContentBox from '@/components/elements/ContentBox';
+import ContentBox from '@elements/ContentBox';
 import CreateApiKeyForm from '@/components/dashboard/forms/CreateApiKeyForm';
 import getApiKeys, { ApiKey } from '@/api/account/getApiKeys';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import deleteApiKey from '@/api/account/deleteApiKey';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { format } from 'date-fns';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 import tw from 'twin.macro';
-import GreyRowBox from '@/components/elements/GreyRowBox';
-import { Dialog } from '@/components/elements/dialog';
+import GreyRowBox from '@elements/GreyRowBox';
+import { Dialog } from '@elements/dialog';
 import { useFlashKey } from '@/plugins/useFlash';
-import Code from '@/components/elements/Code';
+import Code from '@elements/Code';
 
 export default () => {
     const [deleteIdentifier, setDeleteIdentifier] = useState('');

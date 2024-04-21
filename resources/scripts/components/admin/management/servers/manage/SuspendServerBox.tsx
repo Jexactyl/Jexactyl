@@ -1,8 +1,8 @@
 import tw from 'twin.macro';
-import AdminBox from '@/components/elements/AdminBox';
-import { Button } from '@/components/elements/button';
+import AdminBox from '@elements/AdminBox';
+import { Button } from '@elements/button';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import { useState } from 'react';
 import { useServerFromRoute } from '@/api/admin/server';
 import useFlash from '@/plugins/useFlash';

@@ -2,9 +2,9 @@ import { faBalanceScale } from '@fortawesome/free-solid-svg-icons';
 import { useFormikContext } from 'formik';
 import tw from 'twin.macro';
 
-import AdminBox from '@/components/elements/AdminBox';
-import Field from '@/components/elements/Field';
-import FormikSwitch from '@/components/elements/FormikSwitch';
+import AdminBox from '@elements/AdminBox';
+import Field from '@elements/Field';
+import FormikSwitch from '@elements/FormikSwitch';
 
 export default () => {
     const { isSubmitting } = useFormikContext();

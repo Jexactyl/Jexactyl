@@ -3,8 +3,8 @@ import copy from 'copy-to-clipboard';
 import type { MouseEvent, ReactNode } from 'react';
 import { Children, cloneElement, isValidElement, useEffect, useState } from 'react';
 
-import Portal from '@/components/elements/Portal';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import Portal from '@elements/Portal';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 interface CopyOnClickProps {
     text: string | number | null | undefined;

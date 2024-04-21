@@ -2,7 +2,7 @@ import { AdjustmentsIcon, ChipIcon, CodeIcon, MailIcon, ShieldCheckIcon } from '
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import MailSettings from '@admin/general/settings/MailSettings';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';

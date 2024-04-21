@@ -1,18 +1,18 @@
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
+import TitledGreyBox from '@elements/TitledGreyBox';
 import { ServerContext } from '@/state/server';
 import { useStoreState } from 'easy-peasy';
 import RenameServerBox from '@/components/server/settings/RenameServerBox';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import ReinstallServerBox from '@/components/server/settings/ReinstallServerBox';
 import tw from 'twin.macro';
-import Input from '@/components/elements/Input';
-import Label from '@/components/elements/Label';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
+import Input from '@elements/Input';
+import Label from '@elements/Label';
+import ServerContentBlock from '@elements/ServerContentBlock';
 import isEqual from 'react-fast-compare';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import { ip } from '@/lib/formatters';
-import { Button } from '@/components/elements/button/index';
+import { Button } from '@elements/button/index';
 
 export default () => {
     const username = useStoreState(state => state.user.data!.username);

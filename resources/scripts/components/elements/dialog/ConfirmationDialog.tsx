@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dialog, RenderDialogProps } from './';
-import { Button } from '@/components/elements/button/index';
+import { Button } from '@elements/button/index';
 
 type ConfirmationProps = Omit<RenderDialogProps, 'description' | 'children'> & {
     children: React.ReactNode;

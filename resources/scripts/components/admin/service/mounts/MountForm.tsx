@@ -4,11 +4,11 @@ import type { ReactNode } from 'react';
 import tw from 'twin.macro';
 import { boolean, object, string } from 'yup';
 
-import AdminBox from '@/components/elements/AdminBox';
-import { Button } from '@/components/elements/button';
-import Field from '@/components/elements/Field';
-import Label from '@/components/elements/Label';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import AdminBox from '@elements/AdminBox';
+import { Button } from '@elements/button';
+import Field from '@elements/Field';
+import Label from '@elements/Label';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 
 interface Values {
     name: string;

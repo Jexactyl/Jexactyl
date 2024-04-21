@@ -6,13 +6,13 @@ import { StoreProvider } from 'easy-peasy';
 import { AdminContext } from '@/state/admin';
 import { ServerContext } from '@/state/server';
 import { SiteSettings } from '@/state/settings';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import NotFoundSvg from '@/assets/images/not_found.svg';
-import ProgressBar from '@/components/elements/ProgressBar';
+import ProgressBar from '@elements/ProgressBar';
 import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
-import ScreenBlock, { NotFound } from '@/components/elements/ScreenBlock';
+import AuthenticatedRoute from '@elements/AuthenticatedRoute';
+import ScreenBlock, { NotFound } from '@elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
 import Onboarding from '@/components/Onboarding';
 

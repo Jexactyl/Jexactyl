@@ -4,8 +4,8 @@ import { memo, useCallback } from 'react';
 import isEqual from 'react-fast-compare';
 import tw from 'twin.macro';
 
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
-import Input from '@/components/elements/Input';
+import TitledGreyBox from '@elements/TitledGreyBox';
+import Input from '@elements/Input';
 
 interface Props {
     children?: ReactNode;

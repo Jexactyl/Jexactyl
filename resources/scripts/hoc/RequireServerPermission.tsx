@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import Can from '@/components/elements/Can';
-import { ServerError } from '@/components/elements/ScreenBlock';
+import Can from '@elements/Can';
+import { ServerError } from '@elements/ScreenBlock';
 
 export interface RequireServerPermissionProps {
     children?: ReactNode;

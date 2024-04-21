@@ -6,20 +6,20 @@ import { ServerContext } from '@/state/server';
 import { join } from 'pathe';
 import deleteFiles from '@/api/server/files/deleteFiles';
 import copyFile from '@/api/server/files/copyFile';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import getFileDownloadUrl from '@/api/server/files/getFileDownloadUrl';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
 import { FileObject } from '@/api/server/files/loadDirectory';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
-import DropdownMenu from '@/components/elements/DropdownMenu';
+import DropdownMenu from '@elements/DropdownMenu';
 import useEventListener from '@/plugins/useEventListener';
 import compressFiles from '@/api/server/files/compressFiles';
 import decompressFiles from '@/api/server/files/decompressFiles';
 import isEqual from 'react-fast-compare';
 import ChmodFileModal from '@/components/server/files/ChmodFileModal';
-import { Dialog } from '@/components/elements/dialog';
-import { Button } from '@/components/elements/button';
+import { Dialog } from '@elements/dialog';
+import { Button } from '@elements/button';
 import {
     ArchiveIcon,
     ArrowUpIcon,

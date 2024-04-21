@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import type { Location } from '@/api/admin/locations/getLocations';
 import searchLocations from '@/api/admin/locations/searchLocations';
-import SearchableSelect, { Option } from '@/components/elements/SearchableSelect';
+import SearchableSelect, { Option } from '@elements/SearchableSelect';
 
 export default ({ selected }: { selected: Location | null }) => {
     const context = useFormikContext();

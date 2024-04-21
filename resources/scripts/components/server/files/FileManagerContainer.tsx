@@ -3,27 +3,27 @@ import { useEffect } from 'react';
 import tw from 'twin.macro';
 
 import { httpErrorToHuman } from '@/api/http';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import FileObjectRow from '@/components/server/files/FileObjectRow';
 import FileManagerBreadcrumbs from '@/components/server/files/FileManagerBreadcrumbs';
 import { FileObject } from '@/api/server/files/loadDirectory';
 import NewDirectoryButton from '@/components/server/files/NewDirectoryButton';
 import { NavLink, useLocation } from 'react-router-dom';
-import Can from '@/components/elements/Can';
-import { ServerError } from '@/components/elements/ScreenBlock';
-import { Button } from '@/components/elements/button/index';
+import Can from '@elements/Can';
+import { ServerError } from '@elements/ScreenBlock';
+import { Button } from '@elements/button/index';
 import { ServerContext } from '@/state/server';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import FileManagerStatus from '@/components/server/files/FileManagerStatus';
 import MassActionsBar from '@/components/server/files/MassActionsBar';
 import UploadButton from '@/components/server/files/UploadButton';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
+import ServerContentBlock from '@elements/ServerContentBlock';
 import { useStoreActions } from '@/state/hooks';
-import ErrorBoundary from '@/components/elements/ErrorBoundary';
+import ErrorBoundary from '@elements/ErrorBoundary';
 import { FileActionCheckbox } from '@/components/server/files/SelectFileCheckbox';
 import { hashToPath } from '@/helpers';
 import style from './style.module.css';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 const sortFiles = (files: FileObject[]): FileObject[] => {
     const sortedFiles: FileObject[] = files

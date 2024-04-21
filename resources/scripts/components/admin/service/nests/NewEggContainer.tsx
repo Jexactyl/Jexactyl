@@ -6,7 +6,7 @@ import tw from 'twin.macro';
 import { object } from 'yup';
 
 import createEgg from '@/api/admin/eggs/createEgg';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import type { EggProcessContainerRef } from '@admin/service/nests/eggs/EggSettingsContainer';
 import {
     EggImageContainer,
@@ -15,7 +15,7 @@ import {
     EggProcessContainer,
     EggStartupContainer,
 } from '@admin/service/nests/eggs/EggSettingsContainer';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 

@@ -1,10 +1,10 @@
 import tw from 'twin.macro';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import Registration from '@admin/modules/auth/Registration';
 import Security from './Security';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import { useState } from 'react';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import AuthModules from '@/components/modules/auth/Modules';
 import { useStoreState } from '@/state/hooks';
 import DiscordSSO from './modules/DiscordSSO';

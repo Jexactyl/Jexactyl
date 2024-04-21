@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import { Alert } from '@/components/elements/alert';
-import Can from '@/components/elements/Can';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
-import Spinner from '@/components/elements/Spinner';
+import { Alert } from '@elements/alert';
+import Can from '@elements/Can';
+import ServerContentBlock from '@elements/ServerContentBlock';
+import Spinner from '@elements/Spinner';
 import Console from '@/components/server/console/Console';
 import PowerButtons from '@/components/server/console/PowerButtons';
 import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';

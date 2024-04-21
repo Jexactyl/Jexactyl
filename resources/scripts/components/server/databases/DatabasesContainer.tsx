@@ -4,14 +4,14 @@ import { ServerContext } from '@/state/server';
 import { httpErrorToHuman } from '@/api/http';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import DatabaseRow from '@/components/server/databases/DatabaseRow';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import CreateDatabaseButton from '@/components/server/databases/CreateDatabaseButton';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
+import ServerContentBlock from '@elements/ServerContentBlock';
 import { useDeepMemoize } from '@/plugins/useDeepMemoize';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 export default () => {
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);

@@ -4,8 +4,8 @@ import { useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components/elements/button';
-import ConfirmationModal from '@/components/elements/ConfirmationModal';
+import { Button } from '@elements/button';
+import ConfirmationModal from '@elements/ConfirmationModal';
 import deleteServer from '@/api/admin/servers/deleteServer';
 import { useServerFromRoute } from '@/api/admin/server';
 import type { ApplicationStore } from '@/state';

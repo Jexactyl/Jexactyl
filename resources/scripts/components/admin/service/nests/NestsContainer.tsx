@@ -5,8 +5,8 @@ import tw from 'twin.macro';
 
 import type { Filters } from '@/api/admin/nests/getNests';
 import getNests, { Context as NestsContext } from '@/api/admin/nests/getNests';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -17,8 +17,8 @@ import AdminTable, {
     NoItems,
     ContentWrapper,
     useTableHooks,
-} from '@/components/elements/AdminTable';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+} from '@elements/AdminTable';
+import CopyOnClick from '@elements/CopyOnClick';
 import NewNestButton from '@admin/service/nests/NewNestButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';

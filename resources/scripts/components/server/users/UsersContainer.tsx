@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { ServerContext } from '@/state/server';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import AddSubuserButton from '@/components/server/users/AddSubuserButton';
 import UserRow from '@/components/server/users/UserRow';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import getServerSubusers from '@/api/server/users/getServerSubusers';
 import { httpErrorToHuman } from '@/api/http';
-import Can from '@/components/elements/Can';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
+import Can from '@elements/Can';
+import ServerContentBlock from '@elements/ServerContentBlock';
 import tw from 'twin.macro';
 
 export default () => {

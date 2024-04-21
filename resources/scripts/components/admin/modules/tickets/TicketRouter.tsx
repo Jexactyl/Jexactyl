@@ -1,6 +1,6 @@
 import { useStoreState } from '@/state/hooks';
 import { Route, Routes } from 'react-router-dom';
-import { NotFound } from '@/components/elements/ScreenBlock';
+import { NotFound } from '@elements/ScreenBlock';
 import NewTicketForm from '@admin/modules/tickets/NewTicketForm';
 import TicketsContainer from '@admin/modules/tickets/TicketsContainer';
 import ViewTicketContainer from '@admin/modules/tickets/view/ViewTicketContainer';

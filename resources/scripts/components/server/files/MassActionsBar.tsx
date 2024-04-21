@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 
 import compressFiles from '@/api/server/files/compressFiles';
 import deleteFiles from '@/api/server/files/deleteFiles';
-import { Button } from '@/components/elements/button';
-import { Dialog } from '@/components/elements/dialog';
-import Portal from '@/components/elements/Portal';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import { Button } from '@elements/button';
+import { Dialog } from '@elements/dialog';
+import Portal from '@elements/Portal';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import RenameFileModal from '@/components/server/files/RenameFileModal';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 const MassActionsBar = () => {
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);

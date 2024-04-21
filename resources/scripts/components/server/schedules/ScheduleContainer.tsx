@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import getServerSchedules from '@/api/server/schedules/getServerSchedules';
 import { ServerContext } from '@/state/server';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import ScheduleRow from '@/components/server/schedules/ScheduleRow';
 import { httpErrorToHuman } from '@/api/http';
 import EditScheduleModal from '@/components/server/schedules/EditScheduleModal';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
-import GreyRowBox from '@/components/elements/GreyRowBox';
-import { Button } from '@/components/elements/button/index';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
+import GreyRowBox from '@elements/GreyRowBox';
+import { Button } from '@elements/button/index';
+import ServerContentBlock from '@elements/ServerContentBlock';
 import { Link } from 'react-router-dom';
 
 function ScheduleContainer() {

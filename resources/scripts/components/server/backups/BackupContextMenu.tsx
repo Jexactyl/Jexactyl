@@ -8,20 +8,20 @@ import {
     faUnlock,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DropdownMenu, { DropdownButtonRow } from '@/components/elements/DropdownMenu';
+import DropdownMenu, { DropdownButtonRow } from '@elements/DropdownMenu';
 import getBackupDownloadUrl from '@/api/server/backups/getBackupDownloadUrl';
 import useFlash from '@/plugins/useFlash';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import deleteBackup from '@/api/server/backups/deleteBackup';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import tw from 'twin.macro';
 import getServerBackups from '@/api/swr/getServerBackups';
 import { ServerBackup } from '@/api/server/types';
 import { ServerContext } from '@/state/server';
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 import { restoreServerBackup } from '@/api/server/backups';
 import http, { httpErrorToHuman } from '@/api/http';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 
 interface Props {
     backup: ServerBackup;

@@ -1,8 +1,8 @@
-import Label from '@/components/elements/Label';
-import Select from '@/components/elements/Select';
-import AdminBox from '@/components/elements/AdminBox';
+import Label from '@elements/Label';
+import Select from '@elements/Select';
+import AdminBox from '@elements/AdminBox';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 import useFlash from '@/plugins/useFlash';
 import updateSecuritySettings from '@/api/admin/auth/updateSecuritySettings';
 import { useStoreState } from '@/state/hooks';

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Server } from '@/api/server/getServer';
 import getServerResourceUsage, { ServerPowerState, ServerStats } from '@/api/server/getServerResourceUsage';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import ServerRowDialog from './ServerRowDialog';
 import { useStoreState } from '@/state/hooks';
 

@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import Modal, { RequiredModalProps } from '@/components/elements/Modal';
+import Modal, { RequiredModalProps } from '@elements/Modal';
 import { Field, Form, Formik, FormikHelpers, useFormikContext } from 'formik';
 import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
 import { object, string } from 'yup';
 import debounce from 'debounce';
-import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
-import InputSpinner from '@/components/elements/InputSpinner';
+import FormikFieldWrapper from '@elements/FormikFieldWrapper';
+import InputSpinner from '@elements/InputSpinner';
 import getServers from '@/api/getServers';
 import { Server } from '@/api/server/getServer';
 import { ApplicationStore } from '@/state';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 import { ip } from '@/lib/formatters';
 
 type Props = RequiredModalProps;

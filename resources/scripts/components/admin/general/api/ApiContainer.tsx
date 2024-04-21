@@ -9,14 +9,14 @@ import AdminTable, {
     Loading,
     NoItems,
     useTableHooks,
-} from '@/components/elements/AdminTable';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
+} from '@elements/AdminTable';
+import AdminCheckbox from '@elements/AdminCheckbox';
 import { AdminContext } from '@/state/admin';
 import { ChangeEvent, useContext, useEffect } from 'react';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import { Link } from 'react-router-dom';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
-import { Button } from '@/components/elements/button';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import { Button } from '@elements/button';
 import { useGetApiKeys, Context as ApiContext, ContextFilters } from '@/api/admin/api/getApiKeys';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import DeleteApiKeyButton from './DeleteApiKeyButton';

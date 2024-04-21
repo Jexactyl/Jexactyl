@@ -4,9 +4,9 @@ import { createPortal } from 'react-dom';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import { breakpoint } from '@/theme';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 export interface RequiredModalProps {
     children?: ReactNode;

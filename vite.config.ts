@@ -37,6 +37,13 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(dirname(fileURLToPath(import.meta.url)), 'resources', 'scripts'),
+            '@elements': resolve(
+                dirname(fileURLToPath(import.meta.url)),
+                'resources',
+                'scripts',
+                'components',
+                'elements',
+            ),
             '@definitions': resolve(
                 dirname(fileURLToPath(import.meta.url)),
                 'resources',

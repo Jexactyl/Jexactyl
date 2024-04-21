@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik';
 import { Button } from './elements/button';
 import { useStoreState } from '@/state/hooks';
-import Field from '@/components/elements/Field';
-import { Dialog } from '@/components/elements/dialog';
+import Field from '@elements/Field';
+import { Dialog } from '@elements/dialog';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from './FlashMessageRender';
 import setup, { Values } from '@/api/account/setup';

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import createDatabase from '@/api/admin/databases/createDatabase';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import { InformationContainer, Values } from '@admin/management/databases/DatabaseEditContainer';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { ApplicationStore } from '@/state';

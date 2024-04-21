@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { Component } from 'react';
 import tw from 'twin.macro';
 
-import Icon from '@/components/elements/Icon';
+import Icon from '@elements/Icon';
 
 interface Props {
     children?: ReactNode;

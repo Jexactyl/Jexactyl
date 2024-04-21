@@ -1,4 +1,4 @@
-import PageContentBlock, { PageContentBlockProps } from '@/components/elements/PageContentBlock';
+import PageContentBlock, { PageContentBlockProps } from '@elements/PageContentBlock';
 import * as React from 'react';
 import { ServerContext } from '@/state/server';
 

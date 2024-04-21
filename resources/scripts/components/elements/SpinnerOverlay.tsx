@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import tw from 'twin.macro';
 
-import Spinner, { SpinnerSize } from '@/components/elements/Spinner';
+import Spinner, { SpinnerSize } from '@elements/Spinner';
 
 interface Props {
     children?: ReactNode;

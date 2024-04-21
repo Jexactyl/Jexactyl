@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import classNames from 'classnames';
 
-import type { ButtonProps } from '@/components/elements/button/types';
-import { Options } from '@/components/elements/button/types';
+import type { ButtonProps } from '@elements/button/types';
+import { Options } from '@elements/button/types';
 import styles from './style.module.css';
 import { useStoreState } from '@/state/hooks';
 

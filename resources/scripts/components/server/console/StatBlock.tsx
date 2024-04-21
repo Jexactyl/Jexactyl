@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { useFitText } from '@flyyer/use-fit-text';
 
-import CopyOnClick from '@/components/elements/CopyOnClick';
-import Icon from '@/components/elements/Icon';
+import CopyOnClick from '@elements/CopyOnClick';
+import Icon from '@elements/Icon';
 
 import styles from './style.module.css';
 import { useStoreState } from '@/state/hooks';

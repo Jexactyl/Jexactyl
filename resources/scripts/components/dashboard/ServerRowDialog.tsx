@@ -1,7 +1,7 @@
 import sendPowerAction from '@/api/server/sendPowerAction';
 import { faCircleNodes, faList, faPlay, faPowerOff, faRotateForward, faSkull } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import TitledGreyBox from '../elements/TitledGreyBox';
 import { Button } from '../elements/button';
 import { Dispatch, SetStateAction } from 'react';

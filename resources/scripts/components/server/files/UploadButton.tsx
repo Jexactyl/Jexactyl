@@ -5,10 +5,10 @@ import { useEffect, useRef } from 'react';
 import tw from 'twin.macro';
 
 import getFileUploadUrl from '@/api/server/files/getFileUploadUrl';
-import { Button } from '@/components/elements/button/index';
-import { ModalMask } from '@/components/elements/Modal';
-import Portal from '@/components/elements/Portal';
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import { Button } from '@elements/button/index';
+import { ModalMask } from '@elements/Modal';
+import Portal from '@elements/Portal';
+import FadeTransition from '@elements/transitions/FadeTransition';
 import type { WithClassname } from '@/components/types';
 import useEventListener from '@/plugins/useEventListener';
 import { useFlashKey } from '@/plugins/useFlash';

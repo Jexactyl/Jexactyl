@@ -1,20 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
+import TitledGreyBox from '@elements/TitledGreyBox';
 import tw from 'twin.macro';
 import VariableBox from '@/components/server/startup/VariableBox';
-import ServerContentBlock from '@/components/elements/ServerContentBlock';
+import ServerContentBlock from '@elements/ServerContentBlock';
 import getServerStartup from '@/api/swr/getServerStartup';
-import Spinner from '@/components/elements/Spinner';
-import { ServerError } from '@/components/elements/ScreenBlock';
+import Spinner from '@elements/Spinner';
+import { ServerError } from '@elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';
 import { ServerContext } from '@/state/server';
 import { useDeepCompareEffect } from '@/plugins/useDeepCompareEffect';
-import Select from '@/components/elements/Select';
+import Select from '@elements/Select';
 import isEqual from 'react-fast-compare';
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 import setSelectedDockerImage from '@/api/server/setSelectedDockerImage';
-import InputSpinner from '@/components/elements/InputSpinner';
+import InputSpinner from '@elements/InputSpinner';
 import useFlash from '@/plugins/useFlash';
 
 const StartupContainer = () => {

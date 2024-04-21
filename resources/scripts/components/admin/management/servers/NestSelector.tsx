@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import type { Nest } from '@/api/admin/nest';
 import { searchNests } from '@/api/admin/nest';
-import Label from '@/components/elements/Label';
-import Select from '@/components/elements/Select';
+import Label from '@elements/Label';
+import Select from '@elements/Select';
 
 interface Props {
     selectedNestId?: number;

@@ -7,11 +7,11 @@ import tw from 'twin.macro';
 
 import { useEggFromRoute } from '@/api/admin/egg';
 import updateEgg from '@/api/admin/eggs/updateEgg';
-import AdminBox from '@/components/elements/AdminBox';
-import { Button } from '@/components/elements/button';
-import { Editor } from '@/components/elements/editor';
-import Field from '@/components/elements/Field';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import AdminBox from '@elements/AdminBox';
+import { Button } from '@elements/button';
+import { Editor } from '@elements/editor';
+import Field from '@elements/Field';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import useFlash from '@/plugins/useFlash';
 
 interface Values {

@@ -12,7 +12,7 @@ import BaseSettingsBox from '@admin/management/servers/settings/BaseSettingsBox'
 import FeatureLimitsBox from '@admin/management/servers/settings/FeatureLimitsBox';
 import NetworkingBox from '@admin/management/servers/settings/NetworkingBox';
 import ServerResourceBox from '@admin/management/servers/settings/ServerResourceBox';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import { useStoreState } from '@/state/hooks';
 
 export default () => {

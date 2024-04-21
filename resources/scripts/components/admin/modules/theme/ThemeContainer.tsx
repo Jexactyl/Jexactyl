@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { Button } from '@/components/elements/button';
-import { Dialog } from '@/components/elements/dialog';
+import { Button } from '@elements/button';
+import { Dialog } from '@elements/dialog';
 import resetTheme from '@/api/admin/theme/resetTheme';
 import Preview from '@admin/modules/theme/Preview';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import ColorSelect from '@admin/modules/theme/ColorSelect';
 
 export default () => {

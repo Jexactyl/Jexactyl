@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
-import Label from '@/components/elements/Label';
-import Input from '@/components/elements/Input';
-import AdminBox from '@/components/elements/AdminBox';
-import Spinner from '@/components/elements/Spinner';
+import Label from '@elements/Label';
+import Input from '@elements/Input';
+import AdminBox from '@elements/AdminBox';
+import Spinner from '@elements/Spinner';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
 import updateDiscordSettings from '@/api/admin/auth/modules/updateDiscordSettings';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import disableModule from '@/api/admin/auth/disableModule';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
-import { Alert } from '@/components/elements/alert';
+import { Alert } from '@elements/alert';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);

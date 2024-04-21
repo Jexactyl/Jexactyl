@@ -4,11 +4,11 @@ import tw from 'twin.macro';
 
 import getAllocations from '@/api/admin/nodes/getAllocations';
 import { useServerFromRoute } from '@/api/admin/server';
-import AdminBox from '@/components/elements/AdminBox';
-import Label from '@/components/elements/Label';
-import Select from '@/components/elements/Select';
-import type { Option } from '@/components/elements/SelectField';
-import SelectField, { AsyncSelectField } from '@/components/elements/SelectField';
+import AdminBox from '@elements/AdminBox';
+import Label from '@elements/Label';
+import Select from '@elements/Select';
+import type { Option } from '@elements/SelectField';
+import SelectField, { AsyncSelectField } from '@elements/SelectField';
 
 export default () => {
     const { isSubmitting } = useFormikContext();

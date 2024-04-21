@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import Modal from '@/components/elements/Modal';
+import Modal from '@elements/Modal';
 import { Form, Formik, FormikHelpers } from 'formik';
-import Field from '@/components/elements/Field';
+import Field from '@elements/Field';
 import { object, string } from 'yup';
 import createServerDatabase from '@/api/server/databases/createServerDatabase';
 import { ServerContext } from '@/state/server';
 import { httpErrorToHuman } from '@/api/http';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import tw from 'twin.macro';
 
 interface Values {

@@ -3,12 +3,12 @@ import { Field as FormikField, useFormikContext } from 'formik';
 import tw from 'twin.macro';
 
 import type { Node } from '@/api/admin/nodes/getNodes';
-import AdminBox from '@/components/elements/AdminBox';
+import AdminBox from '@elements/AdminBox';
 import DatabaseSelect from '@admin/management/nodes/DatabaseSelect';
 import LocationSelect from '@admin/management/nodes/LocationSelect';
-import Label from '@/components/elements/Label';
-import Field from '@/components/elements/Field';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import Label from '@elements/Label';
+import Field from '@elements/Field';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 
 export default function NodeSettingsContainer({ node }: { node?: Node }) {
     const { isSubmitting } = useFormikContext();

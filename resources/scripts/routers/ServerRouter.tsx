@@ -4,19 +4,19 @@ import { NavLink, Route, Routes, useParams } from 'react-router-dom';
 import NavigationBar from '@/components/NavigationBar';
 import WebsocketHandler from '@/components/server/WebsocketHandler';
 import { ServerContext } from '@/state/server';
-import Can from '@/components/elements/Can';
-import Spinner from '@/components/elements/Spinner';
-import { NotFound, ServerError } from '@/components/elements/ScreenBlock';
+import Can from '@elements/Can';
+import Spinner from '@elements/Spinner';
+import { NotFound, ServerError } from '@elements/ScreenBlock';
 import { httpErrorToHuman } from '@/api/http';
 import { useStoreState } from 'easy-peasy';
-import SubNavigation from '@/components/elements/SubNavigation';
+import SubNavigation from '@elements/SubNavigation';
 import InstallListener from '@/components/server/InstallListener';
-import ErrorBoundary from '@/components/elements/ErrorBoundary';
+import ErrorBoundary from '@elements/ErrorBoundary';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router';
 import ConflictStateRenderer from '@/components/server/ConflictStateRenderer';
-import PermissionRoute from '@/components/elements/PermissionRoute';
+import PermissionRoute from '@elements/PermissionRoute';
 import routes from '@/routers/routes';
 
 function ServerRouter() {

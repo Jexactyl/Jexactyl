@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDatabase, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import Modal from '@/components/elements/Modal';
+import Modal from '@elements/Modal';
 import { Form, Formik, FormikHelpers } from 'formik';
-import Field from '@/components/elements/Field';
+import Field from '@elements/Field';
 import { object, string } from 'yup';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { ServerContext } from '@/state/server';
 import deleteServerDatabase from '@/api/server/databases/deleteServerDatabase';
 import { httpErrorToHuman } from '@/api/http';
 import RotatePasswordButton from '@/components/server/databases/RotatePasswordButton';
-import Can from '@/components/elements/Can';
+import Can from '@elements/Can';
 import { ServerDatabase } from '@/api/server/databases/getServerDatabases';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
-import { Button } from '@/components/elements/button';
-import Label from '@/components/elements/Label';
-import Input from '@/components/elements/Input';
-import GreyRowBox from '@/components/elements/GreyRowBox';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import { Button } from '@elements/button';
+import Label from '@elements/Label';
+import Input from '@elements/Input';
+import GreyRowBox from '@elements/GreyRowBox';
+import CopyOnClick from '@elements/CopyOnClick';
 
 interface Props {
     database: ServerDatabase;

@@ -9,8 +9,8 @@ import { object, string } from 'yup';
 
 import login from '@/api/auth/login';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import Field from '@/components/elements/Field';
-import { Button } from '@/components/elements/button';
+import Field from '@elements/Field';
+import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
 import useOauthLogin from '@/api/auth/useOauthLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

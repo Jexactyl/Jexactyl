@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import tw from 'twin.macro';
-import ContentContainer from '@/components/elements/ContentContainer';
+import ContentContainer from '@elements/ContentContainer';
 import FlashMessageRender from '@/components/FlashMessageRender';
 
 export interface PageContentBlockProps {

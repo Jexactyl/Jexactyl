@@ -7,11 +7,11 @@ import type { CreateEggVariable } from '@/api/admin/eggs/createEggVariable';
 import createEggVariable from '@/api/admin/eggs/createEggVariable';
 import { useEggFromRoute } from '@/api/admin/egg';
 import { EggVariableForm, validationSchema } from '@admin/service/nests/eggs/EggVariablesContainer';
-import Modal from '@/components/elements/Modal';
+import Modal from '@elements/Modal';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
-import { Variant } from '@/components/elements/button/types';
+import { Variant } from '@elements/button/types';
 
 export default function NewVariableButton() {
     const { setValues } = useFormikContext();

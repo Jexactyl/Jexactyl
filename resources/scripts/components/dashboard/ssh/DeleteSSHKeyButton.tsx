@@ -4,8 +4,8 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
 import { deleteSSHKey, useSSHKeys } from '@/api/account/ssh-keys';
-import { Dialog } from '@/components/elements/dialog';
-import Code from '@/components/elements/Code';
+import { Dialog } from '@elements/dialog';
+import Code from '@elements/Code';
 
 export default ({ name, fingerprint }: { name: string; fingerprint: string }) => {
     const { clearAndAddHttpError } = useFlashKey('account');

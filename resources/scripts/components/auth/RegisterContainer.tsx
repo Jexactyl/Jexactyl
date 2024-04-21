@@ -8,8 +8,8 @@ import tw from 'twin.macro';
 import { object, string } from 'yup';
 
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import Field from '@/components/elements/Field';
-import { Button } from '@/components/elements/button';
+import Field from '@elements/Field';
+import { Button } from '@elements/button';
 import useFlash from '@/plugins/useFlash';
 import register from '@/api/auth/register';
 import login from '@/api/auth/login';

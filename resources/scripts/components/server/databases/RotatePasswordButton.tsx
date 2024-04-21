@@ -5,7 +5,7 @@ import { ApplicationStore } from '@/state';
 import { ServerContext } from '@/state/server';
 import { ServerDatabase } from '@/api/server/databases/getServerDatabases';
 import { httpErrorToHuman } from '@/api/http';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import tw from 'twin.macro';
 
 export default ({ databaseId, onUpdate }: { databaseId: string; onUpdate: (database: ServerDatabase) => void }) => {

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import tw from 'twin.macro';
 
 import deleteMount from '@/api/admin/mounts/deleteMount';
-import { Button } from '@/components/elements/button';
-import ConfirmationModal from '@/components/elements/ConfirmationModal';
+import { Button } from '@elements/button';
+import ConfirmationModal from '@elements/ConfirmationModal';
 import type { ApplicationStore } from '@/state';
 
 interface Props {

@@ -1,4 +1,4 @@
-import AdminBox from '@/components/elements/AdminBox';
+import AdminBox from '@elements/AdminBox';
 import { useStoreState } from '@/state/hooks';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 

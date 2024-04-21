@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import ContentBox from '@/components/elements/ContentBox';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import ContentBox from '@elements/ContentBox';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 import tw from 'twin.macro';
-import GreyRowBox from '@/components/elements/GreyRowBox';
+import GreyRowBox from '@elements/GreyRowBox';
 import { useSSHKeys } from '@/api/account/ssh-keys';
 import { useFlashKey } from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

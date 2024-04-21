@@ -1,5 +1,5 @@
-import AdminBox from '@/components/elements/AdminBox';
-import { Button } from '@/components/elements/button';
+import AdminBox from '@elements/AdminBox';
+import { Button } from '@elements/button';
 import { faPuzzlePiece, faStar } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import enableModule from '@/api/admin/auth/enableModule';

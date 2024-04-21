@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 import type { Filters } from '@/api/admin/nests/getEggs';
 import getEggs, { Context as EggsContext } from '@/api/admin/nests/getEggs';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
+import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -16,9 +16,9 @@ import AdminTable, {
     NoItems,
     ContentWrapper,
     useTableHooks,
-} from '@/components/elements/AdminTable';
+} from '@elements/AdminTable';
 import { Context } from '@admin/service/nests/NestEditContainer';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
 

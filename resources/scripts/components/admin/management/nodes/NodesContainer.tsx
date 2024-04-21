@@ -7,8 +7,8 @@ import useFlash from '@/plugins/useFlash';
 import { AdminContext } from '@/state/admin';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
+import AdminContentBlock from '@elements/AdminContentBlock';
+import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -19,9 +19,9 @@ import AdminTable, {
     NoItems,
     ContentWrapper,
     useTableHooks,
-} from '@/components/elements/AdminTable';
-import { Button } from '@/components/elements/button';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+} from '@elements/AdminTable';
+import { Button } from '@elements/button';
+import CopyOnClick from '@elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 import { useStoreState } from '@/state/hooks';
 

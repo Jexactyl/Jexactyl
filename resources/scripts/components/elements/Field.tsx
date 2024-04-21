@@ -4,9 +4,9 @@ import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import { forwardRef } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import Label from '@/components/elements/Label';
-import Input, { Textarea } from '@/components/elements/Input';
-import InputError from '@/components/elements/InputError';
+import Label from '@elements/Label';
+import Input, { Textarea } from '@elements/Input';
+import InputError from '@elements/InputError';
 
 interface OwnProps {
     name: string;

@@ -10,8 +10,8 @@ import { object, string } from 'yup';
 import requestPasswordResetEmail from '@/api/auth/requestPasswordResetEmail';
 import { httpErrorToHuman } from '@/api/http';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import { Button } from '@/components/elements/button';
-import Field from '@/components/elements/Field';
+import { Button } from '@elements/button';
+import Field from '@elements/Field';
 import useFlash from '@/plugins/useFlash';
 
 interface Values {

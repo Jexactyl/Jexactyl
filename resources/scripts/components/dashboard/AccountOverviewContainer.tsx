@@ -1,8 +1,8 @@
-import ContentBox from '@/components/elements/ContentBox';
+import ContentBox from '@elements/ContentBox';
 import UpdatePasswordForm from '@/components/dashboard/forms/UpdatePasswordForm';
 import UpdateEmailAddressForm from '@/components/dashboard/forms/UpdateEmailAddressForm';
 import ConfigureTwoFactorForm from '@/components/dashboard/forms/ConfigureTwoFactorForm';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 import tw from 'twin.macro';
 import { breakpoint } from '@/theme';
 import styled from 'styled-components';

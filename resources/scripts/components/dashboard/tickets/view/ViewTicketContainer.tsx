@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
-import ContentBox from '@/components/elements/ContentBox';
+import ContentBox from '@elements/ContentBox';
 import { useTicketFromRoute } from '@/api/account/tickets';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 import AddTicketMessageForm from '@/components/dashboard/tickets/view/AddTicketMessageForm';
-import Spinner from '@/components/elements/Spinner';
+import Spinner from '@elements/Spinner';
 import classNames from 'classnames';
-import GreyRowBox from '@/components/elements/GreyRowBox';
+import GreyRowBox from '@elements/GreyRowBox';
 import { formatDistanceToNow } from 'date-fns';
 
 export const statusToColor = (status: string): string => {

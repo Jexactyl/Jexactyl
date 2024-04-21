@@ -1,7 +1,7 @@
 import ServerInstallSvg from '@/assets/images/server_installing.svg';
 import ServerErrorSvg from '@/assets/images/server_error.svg';
 import ServerRestoreSvg from '@/assets/images/server_restore.svg';
-import ScreenBlock from '@/components/elements/ScreenBlock';
+import ScreenBlock from '@elements/ScreenBlock';
 import { ServerContext } from '@/state/server';
 
 export default () => {

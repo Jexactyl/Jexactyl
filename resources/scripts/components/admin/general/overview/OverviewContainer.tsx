@@ -4,13 +4,13 @@ import tw from 'twin.macro';
 
 import type { VersionData } from '@/api/admin/getVersion';
 import getVersion from '@/api/admin/getVersion';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
-import AdminBox from '@/components/elements/AdminBox';
-import Spinner from '@/components/elements/Spinner';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import AdminBox from '@elements/AdminBox';
+import Spinner from '@elements/Spinner';
+import CopyOnClick from '@elements/CopyOnClick';
 
 const Code = ({ children }: { children: ReactNode }) => {
     return (

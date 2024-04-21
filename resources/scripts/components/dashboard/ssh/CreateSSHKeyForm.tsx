@@ -1,10 +1,10 @@
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
-import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import FormikFieldWrapper from '@elements/FormikFieldWrapper';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import tw from 'twin.macro';
-import { Button } from '@/components/elements/button';
-import Input, { Textarea } from '@/components/elements/Input';
+import { Button } from '@elements/button';
+import Input, { Textarea } from '@elements/Input';
 import styled from 'styled-components';
 import { useFlashKey } from '@/plugins/useFlash';
 import { createSSHKey, useSSHKeys } from '@/api/account/ssh-keys';

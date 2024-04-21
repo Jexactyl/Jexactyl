@@ -3,7 +3,7 @@ import { createRef, PureComponent } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-import FadeTransition from '@/components/elements/transitions/FadeTransition';
+import FadeTransition from '@elements/transitions/FadeTransition';
 
 interface Props {
     children: ReactNode;

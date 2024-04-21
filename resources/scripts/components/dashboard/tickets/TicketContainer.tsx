@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useFlashKey } from '@/plugins/useFlash';
 import { useTickets } from '@/api/account/tickets';
-import ContentBox from '@/components/elements/ContentBox';
+import ContentBox from '@elements/ContentBox';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import PageContentBlock from '@/components/elements/PageContentBlock';
+import PageContentBlock from '@elements/PageContentBlock';
 import CreateTicketForm from '@/components/dashboard/tickets/CreateTicketForm';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
-import GreyRowBox from '@/components/elements/GreyRowBox';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
+import GreyRowBox from '@elements/GreyRowBox';
 import { format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';

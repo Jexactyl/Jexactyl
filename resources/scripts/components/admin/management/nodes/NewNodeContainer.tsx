@@ -8,11 +8,11 @@ import { number, object, string } from 'yup';
 
 import type { Values } from '@/api/admin/nodes/createNode';
 import createNode from '@/api/admin/nodes/createNode';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';
 import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 

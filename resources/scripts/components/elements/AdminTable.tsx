@@ -5,10 +5,10 @@ import tw, { styled } from 'twin.macro';
 
 import type { ListContext as TableHooks } from '@/api/admin';
 import type { PaginatedResult, PaginationDataSet } from '@/api/http';
-import { TableCheckbox } from '@/components/elements/AdminCheckbox';
-import Input from '@/components/elements/Input';
-import InputSpinner from '@/components/elements/InputSpinner';
-import Spinner from '@/components/elements/Spinner';
+import { TableCheckbox } from '@elements/AdminCheckbox';
+import Input from '@elements/Input';
+import InputSpinner from '@elements/InputSpinner';
+import Spinner from '@elements/Spinner';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';
 

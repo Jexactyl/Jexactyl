@@ -3,23 +3,23 @@ import isEqual from 'react-fast-compare';
 import tw from 'twin.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNetworkWired } from '@fortawesome/free-solid-svg-icons';
-import InputSpinner from '@/components/elements/InputSpinner';
-import { Textarea } from '@/components/elements/Input';
-import Can from '@/components/elements/Can';
-import { Button } from '@/components/elements/button/index';
-import GreyRowBox from '@/components/elements/GreyRowBox';
+import InputSpinner from '@elements/InputSpinner';
+import { Textarea } from '@elements/Input';
+import Can from '@elements/Can';
+import { Button } from '@elements/button/index';
+import GreyRowBox from '@elements/GreyRowBox';
 import { Allocation } from '@/api/server/getServer';
 import styled from 'styled-components';
 import { debounce } from 'debounce';
 import setServerAllocationNotes from '@/api/server/network/setServerAllocationNotes';
 import { useFlashKey } from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import CopyOnClick from '@elements/CopyOnClick';
 import DeleteAllocationButton from '@/components/server/network/DeleteAllocationButton';
 import setPrimaryServerAllocation from '@/api/server/network/setPrimaryServerAllocation';
 import getServerAllocations from '@/api/swr/getServerAllocations';
 import { ip } from '@/lib/formatters';
-import Code from '@/components/elements/Code';
+import Code from '@elements/Code';
 
 const Label = styled.label`
     ${tw`uppercase text-xs mt-1 text-neutral-400 block px-1 select-none transition-colors duration-150`}

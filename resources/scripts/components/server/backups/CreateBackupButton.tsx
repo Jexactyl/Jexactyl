@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import Modal, { RequiredModalProps } from '@/components/elements/Modal';
+import Modal, { RequiredModalProps } from '@elements/Modal';
 import { Field as FormikField, Form, Formik, FormikHelpers, useFormikContext } from 'formik';
 import { boolean, object, string } from 'yup';
-import Field from '@/components/elements/Field';
-import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
+import Field from '@elements/Field';
+import FormikFieldWrapper from '@elements/FormikFieldWrapper';
 import useFlash from '@/plugins/useFlash';
 import createServerBackup from '@/api/server/backups/createServerBackup';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import tw from 'twin.macro';
-import { Textarea } from '@/components/elements/Input';
+import { Textarea } from '@elements/Input';
 import getServerBackups from '@/api/swr/getServerBackups';
 import { ServerContext } from '@/state/server';
-import FormikSwitch from '@/components/elements/FormikSwitch';
-import Can from '@/components/elements/Can';
+import FormikSwitch from '@elements/FormikSwitch';
+import Can from '@elements/Can';
 
 interface Values {
     name: string;

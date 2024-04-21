@@ -6,11 +6,11 @@ import { object, string } from 'yup';
 
 import createNest from '@/api/admin/nests/createNest';
 import getNests from '@/api/admin/nests/getNests';
-import { Button } from '@/components/elements/button';
-import { Size, Variant } from '@/components/elements/button/types';
-import Field from '@/components/elements/Field';
+import { Button } from '@elements/button';
+import { Size, Variant } from '@elements/button/types';
+import Field from '@elements/Field';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Modal from '@/components/elements/Modal';
+import Modal from '@elements/Modal';
 import useFlash from '@/plugins/useFlash';
 
 interface Values {

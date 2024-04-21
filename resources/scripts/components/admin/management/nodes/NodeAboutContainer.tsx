@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import tw from 'twin.macro';
 import type { NodeInformation } from '@/api/admin/nodes/getNodeInformation';
 import getNodeInformation from '@/api/admin/nodes/getNodeInformation';
-import AdminBox from '@/components/elements/AdminBox';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import AdminBox from '@elements/AdminBox';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { Context } from '@admin/management/nodes/NodeRouter';
-import { Alert } from '@/components/elements/alert';
+import { Alert } from '@elements/alert';
 import { faServer } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 

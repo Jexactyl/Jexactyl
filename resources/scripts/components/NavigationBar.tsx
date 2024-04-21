@@ -8,7 +8,7 @@ import SearchContainer from '@/components/dashboard/search/SearchContainer';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import http from '@/api/http';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import Avatar from '@/components/Avatar';
 import { SiteTheme } from '@/state/theme';
 

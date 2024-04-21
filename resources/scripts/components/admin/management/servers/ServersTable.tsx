@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 import type { Filters } from '@/api/admin/servers/getServers';
 import getServers, { Context as ServersContext } from '@/api/admin/servers/getServers';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
+import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -15,8 +15,8 @@ import AdminTable, {
     TableHead,
     TableHeader,
     useTableHooks,
-} from '@/components/elements/AdminTable';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+} from '@elements/AdminTable';
+import CopyOnClick from '@elements/CopyOnClick';
 import { AdminContext } from '@/state/admin';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';

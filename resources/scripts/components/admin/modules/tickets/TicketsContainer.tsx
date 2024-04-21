@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
 import { AdminContext } from '@/state/admin';
 import { useContext, ChangeEvent, useEffect } from 'react';
-import AdminContentBlock from '@/components/elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -12,11 +12,11 @@ import AdminTable, {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/elements/AdminTable';
+} from '@elements/AdminTable';
 import { useGetTickets, Context as TicketContext, TicketStatus } from '@/api/admin/tickets/getTickets';
-import AdminCheckbox from '@/components/elements/AdminCheckbox';
-import { Button } from '@/components/elements/button';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+import AdminCheckbox from '@elements/AdminCheckbox';
+import { Button } from '@elements/button';
+import CopyOnClick from '@elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';

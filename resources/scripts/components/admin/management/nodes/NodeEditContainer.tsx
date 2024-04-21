@@ -12,7 +12,7 @@ import NodeLimitContainer from '@admin/management/nodes/NodeLimitContainer';
 import NodeListenContainer from '@admin/management/nodes/NodeListenContainer';
 import { Context } from '@admin/management/nodes/NodeRouter';
 import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import type { ApplicationStore } from '@/state';
 import { useEffect } from 'react';
 import { useStoreState } from '@/state/hooks';

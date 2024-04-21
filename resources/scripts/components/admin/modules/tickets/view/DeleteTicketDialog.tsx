@@ -2,10 +2,10 @@ import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import { useNavigate } from 'react-router-dom';
 import type { ApplicationStore } from '@/state';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 import { useTicketFromRoute } from '@/api/admin/tickets/getTicket';
 import { useState } from 'react';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import deleteTicket from '@/api/admin/tickets/deleteTicket';
 

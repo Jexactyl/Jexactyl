@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Field, FieldProps } from 'formik';
-import InputError from '@/components/elements/InputError';
-import Label from '@/components/elements/Label';
+import InputError from '@elements/InputError';
+import Label from '@elements/Label';
 
 interface Props {
     id?: string;

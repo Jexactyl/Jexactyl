@@ -1,9 +1,9 @@
 import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
 
-import AdminBox from '@/components/elements/AdminBox';
-import Field, { FieldRow } from '@/components/elements/Field';
-import { Button } from '@/components/elements/button';
+import AdminBox from '@elements/AdminBox';
+import Field, { FieldRow } from '@elements/Field';
+import { Button } from '@elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
 import { useStoreState } from '@/state/hooks';
 import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';

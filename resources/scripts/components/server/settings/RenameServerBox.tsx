@@ -1,18 +1,18 @@
 import { ServerContext } from '@/state/server';
-import TitledGreyBox from '@/components/elements/TitledGreyBox';
+import TitledGreyBox from '@elements/TitledGreyBox';
 import { Field as FormikField, Form, Formik, FormikHelpers, useFormikContext } from 'formik';
 import { Actions, useStoreActions } from 'easy-peasy';
 import renameServer from '@/api/server/renameServer';
-import Field from '@/components/elements/Field';
+import Field from '@elements/Field';
 import { object, string } from 'yup';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { ApplicationStore } from '@/state';
 import { httpErrorToHuman } from '@/api/http';
-import { Button } from '@/components/elements/button/index';
+import { Button } from '@elements/button/index';
 import tw from 'twin.macro';
-import Label from '@/components/elements/Label';
-import FormikFieldWrapper from '@/components/elements/FormikFieldWrapper';
-import { Textarea } from '@/components/elements/Input';
+import Label from '@elements/Label';
+import FormikFieldWrapper from '@elements/FormikFieldWrapper';
+import { Textarea } from '@elements/Input';
 
 interface Values {
     name: string;

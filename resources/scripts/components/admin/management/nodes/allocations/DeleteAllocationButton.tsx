@@ -2,11 +2,11 @@ import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
 import deleteAllocation from '@/api/admin/nodes/allocations/deleteAllocation';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import type { ApplicationStore } from '@/state';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Dialog } from '@/components/elements/dialog';
+import { Dialog } from '@elements/dialog';
 
 interface Props {
     nodeId: number;

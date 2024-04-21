@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import Input from '@/components/elements/Input';
+import Input from '@elements/Input';
 
 export const TableCheckbox = styled(Input)`
     && {
