@@ -68,7 +68,7 @@ function InternalForm() {
             <div className="grid grid-cols-2 gap-y-6 gap-x-8 mb-16">
                 <div className="grid grid-cols-1 gap-y-6 col-span-2 md:col-span-1">
                     <BaseSettingsBox>
-                        <NodeSelect node={node} setNode={setNode} />
+                        <NodeSelect node={node!} setNode={setNode} />
                         <div className="xl:col-span-2 bg-neutral-800 border border-neutral-900 shadow-inner p-4 rounded">
                             <FormikSwitch
                                 name={'startOnCompletion'}
@@ -143,7 +143,7 @@ function InternalForm() {
 
                 <div className="bg-neutral-700 rounded shadow-md px-4 py-3 col-span-2">
                     <div className="flex flex-row">
-                        <Button type="submit" size="small" className="ml-auto" disabled={isSubmitting || !isValid}>
+                        <Button type="submit" className="ml-auto" disabled={isSubmitting || !isValid}>
                             Create Server
                         </Button>
                     </div>
@@ -202,6 +202,7 @@ export default () => {
                             allocations: 1,
                             backups: 0,
                             databases: 0,
+                            subusers: 0,
                         },
                         allocation: {
                             default: 0,
