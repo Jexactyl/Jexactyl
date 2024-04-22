@@ -64,6 +64,7 @@ class ServerTransformer extends Transformer
                 'databases' => $server->database_limit,
                 'allocations' => $server->allocation_limit,
                 'backups' => $server->backup_limit,
+                'subusers' => $server->subuser_limit,
             ],
             'status' => $server->status,
             'is_transferring' => !is_null($server->transfer),

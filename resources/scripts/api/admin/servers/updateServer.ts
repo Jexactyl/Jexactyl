@@ -20,6 +20,7 @@ export interface Values {
         allocations: number;
         backups: number;
         databases: number;
+        subusers: number;
     };
 
     allocationId: number;
@@ -50,6 +51,7 @@ export default (id: number, server: Partial<Values>, include: string[] = []): Pr
                     allocations: server.featureLimits?.allocations,
                     backups: server.featureLimits?.backups,
                     databases: server.featureLimits?.databases,
+                    subusers: server.featureLimits?.subusers,
                 },
 
                 allocation_id: server.allocationId,

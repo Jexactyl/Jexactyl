@@ -72,6 +72,7 @@ class ServerTransformer extends Transformer
                 'allocations' => $model->allocation_limit,
                 'backups' => $model->backup_limit,
                 'databases' => $model->database_limit,
+                'subusers' => $model->subuser_limit,
             ],
             'owner_id' => $model->owner_id,
             'node_id' => $model->node_id,

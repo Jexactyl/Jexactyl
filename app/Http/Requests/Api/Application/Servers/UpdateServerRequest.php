@@ -31,6 +31,7 @@ class UpdateServerRequest extends ApplicationApiRequest
             'feature_limits.allocations' => $rules['allocation_limit'],
             'feature_limits.backups' => $rules['backup_limit'],
             'feature_limits.databases' => $rules['database_limit'],
+            'feature_limits.subusers' => $rules['subuser_limit'],
 
             'allocation_id' => 'bail|exists:allocations,id',
             'add_allocations' => 'bail|array',
@@ -66,6 +67,7 @@ class UpdateServerRequest extends ApplicationApiRequest
             'allocation_limit' => array_get($data, 'feature_limits.allocations'),
             'backup_limit' => array_get($data, 'feature_limits.backups'),
             'database_limit' => array_get($data, 'feature_limits.databases'),
+            'subuser_limit' => array_get($data, 'feature_limits.subusers'),
 
             'allocation_id' => array_get($data, 'allocation_id'),
             'add_allocations' => array_get($data, 'add_allocations'),

@@ -19,6 +19,8 @@ export default () => {
     const subusers = ServerContext.useStoreState(state => state.subusers.data);
     const setSubusers = ServerContext.useStoreActions(actions => actions.subusers.setSubusers);
 
+    const limit = ServerContext.useStoreState(state => state.server.data!.featureLimits.subusers);
+
     const permissions = useStoreState((state: ApplicationStore) => state.permissions.data);
     const getPermissions = useStoreActions((actions: Actions<ApplicationStore>) => actions.permissions.getPermissions);
     const { addError, clearFlashes } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
@@ -56,8 +58,13 @@ export default () => {
                 subusers.map(subuser => <UserRow key={subuser.uuid} subuser={subuser} />)
             )}
             <Can action={'user.create'}>
-                <div css={tw`flex justify-end mt-6`}>
-                    <AddSubuserButton />
+                <div css={tw`mt-6 sm:flex items-center justify-end`}>
+                        <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
+                            {subusers.length} of {limit} subusers have been created for this server.
+                        </p>
+                    {limit > 0 && limit > subusers.length && (
+                        <AddSubuserButton css={tw`w-full sm:w-auto`} />
+                    )}
                 </div>
             </Can>
         </ServerContentBlock>

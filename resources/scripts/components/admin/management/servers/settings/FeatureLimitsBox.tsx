@@ -32,6 +32,13 @@ export default () => {
                     type={'number'}
                     description={'The total number of databases a user is allowed to create for this server.'}
                 />
+                                <Field
+                    id={'featureLimits.subusers'}
+                    name={'featureLimits.subusers'}
+                    label={'Subuser Limit'}
+                    type={'number'}
+                    description={'The total number of subusers that can be added to this server.'}
+                />
             </div>
         </AdminBox>
     );

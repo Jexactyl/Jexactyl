@@ -47,6 +47,7 @@ export interface Server extends Model {
         databases: number;
         allocations: number;
         backups: number;
+        subusers: number;
     };
     container: {
         startup: string | null;

@@ -32,6 +32,7 @@ class StoreServerRequest extends ApplicationApiRequest
             'feature_limits.allocations' => $rules['allocation_limit'],
             'feature_limits.backups' => $rules['backup_limit'],
             'feature_limits.databases' => $rules['database_limit'],
+            'feature_limits.subusers' => $rules['subuser_limit'],
 
             'allocation.default' => 'required|bail|integer|exists:allocations,id',
             'allocation.additional.*' => 'integer|exists:allocations,id',
@@ -72,6 +73,7 @@ class StoreServerRequest extends ApplicationApiRequest
             'allocation_limit' => array_get($data, 'feature_limits.allocations'),
             'backup_limit' => array_get($data, 'feature_limits.backups'),
             'database_limit' => array_get($data, 'feature_limits.databases'),
+            'subuser_limit' => array_get($data, 'feature_limits.subusers'),
 
             'allocation_id' => array_get($data, 'allocation.default'),
             'allocation_additional' => array_get($data, 'allocation.additional'),
