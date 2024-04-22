@@ -59,12 +59,12 @@ export default () => {
             )}
             <Can action={'user.create'}>
                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
+                    {limit > 0 && subusers.length > 0 && (
                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
                             {subusers.length} of {limit} subusers have been created for this server.
                         </p>
-                    {limit > 0 && limit > subusers.length && (
-                        <AddSubuserButton css={tw`w-full sm:w-auto`} />
                     )}
+                    {limit > 0 && limit > subusers.length && <AddSubuserButton css={tw`w-full sm:w-auto`} />}
                 </div>
             </Can>
         </ServerContentBlock>
