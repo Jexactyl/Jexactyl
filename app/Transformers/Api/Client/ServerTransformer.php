@@ -57,7 +57,7 @@ class ServerTransformer extends Transformer
                 'threads' => $server->threads,
                 'oom_killer' => $server->oom_killer,
             ],
-            'invocation' => $service->handle($server, !$user->can(Permission::ACTION_STARTUP_READ, $server)),
+            'invocation' => $server->egg->startup,
             'docker_image' => $server->image,
             'egg_features' => $server->egg->inherit_features,
             'feature_limits' => [
