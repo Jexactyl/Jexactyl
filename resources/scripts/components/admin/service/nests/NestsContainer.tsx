@@ -1,12 +1,9 @@
-import type { ChangeEvent } from 'react';
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-
 import type { Filters } from '@/api/admin/nests/getNests';
 import getNests, { Context as NestsContext } from '@/api/admin/nests/getNests';
 import AdminContentBlock from '@elements/AdminContentBlock';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -22,31 +19,10 @@ import CopyOnClick from '@elements/CopyOnClick';
 import NewNestButton from '@admin/service/nests/NewNestButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { AdminContext } from '@/state/admin';
 import { useStoreState } from '@/state/hooks';
 
-const RowCheckbox = ({ id }: { id: number }) => {
-    const isChecked = AdminContext.useStoreState(state => state.nests.selectedNests.indexOf(id) >= 0);
-    const appendSelectedNest = AdminContext.useStoreActions(actions => actions.nests.appendSelectedNest);
-    const removeSelectedNest = AdminContext.useStoreActions(actions => actions.nests.removeSelectedNest);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedNest(id);
-                } else {
-                    removeSelectedNest(id);
-                }
-            }}
-        />
-    );
-};
-
 const NestsContainer = () => {
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(NestsContext);
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(NestsContext);
     const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: nests, error, isValidating } = getNests();
@@ -62,13 +38,6 @@ const NestsContainer = () => {
 
     const length = nests?.items?.length || 0;
 
-    const setSelectedNests = AdminContext.useStoreActions(actions => actions.nests.setSelectedNests);
-    const selectedNestsLength = AdminContext.useStoreState(state => state.nests.selectedNests.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedNests(e.currentTarget.checked ? nests?.items?.map(nest => nest.id) || [] : []);
-    };
-
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
             if (query.length < 2) {
@@ -79,10 +48,6 @@ const NestsContainer = () => {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedNests([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'Nests'}>
@@ -102,11 +67,7 @@ const NestsContainer = () => {
             <FlashMessageRender byKey={'nests'} css={tw`mb-4`} />
 
             <AdminTable>
-                <ContentWrapper
-                    checked={selectedNestsLength === (length === 0 ? -1 : length)}
-                    onSelectAllClick={onSelectAllClick}
-                    onSearch={onSearch}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={nests} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -131,10 +92,6 @@ const NestsContainer = () => {
                                         length > 0 &&
                                         nests.items.map(nest => (
                                             <TableRow key={nest.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={nest.id} />
-                                                </td>
-
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={nest.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

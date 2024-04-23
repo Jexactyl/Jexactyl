@@ -1,11 +1,9 @@
-import type { ChangeEvent } from 'react';
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { Filters } from '@/api/admin/nodes/allocations/getAllocations';
 import getAllocations, { Context as AllocationsContext } from '@/api/admin/nodes/allocations/getAllocations';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -19,32 +17,7 @@ import AdminTable, {
 import DeleteAllocationButton from '@admin/management/nodes/allocations/DeleteAllocationButton';
 import CopyOnClick from '@elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
-import { AdminContext } from '@/state/admin';
 import { useStoreState } from '@/state/hooks';
-
-function RowCheckbox({ id }: { id: number }) {
-    const isChecked = AdminContext.useStoreState(state => state.allocations.selectedAllocations.indexOf(id) >= 0);
-    const appendSelectedAllocation = AdminContext.useStoreActions(
-        actions => actions.allocations.appendSelectedAllocation,
-    );
-    const removeSelectedAllocation = AdminContext.useStoreActions(
-        actions => actions.allocations.removeSelectedAllocation,
-    );
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedAllocation(id);
-                } else {
-                    removeSelectedAllocation(id);
-                }
-            }}
-        />
-    );
-}
 
 interface Props {
     nodeId: number;
@@ -55,19 +28,10 @@ function AllocationsTable({ nodeId, filters }: Props) {
     const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(AllocationsContext);
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(AllocationsContext);
     const { data: allocations, error, isValidating, mutate } = getAllocations(nodeId, ['server']);
 
     const length = allocations?.items?.length || 0;
-
-    const setSelectedAllocations = AdminContext.useStoreActions(actions => actions.allocations.setSelectedAllocations);
-    const selectedAllocationLength = AdminContext.useStoreState(state => state.allocations.selectedAllocations.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedAllocations(
-            e.currentTarget.checked ? allocations?.items?.map?.(allocation => allocation.id) || [] : [],
-        );
-    };
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
@@ -81,10 +45,6 @@ function AllocationsTable({ nodeId, filters }: Props) {
     };
 
     useEffect(() => {
-        setSelectedAllocations([]);
-    }, [page]);
-
-    useEffect(() => {
         if (!error) {
             clearFlashes('allocations');
             return;
@@ -95,11 +55,7 @@ function AllocationsTable({ nodeId, filters }: Props) {
 
     return (
         <AdminTable>
-            <ContentWrapper
-                checked={selectedAllocationLength === (length === 0 ? -1 : length)}
-                onSelectAllClick={onSelectAllClick}
-                onSearch={onSearch}
-            >
+            <ContentWrapper onSearch={onSearch}>
                 <Pagination data={allocations} onPageSelect={setPage}>
                     <div css={tw`overflow-x-auto`}>
                         <table css={tw`w-full table-auto`}>
@@ -126,10 +82,6 @@ function AllocationsTable({ nodeId, filters }: Props) {
                                     length > 0 &&
                                     allocations.items.map(allocation => (
                                         <tr key={allocation.id} css={tw`h-10 hover:bg-neutral-600`}>
-                                            <td css={tw`pl-6`}>
-                                                <RowCheckbox id={allocation.id} />
-                                            </td>
-
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={allocation.ip}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

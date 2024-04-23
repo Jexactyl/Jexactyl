@@ -1,14 +1,11 @@
-import type { ChangeEvent } from 'react';
 import { useContext, useEffect } from 'react';
 import type { Filters } from '@/api/admin/servers/getServers';
 import getNodes, { Context as NodesContext } from '@/api/admin/nodes/getNodes';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { AdminContext } from '@/state/admin';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 import AdminContentBlock from '@elements/AdminContentBlock';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     TableBody,
     TableHead,
@@ -25,29 +22,9 @@ import CopyOnClick from '@elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 import { useStoreState } from '@/state/hooks';
 
-const RowCheckbox = ({ id }: { id: number }) => {
-    const isChecked = AdminContext.useStoreState(state => state.nodes.selectedNodes.indexOf(id) >= 0);
-    const appendSelectedNode = AdminContext.useStoreActions(actions => actions.nodes.appendSelectedNode);
-    const removeSelectedNode = AdminContext.useStoreActions(actions => actions.nodes.removeSelectedNode);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedNode(id);
-                } else {
-                    removeSelectedNode(id);
-                }
-            }}
-        />
-    );
-};
-
 const NodesContainer = () => {
     const { colors } = useStoreState(state => state.theme.data!);
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(NodesContext);
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(NodesContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: nodes, error, isValidating } = getNodes(['location']);
 
@@ -62,13 +39,6 @@ const NodesContainer = () => {
 
     const length = nodes?.items?.length || 0;
 
-    const setSelectedNodes = AdminContext.useStoreActions(actions => actions.nodes.setSelectedNodes);
-    const selectedNodesLength = AdminContext.useStoreState(state => state.nodes.selectedNodes.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedNodes(e.currentTarget.checked ? nodes?.items?.map(node => node.id) || [] : []);
-    };
-
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
             if (query.length < 2) {
@@ -79,10 +49,6 @@ const NodesContainer = () => {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedNodes([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'Nodes'}>
@@ -106,11 +72,7 @@ const NodesContainer = () => {
             <FlashMessageRender byKey={'nodes'} css={tw`mb-4`} />
 
             <AdminTable>
-                <ContentWrapper
-                    checked={selectedNodesLength === (length === 0 ? -1 : length)}
-                    onSelectAllClick={onSelectAllClick}
-                    onSearch={onSearch}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={nodes} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -156,10 +118,6 @@ const NodesContainer = () => {
                                         length > 0 &&
                                         nodes.items.map(node => (
                                             <TableRow key={node.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={node.id} />
-                                                </td>
-
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={node.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

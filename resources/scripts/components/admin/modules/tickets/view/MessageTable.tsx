@@ -23,6 +23,7 @@ const MessagesTable = ({ messages }: { messages?: TicketMessage[] }) => {
             <div css={tw`overflow-x-auto`}>
                 <table css={tw`w-full table-auto`}>
                     <TableHead>
+                        <TableHeader name={'Author'} />
                         <TableHeader name={'Message'} />
                         <TableHeader name={'Sent At'} />
                     </TableHead>

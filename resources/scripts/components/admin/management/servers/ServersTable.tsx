@@ -1,11 +1,8 @@
-import type { ChangeEvent } from 'react';
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-
 import type { Filters } from '@/api/admin/servers/getServers';
 import getServers, { Context as ServersContext } from '@/api/admin/servers/getServers';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -17,29 +14,8 @@ import AdminTable, {
     useTableHooks,
 } from '@elements/AdminTable';
 import CopyOnClick from '@elements/CopyOnClick';
-import { AdminContext } from '@/state/admin';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
-
-function RowCheckbox({ id }: { id: number }) {
-    const isChecked = AdminContext.useStoreState(state => state.servers.selectedServers.indexOf(id) >= 0);
-    const appendSelectedServer = AdminContext.useStoreActions(actions => actions.servers.appendSelectedServer);
-    const removeSelectedServer = AdminContext.useStoreActions(actions => actions.servers.removeSelectedServer);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedServer(id);
-                } else {
-                    removeSelectedServer(id);
-                }
-            }}
-        />
-    );
-}
 
 interface Props {
     filters?: Filters;
@@ -49,17 +25,10 @@ function ServersTable({ filters }: Props) {
     const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(ServersContext);
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(ServersContext);
     const { data: servers, error, isValidating } = getServers(['node', 'user']);
 
     const length = servers?.items?.length || 0;
-
-    const setSelectedServers = AdminContext.useStoreActions(actions => actions.servers.setSelectedServers);
-    const selectedServerLength = AdminContext.useStoreState(state => state.servers.selectedServers.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedServers(e.currentTarget.checked ? servers?.items?.map(server => server.id) || [] : []);
-    };
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
@@ -73,10 +42,6 @@ function ServersTable({ filters }: Props) {
     };
 
     useEffect(() => {
-        setSelectedServers([]);
-    }, [page]);
-
-    useEffect(() => {
         if (!error) {
             clearFlashes('servers');
             return;
@@ -87,11 +52,7 @@ function ServersTable({ filters }: Props) {
 
     return (
         <AdminTable>
-            <ContentWrapper
-                checked={selectedServerLength === (length === 0 ? -1 : length)}
-                onSelectAllClick={onSelectAllClick}
-                onSearch={onSearch}
-            >
+            <ContentWrapper onSearch={onSearch}>
                 <Pagination data={servers} onPageSelect={setPage}>
                     <div css={tw`overflow-x-auto`}>
                         <table css={tw`w-full table-auto`}>
@@ -130,10 +91,6 @@ function ServersTable({ filters }: Props) {
                                     length > 0 &&
                                     servers.items.map(server => (
                                         <tr key={server.id} css={tw`h-14 hover:bg-neutral-600`}>
-                                            <td css={tw`pl-6`}>
-                                                <RowCheckbox id={server.id} />
-                                            </td>
-
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={server.identifier}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

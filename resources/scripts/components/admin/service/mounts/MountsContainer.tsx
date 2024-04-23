@@ -1,11 +1,8 @@
-import type { ChangeEvent } from 'react';
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-
 import type { Filters } from '@/api/admin/mounts/getMounts';
 import getMounts, { Context as MountsContext } from '@/api/admin/mounts/getMounts';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     TableBody,
@@ -23,30 +20,9 @@ import { Size } from '@elements/button/types';
 import CopyOnClick from '@elements/CopyOnClick';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { AdminContext } from '@/state/admin';
-
-const RowCheckbox = ({ id }: { id: number }) => {
-    const isChecked = AdminContext.useStoreState(state => state.mounts.selectedMounts.indexOf(id) >= 0);
-    const appendSelectedMount = AdminContext.useStoreActions(actions => actions.mounts.appendSelectedMount);
-    const removeSelectedMount = AdminContext.useStoreActions(actions => actions.mounts.removeSelectedMount);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedMount(id);
-                } else {
-                    removeSelectedMount(id);
-                }
-            }}
-        />
-    );
-};
 
 const MountsContainer = () => {
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(MountsContext);
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(MountsContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: mounts, error, isValidating } = getMounts();
 
@@ -61,13 +37,6 @@ const MountsContainer = () => {
 
     const length = mounts?.items?.length || 0;
 
-    const setSelectedMounts = AdminContext.useStoreActions(actions => actions.mounts.setSelectedMounts);
-    const selectedMountsLength = AdminContext.useStoreState(state => state.mounts.selectedMounts.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedMounts(e.currentTarget.checked ? mounts?.items?.map(mount => mount.id) || [] : []);
-    };
-
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
             if (query.length < 2) {
@@ -78,10 +47,6 @@ const MountsContainer = () => {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedMounts([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'Mounts'}>
@@ -105,11 +70,7 @@ const MountsContainer = () => {
             <FlashMessageRender byKey={'mounts'} css={tw`mb-4`} />
 
             <AdminTable>
-                <ContentWrapper
-                    checked={selectedMountsLength === (length === 0 ? -1 : length)}
-                    onSelectAllClick={onSelectAllClick}
-                    onSearch={onSearch}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={mounts} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -145,10 +106,6 @@ const MountsContainer = () => {
                                         length > 0 &&
                                         mounts.items.map(mount => (
                                             <TableRow key={mount.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={mount.id} />
-                                                </td>
-
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={mount.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

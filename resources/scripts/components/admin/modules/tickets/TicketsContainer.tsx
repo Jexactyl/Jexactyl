@@ -1,7 +1,6 @@
 import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
-import { AdminContext } from '@/state/admin';
-import { useContext, ChangeEvent, useEffect } from 'react';
+import { useContext } from 'react';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     ContentWrapper,
@@ -14,33 +13,12 @@ import AdminTable, {
     TableRow,
 } from '@elements/AdminTable';
 import { useGetTickets, Context as TicketContext, TicketStatus } from '@/api/admin/tickets/getTickets';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import { Button } from '@elements/button';
 import CopyOnClick from '@elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';
 import ToggleTicketsButton from './ToggleTicketsButton';
-
-function RowCheckbox({ id }: { id: number }) {
-    const isChecked = AdminContext.useStoreState(state => state.tickets.selectedTickets.indexOf(id) >= 0);
-    const appendSelectedTicket = AdminContext.useStoreActions(actions => actions.tickets.appendSelectedTicket);
-    const removeSelectedTicket = AdminContext.useStoreActions(actions => actions.tickets.removeSelectedTicket);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedTicket(id);
-                } else {
-                    removeSelectedTicket(id);
-                }
-            }}
-        />
-    );
-}
 
 export const statusToColor = (status: TicketStatus): string => {
     switch (status) {
@@ -58,14 +36,7 @@ export const statusToColor = (status: TicketStatus): string => {
 export default () => {
     const { data: tickets } = useGetTickets();
     const { colors } = useStoreState(state => state.theme.data!);
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(TicketContext);
-
-    const setSelectedTickets = AdminContext.useStoreActions(actions => actions.tickets.setSelectedTickets);
-    const selectedTicketsLength = AdminContext.useStoreState(state => state.tickets.selectedTickets.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedTickets(e.currentTarget.checked ? tickets?.items?.map(ticket => ticket.id) || [] : []);
-    };
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(TicketContext);
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
@@ -77,10 +48,6 @@ export default () => {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedTickets([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'Tickets'}>
@@ -99,11 +66,7 @@ export default () => {
                 </div>
             </div>
             <AdminTable>
-                <ContentWrapper
-                    onSearch={onSearch}
-                    onSelectAllClick={onSelectAllClick}
-                    checked={selectedTicketsLength === (tickets?.items.length === 0 ? -1 : tickets?.items.length)}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={tickets} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -134,9 +97,6 @@ export default () => {
                                         tickets.items.length > 0 &&
                                         tickets.items.map(ticket => (
                                             <TableRow key={ticket.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={ticket.id} />
-                                                </td>
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={ticket.id}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

@@ -1,13 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-
 import type { Filters } from '@/api/admin/databases/getDatabases';
 import getDatabases, { Context as DatabasesContext } from '@/api/admin/databases/getDatabases';
 import useFlash from '@/plugins/useFlash';
-import { AdminContext } from '@/state/admin';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import AdminCheckbox from '@elements/AdminCheckbox';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import AdminTable, {
     ContentWrapper,
@@ -25,29 +22,9 @@ import { Size } from '@elements/button/types';
 import CopyOnClick from '@elements/CopyOnClick';
 import { useStoreState } from '@/state/hooks';
 
-const RowCheckbox = ({ id }: { id: number }) => {
-    const isChecked = AdminContext.useStoreState(state => state.databases.selectedDatabases.indexOf(id) >= 0);
-    const appendSelectedDatabase = AdminContext.useStoreActions(actions => actions.databases.appendSelectedDatabase);
-    const removeSelectedDatabase = AdminContext.useStoreActions(actions => actions.databases.removeSelectedDatabase);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedDatabase(id);
-                } else {
-                    removeSelectedDatabase(id);
-                }
-            }}
-        />
-    );
-};
-
 const DatabasesContainer = () => {
     const { colors } = useStoreState(state => state.theme.data!);
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(DatabasesContext);
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(DatabasesContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: databases, error, isValidating } = getDatabases();
 
@@ -62,13 +39,6 @@ const DatabasesContainer = () => {
 
     const length = databases?.items?.length || 0;
 
-    const setSelectedDatabases = AdminContext.useStoreActions(actions => actions.databases.setSelectedDatabases);
-    const selectedDatabasesLength = AdminContext.useStoreState(state => state.databases.selectedDatabases.length);
-
-    const onSelectAllClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedDatabases(e.currentTarget.checked ? databases?.items?.map(database => database.id) || [] : []);
-    };
-
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
             if (query.length < 2) {
@@ -79,10 +49,6 @@ const DatabasesContainer = () => {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedDatabases([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'Databases'}>
@@ -106,11 +72,7 @@ const DatabasesContainer = () => {
             <FlashMessageRender byKey={'databases'} css={tw`mb-4`} />
 
             <AdminTable>
-                <ContentWrapper
-                    checked={selectedDatabasesLength === (length === 0 ? -1 : length)}
-                    onSelectAllClick={onSelectAllClick}
-                    onSearch={onSearch}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={databases} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -136,10 +98,6 @@ const DatabasesContainer = () => {
                                         length > 0 &&
                                         databases.items.map(database => (
                                             <TableRow key={database.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={database.id} />
-                                                </td>
-
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={database.id.toString()}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

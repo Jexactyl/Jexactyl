@@ -10,48 +10,19 @@ import AdminTable, {
     Loading,
     NoItems,
     useTableHooks,
-} from '../../../elements/AdminTable';
-import AdminCheckbox from '../../../elements/AdminCheckbox';
-import { AdminContext } from '@/state/admin';
-import { ChangeEvent, useContext, useEffect } from 'react';
+} from '@elements/AdminTable';
+import { useContext } from 'react';
 import CopyOnClick from '@elements/CopyOnClick';
 import { Link, NavLink } from 'react-router-dom';
 import type { RealFilters } from '@/api/admin/users';
-import AdminContentBlock from '../../../elements/AdminContentBlock';
+import AdminContentBlock from '@elements/AdminContentBlock';
 import { Button } from '@elements/button';
 import { useStoreState } from '@/state/hooks';
-
-function RowCheckbox({ id }: { id: number }) {
-    const isChecked = AdminContext.useStoreState(state => state.users.selectedUsers.indexOf(id) >= 0);
-    const appendSelectedUser = AdminContext.useStoreActions(actions => actions.users.appendSelectedUser);
-    const removeSelectedUser = AdminContext.useStoreActions(actions => actions.users.removeSelectedUser);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedUser(id);
-                } else {
-                    removeSelectedUser(id);
-                }
-            }}
-        />
-    );
-}
 
 function UsersContainer() {
     const { data: users } = useGetUsers();
     const { colors } = useStoreState(state => state.theme.data!);
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(UsersContext);
-
-    const setSelectedUsers = AdminContext.useStoreActions(actions => actions.users.setSelectedUsers);
-    const selectedUsersLength = AdminContext.useStoreState(state => state.users.selectedUsers.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedUsers(e.currentTarget.checked ? users?.items?.map(location => location.id) || [] : []);
-    };
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(UsersContext);
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
@@ -63,10 +34,6 @@ function UsersContainer() {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedUsers([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'User Accounts'}>
@@ -85,11 +52,7 @@ function UsersContainer() {
                 </div>
             </div>
             <AdminTable>
-                <ContentWrapper
-                    onSearch={onSearch}
-                    onSelectAllClick={onSelectAllClick}
-                    checked={selectedUsersLength === (users?.items.length === 0 ? -1 : users?.items.length)}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={users} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -116,9 +79,6 @@ function UsersContainer() {
                                         users.items.length > 0 &&
                                         users.items.map(user => (
                                             <TableRow key={user.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={user.id} />
-                                                </td>
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={user.id}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

@@ -10,9 +10,7 @@ import AdminTable, {
     NoItems,
     useTableHooks,
 } from '@elements/AdminTable';
-import AdminCheckbox from '@elements/AdminCheckbox';
-import { AdminContext } from '@/state/admin';
-import { ChangeEvent, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import CopyOnClick from '@elements/CopyOnClick';
 import { Link } from 'react-router-dom';
 import AdminContentBlock from '@elements/AdminContentBlock';
@@ -23,37 +21,10 @@ import DeleteApiKeyButton from './DeleteApiKeyButton';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { useStoreState } from '@/state/hooks';
 
-function RowCheckbox({ id }: { id: number }) {
-    const isChecked = AdminContext.useStoreState(state => state.api.selectedApiKeys.indexOf(id) >= 0);
-    const appendSelectedApiKey = AdminContext.useStoreActions(actions => actions.api.appendSelectedApiKey);
-    const removeSelectedApiKey = AdminContext.useStoreActions(actions => actions.api.removeSelectedApiKey);
-
-    return (
-        <AdminCheckbox
-            name={id.toString()}
-            checked={isChecked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (e.currentTarget.checked) {
-                    appendSelectedApiKey(id);
-                } else {
-                    removeSelectedApiKey(id);
-                }
-            }}
-        />
-    );
-}
-
 function ApiContainer() {
     const { data: apiKeys } = useGetApiKeys();
     const { colors } = useStoreState(state => state.theme.data!);
-    const { page, setPage, setFilters, sort, setSort, sortDirection } = useContext(ApiContext);
-
-    const setSelectedApiKeys = AdminContext.useStoreActions(actions => actions.api.setSelectedApiKeys);
-    const selectedApiKeysLength = AdminContext.useStoreState(state => state.api.selectedApiKeys.length);
-
-    const onSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedApiKeys(e.currentTarget.checked ? apiKeys?.items?.map(key => key.id!) || [] : []);
-    };
+    const { setPage, setFilters, sort, setSort, sortDirection } = useContext(ApiContext);
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
@@ -65,10 +36,6 @@ function ApiContainer() {
             return resolve();
         });
     };
-
-    useEffect(() => {
-        setSelectedApiKeys([]);
-    }, [page]);
 
     return (
         <AdminContentBlock title={'API Keys'}>
@@ -88,11 +55,7 @@ function ApiContainer() {
             </div>
             <FlashMessageRender byKey={'api'} className={'my-4'} />
             <AdminTable>
-                <ContentWrapper
-                    onSearch={onSearch}
-                    onSelectAllClick={onSelectAllClick}
-                    checked={selectedApiKeysLength === (apiKeys?.items.length === 0 ? -1 : apiKeys?.items.length)}
-                >
+                <ContentWrapper onSearch={onSearch}>
                     <Pagination data={apiKeys} onPageSelect={setPage}>
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
@@ -116,9 +79,6 @@ function ApiContainer() {
                                         apiKeys.items.length > 0 &&
                                         apiKeys.items.map(key => (
                                             <TableRow key={key.id}>
-                                                <td css={tw`pl-6`}>
-                                                    <RowCheckbox id={0} />
-                                                </td>
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={key.id}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
