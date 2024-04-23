@@ -7,6 +7,7 @@ import tw from 'twin.macro';
 import Spinner from '@elements/Spinner';
 import { breakpoint } from '@/theme';
 import FadeTransition from '@elements/transitions/FadeTransition';
+import { useStoreState } from '@/state/hooks';
 
 export interface RequiredModalProps {
     children?: ReactNode;
@@ -25,8 +26,8 @@ export interface ModalProps extends RequiredModalProps {
 }
 
 export const ModalMask = styled.div`
-    ${tw`fixed z-50 overflow-auto flex w-full inset-0`};
-    background: rgba(0, 0, 0, 0.7);
+    ${tw`fixed z-50 overflow-auto flex w-full inset-0 transition-all duration-300`};
+    background: rgba(0, 0, 0, 0.8);
 `;
 
 const ModalContainer = styled.div<{ alignTop?: boolean }>`
@@ -71,6 +72,8 @@ function Modal({
     children,
 }: ModalProps) {
     const [render, setRender] = useState(visible);
+
+    const { colors } = useStoreState(state => state.theme.data!);
 
     const isDismissable = useMemo(() => {
         return (dismissable || true) && !(showSpinnerOverlay || false);
@@ -133,14 +136,14 @@ function Modal({
                     <FadeTransition duration="duration-150" show={showSpinnerOverlay ?? false} appear>
                         <div
                             css={tw`absolute w-full h-full rounded flex items-center justify-center`}
-                            style={{ background: 'hsla(211, 10%, 53%, 0.35)', zIndex: 9999 }}
+                            style={{ background: colors.secondary, zIndex: 9999 }}
                         >
                             <Spinner />
                         </div>
                     </FadeTransition>
 
                     <div
-                        css={tw`bg-neutral-800 p-3 sm:p-4 md:p-6 rounded shadow-md overflow-y-scroll transition-all duration-150`}
+                        css={tw`p-3 sm:p-4 md:p-6 rounded shadow-md overflow-y-scroll transition-all duration-150 opacity-100 bg-black/80`}
                     >
                         {children}
                     </div>

@@ -9,13 +9,11 @@ import EditScheduleModal from '@/components/server/schedules/EditScheduleModal';
 import Can from '@elements/Can';
 import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
-import GreyRowBox from '@elements/GreyRowBox';
 import { Button } from '@elements/button/index';
 import ServerContentBlock from '@elements/ServerContentBlock';
-import { Link } from 'react-router-dom';
 
 function ScheduleContainer() {
-    const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
+    const server = ServerContext.useStoreState(state => state.server.data!);
     const { clearFlashes, addError } = useFlash();
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false);
@@ -26,7 +24,7 @@ function ScheduleContainer() {
     useEffect(() => {
         clearFlashes('schedules');
 
-        getServerSchedules(uuid)
+        getServerSchedules(server.uuid)
             .then(schedules => setSchedules(schedules))
             .catch(error => {
                 addError({ message: httpErrorToHuman(error), key: 'schedules' });
@@ -48,15 +46,11 @@ function ScheduleContainer() {
                         </p>
                     ) : (
                         schedules.map(schedule => (
-                            // @ts-expect-error go away
-                            <GreyRowBox
+                            <ScheduleRow
                                 key={schedule.id}
-                                as={Link}
-                                to={schedule.id}
-                                css={tw`cursor-pointer mb-2 flex-wrap`}
-                            >
-                                <ScheduleRow schedule={schedule} />
-                            </GreyRowBox>
+                                schedule={schedule}
+                                to={`/server/${server.id}/schedules/${schedule.id}`}
+                            />
                         ))
                     )}
                     <Can action={'schedule.create'}>

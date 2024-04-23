@@ -20,6 +20,7 @@ import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
 import ConfirmationModal from '@elements/ConfirmationModal';
 import Icon from '@elements/Icon';
+import { useStoreState } from '@/state/hooks';
 
 interface Props {
     schedule: Schedule;
@@ -45,6 +46,7 @@ export default ({ schedule, task }: Props) => {
     const [visible, setVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const { colors } = useStoreState(state => state.theme.data!);
     const appendSchedule = ServerContext.useStoreActions(actions => actions.schedules.appendSchedule);
 
     const onConfirmDeletion = () => {
@@ -67,7 +69,10 @@ export default ({ schedule, task }: Props) => {
     const [title, icon] = getActionDetails(task.action);
 
     return (
-        <div css={tw`sm:flex items-center p-3 sm:p-6 border-b border-neutral-800`}>
+        <div
+            style={{ backgroundColor: colors.secondary }}
+            css={tw`sm:flex items-center p-3 sm:p-6 border-b-4 border-black/25`}
+        >
             <SpinnerOverlay visible={isLoading} fixed size={'large'} />
             <TaskDetailsModal
                 schedule={schedule}

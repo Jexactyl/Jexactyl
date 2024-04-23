@@ -83,7 +83,7 @@
         "xterm-addon-search": "0.11.0",
         "xterm-addon-search-bar": "0.2.0",
         "xterm-addon-web-links": "0.8.0",
-        "yup": "1.0.0"
+        "yup": "^0.29.1"
     },
     "devDependencies": {
         "@tailwindcss/forms": "0.5.3",
@@ -97,6 +97,7 @@
         "@types/react": "18.0.28",
         "@types/react-dom": "18.0.11",
         "@types/styled-components": "5.1.26",
+        "@types/yup": "^0.29.3",
         "@typescript-eslint/eslint-plugin": "5.53.0",
         "@typescript-eslint/parser": "5.53.0",
         "@vitejs/plugin-react": "3.1.0",

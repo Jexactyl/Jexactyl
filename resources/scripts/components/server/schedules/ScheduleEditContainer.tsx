@@ -17,9 +17,10 @@ import isEqual from 'react-fast-compare';
 import { format } from 'date-fns';
 import ScheduleCronRow from '@/components/server/schedules/ScheduleCronRow';
 import RunScheduleButton from '@/components/server/schedules/RunScheduleButton';
+import { useStoreState } from '@/state/hooks';
 
-const CronBox = ({ title, value }: { title: string; value: string }) => (
-    <div css={tw`bg-neutral-700 rounded p-3`}>
+const CronBox = ({ title, value, color }: { title: string; value: string; color: string }) => (
+    <div css={tw`rounded p-3`} style={{ backgroundColor: color }}>
         <p css={tw`text-neutral-300 text-sm`}>{title}</p>
         <p css={tw`text-xl font-medium text-neutral-100`}>{value}</p>
     </div>
@@ -39,6 +40,8 @@ const ActivePill = ({ active }: { active: boolean }) => (
 export default () => {
     const { id: scheduleId } = useParams<'id'>();
     const navigate = useNavigate();
+
+    const { colors } = useStoreState(state => state.theme.data!);
 
     const id = ServerContext.useStoreState(state => state.server.data!.id);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
@@ -80,10 +83,11 @@ export default () => {
                 <Spinner size={'large'} centered />
             ) : (
                 <>
-                    <ScheduleCronRow cron={schedule.cron} css={tw`sm:hidden bg-neutral-700 rounded mb-4 p-3`} />
+                    <ScheduleCronRow cron={schedule.cron} css={tw`sm:hidden rounded mb-4 p-3`} />
                     <div css={tw`rounded shadow`}>
                         <div
-                            css={tw`sm:flex items-center bg-neutral-900 p-3 sm:p-6 border-b-4 border-neutral-600 rounded-t`}
+                            css={tw`sm:flex items-center p-3 sm:p-6 border-b-4 border-black/25 rounded`}
+                            style={{ backgroundColor: colors.secondary }}
                         >
                             <div css={tw`flex-1`}>
                                 <h3 css={tw`flex items-center text-neutral-100 text-2xl`}>
@@ -126,11 +130,11 @@ export default () => {
                             </div>
                         </div>
                         <div css={tw`hidden sm:grid grid-cols-5 md:grid-cols-5 gap-4 mb-4 mt-4`}>
-                            <CronBox title={'Minute'} value={schedule.cron.minute} />
-                            <CronBox title={'Hour'} value={schedule.cron.hour} />
-                            <CronBox title={'Day (Month)'} value={schedule.cron.dayOfMonth} />
-                            <CronBox title={'Month'} value={schedule.cron.month} />
-                            <CronBox title={'Day (Week)'} value={schedule.cron.dayOfWeek} />
+                            <CronBox color={colors.secondary} title={'Minute'} value={schedule.cron.minute} />
+                            <CronBox color={colors.secondary} title={'Hour'} value={schedule.cron.hour} />
+                            <CronBox color={colors.secondary} title={'Day (Month)'} value={schedule.cron.dayOfMonth} />
+                            <CronBox color={colors.secondary} title={'Month'} value={schedule.cron.month} />
+                            <CronBox color={colors.secondary} title={'Day (Week)'} value={schedule.cron.dayOfWeek} />
                         </div>
                         <div css={tw`bg-neutral-700 rounded-b`}>
                             {schedule.tasks.length > 0

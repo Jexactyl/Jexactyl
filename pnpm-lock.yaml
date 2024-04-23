@@ -204,8 +204,8 @@ dependencies:
     specifier: 0.8.0
     version: 0.8.0(xterm@5.1.0)
   yup:
-    specifier: 1.0.0
-    version: 1.0.0
+    specifier: ^0.29.1
+    version: 0.29.3
 
 devDependencies:
   '@tailwindcss/forms':
@@ -241,6 +241,9 @@ devDependencies:
   '@types/styled-components':
     specifier: 5.1.26
     version: 5.1.26
+  '@types/yup':
+    specifier: ^0.29.3
+    version: 0.29.14
   '@typescript-eslint/eslint-plugin':
     specifier: 5.53.0
     version: 5.53.0(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@4.9.5)
@@ -1796,6 +1799,10 @@ packages:
       '@types/react': 18.0.28
       csstype: 3.1.1
 
+  /@types/yup@0.29.14:
+    resolution: {integrity: sha512-Ynb/CjHhE/Xp/4bhHmQC4U1Ox+I2OpfRYF3dnNgQqn1cHa6LK3H1wJMNPT02tSVZA6FYuXE2ITORfbnb6zBCSA==}
+    dev: true
+
   /@typescript-eslint/eslint-plugin@5.53.0(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@4.9.5):
     resolution: {integrity: sha512-alFpFWNucPLdUOySmXCJpzr6HKC3bu7XooShWM+3w/EL6J2HIoB2PFxpLnq4JauWVk6DiVeNKzQlFEaE+X9sGw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -3153,6 +3160,11 @@ packages:
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
+
+  /fn-name@3.0.0:
+    resolution: {integrity: sha512-eNMNr5exLoavuAMhIUVsOKF79SWd/zG104ef6sxBTSw+cZc6BXdQXDvYcGvp0VbxVVSp1XDUNoz7mg1xMtSznA==}
+    engines: {node: '>=8'}
+    dev: false
 
   /follow-redirects@1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
@@ -4671,8 +4683,8 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
-  /property-expr@2.0.5:
-    resolution: {integrity: sha512-IJUkICM5dP5znhCckHSv30Q4b5/JA5enCtkRHYaOVOAocnH/1BQEYTC5NMfT3AVl/iXKdr3aqQbQn9DxyWknwA==}
+  /property-expr@2.0.6:
+    resolution: {integrity: sha512-SVtmxhRE/CGkn3eZY1T6pC8Nln6Fr/lu1mKSgRud0eC73whjGfoAogbn78LkD8aFL0zz3bAFerKSnOl7NlErBA==}
     dev: false
 
   /punycode@2.3.0:
@@ -5203,6 +5215,10 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
+  /synchronous-promise@2.0.17:
+    resolution: {integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==}
+    dev: false
+
   /tabbable@6.1.1:
     resolution: {integrity: sha512-4kl5w+nCB44EVRdO0g/UGoOp3vlwgycUVtkk/7DPyeLZUCuNFFKCFG6/t/DgHLrUPHjrZg6s5tNm+56Q2B0xyg==}
     dev: false
@@ -5294,10 +5310,6 @@ packages:
   /timsort@0.3.0:
     resolution: {integrity: sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A==}
     dev: true
-
-  /tiny-case@1.0.3:
-    resolution: {integrity: sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==}
-    dev: false
 
   /tiny-warning@1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
@@ -5414,11 +5426,6 @@ packages:
     resolution: {integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==}
     engines: {node: '>=10'}
     dev: true
-
-  /type-fest@2.19.0:
-    resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
-    engines: {node: '>=12.20'}
-    dev: false
 
   /typed-array-length@1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}
@@ -5776,11 +5783,15 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  /yup@1.0.0:
-    resolution: {integrity: sha512-bRZIyMkoe212ahGJTE32cr2dLkJw53Va+Uw5mzsBKpcef9zCGQ23k/xtpQUfGwdWPKvCIlR8CzFwchs2rm2XpQ==}
+  /yup@0.29.3:
+    resolution: {integrity: sha512-RNUGiZ/sQ37CkhzKFoedkeMfJM0vNQyaz+wRZJzxdKE7VfDeVKH8bb4rr7XhRLbHJz5hSjoDNwMEIaKhuMZ8gQ==}
+    engines: {node: '>=10'}
     dependencies:
-      property-expr: 2.0.5
-      tiny-case: 1.0.3
+      '@babel/runtime': 7.21.0
+      fn-name: 3.0.0
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      property-expr: 2.0.6
+      synchronous-promise: 2.0.17
       toposort: 2.0.2
-      type-fest: 2.19.0
     dev: false

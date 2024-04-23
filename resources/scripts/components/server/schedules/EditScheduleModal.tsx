@@ -14,6 +14,7 @@ import ModalContext from '@/context/ModalContext';
 import asModal from '@/hoc/asModal';
 import Switch from '@elements/Switch';
 import ScheduleCheatsheetCards from '@/components/server/schedules/ScheduleCheatsheetCards';
+import { useStoreState } from '@/state/hooks';
 
 interface Props {
     schedule?: Schedule;
@@ -34,6 +35,7 @@ const EditScheduleModal = ({ schedule }: Props) => {
     const { addError, clearFlashes } = useFlash();
     const { dismiss } = useContext(ModalContext);
 
+    const { colors } = useStoreState(state => state.theme.data!);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const appendSchedule = ServerContext.useStoreActions(actions => actions.schedules.appendSchedule);
     const [showCheatsheet, setShowCheetsheet] = useState(false);
@@ -108,7 +110,10 @@ const EditScheduleModal = ({ schedule }: Props) => {
                         The schedule system supports the use of Cronjob syntax when defining when tasks should begin
                         running. Use the fields above to specify when these tasks should begin running.
                     </p>
-                    <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                    <div
+                        css={tw`mt-6 border-2 border-black/25 shadow-inner p-4 rounded`}
+                        style={{ backgroundColor: colors.secondary }}
+                    >
                         <Switch
                             name={'show_cheatsheet'}
                             description={'Show the cron cheatsheet for some examples.'}
@@ -122,14 +127,20 @@ const EditScheduleModal = ({ schedule }: Props) => {
                             </div>
                         )}
                     </div>
-                    <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                    <div
+                        css={tw`mt-6 border-2 border-black/25 shadow-inner p-4 rounded`}
+                        style={{ backgroundColor: colors.secondary }}
+                    >
                         <FormikSwitch
                             name={'onlyWhenOnline'}
                             description={'Only execute this schedule when the server is in a running state.'}
                             label={'Only When Server Is Online'}
                         />
                     </div>
-                    <div css={tw`mt-6 bg-neutral-700 border border-neutral-800 shadow-inner p-4 rounded`}>
+                    <div
+                        css={tw`mt-6 border-2 border-black/25 shadow-inner p-4 rounded`}
+                        style={{ backgroundColor: colors.secondary }}
+                    >
                         <FormikSwitch
                             name={'enabled'}
                             description={'This schedule will be executed automatically if enabled.'}
