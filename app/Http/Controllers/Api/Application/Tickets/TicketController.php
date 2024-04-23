@@ -88,7 +88,7 @@ class TicketController extends ApplicationApiController
      */
     public function settings(Request $request): Response
     {
-        $this->settings->set('settings::tickets:' . $request->input('key'), $request->input('value'));
+        $this->settings->set('settings::modules:tickets:' . $request->input('key'), $request->input('value'));
 
         return $this->returnNoContent();
     }
