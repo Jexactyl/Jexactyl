@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import isEqual from 'react-fast-compare';
 import { Alert } from '@elements/alert';
 import Can from '@elements/Can';
@@ -10,10 +10,12 @@ import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
 import StatGraphs from '@/components/server/console/StatGraphs';
 import Features from '@feature/Features';
 import { ServerContext } from '@/state/server';
+import classNames from 'classnames';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
 function ServerConsoleContainer() {
+    const [expand, setExpand] = useState<boolean>(false);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const name = ServerContext.useStoreState(state => state.server.data!.name);
     const description = ServerContext.useStoreState(state => state.server.data!.description);
@@ -44,20 +46,22 @@ function ServerConsoleContainer() {
                     </Can>
                 </div>
             </div>
-            <ServerDetailsBlock className={'order-last col-span-4 lg:order-none lg:col-span-1'} />
+            {!expand && <ServerDetailsBlock className={'order-last col-span-4 lg:order-none lg:col-span-1'} />}
             <div className={'mb-4 grid grid-cols-4 gap-2 sm:gap-4'}>
-                <div className={'col-span-4 flex lg:col-span-3'}>
+                <div className={classNames('col-span-4 flex', !expand && 'lg:col-span-3')}>
                     <Spinner.Suspense>
-                        <Console />
+                        <Console expand={expand} setExpand={setExpand} />
                     </Spinner.Suspense>
                 </div>
-                <div className={'col-span-4 lg:col-span-1 my-auto'}>
-                    <div className={'grid grid-cols-1 gap-2'}>
-                        <Spinner.Suspense>
-                            <StatGraphs />
-                        </Spinner.Suspense>
+                {!expand && (
+                    <div className={'col-span-4 lg:col-span-1 my-auto'}>
+                        <div className={'grid grid-cols-1 gap-2'}>
+                            <Spinner.Suspense>
+                                <StatGraphs />
+                            </Spinner.Suspense>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             <Features enabled={eggFeatures} />
         </ServerContentBlock>

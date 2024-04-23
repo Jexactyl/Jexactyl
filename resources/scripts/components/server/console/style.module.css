@@ -31,7 +31,7 @@
     }
 
     & > .container {
-        @apply rounded-t p-1 sm:p-2 bg-[#000000] min-h-[16rem] flex-1 font-mono text-sm;
+        @apply rounded-t p-1 sm:p-2 bg-[#000000] flex-1 font-mono text-sm;
 
         & #terminal {
             @apply h-full;
@@ -50,12 +50,17 @@
         @apply flex items-center top-0 left-0 absolute z-10 select-none h-full px-3 transition-colors duration-100;
     }
 
+    & .expand_icon {
+        @apply flex items-center top-0 right-0 absolute z-10 select-none h-full px-3 transition-colors duration-100;
+    }
+
     & .command_input {
-        @apply relative bg-zinc-900 px-2 text-slate-100 pl-10 pr-4 py-2 w-full font-mono text-sm sm:rounded-b;
+        @apply relative bg-zinc-900 px-2 text-slate-100 pl-16 pr-4 py-2 w-full font-mono text-sm sm:rounded-b;
         @apply focus:ring-0 outline-none focus-visible:outline-none;
         @apply border-0 border-b-2 border-transparent transition-colors duration-100;
         @apply active:border-cyan-500 focus:border-cyan-500;
     }
+    
 }
 
 .chart_container {

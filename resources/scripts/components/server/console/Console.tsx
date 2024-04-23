@@ -1,7 +1,7 @@
 import { ChevronDoubleRightIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { debounce } from 'debounce';
-import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
+import type { Dispatch, KeyboardEvent as ReactKeyboardEvent, SetStateAction } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ITerminalInitOnlyOptions, ITerminalOptions, ITheme } from 'xterm';
 import { Terminal } from 'xterm';
@@ -22,6 +22,7 @@ import { ServerContext } from '@/state/server';
 import 'xterm/css/xterm.css';
 import styles from './style.module.css';
 import { useStoreState } from '@/state/hooks';
+import { ArrowsExpandIcon } from '@heroicons/react/outline';
 
 const theme: ITheme = {
     background: '#000000',
@@ -55,11 +56,16 @@ const terminalProps: ITerminalOptions = {
     allowProposedApi: true,
 };
 
-const terminalInitOnlyProps: ITerminalInitOnlyOptions = {
-    rows: 30,
-};
+interface Props {
+    expand: boolean;
+    setExpand: Dispatch<SetStateAction<boolean>>;
+}
 
-export default () => {
+export default ({ expand, setExpand }: Props) => {
+    const terminalInitOnlyProps: ITerminalInitOnlyOptions = {
+        rows: expand ? 45 : 30,
+    };
+
     const { secondary } = useStoreState(state => state.theme.data!.colors);
     const TERMINAL_PRELUDE = '\n\u001b[1m\u001b[33mEverest Container: \u001b[0m';
     const ref = useRef<HTMLDivElement>(null);
@@ -212,7 +218,14 @@ export default () => {
     }, [connected, instance]);
 
     return (
-        <div className={classNames(styles.terminal, 'relative p-2 rounded-lg')} style={{ backgroundColor: secondary }}>
+        <div
+            style={{ backgroundColor: secondary }}
+            className={classNames(
+                styles.terminal,
+                'relative p-2 rounded-lg',
+                expand ? 'min-h-[48rem]' : 'min-h-[16rem]',
+            )}
+        >
             <SpinnerOverlay visible={!connected} size={'large'} />
             <div
                 className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}
@@ -240,6 +253,12 @@ export default () => {
                         )}
                     >
                         <ChevronDoubleRightIcon className={'h-4 w-4'} />
+                    </div>
+                    <div className={styles.expand_icon}>
+                        <ArrowsExpandIcon
+                            className={'hover:text-green-400 w-4 h-4 duration-300'}
+                            onClick={() => setExpand(s => !s)}
+                        />
                     </div>
                 </div>
             )}
