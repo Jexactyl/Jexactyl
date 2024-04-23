@@ -146,7 +146,7 @@ const EditSubuserModal = ({ subuser }: Props) => {
                                 permissions={Object.keys(permissions[key]?.keys ?? {}).map(pkey => `${key}.${pkey}`)}
                                 css={index > 0 ? tw`mt-4` : undefined}
                             >
-                                <p css={tw`text-sm text-neutral-400 mb-4`}>{permissions[key]?.description}</p>
+                                <p css={tw`text-neutral-400 mb-4`}>{permissions[key]?.description}</p>
                                 {Object.keys(permissions[key]?.keys ?? {}).map(pkey => (
                                     <PermissionRow
                                         key={`permission_${key}.${pkey}`}

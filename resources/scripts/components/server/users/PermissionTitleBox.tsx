@@ -34,7 +34,7 @@ function PermissionTitleBox({ isEditable, title, permissions, className, childre
         <TitledGreyBox
             title={
                 <div css={tw`flex items-center`}>
-                    <p css={tw`text-sm uppercase flex-1`}>{title}</p>
+                    <p css={tw`text-sm font-semibold capitalize flex-1`}>{title}</p>
                     {isEditable && (
                         <Input
                             type={'checkbox'}

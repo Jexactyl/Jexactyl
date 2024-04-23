@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
     faBoxOpen,
     faCloudDownloadAlt,
@@ -8,10 +8,8 @@ import {
     faUnlock,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DropdownMenu, { DropdownButtonRow } from '@elements/DropdownMenu';
 import getBackupDownloadUrl from '@/api/server/backups/getBackupDownloadUrl';
 import useFlash from '@/plugins/useFlash';
-import SpinnerOverlay from '@elements/SpinnerOverlay';
 import deleteBackup from '@/api/server/backups/deleteBackup';
 import Can from '@elements/Can';
 import tw from 'twin.macro';
@@ -22,12 +20,16 @@ import Input from '@elements/Input';
 import { restoreServerBackup } from '@/api/server/backups';
 import http, { httpErrorToHuman } from '@/api/http';
 import { Dialog } from '@elements/dialog';
+import { Button } from '@/components/elements/button';
+import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 
 interface Props {
     backup: ServerBackup;
+    visible: boolean;
+    setVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-export default ({ backup }: Props) => {
+export default ({ backup, visible, setVisible }: Props) => {
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const setServerFromState = ServerContext.useStoreActions(actions => actions.server.setServerFromState);
     const [modal, setModal] = useState('');
@@ -163,59 +165,51 @@ export default ({ backup }: Props) => {
             >
                 This is a permanent operation. The backup cannot be recovered once deleted.
             </Dialog.Confirm>
-            <SpinnerOverlay visible={loading} fixed />
-            {backup.isSuccessful ? (
-                <DropdownMenu
-                    renderToggle={onClick => (
-                        <button
-                            onClick={onClick}
-                            css={tw`text-slate-200 transition-colors duration-150 hover:text-slate-100 p-2`}
-                        >
-                            <FontAwesomeIcon icon={faEllipsisH} />
-                        </button>
-                    )}
-                >
-                    <div css={tw`text-sm`}>
-                        <Can action={'backup.download'}>
-                            <DropdownButtonRow onClick={doDownload}>
-                                <FontAwesomeIcon fixedWidth icon={faCloudDownloadAlt} css={tw`text-xs`} />
-                                <span css={tw`ml-2`}>Download</span>
-                            </DropdownButtonRow>
-                        </Can>
-                        <Can action={'backup.restore'}>
-                            <DropdownButtonRow onClick={() => setModal('restore')}>
-                                <FontAwesomeIcon fixedWidth icon={faBoxOpen} css={tw`text-xs`} />
-                                <span css={tw`ml-2`}>Restore</span>
-                            </DropdownButtonRow>
-                        </Can>
-                        <Can action={'backup.delete'}>
-                            <>
-                                <DropdownButtonRow onClick={onLockToggle}>
-                                    <FontAwesomeIcon
-                                        fixedWidth
-                                        icon={backup.isLocked ? faUnlock : faLock}
-                                        css={tw`text-xs mr-2`}
-                                    />
-                                    {backup.isLocked ? 'Unlock' : 'Lock'}
-                                </DropdownButtonRow>
-                                {!backup.isLocked && (
-                                    <DropdownButtonRow danger onClick={() => setModal('delete')}>
-                                        <FontAwesomeIcon fixedWidth icon={faTrashAlt} css={tw`text-xs`} />
-                                        <span css={tw`ml-2`}>Delete</span>
-                                    </DropdownButtonRow>
-                                )}
-                            </>
-                        </Can>
-                    </div>
-                </DropdownMenu>
-            ) : (
-                <button
+            {!backup.completedAt ? (
+                <FontAwesomeIcon
+                    size={'lg'}
+                    icon={faTrashAlt}
+                    className={'text-red-400'}
                     onClick={() => setModal('delete')}
-                    css={tw`text-slate-200 transition-colors duration-150 hover:text-slate-100 p-2`}
-                >
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                </button>
+                />
+            ) : (
+                <FontAwesomeIcon icon={faEllipsisH} onClick={() => setVisible(visible => !visible)} size={'lg'} />
             )}
+            <Dialog open={visible} onClose={() => setVisible(false)} title={'Edit Backup'}>
+                <SpinnerOverlay visible={loading} />
+                <div css={tw`text-sm grid grid-cols-2 lg:grid-cols-3 gap-4`}>
+                    <Can action={'backup.download'}>
+                        <Button onClick={doDownload}>
+                            <FontAwesomeIcon fixedWidth icon={faCloudDownloadAlt} css={tw`text-xs`} />
+                            <span css={tw`ml-2`}>Download</span>
+                        </Button>
+                    </Can>
+                    <Can action={'backup.restore'}>
+                        <Button onClick={() => setModal('restore')}>
+                            <FontAwesomeIcon fixedWidth icon={faBoxOpen} css={tw`text-xs`} />
+                            <span css={tw`ml-2`}>Restore</span>
+                        </Button>
+                    </Can>
+                    <Can action={'backup.delete'}>
+                        <>
+                            <Button onClick={onLockToggle}>
+                                <FontAwesomeIcon
+                                    fixedWidth
+                                    icon={backup.isLocked ? faUnlock : faLock}
+                                    css={tw`text-xs mr-2`}
+                                />
+                                {backup.isLocked ? 'Unlock' : 'Lock'}
+                            </Button>
+                            {!backup.isLocked && (
+                                <Button.Danger onClick={() => setModal('delete')}>
+                                    <FontAwesomeIcon fixedWidth icon={faTrashAlt} css={tw`text-xs`} />
+                                    <span css={tw`ml-2`}>Delete</span>
+                                </Button.Danger>
+                            )}
+                        </>
+                    </Can>
+                </div>
+            </Dialog>
         </>
     );
 };
