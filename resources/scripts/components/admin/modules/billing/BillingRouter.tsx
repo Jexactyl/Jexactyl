@@ -7,8 +7,10 @@ import { getSettings } from '@/api/admin/billing/settings';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import EnableBilling from '@admin/modules/billing/EnableBilling';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import { ShoppingBagIcon, UsersIcon } from '@heroicons/react/outline';
+import { DesktopComputerIcon, ShoppingBagIcon, UsersIcon } from '@heroicons/react/outline';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
+import BillingProductsContainer from './products/BillingProductsContainer';
+import BillingAccountsContainer from './accounts/BillingAccountsContainer';
 import ToggleFeatureButton from '@admin/modules/billing/ToggleFeatureButton';
 
 export default () => {
@@ -39,9 +41,12 @@ export default () => {
                 </div>
             </div>
 
-            <FlashMessageRender byKey={'admin:settings'} className={'mb-4'} />
+            <FlashMessageRender byKey={'admin:billing'} className={'mb-4'} />
 
             <SubNavigation theme={theme}>
+                <SubNavigationLink to={'/admin/billing'} name={'Overview'}>
+                    <DesktopComputerIcon />
+                </SubNavigationLink>
                 <SubNavigationLink to={'/admin/billing/products'} name={'Products'}>
                     <ShoppingBagIcon />
                 </SubNavigationLink>
@@ -50,8 +55,9 @@ export default () => {
                 </SubNavigationLink>
             </SubNavigation>
             <Routes>
-                <Route path={'/products'} element={<>products</>} />
-                <Route path={'/accounts'} element={<>accounts</>} />
+                <Route path={'/'} element={<>Welcome to the Billing Overview.</>} />
+                <Route path={'/products'} element={<BillingProductsContainer />} />
+                <Route path={'/accounts'} element={<BillingAccountsContainer />} />
                 <Route path={'/*'} element={<NotFound />} />
             </Routes>
         </AdminContentBlock>
