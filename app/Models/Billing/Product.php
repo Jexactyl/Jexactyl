@@ -7,6 +7,7 @@ use Everest\Models\Model;
 /**
  * @property int $id
  * @property string $uuid
+ * @property int $category_id
  * @property string $name
  * @property string $icon
  * @property float $price
@@ -37,8 +38,8 @@ class Product extends Model
      * Fields that are mass assignable.
      */
     protected $fillable = [
-        'uuid', 'name', 'icon', 'price',
-        'description', 'cpu_limit',
+        'uuid', 'category_id', 'name', 'icon',
+        'price', 'description', 'cpu_limit',
         'memory_limit', 'disk_limit',
         'backup_limit', 'database_limit',
         'allocation_limit',
@@ -48,6 +49,7 @@ class Product extends Model
      * Cast values to correct type.
      */
     protected $casts = [
+        'category_id' => 'integer',
         'price' => 'double',
         'cpu_limit' => 'integer',
         'memory_limit' => 'integer',
@@ -59,6 +61,7 @@ class Product extends Model
 
     public static array $validationRules = [
         'uuid' => 'required|string|size:36',
+        'category_id' => 'required|exists:categories,id',
 
         'name' => 'required|string|min:3|max:191',
         'icon' => 'nullable|string|min:3|max:300',

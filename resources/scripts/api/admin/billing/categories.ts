@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { AxiosError } from 'axios';
 import useSWR, { SWRResponse } from 'swr';
-import { createContext } from '@/api/admin';
+import { createContext, withRelationships } from '@/api/admin';
 import { useParams } from 'react-router-dom';
-import http, { FractalResponseData, PaginatedResult, getPaginationSet } from '@/api/http';
+import { Product, rawDataToProduct } from '@/api/admin/billing/products';
+import http, { FractalResponseData, FractalResponseList, PaginatedResult, getPaginationSet } from '@/api/http';
+import { Transformers } from '@/api/definitions/admin';
 
 const filters = ['id', 'uuid', 'name', 'description'] as const;
 export type Filters = (typeof filters)[number];
@@ -18,6 +20,10 @@ export interface Category {
 
     createdAt: Date;
     updatedAt?: Date | null;
+
+    relationships: {
+        products?: Product[];
+    };
 }
 
 export interface ContextFilters {
@@ -45,6 +51,12 @@ const rawDataToCategory = ({ attributes }: FractalResponseData): Category =>
 
         createdAt: new Date(attributes.created_at),
         updatedAt: new Date(attributes.updated_at),
+
+        relationships: {
+            products: ((attributes.relationships?.products as FractalResponseList | undefined)?.data || []).map(
+                rawDataToProduct,
+            ),
+        },
     } as Category);
 
 const useGetCategories = (include: string[] = []) => {
@@ -83,12 +95,14 @@ const getCategories = (): Promise<Category[]> => {
     });
 };
 
-const getCategory = (id: number): Promise<Category> => {
-    return new Promise((resolve, reject) => {
-        http.get(`/api/application/billing/categories/${id}`)
-            .then(({ data }) => resolve(rawDataToCategory(data)))
-            .catch(reject);
+const getCategory = async (id: number): Promise<Category> => {
+    const { data } = await http.get(`/api/application/billing/categories/${id}`, {
+        params: {
+            include: ['products'],
+        },
     });
+
+    return withRelationships(Transformers.toCategory(data), 'products');
 };
 
 const createCategory = (values: Values): Promise<void> => {
@@ -132,5 +146,6 @@ export {
     updateCategory,
     deleteCategory,
     useGetCategories,
+    rawDataToCategory,
     useCategoryFromRoute,
 };

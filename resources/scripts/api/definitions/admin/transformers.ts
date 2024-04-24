@@ -9,6 +9,7 @@ import { Nest } from '@/api/admin/nest';
 import { Category } from '@/api/admin/billing/categories';
 import { ApiKey } from '@/api/account/getApiKeys';
 import { Ticket, TicketMessage } from '@/api/admin/tickets/getTickets';
+import { Product } from '@/api/admin/billing/products';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 
@@ -270,5 +271,34 @@ export default class Transformers {
 
         createdAt: new Date(attributes.created_at),
         updatedAt: new Date(attributes.updated_at),
+
+        relationships: {
+            products: transform(attributes.relationships?.products as FractalResponseList, this.toProduct),
+        },
+    });
+
+    static toProduct = ({ attributes }: FractalResponseData): Product => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        categoryId: attributes.category_id,
+        name: attributes.name,
+        icon: attributes.icon,
+        description: attributes.description,
+
+        limits: {
+            cpu: attributes.limits.cpu,
+            memory: attributes.limits.memory,
+            disk: attributes.limits.disk,
+            backup: attributes.limits.backup,
+            database: attributes.limits.database,
+            allocation: attributes.limits.allocation,
+        },
+
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        relationships: {
+            category: transform(attributes.relationships?.category as FractalResponseData, this.toCategory),
+        },
     });
 }
