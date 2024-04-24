@@ -53,6 +53,8 @@ Route::group(['prefix' => '/auth'], function () {
 Route::group(['prefix' => '/billing'], function () {
     Route::get('/settings', [Application\Billing\BillingSettingsController::class, 'view']);
     Route::put('/settings', [Application\Billing\BillingSettingsController::class, 'update']);
+
+    Route::get('/categories', [Application\Billing\CategoryController::class, 'index']);
 });
 
 /*

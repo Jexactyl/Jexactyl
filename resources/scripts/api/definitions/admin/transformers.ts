@@ -6,6 +6,7 @@ import * as Models from '@definitions/admin/models';
 import { Location } from '@/api/admin/location';
 import { Egg, EggVariable } from '@/api/admin/egg';
 import { Nest } from '@/api/admin/nest';
+import { Category } from '@/api/admin/billing/categories';
 import { ApiKey } from '@/api/account/getApiKeys';
 import { Ticket, TicketMessage } from '@/api/admin/tickets/getTickets';
 
@@ -257,5 +258,17 @@ export default class Transformers {
         relationships: {
             eggs: transform(attributes.relationships?.eggs as FractalResponseList, this.toEgg),
         },
+    });
+
+    static toCategory = ({ attributes }: FractalResponseData): Category => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        name: attributes.name,
+        icon: attributes.icon,
+        description: attributes.description,
+        visible: attributes.visible,
+
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
     });
 }

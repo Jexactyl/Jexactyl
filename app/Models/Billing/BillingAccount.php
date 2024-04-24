@@ -1,7 +1,8 @@
 <?php
 
-namespace Everest\Models;
+namespace Everest\Models\Billing;
 
+use Everest\Models\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

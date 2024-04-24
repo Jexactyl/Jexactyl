@@ -1,6 +1,8 @@
 <?php
 
-namespace Everest\Models;
+namespace Everest\Models\Billing;
+
+use Everest\Models\Model;
 
 /**
  * @property int $id
