@@ -18,5 +18,5 @@ return [
         'background' => env('THEME_COLORS_BACKGROUND', '#000000'),
         'headers' => env('THEME_COLORS_HEADERS', '#171717'),
         'sidebar' => env('THEME_COLORS_SIDEBAR', '#18181b'),
-    ]
+    ],
 ];

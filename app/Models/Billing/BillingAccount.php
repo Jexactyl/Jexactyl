@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $user_id
  * @property string $uuid
- * 
  * @property string $name
- * @property double $balance
+ * @property float $balance
  * @property int $bill_date
  * @property string $state
- * 
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */

@@ -32,7 +32,7 @@ export default () => {
                     type={'number'}
                     description={'The total number of databases a user is allowed to create for this server.'}
                 />
-                                <Field
+                <Field
                     id={'featureLimits.subusers'}
                     name={'featureLimits.subusers'}
                     label={'Subuser Limit'}

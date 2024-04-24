@@ -17,7 +17,7 @@ class ThemeServiceProvider extends ServiceProvider
     protected array $keys = [
         'colors:primary',
         'colors:secondary',
-        
+
         'colors:background',
         'colors:headers',
         'colors:sidebar',

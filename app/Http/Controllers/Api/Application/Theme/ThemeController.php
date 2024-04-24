@@ -38,7 +38,7 @@ class ThemeController extends ApplicationApiController
     {
         foreach ($this->settings->all() as $setting) {
             $setting->delete();
-        };
+        }
 
         return $this->returnNoContent();
     }

@@ -7,20 +7,16 @@ use Everest\Models\Model;
 /**
  * @property int $id
  * @property string $uuid
- * 
  * @property string $name
  * @property string $icon
- * @property double $price
+ * @property float $price
  * @property string $description
- * 
  * @property int $cpu_limit
  * @property int $memory_limit
  * @property int $disk_limit
- * 
  * @property int $backup_limit
  * @property int $database_limit
  * @property int $allocation_limit
- * 
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */

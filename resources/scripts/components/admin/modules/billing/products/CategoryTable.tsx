@@ -11,11 +11,12 @@ import AdminTable, {
 } from '@/components/elements/AdminTable';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 import { useStoreState } from '@/state/hooks';
 import { useContext } from 'react';
-import AddCategoryButton from '@admin/modules/billing/products/AddCategoryButton';
+import { Button } from '@/components/elements/button';
+import classNames from 'classnames';
 
 export default () => {
     const { data: categories } = useGetCategories();
@@ -29,7 +30,7 @@ export default () => {
             if (query.length < 2) {
                 setFilters(null);
             } else {
-                // setFilters({ title: query });
+                setFilters({ name: query });
             }
             return resolve();
         });
@@ -45,7 +46,9 @@ export default () => {
                     </p>
                 </div>
                 <div className={'flex ml-auto pl-4'}>
-                    <AddCategoryButton />
+                    <Link to={'/admin/billing/categories/new'}>
+                        <Button>Add Category</Button>
+                    </Link>
                 </div>
             </div>
             <AdminTable>
@@ -74,6 +77,7 @@ export default () => {
                                         direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('created_at')}
                                     />
+                                    <TableHeader />
                                 </TableHead>
                                 <TableBody>
                                     {categories !== undefined &&
@@ -103,6 +107,18 @@ export default () => {
                                                     {Math.abs(differenceInHours(category.createdAt, new Date())) > 48
                                                         ? format(category.createdAt, 'MMM do, yyyy h:mma')
                                                         : formatDistanceToNow(category.createdAt, { addSuffix: true })}
+                                                </td>
+                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                    <span
+                                                        className={classNames(
+                                                            'px-2 rounded-full inline-flex text-xs leading-5 font-medium',
+                                                            category.visible
+                                                                ? 'bg-green-200 text-green-800'
+                                                                : 'bg-red-200 text-red-800',
+                                                        )}
+                                                    >
+                                                        {category.visible ? 'Visible' : 'Hidden'}
+                                                    </span>
                                                 </td>
                                             </TableRow>
                                         ))}

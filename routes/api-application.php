@@ -41,7 +41,6 @@ Route::group(['prefix' => '/auth'], function () {
     });
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | Billing Controller Routes
@@ -54,7 +53,14 @@ Route::group(['prefix' => '/billing'], function () {
     Route::get('/settings', [Application\Billing\BillingSettingsController::class, 'view']);
     Route::put('/settings', [Application\Billing\BillingSettingsController::class, 'update']);
 
-    Route::get('/categories', [Application\Billing\CategoryController::class, 'index']);
+    Route::group(['prefix' => '/categories'], function () {
+        Route::get('/', [Application\Billing\CategoryController::class, 'index']);
+        Route::post('/', [Application\Billing\CategoryController::class, 'store']);
+
+        Route::get('/{category:id}', [Application\Billing\CategoryController::class, 'view']);
+        Route::patch('/{category:id}', [Application\Billing\CategoryController::class, 'update']);
+        Route::delete('/{category:id}', [Application\Billing\CategoryController::class, 'delete']);
+    });
 });
 
 /*
@@ -105,7 +111,6 @@ Route::group(['prefix' => '/theme'], function () {
 
     Route::post('/reset', [Application\Theme\ThemeController::class, 'reset']);
 });
-
 
 /*
 |--------------------------------------------------------------------------

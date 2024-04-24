@@ -2,7 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Application\Billing;
 
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Everest\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Transformers\Api\Application\CategoryTransformer;
@@ -37,5 +39,68 @@ class CategoryController extends ApplicationApiController
         return $this->fractal->collection($categories)
             ->transformWith(CategoryTransformer::class)
             ->toArray();
+    }
+
+    /**
+     * Store a new product category in the database.
+     */
+    public function store(Request $request): Response
+    {
+        try {
+            Category::create([
+                'uuid' => Uuid::uuid4()->toString(),
+                'name' => $request->input('name'),
+                'icon' => $request->input('icon'),
+                'description' => $request->input('description'),
+                'visible' => $request->input('visible'),
+            ]);
+        } catch (\Exception $ex) {
+            throw new \Exception('Failed to create a new product category: ' . $ex->getMessage());
+        }
+
+        return $this->returnNoContent();
+    }
+
+    /**
+     * Update an existing category.
+     */
+    public function update(Request $request, Category $category): Response
+    {
+        try {
+            $category->updateOrFail([
+                'name' => $request->input('name'),
+                'icon' => $request->input('icon'),
+                'description' => $request->input('description'),
+                'visible' => $request->input('visible'),
+            ]);
+        } catch (\Exception $ex) {
+            throw new \Exception('Failed to update a product category: ' . $ex->getMessage());
+        }
+
+        return $this->returnNoContent();
+    }
+
+    /**
+     * View an existing category.
+     */
+    public function view(Request $request, Category $category): array
+    {
+        return $this->fractal->item($category)
+            ->transformWith(CategoryTransformer::class)
+            ->toArray();
+    }
+
+    /**
+     * Delete a category and the products linked to it.
+     */
+    public function delete(Request $request, Category $category): Response
+    {
+        foreach ($category->products() as $product) {
+            $product->delete();
+        };
+
+        $category->delete();
+
+        return $this->returnNoContent();
     }
 }

@@ -74,7 +74,7 @@ const AdminBox = ({
                 {button}
             </div>
             <div css={[!noPadding && tw`px-4 xl:px-5 py-5`]}>
-                <FlashMessageRender byKey={byKey || ''} className={'mb-3'} />
+                <FlashMessageRender byKey={byKey} className={'mb-3'} />
                 {children}
             </div>
         </div>

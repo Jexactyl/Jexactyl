@@ -42,7 +42,7 @@ class TicketMessageController extends ApplicationApiController
             ->transformWith(TicketMessageTransformer::class)
             ->toArray();
     }
-    
+
     /**
      * Add a new message to a ticket.
      */

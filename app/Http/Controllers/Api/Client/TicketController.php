@@ -15,8 +15,7 @@ class TicketController extends ClientApiController
 {
     public function __construct(
         private SettingsRepositoryInterface $settings,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -38,7 +37,7 @@ class TicketController extends ClientApiController
     {
         if (!intval($this->settings->get('settings::tickets:enabled', 0))) {
             throw new DisplayException('You cannot create a ticket as the module is disabled.');
-        };
+        }
 
         $ticket = $request->user()->tickets()->create([
             'title' => $request->input('title'),
@@ -62,7 +61,7 @@ class TicketController extends ClientApiController
     {
         if ($request->user()->id !== $ticket->user_id) {
             throw new DisplayException('You do not own this ticket.');
-        };
+        }
 
         return $this->fractal->item($ticket)
             ->transformWith(TicketTransformer::class)
@@ -76,7 +75,7 @@ class TicketController extends ClientApiController
     {
         if ($request->user()->id !== $ticket->user_id) {
             throw new DisplayException('You do not own this ticket.');
-        };
+        }
 
         TicketMessage::create([
             'ticket_id' => $ticket->id,
@@ -96,7 +95,7 @@ class TicketController extends ClientApiController
     {
         if ($request->user()->id !== $ticket->user_id) {
             throw new DisplayException('You do not own this ticket.');
-        };
+        }
 
         if (!is_null($ticket)) {
             $ticket->delete();

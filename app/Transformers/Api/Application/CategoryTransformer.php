@@ -26,7 +26,7 @@ class CategoryTransformer extends Transformer
             'name' => $model->name,
             'icon' => $model->icon,
             'description' => $model->description,
-            'visible' => $model->visible,
+            'visible' => boolval($model->visible),
             'created_at' => $model->created_at->toAtomString(),
             'updated_at' => $model->updated_at ? $model->updated_at->toAtomString() : null,
         ];

@@ -1,16 +1,9 @@
+import { useContext } from 'react';
 import { AxiosError } from 'axios';
-import { useParams } from 'react-router-dom';
-import { Transformers } from '@/api/definitions/admin';
-import useSWR, { SWRConfiguration, SWRResponse } from 'swr';
-import http, {
-    FractalPaginatedResponse,
-    FractalResponseData,
-    PaginatedResult,
-    QueryBuilderParams,
-    getPaginationSet,
-    withQueryBuilderParams,
-} from '@/api/http';
+import useSWR, { SWRResponse } from 'swr';
 import { createContext } from '@/api/admin';
+import { useParams } from 'react-router-dom';
+import http, { FractalResponseData, PaginatedResult, getPaginationSet } from '@/api/http';
 
 const filters = ['id', 'uuid', 'name', 'description'] as const;
 export type Filters = (typeof filters)[number];
@@ -28,11 +21,15 @@ export interface Category {
 }
 
 export interface ContextFilters {
-    id: number;
-    uuid: string;
-    title: string;
-    createdAt: Date;
-    updatedAt?: Date | null;
+    id?: number;
+    name?: string;
+}
+
+export interface Values {
+    name: string;
+    icon: string;
+    description: string;
+    visible: boolean;
 }
 
 export const Context = createContext<ContextFilters>();
@@ -50,24 +47,32 @@ const rawDataToCategory = ({ attributes }: FractalResponseData): Category =>
         updatedAt: new Date(attributes.updated_at),
     } as Category);
 
-const useGetCategories = (
-    params?: QueryBuilderParams<Filters>,
-    config?: SWRConfiguration,
-): SWRResponse<PaginatedResult<Category>, AxiosError> => {
-    return useSWR<PaginatedResult<Category>>(
-        ['/api/application/billing/categories', JSON.stringify(params)],
-        async () => {
-            const { data } = await http.get<FractalPaginatedResponse>('/api/application/billing/categories', {
-                params: withQueryBuilderParams(params),
-            });
+const useGetCategories = (include: string[] = []) => {
+    const { page, filters, sort, sortDirection } = useContext(Context);
 
-            return {
-                items: (data.data || []).map(Transformers.toCategory),
-                pagination: getPaginationSet(data.meta.pagination),
-            };
-        },
-        config || { revalidateOnMount: true, revalidateOnFocus: false },
-    );
+    const params = {};
+    if (filters !== null) {
+        Object.keys(filters).forEach(key => {
+            // @ts-expect-error todo
+            params['filter[' + key + ']'] = filters[key];
+        });
+    }
+
+    if (sort !== null) {
+        // @ts-expect-error todo
+        params.sort = (sortDirection ? '-' : '') + sort;
+    }
+
+    return useSWR<PaginatedResult<Category>>(['categories', page, filters, sort, sortDirection], async () => {
+        const { data } = await http.get('/api/application/billing/categories', {
+            params: { include: include.join(','), page, ...params },
+        });
+
+        return {
+            items: (data.data || []).map(rawDataToCategory),
+            pagination: getPaginationSet(data.meta.pagination),
+        };
+    });
 };
 
 const getCategories = (): Promise<Category[]> => {
@@ -86,6 +91,30 @@ const getCategory = (id: number): Promise<Category> => {
     });
 };
 
+const createCategory = (values: Values): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.post(`/api/application/billing/categories`, values)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
+
+const updateCategory = (id: number, values: Values): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.patch(`/api/application/billing/categories/${id}`, values)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
+
+const deleteCategory = (id: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.delete(`/api/application/billing/categories/${id}`)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
+
 /**
  * Returns an SWR instance by automatically loading in the category for the currently
  * loaded route match in the admin area.
@@ -93,10 +122,15 @@ const getCategory = (id: number): Promise<Category> => {
 const useCategoryFromRoute = (): SWRResponse<Category, AxiosError> => {
     const params = useParams<'id'>();
 
-    return useSWR(`/api/application/billing/categories/${params.id}`, async () => getCategory(Number(params.id)), {
-        revalidateOnMount: false,
-        revalidateOnFocus: false,
-    });
+    return useSWR(`/api/application/billing/categories/${params.id}`, async () => getCategory(Number(params.id)));
 };
 
-export { getCategory, getCategories, useGetCategories, useCategoryFromRoute };
+export {
+    getCategory,
+    getCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
+    useGetCategories,
+    useCategoryFromRoute,
+};

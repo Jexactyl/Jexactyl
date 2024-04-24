@@ -67,7 +67,7 @@ class SubuserController extends ClientApiController
     {
         if ($server->subusers->count() >= $server->subuser_limit) {
             throw new DisplayException('You cannot add any more subusers to this server.');
-        };
+        }
 
         $response = $this->creationService->handle(
             $server,

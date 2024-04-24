@@ -42,7 +42,7 @@ class TicketController extends ApplicationApiController
             ->transformWith(TicketTransformer::class)
             ->toArray();
     }
-    
+
     /**
      * Add a new ticket to the Panel.
      */

@@ -3,16 +3,15 @@
 namespace Everest\Models\Billing;
 
 use Everest\Models\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
  * @property string $uuid
- * 
  * @property string $name
  * @property string $icon
  * @property string $description
  * @property bool $visible
- * 
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -44,4 +43,9 @@ class Category extends Model
         'description' => 'nullable|string|max:300',
         'visible' => 'nullable|bool',
     ];
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

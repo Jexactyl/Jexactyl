@@ -7,11 +7,13 @@ import { getSettings } from '@/api/admin/billing/settings';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import EnableBilling from '@admin/modules/billing/EnableBilling';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import CategoryForm from '@admin/modules/billing/products/CategoryForm';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import CategoryTable from '@admin/modules/billing/products/CategoryTable';
 import BillingAccountsContainer from './accounts/BillingAccountsContainer';
 import ToggleFeatureButton from '@admin/modules/billing/ToggleFeatureButton';
 import { DesktopComputerIcon, ShoppingBagIcon, UsersIcon } from '@heroicons/react/outline';
+import CategoryContainer from './products/CategoryContainer';
 
 export default () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -44,7 +46,7 @@ export default () => {
             <FlashMessageRender byKey={'admin:billing'} className={'mb-4'} />
 
             <SubNavigation theme={theme}>
-                <SubNavigationLink to={'/admin/billing'} name={'Overview'}>
+                <SubNavigationLink to={'/admin/billing'} name={'Overview'} base>
                     <DesktopComputerIcon />
                 </SubNavigationLink>
                 <SubNavigationLink to={'/admin/billing/categories'} name={'Products'}>
@@ -56,8 +58,13 @@ export default () => {
             </SubNavigation>
             <Routes>
                 <Route path={'/'} element={<>Welcome to the Billing Overview.</>} />
+
                 <Route path={'/categories'} element={<CategoryTable />} />
+                <Route path={'/categories/new'} element={<CategoryForm />} />
+                <Route path={'/categories/:id'} element={<CategoryContainer />} />
+
                 <Route path={'/accounts'} element={<BillingAccountsContainer />} />
+
                 <Route path={'/*'} element={<NotFound />} />
             </Routes>
         </AdminContentBlock>

@@ -24,6 +24,7 @@ export const SubNavigation = styled.div<{ theme: SiteTheme }>`
 interface Props {
     to: string;
     name: string;
+    base?: boolean;
 }
 
 interface PropsWithIcon extends Props {
@@ -36,8 +37,14 @@ interface PropsWithoutIcon extends Props {
     children: ReactNode;
 }
 
-export const SubNavigationLink = ({ to, name, icon: IconComponent, children }: PropsWithIcon | PropsWithoutIcon) => (
-    <NavLink to={to} end>
+export const SubNavigationLink = ({
+    base,
+    to,
+    name,
+    icon: IconComponent,
+    children,
+}: PropsWithIcon | PropsWithoutIcon) => (
+    <NavLink to={to} end={base}>
         {IconComponent ? <IconComponent /> : children}
         {name}
     </NavLink>
