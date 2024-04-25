@@ -98,7 +98,7 @@ const getCategories = (): Promise<Category[]> => {
 const getCategory = async (id: number): Promise<Category> => {
     const { data } = await http.get(`/api/application/billing/categories/${id}`, {
         params: {
-            include: ['products'],
+            include: 'products',
         },
     });
 

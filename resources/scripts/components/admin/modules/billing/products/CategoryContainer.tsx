@@ -14,30 +14,38 @@ import { object, string, boolean } from 'yup';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import Label from '@/components/elements/Label';
 import { useState } from 'react';
-import CategoryDeleteButton from './CategoryDeleteButton';
+import CategoryDeleteButton from '@admin/modules/billing/products/CategoryDeleteButton';
+import ProductTable from '@admin/modules/billing/products/ProductTable';
+import useStatus from '@/plugins/useStatus';
+import { Link, useParams } from 'react-router-dom';
 
 export default () => {
-    const { data: category } = useCategoryFromRoute();
+    const params = useParams<'id'>();
+    const { data } = useCategoryFromRoute();
+    const { status, setStatus } = useStatus();
 
-    const [visible, setVisible] = useState<boolean>(category?.visible || false);
+    const [name, setName] = useState<string | undefined>(data?.name);
+    const [visible, setVisible] = useState<boolean | undefined>(data?.visible);
 
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
 
-    if (!category) return <>No category could be found</>;
+    if (!data) return <>No data could be found</>;
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
-        clearFlashes('admin:billing:category:create');
+        clearFlashes();
+        setStatus('loading');
 
-        values.visible = visible;
+        values.visible = visible ?? data.visible;
 
-        updateCategory(category.id, values)
+        updateCategory(data.id, values)
             .then(() => {
-                window.location.reload();
+                setStatus('success');
+                setName(values.name);
             })
             .catch(error => {
-                console.error(error);
+                setStatus('error');
                 clearAndAddHttpError({ key: 'admin:billing:category:create', error });
             })
             .then(() => setSubmitting(false));
@@ -45,11 +53,11 @@ export default () => {
 
     return (
         <AdminContentBlock title={'New Category'}>
-            <div css={tw`w-full flex flex-row items-center my-8`}>
+            <div css={tw`w-full flex flex-row items-center m-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{category.name}</h2>
+                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{name ?? data.name}</h2>
                     <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
-                        {category.uuid}
+                        {data.uuid}
                     </p>
                 </div>
             </div>
@@ -57,10 +65,10 @@ export default () => {
             <Formik
                 onSubmit={submit}
                 initialValues={{
-                    name: category.name,
-                    description: category.description,
-                    icon: category.icon,
-                    visible: category.visible,
+                    name: data.name,
+                    description: data.description,
+                    icon: data.icon,
+                    visible: data.visible,
                 }}
                 validationSchema={object().shape({
                     name: string().required().max(191).min(3),
@@ -73,7 +81,7 @@ export default () => {
                     <Form>
                         <div css={tw`flex flex-col lg:flex-row`}>
                             <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
-                                <AdminBox title={'Category Details'} icon={faShoppingBasket}>
+                                <AdminBox title={'Category Details'} icon={faShoppingBasket} status={status}>
                                     <FieldRow>
                                         <Field
                                             id={'name'}
@@ -104,7 +112,7 @@ export default () => {
                                                         name={'visible'}
                                                         type={'radio'}
                                                         value={'false'}
-                                                        checked={!visible}
+                                                        checked={visible !== undefined ? !visible : !data.visible}
                                                         onClick={() => setVisible(false)}
                                                     />
                                                     <span css={tw`text-neutral-300 ml-2`}>No</span>
@@ -115,7 +123,7 @@ export default () => {
                                                         name={'visible'}
                                                         type={'radio'}
                                                         value={'true'}
-                                                        checked={visible}
+                                                        checked={visible !== undefined ? visible : data.visible}
                                                         onClick={() => setVisible(true)}
                                                     />
                                                     <span css={tw`text-neutral-300 ml-2`}>Yes</span>
@@ -126,7 +134,7 @@ export default () => {
                                     </FieldRow>
                                 </AdminBox>
                                 <div css={tw`text-right space-x-4 m-4`}>
-                                    <CategoryDeleteButton category={category} />
+                                    <CategoryDeleteButton category={data} />
                                     <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
                                         Update
                                     </Button>
@@ -137,14 +145,20 @@ export default () => {
                 )}
             </Formik>
             <div className={'h-px border-2 border-gray-700 rounded-full w-full mt-12 mb-4'} />
-            <div css={tw`w-full flex flex-row items-center my-8`}>
+            <div css={tw`w-full flex flex-row items-center p-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Products</h2>
                     <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
-                        A list of the available products in this category.
+                        A list of the available products in the {data.name} category.
                     </p>
                 </div>
+                <div className={'flex ml-auto pl-4'}>
+                    <Link to={`/admin/billing/categories/${params.id}/products/new`}>
+                        <Button>Add Product to {data.name}</Button>
+                    </Link>
+                </div>
             </div>
+            <ProductTable />
         </AdminContentBlock>
     );
 };

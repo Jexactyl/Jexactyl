@@ -6,8 +6,9 @@ use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Models\Billing\Product;
+use Everest\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
-use Everest\Transformers\Api\Application\CategoryTransformer;
+use Everest\Transformers\Api\Application\ProductTransformer;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
@@ -24,7 +25,7 @@ class ProductController extends ApplicationApiController
     /**
      * Get all categories associated with the panel.
      */
-    public function index(Request $request): array
+    public function index(Request $request, int $id): array
     {
         $perPage = (int) $request->query('per_page', '10');
         if ($perPage < 1 || $perPage > 100) {
@@ -32,7 +33,7 @@ class ProductController extends ApplicationApiController
         }
 
         $products = QueryBuilder::for(Product::query())
-            ->where('category_id', $request->input('categoryId'))
+            ->where('category_id', $id)
             ->allowedFilters(['id', 'name'])
             ->allowedSorts(['id', 'name'])
             ->paginate($perPage);
@@ -45,22 +46,23 @@ class ProductController extends ApplicationApiController
     /**
      * Store a new product category in the database.
      */
-    public function store(Request $request): Response
+    public function store(Request $request, Category $category): Response
     {
+        // TODO(jex): clean this up, make a service or somethin'
         try {
             Product::create([
                 'uuid' => Uuid::uuid4()->toString(),
-                'category_id' => $request->input('categoryId'),
+                'category_id' => $category->id,
                 'name' => $request->input('name'),
                 'icon' => $request->input('icon'),
-                'price' => $request->input('price'),
+                'price' => (double) $request->input('price'),
                 'description' => $request->input('description'),
-                'cpu_limit' => $request->input('cpuLimit'),
-                'memory_limit' => $request->input('memoryLimit'),
-                'disk_limit' =>  $request->input('diskLimit'),
-                'backup_limit' => $request->input('backupLimit'),
-                'database_limit' => $request->input('databaseLimit'),
-                'allocation_limit' => $request->input('allocationLimit'),
+                'cpu_limit' => $request['limits']['cpu'],
+                'memory_limit' => $request['limits']['memory'],
+                'disk_limit' =>  $request['limits']['disk'],
+                'backup_limit' => $request['limits']['backup'],
+                'database_limit' => $request['limits']['database'],
+                'allocation_limit' => $request['limits']['allocation'],
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to create a new product: ' . $ex->getMessage());

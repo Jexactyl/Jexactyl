@@ -3,7 +3,9 @@
 namespace Everest\Transformers\Api\Application;
 
 use Everest\Models\Billing\Category;
+use League\Fractal\Resource\Collection;
 use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
 
 class CategoryTransformer extends Transformer
 {
@@ -11,7 +13,7 @@ class CategoryTransformer extends Transformer
      * List of resources that can be included.
      */
     protected array $availableIncludes = [
-        'product',
+        'products',
     ];
 
     /**
@@ -42,7 +44,7 @@ class CategoryTransformer extends Transformer
     /**
      * Return a generic array with product information.
      */
-    public function includeProducts(Category $category): Item|NullResource
+    public function includeProducts(Category $category): Collection|NullResource
     {
         return $this->collection($category->products, new ProductTransformer());
     }

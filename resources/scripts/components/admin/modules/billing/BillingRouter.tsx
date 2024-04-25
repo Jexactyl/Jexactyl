@@ -14,6 +14,7 @@ import BillingAccountsContainer from './accounts/BillingAccountsContainer';
 import ToggleFeatureButton from '@admin/modules/billing/ToggleFeatureButton';
 import { DesktopComputerIcon, ShoppingBagIcon, UsersIcon } from '@heroicons/react/outline';
 import CategoryContainer from './products/CategoryContainer';
+import ProductForm from './products/ProductForm';
 
 export default () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -62,6 +63,8 @@ export default () => {
                 <Route path={'/categories'} element={<CategoryTable />} />
                 <Route path={'/categories/new'} element={<CategoryForm />} />
                 <Route path={'/categories/:id'} element={<CategoryContainer />} />
+
+                <Route path={'/categories/:id/products/new'} element={<ProductForm />} />
 
                 <Route path={'/accounts'} element={<BillingAccountsContainer />} />
 

@@ -1,4 +1,4 @@
-import { FractalResponseData } from '@/api/http';
+import http, { FractalResponseData } from '@/api/http';
 import { Category, rawDataToCategory } from '@/api/admin/billing/categories';
 
 export interface Product {
@@ -8,6 +8,7 @@ export interface Product {
 
     name: string;
     icon?: string;
+    price: number;
     description: string;
 
     limits: {
@@ -27,12 +28,31 @@ export interface Product {
     };
 }
 
+export interface Values {
+    categoryId: number;
+
+    name: string;
+    icon?: string;
+    price: number;
+    description: string;
+
+    limits: {
+        cpu: number;
+        memory: number;
+        disk: number;
+        backup: number;
+        database: number;
+        allocation: number;
+    };
+}
+
 export const rawDataToProduct = ({ attributes }: FractalResponseData): Product => ({
     id: attributes.id,
     uuid: attributes.uuid,
     categoryId: attributes.category_id,
     name: attributes.name,
     icon: attributes.icon,
+    price: attributes.price,
     description: attributes.description,
 
     limits: {
@@ -54,3 +74,11 @@ export const rawDataToProduct = ({ attributes }: FractalResponseData): Product =
                 : undefined,
     },
 });
+
+export const createProduct = (id: number, values: Values): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.post(`/api/application/billing/categories/${id}/products`, values)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};

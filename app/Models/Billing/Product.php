@@ -50,7 +50,6 @@ class Product extends Model
      */
     protected $casts = [
         'category_id' => 'integer',
-        'price' => 'double',
         'cpu_limit' => 'integer',
         'memory_limit' => 'integer',
         'disk_limit' => 'integer',
@@ -65,7 +64,7 @@ class Product extends Model
 
         'name' => 'required|string|min:3|max:191',
         'icon' => 'nullable|string|min:3|max:300',
-        'price' => 'required|double|min:0',
+        'price' => 'required',
         'description' => 'nullable|string|max:300',
 
         'cpu_limit' => 'required|integer',

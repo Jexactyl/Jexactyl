@@ -60,6 +60,13 @@ Route::group(['prefix' => '/billing'], function () {
         Route::get('/{category:id}', [Application\Billing\CategoryController::class, 'view']);
         Route::patch('/{category:id}', [Application\Billing\CategoryController::class, 'update']);
         Route::delete('/{category:id}', [Application\Billing\CategoryController::class, 'delete']);
+
+        Route::group(['prefix' => '/{category:id}/products'], function () {
+            Route::get('/', [Application\Billing\ProductController::class, 'index']);
+            Route::post('/', [Application\Billing\ProductController::class, 'store']);
+
+            Route::post('/{product:id}', [Application\Billing\ProductController::class, 'view']);
+        });
     });
 });
 
