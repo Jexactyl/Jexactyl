@@ -39,7 +39,7 @@ export default () => {
         values.visible = visible;
 
         createCategory(values)
-            .then(() => navigate(`/admin/billing/categories`))
+            .then(data => navigate(`/admin/billing/categories/${data.id}`))
             .catch(error => {
                 console.error(error);
                 clearAndAddHttpError({ key: 'admin:billing:category:create', error });

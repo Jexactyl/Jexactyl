@@ -34,9 +34,9 @@ export default ({ product }: Props) => {
 
         if (!product) {
             createProduct(Number(params.id), values)
-                .then(() => {
+                .then(data => {
                     setSubmitting(false);
-                    navigate(`/admin/billing/categories/${params.id}`);
+                    navigate(`/admin/billing/categories/${params.id}/products/${data.id}`);
                 })
                 .catch(error => {
                     setSubmitting(false);
@@ -62,14 +62,14 @@ export default ({ product }: Props) => {
                 initialValues={{
                     categoryId: Number(params.id),
 
-                    name: product?.name ?? '',
-                    price: product?.price ?? 0,
-                    description: product?.description ?? '',
+                    name: product?.name ?? 'Plan Name',
+                    price: product?.price ?? 9.99,
+                    description: product?.description ?? 'This is a server plan.',
 
                     limits: {
-                        cpu: product?.limits.cpu ?? 0,
-                        memory: product?.limits.memory ?? 0,
-                        disk: product?.limits.disk ?? 0,
+                        cpu: product?.limits.cpu ?? 100,
+                        memory: product?.limits.memory ?? 1024,
+                        disk: product?.limits.disk ?? 4096,
                         backup: product?.limits.backup ?? 0,
                         database: product?.limits.database ?? 0,
                         allocation: product?.limits.allocation ?? 1,

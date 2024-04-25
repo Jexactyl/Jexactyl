@@ -5,6 +5,7 @@ namespace Everest\Http\Controllers\Api\Application\Billing;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -46,11 +47,11 @@ class ProductController extends ApplicationApiController
     /**
      * Store a new product category in the database.
      */
-    public function store(Request $request, Category $category): Response
+    public function store(Request $request, Category $category): JsonResponse
     {
         // TODO(jex): clean this up, make a service or somethin'
         try {
-            Product::create([
+            $product = Product::create([
                 'uuid' => Uuid::uuid4()->toString(),
                 'category_id' => $category->id,
                 'name' => $request->input('name'),
@@ -68,7 +69,9 @@ class ProductController extends ApplicationApiController
             throw new \Exception('Failed to create a new product: ' . $ex->getMessage());
         }
 
-        return $this->returnNoContent();
+        return $this->fractal->item($product)
+            ->transformWith(ProductTransformer::class)
+            ->respond(Response::HTTP_CREATED);
     }
 
     /**

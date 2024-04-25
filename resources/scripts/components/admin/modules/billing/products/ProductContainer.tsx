@@ -1,7 +1,7 @@
+import { NotFound } from '@elements/ScreenBlock';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import { useProductFromRoute } from '@/api/admin/billing/products';
-import { NotFound } from '@/components/elements/ScreenBlock';
-import ProductForm from './ProductForm';
+import ProductForm from '@admin/modules/billing/products/ProductForm';
 
 export default () => {
     const { data: product } = useProductFromRoute();

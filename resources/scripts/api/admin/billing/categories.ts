@@ -105,10 +105,10 @@ const getCategory = async (id: number): Promise<Category> => {
     return withRelationships(Transformers.toCategory(data), 'products');
 };
 
-const createCategory = (values: Values): Promise<void> => {
+const createCategory = (values: Values): Promise<Category> => {
     return new Promise((resolve, reject) => {
         http.post(`/api/application/billing/categories`, values)
-            .then(() => resolve())
+            .then(({ data }) => resolve(Transformers.toCategory(data)))
             .catch(reject);
     });
 };

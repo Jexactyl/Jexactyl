@@ -3,6 +3,7 @@ import { Category, rawDataToCategory } from '@/api/admin/billing/categories';
 import useSWR, { SWRResponse } from 'swr';
 import { AxiosError } from 'axios';
 import { useParams } from 'react-router-dom';
+import { Transformers } from '@/api/definitions/admin';
 
 export interface Product {
     id: number;
@@ -78,10 +79,10 @@ export const rawDataToProduct = ({ attributes }: FractalResponseData): Product =
     },
 });
 
-export const createProduct = (id: number, values: Values): Promise<void> => {
+export const createProduct = (id: number, values: Values): Promise<Product> => {
     return new Promise((resolve, reject) => {
         http.post(`/api/application/billing/categories/${id}/products`, values)
-            .then(() => resolve())
+            .then(({ data }) => resolve(Transformers.toProduct(data)))
             .catch(reject);
     });
 };

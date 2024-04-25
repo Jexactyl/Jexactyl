@@ -5,6 +5,7 @@ namespace Everest\Http\Controllers\Api\Application\Billing;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Everest\Models\Billing\Category;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Transformers\Api\Application\CategoryTransformer;
@@ -44,10 +45,10 @@ class CategoryController extends ApplicationApiController
     /**
      * Store a new product category in the database.
      */
-    public function store(Request $request): Response
+    public function store(Request $request): JsonResponse
     {
         try {
-            Category::create([
+            $category = Category::create([
                 'uuid' => Uuid::uuid4()->toString(),
                 'name' => $request->input('name'),
                 'icon' => $request->input('icon'),
@@ -58,7 +59,9 @@ class CategoryController extends ApplicationApiController
             throw new \Exception('Failed to create a new product category: ' . $ex->getMessage());
         }
 
-        return $this->returnNoContent();
+        return $this->fractal->item($category)
+            ->transformWith(CategoryTransformer::class)
+            ->respond(Response::HTTP_CREATED);
     }
 
     /**

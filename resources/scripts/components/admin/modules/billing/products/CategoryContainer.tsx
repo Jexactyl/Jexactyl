@@ -12,12 +12,13 @@ import AdminBox from '@elements/AdminBox';
 import { updateCategory, useCategoryFromRoute } from '@/api/admin/billing/categories';
 import { object, string, boolean } from 'yup';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
-import Label from '@/components/elements/Label';
+import Label from '@elements/Label';
 import { useState } from 'react';
 import CategoryDeleteButton from '@admin/modules/billing/products/CategoryDeleteButton';
 import ProductTable from '@admin/modules/billing/products/ProductTable';
 import useStatus from '@/plugins/useStatus';
 import { Link, useParams } from 'react-router-dom';
+import Spinner from '@elements/Spinner';
 
 export default () => {
     const params = useParams<'id'>();
@@ -31,7 +32,7 @@ export default () => {
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
 
-    if (!data) return <>No data could be found</>;
+    if (!data) return <Spinner size={'large'} centered />;
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
