@@ -12,8 +12,9 @@ import AdminBox from '@elements/AdminBox';
 import { object, string, number } from 'yup';
 import { faBell, faMicrochip, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
-import { createProduct } from '@/api/admin/billing/products';
+import { createProduct, updateProduct } from '@/api/admin/billing/products';
 import type { Product, Values } from '@/api/admin/billing/products';
+import ProductDeleteButton from './ProductDeleteButton';
 
 interface Props {
     product?: Product;
@@ -31,28 +32,31 @@ export default ({ product }: Props) => {
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('admin:billing:product:create');
 
-        createProduct(Number(params.id), values)
-            .then(() => {
-                setSubmitting(false);
-                navigate(`/admin/billing/categories/${params.id}`);
-            })
-            .catch(error => {
-                setSubmitting(false);
-                clearAndAddHttpError({ key: 'admin:billing:product:create', error });
-            });
+        if (!product) {
+            createProduct(Number(params.id), values)
+                .then(() => {
+                    setSubmitting(false);
+                    navigate(`/admin/billing/categories/${params.id}`);
+                })
+                .catch(error => {
+                    setSubmitting(false);
+                    clearAndAddHttpError({ key: 'admin:billing:product:create', error });
+                });
+        } else {
+            updateProduct(Number(params.id), product!.id, values)
+                .then(() => {
+                    setSubmitting(false);
+                    navigate(`/admin/billing/categories/${params.id}`);
+                })
+                .catch(error => {
+                    setSubmitting(false);
+                    clearAndAddHttpError({ key: 'admin:billing:product:create', error });
+                });
+        }
     };
 
     return (
         <AdminContentBlock title={'New Product'}>
-            <div css={tw`w-full flex flex-row items-center my-8`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Add Product to Category</h2>
-                    <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
-                        Add a new product to the panel for users to purchase.
-                    </p>
-                </div>
-            </div>
-
             <Formik
                 onSubmit={submit}
                 initialValues={{
@@ -68,7 +72,7 @@ export default ({ product }: Props) => {
                         disk: product?.limits.disk ?? 0,
                         backup: product?.limits.backup ?? 0,
                         database: product?.limits.database ?? 0,
-                        allocation: product?.limits.allocation ?? 0,
+                        allocation: product?.limits.allocation ?? 1,
                     },
                 }}
                 validationSchema={object().shape({
@@ -177,9 +181,10 @@ export default ({ product }: Props) => {
                                     </FieldRow>
                                 </AdminBox>
                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
-                                    <div css={tw`flex flex-row`}>
-                                        <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
-                                            Create
+                                    <div css={tw`text-right`}>
+                                        {product && <ProductDeleteButton product={product} />}
+                                        <Button type={'submit'} disabled={isSubmitting || !isValid}>
+                                            {product ? 'Update Product' : 'Create Product'}
                                         </Button>
                                     </div>
                                 </div>

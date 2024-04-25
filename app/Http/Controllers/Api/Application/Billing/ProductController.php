@@ -74,12 +74,23 @@ class ProductController extends ApplicationApiController
     /**
      * Update an existing product.
      */
-    public function update(Request $request): Response
+    public function update(Request $request, Category $category, Product $product): Response
     {
         try {
-            //
+            $product->update([
+                'name' => $request->input('name'),
+                'icon' => $request->input('icon'),
+                'price' => (double) $request->input('price'),
+                'description' => $request->input('description'),
+                'cpu_limit' => $request['limits']['cpu'],
+                'memory_limit' => $request['limits']['memory'],
+                'disk_limit' =>  $request['limits']['disk'],
+                'backup_limit' => $request['limits']['backup'],
+                'database_limit' => $request['limits']['database'],
+                'allocation_limit' => $request['limits']['allocation'],
+            ]);
         } catch (\Exception $ex) {
-            throw new \Exception('Failed to update a product category: ' . $ex->getMessage());
+            throw new \Exception('Failed to update a product: ' . $ex->getMessage());
         }
 
         return $this->returnNoContent();
@@ -88,7 +99,7 @@ class ProductController extends ApplicationApiController
     /**
      * View an existing product.
      */
-    public function view(Request $request, Product $product): array
+    public function view(Request $request, Category $category, Product $product): array
     {
         return $this->fractal->item($product)
             ->transformWith(ProductTransformer::class)
@@ -98,7 +109,7 @@ class ProductController extends ApplicationApiController
     /**
      * Delete a product.
      */
-    public function delete(Request $request, Product $product): Response
+    public function delete(Request $request, Category $category, Product $product): Response
     {
         $product->delete();
 

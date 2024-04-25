@@ -7,14 +7,15 @@ import { getSettings } from '@/api/admin/billing/settings';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import EnableBilling from '@admin/modules/billing/EnableBilling';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import ProductForm from '@admin/modules/billing/products/ProductForm';
 import CategoryForm from '@admin/modules/billing/products/CategoryForm';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import CategoryTable from '@admin/modules/billing/products/CategoryTable';
-import BillingAccountsContainer from './accounts/BillingAccountsContainer';
 import ToggleFeatureButton from '@admin/modules/billing/ToggleFeatureButton';
+import ProductContainer from '@admin/modules/billing/products/ProductContainer';
+import CategoryContainer from '@admin/modules/billing/products/CategoryContainer';
 import { DesktopComputerIcon, ShoppingBagIcon, UsersIcon } from '@heroicons/react/outline';
-import CategoryContainer from './products/CategoryContainer';
-import ProductForm from './products/ProductForm';
+import BillingAccountsContainer from '@admin/modules/billing/accounts/BillingAccountsContainer';
 
 export default () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -65,6 +66,7 @@ export default () => {
                 <Route path={'/categories/:id'} element={<CategoryContainer />} />
 
                 <Route path={'/categories/:id/products/new'} element={<ProductForm />} />
+                <Route path={'/categories/:id/products/:productId'} element={<ProductContainer />} />
 
                 <Route path={'/accounts'} element={<BillingAccountsContainer />} />
 

@@ -1,5 +1,8 @@
 import http, { FractalResponseData } from '@/api/http';
 import { Category, rawDataToCategory } from '@/api/admin/billing/categories';
+import useSWR, { SWRResponse } from 'swr';
+import { AxiosError } from 'axios';
+import { useParams } from 'react-router-dom';
 
 export interface Product {
     id: number;
@@ -81,4 +84,38 @@ export const createProduct = (id: number, values: Values): Promise<void> => {
             .then(() => resolve())
             .catch(reject);
     });
+};
+
+export const getProduct = async (id: number, productId: number): Promise<Product> => {
+    const { data } = await http.get(`/api/application/billing/categories/${id}/products/${productId}`);
+
+    return rawDataToProduct(data);
+};
+
+export const updateProduct = (id: number, productId: number, values: Values): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.patch(`/api/application/billing/categories/${id}/products/${productId}`, values)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
+
+export const deleteProduct = (id: number, productId: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.delete(`/api/application/billing/categories/${id}/products/${productId}`)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
+
+/**
+ * Returns an SWR instance by automatically loading in the product for the currently
+ * loaded route match in the admin area.
+ */
+export const useProductFromRoute = (): SWRResponse<Product, AxiosError> => {
+    const params = useParams<'id' | 'productId'>();
+
+    return useSWR(`/api/application/billing/categories/${params.id}/products/${params.productId}`, async () =>
+        getProduct(Number(params.id), Number(params.productId)),
+    );
 };

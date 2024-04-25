@@ -88,7 +88,9 @@ export default () => {
                                             </td>
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <NavLink
-                                                    to={`/admin/billing/categories/${product.id}`}
+                                                    to={`/admin/billing/categories/${Number(params.id)}/products/${
+                                                        product.id
+                                                    }`}
                                                     style={{ color: colors.primary }}
                                                     className={'hover:brightness-125 duration-300'}
                                                 >
@@ -97,7 +99,7 @@ export default () => {
                                             </td>
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
-                                                    ${product.price} / monthly
+                                                    ${product.price.toFixed(2)} / monthly
                                                 </code>
                                             </td>
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>

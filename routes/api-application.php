@@ -65,7 +65,9 @@ Route::group(['prefix' => '/billing'], function () {
             Route::get('/', [Application\Billing\ProductController::class, 'index']);
             Route::post('/', [Application\Billing\ProductController::class, 'store']);
 
-            Route::post('/{product:id}', [Application\Billing\ProductController::class, 'view']);
+            Route::get('/{product:id}', [Application\Billing\ProductController::class, 'view']);
+            Route::patch('/{product:id}', [Application\Billing\ProductController::class, 'update']);
+            Route::delete('/{product:id}', [Application\Billing\ProductController::class, 'delete']);
         });
     });
 });
