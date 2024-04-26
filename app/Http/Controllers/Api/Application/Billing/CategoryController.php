@@ -54,6 +54,7 @@ class CategoryController extends ApplicationApiController
                 'icon' => $request->input('icon'),
                 'description' => $request->input('description'),
                 'visible' => $request->input('visible'),
+                'egg_id' => $request->input('eggId'),
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to create a new product category: ' . $ex->getMessage());
@@ -75,6 +76,7 @@ class CategoryController extends ApplicationApiController
                 'icon' => $request->input('icon'),
                 'description' => $request->input('description'),
                 'visible' => $request->input('visible'),
+                'egg_id' => $request->input('eggId'),
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to update a product category: ' . $ex->getMessage());

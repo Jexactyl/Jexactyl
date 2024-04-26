@@ -17,6 +17,7 @@ export interface Category {
     icon: string;
     description: string;
     visible: boolean;
+    eggId: number;
 
     createdAt: Date;
     updatedAt?: Date | null;
@@ -36,6 +37,7 @@ export interface Values {
     icon: string;
     description: string;
     visible: boolean;
+    eggId: number;
 }
 
 export const Context = createContext<ContextFilters>();
@@ -48,6 +50,7 @@ const rawDataToCategory = ({ attributes }: FractalResponseData): Category =>
         icon: attributes.icon,
         description: attributes.description,
         visible: attributes.visible,
+        eggId: attributes.egg_id,
 
         createdAt: new Date(attributes.created_at),
         updatedAt: new Date(attributes.updated_at),

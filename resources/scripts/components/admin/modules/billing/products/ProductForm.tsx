@@ -63,6 +63,7 @@ export default ({ product }: Props) => {
                     categoryId: Number(params.id),
 
                     name: product?.name ?? 'Plan Name',
+                    icon: product?.icon ?? undefined,
                     price: product?.price ?? 9.99,
                     description: product?.description ?? 'This is a server plan.',
 

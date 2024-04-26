@@ -268,6 +268,7 @@ export default class Transformers {
         icon: attributes.icon,
         description: attributes.description,
         visible: attributes.visible,
+        eggId: attributes.egg_id,
 
         createdAt: new Date(attributes.created_at),
         updatedAt: new Date(attributes.updated_at),
@@ -283,6 +284,7 @@ export default class Transformers {
         categoryId: attributes.category_id,
         name: attributes.name,
         icon: attributes.icon,
+        price: attributes.price,
         description: attributes.description,
 
         limits: {

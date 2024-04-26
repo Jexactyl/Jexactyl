@@ -8,14 +8,14 @@ import AdminTable, {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/elements/AdminTable';
-import CopyOnClick from '@/components/elements/CopyOnClick';
+} from '@elements/AdminTable';
+import CopyOnClick from '@elements/CopyOnClick';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
 import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 import { useStoreState } from '@/state/hooks';
 import { useContext } from 'react';
-import { Button } from '@/components/elements/button';
+import { Button } from '@elements/button';
 import classNames from 'classnames';
 
 export default () => {

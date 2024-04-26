@@ -1,8 +1,8 @@
 import { Product, deleteProduct } from '@/api/admin/billing/products';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Input from '@/components/elements/Input';
-import { Button } from '@/components/elements/button';
-import { Dialog } from '@/components/elements/dialog';
+import Input from '@elements/Input';
+import { Button } from '@elements/button';
+import { Dialog } from '@elements/dialog';
 import useFlash from '@/plugins/useFlash';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

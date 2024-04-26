@@ -36,7 +36,7 @@ export interface Values {
     categoryId: number;
 
     name: string;
-    icon?: string;
+    icon: string | undefined;
     price: number;
     description: string;
 

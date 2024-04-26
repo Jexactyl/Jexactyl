@@ -36,6 +36,7 @@ class CategoryTransformer extends Transformer
             'icon' => $model->icon,
             'description' => $model->description,
             'visible' => boolval($model->visible),
+            'egg_id' => $model->egg_id,
             'created_at' => $model->created_at->toAtomString(),
             'updated_at' => $model->updated_at ? $model->updated_at->toAtomString() : null,
         ];

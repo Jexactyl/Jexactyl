@@ -23,6 +23,7 @@ import Label from '@elements/Label';
 import type { ApplicationStore } from '@/state';
 import { WithRelationships } from '@/api/admin';
 import { useStoreState } from '@/state/hooks';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 
 function ServerStartupLineContainer({ egg, server }: { egg?: Egg; server: Server }) {
     const { isSubmitting, setFieldValue } = useFormikContext();
@@ -72,26 +73,30 @@ export function ServerServiceContainer({
     selectedEggId,
     setEgg,
     nestId: _nestId,
+    noToggle,
 }: {
     selectedEggId?: number;
     setEgg: (value: WithRelationships<Egg, 'variables'> | undefined) => void;
     nestId: number;
+    noToggle?: boolean;
 }) {
     const { isSubmitting } = useFormikContext();
 
     const [nestId, setNestId] = useState<number>(_nestId);
 
     return (
-        <AdminBox title={'Service Configuration'} isLoading={isSubmitting} className="w-full">
+        <AdminBox title={'Service Configuration'} isLoading={isSubmitting} className="w-full" icon={faLayerGroup}>
             <div className="mb-6">
                 <NestSelector selectedNestId={nestId} onNestSelect={setNestId} />
             </div>
             <div className="mb-6">
                 <EggSelect nestId={nestId} selectedEggId={selectedEggId} onEggSelect={setEgg} />
             </div>
-            <div className="bg-neutral-800 border border-neutral-900 shadow-inner p-4 rounded">
-                <FormikSwitch name={'skipScripts'} label={'Skip Egg Install Script'} description={'Soon™'} />
-            </div>
+            {!noToggle && (
+                <div className="bg-neutral-800 border border-neutral-900 shadow-inner p-4 rounded">
+                    <FormikSwitch name={'skipScripts'} label={'Skip Egg Install Script'} description={'Soon™'} />
+                </div>
+            )}
         </AdminBox>
     );
 }

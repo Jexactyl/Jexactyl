@@ -1,8 +1,8 @@
 import { Category, deleteCategory } from '@/api/admin/billing/categories';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Input from '@/components/elements/Input';
-import { Button } from '@/components/elements/button';
-import { Dialog } from '@/components/elements/dialog';
+import Input from '@elements/Input';
+import { Button } from '@elements/button';
+import { Dialog } from '@elements/dialog';
 import useFlash from '@/plugins/useFlash';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

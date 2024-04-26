@@ -20,8 +20,8 @@ import Input from '@elements/Input';
 import { restoreServerBackup } from '@/api/server/backups';
 import http, { httpErrorToHuman } from '@/api/http';
 import { Dialog } from '@elements/dialog';
-import { Button } from '@/components/elements/button';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import { Button } from '@elements/button';
+import SpinnerOverlay from '@elements/SpinnerOverlay';
 
 interface Props {
     backup: ServerBackup;

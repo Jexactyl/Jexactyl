@@ -1,4 +1,4 @@
-import { AdjustmentsIcon, ChipIcon, CodeIcon, MailIcon, ShieldCheckIcon } from '@heroicons/react/outline';
+import { ChipIcon, MailIcon } from '@heroicons/react/outline';
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
@@ -27,29 +27,17 @@ const SettingsRouter = () => {
             <FlashMessageRender byKey={'admin:settings'} css={tw`mb-4`} />
 
             <SubNavigation theme={theme}>
-                <SubNavigationLink to="/admin/settings" name="Core">
+                <SubNavigationLink to="/admin/settings" name="Core" base>
                     <ChipIcon />
                 </SubNavigationLink>
                 <SubNavigationLink to="/admin/settings/mail" name="Mail">
                     <MailIcon />
-                </SubNavigationLink>
-                <SubNavigationLink to="/admin/settings/security" name="Security">
-                    <ShieldCheckIcon />
-                </SubNavigationLink>
-                <SubNavigationLink to="/admin/settings/features" name="Features">
-                    <AdjustmentsIcon />
-                </SubNavigationLink>
-                <SubNavigationLink to="/admin/settings/advanced" name="Advanced">
-                    <CodeIcon />
                 </SubNavigationLink>
             </SubNavigation>
 
             <Routes>
                 <Route path="/" element={<GeneralSettings />} />
                 <Route path="/mail" element={<MailSettings />} />
-                <Route path="/security" element={<p>Coming soon...</p>} />
-                <Route path="/features" element={<p>Coming soon...</p>} />
-                <Route path="/advanced" element={<p>Coming soon...</p>} />
             </Routes>
         </AdminContentBlock>
     );
