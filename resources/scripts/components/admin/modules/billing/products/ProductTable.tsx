@@ -17,6 +17,7 @@ import { useStoreState } from '@/state/hooks';
 import { useContext, useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import getProducts from '@/api/admin/billing/getProducts';
+import { ShoppingBagIcon } from '@heroicons/react/outline';
 
 export default () => {
     const params = useParams<'id'>();
@@ -52,6 +53,7 @@ export default () => {
                     <div css={tw`overflow-x-auto`}>
                         <table css={tw`w-full table-auto`}>
                             <TableHead>
+                                <TableHeader />
                                 <TableHeader
                                     name={'ID'}
                                     direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
@@ -79,6 +81,13 @@ export default () => {
                                     products.items.length > 0 &&
                                     products.items.map(product => (
                                         <TableRow key={product.id}>
+                                            <td css={tw`pl-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                {product.icon ? (
+                                                    <img src={product.icon} className={'w-6 h-6 rounded-full'} />
+                                                ) : (
+                                                    <ShoppingBagIcon className={'w-6 h-6'} />
+                                                )}
+                                            </td>
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={product.id}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>

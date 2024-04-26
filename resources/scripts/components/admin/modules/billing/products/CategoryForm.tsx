@@ -149,6 +149,8 @@ export default ({ category }: { category?: Category }) => {
     const update = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
 
+        values.visible = visible;
+
         updateCategory(category!.id, values)
             .catch(error => {
                 clearAndAddHttpError({ key: 'admin:billing:category:create', error });

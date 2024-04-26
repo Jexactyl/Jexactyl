@@ -17,6 +17,7 @@ import { useStoreState } from '@/state/hooks';
 import { useContext } from 'react';
 import { Button } from '@elements/button';
 import classNames from 'classnames';
+import { ShoppingCartIcon } from '@heroicons/react/outline';
 
 export default () => {
     const { data: categories } = useGetCategories();
@@ -57,6 +58,7 @@ export default () => {
                         <div css={tw`overflow-x-auto`}>
                             <table css={tw`w-full table-auto`}>
                                 <TableHead>
+                                    <TableHeader />
                                     <TableHeader
                                         name={'ID'}
                                         direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
@@ -84,6 +86,13 @@ export default () => {
                                         categories.items.length > 0 &&
                                         categories.items.map(category => (
                                             <TableRow key={category.id}>
+                                                <td css={tw`pl-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                    {category.icon ? (
+                                                        <img src={category.icon} className={'w-6 h-6 rounded-full'} />
+                                                    ) : (
+                                                        <ShoppingCartIcon className={'w-6 h-6'} />
+                                                    )}
+                                                </td>
                                                 <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                     <CopyOnClick text={category.id}>
                                                         <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
