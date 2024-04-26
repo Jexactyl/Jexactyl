@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Billing;
 
 use Ramsey\Uuid\Uuid;
+use Everest\Models\Egg;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -47,6 +48,8 @@ class CategoryController extends ApplicationApiController
      */
     public function store(Request $request): JsonResponse
     {
+        $egg = Egg::query()->findOrFail($request->input('eggId'));
+
         try {
             $category = Category::create([
                 'uuid' => Uuid::uuid4()->toString(),
@@ -54,7 +57,8 @@ class CategoryController extends ApplicationApiController
                 'icon' => $request->input('icon'),
                 'description' => $request->input('description'),
                 'visible' => $request->input('visible'),
-                'egg_id' => $request->input('eggId'),
+                'nest_id' => $egg->nest_id,
+                'egg_id' => $egg->id,
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to create a new product category: ' . $ex->getMessage());
@@ -70,13 +74,16 @@ class CategoryController extends ApplicationApiController
      */
     public function update(Request $request, Category $category): Response
     {
+        $egg = Egg::query()->findOrFail($request->input('egg_id'));
+
         try {
             $category->updateOrFail([
                 'name' => $request->input('name'),
                 'icon' => $request->input('icon'),
                 'description' => $request->input('description'),
                 'visible' => $request->input('visible'),
-                'egg_id' => $request->input('eggId'),
+                'nest_id' => $egg->nest_id,
+                'egg_id' => $egg,
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to update a product category: ' . $ex->getMessage());

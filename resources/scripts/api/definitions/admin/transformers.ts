@@ -268,6 +268,7 @@ export default class Transformers {
         icon: attributes.icon,
         description: attributes.description,
         visible: attributes.visible,
+        nestId: attributes.nest_id,
         eggId: attributes.egg_id,
 
         createdAt: new Date(attributes.created_at),

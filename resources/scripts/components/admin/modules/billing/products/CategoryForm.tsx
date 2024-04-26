@@ -31,7 +31,7 @@ interface Props {
 
 function InternalForm({ category, visible, setVisible }: Props) {
     const [egg, setEgg] = useState<WithRelationships<Egg, 'variables'> | undefined>();
-    const { isSubmitting } = useFormikContext<Values>();
+    const { setFieldValue, isSubmitting } = useFormikContext<Values>();
     const { secondary } = useStoreState(state => state.theme.data!.colors);
 
     useEffect(() => {
@@ -41,6 +41,10 @@ function InternalForm({ category, visible, setVisible }: Props) {
                 .catch(error => console.error(error));
         }
     }, []);
+
+    useEffect(() => {
+        setFieldValue('eggId', egg?.id);
+    }, [egg]);
 
     return (
         <Form>
@@ -69,6 +73,7 @@ function InternalForm({ category, visible, setVisible }: Props) {
                                 label={'Icon'}
                                 description={'An icon to be displayed with this category.'}
                             />
+                            selected egg: {egg?.id || 'none'}
                             <div className={'mt-1'}>
                                 <Label htmlFor={'visible'}>Visible on creation</Label>
                                 <div className={'mt-1'}>
@@ -100,12 +105,7 @@ function InternalForm({ category, visible, setVisible }: Props) {
                     </AdminBox>
                 </div>
                 <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
-                    <ServerServiceContainer
-                        selectedEggId={category?.eggId || egg?.id}
-                        setEgg={setEgg}
-                        nestId={0}
-                        noToggle
-                    />
+                    <ServerServiceContainer selectedEggId={egg?.id} setEgg={setEgg} nestId={0} noToggle />
                     <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                         <div css={tw`text-right`}>
                             {category && <CategoryDeleteButton category={category} />}
@@ -176,6 +176,7 @@ export default ({ category }: { category?: Category }) => {
                     icon: category?.icon ?? '',
                     description: category?.description ?? 'Supports Minecraft 1.20.1',
                     visible: category?.visible ?? false,
+                    nestId: category?.nestId ?? 0,
                     eggId: category?.eggId ?? 0,
                 }}
                 validationSchema={object().shape({
@@ -183,6 +184,7 @@ export default ({ category }: { category?: Category }) => {
                     icon: string().nullable().max(191).min(3),
                     description: string().nullable().max(191).min(3),
                     visible: boolean().required(),
+                    nestId: number(),
                     eggId: number(),
                 })}
             >

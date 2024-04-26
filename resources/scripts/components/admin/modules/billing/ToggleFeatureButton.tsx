@@ -12,7 +12,7 @@ export default () => {
     const submit = () => {
         updateSettings('enabled', !enabled).then(() => {
             // @ts-expect-error this is fine
-            window.location = enabled ? '/admin/billing' : '/admin/billing/products';
+            window.location = '/admin/billing';
         });
     };
 

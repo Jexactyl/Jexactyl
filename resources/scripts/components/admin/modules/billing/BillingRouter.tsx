@@ -10,8 +10,8 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import ProductForm from '@admin/modules/billing/products/ProductForm';
 import CategoryForm from '@admin/modules/billing/products/CategoryForm';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
+import OverviewContainer from '@admin/modules/billing/OverviewContainer';
 import CategoryTable from '@admin/modules/billing/products/CategoryTable';
-import ToggleFeatureButton from '@admin/modules/billing/ToggleFeatureButton';
 import ProductContainer from '@admin/modules/billing/products/ProductContainer';
 import CategoryContainer from '@admin/modules/billing/products/CategoryContainer';
 import { DesktopComputerIcon, ShoppingBagIcon, UsersIcon } from '@heroicons/react/outline';
@@ -40,9 +40,6 @@ export default () => {
                         Configure the billing settings for this panel.
                     </p>
                 </div>
-                <div className={'flex ml-auto pl-4'}>
-                    <ToggleFeatureButton />
-                </div>
             </div>
 
             <FlashMessageRender byKey={'admin:billing'} className={'mb-4'} />
@@ -59,7 +56,7 @@ export default () => {
                 </SubNavigationLink>
             </SubNavigation>
             <Routes>
-                <Route path={'/'} element={<>Welcome to the Billing Overview.</>} />
+                <Route path={'/'} element={<OverviewContainer />} />
 
                 <Route path={'/categories'} element={<CategoryTable />} />
                 <Route path={'/categories/new'} element={<CategoryForm />} />

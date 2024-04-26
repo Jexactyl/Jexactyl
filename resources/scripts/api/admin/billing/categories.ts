@@ -17,6 +17,7 @@ export interface Category {
     icon: string;
     description: string;
     visible: boolean;
+    nestId: number;
     eggId: number;
 
     createdAt: Date;
@@ -37,6 +38,7 @@ export interface Values {
     icon: string;
     description: string;
     visible: boolean;
+    nestId: number;
     eggId: number;
 }
 
@@ -50,6 +52,7 @@ const rawDataToCategory = ({ attributes }: FractalResponseData): Category =>
         icon: attributes.icon,
         description: attributes.description,
         visible: attributes.visible,
+        nestId: attributes.nest_id,
         eggId: attributes.egg_id,
 
         createdAt: new Date(attributes.created_at),
