@@ -74,7 +74,7 @@ function AdminRouter() {
                         <img src={CollapsedIcon} css={tw`mt-4 w-20`} alt={'Everest Icon'} />
                     )}
                 </div>
-                <Sidebar.Wrapper>
+                <Sidebar.Wrapper theme={theme}>
                     <Sidebar.Section>General</Sidebar.Section>
                     <NavLink to="/admin" end>
                         <OfficeBuildingIcon />

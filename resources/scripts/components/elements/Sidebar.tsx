@@ -3,7 +3,7 @@ import tw, { css, styled } from 'twin.macro';
 import { withSubComponents } from '@/components/helpers';
 import { SiteTheme } from '@/state/theme';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ theme: SiteTheme }>`
     ${tw`w-full flex flex-col px-4`};
 
     & > a {
@@ -20,7 +20,8 @@ const Wrapper = styled.div`
 
         &:active,
         &.active {
-            ${tw`text-neutral-50 bg-black/25 rounded-full`};
+            ${tw`bg-black/25 rounded-full`};
+            color: ${({ theme }) => theme.colors.primary};
         }
     }
 `;
