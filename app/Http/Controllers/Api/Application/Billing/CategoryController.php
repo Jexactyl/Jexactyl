@@ -74,7 +74,7 @@ class CategoryController extends ApplicationApiController
      */
     public function update(Request $request, Category $category): Response
     {
-        $egg = Egg::query()->findOrFail($request->input('egg_id'));
+        $egg = Egg::query()->findOrFail($request->input('eggId'));
 
         try {
             $category->updateOrFail([
@@ -83,7 +83,7 @@ class CategoryController extends ApplicationApiController
                 'description' => $request->input('description'),
                 'visible' => $request->input('visible'),
                 'nest_id' => $egg->nest_id,
-                'egg_id' => $egg,
+                'egg_id' => $egg->id,
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to update a product category: ' . $ex->getMessage());

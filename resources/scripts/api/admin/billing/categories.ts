@@ -38,7 +38,6 @@ export interface Values {
     icon: string;
     description: string;
     visible: boolean;
-    nestId: number;
     eggId: number;
 }
 
