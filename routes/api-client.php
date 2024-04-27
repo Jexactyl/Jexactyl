@@ -55,6 +55,11 @@ Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::
     Route::post('/setup', [Client\AccountController::class, 'setup']);
 });
 
+Route::prefix('/billing')->group(function () {
+    Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
+    Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Client Control API

@@ -15,6 +15,7 @@ import AuthenticatedRoute from '@elements/AuthenticatedRoute';
 import ScreenBlock, { NotFound } from '@elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
 import Onboarding from '@/components/Onboarding';
+import BillingRouter from '@/routers/BillingRouter';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -114,6 +115,17 @@ function App() {
                                                 <ServerContext.Provider>
                                                     <ServerRouter />
                                                 </ServerContext.Provider>
+                                            </Spinner.Suspense>
+                                        </AuthenticatedRoute>
+                                    }
+                                />
+
+                                <Route
+                                    path="/billing/*"
+                                    element={
+                                        <AuthenticatedRoute>
+                                            <Spinner.Suspense>
+                                                <BillingRouter />
                                             </Spinner.Suspense>
                                         </AuthenticatedRoute>
                                     }

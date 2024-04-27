@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLayerGroup, faScrewdriverWrench, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCoins, faLayerGroup, faScrewdriverWrench, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
@@ -61,6 +61,11 @@ export default () => {
                     <NavLink to="/" end>
                         <FontAwesomeIcon icon={faLayerGroup} />
                         Servers
+                    </NavLink>
+
+                    <NavLink to={'/billing'}>
+                        <FontAwesomeIcon icon={faCoins} />
+                        Billing
                     </NavLink>
 
                     <NavLink to="/account">
