@@ -24,4 +24,16 @@ class ProductController extends ClientApiController
             ->transformWith(ProductTransformer::class)
             ->toArray();
     }
+
+    /**
+     * View a specific product.
+     */
+    public function view (int $id)
+    {
+        $product = Product::findOrFail($id);
+
+        return $this->fractal->item($product)
+            ->transformWith(ProductTransformer::class)
+            ->toArray();
+    }
 }

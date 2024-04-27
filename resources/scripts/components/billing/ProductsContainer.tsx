@@ -19,6 +19,7 @@ import {
     faMicrochip,
     faShoppingBag,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 interface LimitProps {
     icon: IconDefinition;
@@ -167,9 +168,11 @@ export default () => {
                                                 />
                                             </div>
                                             <div className={'text-center mt-6'}>
-                                                <Button size={Button.Sizes.Large} className={'w-full'}>
-                                                    Configure
-                                                </Button>
+                                                <Link to={`/billing/order/${product.id}`}>
+                                                    <Button size={Button.Sizes.Large} className={'w-full'}>
+                                                        Configure
+                                                    </Button>
+                                                </Link>
                                             </div>
                                         </div>
                                     </ContentBox>

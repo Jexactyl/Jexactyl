@@ -6,6 +6,7 @@ export interface Product {
     icon?: string;
     price: number;
     description?: string;
+    eggId: number;
     limits: {
         cpu: number;
         memory: number;
@@ -22,6 +23,7 @@ export const rawDataToProduct = ({ attributes: data }: FractalResponseData): Pro
     icon: data.icon,
     price: data.price,
     description: data.description,
+    eggId: data.egg_id,
     limits: {
         cpu: data.limits.cpu,
         memory: data.limits.memory,

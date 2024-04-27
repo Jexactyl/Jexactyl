@@ -3,6 +3,7 @@
 namespace Everest\Models\Billing;
 
 use Everest\Models\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -75,4 +76,12 @@ class Product extends Model
         'database_limit' => 'required|integer',
         'allocation_limit' => 'required|integer',
     ];
+
+    /**
+     * Gets information for the category associated with this product.
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

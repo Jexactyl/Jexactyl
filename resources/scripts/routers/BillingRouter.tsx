@@ -7,6 +7,7 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import ProductsContainer from '@/components/billing/ProductsContainer';
 import { useStoreState } from '@/state/hooks';
 import OverviewContainer from '@/components/billing/OverviewContainer';
+import OrderContainer from '@/components/billing/OrderContainer';
 
 export default () => {
     const { data: theme } = useStoreState(state => state.theme);
@@ -28,6 +29,7 @@ export default () => {
                 <Routes>
                     <Route path={'/'} element={<OverviewContainer />} />
                     <Route path={'/order'} element={<ProductsContainer />} />
+                    <Route path={'/order/:id'} element={<OrderContainer />} />
                     <Route path={'*'} element={<NotFound />} />
                 </Routes>
             </Suspense>
