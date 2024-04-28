@@ -18,7 +18,9 @@ class EggController extends ClientApiController
      */
     public function index(int $id): array
     {
-        $variables = EggVariable::where('egg_id', $id)->get();
+        $variables = EggVariable::where('egg_id', $id)
+            ->where('user_viewable', true)
+            ->get();
 
         return $this->fractal->collection($variables)
             ->transformWith(EggVariableTransformer::class)
