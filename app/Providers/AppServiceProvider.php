@@ -3,7 +3,9 @@
 namespace Everest\Providers;
 
 use Everest\Models;
+use Everest\Models\User;
 use Illuminate\Support\Str;
+use Laravel\Cashier\Cashier;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Paginator::useBootstrap();
+
+        Cashier::useCustomerModel(User::class);
 
         // If the APP_URL value is set with https:// make sure we force it here. Theoretically
         // this should just work with the proxy logic, but there are a lot of cases where it

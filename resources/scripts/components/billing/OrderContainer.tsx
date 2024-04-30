@@ -6,6 +6,7 @@ import { useStoreState } from '@/state/hooks';
 import getProduct from '@/api/billing/getProduct';
 import { Product } from '@/api/billing/getProducts';
 import TitledGreyBox from '@elements/TitledGreyBox';
+import orderProduct from '@/api/billing/orderProduct';
 import { ServerEggVariable } from '@/api/server/types';
 import PageContentBlock from '@elements/PageContentBlock';
 import VariableBox from '@/components/billing/VariableBox';
@@ -35,10 +36,28 @@ const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) 
 export default () => {
     const params = useParams<'id'>();
 
+    const vars = new Map<string, string>();
+
     const [product, setProduct] = useState<Product | undefined>();
     const [eggs, setEggs] = useState<ServerEggVariable[] | undefined>();
 
     const { colors } = useStoreState(state => state.theme.data!);
+
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!product) return;
+
+        const data = Array.from(vars, ([key, value]) => ({ key, value }));
+
+        orderProduct(Number(product!.id), data)
+            .then(response => {
+                // @ts-expect-error this is fine
+                window.location = response;
+            })
+            .catch(error => console.error(error));
+    };
 
     useEffect(() => {
         getProduct(Number(params.id))
@@ -87,38 +106,44 @@ export default () => {
                     <LimitBox icon={faDatabase} content={`${product.limits.database} Database Slots`} />
                     <LimitBox icon={faEthernet} content={`${product.limits.allocation} Network Ports`} />
                 </div>
-                <div className={'lg:col-span-6'}>
-                    <div className={'mb-8'}>
-                        <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                            Server Details
-                            <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                Set a name and optional description for your new server.
-                            </p>
+                <form id={'create-server-form'} onSubmit={submit} className={'lg:col-span-6'}>
+                    <div>
+                        <div className={'mb-8'}>
+                            <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
+                                Server Details
+                                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                                    Set a name and optional description for your new server.
+                                </p>
+                            </div>
+                            <div className={'grid lg:grid-cols-2 gap-4'}>
+                                <TitledGreyBox title={'Server Name'}>Soon&trade;</TitledGreyBox>
+                                <TitledGreyBox title={'Server Description'}>Soon&trade;</TitledGreyBox>
+                            </div>
                         </div>
-                        <div className={'grid lg:grid-cols-2 gap-4'}>
-                            <TitledGreyBox title={'Server Name'}>Soon&trade;</TitledGreyBox>
-                            <TitledGreyBox title={'Server Description'}>Soon&trade;</TitledGreyBox>
+                        <div className={'my-8'}>
+                            <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
+                                Plan Variables
+                                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                                    Modify your server variables before your server is even created for ease of use.
+                                </p>
+                            </div>
+                            <div className={'grid lg:grid-cols-2 gap-4'}>
+                                {eggs?.map(variable => (
+                                    <>
+                                        {variable.isEditable && (
+                                            <div key={variable.envVariable}>
+                                                <VariableBox variable={variable} vars={vars} />
+                                            </div>
+                                        )}
+                                    </>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={'mt-8 text-right'}>
+                            <Button type={'submit'}>Pay Now</Button>
                         </div>
                     </div>
-                    <div className={'my-8'}>
-                        <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                            Plan Variables
-                            <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                Modify your server variables before your server is even created for ease of use.
-                            </p>
-                        </div>
-                        <div className={'grid lg:grid-cols-2 gap-4'}>
-                            {eggs?.map(egg => (
-                                <div key={egg.envVariable}>
-                                    <VariableBox variable={egg} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className={'mt-8 text-right'}>
-                        <Button>Pay Now</Button>
-                    </div>
-                </div>
+                </form>
             </div>
         </PageContentBlock>
     );

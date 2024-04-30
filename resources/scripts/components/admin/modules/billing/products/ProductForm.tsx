@@ -61,6 +61,7 @@ export default ({ product }: Props) => {
                 onSubmit={submit}
                 initialValues={{
                     categoryId: Number(params.id),
+                    stripeId: product?.stripeId ?? '',
 
                     name: product?.name ?? 'Plan Name',
                     icon: product?.icon ?? undefined,
@@ -133,7 +134,6 @@ export default ({ product }: Props) => {
                                             name={'stripeId'}
                                             type={'text'}
                                             label={'Stripe Product Identifier'}
-                                            placeholder={product?.stripeId ?? ''}
                                             description={
                                                 'This is the ID of the product on Stripe, e.g: price_1PBJOLCl8lsZFqcAm8I0ag10'
                                             }

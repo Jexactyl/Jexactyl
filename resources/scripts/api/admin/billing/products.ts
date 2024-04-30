@@ -8,7 +8,7 @@ import { Transformers } from '@/api/definitions/admin';
 export interface Product {
     id: number;
     uuid: string;
-    stripeId?: string;
+    stripeId: string;
     categoryId: number;
 
     name: string;
@@ -34,7 +34,7 @@ export interface Product {
 }
 
 export interface Values {
-    stripeId?: string;
+    stripeId: string;
     categoryId: number;
 
     name: string;

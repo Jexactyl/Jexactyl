@@ -56,11 +56,14 @@ Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::
 });
 
 Route::prefix('/billing')->group(function () {
+    Route::get('/portal', [Client\Billing\BillingController::class, 'billingPortalUrl']);
     Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 
     Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
     Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
     Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
+
+    Route::post('/products/{id}', [Client\Billing\ProductController::class, 'order']);
 });
 
 /*

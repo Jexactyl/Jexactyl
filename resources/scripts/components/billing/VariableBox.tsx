@@ -9,9 +9,10 @@ import isEqual from 'react-fast-compare';
 
 interface Props {
     variable: ServerEggVariable;
+    vars: Map<string, string>;
 }
 
-const VariableBox = ({ variable }: Props) => {
+const VariableBox = ({ variable, vars }: Props) => {
     const FLASH_KEY = `billing:variable:${variable.envVariable}`;
 
     const useSwitch = variable.rules.some(
@@ -32,9 +33,9 @@ const VariableBox = ({ variable }: Props) => {
                         defaultChecked={isStringSwitch ? variable.serverValue === 'true' : variable.serverValue === '1'}
                         onChange={() => {
                             if (isStringSwitch) {
-                                // setVariableValue(variable.serverValue === 'true' ? 'false' : 'true');
+                                vars.set(variable.envVariable, variable.serverValue === 'true' ? 'false' : 'true');
                             } else {
-                                // setVariableValue(variable.serverValue === '1' ? '0' : '1');
+                                vars.set(variable.envVariable, variable.serverValue === '1' ? '0' : '1');
                             }
                         }}
                     />
@@ -45,7 +46,7 @@ const VariableBox = ({ variable }: Props) => {
                         <>
                             <Select
                                 onChange={e => {
-                                    /* setVariableValue(e.target.value) */
+                                    vars.set(variable.envVariable, e.target.value);
                                 }}
                                 name={variable.envVariable}
                                 defaultValue={variable.serverValue ?? variable.defaultValue}
@@ -61,7 +62,7 @@ const VariableBox = ({ variable }: Props) => {
                         <>
                             <Input
                                 onKeyUp={e => {
-                                    // setVariableValue(e.currentTarget.value);
+                                    vars.set(variable.envVariable, e.currentTarget.value);
                                 }}
                                 name={variable.envVariable}
                                 defaultValue={variable.serverValue ?? ''}
