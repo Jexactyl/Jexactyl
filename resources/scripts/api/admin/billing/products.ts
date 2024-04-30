@@ -8,6 +8,7 @@ import { Transformers } from '@/api/definitions/admin';
 export interface Product {
     id: number;
     uuid: string;
+    stripeId?: string;
     categoryId: number;
 
     name: string;
@@ -33,6 +34,7 @@ export interface Product {
 }
 
 export interface Values {
+    stripeId?: string;
     categoryId: number;
 
     name: string;
@@ -53,6 +55,7 @@ export interface Values {
 export const rawDataToProduct = ({ attributes }: FractalResponseData): Product => ({
     id: attributes.id,
     uuid: attributes.uuid,
+    stripeId: attributes.stripe_id,
     categoryId: attributes.category_id,
     name: attributes.name,
     icon: attributes.icon,

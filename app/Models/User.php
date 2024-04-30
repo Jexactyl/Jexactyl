@@ -4,10 +4,14 @@ namespace Everest\Models;
 
 use Everest\Rules\Username;
 use Everest\Facades\Activity;
+use Laravel\Cashier\Billable;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
+use function Illuminate\Events\queueable;
+
 use Illuminate\Database\Eloquent\Builder;
 use Everest\Models\Traits\HasAccessTokens;
 use Everest\Traits\Helpers\AvailableLanguages;
@@ -96,6 +100,7 @@ class User extends Model implements
     use CanResetPassword;
     use HasAccessTokens;
     use Notifiable;
+    use Billable;
 
     public const USER_LEVEL_USER = 0;
     public const USER_LEVEL_ADMIN = 1;
@@ -302,5 +307,17 @@ class User extends Model implements
                 $builder->where('servers.owner_id', $this->id)->orWhere('subusers.user_id', $this->id);
             })
             ->groupBy('servers.id');
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::updated(queueable(function (User $customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
     }
 }

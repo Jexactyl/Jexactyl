@@ -80,6 +80,7 @@ export default ({ product }: Props) => {
                     name: string().required().max(191).min(3),
                     icon: string().nullable().max(191).min(3),
                     price: number().required().min(0),
+                    stripeId: string().nullable().max(191),
                     description: string().nullable().max(191).min(3),
                     limits: object().shape({
                         cpu: number().required().min(10),
@@ -125,6 +126,16 @@ export default ({ product }: Props) => {
                                             label={'Monthly Cost'}
                                             description={
                                                 'The cost of this product monthly in the selected billing currency.'
+                                            }
+                                        />
+                                        <Field
+                                            id={'stripeId'}
+                                            name={'stripeId'}
+                                            type={'text'}
+                                            label={'Stripe Product Identifier'}
+                                            placeholder={product?.stripeId ?? ''}
+                                            description={
+                                                'This is the ID of the product on Stripe, e.g: price_1PBJOLCl8lsZFqcAm8I0ag10'
                                             }
                                         />
                                     </FieldRow>

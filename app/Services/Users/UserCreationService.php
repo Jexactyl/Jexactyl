@@ -53,6 +53,8 @@ class UserCreationService
         $this->connection->commit();
         $user->notify(new AccountCreated($user, $token ?? null));
 
+        $user->createAsStripeCustomer();
+
         return $user;
     }
 }

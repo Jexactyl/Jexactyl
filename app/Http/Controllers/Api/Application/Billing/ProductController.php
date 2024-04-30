@@ -54,13 +54,14 @@ class ProductController extends ApplicationApiController
             $product = Product::create([
                 'uuid' => Uuid::uuid4()->toString(),
                 'category_id' => $category->id,
+                'stripe_id' => $request->input('stripeId'),
                 'name' => $request->input('name'),
                 'icon' => $request->input('icon'),
-                'price' => (double) $request->input('price'),
+                'price' => (float) $request->input('price'),
                 'description' => $request->input('description'),
                 'cpu_limit' => $request['limits']['cpu'],
                 'memory_limit' => $request['limits']['memory'],
-                'disk_limit' =>  $request['limits']['disk'],
+                'disk_limit' => $request['limits']['disk'],
                 'backup_limit' => $request['limits']['backup'],
                 'database_limit' => $request['limits']['database'],
                 'allocation_limit' => $request['limits']['allocation'],
@@ -81,13 +82,14 @@ class ProductController extends ApplicationApiController
     {
         try {
             $product->update([
+                'stripe_id' => $request->input('stripeId'),
                 'name' => $request->input('name'),
                 'icon' => $request->input('icon'),
-                'price' => (double) $request->input('price'),
+                'price' => (float) $request->input('price'),
                 'description' => $request->input('description'),
                 'cpu_limit' => $request['limits']['cpu'],
                 'memory_limit' => $request['limits']['memory'],
-                'disk_limit' =>  $request['limits']['disk'],
+                'disk_limit' => $request['limits']['disk'],
                 'backup_limit' => $request['limits']['backup'],
                 'database_limit' => $request['limits']['database'],
                 'allocation_limit' => $request['limits']['allocation'],

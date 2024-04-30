@@ -109,7 +109,7 @@ class CategoryController extends ApplicationApiController
     {
         foreach ($category->products() as $product) {
             $product->delete();
-        };
+        }
 
         $category->delete();
 
