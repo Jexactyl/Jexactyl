@@ -7,7 +7,7 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import ProductsContainer from '@/components/billing/ProductsContainer';
 import { useStoreState } from '@/state/hooks';
 import OverviewContainer from '@/components/billing/OverviewContainer';
-import OrderContainer from '@/components/billing/OrderContainer';
+import OrderContainer from '@/components/billing/order/OrderContainer';
 import getBillingPortal from '@/api/billing/getBillingPortal';
 
 export default () => {

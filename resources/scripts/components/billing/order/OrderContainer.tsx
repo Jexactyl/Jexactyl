@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import getProduct from '@/api/billing/getProduct';
 import { Product } from '@/api/billing/getProducts';
-import TitledGreyBox from '@elements/TitledGreyBox';
 import orderProduct from '@/api/billing/orderProduct';
 import { ServerEggVariable } from '@/api/server/types';
+import NodeBox from '@/components/billing/order/NodeBox';
 import PageContentBlock from '@elements/PageContentBlock';
-import VariableBox from '@/components/billing/VariableBox';
+import VariableBox from '@/components/billing/order/VariableBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import getProductVariables from '@/api/billing/getProductVariables';
@@ -23,6 +23,8 @@ import {
     faMemory,
     faMicrochip,
 } from '@fortawesome/free-solid-svg-icons';
+import getNodes, { Node } from '@/api/billing/getNodes';
+import { Alert } from '@/components/elements/alert';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
@@ -38,6 +40,9 @@ export default () => {
 
     const vars = new Map<string, string>();
 
+    const [nodes, setNodes] = useState<Node[] | undefined>();
+    const [selectedNode, setSelectedNode] = useState<number>();
+
     const [product, setProduct] = useState<Product | undefined>();
     const [eggs, setEggs] = useState<ServerEggVariable[] | undefined>();
 
@@ -48,10 +53,11 @@ export default () => {
         e.stopPropagation();
 
         if (!product) return;
+        if (!selectedNode) return;
 
         const data = Array.from(vars, ([key, value]) => ({ key, value }));
 
-        orderProduct(Number(product!.id), data)
+        orderProduct(Number(product!.id), selectedNode, data)
             .then(response => {
                 // @ts-expect-error this is fine
                 window.location = response;
@@ -62,6 +68,13 @@ export default () => {
     useEffect(() => {
         getProduct(Number(params.id))
             .then(data => setProduct(data))
+            .catch(error => console.error(error));
+
+        getNodes()
+            .then(data => {
+                setNodes(data);
+                setSelectedNode(Number(data[0]?.id) ?? 0);
+            })
             .catch(error => console.error(error));
     }, []);
 
@@ -108,37 +121,55 @@ export default () => {
                 </div>
                 <form id={'create-server-form'} onSubmit={submit} className={'lg:col-span-6'}>
                     <div>
-                        <div className={'mb-8'}>
+                        <div className={'my-10'}>
                             <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                                Server Details
+                                Choose a location
                                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                    Set a name and optional description for your new server.
+                                    Select a location from our list to deploy your server to.
                                 </p>
                             </div>
                             <div className={'grid lg:grid-cols-2 gap-4'}>
-                                <TitledGreyBox title={'Server Name'}>Soon&trade;</TitledGreyBox>
-                                <TitledGreyBox title={'Server Description'}>Soon&trade;</TitledGreyBox>
-                            </div>
-                        </div>
-                        <div className={'my-8'}>
-                            <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                                Plan Variables
-                                <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                    Modify your server variables before your server is even created for ease of use.
-                                </p>
-                            </div>
-                            <div className={'grid lg:grid-cols-2 gap-4'}>
-                                {eggs?.map(variable => (
-                                    <>
-                                        {variable.isEditable && (
-                                            <div key={variable.envVariable}>
-                                                <VariableBox variable={variable} vars={vars} />
-                                            </div>
-                                        )}
-                                    </>
+                                {!nodes && (
+                                    <Alert type={'danger'} className={'col-span-2'}>
+                                        There are no nodes available for deployment.
+                                    </Alert>
+                                )}
+                                {nodes?.map(node => (
+                                    <NodeBox
+                                        node={node}
+                                        key={node.id}
+                                        selected={selectedNode}
+                                        setSelected={setSelectedNode}
+                                    />
                                 ))}
                             </div>
                         </div>
+                        <div className={'h-px bg-gray-700 rounded-full'} />
+                        {eggs && eggs.length > 1 && (
+                            <>
+                                <div className={'my-10'}>
+                                    <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
+                                        Plan Variables
+                                        <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                                            Modify your server variables before your server is even created for ease of
+                                            use.
+                                        </p>
+                                    </div>
+                                    <div className={'grid lg:grid-cols-2 gap-4'}>
+                                        {eggs?.map(variable => (
+                                            <>
+                                                {variable.isEditable && (
+                                                    <div key={variable.envVariable}>
+                                                        <VariableBox variable={variable} vars={vars} />
+                                                    </div>
+                                                )}
+                                            </>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className={'h-px bg-gray-700 rounded-full'} />
+                            </>
+                        )}
                         <div className={'mt-8 text-right'}>
                             <Button type={'submit'}>Pay Now</Button>
                         </div>

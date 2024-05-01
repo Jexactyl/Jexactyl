@@ -6,10 +6,12 @@ use Everest\Models\Egg;
 use Stripe\StripeObject;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
+use Everest\Models\Allocation;
 use Everest\Models\EggVariable;
 use Everest\Models\Billing\Product;
 use Everest\Exceptions\DisplayException;
 use Everest\Services\Servers\ServerCreationService;
+use Everest\Exceptions\Service\Deployment\NoViableAllocationException;
 
 class CreateServerService
 {
@@ -29,13 +31,13 @@ class CreateServerService
     public function process(Request $request, Product $product, StripeObject $data): Server
     {
         $egg = Egg::findOrFail($product->category->egg_id);
+        // todo(jex): fix this, not sure why it's not working...
         $environment = $this->getServerEnvironment(json_decode($data['environment'], true), $egg->id);
 
-        // todo(jex): Let users pick node in frontend.
         try {
             $server = $this->creation->handle([
-                'node_id' => 1,
-                'allocation_id' => 11,
+                'node_id' => $data['node_id'],
+                'allocation_id' => $this->getAllocation($data['node_id']),
                 'egg_id' => $egg->id,
                 'nest_id' => $product->category->nest_id,
                 'name' => $data['username'] . '\'s server',
@@ -79,5 +81,19 @@ class CreateServerService
         }
 
         return $variables;
+    }
+
+    /**
+     * Get a suitable allocation to deploy to.
+     */
+    private function getAllocation(int $id): int
+    {
+        $allocation = Allocation::where('node_id', $id)->where('server_id', null)->inRandomOrder()->first();
+
+        if (!$allocation) {
+            throw new NoViableAllocationException('No allocations are available for deployment.');
+        }
+
+        return $allocation->id;
     }
 }

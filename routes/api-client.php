@@ -56,17 +56,18 @@ Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::
 });
 
 Route::prefix('/billing')->group(function () {
+    Route::get('/nodes', [Client\Billing\BillingController::class, 'nodes']);
     Route::get('/portal', [Client\Billing\BillingController::class, 'billingPortalUrl']);
+    
     Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 
     Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
     Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
     Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
 
-    Route::post('/products/{id}', [Client\Billing\ProductController::class, 'order']);
-
-    Route::get('/success', [Client\Billing\ProductController::class, 'success'])->name('api:client.billing.success');
-    Route::get('/cancel', [Client\Billing\ProductController::class, 'cancel'])->name('api:client.billing.cancel');
+    Route::post('/products/{id}', [Client\Billing\OrderController::class, 'order']);
+    Route::get('/success', [Client\Billing\OrderController::class, 'success'])->name('api:client.billing.success');
+    Route::get('/cancel', [Client\Billing\OrderController::class, 'cancel'])->name('api:client.billing.cancel');
 });
 
 /*
