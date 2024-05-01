@@ -64,6 +64,9 @@ Route::prefix('/billing')->group(function () {
     Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
 
     Route::post('/products/{id}', [Client\Billing\ProductController::class, 'order']);
+
+    Route::get('/success', [Client\Billing\ProductController::class, 'success'])->name('api:client.billing.success');
+    Route::get('/cancel', [Client\Billing\ProductController::class, 'cancel'])->name('api:client.billing.cancel');
 });
 
 /*

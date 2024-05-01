@@ -2,24 +2,22 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Ramsey\Uuid\Uuid;
 use Everest\Models\Egg;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Cashier;
 use Everest\Models\EggVariable;
 use Everest\Models\Billing\Product;
-use Everest\Exceptions\DisplayException;
-use Everest\Services\Servers\ServerCreationService;
+use Illuminate\Http\RedirectResponse;
+use Everest\Services\Billing\CreateServerService;
 use Everest\Transformers\Api\Client\ProductTransformer;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
 
 class ProductController extends ClientApiController
 {
-    public function __construct(
-        private ServerCreationService $serverCreation,
-    )
+    public function __construct(private CreateServerService $serverCreation)
     {
-        // todo(jex): make services for these functions
-        // instead of having everything in this file.
         parent::__construct();
     }
 
@@ -54,22 +52,26 @@ class ProductController extends ClientApiController
     {
         $product = Product::findOrFail($id);
 
-        $server = $this->createServer($request, $product);
-
-        return $this->generateStripeUrl($request, $server, $product);
+        return $this->generateStripeUrl($request, $product);
     }
 
     /**
      * Get the Stripe Checkout URL for payment.
      */
-    private function generateStripeUrl(Request $request, Server $server, Product $product): string
+    private function generateStripeUrl(Request $request, Product $product): string
     {
         $session = $request
             ->user()
-            ->newSubscription('default', $product->stripe_id)
+            ->newSubscription(substr(Uuid::uuid4()->toString(), 0, 8), $product->stripe_id)
             ->checkout([
-                'success_url' => route('index'),
-                'cancel_url' => route('index'),
+                'success_url' => route('api:client.billing.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('api:client.billing.cancel'),
+                'metadata' => [
+                    'user_id' => $request->user()->id,
+                    'product_id' => $product->id,
+                    'username' => $request->user()->username,
+                    'environment' => json_encode($request->all()),
+                ]
             ])
             ->url;
 
@@ -77,62 +79,30 @@ class ProductController extends ClientApiController
     }
 
     /**
-     * Create the new server model that will be used once payment is complete.
+     * Process a successful subscription purchase.
      */
-    private function createServer(Request $request, Product $product): Server
+    public function success(Request $request): RedirectResponse|null
     {
-        $egg = Egg::findOrFail($product->category->egg_id);
-        $environment = $this->getServerEnvironment($request, $egg->id);
+        $id = $request->get('session_id');
 
-        try {
-            $server = $this->serverCreation->handle([
-                // todo(jex): make function to determine node/allocation
-                // maybe let users choose the node..?
-                'node_id' => 1,
-                'allocation_id' => 11,
-                'egg_id' => $egg->id,
-                'nest_id' => $product->category->nest_id,
-                'environment' => $request->input('environment'),
-                'name' => $request->user()->username . '\'s server',
-                'owner_id' => $request->user()->id,
-                'memory' => $product->memory_limit,
-                'swap' => 0,
-                'disk' => $product->disk_limit,
-                'io' => 500,
-                'cpu' => $product->cpu_limit,
-                'startup' => $egg->startup,
-                'environment' => $environment,
-                'image' => current($egg->docker_images),
-                'database_limit' => $product->database_limit,
-                'backup_limit' => $product->backup_limit,
-                'allocation_limit' => $product->allocation_limit,
-                'subuser_limit' => 3,
-            ]);
-        } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to create server: ' . $ex->getMessage());
-        }
+        $session = Cashier::stripe()->checkout->sessions->retrieve($id);
 
-        return $server;
+        if (!$session || $session->payment_status !== 'paid') {
+            return redirect()->route('index');
+        };
+
+        $product = Product::findOrFail($session['metadata']['product_id']);
+
+        $server = $this->serverCreation->process($request, $product, $session['metadata']);
+
+        return redirect()->route('index');
     }
 
     /**
-     * Get the environment variables for the new server.
+     * Process a cancelled subscription purchase.
      */
-    private function getServerEnvironment(Request $request, int $id): array
+    public function cancel(): RedirectResponse
     {
-        $variables = [];
-        $default = EggVariable::where('egg_id', $id)->get();
-
-        foreach ($request->all() as $variable) {
-            $variables += [$variable['key'] => $variable['value']];
-        }
-
-        foreach ($default as $variable) {
-            if (!array_key_exists($variable->env_variable, $variables)) {
-                $variables += [$variable->env_variable => $variable->default_value];
-            };
-        }
-
-        return $variables;
+        return redirect()->route('index');
     }
 }
