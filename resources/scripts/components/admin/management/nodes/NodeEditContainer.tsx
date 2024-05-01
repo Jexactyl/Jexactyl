@@ -16,6 +16,7 @@ import { Button } from '@elements/button';
 import type { ApplicationStore } from '@/state';
 import { useEffect } from 'react';
 import { useStoreState } from '@/state/hooks';
+import NodeBillingContainer from './NodeBillingContainer';
 
 interface Values {
     name: string;
@@ -25,6 +26,7 @@ interface Values {
     scheme: string;
     behindProxy: string; // Yes, this is technically a boolean.
     public: string; // Yes, this is technically a boolean.
+    deployable: string; // Yes, this is technically a boolean.
     daemonBase: string; // This value cannot be updated once a node has been created.
 
     memory: number;
@@ -60,7 +62,12 @@ export default () => {
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('node');
 
-        const v = { ...values, behindProxy: values.behindProxy === 'true', public: values.public === 'true' };
+        const v = {
+            ...values,
+            behindProxy: values.behindProxy === 'true',
+            public: values.public === 'true',
+            deployable: values.deployable === 'true',
+        };
 
         updateNode(node.id, v)
             .then(() => setNode({ ...node, ...v }))
@@ -82,6 +89,7 @@ export default () => {
                 scheme: node.scheme,
                 behindProxy: node.behindProxy ? 'true' : 'false',
                 public: node.public ? 'true' : 'false',
+                deployable: node.deployable ? 'true' : 'false',
                 daemonBase: node.daemonBase,
 
                 listenPortHTTP: node.listenPortHTTP,
@@ -122,6 +130,10 @@ export default () => {
 
                             <div css={tw`flex w-full mt-4`}>
                                 <NodeLimitContainer />
+                            </div>
+
+                            <div css={tw`flex w-full mt-4`}>
+                                <NodeBillingContainer />
                             </div>
 
                             <div css={tw`rounded shadow-md mt-4 py-2 px-6`} style={{ backgroundColor: secondary }}>

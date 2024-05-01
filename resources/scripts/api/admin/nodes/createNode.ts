@@ -10,6 +10,7 @@ export interface Values {
     behindProxy: boolean;
     public: boolean;
     daemonBase: string;
+    deployable: boolean;
 
     memory: number;
     memoryOverallocate: number;

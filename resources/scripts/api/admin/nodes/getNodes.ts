@@ -27,6 +27,7 @@ export interface Node {
     diskOverallocate: number;
     uploadSize: number;
     daemonBase: string;
+    deployable: boolean;
     createdAt: Date;
     updatedAt: Date;
 
@@ -58,6 +59,7 @@ export const rawDataToNode = ({ attributes }: FractalResponseData): Node => ({
     diskOverallocate: attributes.disk_overallocate,
     uploadSize: attributes.upload_size,
     daemonBase: attributes.daemon_base,
+    deployable: attributes.deployable,
     createdAt: new Date(attributes.created_at),
     updatedAt: new Date(attributes.updated_at),
 
@@ -65,7 +67,7 @@ export const rawDataToNode = ({ attributes }: FractalResponseData): Node => ({
         // eslint-disable-next-line camelcase
         databaseHost:
             attributes.relationships?.database_host !== undefined &&
-            attributes.relationships?.database_host.object !== 'null_resource'
+            attributes.relationships?.database_host?.object !== 'null_resource'
                 ? rawDataToDatabase(attributes.relationships.database_host as FractalResponseData)
                 : undefined,
         location:

@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $daemon_token_id
  * @property string $daemon_token
  * @property string $daemon_base
+ * @property bool|null $deployable
  * @property int $servers_count
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -91,6 +92,7 @@ class Node extends Model
         'behind_proxy' => 'boolean',
         'public' => 'boolean',
         'maintenance_mode' => 'boolean',
+        'deployable' => 'boolean',
     ];
 
     /**
@@ -102,7 +104,7 @@ class Node extends Model
         'fqdn', 'scheme', 'behind_proxy',
         'memory', 'memory_overallocate', 'disk',
         'disk_overallocate', 'upload_size', 'daemon_base',
-        'description', 'maintenance_mode',
+        'description', 'maintenance_mode', 'deployable',
     ];
 
     public static array $validationRules = [
@@ -125,6 +127,7 @@ class Node extends Model
         'daemon_base' => 'sometimes|required|regex:/^([\/][\d\w.\-\/]+)$/',
         'maintenance_mode' => 'boolean',
         'upload_size' => 'int|between:1,1024',
+        'deployable' => 'nullable|boolean',
     ];
 
     /**

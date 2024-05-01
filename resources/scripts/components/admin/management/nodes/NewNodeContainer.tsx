@@ -15,8 +15,13 @@ import NodeSettingsContainer from '@admin/management/nodes/NodeSettingsContainer
 import { Button } from '@elements/button';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
+import NodeBillingContainer from './NodeBillingContainer';
 
-type Values2 = Omit<Omit<Values, 'behindProxy'>, 'public'> & { behindProxy: string; public: string };
+type Values2 = Omit<Omit<Values, 'behindProxy'>, 'public' | 'deployable'> & {
+    behindProxy: string;
+    public: string;
+    deployable: string;
+};
 
 const initialValues: Values2 = {
     name: '',
@@ -27,6 +32,7 @@ const initialValues: Values2 = {
     behindProxy: 'false',
     public: 'true',
     daemonBase: '/var/lib/pterodactyl/volumes',
+    deployable: 'false',
 
     listenPortHTTP: 8080,
     publicPortHTTP: 8080,
@@ -53,6 +59,7 @@ export default () => {
             ...values2,
             behindProxy: values2.behindProxy === 'true',
             public: values2.public === 'true',
+            deployable: values2.deployable === 'true',
         };
 
         createNode(values)
@@ -110,7 +117,11 @@ export default () => {
                                     <NodeLimitContainer />
                                 </div>
 
-                                <div css={tw`rounded shadow-md bg-neutral-700 mt-4 py-2 pr-6`}>
+                                <div css={tw`flex w-full mt-4`}>
+                                    <NodeBillingContainer />
+                                </div>
+
+                                <div css={tw`rounded shadow-md mt-4 py-2 pr-6`}>
                                     <div css={tw`flex flex-row`}>
                                         <Button type={'submit'} css={tw`ml-auto`} disabled={isSubmitting || !isValid}>
                                             Create
