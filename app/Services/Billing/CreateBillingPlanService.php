@@ -3,6 +3,7 @@
 namespace Everest\Services\Billing;
 
 use Ramsey\Uuid\Uuid;
+use Stripe\StripeObject;
 use Everest\Models\Server;
 use Illuminate\Http\Request;
 use Everest\Models\Billing\Product;
@@ -20,14 +21,14 @@ class CreateBillingPlanService
     /**
      * Process the creation of a server.
      */
-    public function process(Request $request, Product $product, ?Server $server, ?string $status): BillingPlan
+    public function process(string $user, Product $product, ?Server $server = null, ?string $status = 'processing'): BillingPlan
     {
         $uuid = Uuid::uuid4()->toString();
 
-        BillingPlan::create([
+        $plan = BillingPlan::create([
             'state' => $status ?? 'processing',
             'bill_date' => date('j'),
-            'user_id' => $request->user()->id,
+            'user_id' => (int) $user,
             'server_id' => $server->id ?? -1,
             'uuid' => $uuid,
             'name' => 'Plan ' . substr($uuid, 0, 8),
@@ -40,5 +41,7 @@ class CreateBillingPlanService
             'database_limit' => $product->database_limit,
             'allocation_limit' => $product->allocation_limit,
         ]);
+
+        return $plan;
     }
 }

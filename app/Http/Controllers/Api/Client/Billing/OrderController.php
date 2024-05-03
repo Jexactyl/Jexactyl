@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
 use Everest\Models\Billing\Product;
 use Illuminate\Http\RedirectResponse;
+use Everest\Models\Billing\BillingPlan;
 use Everest\Services\Billing\CreateServerService;
 use Everest\Services\Billing\CreateBillingPlanService;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
@@ -57,7 +58,7 @@ class OrderController extends ClientApiController
     /**
      * Process a successful subscription purchase.
      */
-    public function success(Request $request): RedirectResponse
+    public function success(Request $request): RedirectResponse|null
     {
         $id = $request->get('session_id');
 
@@ -68,7 +69,6 @@ class OrderController extends ClientApiController
                 $this->planCreation->process(
                     $request,
                     $product,
-                    $server,
                     BillingPlan::STATUS_CANCELLED,
                 );
             }
@@ -80,7 +80,7 @@ class OrderController extends ClientApiController
 
         $server = $this->serverCreation->process($request, $product, $session['metadata']);
 
-        $this->planCreation->process($request, $product, $server);
+        $this->planCreation->process($session['metadata']['user_id'], $product, $server, BillingPlan::STATUS_PAID);
 
         return redirect('/billing/success');
     }

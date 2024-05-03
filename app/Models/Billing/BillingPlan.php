@@ -47,10 +47,11 @@ class BillingPlan extends Model
      */
     protected $fillable = [
         'uuid', 'state', 'bill_date',
-        'name', 'price', 'description',
-        'cpu_limit', 'memory_limit',
-        'disk_limit', 'backup_limit',
-        'database_limit', 'allocation_limit',
+        'user_id', 'name', 'price',
+        'description', 'cpu_limit',
+        'memory_limit', 'disk_limit',
+        'backup_limit', 'database_limit',
+        'allocation_limit',
     ];
 
     /**
@@ -58,7 +59,6 @@ class BillingPlan extends Model
      */
     protected $casts = [
         'bill_date' => 'integer',
-        'price' => 'double',
         'cpu_limit' => 'integer',
         'memory_limit' => 'integer',
         'disk_limit' => 'integer',
@@ -72,10 +72,11 @@ class BillingPlan extends Model
 
         'state' => 'nullable|in:paid,due,processing,arrears,terminated,cancelled',
         'bill_date' => 'nullable|min:1|max:31',
+        'user_id' => 'required|exists:users,id',
 
         'name' => 'required|string|min:3|max:191',
         'icon' => 'nullable|string|min:3|max:300',
-        'price' => 'required|double|min:0',
+        'price' => 'required|min:0',
         'description' => 'nullable|string|max:300',
 
         'cpu_limit' => 'required|integer',

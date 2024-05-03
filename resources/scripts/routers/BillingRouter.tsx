@@ -6,12 +6,12 @@ import SubNavigation from '@elements/SubNavigation';
 import NavigationBar from '@/components/NavigationBar';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import getBillingPortal from '@/api/billing/getBillingPortal';
+import Cancel from '@/components/billing/order/summary/Cancel';
+import Success from '@/components/billing/order/summary/Success';
+import PlansContainer from '@/components/billing/PlansContainer';
 import ProductsContainer from '@/components/billing/ProductsContainer';
 import OverviewContainer from '@/components/billing/OverviewContainer';
 import OrderContainer from '@/components/billing/order/OrderContainer';
-import ActivityContainer from '@/components/billing/ActivityContainer';
-import Success from '@/components/billing/order/summary/Success';
-import Cancel from '@/components/billing/order/summary/Cancel';
 
 export default () => {
     const { data: theme } = useStoreState(state => state.theme);
@@ -34,7 +34,7 @@ export default () => {
                         Overview
                     </NavLink>
                     <NavLink to={'/billing/order'}>Order</NavLink>
-                    <NavLink to={'/billing/activity'}>Activity</NavLink>
+                    <NavLink to={'/billing/plans'}>Active Plans</NavLink>
                     <p className={'mx-4 text-gray-400 text-lg'}>&bull;</p>
                     <NavLink to={'/billing/portal'} onClick={redirect}>
                         Billing Portal
@@ -46,7 +46,7 @@ export default () => {
                     <Route path={'/'} element={<OverviewContainer />} />
                     <Route path={'/order'} element={<ProductsContainer />} />
                     <Route path={'/order/:id'} element={<OrderContainer />} />
-                    <Route path={'/activity'} element={<ActivityContainer />} />
+                    <Route path={'/plans'} element={<PlansContainer />} />
 
                     <Route
                         path={'/portal'}
