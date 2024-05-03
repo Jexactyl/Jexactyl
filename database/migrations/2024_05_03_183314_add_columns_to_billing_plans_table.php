@@ -10,8 +10,9 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('nodes', function (Blueprint $table) {
-            $table->boolean('deployable')->nullable()->default(false);
+        Schema::table('billing_plans', function (Blueprint $table) {
+            $table->string('state')->nullable()->default('processing');
+            $table->unsignedInteger('bill_date')->nullable()->default(1);
         });
     }
 
@@ -20,8 +21,9 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::table('nodes', function (Blueprint $table) {
-            $table->dropColumn('deployable');
+        Schema::table('billing_plans', function (Blueprint $table) {
+            $table->dropColumn('state');
+            $table->dropColumn('bill_date');
         });
     }
 };

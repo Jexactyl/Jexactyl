@@ -1,14 +1,17 @@
 import { Suspense } from 'react';
 import Spinner from '@elements/Spinner';
+import { useStoreState } from '@/state/hooks';
 import { NotFound } from '@elements/ScreenBlock';
 import SubNavigation from '@elements/SubNavigation';
 import NavigationBar from '@/components/NavigationBar';
 import { NavLink, Route, Routes } from 'react-router-dom';
+import getBillingPortal from '@/api/billing/getBillingPortal';
 import ProductsContainer from '@/components/billing/ProductsContainer';
-import { useStoreState } from '@/state/hooks';
 import OverviewContainer from '@/components/billing/OverviewContainer';
 import OrderContainer from '@/components/billing/order/OrderContainer';
-import getBillingPortal from '@/api/billing/getBillingPortal';
+import ActivityContainer from '@/components/billing/ActivityContainer';
+import Success from '@/components/billing/order/summary/Success';
+import Cancel from '@/components/billing/order/summary/Cancel';
 
 export default () => {
     const { data: theme } = useStoreState(state => state.theme);
@@ -31,6 +34,8 @@ export default () => {
                         Overview
                     </NavLink>
                     <NavLink to={'/billing/order'}>Order</NavLink>
+                    <NavLink to={'/billing/activity'}>Activity</NavLink>
+                    <p className={'mx-4 text-gray-400 text-lg'}>&bull;</p>
                     <NavLink to={'/billing/portal'} onClick={redirect}>
                         Billing Portal
                     </NavLink>
@@ -41,6 +46,8 @@ export default () => {
                     <Route path={'/'} element={<OverviewContainer />} />
                     <Route path={'/order'} element={<ProductsContainer />} />
                     <Route path={'/order/:id'} element={<OrderContainer />} />
+                    <Route path={'/activity'} element={<ActivityContainer />} />
+
                     <Route
                         path={'/portal'}
                         element={
@@ -50,6 +57,10 @@ export default () => {
                             </p>
                         }
                     />
+
+                    <Route path={'/success'} element={<Success />} />
+                    <Route path={'/cancel'} element={<Cancel />} />
+
                     <Route path={'*'} element={<NotFound />} />
                 </Routes>
             </Suspense>

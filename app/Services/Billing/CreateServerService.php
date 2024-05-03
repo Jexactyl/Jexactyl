@@ -20,9 +20,7 @@ class CreateServerService
      */
     public function __construct(
         private ServerCreationService $creation,
-    )
-    {
-        //
+    ) {
     }
 
     /**
@@ -80,7 +78,7 @@ class CreateServerService
         foreach ($default as $variable) {
             if (!array_key_exists($variable->env_variable, $variables)) {
                 $variables += [$variable->env_variable => $variable->default_value];
-            };
+            }
         }
 
         return $variables;

@@ -58,7 +58,7 @@ Route::prefix('/account')->middleware([AccountSubject::class, SuspendedAccount::
 Route::prefix('/billing')->group(function () {
     Route::get('/nodes', [Client\Billing\BillingController::class, 'nodes']);
     Route::get('/portal', [Client\Billing\BillingController::class, 'billingPortalUrl']);
-    
+
     Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
 
     Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);

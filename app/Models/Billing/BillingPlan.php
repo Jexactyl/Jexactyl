@@ -6,6 +6,8 @@ use Everest\Models\Model;
 
 /**
  * @property int $id
+ * @property string $state
+ * @property int $bill_date
  * @property int $user_id
  * @property string $uuid
  * @property string $name
@@ -28,6 +30,13 @@ class BillingPlan extends Model
      */
     public const RESOURCE_NAME = 'billing_plan';
 
+    public const STATUS_DUE = 'due';
+    public const STATUS_PAID = 'paid';
+    public const STATUS_ARREARS = 'arrears';
+    public const STATUS_CANCELLED = 'cancelled';
+    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_TERMINATED = 'terminated';
+
     /**
      * The table associated with the model.
      */
@@ -37,17 +46,18 @@ class BillingPlan extends Model
      * Fields that are mass assignable.
      */
     protected $fillable = [
-        'uuid', 'name', 'price',
-        'description', 'cpu_limit',
-        'memory_limit', 'disk_limit',
-        'backup_limit', 'database_limit',
-        'allocation_limit',
+        'uuid', 'state', 'bill_date',
+        'name', 'price', 'description',
+        'cpu_limit', 'memory_limit',
+        'disk_limit', 'backup_limit',
+        'database_limit', 'allocation_limit',
     ];
 
     /**
      * Cast values to correct type.
      */
     protected $casts = [
+        'bill_date' => 'integer',
         'price' => 'double',
         'cpu_limit' => 'integer',
         'memory_limit' => 'integer',
@@ -59,6 +69,9 @@ class BillingPlan extends Model
 
     public static array $validationRules = [
         'uuid' => 'required|string|size:36',
+
+        'state' => 'nullable|in:paid,due,processing,arrears,terminated,cancelled',
+        'bill_date' => 'nullable|min:1|max:31',
 
         'name' => 'required|string|min:3|max:191',
         'icon' => 'nullable|string|min:3|max:300',
