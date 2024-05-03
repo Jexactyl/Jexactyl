@@ -54,21 +54,21 @@ class OrderController extends ClientApiController
     /**
      * Process a successful subscription purchase.
      */
-    public function success(Request $request): RedirectResponse|null
+    public function success(Request $request): RedirectResponse
     {
         $id = $request->get('session_id');
 
         $session = Cashier::stripe()->checkout->sessions->retrieve($id);
 
         if (!$session || $session->payment_status !== 'paid') {
-            return redirect()->route('index');
+            return redirect('/billing/cancel');
         };
 
         $product = Product::findOrFail($session['metadata']['product_id']);
 
         $server = $this->serverCreation->process($request, $product, $session['metadata']);
 
-        return redirect()->route('index');
+        return redirect('/billing/success');
     }
 
     /**
@@ -76,6 +76,6 @@ class OrderController extends ClientApiController
      */
     public function cancel(): RedirectResponse
     {
-        return redirect()->route('index');
+        return redirect('/billing/cancel');
     }
 }

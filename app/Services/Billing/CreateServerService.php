@@ -16,7 +16,7 @@ use Everest\Exceptions\Service\Deployment\NoViableAllocationException;
 class CreateServerService
 {
     /**
-     * ServerCreationService constructor.
+     * CreateServerService constructor.
      */
     public function __construct(
         private ServerCreationService $creation,
@@ -31,17 +31,18 @@ class CreateServerService
     public function process(Request $request, Product $product, StripeObject $data): Server
     {
         $egg = Egg::findOrFail($product->category->egg_id);
-        // todo(jex): fix this, not sure why it's not working...
-        $environment = $this->getServerEnvironment(json_decode($data['environment'], true), $egg->id);
+
+        $allocation = $this->getAllocation((int) $data['node_id']);
+        $environment = $this->getServerEnvironment($data['environment'], $egg->id);
 
         try {
             $server = $this->creation->handle([
-                'node_id' => $data['node_id'],
-                'allocation_id' => $this->getAllocation($data['node_id']),
+                'node_id' => (int) $data['node_id'],
+                'allocation_id' => $allocation,
                 'egg_id' => $egg->id,
                 'nest_id' => $product->category->nest_id,
                 'name' => $data['username'] . '\'s server',
-                'owner_id' => $data['user_id'],
+                'owner_id' => (int) $data['user_id'],
                 'memory' => $product->memory_limit,
                 'swap' => 0,
                 'disk' => $product->disk_limit,
@@ -65,12 +66,14 @@ class CreateServerService
     /**
      * Get the environment variables for the new server.
      */
-    private function getServerEnvironment(array $data, int $id): array
+    private function getServerEnvironment(string $data, int $id): array
     {
+        $decoded = json_decode($data, true);
+
         $variables = [];
         $default = EggVariable::where('egg_id', $id)->get();
 
-        foreach ($data as $variable) {
+        foreach ($decoded as $variable) {
             $variables += [$variable['key'] => $variable['value']];
         }
 
@@ -88,7 +91,7 @@ class CreateServerService
      */
     private function getAllocation(int $id): int
     {
-        $allocation = Allocation::where('node_id', $id)->where('server_id', null)->inRandomOrder()->first();
+        $allocation = Allocation::where('node_id', $id)->where('server_id', null)->first();
 
         if (!$allocation) {
             throw new NoViableAllocationException('No allocations are available for deployment.');
