@@ -25,7 +25,7 @@ class BillingSettingsController extends ApplicationApiController
     {
         // TODO(jex): don't do this
         return [
-            'enabled' => boolval($this->settings->get('settings::billing:enabled')),
+            'enabled' => boolval($this->settings->get('settings::modules:billing:enabled')),
         ];
     }
 
@@ -36,7 +36,7 @@ class BillingSettingsController extends ApplicationApiController
      */
     public function update(Request $request): Response
     {
-        $this->settings->set('settings::billing:' . $request->input('key'), $request->input('value'));
+        $this->settings->set('settings::modules:billing:' . $request->input('key'), $request->input('value'));
 
         return $this->returnNoContent();
     }

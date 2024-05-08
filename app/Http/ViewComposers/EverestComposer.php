@@ -42,7 +42,7 @@ class EverestComposer
                 'maxCount' => config('modules.tickets.max_count', 3),
             ],
             'billing' => [
-                'enabled' => boolval(config('billing.enabled', false)),
+                'enabled' => boolval(config('modules.billing.enabled', false)),
             ],
         ]);
     }

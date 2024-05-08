@@ -48,6 +48,9 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:onboarding:enabled',
         'modules:auth:onboarding:content',
 
+        // Billing module settings
+        'modules:billing:enabled',
+
         // Ticket module settings
         'modules:tickets:enabled',
         'modules:tickets:max_count',
