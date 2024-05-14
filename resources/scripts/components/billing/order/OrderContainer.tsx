@@ -54,10 +54,10 @@ export default () => {
         e.preventDefault();
         e.stopPropagation();
 
-        setLoading(true);
-
         if (!product) return;
         if (!selectedNode) return;
+
+        setLoading(true);
 
         const data = Array.from(vars, ([key, value]) => ({ key, value }));
 
