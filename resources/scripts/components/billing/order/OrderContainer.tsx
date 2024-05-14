@@ -25,6 +25,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import getNodes, { Node } from '@/api/billing/getNodes';
 import { Alert } from '@/components/elements/alert';
+import Dialog from '@/components/elements/dialog/Dialog';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
@@ -40,6 +41,7 @@ export default () => {
 
     const vars = new Map<string, string>();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [nodes, setNodes] = useState<Node[] | undefined>();
     const [selectedNode, setSelectedNode] = useState<number>();
 
@@ -52,6 +54,8 @@ export default () => {
         e.preventDefault();
         e.stopPropagation();
 
+        setLoading(true);
+
         if (!product) return;
         if (!selectedNode) return;
 
@@ -62,7 +66,10 @@ export default () => {
                 // @ts-expect-error this is fine
                 window.location = response;
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                setLoading(false);
+                console.error(error);
+            });
     };
 
     useEffect(() => {
@@ -90,6 +97,9 @@ export default () => {
 
     return (
         <PageContentBlock title={'Your Order'}>
+            <Dialog open={loading} preventExternalClose hideCloseIcon onClose={() => undefined}>
+                You are being redirected to Stripe to complete this purchase.
+            </Dialog>
             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                 Your Order
                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
@@ -100,7 +110,7 @@ export default () => {
                 <div className={'lg:border-r-4 border-gray-500 lg:col-span-2'}>
                     <p className={'text-2xl text-gray-300 my-4 font-bold'}>
                         Selected Plan
-                        <img src={product.icon} className={'w-8 h-8 ml-2 inline-flex'} />
+                        {product.icon && <img src={product.icon} className={'w-8 h-8 ml-2 inline-flex'} />}
                     </p>
                     <LimitBox icon={faIdBadge} content={product.name} />
                     <div className={'font-semibold text-gray-400 text-lg my-1'}>
@@ -129,9 +139,9 @@ export default () => {
                                 </p>
                             </div>
                             <div className={'grid lg:grid-cols-2 gap-4'}>
-                                {!nodes && (
+                                {(!nodes || nodes.length < 1) && (
                                     <Alert type={'danger'} className={'col-span-2'}>
-                                        There are no nodes available for deployment.
+                                        There are no nodes available for deployment. Please contact an administrator.
                                     </Alert>
                                 )}
                                 {nodes?.map(node => (
@@ -170,8 +180,12 @@ export default () => {
                                 <div className={'h-px bg-gray-700 rounded-full'} />
                             </>
                         )}
-                        <div className={'mt-8 text-right'}>
-                            <Button type={'submit'}>Pay Now</Button>
+                        <div className={'w-full mt-8'}>
+                            <div className={'text-right'}>
+                                <Button type={'submit'} disabled={!selectedNode}>
+                                    Pay Now
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </form>
