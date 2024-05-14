@@ -26,6 +26,8 @@ import {
 import getNodes, { Node } from '@/api/billing/getNodes';
 import { Alert } from '@/components/elements/alert';
 import Dialog from '@/components/elements/dialog/Dialog';
+import useFlash from '@/plugins/useFlash';
+import FlashMessageRender from '@/components/FlashMessageRender';
 
 const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
     return (
@@ -40,6 +42,7 @@ export default () => {
     const params = useParams<'id'>();
 
     const vars = new Map<string, string>();
+    const { clearFlashes, clearAndAddHttpError } = useFlash();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [nodes, setNodes] = useState<Node[] | undefined>();
@@ -57,6 +60,7 @@ export default () => {
         if (!product) return;
         if (!selectedNode) return;
 
+        clearFlashes();
         setLoading(true);
 
         const data = Array.from(vars, ([key, value]) => ({ key, value }));
@@ -68,7 +72,7 @@ export default () => {
             })
             .catch(error => {
                 setLoading(false);
-                console.error(error);
+                clearAndAddHttpError({ key: 'store:order', error });
             });
     };
 
@@ -86,6 +90,8 @@ export default () => {
     }, []);
 
     useEffect(() => {
+        clearFlashes();
+
         if (!product || eggs) return;
 
         getProductVariables(Number(product.eggId))
@@ -181,6 +187,7 @@ export default () => {
                             </>
                         )}
                         <div className={'w-full mt-8'}>
+                            <FlashMessageRender byKey={'store:order'} className={'mb-4'} />
                             <div className={'text-right'}>
                                 <Button type={'submit'} disabled={!selectedNode}>
                                     Pay Now

@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
 use Ramsey\Uuid\Uuid;
+use Everest\Models\Node;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
 use Everest\Models\Billing\Product;
@@ -11,12 +12,15 @@ use Everest\Models\Billing\BillingPlan;
 use Everest\Services\Billing\CreateServerService;
 use Everest\Services\Billing\CreateBillingPlanService;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Repositories\Wings\DaemonConfigurationRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 class OrderController extends ClientApiController
 {
     public function __construct(
         private CreateServerService $serverCreation,
         private CreateBillingPlanService $planCreation,
+        private DaemonConfigurationRepository $repository,
     ) {
         parent::__construct();
     }
@@ -27,6 +31,13 @@ class OrderController extends ClientApiController
     public function order(Request $request, int $id): string
     {
         $product = Product::findOrFail($id);
+        $node = Node::findOrFail($request->input('node'));
+
+        $data = $this->repository->setNode($node)->getSystemInformation();
+
+        if (!$data['version']) {
+            throw new DaemonConnectionException();
+        };
 
         return $this->generateStripeUrl($request, $product);
     }
