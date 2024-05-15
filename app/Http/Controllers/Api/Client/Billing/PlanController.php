@@ -19,7 +19,7 @@ class PlanController extends ClientApiController
      */
     public function index(Request $request): array
     {
-        $plans = BillingPlan::where('user_id', $request->user()->id)->get();
+        $plans = BillingPlan::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
 
         return $this->fractal->collection($plans)
             ->transformWith(BillingPlanTransformer::class)

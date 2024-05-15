@@ -1,2 +1,2 @@
 Show admins the API token after creation
-Allow billing categories to not only use Minecraft nest for selecting eggs
+Make 'processing' page for orders in order to catch errors and show them to the user

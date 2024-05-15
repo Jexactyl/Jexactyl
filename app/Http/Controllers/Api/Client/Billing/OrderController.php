@@ -112,8 +112,9 @@ class OrderController extends ClientApiController
         $product = Product::findOrFail($session['metadata']['product_id']);
 
         $this->planCreation->process(
-            $request,
+            $session['metadata']['user_id'],
             $product,
+            null,
             BillingPlan::STATUS_CANCELLED,
         );
 
