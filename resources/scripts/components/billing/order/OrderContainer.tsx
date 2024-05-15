@@ -24,8 +24,8 @@ import {
     faMicrochip,
 } from '@fortawesome/free-solid-svg-icons';
 import getNodes, { Node } from '@/api/billing/getNodes';
-import { Alert } from '@/components/elements/alert';
-import Dialog from '@/components/elements/dialog/Dialog';
+import { Alert } from '@elements/alert';
+import Dialog from '@elements/dialog/Dialog';
 import useFlash from '@/plugins/useFlash';
 import FlashMessageRender from '@/components/FlashMessageRender';
 

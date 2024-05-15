@@ -85,12 +85,13 @@ function ServerDetailsBlock({ className }: { className?: string }) {
 
     return (
         <div className={classNames('grid grid-cols-10 gap-2 md:gap-4 mb-6', className)}>
-            <StatBlock icon={faWifi} title={'Address'} copyOnClick={allocation}>
+            <StatBlock icon={faWifi} title={'Address'} className={'col-span-5 lg:col-span-2'} copyOnClick={allocation}>
                 {allocation}
             </StatBlock>
             <StatBlock
                 icon={faClock}
                 title={'Uptime'}
+                className={'col-span-5 lg:col-span-2'}
                 color={getBackgroundColor(status === 'running' ? 0 : status !== 'offline' ? 9 : 10, 10)}
             >
                 {status === null ? (
@@ -101,7 +102,12 @@ function ServerDetailsBlock({ className }: { className?: string }) {
                     capitalize(status)
                 )}
             </StatBlock>
-            <StatBlock icon={faMicrochip} title={'CPU Load'} color={getBackgroundColor(stats.cpu, limits.cpu)}>
+            <StatBlock
+                icon={faMicrochip}
+                title={'CPU Load'}
+                className={'col-span-5 lg:col-span-2'}
+                color={getBackgroundColor(stats.cpu, limits.cpu)}
+            >
                 {status === 'offline' ? (
                     <span className={'text-slate-400'}>Offline</span>
                 ) : (
@@ -111,6 +117,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
             <StatBlock
                 icon={faMemory}
                 title={'Memory'}
+                className={'col-span-5 lg:col-span-2'}
                 color={getBackgroundColor(stats.memory / 1024, limits.memory * 1024)}
             >
                 {status === 'offline' ? (
@@ -119,7 +126,12 @@ function ServerDetailsBlock({ className }: { className?: string }) {
                     <Limit limit={textLimits.memory}>{bytesToString(stats.memory)}</Limit>
                 )}
             </StatBlock>
-            <StatBlock icon={faHdd} title={'Disk'} color={getBackgroundColor(stats.disk / 1024, limits.disk * 1024)}>
+            <StatBlock
+                icon={faHdd}
+                title={'Disk'}
+                className={'col-span-5 lg:col-span-2'}
+                color={getBackgroundColor(stats.disk / 1024, limits.disk * 1024)}
+            >
                 <Limit limit={textLimits.disk}>{bytesToString(stats.disk)}</Limit>
             </StatBlock>
         </div>

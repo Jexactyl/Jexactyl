@@ -1,5 +1,6 @@
 import { useStoreState } from '@/state/hooks';
 import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = ({ children }: { children: ReactNode }) => {
     const { colors } = useStoreState(s => s.theme.data!);
@@ -15,7 +16,7 @@ const HeaderItem = ({ children }: { children: ReactNode }) => <th className={'px
 
 const Body = ({ children }: { children: ReactNode }) => <tbody>{children}</tbody>;
 
-const BodyItem = ({ item, children }: { item: string; children: ReactNode }) => {
+const BodyItem = ({ item, to, children }: { item: string; to?: string; children: ReactNode }) => {
     const { colors } = useStoreState(s => s.theme.data!);
 
     return (
@@ -24,7 +25,7 @@ const BodyItem = ({ item, children }: { item: string; children: ReactNode }) => 
                 style={{ color: colors.primary }}
                 className={'px-6 py-4 font-bold whitespace-nowrap hover:brightness-150 duration-300'}
             >
-                {item}
+                {to ? <Link to={to}>{item}</Link> : item}
             </th>
             {children}
         </tr>

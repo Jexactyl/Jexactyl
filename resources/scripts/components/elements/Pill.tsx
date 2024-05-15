@@ -26,11 +26,12 @@ function getColor(type?: PillStatus): string {
     return value;
 }
 
-export default ({ type, children }: { type?: PillStatus; children: ReactNode }) => (
+export default ({ type, small, children }: { type?: PillStatus; small?: boolean; children: ReactNode }) => (
     <span
         className={classNames(
             getColor(type),
-            'px-3 py-0.5 inline-flex text-sm leading-5 font-medium rounded-full capitalize',
+            small ? 'text-xs px-2' : 'text-sm px-3 py-0.5',
+            'mx-1 inline-flex leading-5 font-medium rounded-full capitalize',
         )}
     >
         {children}

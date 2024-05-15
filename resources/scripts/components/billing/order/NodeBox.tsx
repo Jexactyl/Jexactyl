@@ -1,7 +1,7 @@
 import { Node } from '@/api/billing/getNodes';
 import { useStoreState } from '@/state/hooks';
 import { Dispatch, SetStateAction } from 'react';
-import GreyRowBox from '@/components/elements/GreyRowBox';
+import GreyRowBox from '@elements/GreyRowBox';
 import { CheckCircleIcon, ServerIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 

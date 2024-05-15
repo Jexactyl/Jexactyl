@@ -5,12 +5,10 @@ import PageContentBlock from '@elements/PageContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { Body, BodyItem, Header, HeaderItem, Table } from '@elements/Table';
 import { BillingPlan, BillingPlanState, getBillingPlans } from '@/api/billing/getBillingPlans';
-import Pill, { PillStatus } from '../elements/Pill';
+import Pill, { PillStatus } from '../../elements/Pill';
 
-function getFormatted(date: number): string {
+export function format(date: number): string {
     let prefix = 'th';
-
-    console.log(date);
 
     switch (date) {
         case 1:
@@ -32,7 +30,7 @@ function getFormatted(date: number): string {
     return `${date}${prefix}`;
 }
 
-function getType(state: BillingPlanState): PillStatus {
+export function type(state: BillingPlanState): PillStatus {
     switch (state) {
         case 'paid':
             return 'success';
@@ -92,12 +90,12 @@ export default () => {
                         </Header>
                         <Body>
                             {plans.map(plan => (
-                                <BodyItem item={plan.name} key={plan.id}>
+                                <BodyItem item={plan.name} key={plan.id} to={`/billing/plans/${plan.id}`}>
                                     <td className={'px-6 py-4 text-white'}>${plan.price}/mo</td>
-                                    <td className={'px-6 py-4'}>{getFormatted(plan.billDate)} of month</td>
+                                    <td className={'px-6 py-4'}>{format(plan.billDate)} of month</td>
                                     <td className={'px-6 py-4'}>{plan.description}</td>
                                     <td className={'pr-12 py-4 text-right'}>
-                                        <Pill type={getType(plan.state)}>{plan.state}</Pill>
+                                        <Pill type={type(plan.state)}>{plan.state}</Pill>
                                     </td>
                                 </BodyItem>
                             ))}
