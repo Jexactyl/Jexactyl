@@ -33,9 +33,8 @@ class BillingPlan extends Model
 
     public const STATUS_DUE = 'due';
     public const STATUS_PAID = 'paid';
-    public const STATUS_ARREARS = 'arrears';
     public const STATUS_CANCELLED = 'cancelled';
-    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_CANCELLING = 'cancelling';
     public const STATUS_TERMINATED = 'terminated';
 
     /**
@@ -72,7 +71,7 @@ class BillingPlan extends Model
     public static array $validationRules = [
         'uuid' => 'required|string|size:36',
 
-        'state' => 'nullable|in:paid,due,processing,arrears,terminated,cancelled',
+        'state' => 'nullable|in:paid,due,cancelling,terminated,cancelled',
         'bill_date' => 'nullable|min:1|max:31',
         'user_id' => 'required|exists:users,id',
         'server_id' => 'nullable|exists:servers,uuid',

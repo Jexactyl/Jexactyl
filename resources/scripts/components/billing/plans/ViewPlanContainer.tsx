@@ -2,20 +2,20 @@ import Pill from '@elements/Pill';
 import Spinner from '@elements/Spinner';
 import useFlash from '@/plugins/useFlash';
 import { useEffect, useState } from 'react';
+import { useStoreState } from '@/state/hooks';
 import { Link, useParams } from 'react-router-dom';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { Button } from '@/components/elements/button';
 import PageContentBlock from '@elements/PageContentBlock';
 import ContentBox from '@/components/elements/ContentBox';
+import getServer, { Server } from '@/api/server/getServer';
 import StatBlock from '@/components/server/console/StatBlock';
 import TitledGreyBox from '@/components/elements/TitledGreyBox';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { format, type } from '@/components/billing/plans/PlansContainer';
 import { BillingPlan, getBillingPlan } from '@/api/billing/getBillingPlans';
+import CancelPlanButton from '@/components/billing/plans/forms/CancelPlanButton';
 import { faHdd, faIdBadge, faMemory, faMicrochip, faServer } from '@fortawesome/free-solid-svg-icons';
-import { Alert } from '@/components/elements/alert';
-import getServer, { Server } from '@/api/server/getServer';
-import { useStoreState } from '@/state/hooks';
 
 export default () => {
     const params = useParams<'id'>();
@@ -44,11 +44,9 @@ export default () => {
     useEffect(() => {
         if (!plan || server) return;
 
-        console.log('gonna grab server now' + plan.serverId);
-
         getServer(plan.serverId)
             .then(data => setServer(data[0]))
-            .catch(error => console.error(error))
+            .catch(error => console.error(error));
     }, [plan]);
 
     if (!plan) return <Spinner centered />;
@@ -121,9 +119,7 @@ export default () => {
                             <Link to={`/server/${server.id}`}>
                                 <div className={'rounded bg-black/25 w-full p-4 hover:brightness-150 duration-300'}>
                                     <p className={'font-semibold'}>
-                                        <span style={{ color: colors.primary }}>
-                                            {server.name}
-                                        </span>
+                                        <span style={{ color: colors.primary }}>{server.name}</span>
                                         <span className={'text-sm font-mono text-gray-400 font-normal ml-2'}>
                                             {server.uuid}
                                         </span>
@@ -133,14 +129,12 @@ export default () => {
                         ) : (
                             <div className={'text-sm text-gray-400 p-2'}>
                                 <Spinner className={'inline-flex'} size={'small'} />
-                                <span className={'ml-2'}>
-                                    attempting to retrieve associated server...
-                                </span>
+                                <span className={'ml-2'}>attempting to retrieve associated server...</span>
                             </div>
                         )}
                     </TitledGreyBox>
                     <ContentBox className={'mt-6 text-right'}>
-                        <Button.Danger>Cancel Plan</Button.Danger>
+                        <CancelPlanButton identifier={plan.uuid} />
                         <Button className={'mx-2'}>Renew Plan</Button>
                         <Button.Info>Edit Plan</Button.Info>
                     </ContentBox>

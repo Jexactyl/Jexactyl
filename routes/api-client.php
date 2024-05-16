@@ -64,13 +64,15 @@ Route::prefix('/billing')->group(function () {
     Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
     Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
     Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
-
     Route::post('/products/{id}', [Client\Billing\OrderController::class, 'order']);
+
     Route::get('/success', [Client\Billing\OrderController::class, 'success'])->name('api:client.billing.success');
     Route::get('/cancel', [Client\Billing\OrderController::class, 'cancel'])->name('api:client.billing.cancel');
 
     Route::get('/plans', [Client\Billing\PlanController::class, 'index']);
     Route::get('/plans/{id}', [Client\Billing\PlanController::class, 'view']);
+
+    Route::post('/plans/{id}/cancel', [Client\Billing\PlanController::class, 'cancel']);
 });
 
 /*

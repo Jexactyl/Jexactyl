@@ -49,7 +49,7 @@ class OrderController extends ClientApiController
     {
         $session = $request
             ->user()
-            ->newSubscription(substr(Uuid::uuid4()->toString(), 0, 8), $product->stripe_id)
+            ->newSubscription(substr($product->uuid, 0, 8), $product->stripe_id)
             ->checkout([
                 'success_url' => route('api:client.billing.success') . '?session_id={CHECKOUT_SESSION_ID}',
                 'cancel_url' => route('api:client.billing.cancel') . '?session_id={CHECKOUT_SESSION_ID}',
@@ -75,17 +75,15 @@ class OrderController extends ClientApiController
 
         $session = Cashier::stripe()->checkout->sessions->retrieve($id);
 
-        if (!$session) {
-            if ($session->payment_status !== 'paid') {
-                $this->planCreation->process(
-                    $request,
-                    $product,
-                    BillingPlan::STATUS_CANCELLED,
-                );
-            }
+        if ($session->payment_status !== 'paid') {
+            $this->planCreation->process(
+                $request,
+                $product,
+                BillingPlan::STATUS_CANCELLED,
+            );
 
             return redirect('/billing/cancel');
-        }
+        };
 
         $product = Product::findOrFail($session['metadata']['product_id']);
 

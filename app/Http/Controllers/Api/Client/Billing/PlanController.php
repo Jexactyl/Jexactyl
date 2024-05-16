@@ -29,9 +29,27 @@ class PlanController extends ClientApiController
     /**
      * View a specific plan.
      */
-    public function view(int $id)
+    public function view(int $id): array
     {
         $plan = BillingPlan::findOrFail($id);
+
+        return $this->fractal->item($plan)
+            ->transformWith(BillingPlanTransformer::class)
+            ->toArray();
+    }
+
+    /**
+     * Cancel a subscription immediately.
+     */
+    public function cancel(Request $request, string $id): array
+    {
+        $plan = BillingPlan::where('uuid', $id)->first();
+
+        dd($request->user()->subscription(substr($id, 0, 8)));
+
+        $request->user()->subscription(substr($id, 0, 8))->cancelNow();
+
+        $plan->update(['state' => 'cancelling']);
 
         return $this->fractal->item($plan)
             ->transformWith(BillingPlanTransformer::class)
