@@ -24,6 +24,7 @@ class BillingPlanTransformer extends Transformer
             'id' => $model->id,
             'state' => $model->state,
             'bill_date' => $model->bill_date,
+            'server_id' => $model->server_id,
             'uuid' => $model->uuid,
             'name' => $model->name,
             'price' => $model->price,

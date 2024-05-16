@@ -25,11 +25,10 @@ class CreateBillingPlanService
     {
         $uuid = Uuid::uuid4()->toString();
 
-        $plan = BillingPlan::create([
+        $data = [
             'state' => $status ?? 'processing',
             'bill_date' => date('j'),
             'user_id' => (int) $user,
-            'server_id' => $server->id ?? -1,
             'uuid' => $uuid,
             'name' => 'Plan ' . substr($uuid, 0, 8),
             'price' => $product->price,
@@ -40,8 +39,14 @@ class CreateBillingPlanService
             'backup_limit' => $product->backup_limit,
             'database_limit' => $product->database_limit,
             'allocation_limit' => $product->allocation_limit,
-        ]);
+        ];
 
-        return $plan;
+        if ($server instanceof Server) {
+            $data['server_id'] = $server->uuid;
+        };
+
+        $model = BillingPlan::create($data);
+
+        return $model;
     }
 }

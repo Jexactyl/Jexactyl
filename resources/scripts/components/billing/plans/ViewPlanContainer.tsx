@@ -2,7 +2,7 @@ import Pill from '@elements/Pill';
 import Spinner from '@elements/Spinner';
 import useFlash from '@/plugins/useFlash';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { Button } from '@/components/elements/button';
 import PageContentBlock from '@elements/PageContentBlock';
@@ -14,10 +14,14 @@ import { format, type } from '@/components/billing/plans/PlansContainer';
 import { BillingPlan, getBillingPlan } from '@/api/billing/getBillingPlans';
 import { faHdd, faIdBadge, faMemory, faMicrochip, faServer } from '@fortawesome/free-solid-svg-icons';
 import { Alert } from '@/components/elements/alert';
+import getServer, { Server } from '@/api/server/getServer';
+import { useStoreState } from '@/state/hooks';
 
 export default () => {
     const params = useParams<'id'>();
+    const [server, setServer] = useState<Server>();
     const [plan, setPlan] = useState<BillingPlan>();
+    const { colors } = useStoreState(s => s.theme.data!);
     const [loading, setLoading] = useState<boolean>(false);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
@@ -27,13 +31,25 @@ export default () => {
         setLoading(true);
 
         getBillingPlan(Number(params.id))
-            .then(data => setPlan(data))
-            .then(() => setLoading(false))
+            .then(data => {
+                setPlan(data);
+                setLoading(false);
+            })
             .catch(error => {
                 setLoading(false);
                 clearAndAddHttpError({ key: 'billing:plans:view', error });
             });
     }, []);
+
+    useEffect(() => {
+        if (!plan || server) return;
+
+        console.log('gonna grab server now' + plan.serverId);
+
+        getServer(plan.serverId)
+            .then(data => setServer(data[0]))
+            .catch(error => console.error(error))
+    }, [plan]);
 
     if (!plan) return <Spinner centered />;
 
@@ -101,7 +117,27 @@ export default () => {
                 </div>
                 <div>
                     <TitledGreyBox title={'Linked Server'} icon={faServer}>
-                        <Alert type={'warning'}>Unable to fetch server. Has it been deleted?</Alert>
+                        {server ? (
+                            <Link to={`/server/${server.id}`}>
+                                <div className={'rounded bg-black/25 w-full p-4 hover:brightness-150 duration-300'}>
+                                    <p className={'font-semibold'}>
+                                        <span style={{ color: colors.primary }}>
+                                            {server.name}
+                                        </span>
+                                        <span className={'text-sm font-mono text-gray-400 font-normal ml-2'}>
+                                            {server.uuid}
+                                        </span>
+                                    </p>
+                                </div>
+                            </Link>
+                        ) : (
+                            <div className={'text-sm text-gray-400 p-2'}>
+                                <Spinner className={'inline-flex'} size={'small'} />
+                                <span className={'ml-2'}>
+                                    attempting to retrieve associated server...
+                                </span>
+                            </div>
+                        )}
                     </TitledGreyBox>
                     <ContentBox className={'mt-6 text-right'}>
                         <Button.Danger>Cancel Plan</Button.Danger>

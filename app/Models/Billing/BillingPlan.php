@@ -9,6 +9,7 @@ use Everest\Models\Model;
  * @property string $state
  * @property int $bill_date
  * @property int $user_id
+ * @property string $server_id
  * @property string $uuid
  * @property string $name
  * @property float $price
@@ -47,8 +48,8 @@ class BillingPlan extends Model
      */
     protected $fillable = [
         'uuid', 'state', 'bill_date',
-        'user_id', 'name', 'price',
-        'description', 'cpu_limit',
+        'user_id', 'server_id', 'name',
+        'price', 'description', 'cpu_limit',
         'memory_limit', 'disk_limit',
         'backup_limit', 'database_limit',
         'allocation_limit',
@@ -59,6 +60,7 @@ class BillingPlan extends Model
      */
     protected $casts = [
         'bill_date' => 'integer',
+        'user_id' => 'integer',
         'cpu_limit' => 'integer',
         'memory_limit' => 'integer',
         'disk_limit' => 'integer',
@@ -73,6 +75,7 @@ class BillingPlan extends Model
         'state' => 'nullable|in:paid,due,processing,arrears,terminated,cancelled',
         'bill_date' => 'nullable|min:1|max:31',
         'user_id' => 'required|exists:users,id',
+        'server_id' => 'nullable|exists:servers,uuid',
 
         'name' => 'required|string|min:3|max:191',
         'icon' => 'nullable|string|min:3|max:300',

@@ -6,6 +6,7 @@ export interface BillingPlan {
     id: string;
     state: BillingPlanState;
     billDate: number;
+    serverId: string;
     uuid: string;
     name: string;
     price: number;
@@ -28,6 +29,7 @@ export const rawDataToPlan = ({ attributes: data }: FractalResponseData): Billin
     id: data.id,
     state: data.state,
     billDate: data.bill_date,
+    serverId: data.server_id,
     uuid: data.uuid,
     name: data.name,
     price: data.price,
