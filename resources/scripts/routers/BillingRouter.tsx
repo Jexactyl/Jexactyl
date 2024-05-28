@@ -6,27 +6,16 @@ import SubNavigation from '@elements/SubNavigation';
 import NavigationBar from '@/components/NavigationBar';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import Cancel from '@/components/billing/order/summary/Cancel';
-// import getBillingPortal from '@/api/billing/getBillingPortal';
 import Success from '@/components/billing/order/summary/Success';
 import PlansContainer from '@/components/billing/plans/PlansContainer';
 import ProductsContainer from '@/components/billing/ProductsContainer';
 import OverviewContainer from '@/components/billing/OverviewContainer';
 import OrderContainer from '@/components/billing/order/OrderContainer';
 import ViewPlanContainer from '@/components/billing/plans/ViewPlanContainer';
+import Processing from '@/components/billing/order/summary/Processing';
 
 export default () => {
     const { data: theme } = useStoreState(state => state.theme);
-
-    /*
-        const redirect = () => {
-            getBillingPortal()
-                .then(url => {
-                    // @ts-expect-error this is fine
-                    window.location = url;
-                })
-                .catch(error => console.log(error));
-        };
-    */
 
     return (
         <>
@@ -38,12 +27,6 @@ export default () => {
                     </NavLink>
                     <NavLink to={'/billing/order'}>Order</NavLink>
                     <NavLink to={'/billing/plans'}>Active Plans</NavLink>
-                    {/*
-                        <p className={'mx-4 text-gray-400 text-lg'}>&bull;</p>
-                        <NavLink to={'/billing/portal'} onClick={redirect}>
-                            Billing Portal
-                        </NavLink>
-                    */}
                 </div>
             </SubNavigation>
             <Suspense fallback={<Spinner centered />}>
@@ -54,18 +37,7 @@ export default () => {
                     <Route path={'/plans'} element={<PlansContainer />} />
                     <Route path={'/plans/:id'} element={<ViewPlanContainer />} />
 
-                    {/*
-                        <Route
-                            path={'/portal'}
-                            element={
-                                <p className={'text-center text-lg text-gray-400 mt-10'}>
-                                    <Spinner className={'inline-flex mr-2'} size={'small'} />
-                                    You are being redirected...
-                                </p>
-                            }
-                        />
-                    */}
-
+                    <Route path={'/process/:session_id'} element={<Processing />} />
                     <Route path={'/success'} element={<Success />} />
                     <Route path={'/cancel'} element={<Cancel />} />
 

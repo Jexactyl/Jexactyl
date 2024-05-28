@@ -2,10 +2,12 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Exception;
 use Ramsey\Uuid\Uuid;
 use Everest\Models\Node;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
+use Illuminate\Http\Response;
 use Everest\Models\Billing\Product;
 use Illuminate\Http\RedirectResponse;
 use Everest\Models\Billing\BillingPlan;
@@ -51,7 +53,7 @@ class OrderController extends ClientApiController
             ->user()
             ->newSubscription(substr($product->uuid, 0, 8), $product->stripe_id)
             ->checkout([
-                'success_url' => route('api:client.billing.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'success_url' => route('api:client.billing.callback') . '?session_id={CHECKOUT_SESSION_ID}',
                 'cancel_url' => route('api:client.billing.cancel') . '?session_id={CHECKOUT_SESSION_ID}',
                 'metadata' => [
                     'node_id' => $request->input('node'),
@@ -67,11 +69,23 @@ class OrderController extends ClientApiController
     }
 
     /**
+     * Redirect to the UI to process the order.
+     */
+    public function callback(Request $request): RedirectResponse
+    {
+        return redirect('/billing/process/' . $request->get('session_id'));
+    }
+
+    /**
      * Process a successful subscription purchase.
      */
-    public function success(Request $request): RedirectResponse|null
+    public function process(Request $request): Response
     {
         $id = $request->get('session_id');
+
+        if (!$id) {
+            throw new Exception('Unable to fetch payment session from Stripe.');
+        };
 
         $session = Cashier::stripe()->checkout->sessions->retrieve($id);
 
@@ -82,7 +96,7 @@ class OrderController extends ClientApiController
                 BillingPlan::STATUS_CANCELLED,
             );
 
-            return redirect('/billing/cancel');
+            throw new Exception('This plan has not been paid, so the order has been cancelled.');
         };
 
         $product = Product::findOrFail($session['metadata']['product_id']);
@@ -91,7 +105,7 @@ class OrderController extends ClientApiController
 
         $this->planCreation->process($session['metadata']['user_id'], $product, $server, BillingPlan::STATUS_PAID);
 
-        return redirect('/billing/success');
+        return $this->returnNoContent();
     }
 
     /**
