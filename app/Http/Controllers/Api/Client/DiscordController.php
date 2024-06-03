@@ -31,8 +31,11 @@ class DiscordController extends ClientApiController
 
     public function unlink(): JsonResponse
     {
+        $user = Auth::user();
+        if (!$user) {
+            return new JsonResponse(['error' => 'No authenticated user'], 401);
+        }
         $user->update(['discord_id' => null]);
-
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
     }
 
