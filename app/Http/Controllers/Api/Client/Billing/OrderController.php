@@ -51,7 +51,7 @@ class OrderController extends ClientApiController
     {
         $session = $request
             ->user()
-            ->newSubscription(substr($product->uuid, 0, 8), $product->stripe_id)
+            ->newSubscription($product->uuid, $product->stripe_id)
             ->checkout([
                 'success_url' => route('api:client.billing.callback') . '?session_id={CHECKOUT_SESSION_ID}',
                 'cancel_url' => route('api:client.billing.cancel') . '?session_id={CHECKOUT_SESSION_ID}',
@@ -59,6 +59,7 @@ class OrderController extends ClientApiController
                     'node_id' => $request->input('node'),
                     'user_id' => $request->user()->id,
                     'product_id' => $product->id,
+                    'plan_uuid' => $product->uuid,
                     'username' => $request->user()->username,
                     'environment' => json_encode($request->input('data')),
                 ],
@@ -103,7 +104,13 @@ class OrderController extends ClientApiController
 
         $server = $this->serverCreation->process($request, $product, $session['metadata']);
 
-        $this->planCreation->process($session['metadata']['user_id'], $product, $server, BillingPlan::STATUS_PAID);
+        $this->planCreation->process(
+            $session['metadata']['user_id'],
+            $sesion['metadata']['plan_uuid'],
+            $product,
+            $server,
+            BillingPlan::STATUS_PAID
+        );
 
         return $this->returnNoContent();
     }
