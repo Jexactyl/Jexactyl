@@ -106,7 +106,7 @@ class OrderController extends ClientApiController
 
         $this->planCreation->process(
             $session['metadata']['user_id'],
-            $sesion['metadata']['plan_uuid'],
+            $session['metadata']['plan_uuid'],
             $product,
             $server,
             BillingPlan::STATUS_PAID
