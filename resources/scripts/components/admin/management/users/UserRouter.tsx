@@ -81,7 +81,7 @@ const UserRouter = () => {
             <FlashMessageRender byKey={'user'} css={tw`mb-4`} />
 
             <SubNavigation theme={theme}>
-                <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'}>
+                <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'} base>
                     <UserIcon />
                 </SubNavigationLink>
 

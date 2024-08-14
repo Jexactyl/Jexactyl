@@ -60,7 +60,7 @@ export default () => {
             <FlashMessageRender byKey={'server'} css={tw`mb-4`} />
 
             <SubNavigation theme={theme}>
-                <SubNavigationLink to={`/admin/servers/${params.id}`} name={'Settings'} icon={CogIcon} />
+                <SubNavigationLink to={`/admin/servers/${params.id}`} name={'Settings'} icon={CogIcon} base />
                 <SubNavigationLink to={`/admin/servers/${params.id}/startup`} name={'Startup'} icon={AdjustmentsIcon} />
                 <SubNavigationLink
                     to={`/admin/servers/${params.id}/databases`}

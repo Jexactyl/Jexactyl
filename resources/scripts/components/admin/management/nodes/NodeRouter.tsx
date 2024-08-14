@@ -81,7 +81,7 @@ const NodeRouter = () => {
             <FlashMessageRender byKey={'node'} css={tw`mb-4`} />
 
             <SubNavigation theme={theme}>
-                <SubNavigationLink to={`/admin/nodes/${node.id}`} name={'About'}>
+                <SubNavigationLink to={`/admin/nodes/${node.id}`} name={'About'} base>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path
                             clipRule="evenodd"
