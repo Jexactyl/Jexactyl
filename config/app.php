@@ -11,7 +11,16 @@ return [
     | change this value if you are not maintaining your own internal versions.
     */
 
-    'version' => 'canary',
+    'version' => '1.1.0',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Automatic Updates
+    |--------------------------------------------------------------------------
+    | Allow Jexactyl to update itself in the background in line with the latest
+    | GitHub software release. This feature is off by default.
+    */
+    'auto_update' => false,
 
     /*
     |--------------------------------------------------------------------------

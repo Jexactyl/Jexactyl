@@ -20,6 +20,7 @@ class SettingsServiceProvider extends ServiceProvider
         // Pterodactyl-specific keys
         'app:name',
         'app:locale',
+        'app:auto_update',
         'recaptcha:enabled',
         'recaptcha:secret_key',
         'recaptcha:website_key',

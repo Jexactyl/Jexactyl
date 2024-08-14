@@ -47,6 +47,10 @@ class Kernel extends ConsoleKernel
         if (config('everest.telemetry.enabled')) {
             $this->registerTelemetry($schedule);
         }
+
+        if (config('app.auto_update')) {
+            $schedule->command(AutoUpdateCommand::class)->daily();
+        }
     }
 
     /**

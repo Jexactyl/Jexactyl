@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Everest\Http\Controllers\Api\Application;
 
-Route::get('/version', [Application\VersionController::class, '__invoke']);
+Route::get('/overview/version', [Application\OverviewController::class, 'version']);
+Route::put('/overview/settings', [Application\OverviewController::class, 'update']);
 
 /*
 |--------------------------------------------------------------------------

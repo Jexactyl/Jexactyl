@@ -15,7 +15,7 @@ export interface VersionData {
 
 export default (): Promise<VersionData> => {
     return new Promise((resolve, reject) => {
-        http.get('/api/application/version')
+        http.get('/api/application/overview/version')
             .then(({ data }) => resolve(data))
             .catch(reject);
     });
