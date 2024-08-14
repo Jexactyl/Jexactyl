@@ -15,15 +15,6 @@ x-common:
     # Uncomment the line below and set to a non-empty value if you want to use Let's Encrypt
     # to generate an SSL certificate for the Panel.
     # LE_EMAIL: ""
-  mail:
-    &mail-environment
-    MAIL_FROM: "noreply@example.com"
-    MAIL_DRIVER: "smtp"
-    MAIL_HOST: "mail"
-    MAIL_PORT: "1025"
-    MAIL_USERNAME: ""
-    MAIL_PASSWORD: ""
-    MAIL_ENCRYPTION: "true"
 
 #
 # ------------------------------------------------------------------------------------------
@@ -61,7 +52,7 @@ services:
       - "/srv/pterodactyl/certs/:/etc/letsencrypt/"
       - "/srv/pterodactyl/logs/:/app/storage/logs"
     environment:
-      <<: [*panel-environment, *mail-environment]
+      <<: [*panel-environment]
       DB_PASSWORD: *db-password
       APP_ENV: "production"
       APP_ENVIRONMENT_ONLY: "false"

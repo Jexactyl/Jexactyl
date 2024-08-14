@@ -58,38 +58,10 @@ class SettingsServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Keys specific to the mail driver that are only grabbed from the database
-     * when using the SMTP driver.
-     */
-    protected array $emailKeys = [
-        'mail:mailers:smtp:host',
-        'mail:mailers:smtp:port',
-        'mail:mailers:smtp:encryption',
-        'mail:mailers:smtp:username',
-        'mail:mailers:smtp:password',
-        'mail:from:address',
-        'mail:from:name',
-    ];
-
-    /**
-     * Keys that are encrypted and should be decrypted when set in the
-     * configuration array.
-     */
-    protected static array $encrypted = [
-        'mail:mailers:smtp:password',
-    ];
-
-    /**
      * Boot the service provider.
      */
     public function boot(ConfigRepository $config, Encrypter $encrypter, Log $log, SettingsRepositoryInterface $settings): void
     {
-        // Only set the email driver settings from the database if we
-        // are configured using SMTP as the driver.
-        if ($config->get('mail.default') === 'smtp') {
-            $this->keys = array_merge($this->keys, $this->emailKeys);
-        }
-
         try {
             $values = $settings->all()->mapWithKeys(function ($setting) {
                 return [$setting->key => $setting->value];
@@ -102,12 +74,6 @@ class SettingsServiceProvider extends ServiceProvider
 
         foreach ($this->keys as $key) {
             $value = array_get($values, 'settings::' . $key, $config->get(str_replace(':', '.', $key)));
-            if (in_array($key, self::$encrypted)) {
-                try {
-                    $value = $encrypter->decrypt($value);
-                } catch (DecryptException) {
-                }
-            }
 
             switch (strtolower($value)) {
                 case 'true':
@@ -129,10 +95,5 @@ class SettingsServiceProvider extends ServiceProvider
 
             $config->set(str_replace(':', '.', $key), $value);
         }
-    }
-
-    public static function getEncryptedKeys(): array
-    {
-        return self::$encrypted;
     }
 }

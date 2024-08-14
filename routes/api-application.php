@@ -16,7 +16,6 @@ Route::put('/overview/settings', [Application\OverviewController::class, 'update
 */
 Route::group(['prefix' => '/settings'], function () {
     Route::patch('/', [Application\Settings\GeneralController::class, 'update']);
-    Route::patch('/mail', [Application\Settings\MailController::class, 'update']);
 });
 
 /*

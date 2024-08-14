@@ -1,9 +1,8 @@
-import { ChipIcon, MailIcon } from '@heroicons/react/outline';
+import { ChipIcon } from '@heroicons/react/outline';
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import AdminContentBlock from '@elements/AdminContentBlock';
-import MailSettings from '@admin/general/settings/MailSettings';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import GeneralSettings from '@admin/general/settings/GeneralSettings';
@@ -30,14 +29,10 @@ const SettingsRouter = () => {
                 <SubNavigationLink to="/admin/settings" name="Core" base>
                     <ChipIcon />
                 </SubNavigationLink>
-                <SubNavigationLink to="/admin/settings/mail" name="Mail">
-                    <MailIcon />
-                </SubNavigationLink>
             </SubNavigation>
 
             <Routes>
                 <Route path="/" element={<GeneralSettings />} />
-                <Route path="/mail" element={<MailSettings />} />
             </Routes>
         </AdminContentBlock>
     );

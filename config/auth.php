@@ -90,8 +90,8 @@ return [
     | Resetting Passwords
     |--------------------------------------------------------------------------
     |
-    | Here you may set the options for resetting passwords including the view
-    | that is your password reset e-mail. You may also set the name of the
+    | Here you may set the options for resetting passwords.
+    | You may also set the name of the
     | table that maintains all of the reset tokens for your application.
     |
     | You may specify multiple password reset configurations if you have more
