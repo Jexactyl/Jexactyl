@@ -7,6 +7,7 @@ import { Allocation, Node } from '@/api/admin/node';
 import { Transformers, User } from '@definitions/admin';
 import { Egg, EggVariable } from '@/api/admin/egg';
 import { Nest } from '@/api/admin/nest';
+import { ServerDatabase } from '../server/databases/getServerDatabases';
 
 /**
  * Defines the limits for a server that exists on the Panel.
@@ -63,6 +64,7 @@ export interface Server extends Model {
         node?: Node;
         user?: User;
         variables?: ServerVariable[];
+        databases?: ServerDatabase[];
     };
 }
 
@@ -79,11 +81,11 @@ type LoadedServer = WithRelationships<Server, 'allocations' | 'user' | 'node'>;
 export const getServer = async (id: number | string): Promise<LoadedServer> => {
     const { data } = await http.get(`/api/application/servers/${id}`, {
         params: {
-            include: ['allocations', 'user', 'node', 'variables'],
+            include: ['allocations', 'user', 'node', 'variables', 'databases'],
         },
     });
 
-    return withRelationships(Transformers.toServer(data), 'allocations', 'user', 'node', 'variables');
+    return withRelationships(Transformers.toServer(data), 'allocations', 'user', 'node', 'variables', 'databases');
 };
 
 /**

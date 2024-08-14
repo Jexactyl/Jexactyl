@@ -10,6 +10,7 @@ import { Category } from '@/api/admin/billing/categories';
 import { ApiKey } from '@/api/account/getApiKeys';
 import { Ticket, TicketMessage } from '@/api/admin/tickets/getTickets';
 import { Product } from '@/api/admin/billing/products';
+import { ServerDatabase } from '@/api/server/databases/getServerDatabases';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 
@@ -45,7 +46,7 @@ function transform<T>(
 export default class Transformers {
     static toServer = ({ attributes }: FractalResponseData): Server => {
         const { oom_killer, ...limits } = attributes.limits;
-        const { allocations, egg, nest, node, user, variables } = attributes.relationships || {};
+        const { allocations, egg, nest, node, user, variables, databases } = attributes.relationships || {};
 
         return {
             id: attributes.id,
@@ -72,6 +73,7 @@ export default class Transformers {
                 node: transform(node as FractalResponseData | undefined, this.toNode),
                 user: transform(user as FractalResponseData | undefined, this.toUser),
                 variables: transform(variables as FractalResponseList | undefined, this.toServerEggVariable),
+                databases: transform(databases as FractalResponseList | undefined, this.toServerDatabase),
             },
         };
     };
@@ -259,6 +261,15 @@ export default class Transformers {
         relationships: {
             eggs: transform(attributes.relationships?.eggs as FractalResponseList, this.toEgg),
         },
+    });
+
+    static toServerDatabase = ({ attributes }: FractalResponseData): ServerDatabase => ({
+        id: attributes.id,
+        name: attributes.name,
+        databaseHostId: attributes.database_host_id,
+        username: attributes.username,
+        connectionString: attributes.remote,
+        allowConnectionsFrom: '',
     });
 
     static toCategory = ({ attributes }: FractalResponseData): Category => ({

@@ -20,6 +20,7 @@ import {
     ShieldExclamationIcon,
 } from '@heroicons/react/outline';
 import { useStoreState } from '@/state/hooks';
+import ServerDatabases from './ServerDatabases';
 
 export default () => {
     const params = useParams<'id'>();
@@ -79,6 +80,7 @@ export default () => {
             <Routes>
                 <Route path="" element={<ServerSettingsContainer />} />
                 <Route path="startup" element={<ServerStartupContainer />} />
+                <Route path={'databases'} element={<ServerDatabases />} />
                 <Route path="manage" element={<ServerManageContainer />} />
             </Routes>
         </AdminContentBlock>

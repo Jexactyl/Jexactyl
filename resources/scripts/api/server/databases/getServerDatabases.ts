@@ -4,6 +4,7 @@ export interface ServerDatabase {
     id: string;
     name: string;
     username: string;
+    databaseHostId: number;
     connectionString: string;
     allowConnectionsFrom: string;
     password?: string;
@@ -13,6 +14,7 @@ export const rawDataToServerDatabase = (data: any): ServerDatabase => ({
     id: data.id,
     name: data.name,
     username: data.username,
+    databaseHostId: data.database_host_id,
     connectionString: `${data.host.address}:${data.host.port}`,
     allowConnectionsFrom: data.connections_from,
     password: data.relationships.password?.attributes?.password,
