@@ -7,8 +7,10 @@ import AdminBox from '@elements/AdminBox';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import { Context } from '@admin/management/nodes/NodeRouter';
 import { Alert } from '@elements/alert';
-import { faServer } from '@fortawesome/free-solid-svg-icons';
+import { faMicrochip, faServer } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
+import Label from '@/components/elements/Label';
+import Input from '@/components/elements/Input';
 
 const Code = ({ className, children }: { className?: string; children: ReactNode }) => {
     return (
@@ -52,47 +54,82 @@ export default () => {
     }
 
     return (
-        <AdminBox title={'Node Information'} icon={faServer}>
+        <div className={'grid lg:grid-cols-2 gap-4'}>
             {error ? (
-                <Alert type={'danger'}>
+                <Alert type={'danger'} className={'col-span-2'}>
                     We were unable to connect to this node, so no information can be displayed.
                 </Alert>
             ) : (
-                <table>
-                    <tbody>
-                        <tr>
-                            <td css={tw`py-1 pr-6`}>Wings Version</td>
-                            <td css={tw`py-1`}>
-                                <Code css={tw`ml-auto`}>{info?.version ?? 'Unknown - node offline'}</Code>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td css={tw`py-1 pr-6`}>Operating System</td>
-                            <td css={tw`py-1`}>
-                                <Code css={tw`ml-auto`}>{info?.system.type}</Code>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td css={tw`py-1 pr-6`}>Architecture</td>
-                            <td css={tw`py-1`}>
-                                <Code css={tw`ml-auto`}>{info?.system.arch}</Code>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td css={tw`py-1 pr-6`}>Kernel</td>
-                            <td css={tw`py-1`}>
-                                <Code css={tw`ml-auto`}>{info?.system.release}</Code>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td css={tw`py-1 pr-6`}>CPU Threads</td>
-                            <td css={tw`py-1`}>
-                                <Code css={tw`ml-auto`}>{info?.system.cpus}</Code>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <>
+                    <AdminBox title={'Node Information'} icon={faServer}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td css={tw`py-1 pr-6`}>Version</td>
+                                    <td css={tw`py-1`}>
+                                        <Code css={tw`ml-auto`}>{info?.version}</Code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td css={tw`py-1 pr-6`}>Operating System</td>
+                                    <td css={tw`py-1`}>
+                                        <Code css={tw`ml-auto`}>{info?.system.type}</Code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td css={tw`py-1 pr-6`}>Architecture</td>
+                                    <td css={tw`py-1`}>
+                                        <Code css={tw`ml-auto`}>{info?.system.arch}</Code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td css={tw`py-1 pr-6`}>Kernel</td>
+                                    <td css={tw`py-1`}>
+                                        <Code css={tw`ml-auto`}>{info?.system.release}</Code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td css={tw`py-1 pr-6`}>CPU Threads</td>
+                                    <td css={tw`py-1`}>
+                                        <Code css={tw`ml-auto`}>{info?.system.cpus}</Code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td css={tw`py-1 pr-6`}>Daemon Ports</td>
+                                    <td css={tw`py-1`}>
+                                        <Code css={tw`ml-auto`}>{node.listenPortHTTP}</Code>
+                                        <Code css={tw`ml-1`}>{node.listenPortSFTP}</Code>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </AdminBox>
+                    <AdminBox icon={faMicrochip} title={'Node Resources'} css={tw`w-full relative`}>
+                        <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
+                            <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mb-6 md:mb-0`}>
+                                <Label>Memory Limit</Label>
+                                <Input disabled placeholder={node.memory.toString()}></Input>
+                            </div>
+
+                            <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
+                                <Label>Disk Limit</Label>
+                                <Input disabled placeholder={node.disk.toString()}></Input>
+                            </div>
+                        </div>
+                        <div css={tw`md:w-full md:flex md:flex-row mb-6`}>
+                            <div css={tw`md:w-full md:flex md:flex-col md:mr-4 mb-6 md:mb-0`}>
+                                <Label>Location Name</Label>
+                                <Input disabled placeholder={node.relations.location!.short}></Input>
+                            </div>
+
+                            <div css={tw`md:w-full md:flex md:flex-col md:ml-4 mb-6 md:mb-0`}>
+                                <Label>FQDN Address</Label>
+                                <Input disabled placeholder={node.fqdn}></Input>
+                            </div>
+                        </div>
+                    </AdminBox>
+                </>
             )}
-        </AdminBox>
+        </div>
     );
 };
