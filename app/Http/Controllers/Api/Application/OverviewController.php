@@ -16,8 +16,7 @@ class OverviewController extends ApplicationApiController
     public function __construct(
         private SettingsRepositoryInterface $settings,
         private SoftwareVersionService $softwareVersionService
-    )
-    {
+    ) {
         parent::__construct();
     }
 

@@ -71,14 +71,6 @@ class GoogleLoginController extends AbstractLoginController
     }
 
     /**
-     * Create an account on the Panel if the details do not exist.
-     */
-    public function createAccount(array $data): User
-    {
-        return $this->creationService->handle($data);
-    }
-
-    /**
      * Create a random string we can use for a temporary username.
      */
     public function randStr(int $length = 10): string

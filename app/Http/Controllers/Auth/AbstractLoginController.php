@@ -2,11 +2,13 @@
 
 namespace Everest\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Container\Container;
 use Everest\Events\Auth\DirectLogin;
 use Illuminate\Support\Facades\Event;
@@ -14,6 +16,7 @@ use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Everest\Contracts\Repository\SettingsRepositoryInterface;
 
 abstract class AbstractLoginController extends Controller
 {
@@ -39,8 +42,9 @@ abstract class AbstractLoginController extends Controller
     /**
      * LoginController constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        private SettingsRepositoryInterface $settings,
+    ) {
         $this->lockoutTime = config('auth.lockout.time');
         $this->maxLoginAttempts = config('modules.auth.security.attempts');
         $this->auth = Container::getInstance()->make(AuthManager::class);
@@ -88,6 +92,34 @@ abstract class AbstractLoginController extends Controller
                 'user' => $user->toReactObject(),
             ],
         ]);
+    }
+
+    /**
+     * Create an account on the Panel if the details do not exist.
+     */
+    public function createAccount(array $data): User
+    {
+        $delay = $this->settings->get('settings:modules:auth:jguard:delay');
+        $guard = $this->settings->get('settings::modules:auth:jguard:enabled');
+
+        if (!boolval($this->settings->get('settings::modules:auth:registration:enabled'))) {
+            throw new DisplayException('User signup is disabled at this time.');
+        }
+
+        if (User::where($data['username'])->exists()) {
+            throw new DisplayException('This username is already in use by another user.');
+        }
+
+        $user = $this->creationService->handle($data);
+
+        if ($guard || $delay > 0) {
+            DB::table('jguard_delay')->insert([
+                'user_id' => $user->id,
+                'expires_at' => Carbon::now()->add($delay, 'minute'),
+            ]);
+        }
+
+        return $user;
     }
 
     /**

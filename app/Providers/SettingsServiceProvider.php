@@ -6,7 +6,6 @@ use Psr\Log\LoggerInterface as Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
@@ -48,6 +47,9 @@ class SettingsServiceProvider extends ServiceProvider
 
         'modules:auth:onboarding:enabled',
         'modules:auth:onboarding:content',
+
+        'modules:auth:jguard:enabled',
+        'modules:auth:jguard:delay',
 
         // Billing module settings
         'modules:billing:enabled',

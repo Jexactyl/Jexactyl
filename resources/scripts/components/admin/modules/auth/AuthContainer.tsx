@@ -12,6 +12,7 @@ import Onboarding from '@admin/modules/auth/modules/Onboarding';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotateBackward } from '@fortawesome/free-solid-svg-icons';
 import GoogleSSO from './modules/GoogleSSO';
+import JGuard from './modules/JGuard';
 
 export default () => {
     const [visible, setVisible] = useState<boolean>(false);
@@ -59,6 +60,7 @@ export default () => {
                 <Registration />
                 <Security />
                 {modules.onboarding.enabled && <Onboarding />}
+                {modules.jguard.enabled && <JGuard />}
                 {modules.discord.enabled && <DiscordSSO />}
                 {modules.google.enabled && <GoogleSSO />}
             </div>

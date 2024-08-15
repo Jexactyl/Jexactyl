@@ -2,10 +2,7 @@
 
 namespace Everest\Services\Billing;
 
-use Ramsey\Uuid\Uuid;
-use Stripe\StripeObject;
 use Everest\Models\Server;
-use Illuminate\Http\Request;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\BillingPlan;
 
@@ -41,7 +38,7 @@ class CreateBillingPlanService
 
         if ($server instanceof Server) {
             $data['server_id'] = $server->uuid;
-        };
+        }
 
         return BillingPlan::create($data);
     }

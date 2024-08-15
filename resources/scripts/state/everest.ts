@@ -10,6 +10,10 @@ export interface EverestSettings {
             attempts: number;
         };
         modules: {
+            jguard: {
+                enabled: boolean;
+                delay?: number;
+            };
             discord: {
                 enabled: boolean;
                 clientId: boolean;

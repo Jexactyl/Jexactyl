@@ -35,6 +35,9 @@ class EverestComposer
                         'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
                         'content' => config('modules.auth.onboarding.content', ''),
                     ],
+                    'jguard' => [
+                        'enabled' => boolval(config('modules.auth.jguard.enabled', false)),
+                    ],
                 ],
             ],
             'tickets' => [

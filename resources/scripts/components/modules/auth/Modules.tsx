@@ -1,6 +1,6 @@
 import { useStoreState } from '@/state/hooks';
 import Box from '@/components/modules/auth/Box';
-import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { faDoorOpen, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 
@@ -29,6 +29,13 @@ export default () => {
                 description={
                     'This module allows users to create usernames and passwords after signing up with an OAuth provider.'
                 }
+            />
+            <Box
+                name={'jguard'}
+                icon={faShieldHalved}
+                title={'jGuard'}
+                disabled={modules.jguard.enabled}
+                description={'More control over user registration, including manual signup approvals and delays.'}
             />
             <Box
                 name={'discord'}

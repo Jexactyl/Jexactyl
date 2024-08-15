@@ -2,8 +2,6 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
-use Exception;
-use Ramsey\Uuid\Uuid;
 use Everest\Models\Node;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
@@ -39,7 +37,7 @@ class OrderController extends ClientApiController
 
         if (!$data['version']) {
             throw new DaemonConnectionException();
-        };
+        }
 
         return $this->generateStripeUrl($request, $product);
     }
@@ -85,8 +83,8 @@ class OrderController extends ClientApiController
         $id = $request->get('session_id');
 
         if (!$id) {
-            throw new Exception('Unable to fetch payment session from Stripe.');
-        };
+            throw new \Exception('Unable to fetch payment session from Stripe.');
+        }
 
         $session = Cashier::stripe()->checkout->sessions->retrieve($id);
 
@@ -97,8 +95,8 @@ class OrderController extends ClientApiController
                 BillingPlan::STATUS_CANCELLED,
             );
 
-            throw new Exception('This plan has not been paid, so the order has been cancelled.');
-        };
+            throw new \Exception('This plan has not been paid, so the order has been cancelled.');
+        }
 
         $product = Product::findOrFail($session['metadata']['product_id']);
 

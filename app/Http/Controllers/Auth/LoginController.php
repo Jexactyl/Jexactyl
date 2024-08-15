@@ -102,31 +102,15 @@ class LoginController extends AbstractLoginController
         $password = $request->input('password');
         $passwordConfirm = $request->input('confirm_password');
 
-        if (!boolval($this->settings->get('settings::modules:auth:registration:enabled'))) {
-            throw new DisplayException('User registration is not enabled.');
-        }
-
         if (User::where('email', $email)->exists()) {
             throw new DisplayException('This email is already in use.');
-        }
-
-        if (User::where('username', $username)->exists()) {
-            throw new DisplayException('This username is already in use.');
         }
 
         if ($password !== $passwordConfirm) {
             throw new DisplayException('The passwords entered do not match.');
         }
 
-        try {
-            $this->creationService->handle([
-                'email' => $email,
-                'username' => $username,
-                'password' => $password,
-            ]);
-        } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to register user. Please contact an administrator.');
-        }
+        $this->createAccount(['email' => $email, 'username' => $username, 'password' => $password]);
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

@@ -2,12 +2,9 @@
 
 namespace Everest\Console;
 
-use Ramsey\Uuid\Uuid;
 use Everest\Models\ActivityLog;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Console\PruneCommand;
-use Everest\Repositories\Eloquent\SettingsRepository;
-use Everest\Services\Telemetry\TelemetryCollectionService;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Everest\Console\Commands\Schedule\ProcessRunnableCommand;
 use Everest\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;

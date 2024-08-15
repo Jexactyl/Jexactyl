@@ -10,8 +10,11 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('billing_plans', function (Blueprint $table) {
-            $table->string('server_id')->nullable();
+        Schema::create('jguard_delay', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('user_id');
+            $table->date('expires_at');
+            $table->timestamps();
         });
     }
 
@@ -20,8 +23,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::table('billing_plans', function (Blueprint $table) {
-            $table->dropColumn('server_id');
-        });
+        Schema::dropIfExists('jguard_delay');
     }
 };
