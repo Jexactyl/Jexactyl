@@ -11,11 +11,16 @@ import PlansContainer from '@/components/billing/plans/PlansContainer';
 import ProductsContainer from '@/components/billing/ProductsContainer';
 import OverviewContainer from '@/components/billing/OverviewContainer';
 import OrderContainer from '@/components/billing/order/OrderContainer';
-import ViewPlanContainer from '@/components/billing/plans/ViewPlanContainer';
 import Processing from '@/components/billing/order/summary/Processing';
+import ViewPlanContainer from '@/components/billing/plans/ViewPlanContainer';
 
 export default () => {
     const { data: theme } = useStoreState(state => state.theme);
+    const enabled = useStoreState(state => state.everest.data!.billing.enabled);
+
+    if (!enabled) {
+        return <NotFound />;
+    }
 
     return (
         <>

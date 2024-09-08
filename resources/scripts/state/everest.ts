@@ -33,6 +33,9 @@ export interface EverestSettings {
     tickets: {
         enabled: boolean;
     };
+    billing: {
+        enabled: boolean;
+    };
 }
 
 export interface EverestStore {

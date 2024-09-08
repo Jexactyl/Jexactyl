@@ -15,7 +15,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { format, type } from '@/components/billing/plans/PlansContainer';
 import { BillingPlan, getBillingPlan } from '@/api/billing/getBillingPlans';
 import CancelPlanButton from '@/components/billing/plans/forms/CancelPlanButton';
-import { faHdd, faIdBadge, faMemory, faMicrochip, faServer } from '@fortawesome/free-solid-svg-icons';
+import { faHdd, faIdBadge, faMemory, faMicrochip, faNewspaper, faServer } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const params = useParams<'id'>();
@@ -68,20 +68,31 @@ export default () => {
             <div className={'grid lg:grid-cols-2 gap-4'}>
                 <div>
                     <TitledGreyBox title={'General Information'} icon={faIdBadge}>
-                        <div className={'text-white m-4'}>
-                            <div>
-                                <p className={'font-semibold mb-1'}>Name</p>
-                                <p className={'text-sm text-gray-400'}>{plan.name}</p>
-                            </div>
-                            <div className={'my-3'}>
-                                <p className={'font-semibold mb-1'}>Description</p>
-                                <p className={'text-sm text-gray-400'}>{plan.description}</p>
-                            </div>
-                            <div>
-                                <p className={'font-semibold mb-1'}>Billing</p>
-                                <p className={'text-sm text-gray-400'}>
-                                    ${plan.price} ({format(plan.billDate)} of each month)
-                                </p>
+                        <div className={'p-1 lg:p-3'}>
+                            <p
+                                style={{ color: colors.primary }}
+                                className={'text-2xl lg:text-5xl font-semibold brightness-150 mt-2'}
+                            >
+                                <span className={'text-lg lg:text-2xl text-gray-400'}>$</span>
+                                {plan.price}
+                                <span className={'text-lg lg:text-xl text-gray-400'}>/month</span>
+                            </p>
+                            <div className={'h-px bg-gray-900 rounded-full my-4'} />
+                            <div className={'grid lg:grid-cols-3 gap-4'}>
+                                <div>
+                                    <p className={'font-semibold mb-1'}>Description</p>
+                                    <p className={'text-sm text-gray-400 line-clamp-1'}>{plan.description}</p>
+                                </div>
+                                <div>
+                                    <p className={'font-semibold mb-1'}>Billing Information</p>
+                                    <p className={'text-sm text-gray-400'}>
+                                        ${plan.price} ({format(plan.billDate)} of month)
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className={'font-semibold mb-1'}>Support ID</p>
+                                    <p className={'text-sm text-gray-400 line-clamp-1'}>{plan.uuid}</p>
+                                </div>
                             </div>
                         </div>
                     </TitledGreyBox>
@@ -108,7 +119,7 @@ export default () => {
                                 {plan.limits.allocation}
                             </StatBlock>
                             <StatBlock title={'Subusers'} dark>
-                                0
+                                N/A
                             </StatBlock>
                         </div>
                     </TitledGreyBox>
@@ -132,6 +143,12 @@ export default () => {
                                 <span className={'ml-2'}>attempting to retrieve associated server...</span>
                             </div>
                         )}
+                    </TitledGreyBox>
+                    <TitledGreyBox title={'Bill Details'} icon={faNewspaper} className={'mt-6'}>
+                        <p className={'text-gray-400 p-2 text-sm'}>
+                            You can go to <span className={'text-blue-400'}>Stripe</span> to view additional details
+                            about your billing plan.
+                        </p>
                     </TitledGreyBox>
                     <ContentBox className={'mt-6 text-right'}>
                         <CancelPlanButton identifier={plan.uuid} />

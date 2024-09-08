@@ -28,10 +28,12 @@ const RightNavigation = styled.div<{ theme: SiteTheme }>`
 `;
 
 export default () => {
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+
     const theme = useStoreState(state => state.theme.data!);
     const name = useStoreState((state: ApplicationStore) => state.settings.data!.name);
     const rootAdmin = useStoreState((state: ApplicationStore) => state.user.data!.rootAdmin);
-    const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const billing = useStoreState((state: ApplicationStore) => state.everest.data!.billing.enabled);
 
     const onTriggerLogout = () => {
         setIsLoggingOut(true);
@@ -63,10 +65,12 @@ export default () => {
                         Servers
                     </NavLink>
 
-                    <NavLink to={'/billing'}>
-                        <FontAwesomeIcon icon={faCoins} />
-                        Billing
-                    </NavLink>
+                    {billing && (
+                        <NavLink to={'/billing'}>
+                            <FontAwesomeIcon icon={faCoins} />
+                            Billing
+                        </NavLink>
+                    )}
 
                     <NavLink to="/account">
                         <span className="flex h-5 w-5 items-center">
