@@ -28,8 +28,8 @@ class AutoUpdateCommand extends Command
      */
     public function handle()
     {
-        if (version_compare(PHP_VERSION, '8.0.0') < 0) {
-            $this->error('Cannot execute automatic update process. The minimum required PHP version required is 7.4.0, you have [' . PHP_VERSION . '].');
+        if (version_compare(PHP_VERSION, '8.1.0') < 0) {
+            $this->error('Cannot execute automatic update process. The minimum required PHP version required is 8.1.0, you have [' . PHP_VERSION . '].');
         }
 
         $user = 'www-data';

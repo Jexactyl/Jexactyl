@@ -2,6 +2,7 @@ import { useStoreState } from 'easy-peasy';
 import { Fragment } from 'react';
 
 import MessageBox from '@/components/MessageBox';
+import classNames from 'classnames';
 
 type Props = Readonly<{
     byKey?: string;
@@ -12,7 +13,7 @@ function FlashMessageRender({ byKey, className }: Props) {
     const flashes = useStoreState(state => state.flashes.items.filter(flash => (byKey ? flash.key === byKey : true)));
 
     return flashes.length ? (
-        <div className={className}>
+        <div className={classNames(className, 'fixed bottom-0 right-0 z-50 m-4')}>
             {flashes.map((flash, index) => (
                 <Fragment key={flash.id || flash.type + flash.message}>
                     {index > 0 && <div className="mt-2" />}

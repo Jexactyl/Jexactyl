@@ -2,19 +2,20 @@ import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
 
 import AdminBox from '@elements/AdminBox';
-import Field, { FieldRow } from '@elements/Field';
+import Field from '@elements/Field';
 import { Button } from '@elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
 import { useStoreState } from '@/state/hooks';
-import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faRecycle } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import Label from '@/components/elements/Label';
 
 export default () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
 
-    const appName = useStoreState(state => state.settings.data!.name);
+    const settings = useStoreState(state => state.settings.data!);
 
     const submit = (values: GeneralSettings) => {
         clearFlashes();
@@ -43,16 +44,35 @@ export default () => {
         <Formik
             onSubmit={submit}
             initialValues={{
-                appName: appName,
+                name: settings.name,
+                auto_update: settings.autoUpdate,
             }}
         >
             <Form>
                 <FlashMessageRender byKey={'settings:general'} className={'mb-2'} />
-                <div css={tw`grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6`}>
-                    <AdminBox title="Branding" icon={faPaintBrush}>
-                        <FieldRow>
-                            <Field id={'appName'} name={'appName'} type={'text'} label={'App Name'} description={''} />
-                        </FieldRow>
+                <div css={tw`grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-6`}>
+                    <AdminBox title={'Application Name'} icon={faPaintBrush}>
+                        <Field id={'name'} name={'name'} type={'text'} description={''} />
+                        <p className={'text-gray-400 text-xs mt-1.5'}>
+                            Configure the name of this Panel to suit your needs.
+                        </p>
+                    </AdminBox>
+                    <AdminBox title={'Automatic Updates'} icon={faRecycle}>
+                        <div>
+                            <div className={'inline-flex'}>
+                                <Label className={'mt-1 mr-2'}>Allow Automatic Updates?</Label>
+                                <Field
+                                    id={'auto_update'}
+                                    name={'auto_update'}
+                                    type={'checkbox'}
+                                    defaultChecked={settings.autoUpdate}
+                                />
+                            </div>
+                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                                If enabled, Jexactyl will automatically update in order to keep your system secure and
+                                introduce new features.
+                            </p>
+                        </div>
                     </AdminBox>
                 </div>
                 <div css={tw`w-full flex flex-row items-center mt-6`}>

@@ -6,15 +6,10 @@ import getVersion from '@/api/admin/getVersion';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { faDesktop, faRecycle } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 import AdminBox from '@elements/AdminBox';
 import Spinner from '@elements/Spinner';
 import CopyOnClick from '@elements/CopyOnClick';
-import Label from '@elements/Label';
-import Select from '@elements/Select';
-import { useStoreState } from '@/state/hooks';
-import useStatus from '@/plugins/useStatus';
-import updateOverviewSettings from '@/api/admin/updateOverviewSettings';
 
 const Code = ({ children }: { children: ReactNode }) => {
     return (
@@ -25,25 +20,9 @@ const Code = ({ children }: { children: ReactNode }) => {
 };
 
 export default () => {
-    const { status, setStatus } = useStatus();
     const [loading, setLoading] = useState<boolean>(true);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const settings = useStoreState(state => state.settings.data!);
     const [versionData, setVersionData] = useState<VersionData | undefined>(undefined);
-
-    const update = async (key: string, value: any) => {
-        clearFlashes();
-        setStatus('loading');
-
-        updateOverviewSettings(key, value)
-            .then(() => {
-                setStatus('success');
-            })
-            .catch(error => {
-                setStatus('error');
-                clearAndAddHttpError({ key: 'overview', error });
-            });
-    };
 
     useEffect(() => {
         clearFlashes('overview');
@@ -88,23 +67,6 @@ export default () => {
                         </div>
                     </>
                 )}
-            </AdminBox>
-            <AdminBox title={'Automatic Updates'} icon={faRecycle} className={'mt-8'} status={status}>
-                <div>
-                    <Label>Allow Automatic Updates</Label>
-                    <Select id={'auto_update'} name={'auto_update'} onChange={e => update('auto_update', e.target.value)}>
-                        <option value={1} selected={settings.autoUpdate}>
-                            Enabled
-                        </option>
-                        <option value={0} selected={!settings.autoUpdate}>
-                            Disabled
-                        </option>
-                    </Select>
-                    <p className={'text-xs text-gray-400 mt-1'}>
-                        When enabled, Jexactyl will automatically update in order to keep your system
-                        secure and introduce new features.
-                    </p>
-                </div>
             </AdminBox>
         </AdminContentBlock>
     );

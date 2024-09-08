@@ -1,7 +1,8 @@
 import http from '@/api/http';
 
 export interface GeneralSettings {
-    appName: string;
+    name: string;
+    auto_update: boolean;
 }
 
 export const updateGeneralSettings = async (settings: Partial<GeneralSettings>): Promise<void> => {
