@@ -53,6 +53,7 @@ import TicketRouter from '@admin/modules/tickets/TicketRouter';
 import { PencilIcon } from '@heroicons/react/solid';
 import ThemeContainer from '@admin/modules/theme/ThemeContainer';
 import BillingRouter from '@admin/modules/billing/BillingRouter';
+import AdminIndicators from '@/components/admin/AdminIndicators';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
@@ -63,6 +64,7 @@ function AdminRouter() {
 
     return (
         <div css={tw`h-screen flex`}>
+            <AdminIndicators />
             <Sidebar css={tw`flex-none`} $collapsed={collapsed} theme={theme}>
                 <div
                     css={tw`h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer`}
