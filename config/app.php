@@ -24,6 +24,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Admin Indicators
+    |--------------------------------------------------------------------------
+    | Allow the panel to display small indicators in the top-right of the UI
+    | when certain Jexactyl features are toggled to 'on'.
+    */
+    'indicators' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
     |

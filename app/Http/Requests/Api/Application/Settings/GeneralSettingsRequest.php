@@ -11,6 +11,7 @@ class GeneralSettingsRequest extends ApplicationApiRequest
         return [
             'name' => 'nullable|string|min:3|max:40',
             'auto_update' => 'nullable|bool',
+            'indicators' => 'nullable|bool',
         ];
     }
 }

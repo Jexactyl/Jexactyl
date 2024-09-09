@@ -3,6 +3,7 @@ import http from '@/api/http';
 export interface GeneralSettings {
     name: string;
     auto_update: boolean;
+    indicators: boolean;
 }
 
 export const updateGeneralSettings = async (settings: Partial<GeneralSettings>): Promise<void> => {

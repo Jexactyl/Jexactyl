@@ -58,20 +58,20 @@ import AdminIndicators from '@/components/admin/AdminIndicators';
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
-    const applicationName = useStoreState((state: ApplicationStore) => state.settings.data!.name);
+    const settings = useStoreState((state: ApplicationStore) => state.settings.data!);
 
     const [collapsed, setCollapsed] = useState<boolean>(false);
 
     return (
         <div css={tw`h-screen flex`}>
-            <AdminIndicators />
+            {settings.indicators && <AdminIndicators />}
             <Sidebar css={tw`flex-none`} $collapsed={collapsed} theme={theme}>
                 <div
                     css={tw`h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer`}
                     onClick={() => setCollapsed(!collapsed)}
                 >
                     {!collapsed ? (
-                        <h1 css={tw`text-2xl text-neutral-50 whitespace-nowrap font-medium`}>{applicationName}</h1>
+                        <h1 css={tw`text-2xl text-neutral-50 whitespace-nowrap font-medium`}>{settings.name}</h1>
                     ) : (
                         <img src={CollapsedIcon} css={tw`mt-4 w-20`} alt={'Everest Icon'} />
                     )}

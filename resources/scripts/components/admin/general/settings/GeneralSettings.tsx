@@ -6,7 +6,7 @@ import Field from '@elements/Field';
 import { Button } from '@elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import { faPaintBrush, faRecycle } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faRecycle, faShapes } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -48,6 +48,7 @@ export default () => {
             onSubmit={submit}
             initialValues={{
                 name: settings.name,
+                indicators: settings.indicators,
                 auto_update: settings.auto_update,
             }}
         >
@@ -74,6 +75,23 @@ export default () => {
                             <p className={'text-gray-400 text-xs mt-1.5'}>
                                 If enabled, Jexactyl will automatically update in order to keep your system secure and
                                 introduce new features.
+                            </p>
+                        </div>
+                    </AdminBox>
+                    <AdminBox title={'Admin Indicators'} icon={faShapes}>
+                        <div>
+                            <div className={'inline-flex'}>
+                                <Label className={'mt-1 mr-2'}>Show admin indicators?</Label>
+                                <Field
+                                    id={'indicators'}
+                                    name={'indicators'}
+                                    type={'checkbox'}
+                                    defaultChecked={settings.indicators}
+                                />
+                            </div>
+                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                                If enabled, small boxes will appear in the top-right of the UI indicating whether
+                                Jexactyl modules are enabled/disabled. Only on large screens.
                             </p>
                         </div>
                     </AdminBox>

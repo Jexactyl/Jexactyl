@@ -4,6 +4,7 @@ export interface SiteSettings {
     name: string;
     locale: string;
     auto_update: boolean;
+    indicators: boolean;
     recaptcha: {
         enabled: boolean;
         siteKey: string;

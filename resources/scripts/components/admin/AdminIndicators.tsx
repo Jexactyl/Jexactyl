@@ -25,7 +25,7 @@ export default () => {
     const everest = useStoreState(state => state.everest.data!);
 
     return (
-        <div className={'fixed top-3 right-3'}>
+        <div className={'hidden md:block fixed top-3 right-3'}>
             <div className={'grid grid-cols-1 gap-y-2'}>
                 {settings.auto_update && <Indicator text={'Automatic updates are enabled.'} icon={faRecycle} />}
                 {everest.auth.registration.enabled && <Indicator text={'User registration is enabled.'} icon={faKey} />}
