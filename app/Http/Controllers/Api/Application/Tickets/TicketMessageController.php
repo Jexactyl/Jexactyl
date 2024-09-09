@@ -54,7 +54,7 @@ class TicketMessageController extends ApplicationApiController
             'message' => $request->input('message'),
         ]);
 
-        return $this->fractal->item($ticket)
+        return $this->fractal->item($message)
             ->transformWith(TicketMessageTransformer::class)
             ->respond(Response::HTTP_CREATED);
     }

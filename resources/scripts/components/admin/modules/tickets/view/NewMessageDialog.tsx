@@ -2,7 +2,6 @@ import { Form, Formik } from 'formik';
 import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import type { ApplicationStore } from '@/state';
 import { Dialog } from '@elements/dialog';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
@@ -19,7 +18,6 @@ const initialValues: Values = {
 };
 
 export default () => {
-    const navigate = useNavigate();
     const { data: ticket } = useTicketFromRoute();
     const [open, setOpen] = useState<boolean>(false);
 
@@ -34,7 +32,10 @@ export default () => {
         clearFlashes('ticket:message:create');
 
         createMessage(ticket.id, values)
-            .then(() => navigate(`/admin/tickets/${ticket.id}`))
+            .then(() => {
+                // @ts-expect-error quit your whining
+                window.location = `/admin/tickets/${ticket.id}`;
+            })
             .catch(error => {
                 console.error(error);
                 clearAndAddHttpError({ key: 'ticket:message:create', error });
