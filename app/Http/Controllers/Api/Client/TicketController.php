@@ -35,7 +35,7 @@ class TicketController extends ClientApiController
      */
     public function store(Request $request): array
     {
-        if (!intval($this->settings->get('settings::tickets:enabled', 0))) {
+        if (!boolval($this->settings->get('settings::modules:tickets:enabled'))) {
             throw new DisplayException('You cannot create a ticket as the module is disabled.');
         }
 

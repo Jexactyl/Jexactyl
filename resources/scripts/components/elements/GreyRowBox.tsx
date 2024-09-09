@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 interface Props {
     $hoverable?: boolean;
     children: ReactNode;
+    className?: string;
 }
 
 const GreyRowBox = styled.div<{ $hoverable?: boolean; theme: SiteTheme }>`
@@ -25,7 +26,7 @@ export default (props: Props) => {
     const theme = useStoreState(state => state.theme.data!);
 
     return (
-        <GreyRowBox $hoverable={props.$hoverable} theme={theme}>
+        <GreyRowBox $hoverable={props.$hoverable} theme={theme} className={props.className}>
             {props.children}
         </GreyRowBox>
     );

@@ -7,8 +7,8 @@ import PageContentBlock from '@elements/PageContentBlock';
 import AddTicketMessageForm from '@/components/dashboard/tickets/view/AddTicketMessageForm';
 import Spinner from '@elements/Spinner';
 import classNames from 'classnames';
-import GreyRowBox from '@elements/GreyRowBox';
 import { formatDistanceToNow } from 'date-fns';
+import { useStoreState } from '@/state/hooks';
 
 export const statusToColor = (status: string): string => {
     switch (status) {
@@ -24,6 +24,7 @@ export const statusToColor = (status: string): string => {
 };
 
 export default () => {
+    const { colors } = useStoreState(state => state.theme.data!);
     const { data: ticket, error, isLoading } = useTicketFromRoute();
     const { clearAndAddHttpError } = useFlashKey('account:tickets');
 
@@ -56,14 +57,21 @@ export default () => {
                             ) : (
                                 <>
                                     {ticket.relationships.messages
-                                        .map(message => (
+                                        .map((message, index) => (
                                             <>
-                                                <GreyRowBox key={message.id} className={'mt-4'}>
+                                                <div
+                                                    key={message.id}
+                                                    style={{ backgroundColor: colors.headers }}
+                                                    className={classNames(
+                                                        index > 0 ? 'mt-4' : 'mt-0',
+                                                        'flex p-4 rounded-lg',
+                                                    )}
+                                                >
                                                     <p className={'mr-2 font-semibold text-primary-400'}>
                                                         {message.author ? message.author.email : 'You'}:
                                                     </p>
                                                     {message.message.toString()}
-                                                </GreyRowBox>
+                                                </div>
                                                 <p className={'text-2xs text-gray-300 mt-1 text-right'}>
                                                     Sent&nbsp;
                                                     {formatDistanceToNow(message.createdAt, {

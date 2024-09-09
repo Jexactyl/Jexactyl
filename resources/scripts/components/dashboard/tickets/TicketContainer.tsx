@@ -6,10 +6,10 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@elements/PageContentBlock';
 import CreateTicketForm from '@/components/dashboard/tickets/CreateTicketForm';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
-import GreyRowBox from '@elements/GreyRowBox';
 import { format, formatDistanceToNow } from 'date-fns';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import { useStoreState } from '@/state/hooks';
 
 export const statusToColor = (status: string): string => {
     switch (status) {
@@ -26,6 +26,7 @@ export const statusToColor = (status: string): string => {
 
 export default () => {
     const { clearAndAddHttpError } = useFlashKey('account');
+    const { colors } = useStoreState(state => state.theme.data!);
     const {
         data: tickets,
         isValidating,
@@ -53,7 +54,10 @@ export default () => {
                         ) : (
                             tickets.map((ticket, index) => (
                                 <Link to={`/account/tickets/${ticket.id}`} key={ticket.id}>
-                                    <GreyRowBox className={index > 0 ? 'mt-4' : 'mt-0'}>
+                                    <div
+                                        style={{ backgroundColor: colors.headers }}
+                                        className={classNames(index > 0 ? 'mt-4' : 'mt-0', 'flex p-4 rounded-lg')}
+                                    >
                                         <div className={'flex items-center truncate w-full md:flex-1'}>
                                             <p className={'mr-4 text-xl font-bold'}>#{ticket.id}</p>
                                             <div className={'flex flex-col truncate'}>
@@ -86,7 +90,7 @@ export default () => {
                                                 </p>
                                             </div>
                                         )}
-                                    </GreyRowBox>
+                                    </div>
                                 </Link>
                             ))
                         )}
