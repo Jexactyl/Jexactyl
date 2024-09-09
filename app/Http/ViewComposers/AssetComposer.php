@@ -14,7 +14,7 @@ class AssetComposer
         $view->with('siteConfiguration', [
             'name' => config('app.name') ?? 'Everest',
             'locale' => config('app.locale') ?? 'en',
-            'autoUpdate' => boolval(config('app.auto_update', false)),
+            'auto_update' => boolval(config('app.auto_update', false)),
             'recaptcha' => [
                 'enabled' => config('recaptcha.enabled', false),
                 'siteKey' => config('recaptcha.website_key') ?? '',

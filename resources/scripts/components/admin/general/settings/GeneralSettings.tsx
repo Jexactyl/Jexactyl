@@ -5,7 +5,7 @@ import AdminBox from '@elements/AdminBox';
 import Field from '@elements/Field';
 import { Button } from '@elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
-import { useStoreState } from '@/state/hooks';
+import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faPaintBrush, faRecycle } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
@@ -16,12 +16,15 @@ export default () => {
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
 
     const settings = useStoreState(state => state.settings.data!);
+    const updateSettings = useStoreActions(actions => actions.settings.updateSettings);
 
     const submit = (values: GeneralSettings) => {
         clearFlashes();
 
         updateGeneralSettings(values)
             .then(() => {
+                updateSettings(values);
+
                 addFlash({
                     type: 'success',
                     key: 'settings:general',
@@ -45,12 +48,12 @@ export default () => {
             onSubmit={submit}
             initialValues={{
                 name: settings.name,
-                auto_update: settings.autoUpdate,
+                auto_update: settings.auto_update,
             }}
         >
             <Form>
                 <FlashMessageRender byKey={'settings:general'} className={'mb-2'} />
-                <div css={tw`grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-6`}>
+                <div css={tw`grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6`}>
                     <AdminBox title={'Application Name'} icon={faPaintBrush}>
                         <Field id={'name'} name={'name'} type={'text'} description={''} />
                         <p className={'text-gray-400 text-xs mt-1.5'}>
@@ -65,7 +68,7 @@ export default () => {
                                     id={'auto_update'}
                                     name={'auto_update'}
                                     type={'checkbox'}
-                                    defaultChecked={settings.autoUpdate}
+                                    defaultChecked={settings.auto_update}
                                 />
                             </div>
                             <p className={'text-gray-400 text-xs mt-1.5'}>
