@@ -16,7 +16,6 @@ import {
     ViewGridIcon,
 } from '@heroicons/react/outline';
 import { useStoreState } from 'easy-peasy';
-import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 import Avatar from '@/components/Avatar';
@@ -56,14 +55,15 @@ import ThemeContainer from '@admin/modules/theme/ThemeContainer';
 import BillingRouter from '@admin/modules/billing/BillingRouter';
 import AdminIndicators from '@/components/admin/AdminIndicators';
 import AlertRouter from '@/components/admin/modules/alert/AlertRouter';
+import { usePersistedState } from '@/plugins/usePersistedState';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
     const mode = useStoreState(state => state.settings.data!.mode);
-    const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
+    const user = useStoreState((state: ApplicationStore) => state.user.data!);
     const settings = useStoreState((state: ApplicationStore) => state.settings.data!);
 
-    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_${user.uuid}`, false);
 
     return (
         <div css={tw`h-screen flex`}>
@@ -168,7 +168,7 @@ function AdminRouter() {
                         <span
                             css={tw`font-sans font-normal text-sm text-neutral-50 whitespace-nowrap leading-tight select-none`}
                         >
-                            {email}
+                            {user.email}
                         </span>
                     </div>
                 </Sidebar.User>
