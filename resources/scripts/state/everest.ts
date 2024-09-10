@@ -1,5 +1,8 @@
 import { action, Action } from 'easy-peasy';
 
+export type AlertType = 'success' | 'warning' | 'danger' | 'info';
+export type AlertPosition = 'top-center' | 'bottom-right' | 'bottom-left';
+
 export interface EverestSettings {
     auth: {
         registration: {
@@ -36,11 +39,18 @@ export interface EverestSettings {
     billing: {
         enabled: boolean;
     };
+    alert: {
+        enabled: boolean;
+        type: AlertType;
+        position: AlertPosition;
+        content: string;
+    };
 }
 
 export interface EverestStore {
     data?: EverestSettings;
     setEverest: Action<EverestStore, EverestSettings>;
+    updateEverest: Action<EverestStore, Partial<EverestSettings>>;
 }
 
 const everest: EverestStore = {
@@ -48,6 +58,11 @@ const everest: EverestStore = {
 
     setEverest: action((state, payload) => {
         state.data = payload;
+    }),
+
+    updateEverest: action((state, payload) => {
+        // @ts-expect-error limitation of Typescript, can't do much about that currently unfortunately.
+        state.data = { ...state.data, ...payload };
     }),
 };
 

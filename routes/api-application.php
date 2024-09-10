@@ -110,6 +110,18 @@ Route::group(['prefix' => '/tickets'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Alerts Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/alerts
+|
+*/
+Route::group(['prefix' => '/alerts'], function () {
+    Route::patch('/', [Application\Alerts\AlertController::class, 'update']);
+});
+
+/*
+|--------------------------------------------------------------------------
 | Theme controller routes
 |--------------------------------------------------------------------------
 |

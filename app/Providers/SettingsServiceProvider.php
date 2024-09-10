@@ -59,6 +59,12 @@ class SettingsServiceProvider extends ServiceProvider
         // Ticket module settings
         'modules:tickets:enabled',
         'modules:tickets:max_count',
+
+        // Alert module settings
+        'modules:alert:enabled',
+        'modules:alert:type',
+        'modules:alert:position',
+        'modules:alert:content',
     ];
 
     /**

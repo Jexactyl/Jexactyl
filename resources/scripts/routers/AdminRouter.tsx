@@ -9,6 +9,7 @@ import {
     OfficeBuildingIcon,
     ReplyIcon,
     ServerIcon,
+    ShieldExclamationIcon,
     TerminalIcon,
     TicketIcon,
     UsersIcon,
@@ -54,6 +55,7 @@ import { PencilIcon } from '@heroicons/react/solid';
 import ThemeContainer from '@admin/modules/theme/ThemeContainer';
 import BillingRouter from '@admin/modules/billing/BillingRouter';
 import AdminIndicators from '@/components/admin/AdminIndicators';
+import AlertRouter from '@/components/admin/modules/alert/AlertRouter';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
@@ -110,6 +112,11 @@ function AdminRouter() {
                             </NavLink>
                         </>
                     )}
+
+                    <NavLink to="/admin/alerts">
+                        <ShieldExclamationIcon />
+                        <span>Alerts</span>
+                    </NavLink>
                     <NavLink to="/admin/theme">
                         <PencilIcon />
                         <span>Theme</span>
@@ -178,6 +185,7 @@ function AdminRouter() {
                         <Route path="billing/*" element={<BillingRouter />} />
                         <Route path="tickets/*" element={<TicketRouter />} />
                         <Route path="theme" element={<ThemeContainer />} />
+                        <Route path="alerts/*" element={<AlertRouter />} />
                         <Route path="databases" element={<DatabasesContainer />} />
                         <Route path="databases/new" element={<NewDatabaseContainer />} />
                         <Route path="databases/:id" element={<DatabaseEditContainer />} />

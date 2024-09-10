@@ -47,6 +47,12 @@ class EverestComposer
             'billing' => [
                 'enabled' => boolval(config('modules.billing.enabled', false)),
             ],
+            'alert' => [
+                'enabled' => boolval(config('modules.alert.enabled', false)),
+                'type' => config('modules.alert.type'),
+                'position' => config('modules.alert.position'),
+                'content' => config('modules.alert.content'),
+            ]
         ]);
     }
 }

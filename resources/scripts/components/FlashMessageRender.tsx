@@ -13,7 +13,7 @@ function FlashMessageRender({ byKey, className }: Props) {
     const flashes = useStoreState(state => state.flashes.items.filter(flash => (byKey ? flash.key === byKey : true)));
 
     return flashes.length ? (
-        <div className={classNames(className, 'fixed bottom-0 right-0 z-50 m-4')}>
+        <div className={classNames(className, 'fixed bottom-2 right-2 z-50 m-4')}>
             {flashes.map((flash, index) => (
                 <Fragment key={flash.id || flash.type + flash.message}>
                     {index > 0 && <div className="mt-2" />}

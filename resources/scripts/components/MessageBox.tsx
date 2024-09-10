@@ -43,7 +43,7 @@ const getBackground = (type?: FlashMessageType): TwStyle | string => {
 };
 
 const Container = styled.div<{ $type?: FlashMessageType }>`
-    ${tw`p-3 items-center leading-normal rounded-full flex w-full text-sm text-white`};
+    ${tw`p-3 items-center leading-normal rounded-full flex w-full text-sm text-white mx-4`};
     ${props => styling(props.$type)};
 `;
 Container.displayName = 'MessageBox.Container';
@@ -67,7 +67,11 @@ const MessageBox = ({ title, children, type }: Props) => {
                         </span>
                     )}
                     <span css={tw`mr-2 text-left flex-auto`}>{children}</span>
-                    <span className={'text-right text-gray-400 cursor-pointer hover:text-gray-300 duration-300'}>
+                    <span
+                        className={
+                            'text-right text-gray-400 font-medium cursor-pointer hover:text-gray-300 duration-300'
+                        }
+                    >
                         <FontAwesomeIcon icon={faXmark} onClick={() => setOpen(false)} />
                     </span>
                 </Container>
