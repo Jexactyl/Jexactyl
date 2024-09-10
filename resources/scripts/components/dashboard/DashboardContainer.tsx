@@ -19,6 +19,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '../elements/tooltip/Tooltip';
 import FlashMessageRender from '../FlashMessageRender';
 import NotFoundSvg from '@/assets/images/not_found.svg';
+import DashboardAlert from '@/components/dashboard/DashboardAlert';
 
 export default () => {
     const { search } = useLocation();
@@ -58,6 +59,7 @@ export default () => {
 
     return (
         <PageContentBlock title={'Dashboard'}>
+            <DashboardAlert />
             <p className={'text-xl lg:text-5xl my-4 lg:my-10 font-semibold'}>Welcome, {name}</p>
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
             <div className={'grid lg:grid-cols-3 gap-4'}>

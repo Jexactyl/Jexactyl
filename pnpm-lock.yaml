@@ -104,6 +104,9 @@ importers:
       '@lezer/highlight':
         specifier: 1.1.3
         version: 1.1.3
+      '@types/use-persisted-state':
+        specifier: ^0.3.4
+        version: 0.3.4
       axios:
         specifier: 0.27.2
         version: 0.27.2
@@ -1101,6 +1104,9 @@ packages:
 
   '@types/styled-components@5.1.26':
     resolution: {integrity: sha512-KuKJ9Z6xb93uJiIyxo/+ksS7yLjS1KzG6iv5i78dhVg/X3u5t1H7juRWqVmodIdz6wGVaIApo1u01kmFRdJHVw==}
+
+  '@types/use-persisted-state@0.3.4':
+    resolution: {integrity: sha512-FCRQ3umMh3uPPxOgNgcjgpgebcfit5wpTbMOal6gVl28IPpCCp3HEssjo7jS+KFwcLY/lTO+uEis6KVUb3KG1A==}
 
   '@types/yup@0.29.14':
     resolution: {integrity: sha512-Ynb/CjHhE/Xp/4bhHmQC4U1Ox+I2OpfRYF3dnNgQqn1cHa6LK3H1wJMNPT02tSVZA6FYuXE2ITORfbnb6zBCSA==}
@@ -4215,6 +4221,10 @@ snapshots:
       '@types/hoist-non-react-statics': 3.3.1
       '@types/react': 18.0.28
       csstype: 3.1.1
+
+  '@types/use-persisted-state@0.3.4':
+    dependencies:
+      '@types/react': 18.0.28
 
   '@types/yup@0.29.14': {}
 
