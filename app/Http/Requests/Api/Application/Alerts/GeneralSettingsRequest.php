@@ -11,7 +11,7 @@ class GeneralSettingsRequest extends ApplicationApiRequest
         return [
             'enabled' => 'nullable|bool',
             'type' => 'nullable|string|in:success,info,warning,danger',
-            'position' => 'nullable|string|in:top-center,bottom-right,bottom-left',
+            'position' => 'nullable|string|in:top-center,bottom-right,bottom-left,center',
             'content' => 'nullable|string|min:3|max:300',
         ];
     }

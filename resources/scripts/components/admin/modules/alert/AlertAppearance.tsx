@@ -4,13 +4,15 @@ import { useStoreActions, useStoreState } from '@/state/hooks';
 import { faCircle, faDesktop, faList } from '@fortawesome/free-solid-svg-icons';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import { updateAlertSettings } from '@/api/admin/alerts';
 import { AlertPosition } from '@/state/everest';
 import useFlash from '@/plugins/useFlash';
 import MessageBox, { FlashMessageType } from '@/components/MessageBox';
 import useStatus from '@/plugins/useStatus';
+import { Dialog } from '@/components/elements/dialog';
+import { capitalize } from '@/lib/strings';
 
 const DemoBox = ({ children, selected }: { children: ReactNode; selected: boolean }) => {
     const { primary } = useStoreState(state => state.theme.data!.colors);
@@ -36,6 +38,7 @@ const DemoBox = ({ children, selected }: { children: ReactNode; selected: boolea
 export default () => {
     const { status, setStatus } = useStatus();
     const { clearAndAddHttpError } = useFlash();
+    const [open, setOpen] = useState<boolean>(false);
 
     const { alert } = useStoreState(state => state.everest.data!);
     const { primary } = useStoreState(state => state.theme.data!.colors);
@@ -58,6 +61,14 @@ export default () => {
 
     return (
         <>
+            <Dialog.Confirm
+                open={open}
+                onClose={() => setOpen(false)}
+                title={capitalize(alert.type)}
+                onConfirmed={() => setOpen(false)}
+            >
+                {alert.content}
+            </Dialog.Confirm>
             <FlashMessageRender byKey={'alerts:view'} className={'mb-2'} />
             <AdminBox title={'Preview'} icon={faDesktop}>
                 {alert.enabled && alert.position === 'top-center' ? (
@@ -80,15 +91,19 @@ export default () => {
                             <MessageBox type={alert.type as FlashMessageType}>{alert.content}</MessageBox>
                         </div>
                     </>
+                ) : alert.position === 'center' ? (
+                    <p className={'text-center text-lg text-gray-400 font-semibold'}>
+                        Alert is being displayed as a dialog in the center.
+                    </p>
                 ) : (
                     <p className={'text-center text-lg text-gray-400 font-semibold'}>
                         Alert is currently disabled, so no preview is available.
                     </p>
                 )}
             </AdminBox>
-            <div className={'grid lg:grid-cols-3 gap-4 mt-6'}>
-                <AdminBox title={'Alert Format'} icon={faList} status={status} className={'lg:col-span-2'}>
-                    <div className={'grid md:grid-cols-3 gap-8'}>
+            <div className={'mt-6'}>
+                <AdminBox title={'Alert Format'} icon={faList} status={status}>
+                    <div className={'grid md:grid-cols-4 gap-8'}>
                         <div onClick={() => submit('top-center' as AlertPosition)}>
                             <DemoBox selected={alert.position === 'top-center'}>
                                 <div
@@ -122,6 +137,26 @@ export default () => {
                             </DemoBox>
                             <p className={'text-xs text-gray-400 mt-1'}>
                                 Position the alert to the bottom left of the page.
+                            </p>
+                        </div>
+                        <div
+                            onClick={() => {
+                                setOpen(true);
+                                submit('center' as AlertPosition);
+                            }}
+                        >
+                            <DemoBox selected={alert.position === 'center'}>
+                                <div
+                                    style={{ backgroundColor: primary }}
+                                    className={
+                                        'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-20 w-32 rounded'
+                                    }
+                                >
+                                    &nbsp;
+                                </div>
+                            </DemoBox>
+                            <p className={'text-xs text-gray-400 mt-1'}>
+                                Position the alert in the center of the page as a dialog.
                             </p>
                         </div>
                     </div>

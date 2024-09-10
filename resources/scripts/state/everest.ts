@@ -1,7 +1,7 @@
 import { action, Action } from 'easy-peasy';
 
 export type AlertType = 'success' | 'warning' | 'danger' | 'info';
-export type AlertPosition = 'top-center' | 'bottom-right' | 'bottom-left';
+export type AlertPosition = 'top-center' | 'bottom-right' | 'bottom-left' | 'center';
 
 export interface EverestSettings {
     auth: {
