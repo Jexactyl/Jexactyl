@@ -42,7 +42,7 @@
     }
 
     &:disabled {
-        @apply bg-green-500/75 text-green-200/75;
+        @apply bg-green-500/50 text-green-200/50;
     }
 }
 
@@ -55,7 +55,7 @@
     }
 
     &:disabled {
-        @apply bg-slate-500/75 text-slate-200/75;
+        @apply bg-slate-500/50 text-slate-200/50;
     }
 }
 
@@ -68,7 +68,7 @@
     }
 
     &:disabled {
-        @apply bg-red-600/75 text-red-50/75;
+        @apply bg-red-600/50 text-red-50/50;
     }
 }
 
@@ -81,7 +81,7 @@
     }
 
     &:disabled {
-        @apply bg-blue-600/75 text-blue-50/75;
+        @apply bg-blue-600/50 text-blue-50/50;
     }
 }
 
@@ -94,6 +94,6 @@
     }
 
     &:disabled {
-        @apply bg-yellow-600/75 text-yellow-50/75;
+        @apply bg-yellow-600/50 text-yellow-50/50;
     }
 }

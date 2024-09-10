@@ -1,4 +1,4 @@
-import { ChipIcon } from '@heroicons/react/outline';
+import { AdjustmentsIcon, ChipIcon } from '@heroicons/react/outline';
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
@@ -7,6 +7,7 @@ import FlashMessageRender from '@/components/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import GeneralSettings from '@admin/general/settings/GeneralSettings';
 import { useStoreState } from '@/state/hooks';
+import ModeSettings from './ModeSettings';
 
 const SettingsRouter = () => {
     const theme = useStoreState(state => state.theme.data!);
@@ -29,10 +30,14 @@ const SettingsRouter = () => {
                 <SubNavigationLink to="/admin/settings" name="Core" base>
                     <ChipIcon />
                 </SubNavigationLink>
+                <SubNavigationLink to="/admin/settings/mode" name="Modes">
+                    <AdjustmentsIcon />
+                </SubNavigationLink>
             </SubNavigation>
 
             <Routes>
                 <Route path="/" element={<GeneralSettings />} />
+                <Route path="/mode" element={<ModeSettings />} />
             </Routes>
         </AdminContentBlock>
     );

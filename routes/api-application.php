@@ -16,6 +16,7 @@ Route::get('/overview/metrics', [Application\OverviewController::class, 'metrics
 */
 Route::group(['prefix' => '/settings'], function () {
     Route::patch('/', [Application\Settings\GeneralController::class, 'update']);
+    Route::patch('/mode', [Application\Settings\ModeController::class, 'update']);
 });
 
 /*

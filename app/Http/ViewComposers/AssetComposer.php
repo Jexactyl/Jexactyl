@@ -13,6 +13,7 @@ class AssetComposer
     {
         $view->with('siteConfiguration', [
             'name' => config('app.name') ?? 'Everest',
+            'mode' => config('app.mode') ?? 'standard',
             'locale' => config('app.locale') ?? 'en',
             'auto_update' => boolval(config('app.auto_update', false)),
             'indicators' => boolval(config('app.indicators', false)),

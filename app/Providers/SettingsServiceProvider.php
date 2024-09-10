@@ -16,8 +16,9 @@ class SettingsServiceProvider extends ServiceProvider
      * if they exist.
      */
     protected array $keys = [
-        // Pterodactyl-specific keys
+        // Jexactyl-specific keys
         'app:name',
+        'app:mode',
         'app:locale',
         'app:indicators',
         'app:auto_update',

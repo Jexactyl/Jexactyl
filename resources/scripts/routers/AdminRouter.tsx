@@ -57,6 +57,7 @@ import AdminIndicators from '@/components/admin/AdminIndicators';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
+    const mode = useStoreState(state => state.settings.data!.mode);
     const email = useStoreState((state: ApplicationStore) => state.user.data!.email);
     const settings = useStoreState((state: ApplicationStore) => state.settings.data!);
 
@@ -86,32 +87,40 @@ function AdminRouter() {
                         <CogIcon />
                         <span>Settings</span>
                     </NavLink>
-                    <NavLink to="/admin/api">
-                        <CodeIcon />
-                        <span>API</span>
-                    </NavLink>
+                    {mode === 'standard' && (
+                        <NavLink to="/admin/api">
+                            <CodeIcon />
+                            <span>API</span>
+                        </NavLink>
+                    )}
                     <Sidebar.Section>Modules</Sidebar.Section>
-                    <NavLink to="/admin/auth">
-                        <KeyIcon />
-                        <span>Auth</span>
-                    </NavLink>
-                    <NavLink to="/admin/billing">
-                        <CashIcon />
-                        <span>Billing</span>
-                    </NavLink>
-                    <NavLink to="/admin/tickets">
-                        <TicketIcon />
-                        <span>Tickets</span>
-                    </NavLink>
+                    {mode === 'standard' && (
+                        <>
+                            <NavLink to="/admin/auth">
+                                <KeyIcon />
+                                <span>Auth</span>
+                            </NavLink>
+                            <NavLink to="/admin/billing">
+                                <CashIcon />
+                                <span>Billing</span>
+                            </NavLink>
+                            <NavLink to="/admin/tickets">
+                                <TicketIcon />
+                                <span>Tickets</span>
+                            </NavLink>
+                        </>
+                    )}
                     <NavLink to="/admin/theme">
                         <PencilIcon />
                         <span>Theme</span>
                     </NavLink>
                     <Sidebar.Section>Management</Sidebar.Section>
-                    <NavLink to="/admin/databases">
-                        <DatabaseIcon />
-                        <span>Databases</span>
-                    </NavLink>
+                    {mode === 'standard' && (
+                        <NavLink to="/admin/databases">
+                            <DatabaseIcon />
+                            <span>Databases</span>
+                        </NavLink>
+                    )}
                     <NavLink to="/admin/locations">
                         <GlobeIcon />
                         <span>Locations</span>
@@ -133,10 +142,12 @@ function AdminRouter() {
                         <ViewGridIcon />
                         <span>Nests</span>
                     </NavLink>
-                    <NavLink to="/admin/mounts">
-                        <FolderIcon />
-                        <span>Mounts</span>
-                    </NavLink>
+                    {mode === 'standard' && (
+                        <NavLink to="/admin/mounts">
+                            <FolderIcon />
+                            <span>Mounts</span>
+                        </NavLink>
+                    )}
                 </Sidebar.Wrapper>
                 <NavLink to="/" css={tw`mt-auto mb-3`}>
                     <ReplyIcon />

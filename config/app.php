@@ -33,6 +33,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Panel Mode
+    |--------------------------------------------------------------------------
+    | The 'mode' of the Panel controls what features are automatically hidden.
+    | - Standard: All features & functions enabled
+    | - Personal: A simple mode with barebone features
+    */
+    'mode' => 'standard',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
     |
