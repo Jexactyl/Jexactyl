@@ -31,6 +31,7 @@ export default () => {
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const theme = useStoreState(state => state.theme.data!);
+    const { mode } = useStoreState(state => state.settings.data!);
     const name = useStoreState((state: ApplicationStore) => state.settings.data!.name);
     const rootAdmin = useStoreState((state: ApplicationStore) => state.user.data!.rootAdmin);
     const billing = useStoreState((state: ApplicationStore) => state.everest.data!.billing.enabled);
@@ -65,7 +66,7 @@ export default () => {
                         Servers
                     </NavLink>
 
-                    {billing && (
+                    {billing && mode === 'standard' && (
                         <NavLink to={'/billing'}>
                             <FontAwesomeIcon icon={faCoins} />
                             Billing

@@ -76,7 +76,7 @@ function AdminRouter() {
                     {!collapsed ? (
                         <h1 css={tw`text-2xl text-neutral-50 whitespace-nowrap font-medium`}>{settings.name}</h1>
                     ) : (
-                        <img src={CollapsedIcon} css={tw`mt-4 w-20`} alt={'Everest Icon'} />
+                        <img src={CollapsedIcon} css={tw`mt-4 w-12`} alt={'Everest Icon'} />
                     )}
                 </div>
                 <Sidebar.Wrapper theme={theme}>

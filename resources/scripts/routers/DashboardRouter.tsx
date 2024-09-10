@@ -14,6 +14,7 @@ import ViewTicketContainer from '@/components/dashboard/tickets/view/ViewTicketC
 function DashboardRouter() {
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
+    const { mode } = useStoreState(state => state.settings.data!);
     const ticketsEnabled = useStoreState(state => state.everest.data!.tickets.enabled);
 
     return (
@@ -25,12 +26,13 @@ function DashboardRouter() {
                     <div>
                         {routes.account
                             .filter(route => route.path !== undefined)
+                            .filter(route => route.mode === mode)
                             .map(({ path, name, end = false }) => (
                                 <NavLink key={path} to={`/account/${path ?? ''}`.replace(/\/$/, '')} end={end}>
                                     {name}
                                 </NavLink>
                             ))}
-                        {ticketsEnabled && <NavLink to={'/account/tickets'}>Tickets</NavLink>}
+                        {ticketsEnabled && mode === 'standard' && <NavLink to={'/account/tickets'}>Tickets</NavLink>}
                     </div>
                 </SubNavigation>
             )}
@@ -39,11 +41,13 @@ function DashboardRouter() {
                 <Routes>
                     <Route path="" element={<DashboardContainer />} />
 
-                    {routes.account.map(({ route, component: Component }) => (
-                        <Route key={route} path={`/account/${route}`.replace(/\/$/, '')} element={<Component />} />
-                    ))}
+                    {routes.account
+                        .filter(route => route.mode === mode)
+                        .map(({ route, component: Component }) => (
+                            <Route key={route} path={`/account/${route}`.replace(/\/$/, '')} element={<Component />} />
+                        ))}
 
-                    {ticketsEnabled && (
+                    {ticketsEnabled && mode === 'standard' && (
                         <>
                             <Route path={'/account/tickets'} element={<TicketContainer />} />
                             <Route path={'/account/tickets/:id'} element={<ViewTicketContainer />} />
