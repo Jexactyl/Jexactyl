@@ -41,7 +41,7 @@ Route::middleware(['throttle:authentication'])->group(function () {
 
     // Forgot password route. A post to this endpoint will trigger an
     // email to be sent containing a reset token.
-    Route::post('/password', [Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])
+    Route::post('/password', [Auth\ForgotPasswordController::class, 'verify'])
         ->name('auth.post.forgot-password')
         ->middleware('recaptcha');
 });

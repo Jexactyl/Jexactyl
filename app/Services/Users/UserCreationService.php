@@ -4,8 +4,8 @@ namespace Everest\Services\Users;
 
 use Ramsey\Uuid\Uuid;
 use Everest\Models\User;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Hashing\Hasher;
-use Everest\Notifications\AccountCreated;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Everest\Contracts\Repository\UserRepositoryInterface;
@@ -41,6 +41,8 @@ class UserCreationService
             $data['password'] = $this->hasher->make(str_random(30));
         }
 
+        $data['recovery_code'] = Crypt::encryptString(str_random(32));
+
         /** @var \Everest\Models\User $user */
         $user = $this->repository->create(array_merge($data, [
             'uuid' => Uuid::uuid4()->toString(),
@@ -51,7 +53,6 @@ class UserCreationService
         }
 
         $this->connection->commit();
-        $user->notify(new AccountCreated($user, $token ?? null));
 
         $user->createAsStripeCustomer();
 

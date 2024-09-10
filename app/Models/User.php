@@ -47,6 +47,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $avatar_url
+ * @property string $recovery_code
  * @property string|null $admin_role_name
  * @property string $md5
  * @property \Everest\Models\AdminRole|null $adminRole
@@ -136,6 +137,7 @@ class User extends Model implements
         'gravatar',
         'state',
         'root_admin',
+        'recovery_code',
     ];
 
     /**
@@ -151,7 +153,7 @@ class User extends Model implements
     /**
      * The attributes excluded from the model's JSON form.
      */
-    protected $hidden = ['password', 'remember_token', 'totp_secret', 'totp_authenticated_at'];
+    protected $hidden = ['password', 'recovery_code', 'remember_token', 'totp_secret', 'totp_authenticated_at'];
 
     /**
      * Default values for specific fields in the database.
@@ -179,6 +181,7 @@ class User extends Model implements
         'state' => 'sometimes|nullable|string',
         'use_totp' => 'boolean',
         'totp_secret' => 'nullable|string',
+        'recovery_code' => 'nullable|string',
     ];
 
     /**
@@ -203,21 +206,6 @@ class User extends Model implements
         return Collection::make($this->append(['avatar_url', 'admin_role_name'])->toArray())
             ->except(['id', 'external_id', 'admin_role', 'admin_role_id'])
             ->toArray();
-    }
-
-    /**
-     * Send the password reset notification.
-     *
-     * @param string $token
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        Activity::event('auth:reset-password')
-            ->withRequestMetadata()
-            ->subject($this)
-            ->log('sending password reset email');
-
-        $this->notify(new ResetPasswordNotification($token));
     }
 
     /**

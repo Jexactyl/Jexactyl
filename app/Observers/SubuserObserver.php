@@ -23,12 +23,6 @@ class SubuserObserver
     public function created(Subuser $subuser): void
     {
         event(new Events\Subuser\Created($subuser));
-
-        $subuser->user->notify(new AddedToServer([
-            'user' => $subuser->user->username,
-            'name' => $subuser->server->name,
-            'uuidShort' => $subuser->server->uuidShort,
-        ]));
     }
 
     /**
@@ -45,10 +39,5 @@ class SubuserObserver
     public function deleted(Subuser $subuser): void
     {
         event(new Events\Subuser\Deleted($subuser));
-
-        $subuser->user->notify(new RemovedFromServer([
-            'user' => $subuser->user->username,
-            'name' => $subuser->server->name,
-        ]));
     }
 }

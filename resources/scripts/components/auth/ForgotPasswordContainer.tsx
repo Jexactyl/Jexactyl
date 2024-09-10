@@ -6,8 +6,7 @@ import { Link } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
-
-import requestPasswordResetEmail from '@/api/auth/requestPasswordResetEmail';
+import requestPasswordReset from '@/api/auth/requestPasswordReset';
 import { httpErrorToHuman } from '@/api/http';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import { Button } from '@elements/button';
@@ -16,6 +15,9 @@ import useFlash from '@/plugins/useFlash';
 
 interface Values {
     email: string;
+    code: string;
+    password: string;
+    password_confirm: string;
 }
 
 function ForgotPasswordContainer() {
@@ -29,7 +31,10 @@ function ForgotPasswordContainer() {
         clearFlashes();
     }, []);
 
-    const handleSubmission = ({ email }: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
+    const handleSubmission = (
+        { email, code, password, password_confirm }: Values,
+        { setSubmitting, resetForm }: FormikHelpers<Values>,
+    ) => {
         clearFlashes();
 
         // If there is no token in the state yet, request the token and then abort this submit request
@@ -45,7 +50,7 @@ function ForgotPasswordContainer() {
             return;
         }
 
-        requestPasswordResetEmail(email, token)
+        requestPasswordReset(email, code, password, password_confirm, token)
             .then(response => {
                 resetForm();
                 addFlash({ type: 'success', title: 'Success', message: response });
@@ -67,26 +72,51 @@ function ForgotPasswordContainer() {
     return (
         <Formik
             onSubmit={handleSubmission}
-            initialValues={{ email: '' }}
+            initialValues={{ email: '', code: '', password: '', password_confirm: '' }}
             validationSchema={object().shape({
                 email: string()
                     .email('A valid email address must be provided to continue.')
                     .required('A valid email address must be provided to continue.'),
+                code: string().required('You must enter your account recovery code to continue.'),
+                password: string().min(8).required(),
+                password_confirm: string().min(8).required(),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Request Password Reset'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'Reset your Password'} css={tw`w-full flex`}>
                     <Field
                         label={'Email Address'}
-                        description={
-                            'Enter your account email address to receive instructions on resetting your password.'
-                        }
+                        description={'Enter your account email address that you use to access the Panel.'}
                         name={'email'}
                         type={'email'}
                     />
+                    <div className={'mt-6'}>
+                        <Field
+                            label={'Account Recovery Code'}
+                            description={
+                                "Enter the account recovery code you were given when your account was created. Don't have this code? Contact our support for assistance."
+                            }
+                            name={'code'}
+                            type={'text'}
+                        />
+                    </div>
+                    <div className={'my-6'}>
+                        <Field
+                            label={'New Password'}
+                            description={"Enter the new password you'd like to use for this user account."}
+                            name={'password'}
+                            type={'password'}
+                        />
+                    </div>
+                    <Field
+                        label={'Confirm New Password'}
+                        description={'For extra security, re-enter the above password.'}
+                        name={'password_confirm'}
+                        type={'password'}
+                    />
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
-                            Send Email
+                            Attempt Login
                         </Button>
                     </div>
                     {recaptchaEnabled && (
