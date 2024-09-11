@@ -39,7 +39,6 @@ interface RouteDefinition {
     name: string | undefined;
     component: ComponentType;
     end?: boolean;
-    mode?: string;
 }
 
 interface ServerRouteDefinition extends RouteDefinition {
@@ -61,28 +60,24 @@ export default {
             name: 'Account',
             component: AccountOverviewContainer,
             end: true,
-            mode: 'personal',
         },
         {
             route: 'api',
             path: 'api',
             name: 'API Credentials',
             component: AccountApiContainer,
-            mode: 'standard',
         },
         {
             route: 'ssh',
             path: 'ssh',
             name: 'SSH Keys',
             component: AccountSSHContainer,
-            mode: 'standard',
         },
         {
             route: 'activity',
             path: 'activity',
             name: 'Activity',
             component: ActivityLogContainer,
-            mode: 'personal',
         },
     ],
     server: [
@@ -93,7 +88,6 @@ export default {
             name: 'Console',
             component: ServerConsoleContainer,
             end: true,
-            mode: 'personal',
         },
         {
             route: 'files/*',
@@ -101,14 +95,12 @@ export default {
             permission: 'file.*',
             name: 'Files',
             component: FileManagerContainer,
-            mode: 'personal',
         },
         {
             route: 'files/:action/*',
             permission: 'file.*',
             name: undefined,
             component: FileEditContainer,
-            mode: 'personal',
         },
         {
             route: 'databases/*',
@@ -116,7 +108,6 @@ export default {
             permission: 'database.*',
             name: 'Databases',
             component: DatabasesContainer,
-            mode: 'personal',
         },
         {
             route: 'schedules/*',
@@ -124,14 +115,12 @@ export default {
             permission: 'schedule.*',
             name: 'Schedules',
             component: ScheduleContainer,
-            mode: 'standard',
         },
         {
             route: 'schedules/:id/*',
             permission: 'schedule.*',
             name: undefined,
             component: ScheduleEditContainer,
-            mode: 'standard',
         },
         {
             route: 'users/*',
@@ -153,7 +142,6 @@ export default {
             permission: 'allocation.*',
             name: 'Network',
             component: NetworkContainer,
-            mode: 'standard',
         },
         {
             route: 'startup/*',
@@ -161,7 +149,6 @@ export default {
             permission: 'startup.*',
             name: 'Startup',
             component: StartupContainer,
-            mode: 'personal',
         },
         {
             route: 'settings/*',
@@ -169,7 +156,6 @@ export default {
             permission: ['settings.*', 'file.sftp'],
             name: 'Settings',
             component: SettingsContainer,
-            mode: 'standard',
         },
         {
             route: 'activity/*',
@@ -177,7 +163,6 @@ export default {
             permission: 'activity.*',
             name: 'Activity',
             component: ServerActivityLogContainer,
-            mode: 'personal',
         },
     ],
 } as Routes;
