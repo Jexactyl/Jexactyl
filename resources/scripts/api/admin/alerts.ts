@@ -8,10 +8,10 @@ export interface AlertSettings {
     content: string;
 }
 
-export const updateAlertSettings = async (settings: Partial<AlertSettings>): Promise<void> => {
+export const updateAlertSettings = async (settings: Partial<AlertSettings>): Promise<string> => {
     return new Promise((resolve, reject) => {
         http.patch(`/api/application/alerts`, settings)
-            .then(() => resolve())
+            .then(({ data }) => resolve(data))
             .catch(reject);
     });
 };

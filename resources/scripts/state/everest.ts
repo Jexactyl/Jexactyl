@@ -44,6 +44,7 @@ export interface EverestSettings {
         type: AlertType;
         position: AlertPosition;
         content: string;
+        uuid: string;
     };
 }
 

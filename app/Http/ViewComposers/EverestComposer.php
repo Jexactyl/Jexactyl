@@ -52,6 +52,7 @@ class EverestComposer
                 'type' => config('modules.alert.type'),
                 'position' => config('modules.alert.position'),
                 'content' => config('modules.alert.content'),
+                'uuid' => config('modules.alert.uuid'),
             ]
         ]);
     }

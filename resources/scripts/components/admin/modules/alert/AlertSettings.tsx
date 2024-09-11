@@ -26,8 +26,8 @@ export default () => {
         values.type = type;
 
         updateAlertSettings(values)
-            .then(() => {
-                updateEverest({ alert: { ...values } });
+            .then(uuid => {
+                updateEverest({ alert: { ...values, uuid } });
 
                 addFlash({
                     type: 'success',
@@ -99,6 +99,9 @@ export default () => {
                         <Field id={'content'} name={'content'} type={'text'} description={''} />
                         <p className={'text-gray-400 text-xs mt-1.5'}>
                             Configure the alert to display content to end users.
+                        </p>
+                        <p className={'text-gray-400 text-xs mt-1'}>
+                            Current UUID: <span className={'text-gray-600'}>{alert.uuid}</span>
                         </p>
                     </AdminBox>
                 </div>

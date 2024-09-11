@@ -66,6 +66,7 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:alert:type',
         'modules:alert:position',
         'modules:alert:content',
+        'modules:alert:uuid',
     ];
 
     /**

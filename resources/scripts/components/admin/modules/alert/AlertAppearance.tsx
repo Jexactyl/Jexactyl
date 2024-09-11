@@ -48,8 +48,8 @@ export default () => {
         setStatus('loading');
 
         updateAlertSettings({ position: pos })
-            .then(() => {
-                updateEverest({ alert: { ...alert, position: pos } });
+            .then(uuid => {
+                updateEverest({ alert: { ...alert, uuid, position: pos } });
 
                 setStatus('success');
             })

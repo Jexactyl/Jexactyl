@@ -6,10 +6,10 @@ import { capitalize } from '@/lib/strings';
 import { Dialog } from '@elements/dialog';
 
 export default () => {
-    const { uuid } = useStoreState(s => s.user.data!);
+    const { uuid: user } = useStoreState(s => s.user.data!);
     const { alert } = useStoreState(s => s.everest.data!);
 
-    const [open, setOpen] = usePersistedState(`alert_${uuid}`, true);
+    const [open, setOpen] = usePersistedState(`alert_${alert.uuid}_${user}`, true);
 
     return (
         <>
