@@ -31,7 +31,10 @@ const QuickAction = ({ tooltip, icon, link }: QuickActionProps) => (
 
 export default () => {
     const [open, setOpen] = useState<boolean>(false);
+    const enabled = useStoreState(s => s.settings.data!.speed_dial);
     const tickets = useStoreState(s => s.everest.data!.tickets.enabled);
+
+    if (!enabled) return <></>;
 
     return (
         <div className="fixed bottom-6 right-6">
