@@ -20,6 +20,7 @@ class SettingsServiceProvider extends ServiceProvider
         'app:name',
         'app:mode',
         'app:locale',
+        'app:speed_dial',
         'app:indicators',
         'app:auto_update',
         'recaptcha:enabled',

@@ -8,6 +8,7 @@ export interface SiteSettings {
     locale: string;
     auto_update: boolean;
     indicators: boolean;
+    speed_dial: boolean;
     recaptcha: {
         enabled: boolean;
         siteKey: string;

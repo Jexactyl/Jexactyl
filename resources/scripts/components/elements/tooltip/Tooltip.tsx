@@ -30,6 +30,7 @@ interface Props {
     interactions?: Interaction[];
     placement?: Placement;
     className?: string;
+    open?: boolean;
     children: React.ReactElement;
 }
 
@@ -42,7 +43,7 @@ const arrowSides: Record<Side, string> = {
 
 export default ({ children, ...props }: Props) => {
     const arrowEl = useRef<HTMLDivElement>(null);
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(props.open || false);
 
     const { x, y, reference, floating, middlewareData, strategy, context } = useFloating({
         open,

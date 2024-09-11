@@ -5,6 +5,7 @@ export interface GeneralSettings {
     name: string;
     auto_update: boolean;
     indicators: boolean;
+    speed_dial: boolean;
 }
 
 export const updateGeneralSettings = async (settings: Partial<GeneralSettings>): Promise<void> => {

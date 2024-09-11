@@ -16,6 +16,7 @@ import ScreenBlock, { NotFound } from '@elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
 import Onboarding from '@/components/Onboarding';
 import BillingRouter from '@/routers/BillingRouter';
+import SpeedDial from './elements/SpeedDial';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
@@ -113,6 +114,7 @@ function App() {
                                         <AuthenticatedRoute>
                                             <Spinner.Suspense>
                                                 <ServerContext.Provider>
+                                                    <SpeedDial />
                                                     <ServerRouter />
                                                 </ServerContext.Provider>
                                             </Spinner.Suspense>
@@ -125,6 +127,7 @@ function App() {
                                     element={
                                         <AuthenticatedRoute>
                                             <Spinner.Suspense>
+                                                <SpeedDial />
                                                 <BillingRouter />
                                             </Spinner.Suspense>
                                         </AuthenticatedRoute>
@@ -147,6 +150,7 @@ function App() {
                                     element={
                                         <AuthenticatedRoute>
                                             <Spinner.Suspense>
+                                                <SpeedDial />
                                                 <DashboardRouter />
                                             </Spinner.Suspense>
                                         </AuthenticatedRoute>

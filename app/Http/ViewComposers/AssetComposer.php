@@ -16,6 +16,7 @@ class AssetComposer
             'mode' => config('app.mode') ?? 'standard',
             'locale' => config('app.locale') ?? 'en',
             'auto_update' => boolval(config('app.auto_update', false)),
+            'speed_dial' => boolval(config('app.speed_dial', false)),
             'indicators' => boolval(config('app.indicators', false)),
             'recaptcha' => [
                 'enabled' => config('recaptcha.enabled', false),

@@ -6,7 +6,7 @@ import Field from '@elements/Field';
 import { Button } from '@elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/admin/settings';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import { faPaintBrush, faRecycle, faShapes } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faPlusCircle, faRecycle, faShapes } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -50,6 +50,7 @@ export default () => {
                 name: settings.name,
                 indicators: settings.indicators,
                 auto_update: settings.auto_update,
+                speed_dial: settings.speed_dial,
             }}
         >
             <Form>
@@ -92,6 +93,23 @@ export default () => {
                             <p className={'text-gray-400 text-xs mt-1.5'}>
                                 If enabled, small boxes will appear in the top-right of the UI indicating whether
                                 Jexactyl modules are enabled/disabled. Only on large screens.
+                            </p>
+                        </div>
+                    </AdminBox>
+                    <AdminBox title={'Speed Dial'} icon={faPlusCircle}>
+                        <div>
+                            <div className={'inline-flex'}>
+                                <Label className={'mt-1 mr-2'}>Show speed dial component?</Label>
+                                <Field
+                                    id={'speed_dial'}
+                                    name={'speed_dial'}
+                                    type={'checkbox'}
+                                    defaultChecked={settings.speed_dial}
+                                />
+                            </div>
+                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                                If enabled, a component will show to admins in the client-side UI for quick actions -
+                                such as creating a server or user.
                             </p>
                         </div>
                     </AdminBox>

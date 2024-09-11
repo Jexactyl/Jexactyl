@@ -33,6 +33,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Admin Speed Dial
+    |--------------------------------------------------------------------------
+    | This controls whether a small 'speed dial' component is visible to
+    | administrators when they are on the client UI, to perform certain admin-side
+    | actions quickly.
+    */
+    'speed_dial' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Panel Mode
     |--------------------------------------------------------------------------
     | The 'mode' of the Panel controls what features are automatically hidden.

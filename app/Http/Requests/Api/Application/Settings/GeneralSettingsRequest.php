@@ -12,6 +12,7 @@ class GeneralSettingsRequest extends ApplicationApiRequest
             'name' => 'nullable|string|min:3|max:40',
             'auto_update' => 'nullable|bool',
             'indicators' => 'nullable|bool',
+            'speed_dial' => 'nullable|bool',
         ];
     }
 }
