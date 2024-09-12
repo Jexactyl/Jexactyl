@@ -6,7 +6,7 @@ use Jexactyl\Models\Server;
 use Illuminate\Console\Command;
 use Jexactyl\Services\Servers\SuspensionService;
 use Jexactyl\Services\Servers\ServerDeletionService;
-
+use Exception;
 class RenewalCommand extends Command
 {
     /**
@@ -49,18 +49,22 @@ class RenewalCommand extends Command
         $this->line('Processing renewals for ' . $servers->count() . ' servers.');
 
         foreach ($servers as $svr) {
-            $this->line('Renewing server ' . $svr->name, false);
-
-            $svr->update(['renewal' => $svr->renewal - 1]);
-
-            if ($svr->renewal <= 0) {
-                $this->line('Suspending server ' . $svr->name, false);
-                $this->suspensionService->toggle($svr, 'suspend');
-            }
-
-            if ($svr->renewal <= -7) {
-                $this->line('Deleting server ' . $svr->name, false);
-                $this->deletionService->handle($svr);
+            try {
+                $this->line('Renewing server ' . $svr->name, false);
+    
+                $svr->update(['renewal' => $svr->renewal - 1]);
+    
+                if ($svr->renewal <= 0) {
+                    $this->line('Suspending server ' . $svr->name, false);
+                    $this->suspensionService->toggle($svr, 'suspend');
+                }
+    
+                if ($svr->renewal <= -7) {
+                    $this->line('Deleting server ' . $svr->name, false);
+                    $this->deletionService->handle($svr);
+                }
+            } catch (Exception $e) {
+                $this->line('Error processing server ' . $svr->name . ': ' . $e->getMessage());
             }
         }
     }
