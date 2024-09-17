@@ -97,7 +97,7 @@ function ServerRouter() {
                     <InstallListener />
                     <TransferListener />
                     <WebsocketHandler />
-                    {inConflictState && (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${id}/`))) ? (
+                    {inConflictState && (!rootAdmin || (rootAdmin && !location.pathname.endsWith(`/server/${id}`))) ? (
                         <ConflictStateRenderer />
                     ) : (
                         <ErrorBoundary>

@@ -3,18 +3,13 @@ import ServerErrorSvg from '@/assets/images/server_error.svg';
 import ServerRestoreSvg from '@/assets/images/server_restore.svg';
 import ScreenBlock from '@elements/ScreenBlock';
 import { ServerContext } from '@/state/server';
-import { useStoreState } from '@/state/hooks';
-import { Alert } from '../elements/alert';
 
 export default () => {
-    const isAdmin = useStoreState(s => s.user.data!.rootAdmin);
     const status = ServerContext.useStoreState(state => state.server.data?.status || null);
     const isTransferring = ServerContext.useStoreState(state => state.server.data?.isTransferring || false);
     const isNodeUnderMaintenance = ServerContext.useStoreState(
         state => state.server.data?.isNodeUnderMaintenance || false,
     );
-
-    if (isAdmin) return <Alert type={'warning'}>Admin alert: server marked as {status}</Alert>;
 
     return status === 'installing' || status === 'install_failed' || status === 'reinstall_failed' ? (
         <ScreenBlock
