@@ -289,7 +289,7 @@ Route::group(['prefix' => '/servers'], function () {
     Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);
     Route::post('/{server:id}/reinstall', [Application\Servers\ServerManagementController::class, 'reinstall']);
 
-    Route::delete('/{server}', [Application\Servers\ServerController::class, 'delete']);
+    Route::delete('/{server:id}', [Application\Servers\ServerController::class, 'delete']);
     Route::delete('/{server:id}/{force?}', [Application\Servers\ServerController::class, 'delete']);
 
     // Database Management Endpoint
