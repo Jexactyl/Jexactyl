@@ -10,6 +10,7 @@ import { handleQuery } from '@/api/admin/ai/handleQuery';
 import { useFlashKey } from '@/plugins/useFlash';
 import Spinner from '@/components/elements/Spinner';
 import Markdown from 'react-markdown'
+import { Alert } from '@/components/elements/alert';
 
 interface Props {
     primary: string;
@@ -89,13 +90,16 @@ export default () => {
                     <Input className={'font-mono'} placeholder={'Ask Jexactyl AI a question'} onKeyDown={submit} />
                 </div>
             </div>
-            <AdminBox title={'Disable Jexactyl AI'} className={'col-span-2 h-min'}>
-                Clicking the button below will disable Jexactyl AI for both clients and administrators. Your API key
-                will remain in the database unless you choose to delete it manually.
-                <div className={'text-right mt-2'}>
-                    <ToggleFeatureButton />
-                </div>
-            </AdminBox>
+            <div className={'col-span-2 space-y-4'}>
+                <Alert type={'warning'}>Jexactyl AI relies on Google Gemini models for requests. Information provided could be inaccurate or outdated. Use with caution!</Alert>
+                <AdminBox title={'Disable Jexactyl AI'} className={'col-span-2 h-min'}>
+                    Clicking the button below will disable Jexactyl AI for both clients and administrators. Your API key
+                    will remain in the database unless you choose to delete it manually.
+                    <div className={'text-right mt-2'}>
+                        <ToggleFeatureButton />
+                    </div>
+                </AdminBox>
+            </div>
         </div>
     );
 };

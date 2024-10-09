@@ -17,7 +17,7 @@ export default ({ image, icon, title, children, noHeight }: Props) => {
 
     return (
         <div className={classNames(!noHeight && 'h-[80vh]', 'grid lg:grid-cols-2 gap-4 lg:gap-12 my-auto max-w-7xl')}>
-            {image}
+            <span className={'hidden lg:flex'}>{image}</span>
             <div className={'my-auto'}>
                 <p className={'text-5xl font-bold text-white mb-2'}>
                     <FontAwesomeIcon icon={icon} style={{ color: primary }} className={'mr-4'} size={'sm'} />
