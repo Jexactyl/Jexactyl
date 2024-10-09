@@ -79,7 +79,7 @@ export default () => {
     return (
         <div className={'grid lg:grid-cols-5 gap-4'}>
             <div className={'col-span-3'}>
-                <div className={'bg-black rounded-t shadow-xl relative overflow-auto h-full'}>
+                <div className={'bg-black rounded-t shadow-xl relative overflow-auto min-h-[50vh] h-full'}>
                     <div className={'absolute top-0 left-0 w-full p-2 font-mono'}>
                         <DisplayMessage primary={primary} loading={loading} result={result} />
                     </div>
@@ -89,7 +89,7 @@ export default () => {
                     <Input className={'font-mono'} placeholder={'Ask Jexactyl AI a question'} onKeyDown={submit} />
                 </div>
             </div>
-            <AdminBox title={'Disable Jexactyl AI'} className={'col-span-2'}>
+            <AdminBox title={'Disable Jexactyl AI'} className={'col-span-2 h-min'}>
                 Clicking the button below will disable Jexactyl AI for both clients and administrators. Your API key
                 will remain in the database unless you choose to delete it manually.
                 <div className={'text-right mt-2'}>
