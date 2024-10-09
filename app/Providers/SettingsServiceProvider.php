@@ -71,6 +71,7 @@ class SettingsServiceProvider extends ServiceProvider
         // AI module settings
         'modules:ai:enabled',
         'modules:ai:key',
+        'modules:ai:user_access',
     ];
 
     /**

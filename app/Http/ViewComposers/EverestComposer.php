@@ -57,6 +57,7 @@ class EverestComposer
             'ai' => [
                 'enabled' => boolval(config('modules.ai.enabled', false)),
                 'key' => !empty(config('modules.ai.key')),
+                'user_access' => boolval(config('modules.ai.user_access', false)),
             ]
         ]);
     }

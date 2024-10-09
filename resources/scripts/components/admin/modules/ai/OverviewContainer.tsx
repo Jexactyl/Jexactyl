@@ -9,7 +9,7 @@ import { KeyboardEvent as ReactKeyboardEvent, useState } from 'react';
 import { handleQuery } from '@/api/admin/ai/handleQuery';
 import { useFlashKey } from '@/plugins/useFlash';
 import Spinner from '@/components/elements/Spinner';
-import Markdown from 'react-markdown'
+import Markdown from 'react-markdown';
 import { Alert } from '@/components/elements/alert';
 
 interface Props {
@@ -91,7 +91,14 @@ export default () => {
                 </div>
             </div>
             <div className={'col-span-2 space-y-4'}>
-                <Alert type={'warning'}>Jexactyl AI relies on Google Gemini models for requests. Information provided could be inaccurate or outdated. Use with caution!</Alert>
+                <Alert type={'warning'} className={'mt-16 md:mt-0'}>
+                    Jexactyl AI relies on Google Gemini models for requests. Information provided could be inaccurate or
+                    outdated. Use with caution!
+                </Alert>
+                <Alert type={'info'}>
+                    API requests are limited on Gemini&apos;s public API to 120/second - if you experience ratelimiting,
+                    you may need to upgrade your license.
+                </Alert>
                 <AdminBox title={'Disable Jexactyl AI'} className={'col-span-2 h-min'}>
                     Clicking the button below will disable Jexactyl AI for both clients and administrators. Your API key
                     will remain in the database unless you choose to delete it manually.

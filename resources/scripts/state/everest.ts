@@ -48,7 +48,8 @@ export interface EverestSettings {
     };
     ai: {
         enabled: boolean;
-        key: boolean;
+        key: boolean | string;
+        user_access: boolean;
     };
 }
 

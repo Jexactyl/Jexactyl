@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
 use Everest\Contracts\Repository\SettingsRepositoryInterface;
+use Everest\Http\Requests\Api\Application\AI\AISettingsRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class SettingsController extends ApplicationApiController
@@ -27,9 +28,11 @@ class SettingsController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function update(Request $request): Response
+    public function update(AISettingsRequest $request): Response
     {
-        $this->settings->set('settings::modules:ai:' . $request->input('key'), $request->input('value'));
+        foreach ($request->normalize() as $key => $value) {
+            $this->settings->set('settings::modules:ai:' . $key, $value);
+        }
 
         return $this->returnNoContent();
     }

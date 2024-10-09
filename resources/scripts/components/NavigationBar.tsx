@@ -11,6 +11,8 @@ import http from '@/api/http';
 import SpinnerOverlay from '@elements/SpinnerOverlay';
 import Avatar from '@/components/Avatar';
 import { SiteTheme } from '@/state/theme';
+import { Button } from './elements/button';
+import { SparklesIcon } from '@heroicons/react/outline';
 
 const RightNavigation = styled.div<{ theme: SiteTheme }>`
     & > a,
@@ -30,6 +32,7 @@ const RightNavigation = styled.div<{ theme: SiteTheme }>`
 export default () => {
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+    const ai = useStoreState(s => s.everest.data!.ai);
     const theme = useStoreState(state => state.theme.data!);
     const { mode } = useStoreState(state => state.settings.data!);
     const name = useStoreState((state: ApplicationStore) => state.settings.data!.name);
@@ -49,16 +52,24 @@ export default () => {
         <div className="w-full overflow-x-auto shadow-md" style={{ backgroundColor: theme.colors.sidebar }}>
             <SpinnerOverlay visible={isLoggingOut} />
             <div className="mx-auto flex h-[3.5rem] w-full max-w-[1200px] items-center">
-                <div id="logo" className="flex-1">
+                <div id="logo" className={'inline-flex'}>
                     <Link
                         to="/"
-                        className="px-4 font-header text-2xl text-neutral-200 no-underline transition-colors duration-150 hover:text-neutral-100"
+                        className="font-header text-2xl text-neutral-200 no-underline transition-colors duration-150 hover:text-neutral-100"
                     >
                         {name}
                     </Link>
+                    {ai.enabled && ai.user_access && (
+                        <Button className={'w-10 h-5 mt-2 ml-2 hover:cursor-default'}>
+                            <span className={'text-xs inline-flex'}>
+                                <SparklesIcon className={'w-3 h-3 my-auto'} />
+                                AI
+                            </span>
+                        </Button>
+                    )}
                 </div>
 
-                <RightNavigation className="flex h-full items-center justify-center" theme={theme}>
+                <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>
                     <SearchContainer />
 
                     <NavLink to="/" end>

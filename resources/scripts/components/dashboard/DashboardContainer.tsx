@@ -28,14 +28,14 @@ export default () => {
     const colors = useStoreState(state => state.theme.data!.colors);
     const [page, setPage] = useState(!isNaN(defaultPage) && defaultPage > 0 ? defaultPage : 1);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const name = useStoreState(state => state.user.data!.username);
+    const name = useStoreState(state => state.settings.data!.name);
     const uuid = useStoreState(state => state.user.data!.uuid);
-    const rootAdmin = useStoreState(state => state.user.data!.rootAdmin);
+    const user = useStoreState(state => state.user.data!);
     const [showOnlyAdmin, setShowOnlyAdmin] = usePersistedState(`${uuid}:show_all_servers`, false);
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
-        ['/api/client/servers', showOnlyAdmin && rootAdmin, page],
-        () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined, per_page: 5 }),
+        ['/api/client/servers', showOnlyAdmin && user.rootAdmin, page],
+        () => getServers({ page, type: showOnlyAdmin && user.rootAdmin ? 'admin' : undefined, per_page: 5 }),
     );
 
     useEffect(() => {
@@ -60,12 +60,13 @@ export default () => {
     return (
         <PageContentBlock title={'Dashboard'}>
             <DashboardAlert />
-            <p className={'text-xl lg:text-5xl my-4 lg:my-10 font-semibold'}>Welcome, {name}</p>
+            <p className={'text-xl lg:text-5xl mt-4 lg:mt-10 font-semibold'}>Welcome to {name}</p>
+            <p className={'text-xs lg:text-lg mb-4 lg:mb-10 text-gray-500 font-mono'}>Signed in as {user.email}</p>
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 <div className="relative overflow-x-auto lg:col-span-2">
                     <h2 css={tw`text-neutral-300 mb-4 px-4 text-2xl inline-flex`}>
-                        {rootAdmin && (
+                        {user.rootAdmin && (
                             <div className={'mr-3 mt-1.5'}>
                                 <Switch
                                     name={'show_all_servers'}

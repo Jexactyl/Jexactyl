@@ -16,7 +16,7 @@ import ScreenBlock, { NotFound } from '@elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
 import Onboarding from '@/components/Onboarding';
 import BillingRouter from '@/routers/BillingRouter';
-import SpeedDial from './elements/SpeedDial';
+import SpeedDial from '@elements/SpeedDial';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));

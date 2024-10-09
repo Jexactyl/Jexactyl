@@ -1,8 +1,14 @@
 import http from '@/api/http';
 
-export const updateSettings = (key: string, value: any): Promise<void> => {
+export interface AISettings {
+    key?: string | boolean;
+    enabled?: boolean;
+    user_access?: boolean;
+}
+
+export const updateSettings = (settings: AISettings): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.put(`/api/application/ai/settings`, { key, value })
+        http.put(`/api/application/ai/settings`, settings)
             .then(() => resolve())
             .catch(reject);
     });
