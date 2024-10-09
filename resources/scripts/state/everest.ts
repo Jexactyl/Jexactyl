@@ -46,6 +46,10 @@ export interface EverestSettings {
         content: string;
         uuid: string;
     };
+    ai: {
+        enabled: boolean;
+        key: boolean;
+    };
 }
 
 export interface EverestStore {

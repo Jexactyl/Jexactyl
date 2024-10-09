@@ -19,17 +19,6 @@ class BillingSettingsController extends ApplicationApiController
     }
 
     /**
-     * Get the billing settings for the Panel.
-     */
-    public function view(): array
-    {
-        // TODO(jex): don't do this
-        return [
-            'enabled' => boolval($this->settings->get('settings::modules:billing:enabled')),
-        ];
-    }
-
-    /**
      * Update the billing settings for the Panel.
      *
      * @throws \Throwable

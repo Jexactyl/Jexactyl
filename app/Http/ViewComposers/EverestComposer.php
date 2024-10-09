@@ -53,6 +53,10 @@ class EverestComposer
                 'position' => config('modules.alert.position'),
                 'content' => config('modules.alert.content'),
                 'uuid' => config('modules.alert.uuid'),
+            ],
+            'ai' => [
+                'enabled' => boolval(config('modules.ai.enabled', false)),
+                'key' => !empty(config('modules.ai.key')),
             ]
         ]);
     }

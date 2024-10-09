@@ -67,6 +67,10 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:alert:position',
         'modules:alert:content',
         'modules:alert:uuid',
+
+        // AI module settings
+        'modules:ai:enabled',
+        'modules:ai:key',
     ];
 
     /**

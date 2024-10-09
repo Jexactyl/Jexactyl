@@ -7,9 +7,11 @@ import {
     GlobeIcon,
     KeyIcon,
     OfficeBuildingIcon,
+    PencilIcon,
     ReplyIcon,
     ServerIcon,
     ShieldExclamationIcon,
+    SparklesIcon,
     TerminalIcon,
     TicketIcon,
     UsersIcon,
@@ -50,12 +52,12 @@ import ApiContainer from '@admin/general/api/ApiContainer';
 import NewApiKeyContainer from '@admin/general/api/NewApiKeyContainer';
 import AuthContainer from '@admin/modules/auth/AuthContainer';
 import TicketRouter from '@admin/modules/tickets/TicketRouter';
-import { PencilIcon } from '@heroicons/react/solid';
 import ThemeContainer from '@admin/modules/theme/ThemeContainer';
 import BillingRouter from '@admin/modules/billing/BillingRouter';
 import AdminIndicators from '@/components/admin/AdminIndicators';
 import AlertRouter from '@/components/admin/modules/alert/AlertRouter';
 import { usePersistedState } from '@/plugins/usePersistedState';
+import AIRouter from '@/components/admin/modules/ai/AIRouter';
 
 function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
@@ -109,6 +111,10 @@ function AdminRouter() {
                             <NavLink to="/admin/tickets">
                                 <TicketIcon />
                                 <span>Tickets</span>
+                            </NavLink>
+                            <NavLink to="/admin/ai">
+                                <SparklesIcon />
+                                <span>AI</span>
                             </NavLink>
                         </>
                     )}
@@ -184,6 +190,7 @@ function AdminRouter() {
                         <Route path="auth" element={<AuthContainer />} />
                         <Route path="billing/*" element={<BillingRouter />} />
                         <Route path="tickets/*" element={<TicketRouter />} />
+                        <Route path="ai/*" element={<AIRouter />} />
                         <Route path="theme" element={<ThemeContainer />} />
                         <Route path="alerts/*" element={<AlertRouter />} />
                         <Route path="databases" element={<DatabasesContainer />} />

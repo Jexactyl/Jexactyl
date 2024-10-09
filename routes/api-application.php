@@ -51,7 +51,6 @@ Route::group(['prefix' => '/auth'], function () {
 |
 */
 Route::group(['prefix' => '/billing'], function () {
-    Route::get('/settings', [Application\Billing\BillingSettingsController::class, 'view']);
     Route::put('/settings', [Application\Billing\BillingSettingsController::class, 'update']);
 
     Route::group(['prefix' => '/categories'], function () {
@@ -71,6 +70,19 @@ Route::group(['prefix' => '/billing'], function () {
             Route::delete('/{product:id}', [Application\Billing\ProductController::class, 'delete']);
         });
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| AI Controller Routes
+|--------------------------------------------------------------------------
+|
+| Endpoint: /api/application/ai
+|
+*/
+Route::group(['prefix' => '/ai'], function () {
+    Route::put('/settings', [Application\AI\SettingsController::class, 'update']);
+    Route::post('/query', [Application\AI\SettingsController::class, 'query']);
 });
 
 /*

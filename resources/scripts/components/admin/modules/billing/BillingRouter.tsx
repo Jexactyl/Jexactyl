@@ -1,9 +1,6 @@
-import Spinner from '@elements/Spinner';
-import { useEffect, useState } from 'react';
 import { useStoreState } from '@/state/hooks';
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from '@elements/ScreenBlock';
-import { getSettings } from '@/api/admin/billing/settings';
 import AdminContentBlock from '@elements/AdminContentBlock';
 import EnableBilling from '@admin/modules/billing/EnableBilling';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -18,17 +15,9 @@ import { DesktopComputerIcon, ShoppingBagIcon, UsersIcon } from '@heroicons/reac
 import BillingAccountsContainer from '@admin/modules/billing/accounts/BillingAccountsContainer';
 
 export default () => {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [enabled, setEnabled] = useState<boolean>(false);
     const theme = useStoreState(state => state.theme.data!);
+    const enabled = useStoreState(state => state.everest.data!.billing.enabled);
 
-    useEffect(() => {
-        getSettings()
-            .then(data => setEnabled(data.enabled))
-            .then(() => setLoading(false));
-    });
-
-    if (loading) return <Spinner size={'large'} centered />;
     if (!enabled) return <EnableBilling />;
 
     return (

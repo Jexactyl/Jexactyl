@@ -26,6 +26,7 @@
         "ext-zip": "*",
         "aws/aws-sdk-php": "~3.260.1",
         "doctrine/dbal": "~3.6.0",
+        "gemini-api-php/client": "v1.4.4",
         "guzzlehttp/guzzle": "~7.5.0",
         "hashids/hashids": "~5.0.0",
         "laracasts/utilities": "~3.2.2",
@@ -103,6 +104,9 @@
         "sort-packages": true,
         "platform": {
             "php": "8.1.0"
+        },
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",
