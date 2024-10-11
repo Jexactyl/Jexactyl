@@ -32,7 +32,7 @@ class AlertController extends ApplicationApiController
 
         foreach ($request->normalize() as $key => $value) {
             $this->settings->set('settings::modules:alert:' . $key, $value);
-        };
+        }
 
         return new JsonResponse($uuid);
     }

@@ -27,7 +27,7 @@ class GeneralController extends ApplicationApiController
     {
         foreach ($request->normalize() as $key => $value) {
             $this->settings->set('settings::app:' . $key, $value);
-        };
+        }
 
         return $this->returnNoContent();
     }

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default () => {
     const [key, setKey] = useState<string>();
+    const settings = useStoreState(s => s.everest.data!.ai);
     const [loading, setLoading] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlashKey('admin:ai');
 
@@ -20,7 +21,7 @@ export default () => {
         clearFlashes();
         setLoading(true);
 
-        updateSettings('key', key)
+        updateSettings({ ...settings, key })
             .then(() => {
                 window.location.reload();
             })

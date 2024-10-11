@@ -4,8 +4,6 @@ namespace Everest\Observers;
 
 use Everest\Events;
 use Everest\Models\Subuser;
-use Everest\Notifications\AddedToServer;
-use Everest\Notifications\RemovedFromServer;
 
 class SubuserObserver
 {

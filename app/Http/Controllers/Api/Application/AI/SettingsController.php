@@ -2,7 +2,6 @@
 
 namespace Everest\Http\Controllers\Api\Application\AI;
 
-use Exception;
 use GeminiAPI\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,6 +30,10 @@ class SettingsController extends ApplicationApiController
     public function update(AISettingsRequest $request): Response
     {
         foreach ($request->normalize() as $key => $value) {
+            if ($key == 'key' && is_bool($value)) {
+                continue;
+            }
+
             $this->settings->set('settings::modules:ai:' . $key, $value);
         }
 
@@ -45,8 +48,8 @@ class SettingsController extends ApplicationApiController
     public function query(Request $request): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new Exception('The Jexactyl AI module is not enabled.');
-        };
+            throw new \Exception('The Jexactyl AI module is not enabled.');
+        }
 
         $client = new Client(config('modules.ai.key'));
 

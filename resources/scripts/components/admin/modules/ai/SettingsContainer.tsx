@@ -3,7 +3,7 @@ import Label from '@elements/Label';
 import { Form, Formik } from 'formik';
 import AdminBox from '@elements/AdminBox';
 import { useStoreState } from '@/state/hooks';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AISettings, updateSettings } from '@/api/admin/ai/settings';
 import useFlash from '@/plugins/useFlash';
 import { Button } from '@/components/elements/button';
@@ -54,6 +54,15 @@ export default () => {
                             <p className={'text-gray-400 text-xs mt-1.5'}>
                                 If enabled, standard Jexactyl users will be able to interact with Jexactyl AI as well as
                                 administrators.
+                            </p>
+                        </div>
+                    </AdminBox>
+                    <AdminBox title={'Modify API Key'} icon={faKey}>
+                        <div>
+                            <Field id={'key'} name={'key'} type={'input'} />
+                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                                If you are experiencing &apos;Invalid API Key&apos; errors, you can enter a new one here
+                                to reset it.
                             </p>
                         </div>
                     </AdminBox>
