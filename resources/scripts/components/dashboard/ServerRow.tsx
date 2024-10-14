@@ -131,31 +131,34 @@ export default ({ server, className }: { server: Server; className?: string }) =
                 </div>
             </div>
             {stats && (
-                <div css={tw`flex items-baseline justify-between col-span-full sm:flex-row sm:justify-around`}>
-                    <React.Fragment>
-                        <div css={tw`flex flex-col items-center sm:block`}>
-                            <div css={tw`flex justify-center text-neutral-500`}>
-                                <Icon.Cpu size={20} />
-                                <IconDescription $alarm={alarms.cpu}>
-                                    {stats.cpuUsagePercent.toFixed(2)}%
-                                </IconDescription>
-                            </div>
+                <div css={tw`flex flex-col sm:flex-row items-center justify-between col-span-full`}>
+                    {/* CPU Indicator */}
+                    <div css={tw`flex flex-col items-center w-full sm:w-auto mb-4 sm:mb-0`}>
+                        <div css={tw`flex justify-center text-neutral-500`}>
+                            <Icon.Cpu size={20} />
+                            <IconDescription $alarm={alarms.cpu}>
+                                {stats.cpuUsagePercent.toFixed(2)}%
+                            </IconDescription>
                         </div>
-                        <div css={tw`flex flex-col items-center sm:block`}>
-                            <div css={tw`flex justify-center text-gray-500`}>
-                                <Icon.PieChart size={20} />
-                                <IconDescription $alarm={alarms.memory}>
-                                    {bytesToString(stats.memoryUsageInBytes)}
-                                </IconDescription>
-                            </div>
+                    </div>
+
+                    {/* Memory Indicator */}
+                    <div css={tw`flex flex-col items-center w-full sm:w-auto mb-4 sm:mb-0`}>
+                        <div css={tw`flex justify-center text-gray-500`}>
+                            <Icon.PieChart size={20} />
+                            <IconDescription $alarm={alarms.memory}>
+                                {bytesToString(stats.memoryUsageInBytes)}
+                            </IconDescription>
                         </div>
-                        <div css={tw`flex flex-col items-center sm:block`}>
-                            <div css={tw`flex justify-center text-gray-500`}>
-                                <Icon.HardDrive size={20} />
-                                <IconDescription>{bytesToString(stats?.diskUsageInBytes)}</IconDescription>
-                            </div>
+                    </div>
+
+                    {/* Disk Indicator */}
+                    <div css={tw`flex flex-col items-center w-full sm:w-auto`}>
+                        <div css={tw`flex justify-center text-gray-500`}>
+                            <Icon.HardDrive size={20} />
+                            <IconDescription>{bytesToString(stats?.diskUsageInBytes)}</IconDescription>
                         </div>
-                    </React.Fragment>
+                    </div>
                 </div>
             )}
             <div className={'status-bar'} />
