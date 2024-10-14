@@ -1,4 +1,4 @@
-[![Logo Image](https://cdn.discordapp.com/attachments/1012411945141424218/1012430446556090468/JexactylBannerBasic.jpg)](https://jexactyl.com)
+[![Logo Image](.github/Banner.jpg)](https://jexactyl.com)
 
 [![Discord](https://img.shields.io/discord/922284031129825280?style=for-the-badge)](https://discord.com/invite/qttGR4Z5Pk)
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total?style=for-the-badge)
