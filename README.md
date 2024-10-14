@@ -1,4 +1,4 @@
-[![Logo Image](https://www.dropbox.com/scl/fi/ojr326ql75zp9u8vzlo4n/JexactylBanner.jpg?rlkey=m98e5f2qpp08kgeo9tf886xwe&st=w7j2dlij&dl=1)](https://jexactyl.com)
+[![Logo Image](https://cjsprojects.com/cdn/JexactylBanner.jpg)](https://jexactyl.com)
 
 [![Discord](https://img.shields.io/discord/922284031129825280?style=for-the-badge)](https://discord.com/invite/qttGR4Z5Pk)
 ![Downloads - Total](https://img.shields.io/github/downloads/jexactyl/jexactyl/total?style=for-the-badge)
