@@ -44,6 +44,12 @@ export default () => {
     return (
         <PageContentBlock title={'Account API'}>
             <FlashMessageRender byKey={'account'} />
+            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+                API Key Control
+                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                    Create, use and delete API keys to access the Panel.
+                </p>
+            </div>
             <div css={tw`md:flex flex-nowrap my-10`}>
                 <ContentBox title={'Create API Key'} css={tw`flex-none w-full md:w-1/2`}>
                     <CreateApiKeyForm onKeyCreated={key => setKeys(s => [...s!, key])} />

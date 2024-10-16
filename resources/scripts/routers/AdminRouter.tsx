@@ -65,7 +65,7 @@ function AdminRouter() {
     const user = useStoreState((state: ApplicationStore) => state.user.data!);
     const settings = useStoreState((state: ApplicationStore) => state.settings.data!);
 
-    const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_${user.uuid}`, false);
+    const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
 
     return (
         <div css={tw`h-screen flex`}>
@@ -81,7 +81,11 @@ function AdminRouter() {
                         <img src={CollapsedIcon} css={tw`mt-4 w-12`} alt={'Everest Icon'} />
                     )}
                 </div>
-                <Sidebar.Wrapper theme={theme}>
+                <Sidebar.Wrapper theme={theme} $admin>
+                    <NavLink to="/" className={'mb-[18px]'}>
+                        <ReplyIcon />
+                        <span>Return</span>
+                    </NavLink>
                     <Sidebar.Section>General</Sidebar.Section>
                     <NavLink to="/admin" end>
                         <OfficeBuildingIcon />
@@ -162,18 +166,17 @@ function AdminRouter() {
                         </NavLink>
                     )}
                 </Sidebar.Wrapper>
-                <NavLink to="/" css={tw`mt-auto mb-3`}>
-                    <ReplyIcon />
-                    <span>Return</span>
-                </NavLink>
-                <Sidebar.User>
+                <Sidebar.User className={'mt-auto'}>
                     <span className="flex items-center">
                         <Avatar.User />
                     </span>
-                    <div css={tw`flex flex-col ml-3`}>
+                    <div className={'flex flex-col ml-3'}>
                         <span
-                            css={tw`font-sans font-normal text-sm text-neutral-50 whitespace-nowrap leading-tight select-none`}
+                            className={
+                                'font-sans font-normal text-xs text-gray-300 whitespace-nowrap leading-tight select-none'
+                            }
                         >
+                            <div className={'text-gray-400 text-sm'}>Welcome back,</div>
                             {user.email}
                         </span>
                     </div>

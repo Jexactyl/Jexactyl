@@ -3,12 +3,14 @@ import tw, { css, styled } from 'twin.macro';
 import { withSubComponents } from '@/components/helpers';
 import { SiteTheme } from '@/state/theme';
 
-const Wrapper = styled.div<{ theme: SiteTheme }>`
+const Wrapper = styled.div<{ theme: SiteTheme; $admin?: boolean }>`
     ${tw`w-full flex flex-col px-4`};
 
     & > a {
-        ${tw`h-10 w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-4`};
+        ${tw`w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-4`};
         ${tw`hover:text-neutral-50`};
+        height: ${({ $admin }) => ($admin ? '2.5rem' : '4rem')};
+        ${tw`transition ease-in-out delay-200 duration-200`};
 
         & > svg {
             ${tw`h-6 w-6 flex flex-shrink-0`};
@@ -20,7 +22,7 @@ const Wrapper = styled.div<{ theme: SiteTheme }>`
 
         &:active,
         &.active {
-            ${tw`bg-black/25 rounded-full`};
+            ${tw`bg-black/25 rounded-lg`};
             color: ${({ theme }) => theme.colors.primary};
         }
     }
@@ -41,11 +43,12 @@ const User = styled.div`
 const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
     ${tw`h-screen flex flex-col items-center flex-shrink-0 overflow-x-hidden ease-linear`};
     ${tw`transition-all duration-500`};
-    ${tw`w-[17.5rem]`};
+    ${tw`w-[15rem]`};
 
     background-color: ${({ theme }) => theme.colors.sidebar};
 
-    & > a {
+    & > a,
+    & > span > a {
         ${tw`h-10 w-full flex flex-row items-center text-neutral-300 cursor-pointer select-none px-8`};
         ${tw`hover:text-neutral-50`};
 

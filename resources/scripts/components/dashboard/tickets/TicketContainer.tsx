@@ -43,6 +43,12 @@ export default () => {
     return (
         <PageContentBlock title={'Support Tickets'}>
             <FlashMessageRender byKey={'account:tickets'} />
+            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+                Your Support Tickets
+                <p className={'text-gray-400 font-normal text-sm mt-1'}>
+                    Create a ticket to gain support from an administrator.
+                </p>
+            </div>
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 <div className={'lg:col-span-2'}>
                     <ContentBox title={'Support Tickets'}>

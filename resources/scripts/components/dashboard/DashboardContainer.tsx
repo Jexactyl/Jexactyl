@@ -60,8 +60,10 @@ export default () => {
     return (
         <PageContentBlock title={'Dashboard'}>
             <DashboardAlert />
-            <p className={'text-xl lg:text-5xl mt-4 lg:mt-10 font-semibold'}>Welcome to {name}</p>
-            <p className={'text-xs lg:text-lg mb-4 lg:mb-10 text-gray-500 font-mono'}>Signed in as {user.email}</p>
+            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+                Welcome to {name}
+                <p className={'text-gray-400 font-normal text-sm mt-1'}>Signed in as {user.email}</p>
+            </div>
             <FlashMessageRender className={'my-4'} byKey={'dashboard'} />
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 <div className="relative overflow-x-auto lg:col-span-2">
