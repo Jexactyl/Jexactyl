@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import isEqual from 'react-fast-compare';
 import { Alert } from '@elements/alert';
 import Can from '@elements/Can';
@@ -11,15 +11,18 @@ import StatGraphs from '@/components/server/console/StatGraphs';
 import Features from '@feature/Features';
 import { ServerContext } from '@/state/server';
 import classNames from 'classnames';
+import { usePersistedState } from '@/plugins/usePersistedState';
+import { useStoreState } from '@/state/hooks';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
 function ServerConsoleContainer() {
-    const [expand, setExpand] = useState<boolean>(false);
+    const user = useStoreState(state => state.user.data!);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const name = ServerContext.useStoreState(state => state.server.data!.name);
     const description = ServerContext.useStoreState(state => state.server.data!.description);
     const isInstalling = ServerContext.useStoreState(state => state.server.isInstalling);
+    const [expand, setExpand] = usePersistedState<boolean>(`console_expand_${user.uuid}`, false);
     const isTransferring = ServerContext.useStoreState(state => state.server.data!.isTransferring);
     const eggFeatures = ServerContext.useStoreState(state => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState(state => state.server.data!.isNodeUnderMaintenance);

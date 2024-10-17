@@ -26,6 +26,7 @@ import {
     DocumentIcon,
     FolderIcon,
     PlayIcon,
+    ReplyIcon,
     TerminalIcon,
     UsersIcon,
     WifiIcon,
@@ -47,6 +48,7 @@ function ServerRouter() {
     const getServer = ServerContext.useStoreActions(actions => actions.server.getServer);
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
+    const serverId = ServerContext.useStoreState(state => state.server.data?.internalId);
 
     useEffect(() => {
         clearServerState();
@@ -134,6 +136,12 @@ function ServerRouter() {
                             <CogIcon />
                             <span>Controls</span>
                         </NavLink>
+                        {user.rootAdmin && (
+                            <NavLink to={`/admin/servers/${serverId}`}>
+                                <ReplyIcon />
+                                <span>View as Admin</span>
+                            </NavLink>
+                        )}
                     </Sidebar.Wrapper>
                     <span className={'mt-auto mb-3 mr-auto'}>
                         {user.rootAdmin && (
