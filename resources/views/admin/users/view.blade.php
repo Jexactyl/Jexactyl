@@ -2,7 +2,7 @@
 @include('partials/admin.users.nav', ['activeTab' => 'overview', 'user' => $user])
 
 @section('title')
-    Manager User: {{ $user->username }}
+    Manage User: {{ $user->username }}
 @endsection
 
 @section('content-header')
