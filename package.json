@@ -121,7 +121,7 @@
         "eslint-plugin-prettier": "4.2.1",
         "eslint-plugin-react": "7.32.2",
         "eslint-plugin-react-hooks": "4.6.0",
-        "happy-dom": "15.10.2",
+        "happy-dom": "20.0.0",
         "laravel-vite-plugin": "0.7.4",
         "pathe": "1.1.0",
         "postcss": "8.4.31",
@@ -135,7 +135,7 @@
         "ts-essentials": "9.3.0",
         "twin.macro": "2.8.2",
         "typescript": "4.9.5",
-        "vite": "6.3.6",
+        "vite": "7.0.7",
         "vitest": "0.28.5"
     },
     "browserslist": [
