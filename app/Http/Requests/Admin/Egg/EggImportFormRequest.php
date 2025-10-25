@@ -9,7 +9,10 @@ class EggImportFormRequest extends AdminFormRequest
     public function rules(): array
     {
         $rules = [
-            'import_file' => 'bail|required|file|max:1000|mimetypes:application/json,text/plain',
+            'import_file' => 'nullable|file|max:1000|mimetypes:application/json,text/plain',
+
+            'import_files' => 'nullable|array',
+            'import_files.*' => 'file|max:1000|mimetypes:application/json,text/plain',
         ];
 
         if ($this->method() !== 'PUT') {
@@ -17,5 +20,14 @@ class EggImportFormRequest extends AdminFormRequest
         }
 
         return $rules;
+    }
+
+    public function messages(): array
+    {
+        return [
+            'import_file.file' => 'Each file must be a valid JSON file.',
+            'import_files.*.file' => 'Each file must be a valid JSON file.',
+            'import_files.*.mimetypes' => 'All uploaded files must be JSON.',
+        ];
     }
 }
