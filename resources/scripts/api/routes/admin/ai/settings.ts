@@ -1,8 +1,13 @@
 import http from '@/api/http';
 
 export interface AISettings {
-    key?: string | boolean;
     enabled?: boolean;
+    api_key?: string;
+    key?: string | boolean; // Legacy support
+    endpoint?: string;
+    model?: string;
+    max_tokens?: number;
+    temperature?: number;
     user_access?: boolean;
 }
 

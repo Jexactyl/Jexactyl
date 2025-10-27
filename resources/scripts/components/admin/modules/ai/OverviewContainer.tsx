@@ -91,12 +91,12 @@ export default () => {
             </div>
             <div className={'col-span-2 space-y-4'}>
                 <Alert type={'warning'} className={'mt-16 md:mt-0'}>
-                    Jexactyl AI relies on Google Gemini models for requests. Information provided could be inaccurate or
-                    outdated. Use with caution!
+                    Jexactyl AI supports any AI providers who offer a OpenAI compatible API endpoint. 
+                    Information provided could be inaccurate or outdated. Use with caution!
                 </Alert>
                 <Alert type={'info'}>
-                    API requests are limited on Gemini&apos;s public API to 120/second - if you experience ratelimiting,
-                    you may need to upgrade your license.
+                    API requests may be subject to rate limits depending on your chosen provider. If you experience rate limiting,
+                    please wait a moment before trying again.
                 </Alert>
                 <AdminBox title={'Disable Jexactyl AI'} className={'col-span-2 h-min'}>
                     Clicking the button below will disable Jexactyl AI for both clients and administrators. Your API key

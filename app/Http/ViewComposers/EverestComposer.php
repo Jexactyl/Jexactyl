@@ -66,7 +66,12 @@ class EverestComposer
             ],
             'ai' => [
                 'enabled' => boolval(config('modules.ai.enabled', false)),
-                'key' => !empty(config('modules.ai.key')),
+                'api_key' => config('modules.ai.api_key', ''),
+                'key' => config('modules.ai.key', ''), // Legacy support \ Please remove this in the future if not needed
+                'endpoint' => config('modules.ai.endpoint', 'https://api.openai.com/v1/chat/completions'),
+                'model' => config('modules.ai.model', 'gpt-3.5-turbo'),
+                'max_tokens' => config('modules.ai.max_tokens', 1000),
+                'temperature' => config('modules.ai.temperature', 0.7),
                 'user_access' => boolval(config('modules.ai.user_access', false)),
             ],
             'webhooks' => [

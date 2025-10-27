@@ -10,8 +10,8 @@ export default () => {
     return (
         <FeatureContainer image={<AISvg color={primary} />} icon={faWandMagicSparkles} title={'Jexactyl AI'}>
             Use Jexactyl&apos;s Artificial Intelligence suite to give users better insights into errors, provide instant
-            support and help administrators take better control over their Panel. Jexactyl uses Gemini AI in order to
-            serve intelligence requests.
+            support and help administrators take better control over their Panel. Jexactyl supports any AI providers 
+            who offer a OpenAI compatible API endpoint.
             <p className={'text-right mt-2'}>
                 <ToggleFeatureButton />
             </p>
