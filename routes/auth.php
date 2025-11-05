@@ -24,26 +24,23 @@ Route::get('/password/reset/{token}', [Auth\LoginController::class, 'index'])->n
 // @see \Everest\Providers\RouteServiceProvider
 Route::middleware(['throttle:authentication'])->group(function () {
     // Login endpoints.
-    Route::post('/login', [Auth\LoginController::class, 'login'])->middleware('recaptcha');
+    Route::post('/login', [Auth\LoginController::class, 'login']);
     Route::post('/login/checkpoint', Auth\LoginCheckpointController::class)->name('auth.login-checkpoint');
 
-    Route::post('/register', [Auth\LoginController::class, 'register'])->middleware('recaptcha');
+    Route::post('/register', [Auth\LoginController::class, 'register']);
 
-    Route::post('/modules/discord', [Auth\Modules\DiscordLoginController::class, 'requestToken'])->middleware('recaptcha');
+    Route::post('/modules/discord', [Auth\Modules\DiscordLoginController::class, 'requestToken']);
     Route::get('/modules/discord/authenticate', [Auth\Modules\DiscordLoginController::class, 'authenticate'])
-        ->middleware('recaptcha')
         ->name('auth.modules.discord.authenticate');
 
-    Route::post('/modules/google', [Auth\Modules\GoogleLoginController::class, 'requestToken'])->middleware('recaptcha');
+    Route::post('/modules/google', [Auth\Modules\GoogleLoginController::class, 'requestToken']);
     Route::get('/modules/google/authenticate', [Auth\Modules\GoogleLoginController::class, 'authenticate'])
-        ->middleware('recaptcha')
         ->name('auth.modules.google.authenticate');
 
     // Forgot password route. A post to this endpoint will trigger an
     // email to be sent containing a reset token.
     Route::post('/password', [Auth\ForgotPasswordController::class, 'verify'])
-        ->name('auth.post.forgot-password')
-        ->middleware('recaptcha');
+        ->name('auth.post.forgot-password');
 });
 
 // Password reset routes. This endpoint is hit after going through
