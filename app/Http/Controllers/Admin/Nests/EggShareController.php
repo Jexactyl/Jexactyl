@@ -50,10 +50,34 @@ class EggShareController extends Controller
      */
     public function import(EggImportFormRequest $request): RedirectResponse
     {
-        $egg = $this->importerService->handle($request->file('import_file'), $request->input('import_to_nest'));
-        $this->alert->success(trans('admin/nests.eggs.notices.imported'))->flash();
-
-        return redirect()->route('admin.nests.egg.view', ['egg' => $egg->id]);
+        $files = $request->file('import_files', []);
+        $nestId = $request->input('import_to_nest');
+    
+        if (empty($files) && $request->hasFile('import_file')) {
+            $files = [$request->file('import_file')];
+        }
+    
+        $imported = [];
+        $failed = [];
+    
+        foreach ($files as $file) {
+            try {
+                $egg = $this->importerService->handle($file, $nestId);
+                $imported[] = $egg->name;
+            } catch (\Throwable $ex) {
+                $failed[] = $file->getClientOriginalName() . ' (' . $ex->getMessage() . ')';
+            }
+        }
+    
+        if ($imported) {
+            $this->alert->success('Successfully imported: ' . implode(', ', $imported))->flash();
+        }
+    
+        if ($failed) {
+            $this->alert->danger('Failed to import: ' . implode(', ', $failed))->flash();
+        }
+    
+        return redirect()->route('admin.nests');
     }
 
     /**
