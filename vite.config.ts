@@ -45,6 +45,16 @@ export default defineConfig({
         cors: {
             origin: '*',
         },
+        watch: {
+            ignored: [
+                '**/vendor/**',
+                '**/.cache/**',
+                '**/storage/**',
+                '**/database/**',
+                '**/.git/**',
+                '**/node_modules/**',
+            ],
+        },
     },
 
     resolve: {
