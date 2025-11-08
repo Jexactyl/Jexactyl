@@ -1,0 +1,60 @@
+<?php
+
+namespace Everest\Transformers\Api\Application;
+
+use Everest\Models\User;
+use Everest\Services\Acl\Api\AdminAcl;
+use League\Fractal\Resource\Collection;
+use Everest\Transformers\Api\Transformer;
+use League\Fractal\Resource\NullResource;
+
+class UserTransformer extends Transformer
+{
+    /**
+     * List of resources that can be included.
+     */
+    protected array $availableIncludes = ['servers'];
+
+    /**
+     * Return the resource name for the JSONAPI output.
+     */
+    public function getResourceName(): string
+    {
+        return User::RESOURCE_NAME;
+    }
+
+    /**
+     * Return a transformed User model that can be consumed by external services.
+     */
+    public function transform(User $model): array
+    {
+        return [
+            'id' => $model->id,
+            'external_id' => $model->external_id,
+            'uuid' => $model->uuid,
+            'username' => $model->username,
+            'email' => $model->email,
+            'language' => $model->language,
+            'root_admin' => (bool) $model->root_admin,
+            '2fa' => (bool) $model->use_totp,
+            'avatar_url' => $model->avatar_url,
+            'admin_role_id' => $model->admin_role_id,
+            'role_name' => $model->admin_role_name,
+            'state' => $model->state,
+            'created_at' => $model->created_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String(),
+        ];
+    }
+
+    /**
+     * Return the servers associated with this user.
+     */
+    public function includeServers(User $user): Collection|NullResource
+    {
+        if (!$this->authorize(AdminAcl::RESOURCE_SERVERS)) {
+            return $this->null();
+        }
+
+        return $this->collection($user->servers, new ServerTransformer());
+    }
+}

@@ -1,0 +1,67 @@
+.stat_block {
+    @apply flex items-center rounded shadow-lg relative;
+    @apply px-3 py-2 md:p-3 lg:p-4;
+
+    & > .status_bar {
+        @apply w-1 h-full absolute left-0 top-0 rounded-l sm:hidden;
+    }
+
+    & > .icon {
+        @apply hidden flex-shrink-0 items-center justify-center rounded-lg shadow-md w-10 h-10;
+        @apply transition-colors duration-500;
+        @apply sm:flex sm:mr-2;
+
+        & > svg {
+            @apply w-6 h-6 m-auto;
+        }
+    }
+}
+
+.terminal {
+    @apply flex flex-col w-full;
+
+    & .overflows_container {
+        @apply -ml-4 sm:ml-0;
+        width: calc(100% + 2rem);
+
+        @screen sm {
+            @apply w-full;
+        }
+    }
+
+    & > .container {
+        @apply rounded-t p-1 sm:p-2 bg-[#000000] flex-1 font-mono text-sm;
+
+        & #terminal {
+            @apply h-full;
+
+            &::-webkit-scrollbar-track {
+                @apply w-2;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                @apply bg-slate-900;
+            }
+        }
+    }
+
+    & .command_icon {
+        @apply flex items-center top-0 left-0 absolute z-10 select-none h-full px-3 transition-colors duration-100;
+    }
+
+    & .expand_icon {
+        @apply flex items-center top-0 right-0 absolute z-10 select-none h-full px-3 transition-colors duration-100;
+    }
+
+    & .command_input {
+        @apply relative bg-zinc-900 px-2 text-slate-100 pl-16 pr-4 py-2 w-full font-mono text-sm sm:rounded-b;
+        @apply focus:ring-0 outline-none focus-visible:outline-none;
+        @apply border-0 border-b-2 border-transparent transition-colors duration-100;
+        @apply active:border-cyan-500 focus:border-cyan-500;
+    }
+    
+}
+
+.chart_container {
+    @apply rounded shadow-lg pt-2 relative;
+}
