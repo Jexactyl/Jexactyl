@@ -11,7 +11,8 @@
         "build": "vite build",
         "clean": "rimraf public/build",
         "coverage": "vitest run --coverage",
-        "dev": "vite",
+        "dev": 
+         "start": "node index.js"
         "lint": "eslint ./resources/scripts/**/*.{ts,tsx} --ext .ts,.tsx",
         "test": "vitest run",
         "test:ui": "vitest --ui"
