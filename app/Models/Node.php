@@ -145,6 +145,7 @@ class Node extends Model
     {
         return [
             'debug' => false,
+            'app_name' => $this->daemon_brand ?? 'Pterodactyl',
             'uuid' => $this->uuid,
             'token_id' => $this->daemon_token_id,
             'token' => Container::getInstance()->make(Encrypter::class)->decrypt($this->daemon_token),
@@ -166,7 +167,6 @@ class Node extends Model
             ],
             'allowed_mounts' => $this->mounts->pluck('source')->toArray(),
             'remote' => route('index'),
-            'brand' => $this->daemon_brand ?? 'Pterodactyl',
         ];
     }
 

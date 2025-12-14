@@ -1,32 +1,26 @@
-import { ChevronDoubleRightIcon } from '@heroicons/react/solid';
-import classNames from 'classnames';
-import { debounce } from 'debounce';
-import type { Dispatch, KeyboardEvent as ReactKeyboardEvent, SetStateAction } from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import type { ITerminalInitOnlyOptions, ITerminalOptions, ITheme } from 'xterm';
-import { Terminal } from 'xterm';
-import { FitAddon } from 'xterm-addon-fit';
-import { SearchAddon } from 'xterm-addon-search';
-import { SearchBarAddon } from 'xterm-addon-search-bar';
-import { WebLinksAddon } from 'xterm-addon-web-links';
-import { theme as th } from 'twin.macro';
-
-import SpinnerOverlay from '@/elements/SpinnerOverlay';
-import { SocketEvent, SocketRequest } from '@server/events';
-import { ScrollDownHelperAddon } from '@/plugins/XtermScrollDownHelperAddon';
-import useEventListener from '@/plugins/useEventListener';
-import { usePermissions } from '@/plugins/usePermissions';
-import { usePersistedState } from '@/plugins/usePersistedState';
-import { ServerContext } from '@/state/server';
-
 import 'xterm/css/xterm.css';
+import classNames from 'classnames';
+import * as Icon from 'react-feather';
 import styles from './style.module.css';
-import { useStoreState } from '@/state/hooks';
-import { ArrowsExpandIcon } from '@heroicons/react/outline';
-import IntelligenceButton from './IntelligenceButton';
+import { FitAddon } from 'xterm-addon-fit';
+import { theme as th } from 'twin.macro';
+import { SearchAddon } from 'xterm-addon-search';
+import { Terminal, ITerminalOptions } from 'xterm';
+import { WebLinksAddon } from 'xterm-addon-web-links';
+import { SearchBarAddon } from 'xterm-addon-search-bar';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import { ServerContext } from '@/state/server';
+import { usePermissions } from '@/plugins/usePermissions';
+import useEventListener from '@/plugins/useEventListener';
+import { debounce } from 'debounce';
+import { usePersistedState } from '@/plugins/usePersistedState';
+import { SocketEvent, SocketRequest } from '@/components/server/events';
+import 'xterm/css/xterm.css';
+import Tooltip from '@/components/elements/tooltip/Tooltip';
 
-const theme: ITheme = {
-    background: '#000000',
+const theme = {
+    background: th`colors.black`.toString(),
     cursor: 'transparent',
     black: th`colors.black`.toString(),
     red: '#E54B4B',
@@ -44,7 +38,7 @@ const theme: ITheme = {
     brightMagenta: '#C792EA',
     brightCyan: '#89DDFF',
     brightWhite: '#ffffff',
-    selectionBackground: '#FAF089',
+    selection: '#FAF089',
 };
 
 const terminalProps: ITerminalOptions = {
@@ -53,37 +47,27 @@ const terminalProps: ITerminalOptions = {
     allowTransparency: true,
     fontSize: 12,
     fontFamily: th('fontFamily.mono'),
+    rows: 50,
     theme: theme,
-    allowProposedApi: true,
 };
 
-interface Props {
-    expand: boolean;
-    setExpand: Dispatch<SetStateAction<boolean>>;
-}
-
-export default ({ expand, setExpand }: Props) => {
-    const terminalInitOnlyProps: ITerminalInitOnlyOptions = {
-        rows: expand ? 45 : 30,
-    };
-
-    const { secondary } = useStoreState(state => state.theme.data!.colors);
-    const TERMINAL_PRELUDE = '\n\u001b[1m\u001b[33mEverest Container: \u001b[0m';
+export default () => {
+    const appName = (window as any).SiteConfiguration?.name || 'Pterodactyl';
+    const TERMINAL_PRELUDE = `\u001b[1m\u001b[33m${appName}: \u001b[0m`;
     const ref = useRef<HTMLDivElement>(null);
-    const terminal = useMemo(() => new Terminal({ ...terminalProps, ...terminalInitOnlyProps }), []);
+    const terminal = useMemo(() => new Terminal({ ...terminalProps }), []);
     const fitAddon = new FitAddon();
     const searchAddon = new SearchAddon();
-    const searchBar = new SearchBarAddon({ searchAddon });
     const webLinksAddon = new WebLinksAddon();
-    const scrollDownHelperAddon = new ScrollDownHelperAddon();
-    const { connected, instance } = ServerContext.useStoreState(state => state.socket);
-    const [canSendCommands] = usePermissions(['control.console']);
-    const serverId = ServerContext.useStoreState(state => state.server.data!.id);
-    const isTransferring = ServerContext.useStoreState(state => state.server.data!.isTransferring);
-    const [history, setHistory] = usePersistedState<string[]>(`${serverId}:command_history`, []);
+    const searchBar = new SearchBarAddon({ searchAddon });
     const [historyIndex, setHistoryIndex] = useState(-1);
+    const isConsoleDetached = location.pathname.endsWith('/console');
+    const [canSendCommands] = usePermissions(['control.console']);
+    const serverId = ServerContext.useStoreState((state) => state.server.data!.id);
+    const { connected, instance } = ServerContext.useStoreState((state) => state.socket);
+    const isTransferring = ServerContext.useStoreState((state) => state.server.data!.isTransferring);
+    const [history, setHistory] = usePersistedState<string[]>(`${serverId}:command_history`, []);
 
-    // SearchBarAddon has hardcoded z-index: 999 :(
     const zIndex = `
     .xterm-search-bar__addon {
         z-index: 10;
@@ -96,27 +80,31 @@ export default ({ expand, setExpand }: Props) => {
         switch (status) {
             // Sent by either the source or target node if a failure occurs.
             case 'failure':
-                terminal.writeln(TERMINAL_PRELUDE + 'Transfer has failed.\u001b[0m\n');
+                terminal.writeln(TERMINAL_PRELUDE + 'Transfer has failed.\u001b[0m');
                 return;
         }
     };
 
+    const popout = () => {
+        window.open(window.location.href + '/console', 'Server Console', 'height=400,width=800');
+    };
+
     const handleDaemonErrorOutput = (line: string) =>
         terminal.writeln(
-            TERMINAL_PRELUDE + '\u001b[1m\u001b[41m' + line.replace(/(?:\r\n|\r|\n)$/im, '') + '\u001b[0m\n',
+            TERMINAL_PRELUDE + '\u001b[1m\u001b[41m' + line.replace(/(?:\r\n|\r|\n)$/im, '') + '\u001b[0m'
         );
 
     const handlePowerChangeEvent = (state: string) =>
-        terminal.writeln(TERMINAL_PRELUDE + 'Server marked as ' + state + '...\u001b[0m\n');
+        terminal.writeln(TERMINAL_PRELUDE + 'Server marked as ' + state + '...\u001b[0m');
 
-    const handleCommandKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    const handleCommandKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
             const newIndex = Math.min(historyIndex + 1, history!.length - 1);
 
             setHistoryIndex(newIndex);
             e.currentTarget.value = history![newIndex] || '';
 
-            // By default, up arrow will also bring the cursor to the start of the line,
+            // By default up arrow will also bring the cursor to the start of the line,
             // so we'll preventDefault to keep it at the end.
             e.preventDefault();
         }
@@ -130,7 +118,7 @@ export default ({ expand, setExpand }: Props) => {
 
         const command = e.currentTarget.value;
         if (e.key === 'Enter' && command.length > 0) {
-            setHistory(prevHistory => [command, ...prevHistory!].slice(0, 32));
+            setHistory((prevHistory) => [command, ...prevHistory!].slice(0, 32));
             setHistoryIndex(-1);
 
             instance && instance.send('send command', command);
@@ -144,7 +132,6 @@ export default ({ expand, setExpand }: Props) => {
             terminal.loadAddon(searchAddon);
             terminal.loadAddon(searchBar);
             terminal.loadAddon(webLinksAddon);
-            terminal.loadAddon(scrollDownHelperAddon);
 
             terminal.open(ref.current);
             fitAddon.fit();
@@ -173,7 +160,7 @@ export default ({ expand, setExpand }: Props) => {
             if (terminal.element) {
                 fitAddon.fit();
             }
-        }, 100),
+        }, 100)
     );
 
     useEffect(() => {
@@ -183,7 +170,7 @@ export default ({ expand, setExpand }: Props) => {
             [SocketEvent.INSTALL_OUTPUT]: handleConsoleOutput,
             [SocketEvent.TRANSFER_LOGS]: handleConsoleOutput,
             [SocketEvent.TRANSFER_STATUS]: handleTransferStatus,
-            [SocketEvent.DAEMON_MESSAGE]: line => handleConsoleOutput(line, true),
+            [SocketEvent.DAEMON_MESSAGE]: (line) => handleConsoleOutput(line, true),
             [SocketEvent.DAEMON_ERROR]: handleDaemonErrorOutput,
         };
 
@@ -194,12 +181,7 @@ export default ({ expand, setExpand }: Props) => {
             }
 
             Object.keys(listeners).forEach((key: string) => {
-                const listener = listeners[key];
-                if (listener === undefined) {
-                    return;
-                }
-
-                instance.addListener(key, listener);
+                instance.addListener(key, listeners[key]);
             });
             instance.send(SocketRequest.SEND_LOGS);
         }
@@ -207,62 +189,47 @@ export default ({ expand, setExpand }: Props) => {
         return () => {
             if (instance) {
                 Object.keys(listeners).forEach((key: string) => {
-                    const listener = listeners[key];
-                    if (listener === undefined) {
-                        return;
-                    }
-
-                    instance.removeListener(key, listener);
+                    instance.removeListener(key, listeners[key]);
                 });
             }
         };
     }, [connected, instance]);
 
     return (
-        <div
-            style={{ backgroundColor: secondary }}
-            className={classNames(
-                styles.terminal,
-                'relative p-2 rounded-lg',
-                expand ? 'min-h-[48rem]' : 'min-h-[16rem]',
-            )}
-        >
+        <div className={classNames(styles.terminal, 'relative')}>
             <SpinnerOverlay visible={!connected} size={'large'} />
             <div
                 className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}
             >
-                <div className={'h-full static'}>
-                    <div className={'absolute top-0 right-0 p-5 z-10'}>
-                        <IntelligenceButton />
-                    </div>
-                    <div id={styles.terminal} ref={ref} />
-                </div>
+                <div id={styles.terminal} ref={ref} />
             </div>
             {canSendCommands && (
                 <div className={classNames('relative', styles.overflows_container)}>
                     <input
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
-                        placeholder={'Type a command...'}
+                        id={'console_input'}
                         aria-label={'Console command input.'}
                         disabled={!instance || !connected}
                         onKeyDown={handleCommandKeyDown}
                         autoCorrect={'off'}
                         autoCapitalize={'none'}
                     />
-                    <div
-                        className={classNames(
-                            'text-slate-100 peer-focus:animate-pulse peer-focus:text-slate-50',
-                            styles.command_icon,
+                    <div className={classNames('text-gray-100', styles.command_icon)}>
+                        {!isConsoleDetached && (
+                            <Tooltip content={'Launch console in external window'}>
+                                <Icon.ExternalLink className={'w-4 h-4'} onClick={() => popout()} />
+                            </Tooltip>
                         )}
-                    >
-                        <ChevronDoubleRightIcon className={'h-4 w-4'} />
-                    </div>
-                    <div className={styles.expand_icon}>
-                        <ArrowsExpandIcon
-                            className={'hover:text-green-400 w-4 h-4 duration-300'}
-                            onClick={() => setExpand(s => !s)}
-                        />
+                        <Tooltip content={'Type a command...'}>
+                            <Icon.ChevronsRight
+                                className={'w-4 h-4 ml-2 hover:animate-pulse'}
+                                onClick={() => {
+                                    // @ts-expect-error this is valid
+                                    document.getElementById('console_input').focus();
+                                }}
+                            />
+                        </Tooltip>
                     </div>
                 </div>
             )}
