@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <title>{{ config('app.name', 'Everest') }}</title>
+        <title>{{ config('app.name', 'Jexactyl') }}</title>
 
         @section('meta')
             <meta charset="utf-8">
@@ -22,7 +22,7 @@
         @section('user-data')
             @if(!is_null(Auth::user()))
                 <script>
-                    window.PterodactylUser = {!! json_encode(Auth::user()->toReactObject()) !!};
+                    window.JexactylUser = {!! json_encode(Auth::user()->toVueObject()) !!};
                 </script>
             @endif
             @if(!empty($siteConfiguration))
@@ -30,38 +30,41 @@
                     window.SiteConfiguration = {!! json_encode($siteConfiguration) !!};
                 </script>
             @endif
-            @if(!empty($everestConfiguration))
+            @if(!empty($storeConfiguration))
                 <script>
-                    window.EverestConfiguration = {!! json_encode($everestConfiguration) !!};
-                </script>
-            @endif
-            @if(!empty($themeConfiguration))
-                <script>
-                    window.ThemeConfiguration = {!! json_encode($themeConfiguration) !!};
+                    window.StoreConfiguration = {!! json_encode($storeConfiguration) !!};
                 </script>
             @endif
         @show
-        <style>
-            @import url('//fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
-            @import url('//fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:500&display=swap');
 
-            body {
-                background-color: {{ $themeConfiguration['colors']['background'] }}
-            }
-        </style>
+        @if(!empty($siteConfiguration['background']))
+            <style>
+                body {
+                    background-image: url({!! $siteConfiguration['background'] !!});
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    background-size: cover;
+                }
+            </style>
+        @endif
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:500&display=swap" rel="stylesheet">
 
         @yield('assets')
 
         @include('layouts.scripts')
-
-        @viteReactRefresh
-        @vite('resources/scripts/index.tsx')
     </head>
     <body>
         @section('content')
             @yield('above-container')
             @yield('container')
             @yield('below-container')
+        @show
+        @section('scripts')
+            {!! $asset->js('main.js') !!}
         @show
     </body>
 </html>

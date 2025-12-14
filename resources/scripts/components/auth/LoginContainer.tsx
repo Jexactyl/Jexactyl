@@ -24,7 +24,8 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
     const discord = useStoreState((state) => state.settings.data?.registration.discord);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const { enabled: recaptchaEnabled, siteKey } = useStoreState((state) => state.settings.data!.recaptcha);
+    const recaptchaEnabled = useStoreState((state) => state.settings.data?.recaptcha?.enabled || false);
+    const siteKey = useStoreState((state) => state.settings.data?.recaptcha?.siteKey || '');
 
     useEffect(() => {
         clearFlashes();

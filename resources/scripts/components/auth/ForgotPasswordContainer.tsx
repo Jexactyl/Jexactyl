@@ -1,69 +1,62 @@
-import { useStoreState } from 'easy-peasy';
-import type { FormikHelpers } from 'formik';
-import { Formik } from 'formik';
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
+import * as React from 'react';
+import Reaptcha from 'reaptcha';
 import { object, string } from 'yup';
-import { requestPasswordReset } from '@/api/routes/auth/password-reset';
-import { httpErrorToHuman } from '@/api/http';
-import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import { Button } from '@/elements/button';
-import Field from '@/elements/Field';
+import { Link } from 'react-router-dom';
 import useFlash from '@/plugins/useFlash';
+import { useStoreState } from 'easy-peasy';
+import { httpErrorToHuman } from '@/api/http';
+import { Formik, FormikHelpers } from 'formik';
+import Field from '@/components/elements/Field';
+import { useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/elements/button/index';
+import LoginFormContainer from '@/components/auth/LoginFormContainer';
+import requestPasswordResetEmail from '@/api/auth/requestPasswordResetEmail';
 
 interface Values {
     email: string;
-    code: string;
-    password: string;
-    password_confirm: string;
 }
 
-function ForgotPasswordContainer() {
+export default () => {
     const ref = useRef<Reaptcha>(null);
-    const token = useRef('');
+    const [token, setToken] = useState('');
 
     const { clearFlashes, addFlash } = useFlash();
-    const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
+    const recaptchaEnabled = useStoreState((state) => state.settings.data?.recaptcha?.enabled || false);
+    const siteKey = useStoreState((state) => state.settings.data?.recaptcha?.siteKey || '');
 
     useEffect(() => {
         clearFlashes();
     }, []);
 
-    const handleSubmission = (
-        { email, code, password, password_confirm }: Values,
-        { setSubmitting, resetForm }: FormikHelpers<Values>,
-    ) => {
+    const handleSubmission = ({ email }: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
         clearFlashes();
 
         // If there is no token in the state yet, request the token and then abort this submit request
         // since it will be re-submitted when the recaptcha data is returned by the component.
         if (recaptchaEnabled && !token) {
-            ref.current!.execute().catch(error => {
+            ref.current!.execute().catch((error) => {
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
             });
 
             return;
         }
 
-        requestPasswordReset(email, code, password, password_confirm, token.current)
-            .then(response => {
+        requestPasswordResetEmail(email, token)
+            .then((response) => {
                 resetForm();
                 addFlash({ type: 'success', title: 'Success', message: response });
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                addFlash({ type: 'danger', title: 'Error', message: httpErrorToHuman(error) });
             })
             .then(() => {
-                token.current = '';
-                if (ref.current !== null) {
-                    void ref.current.reset();
-                }
+                setToken('');
+                if (ref.current) ref.current.reset();
 
                 setSubmitting(false);
             });
@@ -72,51 +65,27 @@ function ForgotPasswordContainer() {
     return (
         <Formik
             onSubmit={handleSubmission}
-            initialValues={{ email: '', code: '', password: '', password_confirm: '' }}
+            initialValues={{ email: '' }}
             validationSchema={object().shape({
                 email: string()
                     .email('A valid email address must be provided to continue.')
                     .required('A valid email address must be provided to continue.'),
-                code: string().required('You must enter your account recovery code to continue.'),
-                password: string().min(8).required(),
-                password_confirm: string().min(8).required(),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Reset your Password'} css={tw`w-full flex`}>
+                <LoginFormContainer title={'Request Password Reset'} css={tw`w-full flex`}>
                     <Field
-                        label={'Email Address'}
-                        description={'Enter your account email address that you use to access the Panel.'}
+                        light
+                        label={'Email'}
+                        description={
+                            'Enter your account email address to receive instructions on resetting your password.'
+                        }
                         name={'email'}
                         type={'email'}
                     />
-                    <div className={'mt-6'}>
-                        <Field
-                            label={'Account Recovery Code'}
-                            description={
-                                "Enter the account recovery code you were given when your account was created. Don't have this code? Contact our support for assistance."
-                            }
-                            name={'code'}
-                            type={'text'}
-                        />
-                    </div>
-                    <div className={'my-6'}>
-                        <Field
-                            label={'New Password'}
-                            description={"Enter the new password you'd like to use for this user account."}
-                            name={'password'}
-                            type={'password'}
-                        />
-                    </div>
-                    <Field
-                        label={'Confirm New Password'}
-                        description={'For extra security, re-enter the above password.'}
-                        name={'password_confirm'}
-                        type={'password'}
-                    />
                     <div css={tw`mt-6`}>
-                        <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
-                            Attempt Login
+                        <Button size={Button.Sizes.Large} css={tw`w-full`} type={'submit'} disabled={isSubmitting}>
+                            Send Email
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -124,20 +93,20 @@ function ForgotPasswordContainer() {
                             ref={ref}
                             size={'invisible'}
                             sitekey={siteKey || '_invalid_key'}
-                            onVerify={response => {
-                                token.current = response;
-                                void submitForm();
+                            onVerify={(response) => {
+                                setToken(response);
+                                submitForm();
                             }}
                             onExpire={() => {
                                 setSubmitting(false);
-                                token.current = '';
+                                setToken('');
                             }}
                         />
                     )}
                     <div css={tw`mt-6 text-center`}>
                         <Link
                             to={'/auth/login'}
-                            css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
+                            css={tw`text-xs text-neutral-500 tracking-wide uppercase no-underline hover:text-neutral-700`}
                         >
                             Return to Login
                         </Link>
@@ -146,6 +115,4 @@ function ForgotPasswordContainer() {
             )}
         </Formik>
     );
-}
-
-export default ForgotPasswordContainer;
+};

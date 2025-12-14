@@ -1,33 +1,30 @@
-import { useStoreState } from 'easy-peasy';
-import type { FormikHelpers } from 'formik';
-import { Formik } from 'formik';
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
+import Reaptcha from 'reaptcha';
 import { object, string } from 'yup';
-
-import LoginFormContainer from '@/components/auth/LoginFormContainer';
-import Field from '@/elements/Field';
-import { Button } from '@/elements/button';
 import useFlash from '@/plugins/useFlash';
-import register from '@/api/routes/auth/register';
-import { login } from '@/api/routes/auth/login';
-import { faAt, faIdBadge, faKey, faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
+import register from '@/api/auth/register';
+import { useStoreState } from 'easy-peasy';
+import { Formik, FormikHelpers } from 'formik';
+import Field from '@/components/elements/Field';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/elements/button/index';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import FlashMessageRender from '@/components/FlashMessageRender';
+import LoginFormContainer from '@/components/auth/LoginFormContainer';
 
 interface Values {
     username: string;
     email: string;
     password: string;
-    confirm_password: string;
 }
 
-function RegisterContainer() {
+const RegisterContainer = ({ history }: RouteComponentProps) => {
     const ref = useRef<Reaptcha>(null);
-    const token = useRef('');
+    const [token, setToken] = useState('');
 
-    const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
+    const { clearFlashes, clearAndAddHttpError, addFlash } = useFlash();
+    const recaptchaEnabled = useStoreState((state) => state.settings.data?.recaptcha?.enabled || false);
+    const siteKey = useStoreState((state) => state.settings.data?.recaptcha?.siteKey || '');
 
     useEffect(() => {
         clearFlashes();
@@ -39,7 +36,7 @@ function RegisterContainer() {
         // If there is no token in the state yet, request the token and then abort this submit request
         // since it will be re-submitted when the recaptcha data is returned by the component.
         if (recaptchaEnabled && !token) {
-            ref.current!.execute().catch(error => {
+            ref.current!.execute().catch((error) => {
                 console.error(error);
 
                 setSubmitting(false);
@@ -49,17 +46,24 @@ function RegisterContainer() {
             return;
         }
 
-        register({ ...values, recaptchaData: token.current })
-            .then(() => {
-                login({ ...values, recaptchaData: token.current }).then(() => {
-                    // @ts-expect-error this is valid
-                    window.location = '/';
-                });
+        register({ ...values, recaptchaData: token })
+            .then((response) => {
+                if (response.complete) {
+                    history.replace('/auth/login');
+                    addFlash({
+                        key: 'auth:register',
+                        type: 'success',
+                        message: 'Account has been successfully created.',
+                    });
+                    return;
+                }
+
+                history.replace('/auth/register');
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error);
 
-                token.current = '';
+                setToken('');
                 if (ref.current) ref.current.reset();
 
                 setSubmitting(false);
@@ -70,92 +74,61 @@ function RegisterContainer() {
     return (
         <Formik
             onSubmit={onSubmit}
-            initialValues={{ username: '', email: '', password: '', confirm_password: '' }}
+            initialValues={{ username: '', email: '', password: '' }}
             validationSchema={object().shape({
-                username: string().required('A username must be provided.'),
-                email: string().email().required('You must provide a valid email.'),
-                password: string().required('Please enter your account password.'),
-                confirm_password: string().required('Please enter the password confirmation.'),
+                username: string().min(3).required(),
+                email: string().email().required(),
+                password: string().min(8).required(),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={`Create an Account`}>
+                <LoginFormContainer title={'Create an Account'} css={tw`w-full flex`}>
+                    <FlashMessageRender byKey={'auth:register'} css={tw`my-3`} />
+                    <Field type={'text'} label={'Username'} name={'username'} css={tw`my-3`} disabled={isSubmitting} />
                     <Field
-                        type={'text'}
-                        label={'Username'}
-                        icon={faIdBadge}
-                        name={'username'}
-                        placeholder={'user_account'}
+                        type={'email'}
+                        label={'Email Address'}
+                        name={'email'}
+                        css={tw`my-3`}
                         disabled={isSubmitting}
                     />
-                    <div css={tw`mt-6`}>
-                        <Field
-                            type={'text'}
-                            label={'Email Address'}
-                            icon={faAt}
-                            name={'email'}
-                            placeholder={'user@jexpanel.com'}
-                            disabled={isSubmitting}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Field
-                            type={'password'}
-                            label={'Password'}
-                            icon={faKey}
-                            name={'password'}
-                            placeholder={'••••••••••••'}
-                            disabled={isSubmitting}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Field
-                            type={'password'}
-                            label={'Confirm Password'}
-                            icon={faUnlockKeyhole}
-                            name={'confirm_password'}
-                            placeholder={'••••••••••••'}
-                            disabled={isSubmitting}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Button
-                            type={'submit'}
-                            loading={isSubmitting}
-                            className={'w-full'}
-                            size={Button.Sizes.Large}
-                            disabled={isSubmitting}
-                        >
-                            Register
-                        </Button>
-                    </div>
+                    <Field
+                        type={'password'}
+                        label={'Password'}
+                        name={'password'}
+                        css={tw`my-3`}
+                        disabled={isSubmitting}
+                    />
+                    <Button type={'submit'} css={tw`my-6 w-full`} size={Button.Sizes.Large} disabled={isSubmitting}>
+                        Register
+                    </Button>
                     {recaptchaEnabled && (
                         <Reaptcha
                             ref={ref}
                             size={'invisible'}
                             sitekey={siteKey || '_invalid_key'}
-                            onVerify={response => {
-                                token.current = response;
+                            onVerify={(response) => {
+                                setToken(response);
                                 submitForm();
                             }}
                             onExpire={() => {
                                 setSubmitting(false);
-                                token.current = '';
+                                setToken('');
                             }}
                         />
                     )}
-                    <div css={tw`mt-6 text-center`}>
+                    <div css={tw`text-center`}>
                         <Link
                             to={'/auth/login'}
-                            css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
+                            css={tw`text-xs text-neutral-500 tracking-wide no-underline uppercase hover:text-neutral-600`}
                         >
-                            Return to Login
+                            Return to login
                         </Link>
                     </div>
                 </LoginFormContainer>
             )}
         </Formik>
     );
-}
+};
 
 export default RegisterContainer;
