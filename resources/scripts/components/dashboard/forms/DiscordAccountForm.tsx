@@ -12,11 +12,11 @@ export default () => {
         // Check for error parameter in URL
         const params = new URLSearchParams(window.location.search);
         const error = params.get('error');
-        
+
         if (error === 'discord_already_linked') {
             addFlash({
                 key: 'account:discord',
-                type: 'error',
+                type: 'danger',
                 message: 'This Discord account is already linked to another user.',
             });
             // Remove error parameter from URL
