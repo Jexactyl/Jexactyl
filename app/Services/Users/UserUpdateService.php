@@ -1,10 +1,10 @@
 <?php
 
-namespace Everest\Services\Users;
+namespace Jexactyl\Services\Users;
 
-use Everest\Models\User;
+use Jexactyl\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Everest\Traits\Services\HasUserLevels;
+use Jexactyl\Traits\Services\HasUserLevels;
 
 class UserUpdateService
 {
@@ -30,7 +30,7 @@ class UserUpdateService
             unset($data['password']);
         }
 
-        $user->forceFill($data)->saveOrFail();
+        $user->forceFill($data)->skipValidation()->save();
 
         return $user->refresh();
     }

@@ -1,63 +1,70 @@
 <?php
 
-namespace Everest\Models;
+namespace Jexactyl\Models;
 
-use Everest\Rules\Username;
-use Everest\Facades\Activity;
+use Jexactyl\Rules\Username;
+use Jexactyl\Facades\Activity;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
-use Everest\Models\Traits\HasAccessTokens;
-use Everest\Traits\Helpers\AvailableLanguages;
+use Jexactyl\Models\Traits\HasAccessTokens;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Jexactyl\Traits\Helpers\AvailableLanguages;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Jexactyl\Notifications\SendPasswordReset as ResetPasswordNotification;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
- * Everest\Models\User.
+ * Jexactyl\Models\User.
  *
  * @property int $id
  * @property string|null $external_id
  * @property string $uuid
  * @property string $username
  * @property string $email
+ * @property string|null $discord_id
+ * @property string|null $name_first
+ * @property string|null $name_last
  * @property string $password
  * @property string|null $remember_token
  * @property string $language
- * @property int|null $admin_role_id
  * @property bool $root_admin
- * @property string|null $state
  * @property bool $use_totp
  * @property string|null $totp_secret
  * @property \Illuminate\Support\Carbon|null $totp_authenticated_at
  * @property bool $gravatar
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string $avatar_url
- * @property string $recovery_code
- * @property string|null $admin_role_name
- * @property string $md5
- * @property \Everest\Models\AdminRole|null $adminRole
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\ApiKey[] $apiKeys
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\ApiKey[] $apiKeys
  * @property int|null $api_keys_count
+ * @property string $name
  * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property int|null $notifications_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\RecoveryToken[] $recoveryTokens
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\RecoveryToken[] $recoveryTokens
  * @property int|null $recovery_tokens_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\Server[] $servers
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\Server[] $servers
  * @property int|null $servers_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\UserSSHKey[] $sshKeys
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\UserSSHKey[] $sshKeys
  * @property int|null $ssh_keys_count
- * @property \Illuminate\Database\Eloquent\Collection|\Everest\Models\ApiKey[] $tokens
+ * @property \Illuminate\Database\Eloquent\Collection|\Jexactyl\Models\ApiKey[] $tokens
  * @property int|null $tokens_count
+ * @property int $store_balance
+ * @property int $store_cpu
+ * @property int $store_memory
+ * @property int $store_disk
+ * @property int $store_slots
+ * @property int $store_ports
+ * @property int $store_backups
+ * @property int $store_databases
+ * @property string $referral_code
+ * @property bool|null $approved
+ * @property bool $verified
  *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
@@ -81,9 +88,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @method static Builder|User whereUsername($value)
  * @method static Builder|User whereUuid($value)
  *
- * @mixin \Barryvdh\LaravelIdeHelper\Eloquent
- * @mixin \Illuminate\Database\Query\Builder
- * @mixin \Illuminate\Database\Eloquent\Builder
+ * @mixin \Eloquent
  */
 class User extends Model implements
     AuthenticatableContract,
@@ -123,16 +128,26 @@ class User extends Model implements
         'external_id',
         'username',
         'email',
+        'discord_id',
+        'name_first',
+        'name_last',
         'password',
         'language',
         'use_totp',
         'totp_secret',
-        'admin_role_id',
         'totp_authenticated_at',
         'gravatar',
-        'state',
         'root_admin',
-        'recovery_code',
+        'store_balance',
+        'store_cpu',
+        'store_memory',
+        'store_disk',
+        'store_slots',
+        'store_ports',
+        'store_backups',
+        'store_databases',
+        'referral_code',
+        'approved',
     ];
 
     /**
@@ -142,13 +157,14 @@ class User extends Model implements
         'root_admin' => 'boolean',
         'use_totp' => 'boolean',
         'gravatar' => 'boolean',
-        'totp_authenticated_at' => 'datetime',
     ];
+
+    protected $dates = ['totp_authenticated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
      */
-    protected $hidden = ['password', 'recovery_code', 'remember_token', 'totp_secret', 'totp_authenticated_at'];
+    protected $hidden = ['password', 'remember_token', 'totp_secret', 'totp_authenticated_at'];
 
     /**
      * Default values for specific fields in the database.
@@ -159,7 +175,7 @@ class User extends Model implements
         'language' => 'en',
         'use_totp' => false,
         'totp_secret' => null,
-        'state' => null,
+        'approved' => false,
     ];
 
     /**
@@ -169,15 +185,25 @@ class User extends Model implements
         'uuid' => 'required|string|size:36|unique:users,uuid',
         'email' => 'required|email|between:1,191|unique:users,email',
         'external_id' => 'sometimes|nullable|string|max:191|unique:users,external_id',
+        'discord_id' => 'nullable|string|regex:/^[0-9]{17,20}$/|unique:users,discord_id',
         'username' => 'required|between:1,191|unique:users,username',
+        'name_first' => 'required|string|between:1,191',
+        'name_last' => 'required|string|between:1,191',
         'password' => 'sometimes|nullable|string',
         'root_admin' => 'boolean',
         'language' => 'string',
-        'state' => 'sometimes|nullable|string',
         'use_totp' => 'boolean',
-        'admin_role_id' => 'nullable|exists:admin_roles,id',
         'totp_secret' => 'nullable|string',
-        'recovery_code' => 'nullable|string',
+        'approved' => 'nullable|boolean',
+        'verified' => 'boolean',
+        'store_balance' => 'sometimes|int',
+        'store_cpu' => 'sometimes|int',
+        'store_memory' => 'sometimes|int',
+        'store_disk' => 'sometimes|int',
+        'store_slots' => 'sometimes|int',
+        'store_ports' => 'sometimes|int',
+        'store_backups' => 'sometimes|int',
+        'store_database' => 'sometimes|int',
     ];
 
     /**
@@ -197,11 +223,27 @@ class User extends Model implements
     /**
      * Return the user model in a format that can be passed over to React templates.
      */
-    public function toReactObject(): array
+    public function toVueObject(): array
     {
-        return Collection::make($this->append(['avatar_url', 'admin_role_name'])->toArray())
-            ->except(['id', 'external_id', 'admin_role'])
+        return Collection::make($this->toArray())
+            ->except(['id', 'external_id'])
+            ->merge(['username' => $this->username])
             ->toArray();
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param string $token
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        Activity::event('auth:reset-password')
+            ->withRequestMetadata()
+            ->subject($this)
+            ->log('sending password reset email');
+
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     /**
@@ -212,30 +254,46 @@ class User extends Model implements
         $this->attributes['username'] = mb_strtolower($value);
     }
 
-    public function avatarUrl(): Attribute
+    /**
+     * Return a concatenated result for the accounts full name.
+     */
+    public function getNameAttribute(): string
     {
-        return Attribute::make(
-            get: fn () => 'https://www.gravatar.com/avatar/' . $this->md5 . '.jpg',
-        );
+        return trim($this->name_first . ' ' . $this->name_last);
     }
 
-    public function adminRoleName(): Attribute
+    /**
+     * Returns all servers that a user owns.
+     */
+    public function servers(): HasMany
     {
-        return Attribute::make(
-            get: fn () => is_null($this->adminRole) ? ($this->root_admin ? 'None' : null) : $this->adminRole->name,
-        );
+        return $this->hasMany(Server::class, 'owner_id');
     }
 
-    public function md5(): Attribute
+    public function apiKeys(): HasMany
     {
-        return Attribute::make(
-            get: fn () => md5(strtolower($this->email)),
-        );
+        return $this->hasMany(ApiKey::class)
+            ->where('key_type', ApiKey::TYPE_ACCOUNT);
     }
 
-    public function isSuspended(): bool
+    public function recoveryTokens(): HasMany
     {
-        return $this->state === 'suspended';
+        return $this->hasMany(RecoveryToken::class);
+    }
+
+    public function referralCodes(): HasMany
+    {
+        return $this->hasMany(ReferralCode::class);
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'client_id');
+    }
+
+    public function sshKeys(): HasMany
+    {
+        return $this->hasMany(UserSSHKey::class);
     }
 
     /**
@@ -245,42 +303,6 @@ class User extends Model implements
     public function activity(): MorphToMany
     {
         return $this->morphToMany(ActivityLog::class, 'subject', 'activity_log_subjects');
-    }
-
-    public function adminRole(): HasOne
-    {
-        return $this->hasOne(AdminRole::class, 'id', 'admin_role_id');
-    }
-
-    public function apiKeys(): HasMany
-    {
-        return $this->hasMany(ApiKey::class)
-            ->where('key_type', ApiKey::TYPE_ACCOUNT);
-    }
-
-    public function serverGroups(): HasMany
-    {
-        return $this->hasMany(ServerGroup::class);
-    }
-
-    public function recoveryTokens(): HasMany
-    {
-        return $this->hasMany(RecoveryToken::class);
-    }
-
-    public function servers(): HasMany
-    {
-        return $this->hasMany(Server::class, 'owner_id');
-    }
-
-    public function sshKeys(): HasMany
-    {
-        return $this->hasMany(UserSSHKey::class);
-    }
-
-    public function tickets(): HasMany
-    {
-        return $this->hasMany(Ticket::class);
     }
 
     /**
