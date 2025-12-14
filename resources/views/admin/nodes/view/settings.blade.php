@@ -191,6 +191,15 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="form-group col-md-12">
+                                <label for="daemon_brand" class="control-label"><span class="label label-info"><i class="fa fa-tag"></i></span> Daemon Brand Name</label>
+                                <div>
+                                    <input type="text" name="daemon_brand" class="form-control" value="{{ old('daemon_brand', $node->daemon_brand) }}" placeholder="Pterodactyl"/>
+                                </div>
+                                <p class="text-muted"><small>The brand name displayed in daemon console logs (e.g., "Jexactyl: server marked offline"). Common values: <code>Pterodactyl</code>, <code>Jexactyl</code>, or your custom brand name.</small></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
                                 <label for="daemonBase" class="control-label"><span class="label label-warning"><i class="fa fa-power-off"></i></span> Daemon Server File Directory</label>
                                 <div>
                                     <input type="text" name="daemonBase" class="form-control" value="{{ old('daemonBase', $node->daemonBase) }}"/>

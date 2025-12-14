@@ -124,6 +124,11 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="form-group col-md-6">
+                            <label for="pDaemonBrand" class="form-label">Daemon Brand Name</label>
+                            <input type="text" name="daemon_brand" id="pDaemonBrand" class="form-control" value="{{ old('daemon_brand', 'Pterodactyl') }}" />
+                            <p class="text-muted small">The brand name displayed in daemon console logs (e.g., "Jexactyl: server marked offline"). Enter <code>Pterodactyl</code>, <code>Jexactyl</code>, or your custom brand.</p>
+                        </div>
+                        <div class="form-group col-md-6">
                             <label for="pDaemonBase" class="form-label">Daemon Server File Directory</label>
                             <input type="text" name="daemonBase" id="pDaemonBase" class="form-control" value="{{ old('daemonBase', '/var/lib/pterodactyl/volumes') }}" />
                             <p class="text-muted small">Enter the directory where server files should be stored. Common values: <code>/var/lib/pterodactyl/volumes</code> (Pterodactyl default), <code>/var/lib/Jexactyl/volumes</code> (Jexactyl), or <code>/home/daemon-data</code> (for OVH). <strong>Make sure this directory exists on your node.</strong></p>
