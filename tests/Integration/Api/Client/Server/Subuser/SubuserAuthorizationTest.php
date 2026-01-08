@@ -3,8 +3,9 @@
 namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
 
 use Everest\Models\User;
+use Mockery\MockInterface;
 use Everest\Models\Subuser;
-use Everest\Repositories\Wings\DaemonServerRepository;
+use Everest\Repositories\Wings\DaemonRevocationRepository;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
@@ -35,10 +36,9 @@ class SubuserAuthorizationTest extends ClientApiIntegrationTestCase
         Subuser::factory()->create(['server_id' => $server2->id, 'user_id' => $internal->id]);
         Subuser::factory()->create(['server_id' => $server3->id, 'user_id' => $internal->id]);
 
-        $this->instance(DaemonServerRepository::class, $mock = \Mockery::mock(DaemonServerRepository::class));
-        if ($method === 'DELETE') {
-            $mock->expects('setServer->revokeUserJTI')->with($internal->id)->andReturnUndefined();
-        }
+        $this->mock(DaemonRevocationRepository::class, function (MockInterface $mock) use ($method) {
+            $mock->expects('setNode->deauthorize')->times($method === 'DELETE' ? 1 : 0)->andReturnUndefined();
+        });
 
         // This route is acceptable since they're accessing a subuser on their own server.
         $this->actingAs($user)->json($method, $this->link($server1, '/users/' . $internal->uuid))->assertStatus($method === 'POST' ? 422 : ($method === 'DELETE' ? 204 : 200));

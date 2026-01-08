@@ -66,7 +66,12 @@ const server: ServerRouteDefinition[] = [
         icon: Icon.PlayIcon,
         category: 'configuration',
     }),
-    route('activity/*', ServerActivityLogContainer, { permission: 'activity.*', name: 'Activity', icon: Icon.EyeIcon }),
+    route('activity/*', ServerActivityLogContainer, {
+        permission: 'activity.*',
+        name: 'Activity',
+        icon: Icon.EyeIcon,
+        condition: flags => flags.activityEnabled,
+    }),
     route('billing/*', ServerBillingContainer, {
         permission: 'billing.*',
         name: 'Billing',

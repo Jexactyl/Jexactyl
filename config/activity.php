@@ -1,6 +1,13 @@
 <?php
 
 return [
+    // Whether activity logging should be enabled.
+    'enabled' => [
+        'account' => true, // Account-based activity
+        'server' => true, // Server-related tasks
+        'admin' => true, // Administrative actions
+    ],
+
     // The number of days elapsed before old activity log entries are deleted.
     'prune_days' => env('APP_ACTIVITY_PRUNE_DAYS', 90),
 

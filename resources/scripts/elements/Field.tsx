@@ -31,6 +31,7 @@ const IconWrapper = styled.div<{ $bgColor: string }>`
     ${tw`pl-3 text-gray-400 flex-shrink-0`};
     background-color: ${({ $bgColor }) => $bgColor};
 `;
+
 const StyledInput = styled(Input)`
     ${tw`flex-grow py-2 px-3 focus:outline-none text-white`};
     border: none;
@@ -38,47 +39,86 @@ const StyledInput = styled(Input)`
 `;
 
 const Field = forwardRef<HTMLInputElement, Props>(
-    ({ id, name, light = false, label, description, validate, icon, ...props }, ref) => {
+    ({ id, name, light = false, label, description, validate, icon, type = 'text', ...props }, ref) => {
         const theme = useStoreState(state => state.theme.data!);
         const bgColor = theme.colors.secondary;
 
         return (
-            <FormikField innerRef={ref} name={name} validate={validate}>
-                {({ field, form: { errors, touched } }: FieldProps) => (
-                    <div>
-                        {label && (
-                            <Label htmlFor={id} isLight={light}>
-                                {label}
-                            </Label>
-                        )}
+            <FormikField name={name} validate={validate}>
+                {({ field, form: { errors, touched } }: FieldProps) => {
+                    const error = touched[field.name] && errors[field.name];
 
-                        {icon ? (
-                            <InputWrapper $bgColor={bgColor}>
-                                <IconWrapper $bgColor={bgColor}>
-                                    <FontAwesomeIcon icon={icon} />
-                                </IconWrapper>
-                                <StyledInput id={id} {...field} {...props} isLight={light} />
-                            </InputWrapper>
-                        ) : (
-                            <Input id={id} {...field} {...props} isLight={light} />
-                        )}
+                    // ✅ Checkbox logic fix without breaking design
+                    if (type === 'checkbox') {
+                        return (
+                            <div>
+                                {label && (
+                                    <Label htmlFor={id} isLight={light}>
+                                        {label}
+                                    </Label>
+                                )}
+                                <Input
+                                    {...props}
+                                    id={id}
+                                    type="checkbox"
+                                    isLight={light}
+                                    checked={!!field.value}
+                                    onChange={e =>
+                                        field.onChange({
+                                            target: { name: field.name, value: e.target.checked },
+                                        })
+                                    }
+                                    onBlur={field.onBlur}
+                                    ref={ref}
+                                />
+                                {error ? (
+                                    <p className="input-help error text-red-400 text-xs mt-1">
+                                        {(errors[field.name] as string).charAt(0).toUpperCase() +
+                                            (errors[field.name] as string).slice(1)}
+                                    </p>
+                                ) : description ? (
+                                    <p className="input-help">{description}</p>
+                                ) : null}
+                            </div>
+                        );
+                    }
 
-                        {touched[field.name] && errors[field.name] ? (
-                            <p className={'input-help error text-red-400 text-xs mt-1'}>
-                                {(errors[field.name] as string).charAt(0).toUpperCase() +
-                                    (errors[field.name] as string).slice(1)}
-                            </p>
-                        ) : description ? (
-                            <p className={'input-help'}>{description}</p>
-                        ) : null}
-                    </div>
-                )}
+                    return (
+                        <div>
+                            {label && (
+                                <Label htmlFor={id} isLight={light}>
+                                    {label}
+                                </Label>
+                            )}
+
+                            {icon ? (
+                                <InputWrapper $bgColor={bgColor}>
+                                    <IconWrapper $bgColor={bgColor}>
+                                        <FontAwesomeIcon icon={icon} />
+                                    </IconWrapper>
+                                    <StyledInput id={id} {...field} {...props} type={type} isLight={light} />
+                                </InputWrapper>
+                            ) : (
+                                <Input id={id} {...field} {...props} type={type} isLight={light} />
+                            )}
+
+                            {error ? (
+                                <p className="input-help error text-red-400 text-xs mt-1">
+                                    {(errors[field.name] as string).charAt(0).toUpperCase() +
+                                        (errors[field.name] as string).slice(1)}
+                                </p>
+                            ) : description ? (
+                                <p className="input-help">{description}</p>
+                            ) : null}
+                        </div>
+                    );
+                }}
             </FormikField>
         );
     },
 );
-Field.displayName = 'Field';
 
+Field.displayName = 'Field';
 export default Field;
 
 type TextareaProps = OwnProps & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'name'>;

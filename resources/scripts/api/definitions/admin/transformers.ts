@@ -60,7 +60,7 @@ export default class Transformers {
             limits: { ...limits, oomKiller: oom_killer },
             featureLimits: attributes.feature_limits,
             container: attributes.container,
-            renewalDate: attributes.renewal_date,
+            renewalDate: attributes.renewal_date ? new Date(attributes.renewal_date) : undefined,
             billingProductId: attributes.billing_product_id,
             createdAt: new Date(attributes.created_at),
             updatedAt: new Date(attributes.updated_at),
@@ -120,7 +120,6 @@ export default class Transformers {
         description: attributes.description,
         permissions: attributes.permissions,
         color: attributes.color,
-        relationships: {},
     });
 
     static toAdminRolePermission = ({ attributes }: FractalResponseData): Models.AdminRolePermission => ({
@@ -348,5 +347,21 @@ export default class Transformers {
         enabled: attributes.enabled,
         createdAt: new Date(attributes.created_at),
         updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
+    });
+
+    static toServerPreset = ({ attributes }: FractalResponseData): Models.ServerPreset => ({
+        id: attributes.id,
+        name: attributes.name,
+        description: attributes.description,
+
+        cpu: attributes.cpu,
+        memory: attributes.memory,
+        disk: attributes.disk,
+
+        nest_id: attributes.nest_id,
+        egg_id: attributes.egg_id,
+
+        created_at: attributes.created_at,
+        updated_at: attributes.updated_at,
     });
 }

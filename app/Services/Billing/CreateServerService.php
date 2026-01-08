@@ -36,9 +36,30 @@ class CreateServerService
         $egg = Egg::findOrFail($product->category->egg_id);
 
         $allocation = $this->getAllocation($metadata->node_id, $order->id);
-        $environment = $this->getEnvironmentWithDefaults($egg->id);
+
+        // Extract custom variables from metadata if available
+        $customVariables = [];
+        if (isset($metadata->variables) && $metadata->variables !== null && $metadata->variables !== '') {
+            if (is_string($metadata->variables)) {
+                $decoded = json_decode($metadata->variables, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    throw new DisplayException('Failed to decode environment variables: ' . json_last_error_msg());
+                }
+                if (!is_array($decoded)) {
+                    throw new DisplayException('Environment variables must be an array.');
+                }
+                $customVariables = $decoded;
+            } elseif (is_array($metadata->variables)) {
+                $customVariables = $metadata->variables;
+            }
+        }
+
+        $environment = $this->getEnvironmentWithCustomVariables($egg->id, $customVariables);
 
         try {
+            // Use paid renewal days for paid servers
+            $renewalDays = config('modules.billing.renewal.days', 30);
+
             $server = $this->creation->handle([
                 'node_id' => $metadata->node_id,
                 'allocation_id' => $allocation,
@@ -55,7 +76,7 @@ class CreateServerService
                 'environment' => $environment,
                 'image' => current($egg->docker_images),
                 'billing_product_id' => $product->id,
-                'renewal_date' => Carbon::now()->addDays(30),
+                'renewal_date' => Carbon::now()->addDays($renewalDays)->toDateTimeString(),
                 'database_limit' => $product->database_limit,
                 'backup_limit' => $product->backup_limit,
                 'allocation_limit' => $product->allocation_limit,
@@ -78,14 +99,17 @@ class CreateServerService
     /**
      * Process the creation of a free server.
      */
-    public function processFree(Request $request, Product $product, int $nodeId, Order $order): Server
+    public function processFree(Request $request, Product $product, int $nodeId, Order $order, array $customVariables = []): Server
     {
         $egg = Egg::findOrFail($product->category->egg_id);
 
         $allocation = $this->getAllocation($nodeId, $order->id);
-        $environment = $this->getEnvironmentWithDefaults($egg->id);
+        $environment = $this->getEnvironmentWithCustomVariables($egg->id, $customVariables);
 
         try {
+            // Use free renewal days for free servers
+            $renewalDays = config('modules.billing.renewal.free_renewal_days', 30);
+
             $server = $this->creation->handle([
                 'node_id' => $nodeId,
                 'allocation_id' => $allocation,
@@ -102,6 +126,7 @@ class CreateServerService
                 'environment' => $environment,
                 'image' => current($egg->docker_images),
                 'billing_product_id' => $product->id,
+                'renewal_date' => Carbon::now()->addDays($renewalDays)->toDateTimeString(),
                 'database_limit' => $product->database_limit,
                 'backup_limit' => $product->backup_limit,
                 'allocation_limit' => $product->allocation_limit,
@@ -122,41 +147,47 @@ class CreateServerService
     }
 
     /**
-     * Get all environment variables with their default values for an egg.
+     * Merge custom environment variables with defaults for an egg.
+     * Custom variables take precedence over defaults.
      */
-    private function getEnvironmentWithDefaults(int $eggId): array
+    private function getEnvironmentWithCustomVariables(int $eggId, array $customVariables = []): array
     {
         $variables = [];
         $defaults = EggVariable::where('egg_id', $eggId)->get();
 
+        // Start with defaults
         foreach ($defaults as $variable) {
             $variables[$variable->env_variable] = $variable->default_value;
+        }
+
+        // Override with custom variables
+        foreach ($customVariables as $variable) {
+            if (is_array($variable)
+                && array_key_exists('key', $variable)
+                && array_key_exists('value', $variable)
+                && !empty($variable['key'])) {
+                $variables[$variable['key']] = $variable['value'];
+            }
         }
 
         return $variables;
     }
 
     /**
-     * Get the environment variables for the new server.
+     * Get the environment variables for the new server from JSON string.
+     *
+     * @deprecated this method is deprecated and will be removed in a future version
+     * @see getEnvironmentWithCustomVariables() Use this method directly with decoded array instead.
      */
     private function getServerEnvironment(string $data, int $id): array
     {
         $decoded = json_decode($data, true);
 
-        $variables = [];
-        $default = EggVariable::where('egg_id', $id)->get();
-
-        foreach ($decoded as $variable) {
-            $variables += [$variable['key'] => $variable['value']];
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new DisplayException('Failed to decode environment variables: ' . json_last_error_msg());
         }
 
-        foreach ($default as $variable) {
-            if (!array_key_exists($variable->env_variable, $variables)) {
-                $variables += [$variable->env_variable => $variable->default_value];
-            }
-        }
-
-        return $variables;
+        return $this->getEnvironmentWithCustomVariables($id, is_array($decoded) ? $decoded : []);
     }
 
     /**

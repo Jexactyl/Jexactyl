@@ -56,6 +56,7 @@ const StartupContainer = () => {
         setServerFromState(s => ({
             ...s,
             variables: data.variables,
+            invocation: data.invocation,
         }));
     }, [data]);
 

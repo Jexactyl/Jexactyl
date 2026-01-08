@@ -52,6 +52,7 @@ function ServerRouter() {
     const clearServerState = ServerContext.useStoreActions(actions => actions.clearServerState);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
     const server = ServerContext.useStoreState(state => state.server.data);
+    const activityEnabled = useStoreState(state => state.settings.data!.activity.enabled.server);
     const billable = server?.billingProductId;
     const status = ServerContext.useStoreState(state => state.status.value);
 
@@ -79,7 +80,14 @@ function ServerRouter() {
     }, [params.id]);
 
     if (billable && server.renewalDate && server.renewalDate.getTime() < new Date().getTime())
-        return <Suspended id={server.billingProductId} date={server.renewalDate} />;
+        return (
+            <Suspended
+                id={server.billingProductId}
+                date={server.renewalDate}
+                serverId={server.internalId}
+                serverUuid={server.uuid}
+            />
+        );
 
     return (
         <Fragment key={'server-router'}>
@@ -87,7 +95,9 @@ function ServerRouter() {
                 <MobileSidebar>
                     <MobileSidebar.Home />
                     {routes.server
-                        .filter(route => route.name && (!route.condition || route.condition({ billable })))
+                        .filter(
+                            route => route.name && (!route.condition || route.condition({ billable, activityEnabled })),
+                        )
                         .map(route => (
                             <MobileSidebar.Link
                                 key={route.route}
@@ -129,7 +139,7 @@ function ServerRouter() {
                                 route =>
                                     !route.category &&
                                     route.name &&
-                                    (!route.condition || route.condition({ billable })),
+                                    (!route.condition || route.condition({ billable, activityEnabled })),
                             )
                             .map(route => (
                                 <NavLink to={route.path} key={route.path} end={route.end}>

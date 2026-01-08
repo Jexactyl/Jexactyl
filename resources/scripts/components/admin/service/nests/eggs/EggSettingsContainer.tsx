@@ -113,21 +113,27 @@ export const EggProcessContainer = forwardRef<any, EggProcessContainerProps>(fun
     let fetchStartupConfiguration: (() => Promise<string>) | null = null;
     let fetchFilesConfiguration: (() => Promise<string>) | null = null;
 
-    useImperativeHandle<EggProcessContainerRef, EggProcessContainerRef>(ref, () => ({
-        getStartupConfiguration: async () => {
-            if (fetchStartupConfiguration === null) {
-                return new Promise<null>(resolve => resolve(null));
-            }
-            return await fetchStartupConfiguration();
-        },
+    useImperativeHandle<EggProcessContainerRef, EggProcessContainerRef>(
+        ref,
+        () => ({
+            getStartupConfiguration: async () => {
+                if (fetchStartupConfiguration === null) {
+                    // If editor hasn't initialized, return current value instead of null
+                    return values.configStartup;
+                }
+                return await fetchStartupConfiguration();
+            },
 
-        getFilesConfiguration: async () => {
-            if (fetchFilesConfiguration === null) {
-                return new Promise<null>(resolve => resolve(null));
-            }
-            return await fetchFilesConfiguration();
-        },
-    }));
+            getFilesConfiguration: async () => {
+                if (fetchFilesConfiguration === null) {
+                    // If editor hasn't initialized, return current value instead of null
+                    return values.configFiles;
+                }
+                return await fetchFilesConfiguration();
+            },
+        }),
+        [fetchStartupConfiguration, fetchFilesConfiguration, values.configStartup, values.configFiles]
+    );
 
     return (
         <AdminBox icon={faMicrochip} title={'Process Configuration'} css={tw`relative`} className={className}>

@@ -1,10 +1,11 @@
-import { SiteTheme } from '@/state/theme';
+import { useStoreState } from '@/state/hooks';
 import classNames from 'classnames';
 import type { ComponentType, ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
+import { SiteTheme } from '@/state/theme';
 
-export const SubNavigation = styled.div<{ theme: SiteTheme }>`
+const StyledSubNavigation = styled.div<{ $theme: SiteTheme }>`
     ${tw`flex flex-row items-center flex-shrink-0 h-12 mb-4 border-b border-neutral-700 overflow-x-auto`};
 
     & > a {
@@ -16,11 +17,16 @@ export const SubNavigation = styled.div<{ theme: SiteTheme }>`
 
         &:active,
         &.active {
-            color: ${({ theme }) => theme.colors.primary};
-            border-color: ${({ theme }) => theme.colors.primary};
+            color: ${({ $theme }) => $theme.colors.primary};
+            border-color: ${({ $theme }) => $theme.colors.primary};
         }
     }
 `;
+
+export const SubNavigation = ({ children }: { children: ReactNode }) => {
+    const theme = useStoreState(state => state.theme.data!);
+    return <StyledSubNavigation $theme={theme}>{children}</StyledSubNavigation>;
+};
 
 interface Props {
     to: string;

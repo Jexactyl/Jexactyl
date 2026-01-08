@@ -143,6 +143,27 @@ class Egg extends Model
     ];
 
     /**
+     * Override the parent method to remove 'required_without' rules during updates.
+     * This allows updating eggs without providing config fields when they're not being changed.
+     */
+    public static function getRulesForUpdate($model, string $column = 'id'): array
+    {
+        $rules = parent::getRulesForUpdate($model, $column);
+
+        // Remove required_without constraints for config fields during updates
+        // These fields can be null (inherited from parent egg via config_from)
+        foreach (['config_stop', 'config_startup', 'config_files'] as $field) {
+            if (isset($rules[$field])) {
+                $rules[$field] = array_values(array_filter($rules[$field], function ($rule) {
+                    return !is_string($rule) || !str_starts_with($rule, 'required_without');
+                }));
+            }
+        }
+
+        return $rules;
+    }
+
+    /**
      * Returns the install script for the egg; if egg is copying from another
      * it will return the copied script.
      */

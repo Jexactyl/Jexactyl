@@ -22,3 +22,11 @@ export const processUnpaidOrder = (
             .catch(reject);
     });
 };
+
+export const renewFreeServer = (product: number, server_id: number): Promise<Server> => {
+    return new Promise((resolve, reject) => {
+        http.post(`/api/client/billing/renew/free`, { product, server_id })
+            .then(({ data }) => resolve(data))
+            .catch(reject);
+    });
+};

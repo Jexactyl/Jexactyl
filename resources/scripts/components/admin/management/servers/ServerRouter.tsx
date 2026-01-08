@@ -30,7 +30,6 @@ export default () => {
     const params = useParams<'id'>();
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
-    const theme = useStoreState(state => state.theme.data!);
     const { billing } = useStoreState(state => state.everest.data!);
     const { data: server, error, isValidating, mutate } = useServerFromRoute();
 
@@ -80,7 +79,7 @@ export default () => {
 
             <FlashMessageRender byKey={'server'} css={tw`mb-4`} />
 
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to={`/admin/servers/${params.id}`} name={'Settings'} icon={CogIcon} base />
                 <SubNavigationLink to={`/admin/servers/${params.id}/startup`} name={'Startup'} icon={AdjustmentsIcon} />
                 <SubNavigationLink

@@ -127,7 +127,10 @@ class DaemonServerRepository extends DaemonRepository
      * make it easier to revoke tokens on the fly. This ensures that the JTI key is formatted
      * correctly and avoids any costly mistakes in the codebase.
      *
-     * @throws \Everest\Exceptions\Http\Connection\DaemonConnectionException
+     * @deprecated
+     * @see \Everest\Repositories\Wings\DaemonRevocationRepository::deauthorize()
+     *
+     * @throws DaemonConnectionException
      */
     public function revokeUserJTI(int $id): void
     {

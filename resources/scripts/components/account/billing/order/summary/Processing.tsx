@@ -15,11 +15,11 @@ export default () => {
     const { addFlash, clearFlashes } = useFlash();
 
     const intent = params.get('payment_intent');
+    const renewal = params.get('renewal') === 'true';
+    const serverUuid = params.get('server_uuid');
 
     useEffect(() => {
         clearFlashes();
-
-        const renewal = Boolean(params.get('renewal'));
 
         if (!intent) {
             addFlash({
@@ -33,7 +33,25 @@ export default () => {
 
         processPaidOrder(intent, renewal)
             .then(() => {
-                navigate('/account/billing/success');
+                // For renewals, redirect back to the server billing page
+                if (renewal && serverUuid) {
+                    // Validate UUID format to prevent path traversal
+                    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+                    if (uuidRegex.test(serverUuid)) {
+                        navigate(`/server/${serverUuid}/billing`);
+                    } else {
+                        // Invalid UUID, redirect to dashboard with error message
+                        addFlash({
+                            key: 'billing:process',
+                            type: 'error',
+                            message: 'Invalid server identifier. Redirecting to dashboard.',
+                        });
+                        setTimeout(() => navigate('/'), 2000);
+                    }
+                } else {
+                    // For new purchases, go to success page
+                    navigate('/account/billing/success');
+                }
             })
             .catch(() => {
                 navigate('/account/billing/cancel');

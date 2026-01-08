@@ -25,6 +25,13 @@ class AssetComposer
                 'enabled' => config('recaptcha.enabled', false),
                 'siteKey' => config('recaptcha.website_key') ?? '',
             ],
+            'activity' => [
+                'enabled' => [
+                    'account' => config('activity.enabled.account', true),
+                    'server' => config('activity.enabled.server', true),
+                    'admin' => config('activity.enabled.admin', true),
+                ],
+            ],
         ]);
     }
 }

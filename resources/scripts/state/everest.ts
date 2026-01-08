@@ -49,6 +49,17 @@ export interface EverestSettings {
             symbol: string;
             code: string;
         };
+        links: {
+            terms: string;
+            privacy: string;
+        };
+        renewal?: {
+            days: number;
+            free_renewal_days: number;
+            suspension_threshold: number;
+            free_suspension_days: number;
+            paid_suspension_days: number;
+        };
     };
     alert: {
         enabled: boolean;

@@ -157,3 +157,18 @@ interface AdminRolePermission extends Model {
     key: string;
     description: string;
 }
+
+interface ServerPreset extends Model {
+    id: number;
+    name: string;
+    description: string;
+
+    cpu: number;
+    memory: number;
+    disk: number;
+    nest_id?: number;
+    egg_id?: number;
+
+    created_at: Date;
+    updated_at?: Date | null;
+}

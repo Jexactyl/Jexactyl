@@ -16,7 +16,6 @@ import NodeConfigurationContainer from '@admin/management/nodes/NodeConfiguratio
 import NodeAllocationContainer from '@admin/management/nodes/NodeAllocationContainer';
 import NodeServers from '@admin/management/nodes/NodeServers';
 import type { ApplicationStore } from '@/state';
-import { useStoreState } from '@/state/hooks';
 import NodeStatus from './NodeStatus';
 import { CodeIcon, OfficeBuildingIcon, ServerIcon, WifiIcon } from '@heroicons/react/outline';
 import { CogIcon } from '@heroicons/react/solid';
@@ -36,8 +35,6 @@ export const Context = createContextStore<ctx>({
 
 const NodeRouter = () => {
     const params = useParams<'id'>();
-
-    const theme = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
@@ -88,7 +85,7 @@ const NodeRouter = () => {
 
             <FlashMessageRender byKey={'admin:nodes'} css={tw`mb-4`} />
 
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to={`/admin/nodes/${node.id}`} name={'About'} base>
                     <OfficeBuildingIcon />
                 </SubNavigationLink>

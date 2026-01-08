@@ -62,6 +62,11 @@ class ServerTransferController extends Controller
             // Remove the old allocations for the server and re-assign the server to the new
             // primary allocation and node.
             Allocation::query()->whereIn('id', $allocations)->update(['server_id' => null]);
+
+            // Assign the new allocations to the server
+            $newAllocations = array_merge([$transfer->new_allocation], $transfer->new_additional_allocations);
+            Allocation::query()->whereIn('id', $newAllocations)->update(['server_id' => $server->id]);
+
             $server->update([
                 'allocation_id' => $transfer->new_allocation,
                 'node_id' => $transfer->new_node,

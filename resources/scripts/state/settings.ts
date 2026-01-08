@@ -16,6 +16,13 @@ export interface SiteSettings {
         enabled: boolean;
         siteKey: string;
     };
+    activity: {
+        enabled: {
+            account: boolean;
+            server: boolean;
+            admin: boolean;
+        };
+    };
 }
 
 export interface SettingsStore {

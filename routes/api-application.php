@@ -304,6 +304,16 @@ Route::middleware([AdminSubject::class])->group(function () {
     */
     Route::group(['prefix' => '/servers'], function () {
         Route::get('/', [Application\Servers\ServerController::class, 'index']);
+
+        Route::group(['prefix' => '/presets'], function () {
+            Route::get('/', [Application\Servers\ServerPresetController::class, 'index']);
+            Route::post('/', [Application\Servers\ServerPresetController::class, 'store']);
+
+            Route::get('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'view']);
+            Route::patch('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'update']);
+            Route::delete('/{server_preset:id}', [Application\Servers\ServerPresetController::class, 'delete']);
+        });
+
         Route::get('/{server:id}', [Application\Servers\ServerController::class, 'view']);
         Route::get('/external/{external_id}', [Application\Servers\ExternalServerController::class, 'index']);
 
@@ -311,14 +321,15 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::patch('/{server:id}/startup', [Application\Servers\StartupController::class, 'index']);
 
         Route::post('/', [Application\Servers\ServerController::class, 'store']);
+        Route::post('/preset', [Application\Servers\ServerController::class, 'storeWithPreset']);
         Route::post('/{server:id}/toggle', [Application\Servers\ServerManagementController::class, 'toggle']);
         Route::post('/{server:id}/suspend', [Application\Servers\ServerManagementController::class, 'suspend']);
         Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);
         Route::post('/{server:id}/reinstall', [Application\Servers\ServerManagementController::class, 'reinstall']);
+        Route::post('/{server:id}/transfer', [Application\Servers\ServerManagementController::class, 'transfer']);
 
         Route::post('/{server:id}/delete', [Application\Servers\ServerController::class, 'delete']);
 
-        // Database Management Endpoint
         Route::group(['prefix' => '/{server:id}/databases'], function () {
             Route::get('/', [Application\Servers\DatabaseController::class, 'index']);
             Route::get('/{database:id}', [Application\Servers\DatabaseController::class, 'view']);

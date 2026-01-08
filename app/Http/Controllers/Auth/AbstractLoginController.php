@@ -45,7 +45,7 @@ abstract class AbstractLoginController extends Controller
     public function __construct()
     {
         $this->lockoutTime = config('auth.lockout.time');
-        $this->maxLoginAttempts = config('modules.auth.security.attempts');
+        $this->maxLoginAttempts = (int) config('modules.auth.security.attempts');
         $this->auth = Container::getInstance()->make(AuthManager::class);
         $this->creation = Container::getInstance()->make(UserCreationService::class);
     }

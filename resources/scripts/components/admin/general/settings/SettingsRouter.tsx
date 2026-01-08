@@ -10,7 +10,6 @@ import { useStoreState } from '@/state/hooks';
 import ModeSettings from './ModeSettings';
 
 const SettingsRouter = () => {
-    const theme = useStoreState(state => state.theme.data!);
     const appName = useStoreState(state => state.settings.data!.name);
 
     return (
@@ -28,7 +27,7 @@ const SettingsRouter = () => {
 
             <FlashMessageRender byKey={'admin:settings'} css={tw`mb-4`} />
 
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to="/admin/settings" name="Core" base>
                     <ChipIcon />
                 </SubNavigationLink>

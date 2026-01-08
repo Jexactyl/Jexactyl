@@ -4,9 +4,11 @@ namespace Everest\Tests\Integration\Api\Client\Server\Subuser;
 
 use Ramsey\Uuid\Uuid;
 use Everest\Models\User;
+use Mockery\MockInterface;
 use Everest\Models\Subuser;
 use Everest\Models\Permission;
-use Everest\Repositories\Wings\DaemonServerRepository;
+use PHPUnit\Framework\Attributes\TestWith;
+use Everest\Repositories\Wings\DaemonRevocationRepository;
 use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class DeleteSubuserTest extends ClientApiIntegrationTestCase
@@ -20,12 +22,12 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
      * it to an integer. Then, in the deep API middlewares you would end up trying to load a user
      * with an ID of 12, which may or may not exist and be wrongly assigned to the model object.
      *
-     * @see https://github.com/pterodactyl/panel/issues/2359
+     * @see https://github.com/Everest/panel/issues/2359
      */
-    public function testCorrectSubuserIsDeletedFromServer()
+    #[TestWith([null])]
+    #[TestWith(['18180000'])]
+    public function testCorrectSubuserIsDeletedFromServer(?string $prefix)
     {
-        $this->swap(DaemonServerRepository::class, $mock = \Mockery::mock(DaemonServerRepository::class));
-
         [$user, $server] = $this->generateTestAccount();
 
         /** @var \Everest\Models\User $differentUser */
@@ -33,7 +35,7 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
 
         $real = Uuid::uuid4()->toString();
         // Generate a UUID that lines up with a user in the database if it were to be cast to an int.
-        $uuid = $differentUser->id . substr($real, strlen((string) $differentUser->id));
+        $uuid = ($prefix ?: $differentUser->id) . substr($real, strlen($prefix ?: (string) $differentUser->id));
 
         /** @var \Everest\Models\User $subuser */
         $subuser = User::factory()->create(['uuid' => $uuid]);
@@ -44,24 +46,18 @@ class DeleteSubuserTest extends ClientApiIntegrationTestCase
             'permissions' => [Permission::ACTION_WEBSOCKET_CONNECT],
         ]);
 
-        $mock->expects('setServer->revokeUserJTI')->with($subuser->id)->andReturnUndefined();
+        $this->mock(DaemonRevocationRepository::class, function (MockInterface $mock) use ($subuser, $server) {
+            $mock->expects('setNode')
+                ->with(\Mockery::on(fn ($value) => $value->is($server->node)))
+                ->andReturnSelf();
 
-        $this->actingAs($user)->deleteJson($this->link($server) . "/users/$subuser->uuid")->assertNoContent();
+            $mock->expects('deauthorize')
+                ->with($subuser->uuid, [$server->uuid])
+                ->andReturnUndefined();
+        });
 
-        // Try the same test, but this time with a UUID that if cast to an int (shouldn't) line up with
-        // anything in the database.
-        $uuid = '18180000' . substr(Uuid::uuid4()->toString(), 8);
-        /** @var \Everest\Models\User $subuser */
-        $subuser = User::factory()->create(['uuid' => $uuid]);
-
-        Subuser::query()->forceCreate([
-            'user_id' => $subuser->id,
-            'server_id' => $server->id,
-            'permissions' => [Permission::ACTION_WEBSOCKET_CONNECT],
-        ]);
-
-        $mock->expects('setServer->revokeUserJTI')->with($subuser->id)->andReturnUndefined();
-
-        $this->actingAs($user)->deleteJson($this->link($server) . "/users/$subuser->uuid")->assertNoContent();
+        $this->withoutExceptionHandling()
+            ->actingAs($user)
+            ->deleteJson($this->link($server) . "/users/$subuser->uuid")->assertNoContent();
     }
 }

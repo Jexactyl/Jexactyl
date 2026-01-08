@@ -7,6 +7,7 @@ import ToggleInstallStatusBox from '@admin/management/servers/manage/ToggleInsta
 import { useServerFromRoute } from '@/api/routes/admin/server';
 import SuspendServerBox from './SuspendServerBox';
 import UnsuspendServerBox from './UnsuspendServerBox';
+import TransferServerBox from './TransferServerBox';
 
 export default () => {
     const { data: server } = useServerFromRoute();
@@ -24,6 +25,7 @@ export default () => {
             <ReinstallServerBox />
             <ToggleInstallStatusBox />
             {server.status === 'suspended' ? <UnsuspendServerBox /> : <SuspendServerBox />}
+            <TransferServerBox />
         </div>
     );
 };

@@ -72,12 +72,12 @@ class ApiController extends ApplicationApiController
      */
     public function delete(DeleteApplicationApiKeyRequest $request, ApiKey $key): Response
     {
-        $key = ApiKey::where('id', $key->id)->delete();
-
         Activity::event('admin:api-keys:delete')
             ->property('api-key', $key)
             ->description('An Application API key was deleted')
             ->log();
+
+        ApiKey::where('id', $key->id)->delete();
 
         return $this->returnNoContent();
     }

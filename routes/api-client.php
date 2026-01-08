@@ -84,6 +84,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
 
         Route::post('/process', [Client\Billing\PaymentController::class, 'process'])->name('api:client.billing.process');
         Route::post('/process/free', [Client\Billing\FreeProductController::class, 'process']);
+        Route::post('/renew/free', [Client\Billing\FreeProductController::class, 'renew']);
 
         Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
         Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);

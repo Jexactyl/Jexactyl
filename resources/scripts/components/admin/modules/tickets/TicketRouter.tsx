@@ -12,7 +12,6 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import TicketOptionsContainer from './TicketOptionsContainer';
 
 export default () => {
-    const theme = useStoreState(state => state.theme.data!);
     const enabled = useStoreState(state => state.everest.data!.tickets.enabled);
 
     if (!enabled) return <EnableTicketsContainer />;
@@ -32,7 +31,7 @@ export default () => {
                     </p>
                 </div>
             </div>
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to={'/admin/tickets'} name={'Open Tickets'} base>
                     <TicketIcon />
                 </SubNavigationLink>

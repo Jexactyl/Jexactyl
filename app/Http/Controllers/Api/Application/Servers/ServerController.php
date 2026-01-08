@@ -11,6 +11,7 @@ use Everest\Services\Servers\ServerCreationService;
 use Everest\Services\Servers\ServerDeletionService;
 use Everest\Services\Servers\BuildModificationService;
 use Everest\Services\Servers\DetailsModificationService;
+use Everest\Services\Servers\ServerPresetCreationService;
 use Everest\Transformers\Api\Application\ServerTransformer;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Http\Requests\Api\Application\Servers\GetServerRequest;
@@ -19,6 +20,7 @@ use Everest\Http\Requests\Api\Application\Servers\StoreServerRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Servers\DeleteServerRequest;
 use Everest\Http\Requests\Api\Application\Servers\UpdateServerRequest;
+use Everest\Http\Requests\Api\Application\Servers\StoreServerWithPresetRequest;
 
 class ServerController extends ApplicationApiController
 {
@@ -29,6 +31,7 @@ class ServerController extends ApplicationApiController
         private BuildModificationService $buildModificationService,
         private DetailsModificationService $detailsModificationService,
         private ServerCreationService $creationService,
+        private ServerPresetCreationService $presetCreationService,
         private ServerDeletionService $deletionService
     ) {
         parent::__construct();
@@ -71,6 +74,31 @@ class ServerController extends ApplicationApiController
         Activity::event('admin:servers:create')
             ->property('server', $server)
             ->description('A server was created')
+            ->log();
+
+        return $this->fractal->item($server)
+            ->transformWith(ServerTransformer::class)
+            ->respond(Response::HTTP_CREATED);
+    }
+
+    /**
+     * Create a new server via a server preseton the system.
+     *
+     * @throws \Throwable
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Everest\Exceptions\DisplayException
+     * @throws \Everest\Exceptions\Repository\RecordNotFoundException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableAllocationException
+     * @throws \Everest\Exceptions\Service\Deployment\NoViableNodeException
+     */
+    public function storeWithPreset(StoreServerWithPresetRequest $request): JsonResponse
+    {
+        $server = $this->presetCreationService->handle($request->user(), $request->normalize());
+
+        Activity::event('admin:servers:create')
+            ->property('server', $server)
+            ->property('server_preset', $request['preset_id'])
+            ->description('A server was created via a server preset')
             ->log();
 
         return $this->fractal->item($server)

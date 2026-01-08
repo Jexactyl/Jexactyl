@@ -35,6 +35,7 @@ const NavigationBar = () => {
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
     const user = useStoreState(state => state.user.data!);
+    const activityEnabled = useStoreState(state => state.settings.data!.activity.enabled.account);
     const { data } = useActivityLogs({ page: 1 }, { revalidateOnMount: true, revalidateOnFocus: false });
 
     const pathnames = location.pathname.split('/').filter(Boolean);
@@ -81,7 +82,7 @@ const NavigationBar = () => {
                 return (
                     <>
                         <FontAwesomeIcon icon={faEye} />
-                        {!data ? (
+                        {!data || !activityEnabled ? (
                             <Spinner size="small" centered />
                         ) : (
                             <>
@@ -128,7 +129,7 @@ const NavigationBar = () => {
                                 backgroundColor: theme.colors.primary,
                             }}
                         />
-                        {renderPageContent()}
+                        <div className={'hidden lg:block'}>{renderPageContent()}</div>
                     </div>
                     <SearchContainer />
                 </RightNavigation>

@@ -44,24 +44,22 @@ export default ({ selected, isAdmin }: { selected?: User; isAdmin?: boolean }) =
             getSelectedText={getSelectedText}
             nullable
         >
-            {users
-                ?.filter(x => (isAdmin ? x.isRootAdmin : !x.isRootAdmin))
-                .map(d => (
-                    <Option
-                        key={d.id}
-                        selectId={isAdmin ? 'assigned_to' : 'user_id'}
-                        id={d.id}
-                        item={d}
-                        active={d.id === user?.id}
-                    >
-                        <div className={'inline-flex items-center mr-2'}>
-                            <Avatar name={d.uuid} size={20} />
-                        </div>
-                        <div className={'inline-flex items-center'}>
-                            {d.username} ({d.email})
-                        </div>
-                    </Option>
-                ))}
+            {users?.map(d => (
+                <Option
+                    key={d.id}
+                    selectId={isAdmin ? 'assigned_to' : 'user_id'}
+                    id={d.id}
+                    item={d}
+                    active={d.id === user?.id}
+                >
+                    <div className={'inline-flex items-center mr-2'}>
+                        <Avatar name={d.uuid} size={20} />
+                    </div>
+                    <div className={'inline-flex items-center'}>
+                        {d.username} ({d.email})
+                    </div>
+                </Option>
+            ))}
         </SearchableSelect>
     );
 };

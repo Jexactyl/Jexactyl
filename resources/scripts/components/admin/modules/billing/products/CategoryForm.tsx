@@ -2,7 +2,7 @@ import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Form, Formik, useFormikContext } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Field, { FieldRow } from '@/elements/Field';
 import tw from 'twin.macro';
 import AdminContentBlock from '@/elements/AdminContentBlock';
@@ -23,6 +23,7 @@ import CategoryDeleteButton from './CategoryDeleteButton';
 import { getEgg } from '@/api/routes/admin/egg';
 import { Category } from '@definitions/admin';
 import { CategoryValues } from '@/api/routes/admin/billing/types';
+import { useSWRConfig } from 'swr';
 
 interface Props {
     visible: boolean;
@@ -32,20 +33,19 @@ interface Props {
 
 function InternalForm({ category, visible, setVisible }: Props) {
     const [egg, setEgg] = useState<WithRelationships<Egg, 'variables'> | undefined>();
-    const { setFieldValue, isSubmitting } = useFormikContext<CategoryValues>();
+    const { values, isSubmitting } = useFormikContext<CategoryValues>();
     const { secondary } = useStoreState(state => state.theme.data!.colors);
 
+    // Load egg object when category.eggId changes (after save/SWR revalidation)
+    // Note: No need for guard - useEffect only runs when category?.eggId changes
     useEffect(() => {
-        if (category) {
-            getEgg(category!.eggId)
+        if (category?.eggId) {
+            getEgg(category.eggId)
                 .then(egg => setEgg(egg))
                 .catch(error => console.error(error));
         }
-    }, []);
+    }, [category?.eggId]);
 
-    useEffect(() => {
-        setFieldValue('eggId', egg?.id);
-    }, [egg]);
 
     return (
         <Form>
@@ -108,7 +108,7 @@ function InternalForm({ category, visible, setVisible }: Props) {
                 </div>
                 <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
                     <ServerServiceContainer
-                        selectedEggId={egg?.id}
+                        selectedEggId={values.eggId}
                         setEgg={setEgg}
                         nestId={category?.nestId ?? 0}
                         noToggle
@@ -129,6 +129,8 @@ function InternalForm({ category, visible, setVisible }: Props) {
 
 export default ({ category }: { category?: Category }) => {
     const navigate = useNavigate();
+    const params = useParams<'id'>();
+    const { mutate } = useSWRConfig();
     const [visible, setVisible] = useState<boolean>(category?.visible || false);
 
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
@@ -155,6 +157,10 @@ export default ({ category }: { category?: Category }) => {
         values.visible = visible;
 
         updateCategory(category!.id, values)
+            .then(async () => {
+                // Revalidate the SWR cache to fetch updated category data and wait for it to complete
+                await mutate(`/api/application/billing/categories/${params.id}`, undefined, { revalidate: true });
+            })
             .catch(error => {
                 clearAndAddHttpError({ key: 'admin:billing:category:create', error });
             })
@@ -182,12 +188,15 @@ export default ({ category }: { category?: Category }) => {
             </div>
             <Formik
                 onSubmit={category ? update : submit}
+                enableReinitialize={true}
                 initialValues={{
                     name: category?.name ?? '',
                     icon: category?.icon ?? '',
                     description: category?.description ?? '',
                     visible: category?.visible ?? false,
                     eggId: category?.eggId ?? 0,
+                    // Required by EggSelect component but not submitted to backend (not in CategoryValues type)
+                    environment: {} as Record<string, unknown>,
                 }}
                 validationSchema={object().shape({
                     name: string().required().max(191).min(3),

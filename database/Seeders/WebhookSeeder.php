@@ -73,6 +73,10 @@ class WebhookSeeder extends Seeder
             'admin:servers:update',
             'admin:servers:delete',
 
+            'admin:server-presets:create',
+            'admin:server-presets:update',
+            'admin:server-presets:delete',
+
             'admin:tickets:create',
             'admin:tickets:update',
             'admin:tickets:settings',

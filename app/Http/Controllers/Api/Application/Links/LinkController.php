@@ -7,10 +7,10 @@ use Illuminate\Http\Response;
 use Everest\Models\CustomLink;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Everest\Http\Requests\Api\Application\Links;
 use Everest\Transformers\Api\Application\LinkTransformer;
 use Everest\Exceptions\Http\QueryValueOutOfRangeHttpException;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Links;
 
 class LinkController extends ApplicationApiController
 {

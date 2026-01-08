@@ -5,7 +5,7 @@ namespace Everest\Http\Requests\Api\Application\Api;
 use Everest\Models\AdminRole;
 use Everest\Http\Requests\Api\Application\ApplicationApiRequest;
 
-class DeleteApplicationApiKeysRequest extends ApplicationApiRequest
+class DeleteApplicationApiKeyRequest extends ApplicationApiRequest
 {
     public function permission(): string
     {

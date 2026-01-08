@@ -18,6 +18,8 @@ function AdminRouter() {
     const user = useStoreState(state => state.user.data!);
     const settings = useStoreState(state => state.settings.data!);
 
+    const activityEnabled: boolean = settings.activity.enabled.admin;
+
     const categories = ['general', 'modules', 'appearance', 'management', 'services'] as const;
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
 
@@ -27,7 +29,7 @@ function AdminRouter() {
             <MobileSidebar>
                 <MobileSidebar.Home />
                 {routes.admin
-                    .filter(x => x.name)
+                    .filter(route => route.name && (!route.condition || route.condition({ activityEnabled })))
                     .map(route => (
                         <MobileSidebar.Link
                             key={route.route}
@@ -65,12 +67,17 @@ function AdminRouter() {
                         return (
                             <Fragment key={category}>
                                 <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
-                                {categoryRoutes.map(route => (
-                                    <NavLink to={route.path} key={route.path} end={route.end}>
-                                        <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
-                                        <span>{route.name}</span>
-                                    </NavLink>
-                                ))}
+                                {categoryRoutes
+                                    .filter(
+                                        route =>
+                                            route.name && (!route.condition || route.condition({ activityEnabled })),
+                                    )
+                                    .map(route => (
+                                        <NavLink to={route.path} key={route.path} end={route.end}>
+                                            <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
+                                            <span>{route.name}</span>
+                                        </NavLink>
+                                    ))}
                             </Fragment>
                         );
                     })}

@@ -4,10 +4,13 @@ namespace Everest\Http\Controllers\Api\Application\Servers;
 
 use Everest\Models\Server;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Everest\Services\Servers\SuspensionService;
+use Everest\Services\Servers\ServerTransferService;
 use Everest\Services\Servers\ReinstallServerService;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Servers\TransferServerRequest;
 
 class ServerManagementController extends ApplicationApiController
 {
@@ -17,6 +20,7 @@ class ServerManagementController extends ApplicationApiController
     public function __construct(
         private ReinstallServerService $reinstallServerService,
         private SuspensionService $suspensionService,
+        private ServerTransferService $transferService,
     ) {
         parent::__construct();
     }
@@ -71,5 +75,20 @@ class ServerManagementController extends ApplicationApiController
         $server->update(['status' => $server->isInstalled() ? Server::STATUS_INSTALLING : null]);
 
         return $this->returnNoContent();
+    }
+
+    /**
+     * Transfer a server to a new node.
+     *
+     * @throws \Throwable
+     */
+    public function transfer(TransferServerRequest $request, Server $server): JsonResponse
+    {
+        $transfer = $this->transferService->handle($server, $request->validated());
+
+        return new JsonResponse([
+            'message' => 'Server transfer has been initiated.',
+            'transfer' => $transfer,
+        ]);
     }
 }

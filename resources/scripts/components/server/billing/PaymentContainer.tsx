@@ -12,6 +12,7 @@ export default ({ id }: { id?: number }) => {
     const [intent, setIntent] = useState<StripeIntent | null>(null);
 
     const serverId = ServerContext.useStoreState(state => state.server.data!.internalId);
+    const serverUuid = ServerContext.useStoreState(state => state.server.data!.uuid);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,7 +49,7 @@ export default ({ id }: { id?: number }) => {
         <>
             {/* @ts-expect-error this is fine, stripe library is just weird */}
             <Elements stripe={stripe} options={options}>
-                <PaymentForm id={id} serverId={Number(serverId)} intent={intent.id} renewal />
+                <PaymentForm id={id} serverId={Number(serverId)} intent={intent.id} renewal serverUuid={serverUuid} />
             </Elements>
         </>
     );

@@ -8,7 +8,7 @@ use Everest\Services\Servers\SuspensionService;
 
 class SuspendBillableServersCommand extends Command
 {
-    protected $description = 'An automated task to suspend and delete billable servers.';
+    protected $description = 'An automated task to suspend billable servers with past renewal dates.';
 
     protected $signature = 'p:billing:suspend-billable-servers';
 
@@ -27,7 +27,7 @@ class SuspendBillableServersCommand extends Command
     {
         $now = now();
 
-        foreach (Server::whereNotNull('product_id')->get() as $server) {
+        foreach (Server::whereNotNull('billing_product_id')->get() as $server) {
             $renewalDate = $server->renewal_date;
 
             if ($renewalDate === null) {
@@ -37,13 +37,21 @@ class SuspendBillableServersCommand extends Command
             if ($renewalDate->isPast()) {
                 $daysOverdue = $renewalDate->diffInDays($now);
 
-                if ($daysOverdue > 7) {
-                    $this->info("deleting server {$server->id}, overdue by {$daysOverdue} day(s)");
-                    $server->delete();
-                    continue;
+                // Get the product to determine if it's free or paid
+                $product = $server->product;
+
+                // Determine suspension threshold based on whether server is free or paid
+                $suspensionThreshold = 0;
+                if ($product && (float) $product->price === 0.0) {
+                    // Free server - use free suspension days
+                    $suspensionThreshold = config('modules.billing.renewal.free_suspension_days', 7);
+                } else {
+                    // Paid server - use paid suspension days
+                    $suspensionThreshold = config('modules.billing.renewal.paid_suspension_days', 30);
                 }
 
-                if (!$server->suspended) {
+                // Only suspend if overdue by more than the threshold
+                if ($daysOverdue > $suspensionThreshold && !$server->isSuspended()) {
                     $this->info("suspending server {$server->id}, overdue by {$daysOverdue} day(s)");
                     $this->suspend->toggle($server, 'suspend');
                 }

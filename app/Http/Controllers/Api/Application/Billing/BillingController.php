@@ -30,6 +30,7 @@ class BillingController extends ApplicationApiController
      */
     public function settings(UpdateBillingSettingsRequest $request): Response
     {
+        // todo(jex): use normalized request with foreach key value pairs
         Setting::set('settings::modules:billing:' . $request->input('key'), $request->input('value'));
 
         if (strpos($request['key'], 'keys:') !== 0) {

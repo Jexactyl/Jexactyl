@@ -31,8 +31,8 @@ export const validationSchema = object().shape({
     rules: string().required(),
 });
 
-export function EggVariableForm({ prefix, variable }: { prefix: string; variable: EggVariable }) {
-    console.log(variable.id === 5 && variable);
+export function EggVariableForm({ prefix, variable }: { prefix: string; variable?: EggVariable }) {
+    console.log(variable?.id === 5 && variable);
 
     return (
         <>
@@ -68,7 +68,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
                         type="checkbox"
                         // @ts-expect-error ignore type error
                         as={Checkbox}
-                        defaultChecked={variable.isUserViewable}
+                        defaultChecked={variable?.isUserViewable}
                         id={`${prefix}isUserViewable`}
                         name={`${prefix}isUserViewable`}
                     />
@@ -82,7 +82,7 @@ export function EggVariableForm({ prefix, variable }: { prefix: string; variable
                         type="checkbox"
                         // @ts-expect-error ignore type error
                         as={Checkbox}
-                        defaultChecked={variable.isUserEditable}
+                        defaultChecked={variable?.isUserEditable}
                         id={`${prefix}isUserEditable`}
                         name={`${prefix}isUserEditable`}
                     />

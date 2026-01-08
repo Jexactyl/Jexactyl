@@ -81,7 +81,7 @@ const EditInformationContainer = () => {
     const submit = ({ name, description }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('nest');
 
-        updateNest(nest.id, name, description)
+        updateNest(nest.id, name, description, nest.author)
             .then(() => setNest({ ...nest, name, description }))
             .catch(error => {
                 console.error(error);

@@ -125,4 +125,24 @@ class EggControllerTest extends ApplicationApiIntegrationTestCase
     {
         $this->markTestSkipped('todo: implement proper admin api key permissions system');
     }
+
+    /**
+     * Test that an egg can be updated without providing config fields.
+     * This verifies that the validation rules allow updates when config_from is null
+     * and config fields are not provided in the request.
+     */
+    public function testUpdateEggWithoutConfigFields()
+    {
+        $egg = $this->repository->find(1);
+
+        $response = $this->patchJson('/api/application/eggs/' . $egg->id, [
+            'name' => 'Updated Egg Name',
+            'description' => 'Updated description',
+        ]);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonPath('object', 'egg');
+        $response->assertJsonPath('attributes.name', 'Updated Egg Name');
+        $response->assertJsonPath('attributes.description', 'Updated description');
+    }
 }

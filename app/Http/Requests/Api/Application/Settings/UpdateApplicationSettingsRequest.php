@@ -10,11 +10,15 @@ class UpdateApplicationSettingsRequest extends ApplicationApiRequest
     public function rules(): array
     {
         return [
-            'name' => 'nullable|string|min:3|max:40',
-            'logo' => 'nullable|url|max:255',
-            'auto_update' => 'nullable|bool',
-            'indicators' => 'nullable|bool',
-            'speed_dial' => 'nullable|bool',
+            'app:name' => 'nullable|string|min:3|max:40',
+            'app:logo' => 'nullable|url|max:255',
+            'app:auto_update' => 'nullable|bool',
+            'app:indicators' => 'nullable|bool',
+            'app:speed_dial' => 'nullable|bool',
+
+            'activity:enabled:account' => 'nullable|bool',
+            'activity:enabled:server' => 'nullable|bool',
+            'activity:enabled:admin' => 'nullable|bool',
         ];
     }
 

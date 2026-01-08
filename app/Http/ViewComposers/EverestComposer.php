@@ -56,6 +56,17 @@ class EverestComposer
                     'symbol' => config('modules.billing.currency.symbol'),
                     'code' => config('modules.billing.currency.code'),
                 ],
+                'links' => [
+                    'terms' => config('modules.billing.links.terms'),
+                    'privacy' => config('modules.billing.links.privacy'),
+                ],
+                'renewal' => [
+                    'days' => config('modules.billing.renewal.days', 30),
+                    'free_renewal_days' => config('modules.billing.renewal.free_renewal_days', 30),
+                    'suspension_threshold' => config('modules.billing.renewal.suspension_threshold', 7),
+                    'free_suspension_days' => config('modules.billing.renewal.free_suspension_days', 7),
+                    'paid_suspension_days' => config('modules.billing.renewal.paid_suspension_days', 30),
+                ],
             ],
             'alert' => [
                 'enabled' => boolval(config('modules.alert.enabled', false)),

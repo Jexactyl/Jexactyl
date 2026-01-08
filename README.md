@@ -18,7 +18,7 @@ Jexpanel is a modern, high-performance **game server management panel** built on
 - Integrated billing system (Stripe + PayPal)  
 - Clean, user-friendly administrative interface  
 - Built with modern tech: PHP, Laravel, TypeScript, React, Docker  
-- Fully open-source, community-driven  
+- Fully open-source, community-driven
 
 ## Useful Links
 

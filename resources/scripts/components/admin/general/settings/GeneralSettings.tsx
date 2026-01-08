@@ -6,7 +6,7 @@ import Field from '@/elements/Field';
 import { Button } from '@/elements/button';
 import { GeneralSettings, updateGeneralSettings } from '@/api/routes/admin/settings';
 import { useStoreActions, useStoreState } from '@/state/hooks';
-import { faPaintBrush, faPlusCircle, faRecycle, faShapes, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faPlusCircle, faRecycle, faShapes, faImage, faEye } from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import { useEffect } from 'react';
 import FlashMessageRender from '@/elements/FlashMessageRender';
@@ -52,6 +52,13 @@ export default () => {
                 indicators: settings.indicators,
                 auto_update: settings.auto_update,
                 speed_dial: settings.speed_dial,
+                activity: {
+                    enabled: {
+                        account: settings.activity.enabled.account,
+                        server: settings.activity.enabled.server,
+                        admin: settings.activity.enabled.admin,
+                    },
+                },
             }}
         >
             <Form>
@@ -117,6 +124,42 @@ export default () => {
                             <p className={'text-gray-400 text-xs mt-1.5'}>
                                 If enabled, a component will show to admins in the client-side UI for quick actions -
                                 such as creating a server or user.
+                            </p>
+                        </div>
+                    </AdminBox>
+                    <AdminBox title={'Activity Logging'} icon={faEye}>
+                        <div>
+                            <div className={'bg-black/50 rounded-lg p-2 grid lg:grid-cols-3 gap-4 place-items-center'}>
+                                <div className={'inline-flex'}>
+                                    <Label className={'mt-1 mr-2'}>Account</Label>
+                                    <Field
+                                        id={'activity.enabled.account'}
+                                        name={'activity.enabled.account'}
+                                        type={'checkbox'}
+                                        defaultChecked={settings.activity.enabled.account}
+                                    />
+                                </div>
+                                <div className={'inline-flex'}>
+                                    <Label className={'mt-1 mr-2'}>Server</Label>
+                                    <Field
+                                        id={'activity.enabled.server'}
+                                        name={'activity.enabled.server'}
+                                        type={'checkbox'}
+                                        defaultChecked={settings.activity.enabled.server}
+                                    />
+                                </div>
+                                <div className={'inline-flex'}>
+                                    <Label className={'mt-1 mr-2'}>Admin</Label>
+                                    <Field
+                                        id={'activity.enabled.admin'}
+                                        name={'activity.enabled.admin'}
+                                        type={'checkbox'}
+                                        defaultChecked={settings.activity.enabled.admin}
+                                    />
+                                </div>
+                            </div>
+                            <p className={'text-gray-400 text-xs mt-1.5'}>
+                                Check the boxes you wish to log activity for. By default, all of these are enabled.
                             </p>
                         </div>
                     </AdminBox>

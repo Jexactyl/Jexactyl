@@ -12,6 +12,9 @@ import PaymentContainer from '@server/billing/PaymentContainer';
 import { useState, useEffect } from 'react';
 import Spinner from './Spinner';
 import { getProduct, Product } from '@/api/routes/account/billing/products';
+import { renewFreeServer } from '@/api/routes/account/billing/orders/process';
+import useFlash from '@/plugins/useFlash';
+import FlashMessageRender from './FlashMessageRender';
 
 interface BaseProps {
     title: string;
@@ -91,12 +94,15 @@ const NotFound = ({ title, message, onBack }: Partial<Pick<ScreenBlockProps, 'ti
     />
 );
 
-const Suspended = ({ date, id }: { date: Date; id?: number }) => {
+const Suspended = ({ date, id, serverId, serverUuid }: { date: Date; id?: number; serverId?: number; serverUuid?: string }) => {
     const [product, setProduct] = useState<Product>();
+    const [renewing, setRenewing] = useState<boolean>(false);
 
     const navigate = useNavigate();
+    const { clearFlashes, clearAndAddHttpError } = useFlash();
     const currency = useStoreState(state => state.everest.data!.billing.currency.symbol);
     const { secondary } = useStoreState(state => state.theme.data!.colors);
+    const settings = useStoreState(state => state.everest.data!.billing);
 
     useEffect(() => {
         if (id) {
@@ -108,7 +114,36 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
         }
     }, []);
 
+    const handleFreeRenewal = () => {
+        if (!product || !id || !serverId || !serverUuid) return;
+
+        setRenewing(true);
+        clearFlashes('suspended:billing');
+
+        renewFreeServer(id, serverId)
+            .then(() => {
+                // Redirect to server overview after successful renewal
+                navigate(`/server/${serverUuid}`);
+            })
+            .catch(error => {
+                clearAndAddHttpError({ key: 'suspended:billing', error });
+                setRenewing(false);
+            });
+    };
+
     if (!product) return <Spinner centered />;
+
+    const isFree = product.price === 0;
+    
+    // Get configurable renewal settings based on server type
+    const suspensionThreshold = isFree 
+        ? (settings.renewal?.free_suspension_days || 7)
+        : (settings.renewal?.paid_suspension_days || 30);
+    
+    // Calculate days past the renewal date
+    const now = new Date();
+    const daysOverdue = Math.max(0, Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)));
+    const isLongOverdue = daysOverdue > suspensionThreshold;
 
     return (
         <PageContentBlock>
@@ -122,21 +157,77 @@ const Suspended = ({ date, id }: { date: Date; id?: number }) => {
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </ActionButton>
                     </div>
-                    <h2 css={tw`text-white font-bold text-4xl`}>Suspended - No Payment</h2>
+                    <h2 css={tw`text-white font-bold text-4xl`}>{isFree ? 'Suspended' : 'Suspended - No Payment'}</h2>
                     <p css={tw`text-sm text-neutral-400 mt-2`}>
-                        Your server has been suspended due to a lack of payment. Your server will be deleted{' '}
-                        <span className={'font-bold'}>on {date.toDateString()}</span>
-                        if you do not choose to pay the monthly cost for your server.
-                        <div className={'mt-2 text-gray-300 font-semibold'}>
-                            Your outstanding balance is:
-                            <span className={'text-white ml-2 font-bold'}>
-                                {currency}
-                                {product.price}
-                            </span>
-                        </div>
+                        {isFree ? (
+                            <>
+                                {isLongOverdue ? (
+                                    <>
+                                        Your free server has been suspended for more than {suspensionThreshold} days due
+                                        to non-renewal.{' '}
+                                        <span className={'font-bold text-red-400'}>
+                                            Please create a support ticket to restore access.
+                                        </span>{' '}
+                                        Self-service renewal is no longer available after {suspensionThreshold} days.
+                                    </>
+                                ) : (
+                                    <>
+                                        Your free server has been suspended because the renewal date has passed. Please
+                                        renew to restore access.
+                                        <div className={'mt-2 text-yellow-400 font-semibold'}>
+                                            Days overdue: {daysOverdue}
+                                        </div>
+                                    </>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                {isLongOverdue ? (
+                                    <>
+                                        Your server has been suspended for more than {suspensionThreshold} days due to
+                                        non-payment.{' '}
+                                        <span className={'font-bold text-red-400'}>
+                                            Please create a support ticket to restore access.
+                                        </span>{' '}
+                                        Self-service payment is no longer available after {suspensionThreshold} days.
+                                    </>
+                                ) : (
+                                    <>
+                                        Your server has been suspended due to a lack of payment. Please pay to restore access.
+                                        <div className={'mt-2 text-gray-300 font-semibold'}>
+                                            Your outstanding balance is:
+                                            <span className={'text-white ml-2 font-bold'}>
+                                                {currency}
+                                                {product.price}
+                                            </span>
+                                        </div>
+                                        <div className={'mt-2 text-yellow-400 font-semibold'}>
+                                            Days overdue: {daysOverdue}
+                                        </div>
+                                    </>
+                                )}
+                            </>
+                        )}
                     </p>
+                    <FlashMessageRender byKey={'suspended:billing'} className={'mt-4'} />
                     <div className={'mt-6'}>
-                        <PaymentContainer id={Number(product.id)} />
+                        {isLongOverdue ? (
+                            <div css={tw`text-center p-4 bg-red-900/30 rounded border border-red-500`}>
+                                <p css={tw`text-red-300 font-semibold`}>
+                                    Self-service renewal/payment is no longer available. Please create a support ticket to restore your server.
+                                </p>
+                            </div>
+                        ) : (
+                            <>
+                                {isFree ? (
+                                    <Button onClick={handleFreeRenewal} disabled={renewing} size={Button.Sizes.Large}>
+                                        {renewing ? 'Renewing...' : 'Renew Free Server'}
+                                    </Button>
+                                ) : (
+                                    <PaymentContainer id={Number(product.id)} />
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

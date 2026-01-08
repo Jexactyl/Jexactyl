@@ -23,8 +23,8 @@ export interface Values {
         subusers: number;
     };
 
-    renewalDate?: Date | undefined;
-    billingProductId?: number;
+    renewalDate?: Date | null | undefined;
+    billingProductId?: number | null;
 
     allocationId: number;
     addAllocations: number[];
@@ -57,7 +57,7 @@ export default (id: number, server: Partial<Values>, include: string[] = []): Pr
                     subusers: server.featureLimits?.subusers,
                 },
 
-                renewal_date: server.renewalDate,
+                renewal_date: server.renewalDate instanceof Date ? server.renewalDate.toISOString() : server.renewalDate,
                 billing_product_id: server.billingProductId,
 
                 allocation_id: server.allocationId,

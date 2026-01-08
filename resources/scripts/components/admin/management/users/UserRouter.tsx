@@ -15,7 +15,6 @@ import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
 import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
 import ManageContainer from './view/ManageContainer';
-import { useStoreState } from '@/state/hooks';
 import { Button } from '@/elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -43,8 +42,6 @@ const UserRouter = () => {
 
     const user = Context.useStoreState(state => state.user);
     const setUser = Context.useStoreActions(actions => actions.setUser);
-
-    const theme = useStoreState(state => state.theme.data!);
 
     useEffect(() => {
         clearFlashes('user');
@@ -92,7 +89,7 @@ const UserRouter = () => {
 
             <FlashMessageRender byKey={'user'} css={tw`mb-4`} />
 
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to={`/admin/users/${params.id}`} name={'About'} base>
                     <UserIcon />
                 </SubNavigationLink>

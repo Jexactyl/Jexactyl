@@ -124,6 +124,11 @@ class AdminRole extends Model
     public const SERVERS_UPDATE = 'servers.update';
     public const SERVERS_DELETE = 'servers.delete';
 
+    public const SERVER_PRESETS_READ = 'server-presets.read';
+    public const SERVER_PRESETS_CREATE = 'server-presets.create';
+    public const SERVER_PRESETS_UPDATE = 'server-presets.update';
+    public const SERVER_PRESETS_DELETE = 'server-presets.delete';
+
     public const USERS_READ = 'users.read';
     public const USERS_CREATE = 'users.create';
     public const USERS_UPDATE = 'users.update';
@@ -284,6 +289,15 @@ class AdminRole extends Model
                 'create' => 'Create a new server.',
                 'update' => 'Update an existing server.',
                 'delete' => 'Delete an existing server.',
+            ],
+        ],
+        'server-presets' => [
+            'description' => 'Permissions to configure server presets.',
+            'keys' => [
+                'read' => 'View the current server presets.',
+                'create' => 'Create a new server preset.',
+                'update' => 'Update an existing server preset.',
+                'delete' => 'Delete an existing server preset.',
             ],
         ],
         'users' => [

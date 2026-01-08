@@ -2,6 +2,7 @@
 
 namespace Everest\Models;
 
+use Carbon\Carbon;
 use Everest\Models\Billing\Product;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Query\JoinClause;
@@ -177,6 +178,39 @@ class Server extends Model
         'backup_limit' => 'present|nullable|integer|min:0',
         'subuser_limit' => 'nullable|integer|min:-1',
     ];
+
+    /**
+     * Returns the rules for updating a server model.
+     *
+     * This override handles the billing_product_id validation to allow
+     * existing (but now deleted) product IDs to remain on the server
+     * when the field is not being changed.
+     */
+    public static function getRulesForUpdate($model, string $column = 'id'): array
+    {
+        $rules = parent::getRulesForUpdate($model, $column);
+
+        // If the model is a Server instance and billing_product_id hasn't changed,
+        // skip the exists validation to allow orphaned product references
+        if ($model instanceof self && isset($rules['billing_product_id'])) {
+            $originalValue = $model->getOriginal('billing_product_id');
+            $currentValue = $model->getAttribute('billing_product_id');
+
+            // Only skip exists validation if the value hasn't changed
+            if ($originalValue === $currentValue && !is_null($originalValue)) {
+                $rules['billing_product_id'] = array_values(array_filter($rules['billing_product_id'], function ($rule) {
+                    return !is_string($rule) || !str_starts_with($rule, 'exists:');
+                }));
+
+                // Ensure we still have basic validation
+                if (empty($rules['billing_product_id'])) {
+                    $rules['billing_product_id'] = ['nullable', 'int'];
+                }
+            }
+        }
+
+        return $rules;
+    }
 
     /**
      * Cast values to correct type.
@@ -406,11 +440,14 @@ class Server extends Model
     {
         if (empty($value) || $value === '0000-00-00') {
             $this->attributes['renewal_date'] = null;
+
             return;
         }
 
         try {
-            $this->attributes['renewal_date'] = Carbon::parse($value)->toDateString();
+            // Store as datetime to preserve time component
+            $dateTimeString = Carbon::parse($value)->toDateTimeString();
+            $this->attributes['renewal_date'] = $dateTimeString;
         } catch (\Throwable $e) {
             $this->attributes['renewal_date'] = null;
         }

@@ -10,7 +10,6 @@ import WebhookSettings from './WebhookSettings';
 import WebhookEventsContainer from './events/WebhookEventsContainer';
 
 export default () => {
-    const theme = useStoreState(state => state.theme.data!);
     const enabled = useStoreState(state => state.everest.data!.webhooks.enabled);
 
     if (!enabled) return <EnableWebhooks />;
@@ -30,7 +29,7 @@ export default () => {
                     </p>
                 </div>
             </div>
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to={'/admin/webhooks'} name={'Settings'} base>
                     <CogIcon />
                 </SubNavigationLink>

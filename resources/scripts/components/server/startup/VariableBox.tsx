@@ -25,13 +25,14 @@ const VariableBox = ({ variable }: Props) => {
     const [canEdit] = usePermissions(['startup.update']);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { mutate } = getServerStartup(uuid);
+    const setServerFromState = ServerContext.useStoreActions(actions => actions.server.setServerFromState);
 
     const setVariableValue = debounce((value: string) => {
         setLoading(true);
         clearFlashes(FLASH_KEY);
 
         updateStartupVariable(uuid, variable.envVariable, value)
-            .then(([response, invocation]) =>
+            .then(([response, invocation]) => {
                 mutate(
                     data => ({
                         ...data!,
@@ -41,8 +42,9 @@ const VariableBox = ({ variable }: Props) => {
                         ),
                     }),
                     false,
-                ),
-            )
+                );
+                setServerFromState(s => ({ ...s, invocation }));
+            })
             .catch(error => {
                 console.error(error);
                 clearAndAddHttpError({ key: FLASH_KEY, error });

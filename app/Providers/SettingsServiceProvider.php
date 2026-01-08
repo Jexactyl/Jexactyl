@@ -23,6 +23,9 @@ class SettingsServiceProvider extends ServiceProvider
         'pterodactyl:client_features:allocations:enabled',
         'pterodactyl:client_features:allocations:range_start',
         'pterodactyl:client_features:allocations:range_end',
+        'activity:enabled:account',
+        'activity:enabled:server',
+        'activity:enabled:admin',
 
         // Authentication module settings
         'modules:auth:registration:enabled',
@@ -51,6 +54,13 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:billing:keys:secret',
         'modules:billing:currency:code',
         'modules:billing:currency:symbol',
+        'modules:billing:links:terms',
+        'modules:billing:links:privacy',
+        'modules:billing:renewal:days',
+        'modules:billing:renewal:free_renewal_days',
+        'modules:billing:renewal:suspension_threshold',
+        'modules:billing:renewal:free_suspension_days',
+        'modules:billing:renewal:paid_suspension_days',
 
         // Ticket module settings
         'modules:tickets:enabled',

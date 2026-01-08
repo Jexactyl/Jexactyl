@@ -11,7 +11,6 @@ import ConfigureAI from '@admin/modules/ai/ConfigureAI';
 import SettingsContainer from './SettingsContainer';
 
 export default () => {
-    const theme = useStoreState(state => state.theme.data!);
     const settings = useStoreState(state => state.everest.data!.ai);
 
     if (!settings.enabled) return <EnableAI />;
@@ -32,7 +31,7 @@ export default () => {
                     </p>
                 </div>
             </div>
-            <SubNavigation theme={theme}>
+            <SubNavigation>
                 <SubNavigationLink to={'/admin/ai'} name={'General'} base>
                     <SparklesIcon />
                 </SubNavigationLink>

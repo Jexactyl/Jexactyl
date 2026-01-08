@@ -25,7 +25,7 @@ class GeneralController extends ApplicationApiController
     public function update(UpdateApplicationSettingsRequest $request): Response
     {
         foreach ($request->normalize() as $key => $value) {
-            Setting::set('settings::app:' . $key, $value);
+            Setting::set('settings::' . $key, $value);
         }
 
         return $this->returnNoContent();

@@ -42,9 +42,26 @@ function ServerConsoleContainer() {
     const eggFeatures = ServerContext.useStoreState(state => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState(state => state.server.data!.isNodeUnderMaintenance);
     const status = ServerContext.useStoreState(state => state.status.value);
+    const renewalDate = ServerContext.useStoreState(state => state.server.data!.renewalDate);
+    const billingProductId = ServerContext.useStoreState(state => state.server.data!.billingProductId);
+    const settings = useStoreState(state => state.everest.data!.billing);
+
+    // Get configurable renewal settings
+    const freeGraceDays = settings.renewal?.free_suspension_days || 7;
+
+    // Calculate days until renewal (can be negative if overdue)
+    const daysUntilRenewal = renewalDate ? Math.floor((new Date(renewalDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : null;
+    
+    // Show warning if within grace period (from expiration to grace period end)
+    const showRenewalWarning = billingProductId && daysUntilRenewal !== null && daysUntilRenewal <= 0 && Math.abs(daysUntilRenewal) <= freeGraceDays;
 
     return (
         <PageContentBlock title={'Server Console'} showFlashKey={'console:share'}>
+            {showRenewalWarning && (
+                <Alert type={'warning'} className={'mb-4'}>
+                    Your server is {Math.abs(daysUntilRenewal!)} day{Math.abs(daysUntilRenewal!) !== 1 ? 's' : ''} overdue for renewal. Please renew within {freeGraceDays} days to avoid permanent suspension. Your server files and data will be preserved.
+                </Alert>
+            )}
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isNodeUnderMaintenance
