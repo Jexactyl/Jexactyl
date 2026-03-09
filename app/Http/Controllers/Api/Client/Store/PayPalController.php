@@ -37,11 +37,6 @@ class PayPalController extends ClientApiController
         $cost = config('gateways.paypal.cost', 1) / 100 * $amount;
         $currency = config('gateways.currency', 'USD');
 
-        DB::table('paypal')->insert([
-            'user_id' => $request->user()->id,
-            'amount' => $amount,
-        ]);
-
         $order = new OrdersCreateRequest();
         $order->prefer('return=representation');
 
@@ -74,6 +69,12 @@ class PayPalController extends ClientApiController
             throw new DisplayException('Unable to process order.');
         }
 
+        DB::table('paypal')->insert([
+            'user_id' => $request->user()->id,
+            'order_id' => $response->result->id,
+            'amount' => $amount,
+        ]);
+
         return new JsonResponse($response->result->links[1]->href ?? '/', 200, [], null, true);
     }
 
@@ -85,26 +86,39 @@ class PayPalController extends ClientApiController
     public function callback(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $data = DB::table('paypal')->where('user_id', $user->id)->first();
+        $token = $request->input('token');
+        $data = DB::table('paypal')
+            ->where('user_id', $user->id)
+            ->where('order_id', $token)
+            ->first();
 
-        $order = new OrdersCaptureRequest($request->input('token'));
+        if (!$data) {
+            throw new DisplayException('Unable to locate a pending PayPal order for this account.');
+        }
+
+        $order = new OrdersCaptureRequest($token);
         $order->prefer('return=representation');
 
         try {
             $res = $this->getClient()->execute($order);
-        } catch (DisplayException $ex) {
+        } catch (\Exception $ex) {
             throw new DisplayException('Unable to process order.');
         }
 
-        if ($res->statusCode == 200 || 201) {
+        if (in_array($res->statusCode, [200, 201], true) && ($res->result->status ?? null) === 'COMPLETED') {
             $user->update([
                 'store_balance' => $user->store_balance + $data->amount,
             ]);
+
+            DB::table('paypal')
+                ->where('user_id', $user->id)
+                ->where('order_id', $token)
+                ->delete();
+
+            return redirect('/store');
         }
 
-        DB::table('paypal')->where('user_id', $user->id)->delete();
-
-        return redirect('/store');
+        throw new DisplayException('Unable to verify the PayPal transaction.');
     }
 
     /**

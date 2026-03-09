@@ -1,6 +1,5 @@
 import tw from 'twin.macro';
 import { format } from 'date-fns';
-import { breakpoint } from '@/theme';
 import * as Icon from 'react-feather';
 import styled from 'styled-components/macro';
 import { useStoreState } from '@/state/hooks';
@@ -18,19 +17,7 @@ import getReferralCodes, { ReferralCode } from '@/api/account/getReferralCodes';
 import getReferralActivity, { ReferralActivity } from '@/api/account/getReferralActivity';
 
 const Container = styled.div`
-    ${tw`flex flex-wrap`};
-
-    & > div {
-        ${tw`w-full`};
-
-        ${breakpoint('sm')`
-      width: calc(50% - 1rem);
-    `}
-
-        ${breakpoint('md')`
-      ${tw`w-auto flex-1`};
-    `}
-    }
+    ${tw`grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3`};
 `;
 
 export default () => {
@@ -106,7 +93,7 @@ export default () => {
             description={'Create a code and share it with others.'}
             showFlashKey={'referrals'}
         >
-            <Container className={'lg:grid lg:grid-cols-3 my-10'}>
+            <Container className={'my-10'}>
                 <ContentBox title={'Your Referral Codes'} css={tw`sm:mt-0`}>
                     <Dialog.Confirm
                         title={'Delete Referral Code'}
@@ -146,13 +133,13 @@ export default () => {
                         Create
                     </Button>
                 </ContentBox>
-                <ContentBox title={'Available Perks'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'Available Perks'} css={tw`mt-0 sm:ml-0`}>
                     <h1 css={tw`text-xl`}>
                         You will recieve <span className={'text-green-500'}>{reward}</span> credits for every user you
                         refer to this Panel.
                     </h1>
                 </ContentBox>
-                <ContentBox title={'Users Referred'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'Users Referred'} css={tw`mt-0 sm:ml-0`}>
                     <SpinnerOverlay visible={loading} />
                     {activity.length === 0 ? (
                         <p css={tw`text-center my-2`}>{!loading && 'No referral activity exists for this account.'}</p>

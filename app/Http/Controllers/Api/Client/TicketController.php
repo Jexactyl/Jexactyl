@@ -32,7 +32,7 @@ class TicketController extends ClientApiController
      */
     public function view(ClientApiRequest $request, int $id): array
     {
-        return $this->fractal->item(Ticket::findOrFail($id))
+        return $this->fractal->item($this->getUserTicket($request, $id))
             ->transformWith($this->getTransformer(TicketTransformer::class))
             ->toArray();
     }
@@ -42,7 +42,7 @@ class TicketController extends ClientApiController
      */
     public function viewMessages(ClientApiRequest $request, int $id): array
     {
-        $messages = TicketMessage::where('ticket_id', $id)->get();
+        $messages = $this->getUserTicket($request, $id)->messages;
 
         return $this->fractal->collection($messages)
             ->transformWith($this->getTransformer(TicketMessageTransformer::class))
@@ -90,7 +90,7 @@ class TicketController extends ClientApiController
      */
     public function newMessage(ClientApiRequest $request, int $id): JsonResponse
     {
-        $ticket = Ticket::findOrFail($id);
+        $ticket = $this->getUserTicket($request, $id);
 
         $ticket->messages()->create([
             'user_id' => $request->user()->id,
@@ -108,9 +108,16 @@ class TicketController extends ClientApiController
      */
     public function close(ClientApiRequest $request, int $id): JsonResponse
     {
-        Ticket::findOrFail($id)->delete();
-        TicketMessage::where('ticket_id', $id)->delete();
+        $ticket = $this->getUserTicket($request, $id);
+
+        $ticket->delete();
+        TicketMessage::where('ticket_id', $ticket->id)->delete();
 
         return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    private function getUserTicket(ClientApiRequest $request, int $id): Ticket
+    {
+        return $request->user()->tickets()->findOrFail($id);
     }
 }

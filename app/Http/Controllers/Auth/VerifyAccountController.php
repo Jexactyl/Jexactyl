@@ -11,18 +11,18 @@ class VerifyAccountController extends Controller
 {
     public function index(string $token): RedirectResponse
     {
-        $data = DB::table('verification_tokens')->select('user')->where('token', $token)->first()->user;
+        $data = DB::table('verification_tokens')->select('user')->where('token', $token)->first();
         if (!$data) {
             return response()->redirectTo('/');
         }
 
-        $user = User::whereId($data)->first()->id;
+        $user = User::whereId($data->user)->first();
         if (!$user) {
             return response()->redirectTo('/');
         }
 
-        User::whereId($user)->update(['verified' => true]);
-        DB::table('verification_tokens')->where('user', $user)->delete();
+        User::whereId($user->id)->update(['verified' => true]);
+        DB::table('verification_tokens')->where('user', $user->id)->delete();
 
         return response()->redirectTo('/');
     }

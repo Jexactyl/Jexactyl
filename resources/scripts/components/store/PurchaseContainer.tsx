@@ -1,5 +1,4 @@
 import tw from 'twin.macro';
-import { breakpoint } from '@/theme';
 import styled from 'styled-components/macro';
 import { useStoreState } from '@/state/hooks';
 import React, { useEffect, useState } from 'react';
@@ -11,19 +10,7 @@ import StripePurchaseForm from '@/components/store/forms/StripePurchaseForm';
 import PaypalPurchaseForm from '@/components/store/forms/PaypalPurchaseForm';
 
 const Container = styled.div`
-    ${tw`flex flex-wrap`};
-
-    & > div {
-        ${tw`w-full`};
-
-        ${breakpoint('sm')`
-      width: calc(50% - 1rem);
-    `}
-
-        ${breakpoint('md')`
-      ${tw`w-auto flex-1`};
-    `}
-    }
+    ${tw`grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3`};
 `;
 
 export default () => {
@@ -40,13 +27,13 @@ export default () => {
 
     return (
         <PageContentBlock title={'Account Balance'} description={'Purchase credits easily via Stripe or PayPal.'}>
-            <Container className={'lg:grid lg:grid-cols-2 my-10'}>
+            <Container className={'my-10'}>
                 <ContentBox title={'Account Balance'} showFlashes={'account:balance'} css={tw`sm:mt-0`}>
                     <h1 css={tw`text-7xl flex justify-center items-center`}>
                         {resources.balance} <span className={'text-base ml-4'}>credits</span>
                     </h1>
                 </ContentBox>
-                <ContentBox title={'Purchase credits'} showFlashes={'account:balance'} css={tw`mt-8 sm:mt-0 sm:ml-8`}>
+                <ContentBox title={'Purchase credits'} showFlashes={'account:balance'} css={tw`mt-0 sm:ml-0`}>
                     {!paypal && !stripe ? (
                         <p className={'text-gray-400 text-sm text-center'}>
                             Payment gateways are unavailable at this time.
@@ -65,17 +52,13 @@ export default () => {
                     <h3 className={'text-2xl text-neutral-500'}>
                         See how many credits you will recieve per minute of AFK.
                     </h3>
-                    <Container className={'lg:grid lg:grid-cols-2 my-10'}>
+                    <Container className={'my-10'}>
                         <ContentBox title={'Earn Rate'} showFlashes={'earn:rate'} css={tw`sm:mt-0`}>
                             <h1 css={tw`text-7xl flex justify-center items-center`}>
                                 {earn.amount} <span className={'text-base ml-4'}>credits / min</span>
                             </h1>
                         </ContentBox>
-                        <ContentBox
-                            title={'How to earn'}
-                            showFlashes={'earn:how'}
-                            css={tw`mt-8 sm:mt-0 sm:ml-8 text-gray-300`}
-                        >
+                        <ContentBox title={'How to earn'} showFlashes={'earn:how'} css={tw`mt-0 sm:ml-0 text-gray-300`}>
                             <p>You can earn credits by having any page of this panel open.</p>
                             <p css={tw`mt-1`}>
                                 <span css={tw`text-green-500`}>{earn.amount}&nbsp;</span>

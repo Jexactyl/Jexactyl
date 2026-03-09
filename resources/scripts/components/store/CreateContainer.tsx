@@ -157,7 +157,7 @@ export default () => {
                 <Form>
                     <h1 className={'text-5xl'}>Basic Details</h1>
                     <h3 className={'text-2xl text-neutral-500'}>Set the basic fields for your new server.</h3>
-                    <StoreContainer className={'lg:grid lg:grid-cols-2 my-10 gap-4'}>
+                    <StoreContainer className={'grid grid-cols-1 my-10 gap-4 md:grid-cols-2'}>
                         <TitledGreyBox title={'Server name'} icon={faStickyNote} className={'mt-8 sm:mt-0'}>
                             <Field name={'name'} />
                             <p className={'mt-1 text-xs'}>Assign a name to your server for use in the Panel.</p>
@@ -173,7 +173,7 @@ export default () => {
                     </StoreContainer>
                     <h1 className={'text-5xl'}>Resource Limits</h1>
                     <h3 className={'text-2xl text-neutral-500'}>Set specific limits for CPU, RAM and more.</h3>
-                    <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
+                    <StoreContainer className={'grid grid-cols-1 my-10 gap-4 md:grid-cols-2 xl:grid-cols-3'}>
                         <TitledGreyBox title={'Server CPU limit'} icon={faMicrochip} className={'mt-8 sm:mt-0'}>
                             <Field name={'cpu'} />
                             <p className={'mt-1 text-xs'}>Assign a limit for usable CPU.</p>
@@ -200,7 +200,7 @@ export default () => {
                     <h3 className={'text-2xl text-neutral-500'}>
                         Add databases, allocations and ports to your server.
                     </h3>
-                    <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
+                    <StoreContainer className={'grid grid-cols-1 my-10 gap-4 md:grid-cols-2 xl:grid-cols-3'}>
                         <TitledGreyBox title={'Server allocations'} icon={faNetworkWired} className={'mt-8 sm:mt-0'}>
                             <Field name={'ports'} />
                             <p className={'mt-1 text-xs'}>Assign a number of ports to your server.</p>
@@ -219,7 +219,7 @@ export default () => {
                     </StoreContainer>
                     <h1 className={'text-5xl'}>Deployment</h1>
                     <h3 className={'text-2xl text-neutral-500'}>Choose a node and server type.</h3>
-                    <StoreContainer className={'lg:grid lg:grid-cols-3 my-10 gap-4'}>
+                    <StoreContainer className={'grid grid-cols-1 my-10 gap-4 md:grid-cols-2 xl:grid-cols-3'}>
                         <TitledGreyBox title={'Available Nodes'} icon={faLayerGroup} className={'mt-8 sm:mt-0'}>
                             <Select name={'node'} onChange={(e) => setNode(parseInt(e.target.value))}>
                                 {!node && <option>Select a node...</option>}

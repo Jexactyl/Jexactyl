@@ -1,5 +1,4 @@
 import tw from 'twin.macro';
-import { breakpoint } from '@/theme';
 import * as Icon from 'react-feather';
 import { Link } from 'react-router-dom';
 import useFlash from '@/plugins/useFlash';
@@ -16,19 +15,7 @@ import PurchaseBox from '@/components/elements/store/PurchaseBox';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 
 const Container = styled.div`
-    ${tw`flex flex-wrap`};
-
-    & > div {
-        ${tw`w-full`};
-
-        ${breakpoint('sm')`
-      width: calc(50% - 1rem);
-    `}
-
-        ${breakpoint('md')`
-      ${tw`w-auto flex-1`};
-    `}
-    }
+    ${tw`grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3`};
 `;
 
 export default () => {
@@ -75,7 +62,7 @@ export default () => {
                 Are you sure you want to purchase this resource ({resource})? This will take the credits from your
                 account and add the resource. This is not a reversible transaction.
             </Dialog.Confirm>
-            <Container className={'lg:grid lg:grid-cols-4 my-10 gap-8'}>
+            <Container className={'my-10'}>
                 <PurchaseBox
                     type={'CPU'}
                     amount={50}
@@ -116,7 +103,7 @@ export default () => {
                     description={'Buy a server slot so you can deploy a new server.'}
                 />
             </Container>
-            <Container className={'lg:grid lg:grid-cols-4 my-10 gap-8'}>
+            <Container className={'my-10'}>
                 <PurchaseBox
                     type={'Ports'}
                     amount={1}
