@@ -20,7 +20,7 @@ export default () => {
                 )}
                 <ResourceBar className={'w-full lg:w-3/4'} />
             </div>
-            <div className={'lg:grid lg:grid-cols-3 gap-8 my-10'}>
+            <div className={'grid grid-cols-1 gap-8 my-10 md:grid-cols-2 xl:grid-cols-3'}>
                 <StoreBanner
                     title={'Want to create a server?'}
                     className={'bg-storeone'}

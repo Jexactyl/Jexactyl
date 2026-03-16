@@ -83,17 +83,10 @@ export default () => {
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
                         items.length > 0 ? (
-                            <div className={'lg:grid lg:grid-cols-2 gap-4'}>
-                                <>
-                                    {items.map((server) => (
-                                        <ServerRow
-                                            key={server.uuid}
-                                            server={server}
-                                            className={'j-up'}
-                                            css={tw`mt-2`}
-                                        />
-                                    ))}
-                                </>
+                            <div className={'grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3'}>
+                                {items.map((server) => (
+                                    <ServerRow key={server.uuid} server={server} className={'j-up'} css={tw`mt-0`} />
+                                ))}
                             </div>
                         ) : (
                             <p className={'text-gray-400 text-lg font-semibold text-center'}>

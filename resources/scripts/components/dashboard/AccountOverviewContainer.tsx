@@ -1,6 +1,5 @@
 import tw from 'twin.macro';
 import * as React from 'react';
-import { breakpoint } from '@/theme';
 import styled from 'styled-components/macro';
 import { useStoreState } from '@/state/hooks';
 import { useLocation } from 'react-router-dom';
@@ -13,19 +12,7 @@ import AddReferralCodeForm from '@/components/dashboard/forms/AddReferralCodeFor
 import UpdateEmailAddressForm from '@/components/dashboard/forms/UpdateEmailAddressForm';
 
 const Container = styled.div`
-    ${tw`flex flex-wrap`};
-
-    & > div {
-        ${tw`w-full`};
-
-        ${breakpoint('sm')`
-        width: calc(50% - 1rem);
-      `}
-
-        ${breakpoint('md')`
-        ${tw`w-auto flex-1`};
-      `}
-    }
+    ${tw`grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3`};
 `;
 
 export default () => {
@@ -42,7 +29,7 @@ export default () => {
             )}
             <Container
                 className={'j-up'}
-                css={[tw`lg:grid lg:grid-cols-2 gap-8 mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}
+                css={[tw`mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}
             >
                 <ContentBox title={'Update Username'} showFlashes={'account:username'}>
                     <UpdateUsernameForm />

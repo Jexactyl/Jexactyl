@@ -114,19 +114,24 @@ class AccountController extends ClientApiController
     public function coupon(Request $request)
     {
         $code = $request->input('code');
-        $coupon = Coupon::query()->where('code', $code)->first();
-        if (!$coupon) {
-            throw new DisplayException('Invalid coupon code specified.');
-        }
-        if ($coupon->getAttribute('expired')) {
-            throw new DisplayException('This coupon has expired.');
-        }
-        if ($coupon->getAttribute('uses') < 1) {
-            throw new DisplayException('This coupon has no uses left.');
-        }
-        $balance = $request->user()->store_balance;
-        $request->user()->update(['store_balance' => $balance + $coupon->cr_amount]);
-        Coupon::query()->where('code', $code)->update(['uses' => $coupon->uses - 1]);
+        DB::transaction(function () use ($code, $request) {
+            $coupon = Coupon::query()->where('code', $code)->lockForUpdate()->first();
+
+            if (!$coupon) {
+                throw new DisplayException('Invalid coupon code specified.');
+            }
+            if ($coupon->getAttribute('expired')) {
+                throw new DisplayException('This coupon has expired.');
+            }
+            if ($coupon->getAttribute('uses') < 1) {
+                throw new DisplayException('This coupon has no uses left.');
+            }
+
+            $user = User::query()->whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
+
+            $user->update(['store_balance' => $user->store_balance + $coupon->cr_amount]);
+            $coupon->update(['uses' => $coupon->uses - 1]);
+        });
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
