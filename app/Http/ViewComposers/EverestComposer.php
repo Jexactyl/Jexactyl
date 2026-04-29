@@ -31,6 +31,13 @@ class EverestComposer
                         'clientId' => !empty(config('modules.auth.google.client_id', false)),
                         'clientSecret' => !empty(config('modules.auth.google.client_secret')),
                     ],
+                    'oidc' => [
+                        'enabled' => boolval(config('modules.auth.oidc.enabled', false)),
+                        'issuerUrl' => !empty(config('modules.auth.oidc.issuer_url')),
+                        'clientId' => !empty(config('modules.auth.oidc.client_id')),
+                        'clientSecret' => !empty(config('modules.auth.oidc.client_secret')),
+                        'displayName' => config('modules.auth.oidc.display_name', 'SSO'),
+                    ],
                     'onboarding' => [
                         'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
                         'content' => config('modules.auth.onboarding.content', ''),

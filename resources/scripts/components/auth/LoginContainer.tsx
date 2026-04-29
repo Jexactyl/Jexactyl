@@ -15,7 +15,7 @@ import useFlash from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Label from '@/elements/Label';
-import { faAt, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faEnvelope, faKey, faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 interface Values {
     username: string;
@@ -159,7 +159,7 @@ function LoginContainer() {
                             }}
                         />
                     )}
-                    {(modules.discord.enabled || modules.google.enabled || registration) && (
+                    {(modules.discord.enabled || modules.google.enabled || modules.oidc.enabled || registration) && (
                         <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
                     )}
                     <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
@@ -171,6 +171,12 @@ function LoginContainer() {
                         {modules.google.enabled && (
                             <Button.Text type={'button'} onClick={() => useOauth('google')} size={Button.Sizes.Small}>
                                 <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} /> Use Google SSO
+                            </Button.Text>
+                        )}
+                        {modules.oidc.enabled && (
+                            <Button.Text type={'button'} onClick={() => useOauth('oidc')} size={Button.Sizes.Small}>
+                                <FontAwesomeIcon icon={faIdCard} className={'mr-2 my-auto'} />{' '}
+                                {modules.oidc.displayName || 'Use SSO'}
                             </Button.Text>
                         )}
                         {registration && (

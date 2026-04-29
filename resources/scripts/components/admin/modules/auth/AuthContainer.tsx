@@ -10,6 +10,7 @@ import { useStoreState } from '@/state/hooks';
 import DiscordSSO from './modules/DiscordSSO';
 import Onboarding from '@admin/modules/auth/modules/Onboarding';
 import GoogleSSO from './modules/GoogleSSO';
+import OidcSSO from './modules/OidcSSO';
 import JGuard from './modules/JGuard';
 
 export default () => {
@@ -52,6 +53,7 @@ export default () => {
                 {modules.jguard.enabled && <JGuard />}
                 {modules.discord.enabled && <DiscordSSO />}
                 {modules.google.enabled && <GoogleSSO />}
+                {modules.oidc.enabled && <OidcSSO />}
             </div>
         </AdminContentBlock>
     );

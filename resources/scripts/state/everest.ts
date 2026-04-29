@@ -27,6 +27,13 @@ export interface EverestSettings {
                 clientId: boolean;
                 clientSecret: boolean;
             };
+            oidc: {
+                enabled: boolean;
+                issuerUrl: boolean;
+                clientId: boolean;
+                clientSecret: boolean;
+                displayName: string;
+            };
             onboarding: {
                 enabled: boolean;
                 content?: string;
