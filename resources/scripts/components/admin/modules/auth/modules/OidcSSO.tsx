@@ -136,7 +136,7 @@ export default () => {
                 <div>
                     Use the following Callback URL in your OIDC provider:
                     <p className={'bg-black/50 p-1 rounded-lg font-mono w-fit mt-2'}>
-                        /auth/modules/oidc/authenticate
+                        {settings.callbackUrl}
                     </p>
                 </div>
             </Alert>

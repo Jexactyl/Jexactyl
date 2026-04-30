@@ -33,6 +33,7 @@ export interface EverestSettings {
                 clientId: boolean;
                 clientSecret: boolean;
                 displayName: string;
+                callbackUrl: string;
             };
             onboarding: {
                 enabled: boolean;

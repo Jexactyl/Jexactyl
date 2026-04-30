@@ -37,6 +37,7 @@ class EverestComposer
                         'clientId' => !empty(config('modules.auth.oidc.client_id')),
                         'clientSecret' => !empty(config('modules.auth.oidc.client_secret')),
                         'displayName' => config('modules.auth.oidc.display_name', 'SSO'),
+                        'callbackUrl' => rtrim(config('app.url'), '/') . '/auth/modules/oidc/authenticate',
                     ],
                     'onboarding' => [
                         'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
