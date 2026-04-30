@@ -27,10 +27,12 @@ class ModuleController extends ApplicationApiController
      */
     public function enable(EnableAuthModuleRequest $request): Response
     {
-        Setting::set('settings::modules:auth:' . $request->all()[0] . ':enabled', true);
+        $module = $request->input('module');
+
+        Setting::set('settings::modules:auth:' . $module . ':enabled', true);
 
         Activity::event('admin:auth:module:enable')
-            ->property('module', $request->all()[0])
+            ->property('module', $module)
             ->description('An authentication module was enabled')
             ->log();
 
@@ -44,10 +46,12 @@ class ModuleController extends ApplicationApiController
      */
     public function disable(DisableAuthModuleRequest $request): Response
     {
-        Setting::set('settings::modules:auth:' . $request->all()[0] . ':enabled', false);
+        $module = $request->input('module');
+
+        Setting::set('settings::modules:auth:' . $module . ':enabled', false);
 
         Activity::event('admin:auth:module:disable')
-            ->property('module', $request->all()[0])
+            ->property('module', $module)
             ->description('An authentication module was disabled')
             ->log();
 

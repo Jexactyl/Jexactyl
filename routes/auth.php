@@ -40,7 +40,7 @@ Route::middleware(['throttle:authentication'])->group(function () {
         ->name('auth.modules.google.authenticate');
 
     Route::post('/modules/oidc', [Auth\Modules\OidcLoginController::class, 'requestToken'])->middleware('recaptcha');
-    Route::get('/modules/oidc/authenticate', [Auth\Modules\OidcLoginController::class, 'authenticate'])
+    Route::match(['get', 'post'], '/modules/oidc/authenticate', [Auth\Modules\OidcLoginController::class, 'authenticate'])
         ->name('auth.modules.oidc.authenticate');
 
     // Forgot password route. A post to this endpoint will trigger an
