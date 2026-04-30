@@ -5,8 +5,10 @@ namespace Everest\Http\Controllers\Auth\Modules;
 use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
+use Everest\Events\Auth\DirectLogin;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Auth\AbstractLoginController;
 
@@ -159,20 +161,27 @@ class OidcLoginController extends AbstractLoginController
 
         if (User::where('email', $email)->exists()) {
             $user = User::where('email', $email)->first();
-
-            $this->sendLoginResponse($user, $request);
-
-            return redirect('/');
+        } else {
+            // Bypass the public registration toggle — OIDC account creation is
+            // always admin-controlled via the module being enabled.
+            $user = $this->creation->handle([
+                'email'    => $email,
+                'username' => 'null_user_' . $this->randStr(16),
+            ]);
         }
 
-        $user = $this->createAccount([
-            'email'    => $email,
-            'username' => 'null_user_' . $this->randStr(16),
-        ]);
+        // Regenerate the session and log the user in using the standard web guard.
+        // We do NOT use sendLoginResponse() here — that returns a JsonResponse for
+        // the XHR login flow. For the OIDC web redirect flow we need a proper
+        // server-side session so the Set-Cookie header is included in the redirect.
+        $request->session()->regenerate();
+        $this->clearLoginAttempts($request);
+        $this->auth->guard()->login($user, true);
+        Event::dispatch(new DirectLogin($user, true));
 
-        $this->sendLoginResponse($user, $request);
+        $isNewUser = str_starts_with($user->username, 'null_user_');
 
-        return redirect('/account/setup');
+        return redirect($isNewUser ? '/account/setup' : '/');
     }
 
     /**

@@ -43,10 +43,8 @@ function LoginContainer() {
         if (recaptchaEnabled && !token.current) {
             ref.current!.execute().catch(error => {
                 console.error(error);
-
                 clearAndAddHttpError({ error });
             });
-
             return;
         }
 
@@ -61,16 +59,12 @@ function LoginContainer() {
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
 
-        // If there is no token in the state yet, request the token and then abort this submit request
-        // since it will be re-submitted when the recaptcha data is returned by the component.
         if (recaptchaEnabled && !token.current) {
             ref.current!.execute().catch(error => {
                 console.error(error);
-
                 setSubmitting(false);
                 clearAndAddHttpError({ error });
             });
-
             return;
         }
 
@@ -81,19 +75,20 @@ function LoginContainer() {
                     window.location = response.intended || '/';
                     return;
                 }
-
                 navigate('/auth/login/checkpoint', { state: { token: response.confirmationToken } });
             })
             .catch(error => {
                 console.error(error);
-
                 token.current = '';
                 if (ref.current) ref.current.reset();
-
                 setSubmitting(false);
                 clearAndAddHttpError({ error });
             });
     };
+
+    // Count enabled SSO/registration buttons to pick the right grid layout.
+    const oauthButtons = [modules.discord.enabled, modules.google.enabled, modules.oidc.enabled, registration].filter(Boolean);
+    const gridCols = oauthButtons.length === 1 ? 'grid-cols-1' : 'grid-cols-2';
 
     return (
         <Formik
@@ -159,10 +154,10 @@ function LoginContainer() {
                             }}
                         />
                     )}
-                    {(modules.discord.enabled || modules.google.enabled || modules.oidc.enabled || registration) && (
+                    {oauthButtons.length > 0 && (
                         <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
                     )}
-                    <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
+                    <div className={`mt-4 w-full grid gap-4 ${gridCols}`}>
                         {modules.discord.enabled && (
                             <Button.Info type={'button'} onClick={() => useOauth('discord')} size={Button.Sizes.Small}>
                                 <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} /> Use Discord SSO
