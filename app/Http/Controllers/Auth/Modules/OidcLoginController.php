@@ -138,21 +138,28 @@ class OidcLoginController extends AbstractLoginController
 
         // Try to get the user's email. Prefer userinfo endpoint; fall back to parsing the id_token.
         $email = null;
+        $claims = [];
 
         if (!empty($userinfoEndpoint)) {
             $userinfo = Http::withToken($accessToken)->get($userinfoEndpoint);
 
             if ($userinfo->successful()) {
-                $email = $userinfo->json('email');
+                $claims = $userinfo->json() ?? [];
+                $email = $claims['email'] ?? null;
             }
         }
 
         // Fall back to the id_token JWT payload (no signature verification needed here —
         // we already proved we received the code over TLS from the real provider).
-        if (empty($email) && !empty($tokens['id_token'])) {
+        if ((empty($email) || empty($claims)) && !empty($tokens['id_token'])) {
             $parts   = explode('.', $tokens['id_token']);
-            $payload = json_decode(base64_decode(strtr($parts[1] ?? '', '-_', '+/')), true);
-            $email   = $payload['email'] ?? null;
+            $payload = json_decode(base64_decode(strtr($parts[1] ?? '', '-_', '+/')), true) ?? [];
+            if (empty($email)) {
+                $email = $payload['email'] ?? null;
+            }
+            if (empty($claims)) {
+                $claims = $payload;
+            }
         }
 
         if (empty($email)) {
@@ -162,11 +169,32 @@ class OidcLoginController extends AbstractLoginController
         if (User::where('email', $email)->exists()) {
             $user = User::where('email', $email)->first();
         } else {
+            // Derive a username from the OIDC claims. preferred_username is the
+            // standard claim; fall back to the local-part of the email.
+            $rawUsername = $claims['preferred_username']
+                ?? $claims['nickname']
+                ?? explode('@', $email)[0]
+                ?? null;
+
+            // Sanitise: lowercase, strip disallowed chars, trim non-alphanumeric
+            // edges to satisfy the Username validation rule (/^[a-z0-9]([\w\.-]+)[a-z0-9]$/).
+            $username = strtolower((string) $rawUsername);
+            $username = preg_replace('/[^a-z0-9_.\-]/', '_', $username);
+            $username = trim($username, '_.-');
+
+            // Must be at least 3 chars and unique.
+            if (strlen($username) < 3) {
+                $username = 'sso_' . $username;
+            }
+            if (User::where('username', $username)->exists()) {
+                $username = $username . '_' . $this->randStr(6);
+            }
+
             // Bypass the public registration toggle — OIDC account creation is
             // always admin-controlled via the module being enabled.
             $user = $this->creation->handle([
                 'email'    => $email,
-                'username' => 'null_user_' . $this->randStr(16),
+                'username' => $username,
             ]);
         }
 
@@ -179,9 +207,7 @@ class OidcLoginController extends AbstractLoginController
         $this->auth->guard()->login($user, true);
         Event::dispatch(new DirectLogin($user, true));
 
-        $isNewUser = str_starts_with($user->username, 'null_user_');
-
-        return redirect($isNewUser ? '/account/setup' : '/');
+        return redirect('/');
     }
 
     /**
