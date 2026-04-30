@@ -25,6 +25,7 @@ interface Values {
 function LoginContainer() {
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
+    const pendingOauth = useRef<string | null>(null);
 
     const appName = useStoreState(state => state.settings.data!.name);
     const modules = useStoreState(state => state.everest.data!.auth.modules);
@@ -39,21 +40,27 @@ function LoginContainer() {
         clearFlashes();
     }, []);
 
-    const useOauth = (name: string) => {
-        if (recaptchaEnabled && !token.current) {
-            ref.current!.execute().catch(error => {
-                console.error(error);
-                clearAndAddHttpError({ error });
-            });
-            return;
-        }
-
+    const startOauth = (name: string) => {
         externalLogin(name, token.current)
             .then(url => {
                 // @ts-expect-error this is fine
                 window.location = url;
             })
             .catch(error => clearAndAddHttpError({ key: 'auth:register', error }));
+    };
+
+    const useOauth = (name: string) => {
+        if (recaptchaEnabled && !token.current) {
+            pendingOauth.current = name;
+            ref.current!.execute().catch(error => {
+                console.error(error);
+                pendingOauth.current = null;
+                clearAndAddHttpError({ error });
+            });
+            return;
+        }
+
+        startOauth(name);
     };
 
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
@@ -146,7 +153,13 @@ function LoginContainer() {
                             sitekey={siteKey || '_invalid_key'}
                             onVerify={response => {
                                 token.current = response;
-                                submitForm();
+                                if (pendingOauth.current) {
+                                    const name = pendingOauth.current;
+                                    pendingOauth.current = null;
+                                    startOauth(name);
+                                } else {
+                                    submitForm();
+                                }
                             }}
                             onExpire={() => {
                                 setSubmitting(false);
