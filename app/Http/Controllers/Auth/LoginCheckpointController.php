@@ -7,6 +7,7 @@ use Everest\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -43,6 +44,10 @@ class LoginCheckpointController extends AbstractLoginController
      */
     public function __invoke(LoginCheckpointRequest $request): JsonResponse
     {
+        if (boolval(config('modules.auth.oidc.enabled')) && boolval(config('modules.auth.oidc.disable_local_login'))) {
+            return new JsonResponse(['error' => 'Local login is disabled.'], Response::HTTP_FORBIDDEN);
+        }
+
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->sendLockoutResponse($request);
         }

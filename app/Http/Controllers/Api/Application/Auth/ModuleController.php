@@ -29,6 +29,10 @@ class ModuleController extends ApplicationApiController
     {
         $module = $request->input('module');
 
+        if (!in_array($module, ['discord', 'google', 'oidc', 'jguard', 'onboarding'], true)) {
+            abort(422, 'Invalid module name.');
+        }
+
         Setting::set('settings::modules:auth:' . $module . ':enabled', true);
 
         Activity::event('admin:auth:module:enable')
@@ -47,6 +51,10 @@ class ModuleController extends ApplicationApiController
     public function disable(DisableAuthModuleRequest $request): Response
     {
         $module = $request->input('module');
+
+        if (!in_array($module, ['discord', 'google', 'oidc', 'jguard', 'onboarding'], true)) {
+            abort(422, 'Invalid module name.');
+        }
 
         Setting::set('settings::modules:auth:' . $module . ':enabled', false);
 

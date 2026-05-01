@@ -35,6 +35,17 @@ class OidcLoginController extends AbstractLoginController
             throw new DisplayException('OIDC issuer URL is not configured.');
         }
 
+        $parsed = parse_url($issuer);
+        if (($parsed['scheme'] ?? '') !== 'https') {
+            throw new DisplayException('OIDC issuer URL must use the https:// scheme.');
+        }
+
+        $host = $parsed['host'] ?? '';
+        $resolved = gethostbyname($host);
+        if (filter_var($resolved, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+            throw new DisplayException('OIDC issuer URL resolves to a disallowed (private or reserved) address.');
+        }
+
         $response = Http::get($issuer . '/.well-known/openid-configuration');
 
         if (!$response->successful()) {
