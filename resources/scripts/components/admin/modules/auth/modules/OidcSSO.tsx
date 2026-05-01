@@ -4,7 +4,7 @@ import useStatus from '@/plugins/useStatus';
 import { useStoreState } from '@/state/hooks';
 import Label from '@/elements/Label';
 import Input from '@/elements/Input';
-import Select from '@/elements/Select';
+import Switch from '@/elements/Switch';
 import AdminBox from '@/elements/AdminBox';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Dialog } from '@/elements/dialog';
@@ -134,24 +134,15 @@ export default () => {
             </div>
 
             <div className={'my-6'}>
-                <Label>Disable Local Login</Label>
-                <Select
-                    id={'disable_local_login'}
+                <Switch
                     name={'disable_local_login'}
-                    onChange={e => update('disable_local_login', e.target.value)}
-                    autoComplete={'off'}
-                >
-                    <option value={1} selected={settings.disableLocalLogin}>
-                        Enabled
-                    </option>
-                    <option value={0} selected={!settings.disableLocalLogin}>
-                        Disabled
-                    </option>
-                </Select>
-                <p className={'text-xs text-gray-400 mt-1'}>
-                    When enabled, the username/password login form will be hidden. Users will only be able to
-                    authenticate via this OIDC SSO module.
-                </p>
+                    label={'Disable Local Login'}
+                    description={
+                        'When enabled, the username/password login form will be hidden. Users will only be able to authenticate via this OIDC SSO module.'
+                    }
+                    defaultChecked={settings.disableLocalLogin}
+                    onChange={e => update('disable_local_login', e.target.checked ? 1 : 0)}
+                />
             </div>
 
             <Alert type={'info'}>

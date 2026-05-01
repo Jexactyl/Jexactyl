@@ -171,7 +171,7 @@ function LoginContainer() {
                             }}
                         />
                     )}
-                    {oauthButtons.length > 0 && (
+                    {oauthButtons.length > 0 && !modules.oidc.disableLocalLogin && (
                         <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
                     )}
                     <div className={`mt-4 w-full grid gap-4 ${gridCols}`}>
