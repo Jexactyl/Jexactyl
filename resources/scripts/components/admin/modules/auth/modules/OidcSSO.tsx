@@ -4,6 +4,7 @@ import useStatus from '@/plugins/useStatus';
 import { useStoreState } from '@/state/hooks';
 import Label from '@/elements/Label';
 import Input from '@/elements/Input';
+import Select from '@/elements/Select';
 import AdminBox from '@/elements/AdminBox';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Dialog } from '@/elements/dialog';
@@ -129,6 +130,27 @@ export default () => {
                 <p className={'text-xs text-gray-400 mt-1'}>
                     Space-separated list of additional scopes to request. <code>openid email profile</code> are always
                     included.
+                </p>
+            </div>
+
+            <div className={'my-6'}>
+                <Label>Disable Local Login</Label>
+                <Select
+                    id={'disable_local_login'}
+                    name={'disable_local_login'}
+                    onChange={e => update('disable_local_login', e.target.value)}
+                    autoComplete={'off'}
+                >
+                    <option value={1} selected={settings.disableLocalLogin}>
+                        Enabled
+                    </option>
+                    <option value={0} selected={!settings.disableLocalLogin}>
+                        Disabled
+                    </option>
+                </Select>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    When enabled, the username/password login form will be hidden. Users will only be able to
+                    authenticate via this OIDC SSO module.
                 </p>
             </div>
 

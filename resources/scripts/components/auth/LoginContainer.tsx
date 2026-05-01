@@ -108,44 +108,48 @@ function LoginContainer() {
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={`Welcome to ${appName}`}>
-                    <Field
-                        icon={faAt}
-                        type={'text'}
-                        label={'Username or Email'}
-                        name={'username'}
-                        disabled={isSubmitting}
-                        placeholder={'user@jexpanel.com'}
-                    />
-                    <div css={tw`mt-6`}>
-                        <Label>
-                            Password
-                            <Link
-                                to={'/auth/password'}
-                                tabIndex={-1}
-                                className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
-                            >
-                                Forgot Password?
-                            </Link>
-                        </Label>
-                        <Field
-                            icon={faKey}
-                            type={'password'}
-                            name={'password'}
-                            disabled={isSubmitting}
-                            placeholder={'••••••••••••'}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Button
-                            type={'submit'}
-                            loading={isSubmitting}
-                            className={'w-full'}
-                            size={Button.Sizes.Large}
-                            disabled={isSubmitting}
-                        >
-                            Login
-                        </Button>
-                    </div>
+                    {!modules.oidc.disableLocalLogin && (
+                        <>
+                            <Field
+                                icon={faAt}
+                                type={'text'}
+                                label={'Username or Email'}
+                                name={'username'}
+                                disabled={isSubmitting}
+                                placeholder={'user@jexpanel.com'}
+                            />
+                            <div css={tw`mt-6`}>
+                                <Label>
+                                    Password
+                                    <Link
+                                        to={'/auth/password'}
+                                        tabIndex={-1}
+                                        className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
+                                    >
+                                        Forgot Password?
+                                    </Link>
+                                </Label>
+                                <Field
+                                    icon={faKey}
+                                    type={'password'}
+                                    name={'password'}
+                                    disabled={isSubmitting}
+                                    placeholder={'••••••••••••'}
+                                />
+                            </div>
+                            <div css={tw`mt-6`}>
+                                <Button
+                                    type={'submit'}
+                                    loading={isSubmitting}
+                                    className={'w-full'}
+                                    size={Button.Sizes.Large}
+                                    disabled={isSubmitting}
+                                >
+                                    Login
+                                </Button>
+                            </div>
+                        </>
+                    )}
                     {recaptchaEnabled && (
                         <Reaptcha
                             ref={ref}

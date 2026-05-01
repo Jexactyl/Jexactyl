@@ -31,4 +31,11 @@ return [
      * Space-separated list of scopes to request (openid, email, and profile are always included)
      */
     'scopes' => env('OIDC_SCOPES', ''),
+
+    /*
+     * When enabled, the regular username/password login form will be hidden on the
+     * login page. Users will only be able to authenticate via this OIDC SSO module.
+     * Has no effect if OIDC SSO is not enabled.
+     */
+    'disable_local_login' => env('OIDC_DISABLE_LOCAL_LOGIN', false),
 ];
