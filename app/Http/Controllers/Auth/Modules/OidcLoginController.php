@@ -5,10 +5,9 @@ namespace Everest\Http\Controllers\Auth\Modules;
 use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
-use Everest\Events\Auth\DirectLogin;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Auth\AbstractLoginController;
 
@@ -101,29 +100,46 @@ class OidcLoginController extends AbstractLoginController
      */
     public function authenticate(Request $request): RedirectResponse
     {
+        Log::debug('[OIDC] authenticate() called', [
+            'session_id' => $request->session()->getId(),
+            'has_state'  => $request->has('state'),
+            'has_code'   => $request->has('code'),
+            'has_error'  => $request->has('error'),
+        ]);
+
         // Validate the state parameter to prevent CSRF.
         $encryptedState = $request->input('state');
         $expectedState  = $request->session()->pull('oidc_state');
 
         try {
             $receivedState = decrypt($encryptedState);
-        } catch (\Exception) {
+        } catch (\Throwable $e) {
+            Log::error('[OIDC] state decrypt failed: ' . $e->getMessage());
             throw new DisplayException('OIDC state parameter could not be decrypted.');
         }
 
         if (!$expectedState || !hash_equals($expectedState, $receivedState)) {
+            Log::warning('[OIDC] state mismatch — possible CSRF');
             throw new DisplayException('OIDC state mismatch — possible CSRF attack.');
         }
 
         if ($request->has('error')) {
+            Log::error('[OIDC] provider returned error: ' . $request->input('error_description', $request->input('error')));
             throw new DisplayException('OIDC provider returned an error: ' . $request->input('error_description', $request->input('error')));
         }
 
-        $discovery = $this->discover();
+        try {
+            $discovery = $this->discover();
+        } catch (\Throwable $e) {
+            Log::error('[OIDC] discovery failed: ' . get_class($e) . ': ' . $e->getMessage());
+            throw $e;
+        }
+
         $tokenEndpoint    = $discovery['token_endpoint'] ?? null;
         $userinfoEndpoint = $discovery['userinfo_endpoint'] ?? null;
 
         if (empty($tokenEndpoint)) {
+            Log::error('[OIDC] provider discovery document missing token_endpoint');
             throw new DisplayException('OIDC provider does not expose a token_endpoint.');
         }
 
@@ -137,8 +153,11 @@ class OidcLoginController extends AbstractLoginController
         ]);
 
         if (!$tokenResponse->successful()) {
+            Log::error('[OIDC] token exchange failed', ['status' => $tokenResponse->status(), 'body' => substr($tokenResponse->body(), 0, 500)]);
             throw new DisplayException('OIDC token exchange failed: ' . $tokenResponse->body());
         }
+
+        Log::debug('[OIDC] token exchange OK', ['status' => $tokenResponse->status()]);
 
         $tokens      = $tokenResponse->json();
         $accessToken = $tokens['access_token'] ?? null;
@@ -202,21 +221,30 @@ class OidcLoginController extends AbstractLoginController
             }
 
             // Bypass the public registration toggle — OIDC account creation is
-            // always admin-controlled via the module being enabled.
+            // always admin-controlled via the module being enabled. We create the
+            // User model directly to avoid createAccount()'s registration-enabled
+            // guard, which would throw DisplayException if self-registration is off.
             $user = $this->creation->handle([
                 'email'    => $email,
                 'username' => $username,
             ]);
         }
 
-        // Regenerate the session and log the user in using the standard web guard.
-        // We do NOT use sendLoginResponse() here — that returns a JsonResponse for
-        // the XHR login flow. For the OIDC web redirect flow we need a proper
-        // server-side session so the Set-Cookie header is included in the redirect.
-        $request->session()->regenerate();
-        $this->clearLoginAttempts($request);
-        $this->auth->guard()->login($user, true);
-        Event::dispatch(new DirectLogin($user, true));
+        // Use sendLoginResponse() so it removes 'auth_confirmation_token' from the
+        // session before regenerating. Skipping that step causes AuthenticateSession
+        // middleware to treat the session as stale on the next request and
+        // immediately log the user back out — they'd be redirected straight back to
+        // the login page. Discard its JsonResponse and return our own redirect.
+        Log::debug('[OIDC] logging in user', ['user_id' => $user->id, 'email' => $user->email]);
+
+        try {
+            $this->sendLoginResponse($user, $request);
+        } catch (\Throwable $e) {
+            Log::error('[OIDC] sendLoginResponse threw: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            throw $e;
+        }
+
+        Log::info('[OIDC] login successful', ['user_id' => $user->id, 'email' => $user->email]);
 
         return redirect('/');
     }
