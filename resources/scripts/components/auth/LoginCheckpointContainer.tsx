@@ -68,9 +68,12 @@ function LoginCheckpointContainer() {
     );
 }
 
+const tokenFromLocation = (location: Location): string =>
+    location.state?.token || new URLSearchParams(location.search).get('token') || '';
+
 const EnhancedForm = withFormik<Props & { location: Location }, Values>({
     handleSubmit: ({ code, recoveryCode }, { setSubmitting, props: { clearAndAddHttpError, location } }) => {
-        checkpoint(location.state?.token || '', code, recoveryCode)
+        checkpoint(tokenFromLocation(location), code, recoveryCode)
             .then(response => {
                 if (response.complete) {
                     // @ts-expect-error this is valid
@@ -99,7 +102,7 @@ export default ({ ...props }: OwnProps) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    if (!location.state?.token) {
+    if (!tokenFromLocation(location)) {
         navigate('/auth/login');
 
         return null;

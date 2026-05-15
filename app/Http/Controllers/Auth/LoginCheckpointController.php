@@ -44,10 +44,6 @@ class LoginCheckpointController extends AbstractLoginController
      */
     public function __invoke(LoginCheckpointRequest $request): JsonResponse
     {
-        if (boolval(config('modules.auth.oidc.enabled')) && boolval(config('modules.auth.oidc.disable_local_login'))) {
-            return new JsonResponse(['error' => 'Local login is disabled.'], Response::HTTP_FORBIDDEN);
-        }
-
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->sendLockoutResponse($request);
         }
@@ -55,6 +51,14 @@ class LoginCheckpointController extends AbstractLoginController
         $details = $request->session()->get('auth_confirmation_token');
         if (!$this->hasValidSessionData($details)) {
             $this->sendFailedLoginResponse($request, null, self::TOKEN_EXPIRED_MESSAGE);
+        }
+
+        // The disable_local_login switch blocks 2FA challenges started by the
+        // password flow, but OIDC-initiated checkpoints must still complete —
+        // the user is authenticating via OIDC and asserting their local TOTP.
+        $viaOidc = is_array($details) && ($details['via_oidc'] ?? false) === true;
+        if (!$viaOidc && boolval(config('modules.auth.oidc.enabled')) && boolval(config('modules.auth.oidc.disable_local_login'))) {
+            return new JsonResponse(['error' => 'Local login is disabled.'], Response::HTTP_FORBIDDEN);
         }
 
         if (!hash_equals($request->input('confirmation_token') ?? '', $details['token_value'])) {

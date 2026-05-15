@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Auth\Modules;
 
 use Carbon\CarbonImmutable;
+use Everest\Facades\Activity;
 use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -265,6 +266,26 @@ class OidcLoginController extends AbstractLoginController
                 'email'    => $email,
                 'username' => $username,
             ]);
+        }
+
+        // If the user opted into TOTP locally, honour it: stash a checkpoint
+        // token in the session and hand off to the same 2FA flow the password
+        // path uses. The via_oidc marker lets LoginCheckpointController allow
+        // completion even when disable_local_login is set.
+        if ($user->use_totp) {
+            Activity::event('auth:checkpoint')->withRequestMetadata()->subject($user)->log();
+
+            $token = Str::random(64);
+            $request->session()->put('auth_confirmation_token', [
+                'user_id' => $user->id,
+                'token_value' => $token,
+                'expires_at' => CarbonImmutable::now()->addMinutes(5),
+                'via_oidc' => true,
+            ]);
+
+            Log::info('[OIDC] login pending TOTP checkpoint', ['user_id' => $user->id]);
+
+            return redirect('/auth/login/checkpoint?token=' . urlencode($token));
         }
 
         // Use sendLoginResponse() so it removes 'auth_confirmation_token' from the
