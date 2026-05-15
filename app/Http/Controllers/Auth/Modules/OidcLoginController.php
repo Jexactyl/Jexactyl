@@ -234,9 +234,46 @@ class OidcLoginController extends AbstractLoginController
             throw new DisplayException('OIDC provider returned an unverified email address. The administrator must configure the provider to verify email addresses before accounts can be matched.');
         }
 
-        if (User::where('email', $email)->exists()) {
+        // Match the user by the OIDC (iss, sub) pair — the only stable, opaque
+        // identifier guaranteed by the spec. Fall back to email lookup for
+        // first-time linking of accounts created before sub-based binding, or
+        // for accounts created via the local flow that now sign in via OIDC.
+        $tokenIss = (string) ($claims['iss'] ?? '');
+        $tokenSub = (string) ($claims['sub'] ?? '');
+
+        $user = User::query()
+            ->where('oidc_iss', $tokenIss)
+            ->where('oidc_sub', $tokenSub)
+            ->first();
+
+        if ($user === null) {
             $user = User::where('email', $email)->first();
-        } else {
+
+            if ($user !== null) {
+                // Refuse to silently re-bind an account that is already linked to
+                // a *different* OIDC identity. This protects against admins
+                // switching providers (or two different upstream accounts with
+                // the same verified email) silently inheriting the panel account.
+                if (!empty($user->oidc_sub) && (
+                    $user->oidc_iss !== $tokenIss || $user->oidc_sub !== $tokenSub
+                )) {
+                    Log::warning('[OIDC] refusing to relink account already bound to a different OIDC identity', [
+                        'user_id' => $user->id,
+                    ]);
+                    throw new DisplayException('This account is already linked to a different OIDC identity. Contact an administrator to reconcile.');
+                }
+
+                // JIT-link this previously-unlinked account to the verified
+                // (iss, sub) so subsequent logins match directly even if the
+                // email later changes upstream.
+                $user->forceFill([
+                    'oidc_iss' => $tokenIss,
+                    'oidc_sub' => $tokenSub,
+                ])->save();
+            }
+        }
+
+        if ($user === null) {
             // Derive a username from the OIDC claims. preferred_username is the
             // standard claim; fall back to the local-part of the email.
             $rawUsername = $claims['preferred_username']
@@ -265,6 +302,8 @@ class OidcLoginController extends AbstractLoginController
             $user = $this->creation->handle([
                 'email'    => $email,
                 'username' => $username,
+                'oidc_iss' => $tokenIss,
+                'oidc_sub' => $tokenSub,
             ]);
         }
 
