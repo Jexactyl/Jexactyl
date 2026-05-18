@@ -38,4 +38,14 @@ return [
      * Has no effect if OIDC SSO is not enabled.
      */
     'disable_local_login' => env('OIDC_DISABLE_LOCAL_LOGIN', false),
+
+    /*
+     * When enabled (the default), the panel will reject any OIDC login whose
+     * id_token / userinfo does not assert email_verified === true. Turn this
+     * off ONLY if your provider is known to not emit the claim *and* you fully
+     * trust it not to issue tokens with email addresses the user does not own —
+     * disabling it re-opens the account-takeover path where an attacker with an
+     * OIDC account at your IdP can claim an existing panel user's email.
+     */
+    'require_verified_email' => env('OIDC_REQUIRE_VERIFIED_EMAIL', true),
 ];

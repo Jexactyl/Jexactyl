@@ -53,6 +53,7 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:oidc:display_name',
         'modules:auth:oidc:scopes',
         'modules:auth:oidc:disable_local_login',
+        'modules:auth:oidc:require_verified_email',
 
         // Billing module settings
         'modules:billing:enabled',

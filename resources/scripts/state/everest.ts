@@ -34,6 +34,7 @@ export interface EverestSettings {
                 clientSecret: boolean;
                 displayName: string;
                 disableLocalLogin: boolean;
+                requireVerifiedEmail: boolean;
                 callbackUrl: string;
             };
             onboarding: {

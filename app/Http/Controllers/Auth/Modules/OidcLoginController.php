@@ -285,9 +285,19 @@ class OidcLoginController extends AbstractLoginController
         if (empty($email)) {
             throw new DisplayException('OIDC provider did not return an email address. Ensure the "email" scope is granted.');
         }
-        if ($emailVerified !== true && $emailVerified !== 'true' && $emailVerified !== 1 && $emailVerified !== '1') {
+        $requireVerified = boolval(config('modules.auth.oidc.require_verified_email', true));
+        $isVerified = $emailVerified === true || $emailVerified === 'true' || $emailVerified === 1 || $emailVerified === '1';
+        if ($requireVerified && !$isVerified) {
             Log::warning('[OIDC] rejecting login with unverified email', ['sub' => $claims['sub'] ?? null]);
             throw new DisplayException('OIDC provider returned an unverified email address. The administrator must configure the provider to verify email addresses before accounts can be matched.');
+        }
+        if (!$requireVerified && !$isVerified) {
+            // Logged so admins can audit which accounts came in without a verified email
+            // claim while the safety toggle was off.
+            Log::warning('[OIDC] accepting unverified-email login (toggle disabled)', [
+                'sub' => $claims['sub'] ?? null,
+                'email_verified' => $emailVerified,
+            ]);
         }
 
         // Match the user by the OIDC (iss, sub) pair — the only stable, opaque

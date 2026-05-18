@@ -145,6 +145,18 @@ export default () => {
                 />
             </div>
 
+            <div className={'my-6'}>
+                <Switch
+                    name={'require_verified_email'}
+                    label={'Require Verified Email'}
+                    description={
+                        'When enabled (recommended), the panel rejects any OIDC login whose provider does not assert email_verified=true. Turn this off ONLY if your provider does not emit the claim and you fully trust it not to issue tokens for emails the user does not own — disabling it re-opens the account-takeover path where an attacker with an account at your IdP can claim an existing panel user’s email.'
+                    }
+                    defaultChecked={settings.requireVerifiedEmail}
+                    onChange={e => update('require_verified_email', e.target.checked ? 1 : 0)}
+                />
+            </div>
+
             <Alert type={'info'}>
                 <div>
                     Use the following Callback URL in your OIDC provider:
