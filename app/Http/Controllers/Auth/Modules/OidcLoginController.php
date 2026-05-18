@@ -22,6 +22,17 @@ class OidcLoginController extends AbstractLoginController
     ];
 
     /**
+     * HMAC algorithms (symmetric: the key is the configured client_secret).
+     * Verification is equivalent in security to RS* when the id_token comes
+     * directly from the token endpoint over TLS with confidential-client auth.
+     */
+    private const SUPPORTED_HMAC_ALGS = [
+        'HS256' => 'sha256',
+        'HS384' => 'sha384',
+        'HS512' => 'sha512',
+    ];
+
+    /**
      * Allow up to 5 minutes of clock skew when validating id_token timestamps.
      */
     private const CLOCK_SKEW_SECONDS = 300;
@@ -186,9 +197,10 @@ class OidcLoginController extends AbstractLoginController
             throw new DisplayException('OIDC provider does not expose a token_endpoint.');
         }
 
-        if (empty($jwksUri)) {
-            throw new DisplayException('OIDC provider does not expose a jwks_uri — cannot verify id_token.');
-        }
+        // jwks_uri is only required for asymmetric (RS*) id_token signing —
+        // HMAC-signed (HS*) id_tokens are verified against the client_secret,
+        // not against a JWKS. We defer the missing-jwks_uri error to
+        // validateIdToken() so HS* providers without a JWKS still work.
 
         // Exchange authorization code for tokens.
         try {
@@ -391,12 +403,13 @@ class OidcLoginController extends AbstractLoginController
     }
 
     /**
-     * Verify an OIDC id_token: signature against the provider's JWKS, then the
-     * iss / aud / exp / iat / nonce claims. Returns the decoded payload.
+     * Verify an OIDC id_token: signature (RS* against JWKS, HS* against the
+     * client_secret), then the iss / aud / exp / iat / nonce claims. Returns
+     * the decoded payload.
      *
      * @throws DisplayException
      */
-    private function validateIdToken(string $idToken, string $jwksUri, string $expectedNonce): array
+    private function validateIdToken(string $idToken, ?string $jwksUri, string $expectedNonce): array
     {
         $parts = explode('.', $idToken);
         if (count($parts) !== 3) {
@@ -413,42 +426,55 @@ class OidcLoginController extends AbstractLoginController
         if (empty($alg) || strtolower((string) $alg) === 'none') {
             throw new DisplayException('OIDC id_token must be signed.');
         }
-        if (!array_key_exists($alg, self::SUPPORTED_RSA_ALGS)) {
-            throw new DisplayException('Unsupported OIDC id_token signing algorithm: ' . $alg);
-        }
-
-        try {
-            $jwksResponse = Http::timeout(5)->connectTimeout(3)->get($jwksUri);
-        } catch (\Illuminate\Http\Client\ConnectionException $e) {
-            Log::error('[OIDC] JWKS endpoint unreachable: ' . $e->getMessage());
-            throw new DisplayException('Could not reach the OIDC JWKS endpoint to verify the id_token signature.');
-        }
-        if (!$jwksResponse->successful()) {
-            throw new DisplayException('Failed to fetch OIDC JWKS.');
-        }
-        $jwks = $jwksResponse->json();
-        if (empty($jwks['keys']) || !is_array($jwks['keys'])) {
-            throw new DisplayException('OIDC JWKS contained no keys.');
-        }
-
-        $kid = $header['kid'] ?? null;
-        $jwk = $this->selectJwk($jwks['keys'], $kid);
-        if ($jwk === null) {
-            throw new DisplayException('OIDC id_token signing key not found in JWKS.');
-        }
-
-        $pem = $this->jwkToRsaPem($jwk);
-        $key = openssl_pkey_get_public($pem);
-        if ($key === false) {
-            throw new DisplayException('OIDC id_token public key could not be loaded.');
-        }
 
         $signedData = $headerB64 . '.' . $payloadB64;
         $signature  = $this->base64UrlDecode($signatureB64);
 
-        $result = openssl_verify($signedData, $signature, $key, self::SUPPORTED_RSA_ALGS[$alg]);
-        if ($result !== 1) {
-            throw new DisplayException('OIDC id_token signature verification failed.');
+        if (array_key_exists($alg, self::SUPPORTED_HMAC_ALGS)) {
+            $clientSecret = (string) config('modules.auth.oidc.client_secret');
+            if ($clientSecret === '') {
+                throw new DisplayException('OIDC id_token uses HMAC signing but no client_secret is configured.');
+            }
+            $expected = hash_hmac(self::SUPPORTED_HMAC_ALGS[$alg], $signedData, $clientSecret, true);
+            if (!hash_equals($expected, $signature)) {
+                throw new DisplayException('OIDC id_token signature verification failed.');
+            }
+        } elseif (array_key_exists($alg, self::SUPPORTED_RSA_ALGS)) {
+            if (empty($jwksUri)) {
+                throw new DisplayException('OIDC provider does not expose a jwks_uri — cannot verify id_token.');
+            }
+            try {
+                $jwksResponse = Http::timeout(5)->connectTimeout(3)->get($jwksUri);
+            } catch (\Illuminate\Http\Client\ConnectionException $e) {
+                Log::error('[OIDC] JWKS endpoint unreachable: ' . $e->getMessage());
+                throw new DisplayException('Could not reach the OIDC JWKS endpoint to verify the id_token signature.');
+            }
+            if (!$jwksResponse->successful()) {
+                throw new DisplayException('Failed to fetch OIDC JWKS.');
+            }
+            $jwks = $jwksResponse->json();
+            if (empty($jwks['keys']) || !is_array($jwks['keys'])) {
+                throw new DisplayException('OIDC JWKS contained no keys.');
+            }
+
+            $kid = $header['kid'] ?? null;
+            $jwk = $this->selectJwk($jwks['keys'], $kid);
+            if ($jwk === null) {
+                throw new DisplayException('OIDC id_token signing key not found in JWKS.');
+            }
+
+            $pem = $this->jwkToRsaPem($jwk);
+            $key = openssl_pkey_get_public($pem);
+            if ($key === false) {
+                throw new DisplayException('OIDC id_token public key could not be loaded.');
+            }
+
+            $result = openssl_verify($signedData, $signature, $key, self::SUPPORTED_RSA_ALGS[$alg]);
+            if ($result !== 1) {
+                throw new DisplayException('OIDC id_token signature verification failed.');
+            }
+        } else {
+            throw new DisplayException('Unsupported OIDC id_token signing algorithm: ' . $alg);
         }
 
         $payload = json_decode($this->base64UrlDecode($payloadB64), true);
