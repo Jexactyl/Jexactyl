@@ -157,6 +157,18 @@ export default () => {
                 />
             </div>
 
+            <div className={'my-6'}>
+                <Switch
+                    name={'verify_ssl'}
+                    label={'Verify TLS Certificate'}
+                    description={
+                        'When enabled (recommended), the panel validates the TLS certificate on every outbound request to the OIDC provider. Turn this off ONLY for trusted internal IdPs presenting a self-signed certificate — disabling it removes the only protection against a man-in-the-middle between the panel host and your IdP.'
+                    }
+                    defaultChecked={settings.verifySsl}
+                    onChange={e => update('verify_ssl', e.target.checked ? 1 : 0)}
+                />
+            </div>
+
             <Alert type={'info'}>
                 <div>
                     Use the following Callback URL in your OIDC provider:

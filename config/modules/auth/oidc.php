@@ -48,4 +48,14 @@ return [
      * OIDC account at your IdP can claim an existing panel user's email.
      */
     'require_verified_email' => env('OIDC_REQUIRE_VERIFIED_EMAIL', true),
+
+    /*
+     * When enabled (the default), the panel verifies the TLS certificate on
+     * every outbound call to the OIDC provider (discovery, token endpoint,
+     * userinfo, JWKS). Turn this off ONLY for trusted internal IdPs that
+     * present a self-signed or otherwise non-trusted certificate — disabling
+     * it removes the only protection against an attacker who can MITM the
+     * panel → IdP connection (e.g. via a compromised intermediate proxy).
+     */
+    'verify_ssl' => env('OIDC_VERIFY_SSL', true),
 ];

@@ -38,6 +38,17 @@ class OidcLoginController extends AbstractLoginController
     private const CLOCK_SKEW_SECONDS = 300;
 
     /**
+     * Outbound HTTP client preconfigured for OIDC: short timeouts and the
+     * admin-controlled TLS verification toggle applied uniformly.
+     */
+    private function http(): \Illuminate\Http\Client\PendingRequest
+    {
+        $verify = boolval(config('modules.auth.oidc.verify_ssl', true));
+
+        return Http::timeout(5)->connectTimeout(3)->withOptions(['verify' => $verify]);
+    }
+
+    /**
      * OidcLoginController constructor.
      */
     public function __construct()
@@ -70,7 +81,7 @@ class OidcLoginController extends AbstractLoginController
         }
 
         try {
-            $response = Http::timeout(5)->connectTimeout(3)->get($issuer . '/.well-known/openid-configuration');
+            $response = $this->http()->get($issuer . '/.well-known/openid-configuration');
         } catch (\Illuminate\Http\Client\ConnectionException $e) {
             Log::error('[OIDC] discovery fetch failed: ' . $e->getMessage());
             throw new DisplayException('Could not reach the OIDC provider at ' . $issuer . '. Check that the panel host can resolve and connect to that hostname.');
@@ -204,7 +215,7 @@ class OidcLoginController extends AbstractLoginController
 
         // Exchange authorization code for tokens.
         try {
-            $tokenResponse = Http::asForm()->timeout(10)->connectTimeout(3)->post($tokenEndpoint, [
+            $tokenResponse = $this->http()->timeout(10)->asForm()->post($tokenEndpoint, [
                 'grant_type'    => 'authorization_code',
                 'client_id'     => config('modules.auth.oidc.client_id'),
                 'client_secret' => config('modules.auth.oidc.client_secret'),
@@ -261,7 +272,7 @@ class OidcLoginController extends AbstractLoginController
         $claims = $idTokenClaims;
         if (!empty($userinfoEndpoint)) {
             try {
-                $userinfo = Http::withToken($accessToken)->timeout(5)->connectTimeout(3)->get($userinfoEndpoint);
+                $userinfo = $this->http()->withToken($accessToken)->get($userinfoEndpoint);
             } catch (\Illuminate\Http\Client\ConnectionException $e) {
                 Log::warning('[OIDC] userinfo unreachable, continuing with id_token claims: ' . $e->getMessage());
                 $userinfo = null;
@@ -454,7 +465,7 @@ class OidcLoginController extends AbstractLoginController
                 throw new DisplayException('OIDC provider does not expose a jwks_uri — cannot verify id_token.');
             }
             try {
-                $jwksResponse = Http::timeout(5)->connectTimeout(3)->get($jwksUri);
+                $jwksResponse = $this->http()->get($jwksUri);
             } catch (\Illuminate\Http\Client\ConnectionException $e) {
                 Log::error('[OIDC] JWKS endpoint unreachable: ' . $e->getMessage());
                 throw new DisplayException('Could not reach the OIDC JWKS endpoint to verify the id_token signature.');

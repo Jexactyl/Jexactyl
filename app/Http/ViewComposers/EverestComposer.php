@@ -39,6 +39,7 @@ class EverestComposer
                         'displayName' => config('modules.auth.oidc.display_name', 'SSO'),
                         'disableLocalLogin' => boolval(config('modules.auth.oidc.disable_local_login', false)),
                         'requireVerifiedEmail' => boolval(config('modules.auth.oidc.require_verified_email', true)),
+                        'verifySsl' => boolval(config('modules.auth.oidc.verify_ssl', true)),
                         'callbackUrl' => rtrim(config('app.url'), '/') . '/auth/modules/oidc/authenticate',
                     ],
                     'onboarding' => [
