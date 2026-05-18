@@ -121,6 +121,22 @@ class OidcLoginController extends AbstractLoginController
      */
     public function authenticate(Request $request): RedirectResponse
     {
+        try {
+            return $this->doAuthenticate($request);
+        } catch (DisplayException $e) {
+            // DisplayException::render() redirects back without logging unless
+            // there is a previous exception, so OIDC validation failures
+            // would otherwise vanish into a silent redirect to /auth/login.
+            Log::warning('[OIDC] authenticate() rejected: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * @throws DisplayException
+     */
+    private function doAuthenticate(Request $request): RedirectResponse
+    {
         Log::debug('[OIDC] authenticate() called', [
             'session_id' => $request->session()->getId(),
             'has_state'  => $request->has('state'),
@@ -207,11 +223,24 @@ class OidcLoginController extends AbstractLoginController
             throw new DisplayException('OIDC provider did not return an id_token.');
         }
 
+        Log::debug('[OIDC] validating id_token', [
+            'token_keys' => array_keys($tokens),
+            'expected_iss' => rtrim((string) config('modules.auth.oidc.issuer_url'), '/'),
+            'expected_aud' => (string) config('modules.auth.oidc.client_id'),
+        ]);
+
         // Fully validate the id_token: signature against the provider's JWKS,
         // and the iss / aud / exp / iat / nonce claims. Without this, an attacker
         // who can substitute the token-endpoint response (or a misconfigured
         // multi-tenant provider) could forge claims and gain access.
         $idTokenClaims = $this->validateIdToken($idToken, $jwksUri, $expectedNonce);
+
+        Log::debug('[OIDC] id_token validated', [
+            'sub'            => $idTokenClaims['sub'] ?? null,
+            'iss'            => $idTokenClaims['iss'] ?? null,
+            'has_email'      => isset($idTokenClaims['email']),
+            'email_verified' => $idTokenClaims['email_verified'] ?? null,
+        ]);
 
         // Optionally enrich claims with the userinfo endpoint. Email and
         // email_verified MUST come from a validated source; we trust both
