@@ -58,7 +58,12 @@ class OidcLoginController extends AbstractLoginController
             throw new DisplayException('OIDC issuer URL resolves to a disallowed (private or reserved) address.');
         }
 
-        $response = Http::get($issuer . '/.well-known/openid-configuration');
+        try {
+            $response = Http::timeout(5)->connectTimeout(3)->get($issuer . '/.well-known/openid-configuration');
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            Log::error('[OIDC] discovery fetch failed: ' . $e->getMessage());
+            throw new DisplayException('Could not reach the OIDC provider at ' . $issuer . '. Check that the panel host can resolve and connect to that hostname.');
+        }
 
         if (!$response->successful()) {
             throw new DisplayException('Failed to fetch OIDC discovery document from: ' . $issuer);
@@ -170,13 +175,18 @@ class OidcLoginController extends AbstractLoginController
         }
 
         // Exchange authorization code for tokens.
-        $tokenResponse = Http::asForm()->post($tokenEndpoint, [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => config('modules.auth.oidc.client_id'),
-            'client_secret' => config('modules.auth.oidc.client_secret'),
-            'redirect_uri'  => route('auth.modules.oidc.authenticate'),
-            'code'          => $request->input('code'),
-        ]);
+        try {
+            $tokenResponse = Http::asForm()->timeout(10)->connectTimeout(3)->post($tokenEndpoint, [
+                'grant_type'    => 'authorization_code',
+                'client_id'     => config('modules.auth.oidc.client_id'),
+                'client_secret' => config('modules.auth.oidc.client_secret'),
+                'redirect_uri'  => route('auth.modules.oidc.authenticate'),
+                'code'          => $request->input('code'),
+            ]);
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            Log::error('[OIDC] token endpoint unreachable: ' . $e->getMessage());
+            throw new DisplayException('Could not reach the OIDC token endpoint.');
+        }
 
         if (!$tokenResponse->successful()) {
             Log::error('[OIDC] token exchange failed', ['status' => $tokenResponse->status(), 'body' => substr($tokenResponse->body(), 0, 500)]);
@@ -209,8 +219,13 @@ class OidcLoginController extends AbstractLoginController
         // access_token over TLS to the same provider).
         $claims = $idTokenClaims;
         if (!empty($userinfoEndpoint)) {
-            $userinfo = Http::withToken($accessToken)->get($userinfoEndpoint);
-            if ($userinfo->successful()) {
+            try {
+                $userinfo = Http::withToken($accessToken)->timeout(5)->connectTimeout(3)->get($userinfoEndpoint);
+            } catch (\Illuminate\Http\Client\ConnectionException $e) {
+                Log::warning('[OIDC] userinfo unreachable, continuing with id_token claims: ' . $e->getMessage());
+                $userinfo = null;
+            }
+            if ($userinfo !== null && $userinfo->successful()) {
                 $userinfoClaims = $userinfo->json() ?? [];
                 // Per OIDC Core 5.3.2 the userinfo `sub` MUST match the id_token `sub`.
                 $userinfoSub = $userinfoClaims['sub'] ?? null;
@@ -373,7 +388,12 @@ class OidcLoginController extends AbstractLoginController
             throw new DisplayException('Unsupported OIDC id_token signing algorithm: ' . $alg);
         }
 
-        $jwksResponse = Http::get($jwksUri);
+        try {
+            $jwksResponse = Http::timeout(5)->connectTimeout(3)->get($jwksUri);
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            Log::error('[OIDC] JWKS endpoint unreachable: ' . $e->getMessage());
+            throw new DisplayException('Could not reach the OIDC JWKS endpoint to verify the id_token signature.');
+        }
         if (!$jwksResponse->successful()) {
             throw new DisplayException('Failed to fetch OIDC JWKS.');
         }
