@@ -4,6 +4,7 @@ namespace Jexactyl\Services\Backups;
 
 use Jexactyl\Models\User;
 use Carbon\CarbonImmutable;
+use Jexactyl\Enum\JwtScope;
 use Jexactyl\Models\Backup;
 use Jexactyl\Services\Nodes\NodeJWTService;
 use Jexactyl\Extensions\Backups\BackupManager;
@@ -34,6 +35,7 @@ class DownloadLinkService
                 'backup_uuid' => $backup->uuid,
                 'server_uuid' => $backup->server->uuid,
             ])
+            ->setScopes(JwtScope::BackupDownload)
             ->handle($backup->server->node, $user->id . $backup->server->uuid);
 
         return sprintf('%s/download/backup?token=%s', $backup->server->node->getConnectionAddress(), $token->toString());
