@@ -98,6 +98,7 @@ class NodeJWTService
 
         return $builder
             ->withClaim('unique_id', Str::random())
+            ->withClaim('scope', 'websocket') 
             ->getToken($config->signer(), $config->signingKey());
     }
 }
