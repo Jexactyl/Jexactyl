@@ -3,6 +3,7 @@
 namespace Jexactyl\Http\Controllers\Admin\Servers;
 
 use Carbon\CarbonImmutable;
+use Jexactyl\Enum\JwtScope;
 use Jexactyl\Models\Server;
 use Illuminate\Http\Request;
 use Jexactyl\Models\ServerTransfer;
@@ -78,6 +79,7 @@ class ServerTransferController extends Controller
             $token = $this->nodeJWTService
                 ->setExpiresAt(CarbonImmutable::now()->addMinutes(15))
                 ->setSubject($server->uuid)
+                ->setScopes(JwtScope::ServerTransfer)
                 ->handle($transfer->newNode, $server->uuid, 'sha256');
 
             // Notify the source node of the pending outgoing transfer.
