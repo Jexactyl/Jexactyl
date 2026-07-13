@@ -39,7 +39,7 @@ function ForgotPasswordContainer() {
 
         // If there is no token in the state yet, request the token and then abort this submit request
         // since it will be re-submitted when the recaptcha data is returned by the component.
-        if (recaptchaEnabled && !token) {
+        if (recaptchaEnabled && !token.current) {
             ref.current!.execute().catch(error => {
                 console.error(error);
 
