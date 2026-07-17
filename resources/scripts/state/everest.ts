@@ -27,6 +27,17 @@ export interface EverestSettings {
                 clientId: boolean;
                 clientSecret: boolean;
             };
+            oidc: {
+                enabled: boolean;
+                issuerUrl: boolean;
+                clientId: boolean;
+                clientSecret: boolean;
+                displayName: string;
+                disableLocalLogin: boolean;
+                requireVerifiedEmail: boolean;
+                verifySsl: boolean;
+                callbackUrl: string;
+            };
             onboarding: {
                 enabled: boolean;
                 content?: string;

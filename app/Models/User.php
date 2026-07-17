@@ -121,6 +121,8 @@ class User extends Model implements
      */
     protected $fillable = [
         'external_id',
+        'oidc_iss',
+        'oidc_sub',
         'username',
         'email',
         'password',
@@ -169,6 +171,8 @@ class User extends Model implements
         'uuid' => 'required|string|size:36|unique:users,uuid',
         'email' => 'required|email|between:1,191|unique:users,email',
         'external_id' => 'sometimes|nullable|string|max:191|unique:users,external_id',
+        'oidc_iss' => 'sometimes|nullable|string|max:191',
+        'oidc_sub' => 'sometimes|nullable|string|max:191',
         'username' => 'required|between:1,191|unique:users,username',
         'password' => 'sometimes|nullable|string',
         'root_admin' => 'boolean',

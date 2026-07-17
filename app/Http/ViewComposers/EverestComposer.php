@@ -31,6 +31,17 @@ class EverestComposer
                         'clientId' => !empty(config('modules.auth.google.client_id', false)),
                         'clientSecret' => !empty(config('modules.auth.google.client_secret')),
                     ],
+                    'oidc' => [
+                        'enabled' => boolval(config('modules.auth.oidc.enabled', false)),
+                        'issuerUrl' => !empty(config('modules.auth.oidc.issuer_url')),
+                        'clientId' => !empty(config('modules.auth.oidc.client_id')),
+                        'clientSecret' => !empty(config('modules.auth.oidc.client_secret')),
+                        'displayName' => config('modules.auth.oidc.display_name', 'SSO'),
+                        'disableLocalLogin' => boolval(config('modules.auth.oidc.disable_local_login', false)),
+                        'requireVerifiedEmail' => boolval(config('modules.auth.oidc.require_verified_email', true)),
+                        'verifySsl' => boolval(config('modules.auth.oidc.verify_ssl', true)),
+                        'callbackUrl' => rtrim(config('app.url'), '/') . '/auth/modules/oidc/authenticate',
+                    ],
                     'onboarding' => [
                         'enabled' => boolval(config('modules.auth.onboarding.enabled', false)),
                         'content' => config('modules.auth.onboarding.content', ''),

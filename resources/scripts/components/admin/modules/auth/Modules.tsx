@@ -3,6 +3,7 @@ import Box from '@/components/admin/modules/auth/Box';
 import { faDoorOpen, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const modules = useStoreState(state => state.everest.data!.auth.modules);
@@ -50,6 +51,13 @@ export default () => {
                 title={'Google SSO'}
                 disabled={modules.google.enabled}
                 description={'This module allows users to sign up and login via the Google Auth API.'}
+            />
+            <Box
+                name={'oidc'}
+                icon={faIdCard}
+                title={'OIDC SSO'}
+                disabled={modules.oidc.enabled}
+                description={'This module allows users to sign up and login via any OIDC-compliant provider (Keycloak, Authentik, Authelia, Okta, Azure AD, etc.).'}
             />
         </>
     );

@@ -2,7 +2,7 @@ import http from '@/api/http';
 
 export const toggleModule = (toggle: string, name: string): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.post(`/api/application/auth/modules/${toggle}`, name)
+        http.post(`/api/application/auth/modules/${toggle}`, { module: name })
             .then(() => resolve())
             .catch(reject);
     });

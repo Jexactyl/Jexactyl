@@ -15,7 +15,7 @@ import useFlash from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Label from '@/elements/Label';
-import { faAt, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faEnvelope, faKey, faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 interface Values {
     username: string;
@@ -25,6 +25,7 @@ interface Values {
 function LoginContainer() {
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
+    const pendingOauth = useRef<string | null>(null);
 
     const appName = useStoreState(state => state.settings.data!.name);
     const modules = useStoreState(state => state.everest.data!.auth.modules);
@@ -39,17 +40,7 @@ function LoginContainer() {
         clearFlashes();
     }, []);
 
-    const useOauth = (name: string) => {
-        if (recaptchaEnabled && !token.current) {
-            ref.current!.execute().catch(error => {
-                console.error(error);
-
-                clearAndAddHttpError({ error });
-            });
-
-            return;
-        }
-
+    const startOauth = (name: string) => {
         externalLogin(name, token.current)
             .then(url => {
                 // @ts-expect-error this is fine
@@ -58,19 +49,29 @@ function LoginContainer() {
             .catch(error => clearAndAddHttpError({ key: 'auth:register', error }));
     };
 
+    const useOauth = (name: string) => {
+        if (recaptchaEnabled && !token.current) {
+            pendingOauth.current = name;
+            ref.current!.execute().catch(error => {
+                console.error(error);
+                pendingOauth.current = null;
+                clearAndAddHttpError({ error });
+            });
+            return;
+        }
+
+        startOauth(name);
+    };
+
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
 
-        // If there is no token in the state yet, request the token and then abort this submit request
-        // since it will be re-submitted when the recaptcha data is returned by the component.
         if (recaptchaEnabled && !token.current) {
             ref.current!.execute().catch(error => {
                 console.error(error);
-
                 setSubmitting(false);
                 clearAndAddHttpError({ error });
             });
-
             return;
         }
 
@@ -81,19 +82,20 @@ function LoginContainer() {
                     window.location = response.intended || '/';
                     return;
                 }
-
                 navigate('/auth/login/checkpoint', { state: { token: response.confirmationToken } });
             })
             .catch(error => {
                 console.error(error);
-
                 token.current = '';
                 if (ref.current) ref.current.reset();
-
                 setSubmitting(false);
                 clearAndAddHttpError({ error });
             });
     };
+
+    // Count enabled SSO/registration buttons to pick the right grid layout.
+    const oauthButtons = [modules.discord.enabled, modules.google.enabled, modules.oidc.enabled, registration].filter(Boolean);
+    const gridCols = oauthButtons.length === 1 ? 'grid-cols-1' : 'grid-cols-2';
 
     return (
         <Formik
@@ -106,44 +108,48 @@ function LoginContainer() {
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
                 <LoginFormContainer title={`Welcome to ${appName}`}>
-                    <Field
-                        icon={faAt}
-                        type={'text'}
-                        label={'Username or Email'}
-                        name={'username'}
-                        disabled={isSubmitting}
-                        placeholder={'user@jexpanel.com'}
-                    />
-                    <div css={tw`mt-6`}>
-                        <Label>
-                            Password
-                            <Link
-                                to={'/auth/password'}
-                                tabIndex={-1}
-                                className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
-                            >
-                                Forgot Password?
-                            </Link>
-                        </Label>
-                        <Field
-                            icon={faKey}
-                            type={'password'}
-                            name={'password'}
-                            disabled={isSubmitting}
-                            placeholder={'••••••••••••'}
-                        />
-                    </div>
-                    <div css={tw`mt-6`}>
-                        <Button
-                            type={'submit'}
-                            loading={isSubmitting}
-                            className={'w-full'}
-                            size={Button.Sizes.Large}
-                            disabled={isSubmitting}
-                        >
-                            Login
-                        </Button>
-                    </div>
+                    {!modules.oidc.disableLocalLogin && (
+                        <>
+                            <Field
+                                icon={faAt}
+                                type={'text'}
+                                label={'Username or Email'}
+                                name={'username'}
+                                disabled={isSubmitting}
+                                placeholder={'user@jexpanel.com'}
+                            />
+                            <div css={tw`mt-6`}>
+                                <Label>
+                                    Password
+                                    <Link
+                                        to={'/auth/password'}
+                                        tabIndex={-1}
+                                        className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
+                                    >
+                                        Forgot Password?
+                                    </Link>
+                                </Label>
+                                <Field
+                                    icon={faKey}
+                                    type={'password'}
+                                    name={'password'}
+                                    disabled={isSubmitting}
+                                    placeholder={'••••••••••••'}
+                                />
+                            </div>
+                            <div css={tw`mt-6`}>
+                                <Button
+                                    type={'submit'}
+                                    loading={isSubmitting}
+                                    className={'w-full'}
+                                    size={Button.Sizes.Large}
+                                    disabled={isSubmitting}
+                                >
+                                    Login
+                                </Button>
+                            </div>
+                        </>
+                    )}
                     {recaptchaEnabled && (
                         <Reaptcha
                             ref={ref}
@@ -151,7 +157,13 @@ function LoginContainer() {
                             sitekey={siteKey || '_invalid_key'}
                             onVerify={response => {
                                 token.current = response;
-                                submitForm();
+                                if (pendingOauth.current) {
+                                    const name = pendingOauth.current;
+                                    pendingOauth.current = null;
+                                    startOauth(name);
+                                } else {
+                                    submitForm();
+                                }
                             }}
                             onExpire={() => {
                                 setSubmitting(false);
@@ -159,10 +171,10 @@ function LoginContainer() {
                             }}
                         />
                     )}
-                    {(modules.discord.enabled || modules.google.enabled || registration) && (
+                    {oauthButtons.length > 0 && !modules.oidc.disableLocalLogin && (
                         <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
                     )}
-                    <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
+                    <div className={`mt-4 w-full grid gap-4 ${gridCols}`}>
                         {modules.discord.enabled && (
                             <Button.Info type={'button'} onClick={() => useOauth('discord')} size={Button.Sizes.Small}>
                                 <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} /> Use Discord SSO
@@ -171,6 +183,12 @@ function LoginContainer() {
                         {modules.google.enabled && (
                             <Button.Text type={'button'} onClick={() => useOauth('google')} size={Button.Sizes.Small}>
                                 <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} /> Use Google SSO
+                            </Button.Text>
+                        )}
+                        {modules.oidc.enabled && (
+                            <Button.Text type={'button'} onClick={() => useOauth('oidc')} size={Button.Sizes.Small}>
+                                <FontAwesomeIcon icon={faIdCard} className={'mr-2 my-auto'} />{' '}
+                                {modules.oidc.displayName || 'Use SSO'}
                             </Button.Text>
                         )}
                         {registration && (

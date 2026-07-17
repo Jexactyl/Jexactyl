@@ -46,6 +46,16 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:jguard:enabled',
         'modules:auth:jguard:delay',
 
+        'modules:auth:oidc:enabled',
+        'modules:auth:oidc:issuer_url',
+        'modules:auth:oidc:client_id',
+        'modules:auth:oidc:client_secret',
+        'modules:auth:oidc:display_name',
+        'modules:auth:oidc:scopes',
+        'modules:auth:oidc:disable_local_login',
+        'modules:auth:oidc:require_verified_email',
+        'modules:auth:oidc:verify_ssl',
+
         // Billing module settings
         'modules:billing:enabled',
         'modules:billing:keys:secret',

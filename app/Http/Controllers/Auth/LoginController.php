@@ -41,6 +41,12 @@ class LoginController extends AbstractLoginController
      */
     public function login(Request $request): JsonResponse
     {
+        if (boolval(config('modules.auth.oidc.enabled')) && boolval(config('modules.auth.oidc.disable_local_login'))) {
+            return new JsonResponse([
+                'error' => 'Local login is disabled. Please use OIDC SSO to sign in.',
+            ], Response::HTTP_FORBIDDEN);
+        }
+
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             $this->sendLockoutResponse($request);

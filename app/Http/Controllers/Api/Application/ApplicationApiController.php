@@ -60,7 +60,7 @@ abstract class ApplicationApiController extends Controller
      */
     protected function returnNoContent(): Response
     {
-        return $this->returnNoContent();
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     /**
