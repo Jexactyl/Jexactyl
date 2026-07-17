@@ -76,7 +76,7 @@ abstract class ApplicationApiController extends Controller
         ];
     }
 
-    protected function transform(mixed $data, string $transformer): array
+    protected function transform(mixed $data, string $transformer, ?bool $asCollection = null): array
     {
         $transformerInstance = is_string($transformer)
             ? app($transformer)
@@ -90,7 +90,9 @@ abstract class ApplicationApiController extends Controller
                 ->toArray();
         }
 
-        $resource = is_iterable($data)
+        $isCollection = $asCollection ?? ($data instanceof Collection || (is_array($data) ? array_is_list($data) : is_iterable($data)));
+
+        $resource = $isCollection
             ? $this->fractal->collection($data)
             : $this->fractal->item($data);
 

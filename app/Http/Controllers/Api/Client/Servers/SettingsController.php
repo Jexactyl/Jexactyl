@@ -66,7 +66,7 @@ class SettingsController extends ClientApiController
 
         Activity::event('server:reinstall')->log();
 
-        return $this->returnNoContent();
+        return $this->returnAccepted();
     }
 
     /**

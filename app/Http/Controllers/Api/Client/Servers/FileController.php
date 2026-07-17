@@ -179,7 +179,7 @@ class FileController extends ClientApiController
             ->property('files', $request->input('files'))
             ->log();
 
-        return $this->transform($file, FileObjectTransformer::class);
+        return $this->transform($file, FileObjectTransformer::class, false);
     }
 
     /**
