@@ -123,7 +123,7 @@ function DashboardRouter() {
                     </div>
                 </Sidebar.User>
             </Sidebar>
-            <div className={'flex-1 overflow-x-hidden'}>
+            <main className={'min-w-0 flex-1 overflow-x-hidden pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0'}>
                 <NavigationBar />
                 <Suspense fallback={<Spinner centered />}>
                     <Routes>
@@ -140,7 +140,7 @@ function DashboardRouter() {
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>
-            </div>
+            </main>
         </div>
     );
 }

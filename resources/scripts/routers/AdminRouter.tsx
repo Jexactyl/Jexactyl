@@ -99,7 +99,11 @@ function AdminRouter() {
                     </div>
                 </Sidebar.User>
             </Sidebar>
-            <div className={'flex-1 overflow-x-hidden px-6 pt-6 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}>
+            <main
+                className={
+                    'min-w-0 flex-1 overflow-x-hidden px-4 pt-4 pb-[calc(4rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-6 md:pb-6 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'
+                }
+            >
                 <div className={'w-full flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
                     <ErrorBoundary>
                         <Routes>
@@ -118,7 +122,7 @@ function AdminRouter() {
                         </Routes>
                     </ErrorBoundary>
                 </div>
-            </div>
+            </main>
         </div>
     );
 }

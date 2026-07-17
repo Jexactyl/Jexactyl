@@ -183,7 +183,11 @@ function ServerRouter() {
                         <Spinner size="large" centered />
                     )
                 ) : (
-                    <div className={'flex-1 overflow-x-hidden'}>
+                    <main
+                        className={
+                            'min-w-0 flex-1 overflow-x-hidden pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0'
+                        }
+                    >
                         <InstallListener />
                         <TransferListener />
                         <WebsocketHandler />
@@ -212,7 +216,7 @@ function ServerRouter() {
                                 </Routes>
                             </ErrorBoundary>
                         )}
-                    </div>
+                    </main>
                 )}
             </div>
         </Fragment>

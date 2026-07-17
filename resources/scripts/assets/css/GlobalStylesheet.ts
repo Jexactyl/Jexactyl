@@ -19,8 +19,13 @@ export default createGlobalStyle`
         ${tw`m-0`};
     }
 
-    textarea, select, input, button, button:focus, button:focus-visible {
+    textarea, select, input, button {
         ${tw`outline-none`};
+    }
+
+    :focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
     }
 
     input[type=number]::-webkit-outer-spin-button,

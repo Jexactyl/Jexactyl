@@ -54,17 +54,17 @@ const NavigationBar = () => {
     }, []);
 
     const renderBreadcrumbs = () => (
-        <ol className="w-1/3 text-gray-400 text-sm inline-flex space-x-2">
+        <ol className="flex min-w-0 flex-1 items-center space-x-2 overflow-hidden text-sm text-gray-400">
             <Link to={'/'}>
                 <HomeIcon className="w-4 h-4 my-auto brightness-150" />
             </Link>
             {pathnames.map((segment, index) => {
                 const href = `/${pathnames.slice(0, index + 1).join('/')}`;
                 return (
-                    <li key={index} className="inline-flex">
+                    <li key={index} className="inline-flex min-w-0 items-center">
                         <ChevronRightIcon className="mr-2 w-4 h-4 my-auto" />
                         {index === pathnames.length - 1 ? (
-                            <span className="capitalize">{segment}</span>
+                            <span className="truncate capitalize">{segment}</span>
                         ) : (
                             <Link to={href} className="capitalize brightness-150">
                                 {segment}
@@ -117,10 +117,10 @@ const NavigationBar = () => {
     };
 
     return (
-        <div className="w-full overflow-x-auto shadow-md mb-8" style={{ backgroundColor: theme.colors.sidebar }}>
-            <div className="px-8 flex h-[3.5rem] w-full items-center">
+        <div className="mb-4 w-full shadow-md sm:mb-8" style={{ backgroundColor: theme.colors.sidebar }}>
+            <div className="flex h-14 w-full min-w-0 items-center gap-2 px-3 sm:px-8">
                 {renderBreadcrumbs()}
-                <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>
+                <RightNavigation className="ml-auto flex h-full shrink-0 items-center justify-center" theme={theme}>
                     <div className="relative">
                         <div
                             className="absolute top-0 h-px transition-all duration-[250ms] ease-in-out"
