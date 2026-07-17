@@ -1,0 +1,15 @@
+overrides:
+    '@babel/runtime': 7.28.4
+    '@babel/traverse': 7.28.4
+    lodash: 4.18.1
+    lodash-es: 4.18.1
+    'picomatch@<2.3.2': 2.3.2
+
+onlyBuiltDependencies:
+    - '@fortawesome/fontawesome-common-types'
+    - '@fortawesome/fontawesome-svg-core'
+    - '@fortawesome/free-brands-svg-icons'
+    - '@fortawesome/free-solid-svg-icons'
+    - core-js
+    - esbuild
+    - styled-components
