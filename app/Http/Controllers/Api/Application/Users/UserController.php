@@ -6,6 +6,7 @@ use Everest\Models\User;
 use Illuminate\Support\Arr;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Everest\Exceptions\DisplayException;
@@ -129,7 +130,7 @@ class UserController extends ApplicationApiController
      * @throws \Exception
      * @throws \Everest\Exceptions\Model\DataValidationException
      */
-    public function store(StoreUserRequest $request): array
+    public function store(StoreUserRequest $request): JsonResponse
     {
         $user = $this->creationService->handle($request->validated());
 
@@ -138,7 +139,10 @@ class UserController extends ApplicationApiController
             ->description('A user was created')
             ->log();
 
-        return $this->transform($user, UserTransformer::class);
+        return response()->json(
+            $this->transform($user, UserTransformer::class),
+            Response::HTTP_CREATED,
+        );
     }
 
     /**
