@@ -34,6 +34,6 @@ class ResourceUtilizationController extends ClientApiController
             return $this->repository->setServer($server)->getDetails();
         });
 
-        return $this->transform($stats, StatsTransformer::class);
+        return $this->transform($stats, StatsTransformer::class, false);
     }
 }

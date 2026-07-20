@@ -137,7 +137,7 @@ class ScheduleController extends ClientApiController
 
         Activity::event('server:schedule.execute')->subject($schedule)->property('name', $schedule->name)->log();
 
-        return $this->returnNoContent();
+        return $this->returnAccepted();
     }
 
     /**
