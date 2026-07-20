@@ -5,6 +5,7 @@ namespace Everest\Http\Controllers\Api\Client\Servers;
 use Everest\Models\User;
 use Everest\Models\Server;
 use Carbon\CarbonImmutable;
+use Jexactyl\Enum\JwtScope;
 use Illuminate\Http\JsonResponse;
 use Everest\Services\Nodes\NodeJWTService;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
@@ -43,6 +44,7 @@ class FileUploadController extends ClientApiController
             ->setExpiresAt(CarbonImmutable::now()->addMinutes(15))
             ->setUser($user)
             ->setClaims(['server_uuid' => $server->uuid])
+            ->setScopes(JwtScope::FileUpload)
             ->handle($server->node, $user->id . $server->uuid);
 
         return sprintf(
