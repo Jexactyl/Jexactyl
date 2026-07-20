@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import Modal from '@/elements/Modal';
 import { ServerContext } from '@/state/server';
-import Modal from '@/components/elements/Modal';
 import tw from 'twin.macro';
-import Button from '@/components/elements/Button';
-import FlashMessageRender from '@/components/FlashMessageRender';
+import { Button } from '@/elements/button';
+import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { SocketEvent } from '@/components/server/events';
 
