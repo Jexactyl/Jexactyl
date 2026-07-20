@@ -23,9 +23,8 @@ class CreateNewAllocationTest extends ClientApiIntegrationTestCase
 
     /**
      * Tests that a new allocation can be properly assigned to a server.
-     *
-     * @dataProvider permissionDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('permissionDataProvider')]
     public function testNewAllocationCanBeAssignedToServer(array $permission)
     {
         /** @var \Everest\Models\Server $server */

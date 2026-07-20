@@ -9,6 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
+/**
+ * @method \Pterodactyl\Repositories\Wings\DaemonBackupRepository setNode(\Pterodactyl\Models\Node $node)
+ * @method \Pterodactyl\Repositories\Wings\DaemonBackupRepository setServer(\Pterodactyl\Models\Server $server)
+ */
 class DaemonBackupRepository extends DaemonRepository
 {
     protected ?string $adapter;

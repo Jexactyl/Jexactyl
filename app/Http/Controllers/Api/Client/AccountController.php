@@ -15,6 +15,11 @@ use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
 class AccountController extends ClientApiController
 {
     /**
+     * The number of seconds that must elapse before the email change throttle resets.
+     */
+    private const EMAIL_UPDATE_THROTTLE = 60 * 60 * 24;
+
+    /**
      * AccountController constructor.
      */
     public function __construct(private AuthManager $manager, private UserUpdateService $updateService)
@@ -34,12 +39,22 @@ class AccountController extends ClientApiController
      */
     public function updateEmail(UpdateEmailRequest $request): Response
     {
-        $original = $request->user()->email;
-        $this->updateService->handle($request->user(), $request->validated());
+        $user = $request->user();
+        // Only allow a user to change their email three times in the span
+        // of 24 hours. This prevents malicious users from trying to find
+        // existing accounts in the system by constantly changing their email.
+        if (RateLimiter::tooManyAttempts($key = "user:update-email:{$user->uuid}", 3)) {
+            throw new TooManyRequestsHttpException(message: 'Your email address has been changed too many times today. Please try again later.');
+        }
 
-        if ($original !== $request->input('email')) {
+        $original = $user->email;
+        if (mb_strtolower($original) !== mb_strtolower($request->validated('email'))) {
+            RateLimiter::hit($key, self::EMAIL_UPDATE_THROTTLE);
+
+            $this->updateService->handle($user, $request->validated());
+
             Activity::event('user:account.email-changed')
-                ->property(['old' => $original, 'new' => $request->input('email')])
+                ->property(['old' => $original, 'new' => $request->validated('email')])
                 ->log();
         }
 
@@ -54,7 +69,9 @@ class AccountController extends ClientApiController
      */
     public function updatePassword(UpdatePasswordRequest $request): Response
     {
-        $user = $this->updateService->handle($request->user(), $request->validated());
+        $user = Activity::event('user:account.password-changed')->transaction(function () use ($request) {
+            return $this->updateService->handle($request->user(), $request->validated());
+        });
 
         $guard = $this->manager->guard();
         // If you do not update the user in the session you'll end up working with a
@@ -64,7 +81,7 @@ class AccountController extends ClientApiController
         $guard->setUser($user);
 
         // This method doesn't exist in the stateless Sanctum world.
-        if (method_exists($guard, 'logoutOtherDevices')) {
+        if (method_exists($guard, 'logoutOtherDevices')) { // @phpstan-ignore function.alreadyNarrowedType
             $guard->logoutOtherDevices($request->input('password'));
         }
 

@@ -3,6 +3,7 @@
 namespace Everest\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Everest\Models\Allocation.
@@ -40,6 +41,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Allocation extends Model
 {
+    /** @use HasFactory<\Database\Factories\AllocationFactory> */
+    use HasFactory;
+
     /**
      * The resource name for this model when it is transformed into an
      * API representation using fractal.
@@ -110,6 +114,8 @@ class Allocation extends Model
 
     /**
      * Gets information for the server associated with this allocation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\Pterodactyl\Models\Server, $this>
      */
     public function server(): BelongsTo
     {
@@ -118,6 +124,8 @@ class Allocation extends Model
 
     /**
      * Return the Node model associated with this allocation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\Pterodactyl\Models\Node, $this>
      */
     public function node(): BelongsTo
     {

@@ -46,6 +46,11 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        SetSecurityHeaders::class,
+    ];
+
+    protected $middlewarePriority = [
+        SubstituteClientBindings::class,
     ];
 
     /**

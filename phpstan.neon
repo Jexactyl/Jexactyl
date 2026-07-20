@@ -1,34 +1,19 @@
 includes:
-    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/larastan/larastan/extension.neon
+    - ./vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
+rules:
+    - PHPStan\Rules\DeadCode\UnreachableStatementRule
+    - PHPStan\Rules\DeadCode\UnusedPrivateConstantRule
+    - PHPStan\Rules\DeadCode\UnusedPrivateMethodRule
 
 parameters:
-
-    paths:
-        - app/
-
-    # Level 9 is the highest level
     level: 4
-
-    treatPhpDocTypesAsCertain: false
-
+    paths:
+        - app
     ignoreErrors:
-        # Ignore repository interface missing methods
-        - '#Call to an undefined method Everest\\Repositories\\Wings\\DaemonRepository::(\w+)\(\)#'
-
-        # Ignore magic StripeObject calls
-        - '#Access to an undefined property Stripe\\StripeObject::\$\w+#'
-
-        # Ignore magic Socialite calls
-        - '#Access to an undefined property Laravel\\Socialite\\Contracts\\User::\$\w+#'
-
-        # Ignore magic spatie calls
         - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder::allowed(\w+)\(\)#'
-
+        - '#Call to an undefined method Prologue\\Alerts\\AlertsMessageBag::(success|warning|danger|info)\(\)#'
     excludePaths:
         - app/Repositories
-
-        # More magic spatie to be replaced
         - app/Extensions/Spatie/Fractalistic/Fractal.php
-
-#
-#    checkMissingIterableValueType: false
