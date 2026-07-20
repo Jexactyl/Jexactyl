@@ -6,7 +6,6 @@ use Jexactyl\Models\Node;
 use Jexactyl\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
-use Jexactyl\Enum\JwtScope;
 use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
@@ -16,8 +15,6 @@ use Jexactyl\Extensions\Lcobucci\JWT\Encoding\TimestampDates;
 class NodeJWTService
 {
     private array $claims = [];
-
-    private array $scopes = [];
 
     private ?User $user = null;
 
@@ -31,18 +28,6 @@ class NodeJWTService
     public function setClaims(array $claims): self
     {
         $this->claims = $claims;
-
-        return $this;
-    }
-
-    /**
-     * Set the scopes that this JWT is valid for. Wings (1.12.0+) requires a matching
-     * "scope" claim on every JWT it receives, so this must be set for the daemon to
-     * accept the token (e.g. when authenticating a websocket connection).
-     */
-    public function setScopes(JwtScope ...$scopes): self
-    {
-        $this->scopes = $scopes;
 
         return $this;
     }
@@ -98,13 +83,6 @@ class NodeJWTService
 
         foreach ($this->claims as $key => $value) {
             $builder = $builder->withClaim($key, $value);
-        }
-
-        // Wings validates a space-delimited "scope" claim on every JWT it receives.
-        // Without it, requests such as websocket authentication are rejected with
-        // "There was an error validating the credentials provided for the websocket."
-        if (!empty($this->scopes)) {
-            $builder = $builder->withClaim('scope', implode(' ', array_map(fn (JwtScope $scope) => $scope->value, $this->scopes)));
         }
 
         if (!is_null($this->user)) {

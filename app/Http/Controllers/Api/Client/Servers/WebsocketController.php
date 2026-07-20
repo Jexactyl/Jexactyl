@@ -3,7 +3,6 @@
 namespace Jexactyl\Http\Controllers\Api\Client\Servers;
 
 use Carbon\CarbonImmutable;
-use Jexactyl\Enum\JwtScope;
 use Jexactyl\Models\Server;
 use Jexactyl\Models\Permission;
 use Illuminate\Http\JsonResponse;
@@ -60,7 +59,6 @@ class WebsocketController extends ClientApiController
                 'server_uuid' => $server->uuid,
                 'permissions' => $permissions,
             ])
-            ->setScopes(JwtScope::Websocket)
             ->handle($node, $user->id . $server->uuid);
 
         $socket = str_replace(['https://', 'http://'], ['wss://', 'ws://'], $node->getConnectionAddress());
