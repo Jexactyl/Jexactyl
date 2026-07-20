@@ -3,8 +3,8 @@
 namespace Everest\Models;
 
 use Illuminate\Validation\Rules\NotIn;
-use Pterodactyl\Contracts\Models\Identifiable;
-use Pterodactyl\Models\Traits\HasRealtimeIdentifier;
+use Everest\Contracts\Models\Identifiable;
+use Everest\Models\Traits\HasRealtimeIdentifier;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -100,7 +100,7 @@ class Mount extends Model implements Identifiable
     /**
      * Returns all eggs that have this mount assigned.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\Pterodactyl\Models\Egg, $this>
+     * @return BelongsToMany<\Everest\Models\Egg, $this>
      */
     public function eggs(): BelongsToMany
     {
@@ -110,7 +110,7 @@ class Mount extends Model implements Identifiable
     /**
      * Returns all nodes that have this mount assigned.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\Pterodactyl\Models\Node, $this>
+     * @return BelongsToMany<\Everest\Models\Node, $this>
      */
     public function nodes(): BelongsToMany
     {
@@ -120,7 +120,7 @@ class Mount extends Model implements Identifiable
     /**
      * Returns all servers that have this mount assigned.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\Pterodactyl\Models\Server, $this>
+     * @return BelongsToMany<\Everest\Models\Server, $this>
      */
     public function servers(): BelongsToMany
     {

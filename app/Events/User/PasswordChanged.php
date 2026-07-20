@@ -1,8 +1,8 @@
 <?php
 
-namespace Pterodactyl\Events\User;
+namespace Everest\Events\User;
 
-use Pterodactyl\Models\User;
+use Everest\Models\User;
 use Illuminate\Foundation\Events\Dispatchable;
 
 final class PasswordChanged

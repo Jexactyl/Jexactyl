@@ -1,9 +1,9 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Http\Controllers\Admin\UserController;
+namespace Everest\Tests\Integration\Http\Controllers\Admin\UserController;
 
-use Pterodactyl\Models\User;
-use Pterodactyl\Tests\Integration\Http\HttpTestCase;
+use Everest\Models\User;
+use Everest\Tests\Integration\Http\HttpTestCase;
 
 class CreateUserTest extends HttpTestCase
 {

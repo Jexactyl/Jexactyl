@@ -40,7 +40,7 @@ abstract class ClientApiController extends ApplicationApiController
     /**
      * Return an instance of an application transformer.
      *
-     * @template T of \Pterodactyl\Transformers\Api\Client\BaseClientTransformer
+     * @template T of \Everest\Transformers\Api\Client\BaseClientTransformer
      *
      * @param class-string<T> $abstract
      *

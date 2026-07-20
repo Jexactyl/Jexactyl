@@ -1,12 +1,12 @@
 <?php
 
-namespace Pterodactyl\Tests\Integration\Api\Remote;
+namespace Everest\Tests\Integration\Api\Remote;
 
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\Location;
-use Pterodactyl\Models\Allocation;
-use Pterodactyl\Models\ServerTransfer;
-use Pterodactyl\Tests\Integration\IntegrationTestCase;
+use Everest\Models\Node;
+use Everest\Models\Location;
+use Everest\Models\Allocation;
+use Everest\Models\ServerTransfer;
+use Everest\Tests\Integration\IntegrationTestCase;
 
 class ServerTransferControllerTest extends IntegrationTestCase
 {

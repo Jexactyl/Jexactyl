@@ -12,8 +12,8 @@ use Everest\Exceptions\Http\Server\FileSizeTooLargeException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
- * @method \Pterodactyl\Repositories\Wings\DaemonFileRepository setNode(\Pterodactyl\Models\Node $node)
- * @method \Pterodactyl\Repositories\Wings\DaemonFileRepository setServer(\Pterodactyl\Models\Server $server)
+ * @method \Everest\Repositories\Wings\DaemonFileRepository setNode(\Everest\Models\Node $node)
+ * @method \Everest\Repositories\Wings\DaemonFileRepository setServer(\Everest\Models\Server $server)
  */
 class DaemonFileRepository extends DaemonRepository
 {

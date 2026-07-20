@@ -1,16 +1,16 @@
 <?php
 
-namespace Pterodactyl\Jobs;
+namespace Everest\Jobs;
 
-use Pterodactyl\Models\Node;
-use Pterodactyl\Models\Server;
+use Everest\Models\Node;
+use Everest\Models\Server;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Illuminate\Queue\Attributes\DeleteWhenMissingModels;
-use Pterodactyl\Repositories\Wings\DaemonRevocationRepository;
-use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Repositories\Wings\DaemonRevocationRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
  * Revokes all SFTP access for a user on a given node or for a specific server.

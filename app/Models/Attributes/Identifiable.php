@@ -1,6 +1,6 @@
 <?php
 
-namespace Pterodactyl\Models\Attributes;
+namespace Everest\Models\Attributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
 readonly class Identifiable

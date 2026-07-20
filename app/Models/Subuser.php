@@ -66,7 +66,7 @@ class Subuser extends Model
     /**
      * Gets the server associated with a subuser.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\Pterodactyl\Models\Server, $this>
+     * @return BelongsTo<\Everest\Models\Server, $this>
      */
     public function server(): BelongsTo
     {
@@ -76,7 +76,7 @@ class Subuser extends Model
     /**
      * Gets the user associated with a subuser.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\Pterodactyl\Models\User, $this>
+     * @return BelongsTo<\Everest\Models\User, $this>
      */
     public function user(): BelongsTo
     {
@@ -86,7 +86,7 @@ class Subuser extends Model
     /**
      * Gets the permissions associated with a subuser.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\Pterodactyl\Models\Permission, $this>
+     * @return HasMany<\Everest\Models\Permission, $this>
      */
     public function permissions(): HasMany
     {

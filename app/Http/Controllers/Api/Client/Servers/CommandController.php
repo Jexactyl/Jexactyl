@@ -5,7 +5,6 @@ namespace Everest\Http\Controllers\Api\Client\Servers;
 use Everest\Models\Server;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use Everest\Repositories\Wings\DaemonCommandRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;

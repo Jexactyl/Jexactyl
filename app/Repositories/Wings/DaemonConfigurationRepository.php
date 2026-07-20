@@ -8,8 +8,8 @@ use GuzzleHttp\Exception\TransferException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
 /**
- * @method \Pterodactyl\Repositories\Wings\DaemonConfigurationRepository setNode(\Pterodactyl\Models\Node $node)
- * @method \Pterodactyl\Repositories\Wings\DaemonConfigurationRepository setServer(\Pterodactyl\Models\Server $server)
+ * @method \Everest\Repositories\Wings\DaemonConfigurationRepository setNode(\Everest\Models\Node $node)
+ * @method \Everest\Repositories\Wings\DaemonConfigurationRepository setServer(\Everest\Models\Server $server)
  */
 class DaemonConfigurationRepository extends DaemonRepository
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Pterodactyl\Models\Traits;
+namespace Everest\Models\Traits;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
 use ParagonIE\ConstantTime\Base32;
 use Illuminate\Database\Eloquent\Builder;
-use Pterodactyl\Models\Attributes\Identifiable;
+use Everest\Models\Attributes\Identifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**

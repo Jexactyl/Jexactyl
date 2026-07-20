@@ -60,7 +60,7 @@ class UserSSHKey extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\Pterodactyl\Models\User, $this>
+     * @return BelongsTo<\Everest\Models\User, $this>
      */
     public function user(): BelongsTo
     {

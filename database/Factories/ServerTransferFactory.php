@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Pterodactyl\Models\ServerTransfer;
+use Everest\Models\ServerTransfer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServerTransferFactory extends Factory
