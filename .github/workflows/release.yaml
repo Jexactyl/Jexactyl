@@ -14,10 +14,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn tsc
-      - run: yarn build:production
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm build
       - name: create release branch and bump version
         env:
           VERSION: ${{ github.ref_name }}
