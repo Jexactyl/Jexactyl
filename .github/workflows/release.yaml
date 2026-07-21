@@ -11,12 +11,22 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
-      - run: pnpm install
-      - run: pnpm build
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
       - name: create release branch and bump version
         env:
           VERSION: ${{ github.ref_name }}
