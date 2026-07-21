@@ -44,9 +44,6 @@ jobs:
         run: |
           rm -rf node_modules tests CONTRIBUTING.md flake.lock flake.nix phpunit.xml shell.nix
           tar -czf panel.tar.gz * .env.example .eslintignore .eslintrc.js .gitignore .prettierrc.json
-      - name: write changelog
-        run: |
-          sed -n "/^## ${{ github.ref_name }}/,/^## /{/^## /b;p}" CHANGELOG.md > ./RELEASE_CHANGELOG
       - uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
