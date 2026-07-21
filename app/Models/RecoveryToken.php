@@ -26,6 +26,9 @@ class RecoveryToken extends Model
         'token' => 'required|string',
     ];
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -41,6 +41,7 @@
                 </script>
             @endif
         @show
+<<<<<<< HEAD
         <style>
             @import url('//fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
             @import url('//fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:500&display=swap');
@@ -49,6 +50,8 @@
                 background-color: {{ $themeConfiguration['colors']['background'] }}
             }
         </style>
+=======
+>>>>>>> upstream/develop
 
         @yield('assets')
 

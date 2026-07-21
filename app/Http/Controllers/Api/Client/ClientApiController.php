@@ -36,4 +36,22 @@ abstract class ClientApiController extends ApplicationApiController
             return trim($item);
         }, explode(',', $includes));
     }
+
+    /**
+     * Return an instance of an application transformer.
+     *
+     * @template T of \Everest\Transformers\Api\Client\BaseClientTransformer
+     *
+     * @param class-string<T> $abstract
+     *
+     * @return T
+     *
+     * @noinspection PhpDocSignatureInspection
+     */
+    public function getTransformer(string $abstract)
+    {
+        Assert::subclassOf($abstract, BaseClientTransformer::class); // @phpstan-ignore staticMethod.alreadyNarrowedType
+
+        return $abstract::fromRequest($this->request);
+    }
 }

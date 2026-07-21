@@ -1,10 +1,8 @@
 name: Release
-
 on:
   push:
     tags:
       - "v*"
-
 jobs:
   release:
     name: Release
@@ -30,7 +28,7 @@ jobs:
 
       - name: Create release branch and bump version
         env:
-          REF: ${{ github.ref }}
+          VERSION: ${{ github.ref_name }}
         run: |
           BRANCH=release/${REF:10}
           git config --local user.email "ci@jexactyl.com"
@@ -41,8 +39,7 @@ jobs:
           git add config/app.php
           git commit -m "New release inbound!"
           git push
-
-      - name: Create release archive
+      - name: create release archive
         run: |
           rm -rf node_modules tests CODE_OF_CONDUCT.md CONTRIBUTING.md phpstan.neon phpunit.xml
           tar -czf panel.tar.gz * .env.example .eslintignore .eslintrc.js .gitignore .prettierrc.json

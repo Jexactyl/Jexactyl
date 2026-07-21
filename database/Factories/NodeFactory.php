@@ -26,7 +26,7 @@ class NodeFactory extends Factory
             'uuid' => Uuid::uuid4()->toString(),
             'public' => true,
             'name' => 'FactoryNode_' . Str::random(10),
-            'fqdn' => $this->faker->unique()->ipv4,
+            'fqdn' => $this->faker->unique()->ipv4(),
             'listen_port_http' => 8080,
             'listen_port_sftp' => 2022,
             'public_port_http' => 8080,

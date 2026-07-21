@@ -9,6 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
+/**
+ * @method \Everest\Repositories\Wings\DaemonBackupRepository setNode(\Everest\Models\Node $node)
+ * @method \Everest\Repositories\Wings\DaemonBackupRepository setServer(\Everest\Models\Server $server)
+ */
 class DaemonBackupRepository extends DaemonRepository
 {
     protected ?string $adapter;

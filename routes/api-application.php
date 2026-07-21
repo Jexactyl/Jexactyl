@@ -291,7 +291,7 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::post('/', [Application\Nodes\NodeController::class, 'store']);
 
-        Route::patch('/{node:id}', [Application\Nodes\NodeController::class, 'update']);
+        Route::patch('/{node:id}', [Application\Nodes\NodeController::class, 'update'])->name('api.application.nodes.update');
 
         Route::delete('/{node:id}', [Application\Nodes\NodeController::class, 'delete']);
 

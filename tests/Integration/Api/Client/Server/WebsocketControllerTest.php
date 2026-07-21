@@ -4,8 +4,9 @@ namespace Everest\Tests\Integration\Api\Client\Server;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Response;
-use Everest\Models\Permission;
+use Everest\Enum\JwtScope;
 use Lcobucci\JWT\Configuration;
+use Everest\Models\Permission;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
@@ -53,22 +54,23 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
         $server->node->scheme = 'https';
         $server->node->save();
 
-        $response = $this->actingAs($user)->getJson("/api/client/servers/$server->uuid/websocket");
-
-        $response->assertOk();
-        $response->assertJsonStructure(['data' => ['token', 'socket']]);
+        $response = $this->actingAs($user)
+            ->withoutExceptionHandling()
+            ->getJson("/api/client/servers/$server->uuid/websocket")
+            ->assertOk()
+            ->assertJsonStructure(['data' => ['token', 'socket']]);
 
         $connection = $response->json('data.socket');
         $this->assertStringStartsWith('wss://', $connection, 'Failed asserting that websocket connection address has expected "wss://" prefix.');
         $this->assertStringEndsWith("/api/servers/$server->uuid/ws", $connection, 'Failed asserting that websocket connection address uses expected Wings endpoint.');
 
         $config = Configuration::forSymmetricSigner(new Sha256(), $key = InMemory::plainText($server->node->getDecryptedKey()));
-        $config->setValidationConstraints(new SignedWith(new Sha256(), $key));
+
         /** @var \Lcobucci\JWT\Token\Plain $token */
         $token = $config->parser()->parse($response->json('data.token'));
 
         $this->assertTrue(
-            $config->validator()->validate($token, ...$config->validationConstraints()),
+            $config->validator()->validate($token, new SignedWith(new Sha256(), $key)),
             'Failed to validate that the JWT data returned was signed using the Node\'s secret key.'
         );
 
@@ -86,9 +88,10 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
         $this->assertEquals($expect, $token->claims()->get('iat'));
         $this->assertEquals($expect->subMinutes(5), $token->claims()->get('nbf'));
         $this->assertEquals($expect->addMinutes(10), $token->claims()->get('exp'));
-        $this->assertSame($user->id, $token->claims()->get('user_id'));
+        $this->assertSame($user->uuid, $token->claims()->get('user_uuid'));
         $this->assertSame($server->uuid, $token->claims()->get('server_uuid'));
         $this->assertSame(['*'], $token->claims()->get('permissions'));
+        $this->assertEquals(JwtScope::Websocket->value, $token->claims()->get('scope'));
     }
 
     /**
@@ -102,22 +105,24 @@ class WebsocketControllerTest extends ClientApiIntegrationTestCase
         /** @var \Everest\Models\Server $server */
         [$user, $server] = $this->generateTestAccount($permissions);
 
-        $response = $this->actingAs($user)->getJson("/api/client/servers/$server->uuid/websocket");
-
-        $response->assertOk();
-        $response->assertJsonStructure(['data' => ['token', 'socket']]);
+        $response = $this->actingAs($user)
+            ->withoutExceptionHandling()
+            ->getJson("/api/client/servers/$server->uuid/websocket")
+            ->assertOk()
+            ->assertJsonStructure(['data' => ['token', 'socket']]);
 
         $config = Configuration::forSymmetricSigner(new Sha256(), $key = InMemory::plainText($server->node->getDecryptedKey()));
-        $config->setValidationConstraints(new SignedWith(new Sha256(), $key));
+
         /** @var \Lcobucci\JWT\Token\Plain $token */
         $token = $config->parser()->parse($response->json('data.token'));
 
         $this->assertTrue(
-            $config->validator()->validate($token, ...$config->validationConstraints()),
+            $config->validator()->validate($token, new SignedWith(new Sha256(), $key)),
             'Failed to validate that the JWT data returned was signed using the Node\'s secret key.'
         );
 
         // Check that the claims are generated correctly.
         $this->assertSame($permissions, $token->claims()->get('permissions'));
+        $this->assertEquals(JwtScope::Websocket->value, $token->claims()->get('scope'));
     }
 }

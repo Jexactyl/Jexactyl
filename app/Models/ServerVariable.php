@@ -41,6 +41,8 @@ class ServerVariable extends Model
 
     /**
      * Returns the server this variable is associated with.
+     *
+     * @return BelongsTo<Server, $this>
      */
     public function server(): BelongsTo
     {
@@ -49,6 +51,8 @@ class ServerVariable extends Model
 
     /**
      * Returns information about a given variables parent.
+     *
+     * @return BelongsTo<EggVariable, $this>
      */
     public function variable(): BelongsTo
     {

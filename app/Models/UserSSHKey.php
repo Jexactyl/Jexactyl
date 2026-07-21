@@ -4,6 +4,7 @@ namespace Everest\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * \Everest\Models\UserSSHKey.
@@ -32,13 +33,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSSHKey whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|UserSSHKey withTrashed()
  * @method static \Illuminate\Database\Query\Builder|UserSSHKey withoutTrashed()
+ * @method static \Database\Factories\UserSSHKeyFactory factory(...$parameters)
  *
  * @mixin \Eloquent
- *
- * @method static \Database\Factories\UserSSHKeyFactory factory(...$parameters)
  */
 class UserSSHKey extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserSSHKeyFactory> */
+    use HasFactory;
     use SoftDeletes;
 
     public const RESOURCE_NAME = 'ssh_key';
@@ -57,6 +59,9 @@ class UserSSHKey extends Model
         'public_key' => ['required', 'string'],
     ];
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

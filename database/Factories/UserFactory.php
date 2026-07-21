@@ -23,7 +23,7 @@ class UserFactory extends Factory
         return [
             'external_id' => null,
             'uuid' => Uuid::uuid4()->toString(),
-            'username' => $this->faker->userName . '_' . Str::random(10),
+            'username' => $this->faker->userName() . '_' . Str::random(10),
             'email' => Str::random(32) . '@example.com',
             'password' => $password ?: $password = bcrypt('password'),
             'language' => 'en',

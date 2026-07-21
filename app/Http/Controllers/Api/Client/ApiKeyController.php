@@ -9,6 +9,7 @@ use Everest\Exceptions\DisplayException;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
 use Everest\Transformers\Api\Client\ApiKeyTransformer;
 use Everest\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
+use Illuminate\Support\Facades\DB;
 
 class ApiKeyController extends ClientApiController
 {
@@ -27,14 +28,16 @@ class ApiKeyController extends ClientApiController
      */
     public function store(StoreApiKeyRequest $request): array
     {
-        if ($request->user()->apiKeys->count() >= 25) {
-            throw new DisplayException('You have reached the account limit for number of API keys.');
-        }
+        $token = DB::transaction(function () use ($request) {
+            if ($request->user()->apiKeys()->lockForUpdate()->count() >= 25) {
+                throw new DisplayException('You have reached the account limit for number of API keys.');
+            }
 
-        $token = $request->user()->createToken(
-            $request->input('description'),
-            $request->input('allowed_ips')
-        );
+            return $request->user()->createToken(
+                $request->input('description'),
+                $request->input('allowed_ips')
+            );
+        });
 
         Activity::event('user:api-key.create')
             ->subject($token->accessToken)

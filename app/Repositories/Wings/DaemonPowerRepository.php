@@ -8,6 +8,10 @@ use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\TransferException;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 
+/**
+ * @method \Everest\Repositories\Wings\DaemonPowerRepository setNode(\Everest\Models\Node $node)
+ * @method \Everest\Repositories\Wings\DaemonPowerRepository setServer(\Everest\Models\Server $server)
+ */
 class DaemonPowerRepository extends DaemonRepository
 {
     /**

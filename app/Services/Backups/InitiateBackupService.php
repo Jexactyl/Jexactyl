@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class InitiateBackupService
 {
-    private ?array $ignoredFiles;
+    private array $ignoredFiles = [];
 
     private bool $isLocked = false;
 
@@ -52,7 +52,7 @@ class InitiateBackupService
     {
         if (is_array($ignored)) {
             foreach ($ignored as $value) {
-                Assert::string($value);
+                Assert::string($value); // @phpstan-ignore staticMethod.alreadyNarrowedType
             }
         }
 
@@ -82,7 +82,7 @@ class InitiateBackupService
             if ($previous->count() >= $limit) {
                 $message = sprintf('Only %d backups may be generated within a %d second span of time.', $limit, $period);
 
-                throw new TooManyRequestsHttpException(CarbonImmutable::now()->diffInSeconds($previous->last()->created_at->addSeconds($period)), $message);
+                throw new TooManyRequestsHttpException((int) CarbonImmutable::now()->diffInSeconds($previous->last()->created_at->addSeconds($period)), $message);
             }
         }
 
@@ -113,7 +113,7 @@ class InitiateBackupService
                 'server_id' => $server->id,
                 'uuid' => Uuid::uuid4()->toString(),
                 'name' => trim($name) ?: sprintf('Backup at %s', CarbonImmutable::now()->toDateTimeString()),
-                'ignored_files' => array_values($this->ignoredFiles ?? []),
+                'ignored_files' => array_values($this->ignoredFiles),
                 'disk' => $this->backupManager->getDefaultAdapter(),
                 'is_locked' => $this->isLocked,
             ], true, true);

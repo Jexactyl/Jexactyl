@@ -2,15 +2,14 @@
 
 namespace Everest\Tests\Unit\Helpers;
 
-use Everest\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class IsDigitTest extends TestCase
 {
     /**
      * Test the is_digit helper.
-     *
-     * @dataProvider helperDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('helperDataProvider')]
     public function testHelper($value, $response)
     {
         $this->assertSame($response, is_digit($value));
