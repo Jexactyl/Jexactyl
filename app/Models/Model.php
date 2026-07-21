@@ -32,6 +32,22 @@ abstract class Model extends IlluminateModel
 
     protected static ValidationFactory $validatorFactory;
 
+    /**
+     * Create a new factory instance for the model.
+     * Resolves the factory from the Database\Factories namespace.
+     */
+    protected static function newFactory()
+    {
+        $reflect = new \ReflectionClass(static::class);
+        $factoryClass = 'Database\\Factories\\' . $reflect->getShortName() . 'Factory';
+
+        if (class_exists($factoryClass)) {
+            return $factoryClass::new();
+        }
+
+        return null;
+    }
+
     public static array $validationRules = [];
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jexactyl\Enum;
+namespace Everest\Enum;
 
 enum JwtScope: string
 {

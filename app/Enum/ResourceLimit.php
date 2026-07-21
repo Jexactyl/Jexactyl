@@ -2,9 +2,9 @@
 
 namespace Everest\Enum;
 
+use Everest\Models\Server;
 use Illuminate\Http\Request;
 use Webmozart\Assert\Assert;
-use Everest\Models\Server;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Routing\Middleware\ThrottleRequests;

@@ -2,7 +2,7 @@
 
 namespace Everest\Tests\Unit\Helpers;
 
-use Everest\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class IsDigitTest extends TestCase
 {

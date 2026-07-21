@@ -100,7 +100,7 @@ class Mount extends Model implements Identifiable
     /**
      * Returns all eggs that have this mount assigned.
      *
-     * @return BelongsToMany<\Everest\Models\Egg, $this>
+     * @return BelongsToMany<Egg, $this>
      */
     public function eggs(): BelongsToMany
     {
@@ -110,7 +110,7 @@ class Mount extends Model implements Identifiable
     /**
      * Returns all nodes that have this mount assigned.
      *
-     * @return BelongsToMany<\Everest\Models\Node, $this>
+     * @return BelongsToMany<Node, $this>
      */
     public function nodes(): BelongsToMany
     {
@@ -120,7 +120,7 @@ class Mount extends Model implements Identifiable
     /**
      * Returns all servers that have this mount assigned.
      *
-     * @return BelongsToMany<\Everest\Models\Server, $this>
+     * @return BelongsToMany<Server, $this>
      */
     public function servers(): BelongsToMany
     {

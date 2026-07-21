@@ -35,7 +35,7 @@ class BackupRepository extends EloquentRepository
     /**
      * Returns a query filtering only non-failed backups for a specific server.
      *
-     * @return HasMany<\Everest\Models\Backup, \Everest\Models\Server>
+     * @return HasMany<Backup, Server>
      */
     public function getNonFailedBackups(Server $server): HasMany
     {

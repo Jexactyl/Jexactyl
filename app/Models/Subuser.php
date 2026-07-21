@@ -66,7 +66,7 @@ class Subuser extends Model
     /**
      * Gets the server associated with a subuser.
      *
-     * @return BelongsTo<\Everest\Models\Server, $this>
+     * @return BelongsTo<Server, $this>
      */
     public function server(): BelongsTo
     {
@@ -76,7 +76,7 @@ class Subuser extends Model
     /**
      * Gets the user associated with a subuser.
      *
-     * @return BelongsTo<\Everest\Models\User, $this>
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -86,7 +86,7 @@ class Subuser extends Model
     /**
      * Gets the permissions associated with a subuser.
      *
-     * @return HasMany<\Everest\Models\Permission, $this>
+     * @return HasMany<Permission, $this>
      */
     public function permissions(): HasMany
     {

@@ -2,8 +2,9 @@
 
 namespace Everest\Tests\Unit\Services\Acl\Api;
 
+use Mockery as m;
 use Everest\Models\ApiKey;
-use Everest\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Everest\Services\Acl\Api\AdminAcl;
 
 class AdminAclTest extends TestCase
@@ -22,7 +23,8 @@ class AdminAclTest extends TestCase
      */
     public function testCheck()
     {
-        $model = ApiKey::factory()->make(['r_servers' => AdminAcl::READ | AdminAcl::WRITE]);
+        $model = m::mock(ApiKey::class)->makePartial();
+        $model->r_servers = AdminAcl::READ | AdminAcl::WRITE;
 
         $this->assertTrue(AdminAcl::check($model, AdminAcl::RESOURCE_SERVERS, AdminAcl::WRITE));
     }

@@ -10,7 +10,7 @@ use Everest\Observers\UserObserver;
 use Everest\Observers\ServerObserver;
 use Everest\Observers\SubuserObserver;
 use Everest\Observers\EggVariableObserver;
-use Everest\Listeners\Auth\AuthenticationListener;
+use Everest\Listeners\AuthenticationListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

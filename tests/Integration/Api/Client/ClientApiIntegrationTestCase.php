@@ -41,13 +41,12 @@ abstract class ClientApiIntegrationTestCase extends IntegrationTestCase
      * to keep re-assigning variables.
      *
      * @param \Illuminate\Http\Response $response
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Testing\TestResponse
      */
-    protected function createTestResponse($response, $request)
+    protected function createTestResponse($response)
     {
-        return TestResponse::fromBaseResponse($response, $request);
+        return TestResponse::fromBaseResponse($response);
     }
 
     /**

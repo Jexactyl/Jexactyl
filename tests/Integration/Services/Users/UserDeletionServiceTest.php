@@ -58,7 +58,7 @@ class UserDeletionServiceTest extends IntegrationTestCase
 
         $this->assertModelMissing($user);
 
-        Bus::assertDispatchedTimes(RevokeSftpAccessJob::class);
+        Bus::assertDispatchedTimes(RevokeSftpAccessJob::class, 1);
         Bus::assertDispatched(fn (RevokeSftpAccessJob $job) => $job->user === $user->uuid && $job->target->is($server1->node));
     }
 }

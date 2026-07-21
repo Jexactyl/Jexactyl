@@ -1,6 +1,6 @@
 <?php
 
-namespace Everest\Listeners\Auth;
+namespace Everest\Listeners;
 
 use Everest\Facades\Activity;
 use Illuminate\Auth\Events\Failed;

@@ -2,7 +2,7 @@
 
 namespace Everest\Tests\Unit\Helpers;
 
-use Everest\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Everest\Traits\Commands\EnvironmentWriterTrait;
 
 class EnvironmentWriterTraitTest extends TestCase

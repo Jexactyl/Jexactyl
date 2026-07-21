@@ -38,6 +38,7 @@ class RevokeSftpAccessJobTest extends IntegrationTestCase
         });
 
         $job = \Mockery::mock(RevokeSftpAccessJob::class, ['user-1', $node])->makePartial();
+        $job->expects('attempts')->andReturn(1);
         $job->expects('release')->with(10);
 
         $job->handle($mock);

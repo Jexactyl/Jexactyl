@@ -115,7 +115,7 @@ class Allocation extends Model
     /**
      * Gets information for the server associated with this allocation.
      *
-     * @return BelongsTo<\Everest\Models\Server, $this>
+     * @return BelongsTo<Server, $this>
      */
     public function server(): BelongsTo
     {
@@ -125,7 +125,7 @@ class Allocation extends Model
     /**
      * Return the Node model associated with this allocation.
      *
-     * @return BelongsTo<\Everest\Models\Node, $this>
+     * @return BelongsTo<Node, $this>
      */
     public function node(): BelongsTo
     {

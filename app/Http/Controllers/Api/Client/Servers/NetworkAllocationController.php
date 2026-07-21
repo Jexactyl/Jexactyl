@@ -23,7 +23,6 @@ class NetworkAllocationController extends ClientApiController
      * NetworkAllocationController constructor.
      */
     public function __construct(
-        protected readonly ConnectionInterface $connection,
         private FindAssignableAllocationService $assignableAllocationService,
         private ServerRepository $serverRepository,
     ) {

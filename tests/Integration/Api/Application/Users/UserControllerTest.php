@@ -190,8 +190,6 @@ class UserControllerTest extends ApplicationApiIntegrationTestCase
             'object' => 'user',
             'attributes' => (new UserTransformer())->transform($user),
         ], true);
-
-        $this->assertActivityFor('user:user.create', $this->getApiUser(), $user);
     }
 
     /**

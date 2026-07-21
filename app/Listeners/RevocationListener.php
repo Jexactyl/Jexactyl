@@ -5,9 +5,9 @@ namespace Everest\Listeners;
 use Everest\Models\Node;
 use Everest\Events\User\Deleting;
 use Everest\Jobs\RevokeSftpAccessJob;
+use Everest\Events\User\PasswordChanged;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
-use Everest\Events\User\PasswordChanged;
 use Everest\Extensions\Illuminate\Events\Contracts\SubscribesToEvents;
 
 class RevocationListener implements SubscribesToEvents

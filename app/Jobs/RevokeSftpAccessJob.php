@@ -4,7 +4,7 @@ namespace Everest\Jobs;
 
 use Everest\Models\Node;
 use Everest\Models\Server;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Queue\Attributes\WithoutRelations;

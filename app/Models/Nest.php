@@ -49,7 +49,7 @@ class Nest extends Model
     /**
      * Gets all eggs associated with this service.
      *
-     * @return HasMany<\Everest\Models\Egg, $this>
+     * @return HasMany<Egg, $this>
      */
     public function eggs(): HasMany
     {
@@ -59,7 +59,7 @@ class Nest extends Model
     /**
      * Gets all servers associated with this nest.
      *
-     * @return HasMany<\Everest\Models\Server, $this>
+     * @return HasMany<Server, $this>
      */
     public function servers(): HasMany
     {

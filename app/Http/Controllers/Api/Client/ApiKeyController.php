@@ -9,6 +9,7 @@ use Everest\Exceptions\DisplayException;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
 use Everest\Transformers\Api\Client\ApiKeyTransformer;
 use Everest\Http\Requests\Api\Client\Account\StoreApiKeyRequest;
+use Illuminate\Support\Facades\DB;
 
 class ApiKeyController extends ClientApiController
 {

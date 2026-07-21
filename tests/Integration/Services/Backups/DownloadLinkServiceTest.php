@@ -2,15 +2,15 @@
 
 namespace Everest\Tests\Integration\Services\Backups;
 
-use Carbon\CarbonImmutable;
 use Everest\Enum\JwtScope;
 use Everest\Models\Backup;
+use Carbon\CarbonImmutable;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Everest\Services\Backups\DownloadLinkService;
 use Everest\Tests\Integration\IntegrationTestCase;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
 class DownloadLinkServiceTest extends IntegrationTestCase
 {
@@ -30,13 +30,12 @@ class DownloadLinkServiceTest extends IntegrationTestCase
         $this->assertStringStartsWith($prefix = $server->node->getConnectionAddress() . '/download/backup?token=', $url);
 
         $config = Configuration::forSymmetricSigner(new Sha256(), $key = InMemory::plainText($server->node->getDecryptedKey()));
-        $config = $config->withValidationConstraints(new SignedWith(new Sha256(), $key));
 
         /** @var \Lcobucci\JWT\Token\Plain $token */
         $token = $config->parser()->parse(substr($url, strlen($prefix)));
 
         $this->assertTrue(
-            $config->validator()->validate($token, ...$config->validationConstraints()),
+            $config->validator()->validate($token, new SignedWith(new Sha256(), $key)),
             'Failed to validate that the JWT data returned was signed using the Node\'s secret key.'
         );
 

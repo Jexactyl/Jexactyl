@@ -67,7 +67,6 @@ class CreateServerSubuserTest extends ClientApiIntegrationTestCase
         /** @var User $subuser */
         $subuser = User::query()->where('email', $email)->firstOrFail();
 
-        $this->assertActivityLogged('user:user.create');
         $this->assertDatabaseHas('activity_logs', [
             'event' => 'user:user.create',
             'actor_type' => $user->getMorphClass(),

@@ -5,7 +5,7 @@ namespace Everest\Services\Backups;
 use Everest\Models\User;
 use Everest\Models\Backup;
 use Carbon\CarbonImmutable;
-use Jexactyl\Enum\JwtScope;
+use Everest\Enum\JwtScope;
 use Everest\Services\Nodes\NodeJWTService;
 use Everest\Extensions\Backups\BackupManager;
 

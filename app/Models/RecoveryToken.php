@@ -27,7 +27,7 @@ class RecoveryToken extends Model
     ];
 
     /**
-     * @return BelongsTo<\Everest\Models\User, $this>
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {

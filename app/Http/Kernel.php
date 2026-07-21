@@ -13,6 +13,7 @@ use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Middleware\TrustProxies;
 use Everest\Http\Middleware\LanguageMiddleware;
 use Illuminate\Session\Middleware\StartSession;
+use Everest\Http\Middleware\SetSecurityHeaders;
 use Everest\Http\Middleware\Activity\TrackAPIKey;
 use Everest\Http\Middleware\MaintenanceMiddleware;
 use Everest\Http\Middleware\EnsureStatefulRequests;

@@ -29,7 +29,7 @@ class DatabasePasswordServiceTest extends IntegrationTestCase
     public function testDatabasePasswordCanBeRotated()
     {
         $server = $this->createServerModel();
-        $host = DatabaseHost::factory()->create(['node_id' => $server->node_id]);
+        $host = DatabaseHost::factory()->create();
 
         $database = Database::factory()->create([
             'server_id' => $server->id,

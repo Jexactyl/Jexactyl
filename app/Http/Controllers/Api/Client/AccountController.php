@@ -11,6 +11,8 @@ use Everest\Transformers\Api\Client\AccountTransformer;
 use Everest\Http\Requests\Api\Client\Account\SetupUserRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
+use Illuminate\Support\Facades\RateLimiter;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class AccountController extends ClientApiController
 {

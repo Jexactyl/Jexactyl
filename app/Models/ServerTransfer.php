@@ -75,7 +75,7 @@ class ServerTransfer extends Model
     /**
      * Gets the server associated with a server transfer.
      *
-     * @return BelongsTo<\Everest\Models\Server, $this>
+     * @return BelongsTo<Server, $this>
      */
     public function server(): BelongsTo
     {
@@ -85,7 +85,7 @@ class ServerTransfer extends Model
     /**
      * Gets the source node associated with a server transfer.
      *
-     * @return HasOne<\Everest\Models\Node, $this>
+     * @return HasOne<Node, $this>
      */
     public function oldNode(): HasOne
     {
@@ -95,7 +95,7 @@ class ServerTransfer extends Model
     /**
      * Gets the target node associated with a server transfer.
      *
-     * @return HasOne<\Everest\Models\Node, $this>
+     * @return HasOne<Node, $this>
      */
     public function newNode(): HasOne
     {

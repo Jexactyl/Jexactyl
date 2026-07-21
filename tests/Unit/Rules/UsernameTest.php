@@ -3,7 +3,7 @@
 namespace Everest\Tests\Unit\Rules;
 
 use Everest\Rules\Username;
-use Everest\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class UsernameTest extends TestCase
 {
