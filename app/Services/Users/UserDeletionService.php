@@ -27,15 +27,16 @@ class UserDeletionService
      */
     public function handle(int|User $user): void
     {
-        if ($user instanceof User) {
-            $user = $user->id;
+        if (!$user instanceof User) {
+            /** @var User $user */
+            $user = $this->repository->find($user);
         }
 
-        $servers = $this->serverRepository->setColumns('id')->findCountWhere([['owner_id', '=', $user]]);
+        $servers = $this->serverRepository->setColumns('id')->findCountWhere([['owner_id', '=', $user->id]]);
         if ($servers > 0) {
             throw new DisplayException($this->translator->get('admin/user.exceptions.user_has_servers'));
         }
 
-        $this->repository->delete($user);
+        $user->delete();
     }
 }

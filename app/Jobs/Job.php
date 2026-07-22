@@ -3,8 +3,8 @@
 namespace Everest\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 
 abstract class Job
 {

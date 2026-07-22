@@ -5,7 +5,10 @@ namespace Everest\Jobs;
 use Everest\Models\Node;
 use Everest\Models\Server;
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Illuminate\Queue\Attributes\DeleteWhenMissingModels;
@@ -18,7 +21,10 @@ use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 #[DeleteWhenMissingModels]
 class RevokeSftpAccessJob implements ShouldQueue, ShouldBeUnique
 {
+    use Dispatchable;
+    use InteractsWithQueue;
     use Queueable;
+    use SerializesModels;
 
     public int $tries = 3;
 
