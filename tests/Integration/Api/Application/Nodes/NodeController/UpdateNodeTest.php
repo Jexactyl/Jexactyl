@@ -30,8 +30,10 @@ class UpdateNodeTest extends ApplicationApiIntegrationTestCase
             'memory_overallocate' => 10,
             'disk' => 200,
             'disk_overallocate' => 20,
-            'daemon_sftp' => 1101,
-            'daemon_listen' => 1102,
+            'listen_port_http' => 1101,
+            'listen_port_sftp' => 1102,
+            'public_port_http' => 1103,
+            'public_port_sftp' => 1104,
         ])
             ->assertOk()
             ->assertJsonPath('object', 'node')
@@ -43,7 +45,9 @@ class UpdateNodeTest extends ApplicationApiIntegrationTestCase
             ->assertJsonPath('attributes.memory_overallocate', 10)
             ->assertJsonPath('attributes.disk', 200)
             ->assertJsonPath('attributes.disk_overallocate', 20)
-            ->assertJsonPath('attributes.daemon_sftp', 1101)
-            ->assertJsonPath('attributes.daemon_listen', 1102);
+            ->assertJsonPath('attributes.listen_port_http', 1101)
+            ->assertJsonPath('attributes.listen_port_sftp', 1102)
+            ->assertJsonPath('attributes.public_port_http', 1103)
+            ->assertJsonPath('attributes.public_port_sftp', 1104);
     }
 }
