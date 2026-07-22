@@ -2,7 +2,7 @@
 
 namespace Everest\Tests\Unit\Http\Middleware;
 
-use PHPUnit\Framework\TestCase;
+use Everest\Tests\TestCase;
 use Everest\Tests\Traits\Http\RequestMockHelpers;
 use Everest\Tests\Traits\Http\MocksMiddlewareClosure;
 use Everest\Tests\Assertions\MiddlewareAttributeAssertionsTrait;
