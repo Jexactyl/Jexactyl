@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@/elements/Modal';
 import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
@@ -11,9 +11,9 @@ const HytaleOauthRequireFeature = () => {
     const [visible, setVisible] = useState(false);
     const [link, setLink] = useState('');
 
-    const status = ServerContext.useStoreState((state) => state.status.value);
+    const status = ServerContext.useStoreState(state => state.status.value);
     const { clearFlashes } = useFlash();
-    const { connected, instance } = ServerContext.useStoreState((state) => state.socket);
+    const { connected, instance } = ServerContext.useStoreState(state => state.socket);
 
     useEffect(() => {
         if (!connected || !instance || status === 'running') return;

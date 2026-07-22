@@ -4,9 +4,9 @@ namespace Everest\Services\Nodes;
 
 use Everest\Models\Node;
 use Everest\Models\User;
+use Everest\Enum\JwtScope;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
-use Everest\Enum\JwtScope;
 use Lcobucci\JWT\Token\Plain;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;

@@ -3,9 +3,9 @@
 namespace Everest\Services\Backups;
 
 use Everest\Models\User;
+use Everest\Enum\JwtScope;
 use Everest\Models\Backup;
 use Carbon\CarbonImmutable;
-use Everest\Enum\JwtScope;
 use Everest\Services\Nodes\NodeJWTService;
 use Everest\Extensions\Backups\BackupManager;
 
