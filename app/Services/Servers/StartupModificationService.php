@@ -82,7 +82,7 @@ class StartupModificationService
         $server->fill([
             'startup' => $data['startup'] ?? $server->startup,
             'skip_scripts' => $data['skip_scripts'] ?? isset($data['skip_scripts']),
-            'image' => $data['docker_image'] ?? $server->image,
+            'image' => $data['image'] ?? $server->image,
         ])->save();
     }
 }
