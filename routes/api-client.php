@@ -73,20 +73,20 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
 
     Route::prefix('/billing')->middleware([BillingEnabled::class])->group(function () {
         // Data for storefront checkout
-        Route::post('/nodes/{product:id}', [Client\Billing\NodesController::class, 'index']);
-        Route::get('/categories', [Client\Billing\CategoryController::class, 'index']);
+        Route::post('/nodes/{product:id}', [Client\Billing\StoreController::class, 'nodes']);
+        Route::get('/categories', [Client\Billing\StoreController::class, 'categories']);
 
         // Discount code checking
         Route::post('/discount-codes', [Client\Billing\DiscountCodeController::class, 'index']);
 
         // Viewing of available categories/products
-        Route::get('/categories/{id}', [Client\Billing\ProductController::class, 'index']);
-        Route::get('/products/{id}', [Client\Billing\ProductController::class, 'view']);
-        Route::get('/products/{id}/variables', [Client\Billing\EggController::class, 'index']);
+        Route::get('/categories/{category:id}', [Client\Billing\StoreController::class, 'products']);
+        Route::get('/products/{product:id}', [Client\Billing\StoreController::class, 'product']);
+        Route::get('/products/{egg:id}/variables', [Client\Billing\StoreController::class, 'variables']);
 
         // View existing billing orders that have already been created
         Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
-        Route::get('/orders/{id}', [Client\Billing\OrderController::class, 'view']);
+        Route::get('/orders/{order:id}', [Client\Billing\OrderController::class, 'view']);
 
         // Billing controllers and services
         Route::post('/stripe/create', [Client\Billing\StripeController::class, 'create']);
