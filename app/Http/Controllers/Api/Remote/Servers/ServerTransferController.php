@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Remote\Servers;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Everest\Models\Allocation;
 use Everest\Models\ServerTransfer;
@@ -12,6 +13,7 @@ use Everest\Repositories\Wings\DaemonServerRepository;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ServerTransferController extends ApplicationApiController
 {
@@ -30,12 +32,19 @@ class ServerTransferController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function failure(string $uuid): Response
+    public function failure(Request $request, string $uuid): Response
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
         $transfer = $server->transfer;
         if (is_null($transfer)) {
             throw new ConflictHttpException('Server is not being transferred.');
+        }
+
+        if ($transfer->new_node !== $node->id) {
+            throw new NotFoundHttpException();
         }
 
         return $this->processFailedTransfer($transfer);
@@ -46,12 +55,19 @@ class ServerTransferController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function success(string $uuid): Response
+    public function success(Request $request, string $uuid): Response
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
         $transfer = $server->transfer;
         if (is_null($transfer)) {
             throw new ConflictHttpException('Server is not being transferred.');
+        }
+
+        if ($transfer->new_node !== $node->id) {
+            throw new NotFoundHttpException();
         }
 
         /** @var \Everest\Models\Server $server */

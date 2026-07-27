@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Http\Requests\Api\Remote\InstallationDataRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ServerInstallController extends ApplicationApiController
 {
@@ -27,7 +28,14 @@ class ServerInstallController extends ApplicationApiController
      */
     public function index(Request $request, string $uuid): JsonResponse
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
+        if ($server->node_id !== $node->id) {
+            throw new NotFoundHttpException();
+        }
+
         $egg = $server->egg;
 
         return new JsonResponse([
@@ -45,7 +53,14 @@ class ServerInstallController extends ApplicationApiController
      */
     public function store(InstallationDataRequest $request, string $uuid): Response
     {
+        /** @var \Everest\Models\Node $node */
+        $node = $request->attributes->get('node');
+
         $server = $this->repository->getByUuid($uuid);
+        if ($server->node_id !== $node->id) {
+            throw new NotFoundHttpException();
+        }
+
         $status = null;
 
         // Make sure the type of failure is accurate
