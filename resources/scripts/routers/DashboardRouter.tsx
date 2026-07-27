@@ -1,8 +1,10 @@
 import { Suspense, useEffect, useState } from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { NotFound } from '@/elements/ScreenBlock';
 import Spinner from '@/elements/Spinner';
 import routes from '@/routers/routes';
+import { getTransitionKey } from '@/routers/routes/utils';
 import { useStoreState } from '@/state/hooks';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import Sidebar from '@/elements/Sidebar';
@@ -14,8 +16,10 @@ import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
 import NavigationBar from '@/elements/NavigationBar';
 import DashboardContainer from '@account/DashboardContainer';
+import PageTransition from '@/elements/transitions/PageTransition';
 
 function DashboardRouter() {
+    const location = useLocation();
     const user = useStoreState(s => s.user.data!);
     const { name, logo } = useStoreState(s => s.settings.data!);
     const theme = useStoreState(state => state.theme.data!);
@@ -57,7 +61,7 @@ function DashboardRouter() {
             <Sidebar className={'flex-none'} $collapsed={collapsed} theme={theme}>
                 <div
                     className={
-                        'h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer'
+                        'h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95'
                     }
                     onClick={() => setCollapsed(!collapsed)}
                 >
@@ -89,8 +93,8 @@ function DashboardRouter() {
                     {!collapsed && (
                         <>
                             {links?.map(link => (
-                                <a key={link.id} href={link.url} target={'_blank'} rel={'noreferrer'}>
-                                    <ExternalLinkIcon />
+                                <a key={link.id} href={link.url} target={'_blank'} rel={'noreferrer'} className={'group'}>
+                                    <ExternalLinkIcon className={'transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5'} />
                                     <span>{link.name}</span>
                                 </a>
                             ))}
@@ -108,7 +112,7 @@ function DashboardRouter() {
                     </NavLink>
                 </span>
                 <Sidebar.User>
-                    <span className="flex items-center">
+                    <span className="flex items-center rounded-full ring-2 ring-transparent transition-all duration-200 hover:ring-white/10 hover:scale-105">
                         <Avatar.User />
                     </span>
                     <div className={'flex flex-col ml-3'}>
@@ -126,19 +130,50 @@ function DashboardRouter() {
             <div className={'flex-1 overflow-x-hidden'}>
                 <NavigationBar />
                 <Suspense fallback={<Spinner centered />}>
-                    <Routes>
-                        <Route path="" element={<DashboardContainer />} />
-                        {routes.account
-                            .filter(route => !route.condition || route.condition(flags))
-                            .map(({ route, component: Component }) => (
-                                <Route
-                                    key={route}
-                                    path={`/account/${route}`.replace(/\/$/, '')}
-                                    element={<Component />}
-                                />
-                            ))}
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
+                    <AnimatePresence mode={'wait'} initial={false}>
+                        <Routes
+                            location={location}
+                            key={getTransitionKey(
+                                [
+                                    '/',
+                                    ...routes.account
+                                        .filter(route => !route.condition || route.condition(flags))
+                                        .map(({ route }) => `/account/${route}`.replace(/\/$/, '')),
+                                ],
+                                location.pathname,
+                            )}
+                        >
+                            <Route
+                                path=""
+                                element={
+                                    <PageTransition>
+                                        <DashboardContainer />
+                                    </PageTransition>
+                                }
+                            />
+                            {routes.account
+                                .filter(route => !route.condition || route.condition(flags))
+                                .map(({ route, component: Component }) => (
+                                    <Route
+                                        key={route}
+                                        path={`/account/${route}`.replace(/\/$/, '')}
+                                        element={
+                                            <PageTransition>
+                                                <Component />
+                                            </PageTransition>
+                                        }
+                                    />
+                                ))}
+                            <Route
+                                path="*"
+                                element={
+                                    <PageTransition>
+                                        <NotFound />
+                                    </PageTransition>
+                                }
+                            />
+                        </Routes>
+                    </AnimatePresence>
                 </Suspense>
             </div>
         </div>

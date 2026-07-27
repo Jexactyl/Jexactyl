@@ -1,6 +1,8 @@
 import TransferListener from '@server/TransferListener';
 import { Fragment, useEffect, useState } from 'react';
 import { NavLink, Route, Routes, useParams } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from '@/elements/transitions/PageTransition';
 import WebsocketHandler from '@server/WebsocketHandler';
 import { ServerContext, ServerStatus } from '@/state/server';
 import Spinner from '@/elements/Spinner';
@@ -14,6 +16,7 @@ import ConflictStateRenderer from '@server/ConflictStateRenderer';
 import MobileSidebar from '@/elements/MobileSidebar';
 import PermissionRoute from '@/elements/PermissionRoute';
 import routes from '@/routers/routes';
+import { getTransitionKey } from '@/routers/routes/utils';
 import Sidebar from '@/elements/Sidebar';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import { CogIcon, DesktopComputerIcon, PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
@@ -114,7 +117,7 @@ function ServerRouter() {
                 <Sidebar className={'flex-none'} $collapsed={collapsed} theme={theme}>
                     <div
                         className={
-                            'h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer'
+                            'h-16 w-full flex flex-col items-center justify-center mt-1 mb-3 select-none cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95'
                         }
                         onClick={() => setCollapsed(!collapsed)}
                     >
@@ -193,23 +196,42 @@ function ServerRouter() {
                             <ConflictStateRenderer />
                         ) : (
                             <ErrorBoundary>
-                                <Routes location={location}>
-                                    {routes.server.map(({ route, permission, component: Component }) => (
+                                <AnimatePresence mode={'wait'} initial={false}>
+                                    <Routes
+                                        location={location}
+                                        key={getTransitionKey(
+                                            routes.server.map(({ route }) =>
+                                                `/server/${params.id}/${route}`.replace(/\/$/, ''),
+                                            ),
+                                            location.pathname,
+                                        )}
+                                    >
+                                        {routes.server.map(({ route, permission, component: Component }) => (
+                                            <Route
+                                                key={route}
+                                                path={route}
+                                                element={
+                                                    <PermissionRoute permission={permission}>
+                                                        <PageTransition>
+                                                            <Spinner.Suspense>
+                                                                <Component />
+                                                            </Spinner.Suspense>
+                                                        </PageTransition>
+                                                    </PermissionRoute>
+                                                }
+                                            />
+                                        ))}
+
                                         <Route
-                                            key={route}
-                                            path={route}
+                                            path="*"
                                             element={
-                                                <PermissionRoute permission={permission}>
-                                                    <Spinner.Suspense>
-                                                        <Component />
-                                                    </Spinner.Suspense>
-                                                </PermissionRoute>
+                                                <PageTransition>
+                                                    <NotFound />
+                                                </PageTransition>
                                             }
                                         />
-                                    ))}
-
-                                    <Route path="*" element={<NotFound />} />
-                                </Routes>
+                                    </Routes>
+                                </AnimatePresence>
                             </ErrorBoundary>
                         )}
                     </div>

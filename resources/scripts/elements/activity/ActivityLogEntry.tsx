@@ -47,7 +47,9 @@ export default ({ activity, children }: Props) => {
 
     return (
         <div
-            className={'group grid grid-cols-10 py-4 last:rounded-b last:border-0 border-b-2 border-black/50'}
+            className={
+                'group grid grid-cols-10 py-4 last:rounded-b-xl last:border-0 border-b border-black/40 transition-colors duration-200 hover:bg-white/[0.02]'
+            }
             style={{ backgroundColor: colors.secondary }}
         >
             <div className={'hidden select-none items-center justify-center 2xl:col-span-1 2xl:flex'}>

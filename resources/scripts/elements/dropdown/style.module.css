@@ -23,12 +23,12 @@
   }
 
   & .items_container {
-    @apply absolute right-0 mt-2 origin-top-right bg-neutral-900 rounded z-10;
+    @apply absolute right-0 mt-2 origin-top-right bg-neutral-900/95 backdrop-blur-md rounded-xl shadow-xl ring-1 ring-white/10 z-10;
   }
 }
 
 .menu_item {
-  @apply flex items-center rounded w-full px-2 py-2;
+  @apply flex items-center rounded-lg w-full px-2 py-2 transition-colors duration-150;
 
   & svg {
     @apply w-4 h-4 mr-4 text-neutral-300;

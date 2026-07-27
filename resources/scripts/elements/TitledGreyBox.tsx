@@ -17,10 +17,14 @@ const TitledGreyBox = ({ icon, title, children, className }: Props) => {
     const { colors } = useStoreState(state => state.theme.data!);
 
     return (
-        <div css={tw`shadow-md`} style={{ backgroundColor: colors.secondary }} className={className}>
-            <div css={tw`p-3 border-b border-black`} style={{ backgroundColor: colors.headers }}>
+        <div
+            css={tw`rounded-xl shadow-lg ring-1 ring-white/5 overflow-hidden transition-shadow duration-300 hover:shadow-xl`}
+            style={{ backgroundColor: colors.secondary }}
+            className={className}
+        >
+            <div css={tw`p-3 border-b border-black/40 backdrop-blur-sm`} style={{ backgroundColor: colors.headers }}>
                 {typeof title === 'string' ? (
-                    <p css={tw`text-sm font-semibold`}>
+                    <p css={tw`text-sm font-semibold tracking-wide`}>
                         {icon && <FontAwesomeIcon icon={icon} css={tw`mr-2 text-neutral-300`} />}
                         {title}
                     </p>

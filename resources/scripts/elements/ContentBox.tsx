@@ -19,13 +19,16 @@ const ContentBox = ({ title, borderColor, showFlashes, showLoadingOverlay, child
 
     return (
         <div {...props}>
-            {title && <h2 css={tw`text-neutral-300 mb-4 px-4 text-2xl`}>{title}</h2>}
+            {title && <h2 css={tw`text-neutral-300 mb-4 px-4 text-2xl font-header`}>{title}</h2>}
             {showFlashes && (
                 <FlashMessageRender byKey={typeof showFlashes === 'string' ? showFlashes : undefined} css={tw`mb-4`} />
             )}
             <div
                 style={{ backgroundColor: secondary }}
-                css={[tw`p-4 rounded shadow-lg relative`, !!borderColor && tw`border-t-4`]}
+                css={[
+                    tw`p-4 rounded-xl shadow-lg ring-1 ring-white/5 relative transition-shadow duration-300`,
+                    !!borderColor && tw`border-t-4`,
+                ]}
             >
                 <SpinnerOverlay visible={showLoadingOverlay || false} />
                 {children}

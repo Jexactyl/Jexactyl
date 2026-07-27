@@ -1,5 +1,6 @@
 import { useStoreState } from 'easy-peasy';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Avatar from '@/elements/Avatar';
 import Sidebar from '@/elements/Sidebar';
 import AdminIndicators from '@admin/AdminIndicators';
@@ -8,12 +9,15 @@ import MobileSidebar from '@/elements/MobileSidebar';
 import Pill from '@/elements/Pill';
 import ErrorBoundary from '@/elements/ErrorBoundary';
 import routes from './routes';
+import { getTransitionKey } from './routes/utils';
 import Spinner from '@/elements/Spinner';
 import { NotFound } from '@/elements/ScreenBlock';
 import { PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
+import PageTransition from '@/elements/transitions/PageTransition';
 
 function AdminRouter() {
+    const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
     const user = useStoreState(state => state.user.data!);
     const settings = useStoreState(state => state.settings.data!);
@@ -42,7 +46,9 @@ function AdminRouter() {
             </MobileSidebar>
             <Sidebar className={'flex-none'} $collapsed={collapsed} theme={theme}>
                 <div
-                    className={'h-16 w-full flex flex-col items-center justify-center my-6 select-none cursor-pointer'}
+                    className={
+                        'h-16 w-full flex flex-col items-center justify-center my-6 select-none cursor-pointer transition-transform duration-200 hover:scale-105 active:scale-95'
+                    }
                     onClick={() => setCollapsed(!collapsed)}
                 >
                     {!collapsed ? (
@@ -83,7 +89,7 @@ function AdminRouter() {
                     })}
                 </Sidebar.Wrapper>
                 <Sidebar.User className={'mt-auto py-3'}>
-                    <span className="flex items-center">
+                    <span className="flex items-center rounded-full ring-2 ring-transparent transition-all duration-200 hover:ring-white/10 hover:scale-105">
                         <Avatar.User />
                     </span>
                     <div className={'flex flex-col ml-3'}>
@@ -102,20 +108,37 @@ function AdminRouter() {
             <div className={'flex-1 overflow-x-hidden px-6 pt-6 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}>
                 <div className={'w-full flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
                     <ErrorBoundary>
-                        <Routes>
-                            {routes.admin.map(({ route, component: Component }) => (
+                        <AnimatePresence mode={'wait'} initial={false}>
+                            <Routes
+                                location={location}
+                                key={getTransitionKey(
+                                    routes.admin.map(({ route }) => `/admin/${route}`.replace(/\/$/, '')),
+                                    location.pathname,
+                                )}
+                            >
+                                {routes.admin.map(({ route, component: Component }) => (
+                                    <Route
+                                        key={route}
+                                        path={route}
+                                        element={
+                                            <PageTransition>
+                                                <Spinner.Suspense>
+                                                    <Component />
+                                                </Spinner.Suspense>
+                                            </PageTransition>
+                                        }
+                                    />
+                                ))}
                                 <Route
-                                    key={route}
-                                    path={route}
+                                    path={'*'}
                                     element={
-                                        <Spinner.Suspense>
-                                            <Component />
-                                        </Spinner.Suspense>
+                                        <PageTransition>
+                                            <NotFound />
+                                        </PageTransition>
                                     }
                                 />
-                            ))}
-                            <Route path={'*'} element={<NotFound />} />
-                        </Routes>
+                            </Routes>
+                        </AnimatePresence>
                     </ErrorBoundary>
                 </div>
             </div>

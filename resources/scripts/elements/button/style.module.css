@@ -1,6 +1,7 @@
 .button {
-    @apply px-4 py-2 inline-flex items-center justify-center;
-    @apply rounded text-base font-semibold transition-all duration-300;
+    @apply px-4 py-2 inline-flex items-center justify-center gap-2;
+    @apply rounded-lg text-base font-semibold transition-all duration-200 ease-out;
+    @apply shadow-sm hover:shadow-md active:scale-[0.97];
     @apply focus:ring-[3px] focus:ring-offset-2 focus:ring-offset-slate-700 focus:ring-opacity-50;
 
     /* Sizing Controls */
@@ -13,7 +14,7 @@
     }
 
     &.secondary {
-        @apply text-slate-50 bg-transparent;
+        @apply text-slate-50 bg-transparent shadow-none;
 
         &:disabled {
             background: transparent !important;
@@ -21,11 +22,11 @@
     }
 
     &:disabled {
-        @apply cursor-not-allowed;
+        @apply cursor-not-allowed active:scale-100 shadow-none;
     }
 
     &.square {
-        @apply p-0 w-12 h-12;
+        @apply p-0 w-12 h-12 rounded-full;
 
         &.small {
             @apply w-8 h-8;
@@ -34,24 +35,25 @@
 }
 
 .primary {
-    @apply bg-green-600 text-green-50;
-    @apply hover:bg-green-500 active:bg-green-500 focus:ring-green-400 focus:ring-opacity-75;
+    @apply bg-gradient-to-b from-green-500 to-green-600 text-green-50;
+    @apply hover:from-green-400 hover:to-green-500 active:from-green-500 active:to-green-600;
+    @apply focus:ring-green-400 focus:ring-opacity-75;
 
     &.secondary {
-        @apply hover:bg-green-600 active:bg-green-600;
+        @apply bg-none hover:bg-green-600/20 active:bg-green-600/30;
     }
 
     &:disabled {
-        @apply bg-green-500/50 text-green-200/50;
+        @apply bg-gradient-to-b from-green-500/50 to-green-600/50 text-green-200/50;
     }
 }
 
 .text {
-    @apply bg-slate-500 text-slate-50;
-    @apply hover:bg-slate-400 active:bg-slate-400 focus:ring-slate-300 focus:ring-opacity-50;
+    @apply bg-slate-600/70 backdrop-blur-sm text-slate-50 border border-white/5;
+    @apply hover:bg-slate-500/80 active:bg-slate-500 focus:ring-slate-300 focus:ring-opacity-50;
 
     &.secondary {
-        @apply hover:bg-slate-500 active:bg-slate-500;
+        @apply bg-none border-none hover:bg-slate-500/40 active:bg-slate-500/50;
     }
 
     &:disabled {
@@ -60,11 +62,12 @@
 }
 
 .dark {
-    @apply bg-slate-800 text-slate-50;
-    @apply hover:bg-slate-700 active:bg-slate-600 focus:ring-slate-600 focus:ring-opacity-50;
+    @apply bg-gradient-to-b from-slate-800 to-slate-900 text-slate-50 border border-white/5;
+    @apply hover:from-slate-700 hover:to-slate-800 active:from-slate-800 active:to-slate-900;
+    @apply focus:ring-slate-600 focus:ring-opacity-50;
 
     &.secondary {
-        @apply hover:bg-slate-700 active:bg-slate-600;
+        @apply bg-none border-none hover:bg-slate-700/40 active:bg-slate-700/60;
     }
 
     &:disabled {
@@ -73,53 +76,57 @@
 }
 
 .danger {
-    @apply bg-red-600 text-slate-50;
-    @apply hover:bg-red-500 active:bg-red-500 focus:ring-red-400 focus:ring-opacity-75;
+    @apply bg-gradient-to-b from-red-500 to-red-600 text-slate-50;
+    @apply hover:from-red-400 hover:to-red-500 active:from-red-500 active:to-red-600;
+    @apply focus:ring-red-400 focus:ring-opacity-75;
 
     &.secondary {
-        @apply hover:bg-red-600 active:bg-red-600;
+        @apply bg-none hover:bg-red-600/20 active:bg-red-600/30;
     }
 
     &:disabled {
-        @apply bg-red-600/50 text-red-50/50;
+        @apply bg-gradient-to-b from-red-600/50 to-red-600/50 text-red-50/50;
     }
 }
 
 .info {
-    @apply bg-blue-600 text-slate-50;
-    @apply hover:bg-blue-500 active:bg-blue-500 focus:ring-blue-400 focus:ring-opacity-75;
+    @apply bg-gradient-to-b from-blue-500 to-blue-600 text-slate-50;
+    @apply hover:from-blue-400 hover:to-blue-500 active:from-blue-500 active:to-blue-600;
+    @apply focus:ring-blue-400 focus:ring-opacity-75;
 
     &.secondary {
-        @apply hover:bg-blue-600 active:bg-blue-600;
+        @apply bg-none hover:bg-blue-600/20 active:bg-blue-600/30;
     }
 
     &:disabled {
-        @apply bg-blue-600/50 text-blue-50/50;
+        @apply bg-gradient-to-b from-blue-600/50 to-blue-600/50 text-blue-50/50;
     }
 }
 
 .warn {
-    @apply bg-yellow-600 text-slate-50;
-    @apply hover:bg-yellow-500 active:bg-yellow-500 focus:ring-yellow-400 focus:ring-opacity-75;
+    @apply bg-gradient-to-b from-yellow-500 to-yellow-600 text-slate-50;
+    @apply hover:from-yellow-400 hover:to-yellow-500 active:from-yellow-500 active:to-yellow-600;
+    @apply focus:ring-yellow-400 focus:ring-opacity-75;
 
     &.secondary {
-        @apply hover:bg-yellow-600 active:bg-yellow-600;
+        @apply bg-none hover:bg-yellow-600/20 active:bg-yellow-600/30;
     }
 
     &:disabled {
-        @apply bg-yellow-600/50 text-yellow-50/50;
+        @apply bg-gradient-to-b from-yellow-600/50 to-yellow-600/50 text-yellow-50/50;
     }
 }
 
 .success {
-    @apply bg-green-600 text-slate-50;
-    @apply hover:bg-green-500 active:bg-green-500 focus:ring-green-400 focus:ring-opacity-75;
+    @apply bg-gradient-to-b from-green-500 to-green-600 text-slate-50;
+    @apply hover:from-green-400 hover:to-green-500 active:from-green-500 active:to-green-600;
+    @apply focus:ring-green-400 focus:ring-opacity-75;
 
     &.secondary {
-        @apply hover:bg-green-600 active:bg-green-600;
+        @apply bg-none hover:bg-green-600/20 active:bg-green-600/30;
     }
 
     &:disabled {
-        @apply bg-green-600/50 text-green-50/50;
+        @apply bg-gradient-to-b from-green-600/50 to-green-600/50 text-green-50/50;
     }
 }

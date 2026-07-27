@@ -44,7 +44,7 @@ const AdminBox = ({
     return (
         <div
             className={className}
-            css={tw`relative rounded shadow-md transition duration-300`}
+            css={tw`relative rounded-xl shadow-lg hover:shadow-xl ring-1 ring-white/5 transition-all duration-300 overflow-hidden`}
             style={{ backgroundColor: theme.colors.secondary }}
         >
             <SpinnerOverlay visible={isLoading || false} />
@@ -61,10 +61,10 @@ const AdminBox = ({
             )}
             <div
                 style={{ backgroundColor: theme.colors.headers }}
-                css={tw`flex flex-row rounded-t px-4 xl:px-5 py-3 border-b border-black transition duration-300`}
+                css={tw`flex flex-row items-center px-4 xl:px-5 py-3 border-b border-black/40 backdrop-blur-sm transition duration-300`}
             >
                 {typeof title === 'string' ? (
-                    <p css={tw`font-semibold`}>
+                    <p css={tw`font-semibold tracking-wide`}>
                         {icon && <FontAwesomeIcon icon={icon} css={tw`mr-2 text-neutral-300`} />}
                         {title}
                     </p>

@@ -23,7 +23,7 @@ interface OwnProps {
 type Props = OwnProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'name'>;
 
 const InputWrapper = styled.div<{ $bgColor: string }>`
-    ${tw`flex items-center rounded-md border-2 border-zinc-800`};
+    ${tw`flex items-center rounded-lg border-2 border-zinc-800 transition-colors duration-150 focus-within:border-primary-400`};
     background-color: ${({ $bgColor }) => $bgColor};
 `;
 

@@ -11,14 +11,16 @@ interface Props {
 }
 
 const GreyRowBox = styled.div<{ $hoverable?: boolean; theme: SiteTheme }>`
-    ${tw`flex rounded no-underline text-neutral-200 items-center p-4 border border-transparent transition-colors duration-150 overflow-hidden`};
+    ${tw`flex rounded-xl no-underline text-neutral-200 items-center p-4 border border-white/5 shadow-sm transition-all duration-200 overflow-hidden`};
 
     background-color: ${({ theme }) => theme.colors.secondary};
 
-    ${props => props.$hoverable !== false && tw`hover:border-neutral-500`};
+    ${props =>
+        props.$hoverable !== false &&
+        tw`hover:border-neutral-500 hover:shadow-md hover:-translate-y-0.5 hover:ring-1 hover:ring-white/10`};
 
     & .icon {
-        ${tw`rounded-full w-16 flex items-center justify-center bg-neutral-500 p-3`};
+        ${tw`rounded-full w-16 flex items-center justify-center bg-neutral-500 p-3 shadow-inner`};
     }
 `;
 

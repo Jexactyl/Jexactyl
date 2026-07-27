@@ -3,8 +3,8 @@
 }
 
 .panel {
-    @apply relative bg-zinc-700 rounded w-full mx-auto shadow-lg text-left;
-    @apply ring-4 ring-black ring-opacity-80;
+    @apply relative bg-zinc-700/95 backdrop-blur-xl rounded-2xl w-full mx-auto shadow-2xl text-left;
+    @apply ring-1 ring-white/10;
 }
 
 .title {
@@ -16,21 +16,21 @@
 }
 
 .dialog_icon {
-    @apply flex items-center justify-center w-10 h-10 rounded-full mr-4;
+    @apply flex items-center justify-center w-10 h-10 rounded-full mr-4 shadow-lg ring-4;
 
     &.danger {
-        @apply bg-red-500 text-red-50;
+        @apply bg-red-500/90 text-red-50 ring-red-500/20;
     }
 
     &.warning {
-        @apply bg-yellow-600 text-yellow-50;
+        @apply bg-yellow-600/90 text-yellow-50 ring-yellow-600/20;
     }
 
     &.success {
-        @apply bg-green-600 text-green-50;
+        @apply bg-green-600/90 text-green-50 ring-green-600/20;
     }
 
     &.info {
-        @apply bg-primary-500 text-primary-50;
+        @apply bg-primary-500/90 text-primary-50 ring-primary-500/20;
     }
 }

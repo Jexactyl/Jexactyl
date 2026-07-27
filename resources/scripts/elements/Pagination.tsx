@@ -3,8 +3,7 @@ import { PaginatedResult } from '@/api/http';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import { Button } from '@/elements/button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/outline';
 
 interface RenderFuncProps<T> {
     items: T[];
@@ -21,7 +20,7 @@ interface Props<T> {
 }
 
 const Block = styled(Button)`
-    ${tw`p-0 w-10 h-10`}
+    ${tw`p-0 w-10 h-10 rounded-full transition-transform duration-150 hover:scale-105`}
 
     &:not(:last-of-type) {
         ${tw`mr-2`};
@@ -50,7 +49,7 @@ function Pagination<T>({ data: { items, pagination }, onPageSelect, children }: 
                 <div css={tw`my-3 flex justify-center`}>
                     {(pages?.[0] ?? 0) > 1 && !isFirstPage && (
                         <Block.Text size={Button.Sizes.Small} onClick={() => onPageSelect(1)} className={'mx-1'}>
-                            <FontAwesomeIcon icon={faAngleDoubleLeft} />
+                            <ChevronDoubleLeftIcon className={'w-4 h-4'} />
                         </Block.Text>
                     )}
                     {pages.map(i => (
@@ -69,7 +68,7 @@ function Pagination<T>({ data: { items, pagination }, onPageSelect, children }: 
                             onClick={() => onPageSelect(pagination.totalPages)}
                             className={'mx-1'}
                         >
-                            <FontAwesomeIcon icon={faAngleDoubleRight} />
+                            <ChevronDoubleRightIcon className={'w-4 h-4'} />
                         </Block.Text>
                     )}
                 </div>

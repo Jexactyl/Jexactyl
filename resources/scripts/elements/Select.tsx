@@ -10,12 +10,16 @@ const selectStyle = () => {
     const theme = useStoreState(state => state.theme.data!);
 
     return css<Props>`
-        ${tw`shadow-none block p-3 pr-8 rounded border w-full text-sm transition-colors duration-150 ease-linear`};
+        ${tw`shadow-none block p-3 pr-8 rounded-lg border w-full text-sm transition-all duration-150 ease-linear`};
 
         &,
         &:hover:not(:disabled),
         &:focus {
             ${tw`outline-none`};
+        }
+
+        &:focus {
+            ${tw`ring-4 ring-primary-500/20`};
         }
 
         -webkit-appearance: none;

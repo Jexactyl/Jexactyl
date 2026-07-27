@@ -6,7 +6,7 @@ const TFootPaginated = ({ pagination, span }: { span: number; pagination: Pagina
 
     return (
         <tfoot>
-            <tr className={'bg-neutral-800'}>
+            <tr className={'bg-neutral-800/60 backdrop-blur-sm'}>
                 <td scope={'col'} colSpan={span} className={'px-4 py-2'}>
                     <p className={'text-sm text-neutral-500'}>
                         Showing{' '}

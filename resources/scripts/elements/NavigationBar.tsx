@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faHeart, faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from 'easy-peasy';
 import SearchContainer from '@account/search/SearchContainer';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import { SiteTheme } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronRightIcon, HomeIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon, EyeIcon, HeartIcon, HomeIcon, IdentificationIcon } from '@heroicons/react/outline';
 import { useActivityLogs } from '@/api/routes/account/activity';
 import Spinner from '@/elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
@@ -80,8 +78,8 @@ const NavigationBar = () => {
         switch (currentPage) {
             case 0:
                 return (
-                    <>
-                        <FontAwesomeIcon icon={faEye} />
+                    <span className={'inline-flex items-center gap-x-2'}>
+                        <EyeIcon className={'w-4 h-4 flex-shrink-0'} />
                         {!data || !activityEnabled ? (
                             <Spinner size="small" centered />
                         ) : (
@@ -95,21 +93,23 @@ const NavigationBar = () => {
                                 </span>
                             </>
                         )}
-                    </>
+                    </span>
                 );
             case 1:
                 return (
-                    <>
-                        <FontAwesomeIcon icon={faHeart} className={user.useTotp ? 'text-green-400' : 'text-red-400'} />
+                    <span className={'inline-flex items-center gap-x-2'}>
+                        <HeartIcon
+                            className={`w-4 h-4 flex-shrink-0 ${user.useTotp ? 'text-green-400' : 'text-red-400'}`}
+                        />
                         2FA is {user.useTotp ? 'Enabled' : 'Disabled'}
-                    </>
+                    </span>
                 );
             case 2:
                 return (
-                    <>
-                        <FontAwesomeIcon icon={faIdBadge} />
+                    <span className={'inline-flex items-center gap-x-2'}>
+                        <IdentificationIcon className={'w-4 h-4 flex-shrink-0'} />
                         User ID: {user.uuid.slice(0, 8)}
-                    </>
+                    </span>
                 );
             default:
                 return null;
@@ -117,7 +117,10 @@ const NavigationBar = () => {
     };
 
     return (
-        <div className="w-full overflow-x-auto shadow-md mb-8" style={{ backgroundColor: theme.colors.sidebar }}>
+        <div
+            className="w-full overflow-x-auto shadow-md mb-8 backdrop-blur-md border-b border-white/5"
+            style={{ backgroundColor: theme.colors.sidebar }}
+        >
             <div className="px-8 flex h-[3.5rem] w-full items-center">
                 {renderBreadcrumbs()}
                 <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>

@@ -36,8 +36,9 @@ const inputStyle = () => {
         // Reset to normal styling.
         resize: none;
         ${tw`appearance-none outline-none w-full min-w-0`};
-        ${tw`py-2.5 px-3 border-2 rounded text-sm transition-all duration-150`};
+        ${tw`py-2.5 px-3 border-2 rounded-lg text-sm transition-all duration-150`};
         ${tw`border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
+        ${tw`focus:ring-4 focus:ring-primary-500/20 focus:border-primary-400`};
 
         background-color: ${theme.colors.secondary};
 

@@ -5,8 +5,7 @@ import type { ButtonProps } from '@/elements/button/types';
 import { Options } from '@/elements/button/types';
 import styles from './style.module.css';
 import { useStoreState } from '@/state/hooks';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { RefreshIcon } from '@heroicons/react/outline';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children, shape, size, variant, className, loading, icon: Icon, ...rest }, ref) => {
@@ -28,8 +27,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 disabled={loading}
             >
                 {children}
-                {Icon && <Icon className={'w-4 h-4 ml-1 mt-1'} />}
-                {loading && <FontAwesomeIcon icon={faSpinner} className={'w-3 h-3 mt-1 ml-2 animate-spin'} />}
+                {Icon && <Icon className={'w-4 h-4'} />}
+                {loading && <RefreshIcon className={'w-4 h-4 animate-spin'} />}
             </button>
         );
     },

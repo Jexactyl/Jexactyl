@@ -6,7 +6,7 @@ import InputSpinner from '@/elements/InputSpinner';
 import Label from '@/elements/Label';
 
 const Dropdown = styled.div<{ expanded: boolean }>`
-    ${tw`absolute z-10 w-full mt-1 rounded-md shadow-lg bg-neutral-900`};
+    ${tw`absolute z-10 w-full mt-1 rounded-lg shadow-xl ring-1 ring-white/10 bg-neutral-900/95 backdrop-blur-md`};
     ${props => !props.expanded && tw`hidden`};
 `;
 

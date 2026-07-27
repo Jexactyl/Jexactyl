@@ -26,8 +26,8 @@ export interface ModalProps extends RequiredModalProps {
 }
 
 export const ModalMask = styled.div`
-    ${tw`fixed z-50 overflow-auto flex w-full inset-0 transition-all duration-300`};
-    background: rgba(0, 0, 0, 0.8);
+    ${tw`fixed z-50 overflow-auto flex w-full inset-0 transition-all duration-300 backdrop-blur-sm`};
+    background: rgba(0, 0, 0, 0.7);
 `;
 
 const ModalContainer = styled.div<{ alignTop?: boolean }>`
@@ -143,7 +143,7 @@ function Modal({
                     </FadeTransition>
 
                     <div
-                        css={tw`p-3 sm:p-4 md:p-6 rounded shadow-md overflow-y-scroll transition-all duration-150 opacity-100 bg-black/80`}
+                        css={tw`p-3 sm:p-4 md:p-6 rounded-2xl shadow-2xl ring-1 ring-white/10 overflow-y-scroll transition-all duration-150 opacity-100 bg-black/80 backdrop-blur-xl`}
                     >
                         {children}
                     </div>

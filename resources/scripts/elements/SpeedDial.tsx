@@ -1,30 +1,22 @@
-import { useState } from 'react';
+import { ComponentType, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import Tooltip from '@/elements/tooltip/Tooltip';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faLayerGroup,
-    faMagicWandSparkles,
-    faPlus,
-    faServer,
-    faTicket,
-    faUserPlus,
-    IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+import { PlusIcon, ServerIcon, SparklesIcon, TicketIcon, UserAddIcon, ViewGridAddIcon } from '@heroicons/react/outline';
 
 interface QuickActionProps {
     link: string;
     tooltip: string;
-    icon: IconDefinition;
+    icon: ComponentType<{ className?: string }>;
 }
 
-const QuickAction = ({ tooltip, icon, link }: QuickActionProps) => (
+const QuickAction = ({ tooltip, icon: Icon, link }: QuickActionProps) => (
     <Tooltip placement={'left'} content={tooltip} arrow>
         <Link to={link}>
-            <Button.Text className={'w-12 h-12'}>
-                <FontAwesomeIcon icon={icon} />
+            <Button.Text className={'w-12 h-12 shadow-lg backdrop-blur-md'}>
+                <Icon className={'w-5 h-5'} />
             </Button.Text>
         </Link>
     </Tooltip>
@@ -40,17 +32,54 @@ export default () => {
 
     return (
         <div className="hidden md:block fixed bottom-6 right-6" style={{ zIndex: 9999 }}>
-            {open && (
-                <div className="flex flex-col items-center mb-4 space-y-2">
-                    {ai && <QuickAction icon={faMagicWandSparkles} link={'/admin/ai'} tooltip={'Ask AI'} />}
-                    <QuickAction icon={faLayerGroup} link={'/admin/nodes/new'} tooltip={'Create Node'} />
-                    <QuickAction icon={faServer} link={'/admin/servers/new'} tooltip={'Create Server'} />
-                    <QuickAction icon={faUserPlus} link={'/admin/users/new'} tooltip={'New User'} />
-                    {tickets && <QuickAction icon={faTicket} link={'/admin/tickets'} tooltip={'View Tickets'} />}
-                </div>
-            )}
-            <Button className={'w-12 h-12'} onClick={() => setOpen(!open)}>
-                <FontAwesomeIcon icon={faPlus} />
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        className="flex flex-col items-center mb-4 space-y-2"
+                        initial="closed"
+                        animate="open"
+                        exit="closed"
+                        variants={{
+                            open: { transition: { staggerChildren: 0.04 } },
+                            closed: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
+                        }}
+                    >
+                        {[
+                            ai && { icon: SparklesIcon, link: '/admin/ai', tooltip: 'Ask AI' },
+                            { icon: ViewGridAddIcon, link: '/admin/nodes/new', tooltip: 'Create Node' },
+                            { icon: ServerIcon, link: '/admin/servers/new', tooltip: 'Create Server' },
+                            { icon: UserAddIcon, link: '/admin/users/new', tooltip: 'New User' },
+                            tickets && { icon: TicketIcon, link: '/admin/tickets', tooltip: 'View Tickets' },
+                        ]
+                            .filter(Boolean)
+                            .map((action, index) => {
+                                const { icon, link, tooltip } = action as QuickActionProps;
+                                return (
+                                    <motion.div
+                                        key={link + index}
+                                        variants={{
+                                            open: { opacity: 1, y: 0, scale: 1 },
+                                            closed: { opacity: 0, y: 12, scale: 0.85 },
+                                        }}
+                                    >
+                                        <QuickAction icon={icon} link={link} tooltip={tooltip} />
+                                    </motion.div>
+                                );
+                            })}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+            <Button
+                className={'w-12 h-12 shadow-xl transition-transform duration-200 hover:scale-105'}
+                onClick={() => setOpen(!open)}
+            >
+                <motion.span
+                    animate={{ rotate: open ? 135 : 0 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    className={'flex'}
+                >
+                    <PlusIcon className={'w-5 h-5'} />
+                </motion.span>
             </Button>
         </div>
     );

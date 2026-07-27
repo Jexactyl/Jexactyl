@@ -20,7 +20,7 @@ function SpinnerOverlay({ size, fixed, visible, backgroundOpacity, children }: P
     return (
         <div
             css={[
-                tw`top-0 left-0 flex items-center justify-center w-full h-full rounded flex-col z-40`,
+                tw`top-0 left-0 flex items-center justify-center w-full h-full rounded-xl flex-col z-40 backdrop-blur-sm`,
                 !fixed ? tw`absolute` : tw`fixed`,
             ]}
             style={{ background: `rgba(0, 0, 0, ${backgroundOpacity || 0.45})` }}

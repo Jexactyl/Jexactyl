@@ -1,4 +1,5 @@
 import type { ComponentType, ElementType } from 'react';
+import { matchRoutes } from 'react-router-dom';
 
 export interface RouteDefinition {
     route: string;
@@ -35,4 +36,20 @@ export function route<T extends ComponentType>(
         component,
         ...opts,
     };
+}
+
+/**
+ * Determines the key to use when animating between pages. Pages that contain their own nested
+ * <Routes> (e.g. anything rendering <SubNavigation>) register a wildcard pattern such as
+ * `nodes/:id/*`; matchRoutes() resolves the *static* portion of the currently matched pattern
+ * (pathnameBase) so navigating between sub-navigation tabs doesn't remount/re-animate the
+ * shared title + sub-navigation, while switching to a genuinely different page still does.
+ */
+export function getTransitionKey(patterns: string[], pathname: string): string {
+    const matches = matchRoutes(
+        patterns.map(path => ({ path })),
+        pathname,
+    );
+
+    return matches?.[matches.length - 1]?.pathnameBase ?? pathname;
 }

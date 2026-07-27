@@ -84,7 +84,10 @@ export const TableHead = ({ children }: { children: ReactNode }) => {
     const { colors } = useStoreState(state => state.theme.data!);
 
     return (
-        <thead css={tw`border-t border-b border-gray-800`} style={{ backgroundColor: colors.headers }}>
+        <thead
+            css={tw`border-t border-b border-gray-800 backdrop-blur-sm`}
+            style={{ backgroundColor: colors.headers }}
+        >
             <tr>{children}</tr>
         </thead>
     );
@@ -95,7 +98,7 @@ export const TableBody = ({ children }: { children: ReactNode }) => {
 };
 
 export const TableRow = ({ children }: { children: ReactNode }) => {
-    return <tr css={tw`h-12 hover:bg-neutral-600`}>{children}</tr>;
+    return <tr css={tw`h-12 transition-colors duration-150 hover:bg-neutral-600/60`}>{children}</tr>;
 };
 
 interface Props<T> {
@@ -106,21 +109,23 @@ interface Props<T> {
 }
 
 const PaginationButton = styled.button<{ active?: boolean }>`
-    ${tw`relative items-center px-3 py-1 -ml-px text-sm font-normal leading-5 transition duration-150 ease-in-out border border-neutral-500 focus:z-10 focus:outline-none focus:border-primary-300 inline-flex`};
+    ${tw`relative items-center px-3 py-1 -ml-px text-sm font-normal leading-5 transition-all duration-150 ease-in-out border border-neutral-500 focus:z-10 focus:outline-none focus:border-primary-300 inline-flex`};
 
     ${props =>
-        props.active ? tw`bg-neutral-500 text-neutral-50` : tw`bg-neutral-600 text-neutral-200 hover:text-neutral-50`};
+        props.active
+            ? tw`bg-neutral-500 text-neutral-50 shadow-inner`
+            : tw`bg-neutral-600/80 text-neutral-200 hover:text-neutral-50 hover:bg-neutral-500/80`};
 `;
 
 const PaginationArrow = styled.button`
-    ${tw`relative inline-flex items-center px-1 py-1 text-sm font-medium leading-5 transition duration-150 ease-in-out border border-neutral-500 bg-neutral-600 text-neutral-400 hover:text-neutral-50 focus:z-10 focus:outline-none focus:border-primary-300`};
+    ${tw`relative inline-flex items-center px-1 py-1 text-sm font-medium leading-5 transition-all duration-150 ease-in-out border border-neutral-500 bg-neutral-600/80 text-neutral-400 hover:text-neutral-50 hover:bg-neutral-500/80 focus:z-10 focus:outline-none focus:border-primary-300`};
 
     &:disabled {
         ${tw`bg-neutral-700`}
     }
 
     &:hover:disabled {
-        ${tw`text-neutral-400 cursor-default`};
+        ${tw`text-neutral-400 cursor-default bg-neutral-700`};
     }
 `;
 
@@ -332,7 +337,7 @@ export default ({ className, children }: { className?: string; children: ReactNo
     return (
         <div css={tw`flex flex-col w-full`}>
             <div
-                className={classNames(className, 'rounded-lg shadow-md')}
+                className={classNames(className, 'rounded-xl shadow-lg ring-1 ring-white/5')}
                 style={{ backgroundColor: colors.secondary }}
             >
                 {children}
