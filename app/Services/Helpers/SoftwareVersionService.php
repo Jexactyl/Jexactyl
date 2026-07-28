@@ -130,19 +130,24 @@ class SoftwareVersionService
     }
 
     /**
-     * Keeps the versioning cache up-to-date with the latest results from the CDN.
+     * Keeps the versioning cache up-to-date with the latest release tags
+     * pulled directly from GitHub.
      */
     protected function cacheVersionData(): array
     {
         return $this->cache->remember(self::VERSION_CACHE_KEY, CarbonImmutable::now()->addMinutes(config('everest.cdn.cache_time', 60)), function () {
             try {
-                $response = Http::get(config('everest.cdn.url'));
+                $panel = Http::get(config('everest.cdn.panel_url'));
+                $wings = Http::get(config('everest.cdn.wings_url'));
 
-                if ($response->status() === 200) {
-                    return json_decode($response->body(), true);
+                if ($panel->status() !== 200 || $wings->status() !== 200) {
+                    throw new CdnVersionFetchingException();
                 }
 
-                throw new CdnVersionFetchingException();
+                return [
+                    'panel' => ltrim(Arr::get($panel->json(), 'tag_name', ''), 'v'),
+                    'wings' => ltrim(Arr::get($wings->json(), 'tag_name', ''), 'v'),
+                ];
             } catch (\Exception) {
                 return [];
             }

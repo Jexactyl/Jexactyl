@@ -92,7 +92,8 @@ return [
 
     'cdn' => [
         'cache_time' => 60,
-        'url' => 'https://www.jexpanel.com/version.json',
+        'panel_url' => 'https://api.github.com/repos/Jexactyl/Jexactyl/releases/latest',
+        'wings_url' => 'https://api.github.com/repos/pterodactyl/wings/releases/latest',
     ],
 
     /*
