@@ -16,6 +16,7 @@ export interface EverestSettings {
             jguard: {
                 enabled: boolean;
                 delay?: number;
+                sensitivity?: 'low' | 'medium' | 'high';
             };
             discord: {
                 enabled: boolean;

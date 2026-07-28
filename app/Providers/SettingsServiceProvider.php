@@ -44,6 +44,7 @@ class SettingsServiceProvider extends ServiceProvider
 
         'modules:auth:jguard:enabled',
         'modules:auth:jguard:delay',
+        'modules:auth:jguard:sensitivity',
 
         // Billing module settings
         'modules:billing:enabled',

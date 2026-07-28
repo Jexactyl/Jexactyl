@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useFlash from '@/plugins/useFlash';
 import Label from '@/elements/Label';
 import Input from '@/elements/Input';
+import Select from '@/elements/Select';
 import AdminBox from '@/elements/AdminBox';
 import Spinner from '@/elements/Spinner';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/outline';
@@ -17,6 +18,7 @@ export default () => {
     const [success, setSuccess] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
+    const sensitivity = useStoreState(state => state.everest.data!.auth.modules.jguard.sensitivity);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -75,6 +77,25 @@ export default () => {
                 <p className={'text-xs text-gray-400 mt-1'}>
                     If you wish to automatically approve user signups, this variable can make it so that users cannot
                     access the Panel for a certain period of time in order to prevent bot attacks.
+                </p>
+            </div>
+            <div className={'mt-6'}>
+                <Label>Alt account detection sensitivity</Label>
+                <Select
+                    id={'sensitivity'}
+                    name={'sensitivity'}
+                    defaultValue={sensitivity || 'medium'}
+                    onChange={e => update('sensitivity', e.target.value)}
+                    autoComplete={'off'}
+                >
+                    <option value={'low'}>Low</option>
+                    <option value={'medium'}>Medium</option>
+                    <option value={'high'}>High</option>
+                </Select>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    Controls how quickly jGuard blocks new signups from an IP address that has recently registered or
+                    failed to log in multiple times. Higher sensitivity blocks alt accounts more aggressively, but may
+                    also affect legitimate users signing up from a shared IP (e.g. school or office networks).
                 </p>
             </div>
         </AdminBox>

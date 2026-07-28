@@ -35,7 +35,7 @@ export default () => {
                 icon={faShieldHalved}
                 title={'jGuard'}
                 disabled={modules.jguard.enabled}
-                description={'More control over user registration, including manual signup approvals and delays.'}
+                description={'Detects alt account signups and adds an optional access delay for new users.'}
             />
             <Box
                 name={'discord'}

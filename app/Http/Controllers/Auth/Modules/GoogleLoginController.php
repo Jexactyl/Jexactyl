@@ -75,7 +75,7 @@ class GoogleLoginController extends AbstractLoginController
 
             return $this->completeOAuthLogin($user, $request, '/');
         }
-        $user = $this->createAccount(['email' => $response->email, 'username' => 'null_user_' . $this->randStr(16)]);
+        $user = $this->createAccount(['email' => $response->email, 'username' => 'null_user_' . $this->randStr(16)], $request);
 
         return $this->completeOAuthLogin($user, $request, '/account/setup');
     }

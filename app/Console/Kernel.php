@@ -3,6 +3,8 @@
 namespace Everest\Console;
 
 use Everest\Models\ActivityLog;
+use Everest\Models\JGuardDelay;
+use Everest\Models\JGuardAttempt;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Console\PruneCommand;
 use Everest\Console\Commands\AutoUpdateCommand;
@@ -44,6 +46,11 @@ class Kernel extends ConsoleKernel
         if (config('activity.prune_days')) {
             $schedule->command(PruneCommand::class, ['--model' => [ActivityLog::class]])->daily();
         }
+
+        // jGuard only needs to retain IP-linked attempt/delay records long enough to
+        // evaluate its own sensitivity window; prune anything older than that daily so
+        // we don't hold on to identifying customer data (IP addresses) longer than needed.
+        $schedule->command(PruneCommand::class, ['--model' => [JGuardAttempt::class, JGuardDelay::class]])->daily();
 
         if (config('app.auto_update')) {
             $schedule->command(AutoUpdateCommand::class)->daily();

@@ -37,6 +37,8 @@ class EverestComposer
                     ],
                     'jguard' => [
                         'enabled' => boolval(config('modules.auth.jguard.enabled', false)),
+                        'delay' => config('modules.auth.jguard.delay', 0),
+                        'sensitivity' => config('modules.auth.jguard.sensitivity', 'medium'),
                     ],
                 ],
             ],
