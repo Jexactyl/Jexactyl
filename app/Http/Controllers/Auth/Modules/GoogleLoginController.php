@@ -73,16 +73,11 @@ class GoogleLoginController extends AbstractLoginController
         if (User::where('email', $response->email)->exists()) {
             $user = User::where('email', $response->email)->first();
 
-            $this->sendLoginResponse($user, $request);
-
-            return redirect('/');
+            return $this->completeOAuthLogin($user, $request, '/');
         }
         $user = $this->createAccount(['email' => $response->email, 'username' => 'null_user_' . $this->randStr(16)]);
 
-        $this->sendLoginResponse($user, $request);
-
-        return redirect('/account/setup');
-
+        return $this->completeOAuthLogin($user, $request, '/account/setup');
     }
 
     /**

@@ -4,11 +4,15 @@ namespace Everest\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use Everest\Models\User;
+use Illuminate\Support\Str;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
+use Everest\Facades\Activity;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Container\Container;
 use Everest\Events\Auth\DirectLogin;
 use Illuminate\Support\Facades\Event;
@@ -93,6 +97,37 @@ abstract class AbstractLoginController extends ApplicationApiController
                 'user' => $user->toReactObject(),
             ],
         ]);
+    }
+
+    /**
+     * Complete a login that was driven by a full-page redirect flow (i.e. an OAuth/SSO
+     * module such as Discord or Google), rather than an in-app API call.
+     *
+     * Unlike {@see self::sendLoginResponse()}, which is only ever invoked once a caller has
+     * already established (via password + optional TOTP checkpoint) that two-factor
+     * authentication has been satisfied, OAuth callbacks authenticate a user purely based on
+     * a third-party identity provider vouching for their email address. That is not
+     * equivalent to satisfying this Panel's own two-factor requirement, so if the account has
+     * TOTP enabled we must route the browser through the same `/auth/login/checkpoint` flow
+     * used for password logins instead of logging them in immediately.
+     */
+    protected function completeOAuthLogin(User $user, Request $request, string $intended): RedirectResponse
+    {
+        if ($user->use_totp) {
+            $request->session()->put('auth_confirmation_token', [
+                'user_id' => $user->id,
+                'token_value' => $token = Str::random(64),
+                'expires_at' => CarbonImmutable::now()->addMinutes(5),
+            ]);
+
+            Activity::event('auth:checkpoint')->withRequestMetadata()->subject($user)->log();
+
+            return redirect('/auth/login/checkpoint?token=' . $token);
+        }
+
+        $this->sendLoginResponse($user, $request);
+
+        return redirect($intended);
     }
 
     /**

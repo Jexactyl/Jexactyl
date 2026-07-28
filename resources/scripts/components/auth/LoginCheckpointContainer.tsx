@@ -1,7 +1,7 @@
 import type { ActionCreator } from 'easy-peasy';
 import { useFormikContext, withFormik } from 'formik';
 import { useState } from 'react';
-import type { Location, RouteProps } from 'react-router-dom';
+import type { RouteProps } from 'react-router-dom';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
@@ -21,6 +21,7 @@ type OwnProps = RouteProps;
 
 type Props = OwnProps & {
     clearAndAddHttpError: ActionCreator<FlashStore['clearAndAddHttpError']['payload']>;
+    token: string;
 };
 
 function LoginCheckpointContainer() {
@@ -68,9 +69,9 @@ function LoginCheckpointContainer() {
     );
 }
 
-const EnhancedForm = withFormik<Props & { location: Location }, Values>({
-    handleSubmit: ({ code, recoveryCode }, { setSubmitting, props: { clearAndAddHttpError, location } }) => {
-        checkpoint(location.state?.token || '', code, recoveryCode)
+const EnhancedForm = withFormik<Props, Values>({
+    handleSubmit: ({ code, recoveryCode }, { setSubmitting, props: { clearAndAddHttpError, token } }) => {
+        checkpoint(token, code, recoveryCode)
             .then(response => {
                 if (response.complete) {
                     // @ts-expect-error this is valid
@@ -99,11 +100,17 @@ export default ({ ...props }: OwnProps) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    if (!location.state?.token) {
+    // The confirmation token normally arrives via in-app React Router navigation state
+    // (password login). OAuth (Discord/Google) logins that require a checkpoint arrive
+    // here via a full-page server redirect instead, which has no router state, so fall
+    // back to reading the token from the query string in that case.
+    const token = location.state?.token || new URLSearchParams(location.search).get('token') || '';
+
+    if (!token) {
         navigate('/auth/login');
 
         return null;
     }
 
-    return <EnhancedForm clearAndAddHttpError={clearAndAddHttpError} location={location} {...props} />;
+    return <EnhancedForm clearAndAddHttpError={clearAndAddHttpError} token={token} {...props} />;
 };
