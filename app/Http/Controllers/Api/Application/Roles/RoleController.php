@@ -3,8 +3,8 @@
 namespace Everest\Http\Controllers\Api\Application\Roles;
 
 use Everest\Models\User;
-use Everest\Models\AdminRole;
 use Everest\Facades\Activity;
+use Everest\Models\AdminRole;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;

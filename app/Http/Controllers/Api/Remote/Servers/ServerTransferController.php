@@ -12,8 +12,8 @@ use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Repositories\Wings\DaemonServerRepository;
 use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ServerTransferController extends ApplicationApiController
 {

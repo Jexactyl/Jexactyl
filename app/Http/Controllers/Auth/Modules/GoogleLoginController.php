@@ -5,9 +5,9 @@ namespace Everest\Http\Controllers\Auth\Modules;
 use Everest\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Everest\Exceptions\DisplayException;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GoogleProvider;
-use Everest\Exceptions\DisplayException;
 use Everest\Http\Controllers\Auth\AbstractLoginController;
 
 class GoogleLoginController extends AbstractLoginController
@@ -31,7 +31,7 @@ class GoogleLoginController extends AbstractLoginController
     /**
      * Get the user's Google details in order to access the account.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function requestToken(Request $request): string
@@ -51,7 +51,7 @@ class GoogleLoginController extends AbstractLoginController
     /**
      * Authenticate with the Google OAuth2 service.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function authenticate(Request $request): RedirectResponse
     {
@@ -89,7 +89,7 @@ class GoogleLoginController extends AbstractLoginController
     }
 
     /**
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws DisplayException
      */
     private function assertEnabled(): void
     {

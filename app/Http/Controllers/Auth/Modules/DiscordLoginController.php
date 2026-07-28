@@ -25,7 +25,7 @@ class DiscordLoginController extends AbstractLoginController
     /**
      * Get the user's Discord token in order to access the account.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
     public function requestToken(Request $request): string
@@ -53,7 +53,7 @@ class DiscordLoginController extends AbstractLoginController
     /**
      * Authenticate with the Discord OAuth2 service.
      *
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws DisplayException
      */
     public function authenticate(Request $request): RedirectResponse
     {
@@ -109,7 +109,7 @@ class DiscordLoginController extends AbstractLoginController
     }
 
     /**
-     * @throws \Everest\Exceptions\DisplayException
+     * @throws DisplayException
      */
     private function assertEnabled(): void
     {

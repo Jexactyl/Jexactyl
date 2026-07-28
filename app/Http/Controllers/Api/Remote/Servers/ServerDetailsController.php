@@ -13,8 +13,8 @@ use Everest\Services\Eggs\EggConfigurationService;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Http\Resources\Wings\ServerConfigurationCollection;
 use Everest\Services\Servers\ServerConfigurationStructureService;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ServerDetailsController extends ApplicationApiController
 {

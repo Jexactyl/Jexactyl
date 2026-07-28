@@ -10,8 +10,8 @@ use Everest\Services\Servers\SuspensionService;
 use Everest\Services\Servers\ServerTransferService;
 use Everest\Services\Servers\ReinstallServerService;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
-use Everest\Http\Requests\Api\Application\Servers\ServerToggleRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
+use Everest\Http\Requests\Api\Application\Servers\ServerToggleRequest;
 use Everest\Http\Requests\Api\Application\Servers\TransferServerRequest;
 
 class ServerManagementController extends ApplicationApiController

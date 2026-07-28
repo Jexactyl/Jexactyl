@@ -9,8 +9,8 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Everest\Repositories\Eloquent\ServerRepository;
 use Everest\Http\Requests\Api\Remote\InstallationDataRequest;
-use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class ServerInstallController extends ApplicationApiController
 {

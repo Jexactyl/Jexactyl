@@ -4,17 +4,17 @@ namespace Everest\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use Everest\Models\User;
-use Illuminate\Support\Str;
-use Everest\Models\JGuardAttempt;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Everest\Facades\Activity;
 use Illuminate\Auth\AuthManager;
+use Everest\Models\JGuardAttempt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Failed;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Container\Container;
 use Everest\Events\Auth\DirectLogin;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Everest\Exceptions\DisplayException;
 use Everest\Services\Auth\JGuardService;
@@ -161,9 +161,7 @@ abstract class AbstractLoginController extends ApplicationApiController
         }
 
         if ($guard && $this->jguard->isSuspicious($request->ip())) {
-            throw new DisplayException(
-                'Too many recent signups or failed login attempts have been detected from your network. Please try again later.'
-            );
+            throw new DisplayException('Too many recent signups or failed login attempts have been detected from your network. Please try again later.');
         }
 
         $user = $this->creation->handle($data);
@@ -194,9 +192,7 @@ abstract class AbstractLoginController extends ApplicationApiController
 
         $minutes = max(1, (int) ceil(Carbon::now()->diffInSeconds($delayedUntil, true) / 60));
 
-        throw new DisplayException(
-            "Your account is new and cannot access the Panel yet. Please try again in {$minutes} minute(s)."
-        );
+        throw new DisplayException("Your account is new and cannot access the Panel yet. Please try again in {$minutes} minute(s).");
     }
 
     /**

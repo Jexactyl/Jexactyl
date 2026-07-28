@@ -76,7 +76,7 @@ class JGuardService
 
     /**
      * @return array{0: int, 1: int} the [window in minutes, attempt threshold] pair for
-     *                                the configured sensitivity level
+     *                               the configured sensitivity level
      */
     protected function thresholds(): array
     {
