@@ -3,7 +3,6 @@
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
 use Everest\Models\Node;
-use Everest\Models\Server;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Exceptions\DisplayException;
@@ -56,7 +55,9 @@ class FreeProductController extends ClientApiController
 
             $order->assignServer($server);
         } else {
-            $server = Server::findOrFail($request->input('server_id'));
+            $server = $user->servers()
+                ->where('id', $request->input('server_id'))
+                ->firstOrFail();
             $order->assignServer($server);
 
             if ($server->renewal_date->diffInDays(now()) <= 7) {
