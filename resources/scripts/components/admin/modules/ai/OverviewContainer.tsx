@@ -6,7 +6,7 @@ import Input from '@/elements/Input';
 import { SparklesIcon, XCircleIcon } from '@heroicons/react/outline';
 import { useStoreState } from '@/state/hooks';
 import { KeyboardEvent as ReactKeyboardEvent, useState } from 'react';
-import { handleQuery } from '@/api/routes/admin/ai/handleQuery';
+import { handleQuery } from '@/api/routes/admin/ai';
 import { useFlashKey } from '@/plugins/useFlash';
 import Spinner from '@/elements/Spinner';
 import { Alert } from '@/elements/alert';

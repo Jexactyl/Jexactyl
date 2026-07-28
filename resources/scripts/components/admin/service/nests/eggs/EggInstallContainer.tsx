@@ -5,8 +5,8 @@ import type { FormikHelpers } from 'formik';
 import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
 
-import { useEggFromRoute } from '@/api/routes/admin/egg';
-import updateEgg from '@/api/routes/admin/eggs/updateEgg';
+import { useEggFromRoute } from '@/api/routes/admin/eggs';
+import { updateEggEntry as updateEgg } from '@/api/routes/admin/eggs';
 import AdminBox from '@/elements/AdminBox';
 import { Button } from '@/elements/button';
 import { Editor } from '@/elements/editor';

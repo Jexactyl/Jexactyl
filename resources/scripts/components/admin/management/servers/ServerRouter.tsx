@@ -10,7 +10,7 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import ServerSettingsContainer from '@admin/management/servers/ServerSettingsContainer';
 import useFlash from '@/plugins/useFlash';
-import { useServerFromRoute } from '@/api/routes/admin/server';
+import { useServerFromRoute } from '@/api/routes/admin/servers';
 import {
     AdjustmentsIcon,
     CogIcon,

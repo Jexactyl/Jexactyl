@@ -21,8 +21,7 @@ import { Alert } from '@/elements/alert';
 import Spinner from '@/elements/Spinner';
 import useStatus from '@/plugins/useStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TicketStatus, Values } from '@/api/routes/admin/tickets/types';
-import { updateTicket, useTicketFromRoute } from '@/api/routes/admin/tickets';
+import { TicketStatus, Values, updateTicket, useTicketFromRoute } from '@/api/routes/admin/tickets';
 
 export default () => {
     const { data: ticket, isLoading } = useTicketFromRoute();

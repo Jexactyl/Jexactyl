@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWrench, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@/elements/dialog';
 import { useState } from 'react';
-import reinstallServer from '@/api/routes/admin/servers/manage/reinstallServer';
-import { useServerFromRoute } from '@/api/routes/admin/server';
+import { reinstallServerEntry as reinstallServer } from '@/api/routes/admin/servers';
+import { useServerFromRoute } from '@/api/routes/admin/servers';
 import useFlash from '@/plugins/useFlash';
 
 export default () => {

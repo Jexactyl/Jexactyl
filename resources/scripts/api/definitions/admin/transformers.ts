@@ -1,12 +1,27 @@
 /* eslint-disable camelcase */
-import { Allocation, Node } from '@/api/routes/admin/node';
-import { Server, ServerVariable } from '@/api/routes/admin/server';
 import { FractalResponseData, FractalResponseList } from '@/api/http';
 import * as Models from '@definitions/admin/models';
-import { Egg, EggVariable } from '@/api/routes/admin/egg';
-import { Nest } from '@/api/routes/admin/nest';
+import {
+    Allocation,
+    AllocationEntry,
+    CustomLink,
+    Node,
+    NodeEntry,
+    Server,
+    ServerEntry,
+    ServerVariable,
+    ServerVariableEntry,
+    Egg,
+    EggEntry,
+    EggVariable,
+    EggVariableEntry,
+    Nest,
+    NestEntry,
+    DatabaseEntry,
+    MountEntry,
+    WebhookEvent,
+} from '@definitions/admin/models';
 import { type Database } from '@definitions/server';
-import { WebhookEvent } from '@/api/routes/admin/webhooks';
 
 const isList = (data: FractalResponseList | FractalResponseData): data is FractalResponseList => data.object === 'list';
 
@@ -363,6 +378,15 @@ export default class Transformers {
         updatedAt: attributes.updated_at ? new Date(attributes.updated_at) : null,
     });
 
+    static toCustomLink = ({ attributes: data }: FractalResponseData): CustomLink => ({
+        id: data.id,
+        name: data.name,
+        url: data.url,
+        visible: data.visible,
+        createdAt: new Date(data.created_at),
+        updatedAt: data.updated_at ? new Date(data.updated_at) : null,
+    });
+
     static toServerPreset = ({ attributes }: FractalResponseData): Models.ServerPreset => ({
         id: attributes.id,
         name: attributes.name,
@@ -377,5 +401,248 @@ export default class Transformers {
 
         created_at: attributes.created_at,
         updated_at: attributes.updated_at,
+    });
+
+    static toNodeEntry = ({ attributes, meta }: FractalResponseData): NodeEntry => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        public: attributes.public,
+        name: attributes.name,
+        description: attributes.description,
+        databaseHostId: attributes.database_host_id,
+        fqdn: attributes.fqdn,
+        listenPortHTTP: attributes.listen_port_http,
+        publicPortHTTP: attributes.public_port_http,
+        listenPortSFTP: attributes.listen_port_sftp,
+        publicPortSFTP: attributes.public_port_sftp,
+        scheme: attributes.scheme,
+        behindProxy: attributes.behind_proxy,
+        maintenanceMode: attributes.maintenance_mode,
+        memory: attributes.memory,
+        memoryOverallocate: attributes.memory_overallocate,
+        disk: attributes.disk,
+        diskOverallocate: attributes.disk_overallocate,
+        uploadSize: attributes.upload_size,
+        daemonBase: attributes.daemon_base,
+        deployable: attributes.deployable,
+        deployableFree: attributes.deployable_free,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        memoryUsedPercent: meta?.utilization.memory ?? 0,
+        diskUsedPercent: meta?.utilization.disk ?? 0,
+        allocationsUsedPercent: meta?.utilization.allocations ?? 0,
+
+        relations: {
+            databaseHost:
+                attributes.relationships?.database_host !== undefined &&
+                attributes.relationships?.database_host?.object !== 'null_resource'
+                    ? Transformers.toDatabaseEntry(attributes.relationships.database_host as FractalResponseData)
+                    : undefined,
+        },
+    });
+
+    static toAllocationEntry = ({ attributes }: FractalResponseData): AllocationEntry => ({
+        id: attributes.id,
+        ip: attributes.ip,
+        port: attributes.port,
+        alias: attributes.alias || null,
+        serverId: attributes.server_id,
+        assigned: attributes.assigned,
+
+        relations: {
+            server:
+                attributes.relationships?.server?.object === 'server'
+                    ? Transformers.toServerEntry(attributes.relationships.server as FractalResponseData)
+                    : undefined,
+        },
+
+        getDisplayText(): string {
+            if (attributes.alias !== null) {
+                return `${attributes.ip}:${attributes.port} (${attributes.alias})`;
+            }
+            return `${attributes.ip}:${attributes.port}`;
+        },
+    });
+
+    static toServerVariableEntry = ({ attributes }: FractalResponseData): ServerVariableEntry => ({
+        id: attributes.id,
+        eggId: attributes.egg_id,
+        name: attributes.name,
+        description: attributes.description,
+        envVariable: attributes.env_variable,
+        defaultValue: attributes.default_value,
+        userViewable: attributes.user_viewable,
+        userEditable: attributes.user_editable,
+        rules: attributes.rules,
+        required: attributes.required,
+        serverValue: attributes.server_value,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+    });
+
+    static toServerEntry = ({ attributes }: FractalResponseData): ServerEntry =>
+        ({
+            id: attributes.id,
+            externalId: attributes.external_id,
+            uuid: attributes.uuid,
+            identifier: attributes.identifier,
+            name: attributes.name,
+            description: attributes.description,
+            status: attributes.status,
+
+            limits: {
+                memory: attributes.limits.memory,
+                swap: attributes.limits.swap,
+                disk: attributes.limits.disk,
+                io: attributes.limits.io,
+                cpu: attributes.limits.cpu,
+                threads: attributes.limits.threads,
+                oomKiller: attributes.limits.oom_killer,
+            },
+
+            featureLimits: {
+                databases: attributes.feature_limits.databases,
+                allocations: attributes.feature_limits.allocations,
+                backups: attributes.feature_limits.backups,
+                subusers: attributes.feature_limits.subusers,
+            },
+
+            ownerId: attributes.owner_id,
+            nodeId: attributes.node_id,
+            allocationId: attributes.allocation_id,
+            nestId: attributes.nest_id,
+            eggId: attributes.egg_id,
+
+            container: {
+                startup: attributes.container.startup,
+                image: attributes.container.image,
+                environment: attributes.container.environment,
+            },
+
+            createdAt: new Date(attributes.created_at),
+            updatedAt: new Date(attributes.updated_at),
+
+            relations: {
+                allocations: (
+                    (attributes.relationships?.allocations as FractalResponseList | undefined)?.data || []
+                ).map(Transformers.toAllocationEntry),
+                egg:
+                    attributes.relationships?.egg?.object === 'egg'
+                        ? Transformers.toEggEntry(attributes.relationships.egg as FractalResponseData)
+                        : undefined,
+                node:
+                    attributes.relationships?.node?.object === 'node'
+                        ? Transformers.toNodeEntry(attributes.relationships.node as FractalResponseData)
+                        : undefined,
+                user:
+                    attributes.relationships?.user?.object === 'user'
+                        ? Transformers.toUser(attributes.relationships.user as FractalResponseData)
+                        : undefined,
+                variables: ((attributes.relationships?.variables as FractalResponseList | undefined)?.data || []).map(
+                    Transformers.toServerVariableEntry,
+                ),
+            },
+        } as ServerEntry);
+
+    static toEggVariableEntry = ({ attributes }: FractalResponseData): EggVariableEntry => ({
+        id: attributes.id,
+        eggId: attributes.egg_id,
+        name: attributes.name,
+        description: attributes.description,
+        envVariable: attributes.env_variable,
+        defaultValue: attributes.default_value,
+        userViewable: attributes.user_viewable,
+        userEditable: attributes.user_editable,
+        rules: attributes.rules,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+    });
+
+    static toEggEntry = ({ attributes }: FractalResponseData): EggEntry => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        nestId: attributes.nest_id,
+        author: attributes.author,
+        name: attributes.name,
+        description: attributes.description,
+        features: attributes.features,
+        dockerImages: attributes.docker_images,
+        configFiles: attributes.config?.files,
+        configStartup: attributes.config?.startup,
+        configStop: attributes.config?.stop,
+        configFrom: attributes.config?.extends,
+        startup: attributes.startup,
+        copyScriptFrom: attributes.copy_script_from,
+        scriptContainer: attributes.script?.container,
+        scriptEntry: attributes.script?.entry,
+        scriptIsPrivileged: attributes.script?.privileged,
+        scriptInstall: attributes.script?.install,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        relations: {
+            nest: undefined,
+            servers: ((attributes.relationships?.servers as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toServerEntry,
+            ),
+            variables: ((attributes.relationships?.variables as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toEggVariableEntry,
+            ),
+        },
+    });
+
+    static toNestEntry = ({ attributes }: FractalResponseData): NestEntry => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        author: attributes.author,
+        name: attributes.name,
+        description: attributes.description,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        relations: {
+            eggs: ((attributes.relationships?.eggs as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toEggEntry,
+            ),
+        },
+    });
+
+    static toDatabaseEntry = ({ attributes }: FractalResponseData): DatabaseEntry => ({
+        id: attributes.id,
+        name: attributes.name,
+        host: attributes.host,
+        port: attributes.port,
+        username: attributes.username,
+        maxDatabases: attributes.max_databases,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        getAddress: () => `${attributes.host}:${attributes.port}`,
+    });
+
+    static toMountEntry = ({ attributes }: FractalResponseData): MountEntry => ({
+        id: attributes.id,
+        uuid: attributes.uuid,
+        name: attributes.name,
+        description: attributes.description,
+        source: attributes.source,
+        target: attributes.target,
+        readOnly: attributes.read_only,
+        userMountable: attributes.user_mountable,
+        createdAt: new Date(attributes.created_at),
+        updatedAt: new Date(attributes.updated_at),
+
+        relations: {
+            eggs: ((attributes.relationships?.eggs as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toEggEntry,
+            ),
+            nodes: ((attributes.relationships?.nodes as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toNodeEntry,
+            ),
+            servers: ((attributes.relationships?.servers as FractalResponseList | undefined)?.data || []).map(
+                Transformers.toServerEntry,
+            ),
+        },
     });
 }

@@ -1,4 +1,4 @@
-import { Server } from '@/api/routes/admin/server';
+import { Server } from '@definitions/admin';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import Input from '@/elements/Input';
@@ -11,10 +11,10 @@ import { Category, Product } from '@definitions/admin';
 import Spinner from '@/elements/Spinner';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import Select from '@/elements/Select';
-import { getCategories } from '@/api/routes/admin/billing/categories';
-import { getProduct, getProducts } from '@/api/routes/admin/billing/products';
+import { getCategories } from '@/api/routes/admin/billing';
+import { getProduct, getProducts } from '@/api/routes/admin/billing';
 import { useStoreState } from '@/state/hooks';
-import updateServer, { Values } from '@/api/routes/admin/servers/updateServer';
+import { updateServerEntry as updateServer, UpdateServerValues as Values } from '@/api/routes/admin/servers';
 
 const localToUTC = (localStr: string): Date => {
     const localDate = new Date(localStr);

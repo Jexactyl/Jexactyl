@@ -3,7 +3,7 @@ import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import { useEffect, useState } from 'react';
 import tw from 'twin.macro';
-import getNodeConfiguration from '@/api/routes/admin/nodes/getNodeConfiguration';
+import { getNodeConfiguration } from '@/api/routes/admin/nodes';
 import AdminBox from '@/elements/AdminBox';
 import { Context } from '@admin/management/nodes/NodeRouter';
 import CopyOnClick from '@/elements/CopyOnClick';

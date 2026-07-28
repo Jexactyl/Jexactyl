@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import tw from 'twin.macro';
-import type { NodeInformation } from '@/api/routes/admin/nodes/getNodeInformation';
-import getNodeInformation from '@/api/routes/admin/nodes/getNodeInformation';
+import type { NodeInformation } from '@/api/routes/admin/nodes';
+import { getNodeInformation } from '@/api/routes/admin/nodes';
 import AdminBox from '@/elements/AdminBox';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { Context } from '@admin/management/nodes/NodeRouter';
@@ -24,7 +24,7 @@ import Label from '@/elements/Label';
 import Input from '@/elements/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tooltip from '@/elements/tooltip/Tooltip';
-import getNodeUtilization, { NodeUtilization } from '@/api/routes/admin/nodes/getNodeUtilization';
+import { getNodeUtilization, NodeUtilization } from '@/api/routes/admin/nodes';
 import { useStoreState } from '@/state/hooks';
 
 const Code = ({ className, children }: { className?: string; children: ReactNode }) => {

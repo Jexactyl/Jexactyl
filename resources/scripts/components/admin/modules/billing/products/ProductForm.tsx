@@ -12,14 +12,14 @@ import AdminBox from '@/elements/AdminBox';
 import { object, string, number } from 'yup';
 import { faArrowLeft, faBell, faMicrochip, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
-import { createProduct, updateProduct } from '@/api/routes/admin/billing/products';
+import { createProduct, updateProduct } from '@/api/routes/admin/billing';
 import ProductDeleteButton from './ProductDeleteButton';
 import { CubeIcon } from '@heroicons/react/outline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { getCategory } from '@/api/routes/admin/billing/categories';
+import { getCategory } from '@/api/routes/admin/billing';
 import { Product } from '@definitions/admin';
-import { ProductValues } from '@/api/routes/admin/billing/types';
+import { ProductValues } from '@/api/routes/admin/billing';
 import { Alert } from '@/elements/alert';
 
 export default ({ product }: { product?: Product }) => {

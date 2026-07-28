@@ -9,7 +9,7 @@ import AdminContentBlock from '@/elements/AdminContentBlock';
 import { Button } from '@/elements/button';
 import type { ApplicationStore } from '@/state';
 import AdminBox from '@/elements/AdminBox';
-import { createCategory, updateCategory } from '@/api/routes/admin/billing/categories';
+import { createCategory, updateCategory } from '@/api/routes/admin/billing';
 import { object, string, boolean, number } from 'yup';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
@@ -17,12 +17,12 @@ import Label from '@/elements/Label';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ServerServiceContainer } from '@admin/management/servers/ServerStartupContainer';
 import { WithRelationships } from '@/api/routes/admin';
-import type { Egg } from '@/api/routes/admin/egg';
+import type { Egg } from '@definitions/admin';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
 import CategoryDeleteButton from './CategoryDeleteButton';
-import { getEgg } from '@/api/routes/admin/egg';
+import { getEgg } from '@/api/routes/admin/eggs';
 import { Category } from '@definitions/admin';
-import { CategoryValues } from '@/api/routes/admin/billing/types';
+import { CategoryValues } from '@/api/routes/admin/billing';
 import { useSWRConfig } from 'swr';
 
 interface Props {

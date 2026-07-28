@@ -4,7 +4,7 @@ import { Form, Formik } from 'formik';
 import AdminBox from '@/elements/AdminBox';
 import { useStoreState } from '@/state/hooks';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
-import { AISettings, updateSettings } from '@/api/routes/admin/ai/settings';
+import { AISettings, updateSettings } from '@/api/routes/admin/ai';
 import useFlash from '@/plugins/useFlash';
 import { Button } from '@/elements/button';
 

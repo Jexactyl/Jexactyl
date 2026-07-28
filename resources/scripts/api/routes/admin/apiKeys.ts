@@ -1,9 +1,31 @@
 import http, { PaginatedResult, getPaginationSet } from '@/api/http';
-import { type ApiKey } from '@definitions/admin';
-import { Transformers } from '@definitions/admin';
+import { type ApiKey, ApiKeyPermission, Transformers } from '@definitions/admin';
 import useSWR from 'swr';
 import { createContext } from '@/api';
 import { useContext } from 'react';
+
+export interface Values {
+    memo: string;
+    permissions: ApiKeyPermission;
+}
+
+export const createApiKey = (values: Values): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        http.post('/api/application/api', values)
+            .then(({ data }) => {
+                resolve(data.token);
+            })
+            .catch(reject);
+    });
+};
+
+export const deleteApiKey = (id: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.delete(`/api/application/api/${id}`)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};
 
 const filters = ['id', 'identifier', 'last_used_at'] as const;
 export type Filters = (typeof filters)[number];
@@ -17,7 +39,7 @@ export interface ContextFilters {
 
 export const Context = createContext<ContextFilters>();
 
-const getApiKeys = (): Promise<ApiKey> => {
+export const getApiKeys = (): Promise<ApiKey> => {
     return new Promise((resolve, reject) => {
         http.get(`/api/application/api`)
             .then(({ data }) => resolve(Transformers.toApiKey(data)))
@@ -25,7 +47,7 @@ const getApiKeys = (): Promise<ApiKey> => {
     });
 };
 
-const useGetApiKeys = (include: string[] = []) => {
+export const useGetApiKeys = (include: string[] = []) => {
     const { page, filters, sort, sortDirection } = useContext(Context);
 
     const params = {};
@@ -52,5 +74,3 @@ const useGetApiKeys = (include: string[] = []) => {
         };
     });
 };
-
-export { getApiKeys, useGetApiKeys };

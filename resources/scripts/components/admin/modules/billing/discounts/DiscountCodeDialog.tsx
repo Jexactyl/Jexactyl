@@ -1,6 +1,6 @@
 import { DiscountCode, DiscountCodeType } from '@/api/definitions/admin';
-import { createDiscountCode, updateDiscountCode } from '@/api/routes/admin/billing/discount-codes';
-import { DiscountCodeValues } from '@/api/routes/admin/billing/types';
+import { createDiscountCode, updateDiscountCode } from '@/api/routes/admin/billing';
+import { DiscountCodeValues } from '@/api/routes/admin/billing';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import Input from '@/elements/Input';

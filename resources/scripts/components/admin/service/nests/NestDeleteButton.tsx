@@ -3,7 +3,7 @@ import { useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
 import tw from 'twin.macro';
 
-import deleteNest from '@/api/routes/admin/nests/deleteNest';
+import { deleteNestEntry as deleteNest } from '@/api/routes/admin/nests';
 import { Button } from '@/elements/button';
 import { Shape } from '@/elements/button/types';
 import ConfirmationModal from '@/elements/ConfirmationModal';

@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { object } from 'yup';
 
-import { useEggFromRoute } from '@/api/routes/admin/egg';
-import updateEgg from '@/api/routes/admin/eggs/updateEgg';
+import { useEggFromRoute } from '@/api/routes/admin/eggs';
+import { updateEggEntry as updateEgg } from '@/api/routes/admin/eggs';
 import AdminBox from '@/elements/AdminBox';
 import EggDeleteButton from '@admin/service/nests/eggs/EggDeleteButton';
 import EggExportButton from '@admin/service/nests/eggs/EggExportButton';

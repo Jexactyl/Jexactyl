@@ -1,5 +1,7 @@
-import { Egg, searchEggs } from '@/api/routes/admin/egg';
-import { Nest, searchNests } from '@/api/routes/admin/nest';
+import type { Egg } from '@definitions/admin';
+import { searchEggs } from '@/api/routes/admin/eggs';
+import type { Nest } from '@definitions/admin';
+import { searchNests } from '@/api/routes/admin/nests';
 import Label from '@/elements/Label';
 import Select from '@/elements/Select';
 import { NameSelectProps } from '@admin/management/servers/presets/ServerPresetDialog';

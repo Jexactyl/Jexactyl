@@ -9,6 +9,10 @@ export interface Filters {
     name?: string;
 }
 
+export interface AdminRolePermissionFilters {
+    key?: string;
+}
+
 export interface AdminRolePermissions {
     [key: string]: {
         description: string;
@@ -18,7 +22,7 @@ export interface AdminRolePermissions {
 
 export const Context = createContext<Filters>();
 
-const createRole = (
+export const createRole = (
     name: string,
     description: string | null,
     color?: string | null,
@@ -39,7 +43,7 @@ const createRole = (
     });
 };
 
-const deleteRole = (id: number): Promise<void> => {
+export const deleteRole = (id: number): Promise<void> => {
     return new Promise((resolve, reject) => {
         http.delete(`/api/application/users/roles/${id}`)
             .then(() => resolve())
@@ -47,7 +51,7 @@ const deleteRole = (id: number): Promise<void> => {
     });
 };
 
-const getRole = (id: number, include: string[] = []): Promise<UserRole> => {
+export const getRole = (id: number, include: string[] = []): Promise<UserRole> => {
     return new Promise((resolve, reject) => {
         http.get(`/api/application/users/roles/${id}`, { params: { include: include.join(',') } })
             .then(({ data }) => resolve(Transformers.toUserRole(data)))
@@ -55,7 +59,7 @@ const getRole = (id: number, include: string[] = []): Promise<UserRole> => {
     });
 };
 
-const getRolePermisisons = (): Promise<{
+export const getRolePermisisons = (): Promise<{
     object: string;
     attributes: {
         permissions: AdminRolePermissions;
@@ -68,7 +72,7 @@ const getRolePermisisons = (): Promise<{
     });
 };
 
-const searchRoles = (filters?: { name?: string }): Promise<UserRole[]> => {
+export const searchRoles = (filters?: { name?: string }): Promise<UserRole[]> => {
     const params = {};
     if (filters !== undefined) {
         Object.keys(filters).forEach(key => {
@@ -84,7 +88,7 @@ const searchRoles = (filters?: { name?: string }): Promise<UserRole[]> => {
     });
 };
 
-const updateRole = (
+export const updateRole = (
     id: number,
     name?: string,
     description?: string | null,
@@ -108,7 +112,7 @@ const updateRole = (
     });
 };
 
-const getRoles = (include: string[] = []) => {
+export const getRoles = (include: string[] = []) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { page, filters, sort, sortDirection } = useContext(Context);
 
@@ -137,5 +141,3 @@ const getRoles = (include: string[] = []) => {
         };
     });
 };
-
-export { getRolePermisisons, createRole, deleteRole, getRole, searchRoles, updateRole, getRoles };

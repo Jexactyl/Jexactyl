@@ -1,6 +1,6 @@
 import EventBox from './EventBox';
 import Spinner from '@/elements/Spinner';
-import { WebhookEvent } from '@/api/routes/admin/webhooks';
+import { WebhookEvent } from '@definitions/admin';
 import usePagination from '@/plugins/usePagination';
 import { PaginatedFooter } from '@/elements/Table';
 

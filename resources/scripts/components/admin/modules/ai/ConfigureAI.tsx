@@ -1,4 +1,4 @@
-import { updateSettings } from '@/api/routes/admin/ai/settings';
+import { updateSettings } from '@/api/routes/admin/ai';
 import Input from '@/elements/Input';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import Tooltip from '@/elements/tooltip/Tooltip';

@@ -10,7 +10,7 @@ import { Dialog } from '@/elements/dialog';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
 import useStatus from '@/plugins/useStatus';
-import { toggleModule, updateModule } from '@/api/routes/admin/auth/module';
+import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 import { Alert } from '@/elements/alert';
 
 export default () => {

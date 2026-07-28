@@ -6,7 +6,7 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import { Alert } from '@/elements/alert';
 import useStatus from '@/plugins/useStatus';
-import { updateModule } from '@/api/routes/admin/auth/module';
+import { updateModule } from '@/api/routes/admin/auth';
 
 export default () => {
     const { status, setStatus } = useStatus();

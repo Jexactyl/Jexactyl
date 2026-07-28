@@ -10,7 +10,7 @@ import { Dialog } from '@/elements/dialog';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import { Alert } from '@/elements/alert';
-import { toggleModule, updateModule } from '@/api/routes/admin/auth/module';
+import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);

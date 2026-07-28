@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import type { Nest } from '@/api/routes/admin/nest';
-import { searchNests } from '@/api/routes/admin/nest';
+import type { Nest } from '@definitions/admin';
+import { searchNests } from '@/api/routes/admin/nests';
 import Label from '@/elements/Label';
 import Select from '@/elements/Select';
 

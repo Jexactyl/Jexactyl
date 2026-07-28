@@ -1,5 +1,5 @@
-import type { Filters } from '@/api/routes/admin/databases/getDatabases';
-import { Context as DatabasesContext } from '@/api/routes/admin/databases/getDatabases';
+import type { DatabaseEntryFilters as Filters } from '@/api/routes/admin/databases';
+import { DatabaseEntriesContext as DatabasesContext } from '@/api/routes/admin/databases';
 import { useTableHooks } from '@/elements/AdminTable';
 import DatabasesTable from './DatabasesTable';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import { Dialog } from '@/elements/dialog';
 import { useState } from 'react';
-import createDatabase from '@/api/routes/admin/databases/createDatabase';
+import { createDatabaseEntry as createDatabase } from '@/api/routes/admin/databases';
 import { useStoreActions } from '@/state/hooks';
 import { InformationContainer, Values } from '@admin/management/databases/DatabaseEditContainer';
 import { FormikHelpers } from 'formik';

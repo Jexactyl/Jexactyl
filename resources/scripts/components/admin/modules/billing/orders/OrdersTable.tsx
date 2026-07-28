@@ -1,5 +1,5 @@
 import Pill, { PillStatus } from '@/elements/Pill';
-import { useGetOrders, Context as OrderContext } from '@/api/routes/admin/billing/orders';
+import { useGetOrders, OrderContext } from '@/api/routes/admin/billing';
 import AdminTable, {
     ContentWrapper,
     Pagination,
@@ -17,7 +17,7 @@ import { useContext, useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
 import { formatDistanceToNowStrict } from 'date-fns';
 import Spinner from '@/elements/Spinner';
-import { OrderFilters } from '@/api/routes/admin/billing/types';
+import { OrderFilters } from '@/api/routes/admin/billing';
 
 export function format(date: number): string {
     let prefix = 'th';

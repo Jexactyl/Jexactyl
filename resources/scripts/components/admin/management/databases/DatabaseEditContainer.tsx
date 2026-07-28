@@ -7,9 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 import { number, object, string } from 'yup';
 
-import type { Database } from '@/api/routes/admin/databases/getDatabases';
-import getDatabase from '@/api/routes/admin/databases/getDatabase';
-import updateDatabase from '@/api/routes/admin/databases/updateDatabase';
+import type { DatabaseEntry as Database } from '@definitions/admin';
+import { getDatabaseEntry as getDatabase, updateDatabaseEntry as updateDatabase } from '@/api/routes/admin/databases';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import Spinner from '@/elements/Spinner';
 import FlashMessageRender from '@/elements/FlashMessageRender';

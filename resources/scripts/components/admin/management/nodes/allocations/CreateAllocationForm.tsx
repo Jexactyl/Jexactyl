@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import tw from 'twin.macro';
 import { array, number, object, string } from 'yup';
 
-import createAllocation from '@/api/routes/admin/nodes/allocations/createAllocation';
-import getAllocations from '@/api/routes/admin/nodes/getAllocations';
-import getAllocations2 from '@/api/routes/admin/nodes/allocations/getAllocations';
+import {
+    createNodeAllocationEntry as createAllocation,
+    getNodeAllocationEntries as getAllocations,
+    useNodeAllocationEntries as getAllocations2,
+} from '@/api/routes/admin/nodes';
 import { Button } from '@/elements/button';
 import Field from '@/elements/Field';
 import SelectField, { type Option } from '@/elements/SelectField';

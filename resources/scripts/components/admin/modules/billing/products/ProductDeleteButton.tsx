@@ -1,4 +1,4 @@
-import { deleteProduct } from '@/api/routes/admin/billing/products';
+import { deleteProduct } from '@/api/routes/admin/billing';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import Input from '@/elements/Input';
 import { Button } from '@/elements/button';

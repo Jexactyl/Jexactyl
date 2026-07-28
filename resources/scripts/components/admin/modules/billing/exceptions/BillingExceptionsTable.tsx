@@ -1,4 +1,4 @@
-import { BillingExceptionFilters } from '@/api/routes/admin/billing/types';
+import { BillingExceptionFilters } from '@/api/routes/admin/billing';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -11,11 +11,7 @@ import AdminTable, {
     useTableHooks,
 } from '@/elements/AdminTable';
 import { useContext, useState } from 'react';
-import {
-    Context as BillingExceptionContext,
-    resolveBillingException,
-    useGetBillingExceptions,
-} from '@/api/routes/admin/billing/exceptions';
+import { BillingExceptionContext, resolveBillingException, useGetBillingExceptions } from '@/api/routes/admin/billing';
 import CopyOnClick from '@/elements/CopyOnClick';
 import tw from 'twin.macro';
 import { formatDistanceToNowStrict } from 'date-fns';

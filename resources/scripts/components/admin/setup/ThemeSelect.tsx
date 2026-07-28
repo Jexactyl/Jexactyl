@@ -1,4 +1,4 @@
-import updateColors from '@/api/routes/admin/theme/updateColors';
+import { updateColors } from '@/api/routes/admin/theme';
 import useStatus from '@/plugins/useStatus';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import AdminBox from '@/elements/AdminBox';

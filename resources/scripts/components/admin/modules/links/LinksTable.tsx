@@ -1,4 +1,5 @@
-import { getLinks, type Values, Context as LinksContext, CustomLink } from '@/api/routes/admin/links';
+import { getLinks, type Values, Context as LinksContext } from '@/api/routes/admin/links';
+import { CustomLink } from '@definitions/admin';
 import { useStoreState } from '@/state/hooks';
 import AdminTable, {
     ContentWrapper,

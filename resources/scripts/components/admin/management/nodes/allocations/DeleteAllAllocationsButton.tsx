@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Dialog } from '@/elements/dialog';
 import { Button } from '@/elements/button';
-import { deleteAllAllocations } from '@/api/routes/admin/nodes/allocations/deleteAllocation';
+import { deleteAllNodeAllocationEntries as deleteAllAllocations } from '@/api/routes/admin/nodes';
 import useFlash from '@/plugins/useFlash';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 

@@ -2,8 +2,11 @@ import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { Filters } from '@/api/routes/admin/nodes/allocations/getAllocations';
-import getAllocations, { Context as AllocationsContext } from '@/api/routes/admin/nodes/allocations/getAllocations';
+import type { NodeAllocationEntryFilters as Filters } from '@/api/routes/admin/nodes';
+import {
+    useNodeAllocationEntries as getAllocations,
+    NodeAllocationEntriesContext as AllocationsContext,
+} from '@/api/routes/admin/nodes';
 import AdminTable, {
     ContentWrapper,
     Loading,

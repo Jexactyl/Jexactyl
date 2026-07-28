@@ -1,10 +1,10 @@
 import http from '@/api/http';
-import { CustomLink, rawDataToLink } from './routes/admin/links';
+import { CustomLink, Transformers } from '@definitions/admin';
 
 export const getLinks = (): Promise<CustomLink[]> => {
     return new Promise((resolve, reject) => {
         http.get(`/api/client/links`)
-            .then(({ data }) => resolve((data.data || []).map((datum: any) => rawDataToLink(datum))))
+            .then(({ data }) => resolve((data.data || []).map((datum: any) => Transformers.toCustomLink(datum))))
             .catch(reject);
     });
 };

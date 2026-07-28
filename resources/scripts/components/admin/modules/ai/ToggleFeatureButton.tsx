@@ -1,6 +1,6 @@
 import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
-import { updateSettings } from '@/api/routes/admin/ai/settings';
+import { updateSettings } from '@/api/routes/admin/ai';
 
 export default () => {
     const ai = useStoreState(state => state.everest.data!.ai);

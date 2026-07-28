@@ -1,4 +1,4 @@
-import { deleteServerPreset } from '@/api/routes/admin/servers/presets';
+import { deleteServerPreset } from '@/api/routes/admin/servers';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';

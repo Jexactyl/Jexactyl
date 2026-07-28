@@ -4,7 +4,7 @@ import Label from '@/elements/Label';
 import Input from '@/elements/Input';
 import AdminBox from '@/elements/AdminBox';
 import Spinner from '@/elements/Spinner';
-import updateColors from '@/api/routes/admin/theme/updateColors';
+import { updateColors } from '@/api/routes/admin/theme';
 import { CheckCircleIcon } from '@heroicons/react/outline';
 import { useStoreActions, useStoreState } from '@/state/hooks';
 import FlashMessageRender from '@/elements/FlashMessageRender';

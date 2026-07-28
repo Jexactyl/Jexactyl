@@ -9,8 +9,7 @@ import { useState } from 'react';
 import { Button } from '@/elements/button';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import { TextareaField } from '@/elements/Field';
-import { createMessage } from '@/api/routes/admin/tickets/messages';
-import { CreateTicketMessageValues as Values } from '@/api/routes/admin/tickets/types';
+import { createMessage, CreateTicketMessageValues as Values } from '@/api/routes/admin/tickets';
 
 export default ({ ticketId }: { ticketId: number }) => {
     const [open, setOpen] = useState<boolean>(false);

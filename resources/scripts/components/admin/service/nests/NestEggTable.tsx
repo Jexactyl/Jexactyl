@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
-import type { Filters } from '@/api/routes/admin/nests/getEggs';
-import getEggs, { Context as EggsContext } from '@/api/routes/admin/nests/getEggs';
+import type { NestEntryFilters as Filters } from '@/api/routes/admin/nests';
+import { useNestEggEntries as getEggs, NestEggEntriesContext as EggsContext } from '@/api/routes/admin/nests';
 import AdminTable, {
     TableBody,
     TableHead,

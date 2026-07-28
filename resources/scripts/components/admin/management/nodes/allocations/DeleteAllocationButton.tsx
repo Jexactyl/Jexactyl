@@ -1,7 +1,7 @@
 import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
-import deleteAllocation from '@/api/routes/admin/nodes/allocations/deleteAllocation';
+import { deleteNodeAllocationEntry as deleteAllocation } from '@/api/routes/admin/nodes';
 import { Button } from '@/elements/button';
 import type { ApplicationStore } from '@/state';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

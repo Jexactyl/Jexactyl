@@ -1,14 +1,5 @@
 import http from '@/api/http';
-import { Transformers } from '@definitions/admin';
-
-export interface WebhookEvent {
-    id: number;
-    key: string;
-    description: string;
-    enabled: boolean;
-    createdAt: Date;
-    updatedAt?: Date | null;
-}
+import { Transformers, WebhookEvent } from '@definitions/admin';
 
 const update = (key: string, value: any): Promise<void> => {
     return new Promise((resolve, reject) => {

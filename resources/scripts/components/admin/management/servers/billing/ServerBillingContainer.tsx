@@ -1,4 +1,4 @@
-import { useServerFromRoute } from '@/api/routes/admin/server';
+import { useServerFromRoute } from '@/api/routes/admin/servers';
 import OrdersTable from '@/components/admin/modules/billing/orders/OrdersTable';
 import AdminBox from '@/elements/AdminBox';
 import { Alert } from '@/elements/alert';

@@ -11,16 +11,19 @@ import AdminTable, {
     ContentWrapper,
     Pagination,
 } from '@/elements/AdminTable';
-import { Context as MessagesContext, getTicketMessages } from '@/api/routes/admin/tickets/messages';
+import {
+    TicketMessagesContext as MessagesContext,
+    getTicketMessages,
+    TicketMessagesContext as TicketMessageContext,
+    TicketMessageFilters,
+} from '@/api/routes/admin/tickets';
 import { differenceInHours, format, formatDistanceToNow } from 'date-fns';
-import { Context as TicketMessageContext } from '@/api/routes/admin/tickets/messages';
 import { useStoreState } from '@/state/hooks';
 import { useContext, useState } from 'react';
 import CopyOnClick from '@/elements/CopyOnClick';
 import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import { Alert } from '@/elements/alert';
-import { TicketMessageFilters } from '@/api/routes/admin/tickets/types';
 
 const MessagesTable = ({ ticketId }: { ticketId: number }) => {
     const { data: messages, error } = getTicketMessages(ticketId);

@@ -1,6 +1,6 @@
 import useFlash from '@/plugins/useFlash';
 import { useState, useEffect } from 'react';
-import getNodeInformation, { NodeInformation } from '@/api/routes/admin/nodes/getNodeInformation';
+import { getNodeInformation, NodeInformation } from '@/api/routes/admin/nodes';
 import Spinner from '@/elements/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoltLightning, faExclamationTriangle, faHeart } from '@fortawesome/free-solid-svg-icons';

@@ -1,5 +1,5 @@
 import { ServerPreset } from '@/api/definitions/admin';
-import { getServerPreset } from '@/api/routes/admin/servers/presets';
+import { getServerPreset } from '@/api/routes/admin/servers';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import Spinner from '@/elements/Spinner';
 import { useEffect, useState } from 'react';

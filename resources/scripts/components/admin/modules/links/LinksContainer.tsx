@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CustomLink } from '@/api/routes/admin/links';
+import { CustomLink } from '@definitions/admin';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Button } from '@/elements/button';

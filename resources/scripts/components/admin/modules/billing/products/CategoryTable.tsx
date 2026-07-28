@@ -1,4 +1,4 @@
-import { useGetCategories, Context as CategoryContext } from '@/api/routes/admin/billing/categories';
+import { useGetCategories, CategoryContext } from '@/api/routes/admin/billing';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -20,7 +20,7 @@ import { Button } from '@/elements/button';
 import classNames from 'classnames';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
 import useFlash from '@/plugins/useFlash';
-import { CategoryFilters } from '@/api/routes/admin/billing/types';
+import { CategoryFilters } from '@/api/routes/admin/billing';
 
 function CategoryTable() {
     const { data: categories, error } = useGetCategories();

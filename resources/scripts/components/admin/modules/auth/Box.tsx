@@ -4,7 +4,7 @@ import { faPuzzlePiece, faStar } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import useFlash from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { toggleModule } from '@/api/routes/admin/auth/module';
+import { toggleModule } from '@/api/routes/admin/auth';
 
 interface Props {
     name: string;

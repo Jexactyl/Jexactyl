@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { Node } from '@/api/routes/admin/nodes/getNodes';
-import getNode from '@/api/routes/admin/nodes/getNode';
+import type { NodeEntry as Node } from '@definitions/admin';
+import { getNodeEntry as getNode } from '@/api/routes/admin/nodes';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import NodeEditContainer from '@admin/management/nodes/NodeEditContainer';

@@ -10,7 +10,7 @@ import { Dialog } from '@/elements/dialog';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
-import { toggleModule, updateModule } from '@/api/routes/admin/auth/module';
+import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 import { Alert } from '@/elements/alert';
 
 export default () => {

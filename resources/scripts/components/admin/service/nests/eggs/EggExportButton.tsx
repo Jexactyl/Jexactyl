@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { exportEgg } from '@/api/routes/admin/egg';
+import { exportEgg } from '@/api/routes/admin/eggs';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Button } from '@/elements/button';
 import { Variant } from '@/elements/button/types';

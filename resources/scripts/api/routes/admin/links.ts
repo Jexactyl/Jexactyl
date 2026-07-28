@@ -1,16 +1,8 @@
-import http, { FractalResponseData, getPaginationSet, PaginatedResult } from '@/api/http';
+import http, { getPaginationSet, PaginatedResult } from '@/api/http';
 import { useContext } from 'react';
 import useSWR from 'swr';
 import { createContext } from '@/api';
-
-export interface CustomLink {
-    id: number;
-    name: string;
-    url: string;
-    visible: boolean;
-    createdAt: Date;
-    updatedAt?: Date | null;
-}
+import { CustomLink, Transformers } from '@definitions/admin';
 
 export interface Values {
     url?: string;
@@ -19,15 +11,6 @@ export interface Values {
 }
 
 export const Context = createContext<Values>();
-
-export const rawDataToLink = ({ attributes: data }: FractalResponseData): CustomLink => ({
-    id: data.id,
-    name: data.name,
-    url: data.url,
-    visible: data.visible,
-    createdAt: new Date(data.created_at),
-    updatedAt: data.updated_at ? new Date(data.updated_at) : null,
-});
 
 export const getLinks = (include: string[] = []) => {
     const { page, filters, sort, sortDirection } = useContext(Context);
@@ -51,7 +34,7 @@ export const getLinks = (include: string[] = []) => {
         });
 
         return {
-            items: (data.data || []).map(rawDataToLink),
+            items: (data.data || []).map(Transformers.toCustomLink),
             pagination: getPaginationSet(data.meta.pagination),
         };
     });
@@ -60,7 +43,7 @@ export const getLinks = (include: string[] = []) => {
 export const createLink = (values: Values): Promise<CustomLink> => {
     return new Promise((resolve, reject) => {
         http.post('/api/application/links', values)
-            .then(({ data }) => resolve(rawDataToLink(data)))
+            .then(({ data }) => resolve(Transformers.toCustomLink(data)))
             .catch(reject);
     });
 };

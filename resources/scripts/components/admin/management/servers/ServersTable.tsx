@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
-import type { Filters } from '@/api/routes/admin/servers/getServers';
-import getServers, { Context as ServersContext } from '@/api/routes/admin/servers/getServers';
+import type { ServerEntryFilters as Filters } from '@/api/routes/admin/servers';
+import { useServerEntries as getServers, ServerEntriesContext as ServersContext } from '@/api/routes/admin/servers';
 import AdminTable, {
     ContentWrapper,
     Loading,

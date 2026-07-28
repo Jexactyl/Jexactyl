@@ -1,4 +1,4 @@
-// import { useServerFromRoute } from '@/api/routes/admin/server';
+// import { useServerFromRoute } from '@/api/routes/admin/servers';
 import DatabasesTable from '@admin/management/databases/DatabasesTable';
 
 function ServerDatabases() {

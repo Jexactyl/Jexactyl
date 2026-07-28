@@ -1,10 +1,12 @@
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 
-import type { Database } from '@/api/routes/admin/databases/getDatabases';
-import searchDatabases from '@/api/routes/admin/databases/searchDatabases';
+import type { DatabaseEntry as Database } from '@definitions/admin';
+import {
+    searchDatabaseEntries as searchDatabases,
+    getDatabaseEntry as getDatabase,
+} from '@/api/routes/admin/databases';
 import SearchableSelect, { Option } from '@/elements/SearchableSelect';
-import getDatabase from '@/api/routes/admin/databases/getDatabase';
 
 export default ({ selected }: { selected: number | null }) => {
     const context = useFormikContext();

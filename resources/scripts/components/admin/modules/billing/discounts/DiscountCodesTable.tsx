@@ -1,4 +1,4 @@
-import { useGetDiscountCodes, Context as DiscountCodeContext } from '@/api/routes/admin/billing/discount-codes';
+import { useGetDiscountCodes, DiscountCodeContext } from '@/api/routes/admin/billing';
 import AdminTable, {
     ContentWrapper,
     Pagination,
@@ -14,7 +14,7 @@ import CopyOnClick from '@/elements/CopyOnClick';
 import tw from 'twin.macro';
 import { useContext, useEffect } from 'react';
 import useFlash from '@/plugins/useFlash';
-import { DiscountCodeFilters } from '@/api/routes/admin/billing/types';
+import { DiscountCodeFilters } from '@/api/routes/admin/billing';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { useStoreState } from '@/state/hooks';
 import DiscountCodeDialog from './DiscountCodeDialog';

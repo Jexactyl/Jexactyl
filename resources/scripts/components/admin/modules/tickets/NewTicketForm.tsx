@@ -16,8 +16,7 @@ import UserSelect from './UserSelect';
 import { useStoreState } from '@/state/hooks';
 import Select from '@/elements/Select';
 import Label from '@/elements/Label';
-import { createTicket } from '@/api/routes/admin/tickets';
-import { Values } from '@/api/routes/admin/tickets/types';
+import { createTicket, Values } from '@/api/routes/admin/tickets';
 
 const initialValues: Values = {
     title: '',

@@ -11,7 +11,7 @@ import Sidebar from '@/elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
 import Avatar from '@/elements/Avatar';
 import MobileSidebar from '@/elements/MobileSidebar';
-import { CustomLink } from '@/api/routes/admin/links';
+import { CustomLink } from '@definitions/admin';
 import { getLinks } from '@/api/getLinks';
 import http from '@/api/http';
 import NavigationBar from '@/elements/NavigationBar';
@@ -93,8 +93,18 @@ function DashboardRouter() {
                     {!collapsed && (
                         <>
                             {links?.map(link => (
-                                <a key={link.id} href={link.url} target={'_blank'} rel={'noreferrer'} className={'group'}>
-                                    <ExternalLinkIcon className={'transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5'} />
+                                <a
+                                    key={link.id}
+                                    href={link.url}
+                                    target={'_blank'}
+                                    rel={'noreferrer'}
+                                    className={'group'}
+                                >
+                                    <ExternalLinkIcon
+                                        className={
+                                            'transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5'
+                                        }
+                                    />
                                     <span>{link.name}</span>
                                 </a>
                             ))}

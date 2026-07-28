@@ -2,7 +2,7 @@ import { faDatabase } from '@fortawesome/free-solid-svg-icons';
 import { Field as FormikField, useFormikContext } from 'formik';
 import tw from 'twin.macro';
 
-import type { Node } from '@/api/routes/admin/nodes/getNodes';
+import type { NodeEntry as Node } from '@definitions/admin';
 import AdminBox from '@/elements/AdminBox';
 import DatabaseSelect from '@admin/management/nodes/DatabaseSelect';
 import Label from '@/elements/Label';

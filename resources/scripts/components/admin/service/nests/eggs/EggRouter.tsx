@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { useEggFromRoute } from '@/api/routes/admin/egg';
+import { useEggFromRoute } from '@/api/routes/admin/eggs';
 import EggInstallContainer from '@admin/service/nests/eggs/EggInstallContainer';
 import EggVariablesContainer from '@admin/service/nests/eggs/EggVariablesContainer';
 import useFlash from '@/plugins/useFlash';

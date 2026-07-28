@@ -5,10 +5,11 @@ import { Button } from '@/elements/button';
 import { Dialog } from '@/elements/dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExchangeAlt, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { useServerFromRoute } from '@/api/routes/admin/server';
+import { useServerFromRoute } from '@/api/routes/admin/servers';
 import useFlash from '@/plugins/useFlash';
-import transferServer from '@/api/routes/admin/servers/manage/transferServer';
-import { searchNodes, getAllocations, Node, Allocation } from '@/api/routes/admin/node';
+import { transferServerEntry as transferServer } from '@/api/routes/admin/servers';
+import { searchNodes, getAllocations } from '@/api/routes/admin/nodes';
+import type { Node, Allocation } from '@definitions/admin';
 
 export default () => {
     const { data: server } = useServerFromRoute();
