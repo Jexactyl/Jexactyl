@@ -293,6 +293,9 @@ function ActivityLogsContainer() {
                                                             }
                                                         >
                                                             {item.event}
+                                                            <p className={'text-white mb-1 text-sm'}>
+                                                                {item.description}
+                                                            </p>
                                                         </Link>
                                                         {item.isApi && (
                                                             <Tooltip placement={'top'} content={'Using API Key'}>
