@@ -13,14 +13,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthenticatedRoute from '@/elements/AuthenticatedRoute';
 import { NotFound } from '@/elements/ScreenBlock';
 import { EverestSettings } from '@/state/everest';
-import Onboarding from '@account/Onboarding';
-import SpeedDial from '@/elements/SpeedDial';
-import SetupContainer from './admin/setup/SetupContainer';
 
 const AdminRouter = lazy(() => import('@/routers/AdminRouter'));
 const AuthenticationRouter = lazy(() => import('@/routers/AuthenticationRouter'));
 const DashboardRouter = lazy(() => import('@/routers/DashboardRouter'));
 const ServerRouter = lazy(() => import('@/routers/ServerRouter'));
+const Onboarding = lazy(() => import('@account/Onboarding'));
+const SpeedDial = lazy(() => import('@/elements/SpeedDial'));
+const SetupContainer = lazy(() => import('./admin/setup/SetupContainer'));
 
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
@@ -90,13 +90,17 @@ function App() {
             <StoreProvider store={store}>
                 <ProgressBar />
                 {PterodactylUser?.root_admin && !SiteConfiguration?.setup ? (
-                    <SetupContainer />
+                    <Spinner.Suspense>
+                        <SetupContainer />
+                    </Spinner.Suspense>
                 ) : (
                     <>
                         {' '}
                         {PterodactylUser?.username.startsWith('null_user_') &&
                         EverestConfiguration?.auth.modules.onboarding.enabled ? (
-                            <Onboarding />
+                            <Spinner.Suspense>
+                                <Onboarding />
+                            </Spinner.Suspense>
                         ) : (
                             <div className="mx-auto w-auto">
                                 <BrowserRouter>
