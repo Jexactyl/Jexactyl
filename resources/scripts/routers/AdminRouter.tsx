@@ -8,6 +8,8 @@ import { usePersistedState } from '@/plugins/usePersistedState';
 import MobileSidebar from '@/elements/MobileSidebar';
 import Pill from '@/elements/Pill';
 import ErrorBoundary from '@/elements/ErrorBoundary';
+import AdminPermissionRoute from '@/elements/AdminPermissionRoute';
+import { hasAdminPermission } from '@/plugins/adminPermissions';
 import routes from './routes';
 import { getTransitionKey } from './routes/utils';
 import Spinner from '@/elements/Spinner';
@@ -21,11 +23,15 @@ function AdminRouter() {
     const theme = useStoreState(state => state.theme.data!);
     const user = useStoreState(state => state.user.data!);
     const settings = useStoreState(state => state.settings.data!);
+    const adminPermissions = useStoreState(state => state.user.data!.adminPermissions);
 
     const activityEnabled: boolean = settings.activity.enabled.admin;
 
     const categories = ['general', 'modules', 'appearance', 'management', 'services'] as const;
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_admin_${user.uuid}`, false);
+
+    const canAccess = (route: (typeof routes.admin)[number]): boolean =>
+        hasAdminPermission(adminPermissions, route.permission);
 
     return (
         <div className={'h-screen flex'}>
@@ -33,7 +39,12 @@ function AdminRouter() {
             <MobileSidebar>
                 <MobileSidebar.Home />
                 {routes.admin
-                    .filter(route => route.name && (!route.condition || route.condition({ activityEnabled })))
+                    .filter(
+                        route =>
+                            route.name &&
+                            (!route.condition || route.condition({ activityEnabled })) &&
+                            canAccess(route),
+                    )
                     .map(route => (
                         <MobileSidebar.Link
                             key={route.route}
@@ -67,23 +78,24 @@ function AdminRouter() {
                         <span>Return</span>
                     </NavLink>
                     {categories.map(category => {
-                        const categoryRoutes = routes.admin.filter(route => route.category === category && route.name);
+                        const categoryRoutes = routes.admin.filter(
+                            route =>
+                                route.category === category &&
+                                route.name &&
+                                (!route.condition || route.condition({ activityEnabled })) &&
+                                canAccess(route),
+                        );
                         if (categoryRoutes.length === 0) return null;
 
                         return (
                             <Fragment key={category}>
                                 <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
-                                {categoryRoutes
-                                    .filter(
-                                        route =>
-                                            route.name && (!route.condition || route.condition({ activityEnabled })),
-                                    )
-                                    .map(route => (
-                                        <NavLink to={route.path} key={route.path} end={route.end}>
-                                            <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
-                                            <span>{route.name}</span>
-                                        </NavLink>
-                                    ))}
+                                {categoryRoutes.map(route => (
+                                    <NavLink to={route.path} key={route.path} end={route.end}>
+                                        <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
+                                        <span>{route.name}</span>
+                                    </NavLink>
+                                ))}
                             </Fragment>
                         );
                     })}
@@ -116,16 +128,18 @@ function AdminRouter() {
                                     location.pathname,
                                 )}
                             >
-                                {routes.admin.map(({ route, component: Component }) => (
+                                {routes.admin.map(({ route, permission, component: Component }) => (
                                     <Route
                                         key={route}
                                         path={route}
                                         element={
-                                            <PageTransition>
-                                                <Spinner.Suspense>
-                                                    <Component />
-                                                </Spinner.Suspense>
-                                            </PageTransition>
+                                            <AdminPermissionRoute permission={permission}>
+                                                <PageTransition>
+                                                    <Spinner.Suspense>
+                                                        <Component />
+                                                    </Spinner.Suspense>
+                                                </PageTransition>
+                                            </AdminPermissionRoute>
                                         }
                                     />
                                 ))}

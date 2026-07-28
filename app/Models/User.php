@@ -199,7 +199,7 @@ class User extends Model implements
      */
     public function toReactObject(): array
     {
-        return Collection::make($this->append(['avatar_url', 'admin_role_name'])->toArray())
+        return Collection::make($this->append(['avatar_url', 'admin_role_name', 'admin_permissions'])->toArray())
             ->except(['id', 'external_id', 'admin_role'])
             ->toArray();
     }
@@ -243,6 +243,13 @@ class User extends Model implements
     {
         return Attribute::make(
             get: fn () => is_null($this->adminRole) ? ($this->root_admin ? 'None' : null) : $this->adminRole->name,
+        );
+    }
+
+    public function adminPermissions(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->root_admin ? ['*'] : ($this->adminRole->permissions ?? []),
         );
     }
 

@@ -36,6 +36,7 @@ interface ExtendedWindow extends Window {
         avatar_url: string;
         admin_role_name: string;
         admin_role_id?: number;
+        admin_permissions: string[];
         state: string;
         updated_at: string;
         created_at: string;
@@ -55,6 +56,7 @@ function App() {
             avatarURL: PterodactylUser.avatar_url,
             roleName: PterodactylUser.admin_role_name,
             admin_role_id: PterodactylUser.admin_role_id,
+            adminPermissions: PterodactylUser.admin_permissions ?? [],
             state: PterodactylUser.state,
             useTotp: PterodactylUser.use_totp,
             createdAt: new Date(PterodactylUser.created_at),

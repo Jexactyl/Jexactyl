@@ -11,6 +11,7 @@ export interface UserData {
     avatarURL: string;
     roleName: string;
     admin_role_id?: number;
+    adminPermissions: string[];
     state: string;
     createdAt: Date;
     updatedAt: Date;

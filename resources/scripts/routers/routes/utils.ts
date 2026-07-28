@@ -19,6 +19,7 @@ export interface ServerRouteDefinition extends RouteDefinition {
 export interface AdminRouteDefinition extends RouteDefinition {
     category?: 'general' | 'modules' | 'appearance' | 'management' | 'services';
     advanced?: boolean;
+    permission?: string | string[];
 }
 
 export const normalize = (route: string): string => route.replace(/[:*].*$/, '').replace(/\/+$/, '');
