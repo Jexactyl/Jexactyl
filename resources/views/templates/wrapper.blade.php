@@ -17,6 +17,9 @@
             <link rel="shortcut icon" href="/favicons/favicon.ico">
             <meta name="msapplication-config" content="/favicons/browserconfig.xml">
             <meta name="theme-color" content="#0e4688">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=IBM+Plex+Sans:500&display=swap">
         @show
 
         @section('user-data')
@@ -42,9 +45,6 @@
             @endif
         @show
         <style>
-            @import url('//fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
-            @import url('//fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:500&display=swap');
-
             body {
                 background-color: {{ $themeConfiguration['colors']['background'] }}
             }

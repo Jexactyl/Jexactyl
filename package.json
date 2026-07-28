@@ -134,6 +134,7 @@
         "twin.macro": "2.8.2",
         "typescript": "4.9.5",
         "vite": "4.5.14",
+        "vite-plugin-compression2": "^2.5.3",
         "vitest": "0.28.5"
     },
     "browserslist": [

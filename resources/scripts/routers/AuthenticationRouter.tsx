@@ -12,9 +12,8 @@ import PageTransition from '@/elements/transitions/PageTransition';
 import { getTransitionKey } from '@/routers/routes/utils';
 
 const Container = styled.div`
-    ${tw`h-screen bg-login bg-cover`};
-    background-repeat: no-repeat;
-    background-blend-mode: darken;
+    ${tw`h-screen bg-black`};
+    background-image: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.06), transparent 60%);
 `;
 
 export default () => {

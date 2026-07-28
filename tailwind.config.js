@@ -23,9 +23,6 @@ module.exports = {
             transitionDuration: {
                 250: '250ms',
             },
-            backgroundImage: {
-                'login': "url('https://images.unsplash.com/photo-1531257114315-24a694751517')",
-            },
             borderColor: theme => ({
                 default: theme('colors.neutral.400', 'currentColor'),
             }),

@@ -4,6 +4,7 @@ import laravel from 'laravel-vite-plugin';
 import { dirname, resolve } from 'pathe';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+import { compression } from 'vite-plugin-compression2';
 
 const plugins = [
     react({
@@ -17,6 +18,11 @@ if (process.env.VITEST === undefined) {
     plugins.push(
         laravel({
             input: 'resources/scripts/index.tsx',
+        }),
+        compression({
+            algorithms: ['brotliCompress', 'gzip'],
+            include: /\.(js|css|svg|json)$/,
+            threshold: 1024,
         }),
     );
 }
