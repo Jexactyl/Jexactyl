@@ -2,10 +2,8 @@
 
 namespace Everest\Tests\Integration\Api\Client\Billing;
 
-use Mockery;
 use Ramsey\Uuid\Uuid;
 use Stripe\StripeClient;
-use Everest\Models\Server;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
@@ -68,12 +66,12 @@ class StripeControllerTest extends ClientApiIntegrationTestCase
             'metadata' => (object) $metadata,
         ];
 
-        $sessions = Mockery::mock();
+        $sessions = \Mockery::mock();
         $sessions->shouldReceive('retrieve')->with($sessionId)->andReturn($session);
 
         // StripeClient resolves service accessors (e.g. `->checkout`) via getService(),
         // so the mock answers that instead of the real service factory.
-        $client = Mockery::mock(StripeClient::class);
+        $client = \Mockery::mock(StripeClient::class);
         $client->shouldReceive('getService')->with('checkout')->andReturn(
             (object) ['sessions' => $sessions]
         );
