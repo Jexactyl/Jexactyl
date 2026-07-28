@@ -4,10 +4,10 @@ namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use GeminiAPI\Client;
 use Everest\Models\Server;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use GeminiAPI\Resources\Parts\TextPart;
 use Everest\Http\Controllers\Api\Client\ClientApiController;
+use Everest\Http\Requests\Api\Client\Servers\QueryAIRequest;
 
 class AIController extends ClientApiController
 {
@@ -22,7 +22,7 @@ class AIController extends ClientApiController
     /**
      * Send an AI generated response to debug a server error.
      */
-    public function index(Request $request, Server $server): JsonResponse
+    public function index(QueryAIRequest $request, Server $server): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
             throw new \Exception('The Jexactyl AI module is not enabled.');

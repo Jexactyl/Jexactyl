@@ -84,7 +84,7 @@ class StripeController extends ClientApiController
             'server_id' => (string) ($server?->id ?? 0),
             'variables' => json_encode($request->input('variables') ?? []),
             'order_type' => $order_type,
-            'discount_code', $request->input('discount_code') ?? null,
+            'discount_code' => $request->input('discount_code') ?? null,
         ];
 
         $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price);

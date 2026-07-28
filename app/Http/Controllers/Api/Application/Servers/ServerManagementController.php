@@ -9,6 +9,7 @@ use Everest\Services\Servers\SuspensionService;
 use Everest\Services\Servers\ServerTransferService;
 use Everest\Services\Servers\ReinstallServerService;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
+use Everest\Http\Requests\Api\Application\Servers\ServerToggleRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Servers\TransferServerRequest;
 
@@ -66,7 +67,7 @@ class ServerManagementController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function toggle(Server $server): Response
+    public function toggle(ServerToggleRequest $request, Server $server): Response
     {
         if ($server->status === Server::STATUS_INSTALL_FAILED) {
             throw new \Exception('The server failed to install, so we cannot change the state.');

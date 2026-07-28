@@ -38,15 +38,21 @@ class ServerGroupController extends ClientApiController
      */
     public function add(ClientApiRequest $request, int $id): Response
     {
+        $group = ServerGroup::where('id', $id)->where('user_id', $request->user()->id)->first();
+
+        if (!$group) {
+            throw new DisplayException('No group with that ID exists on your account.');
+        }
+
         $server = Server::where('uuid', $request->input('server'))
             ->where('owner_id', $request->user()->id)
             ->first();
 
-        try {
-            $server->update(['group_id' => $id]);
-        } catch (DisplayException $ex) {
-            throw new DisplayException('Unable to assign group to server.');
+        if (!$server) {
+            throw new DisplayException('No server with that UUID exists on your account.');
         }
+
+        $server->update(['group_id' => $group->id]);
 
         return $this->returnNoContent();
     }
@@ -58,7 +64,12 @@ class ServerGroupController extends ClientApiController
     {
         $server = Server::where('uuid', $request->input('server'))
             ->where('owner_id', $request->user()->id)
+            ->where('group_id', $id)
             ->first();
+
+        if (!$server) {
+            throw new DisplayException('No server with that UUID exists in that group on your account.');
+        }
 
         $server->update(['group_id' => null]);
 
@@ -72,7 +83,7 @@ class ServerGroupController extends ClientApiController
     {
         $group = ServerGroup::findOrFail($id);
 
-        if ($group->user_id !== $request->user->id()) {
+        if ($group->user_id !== $request->user()->id) {
             throw new DisplayException('You do not have permission to edit this server group.');
         }
 
@@ -91,7 +102,7 @@ class ServerGroupController extends ClientApiController
     {
         $group = ServerGroup::findOrFail($id);
 
-        if ($group->user_id !== $request->user->id()) {
+        if ($group->user_id !== $request->user()->id) {
             throw new DisplayException('You do not have permission to edit this server group.');
         }
 

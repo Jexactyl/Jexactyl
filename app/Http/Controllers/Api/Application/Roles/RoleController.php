@@ -93,6 +93,15 @@ class RoleController extends ApplicationApiController
      */
     public function updatePermissions(UpdateRoleRequest $request, AdminRole $role): array
     {
+        $allowed = collect(AdminRole::permissions())
+            ->map(fn ($value, $prefix) => array_map(fn ($key) => "$prefix.$key", array_keys($value['keys'])))
+            ->flatten()
+            ->all();
+
+        $role->update([
+            'permissions' => array_values(array_intersect($request->input('permissions', []), $allowed)),
+        ]);
+
         return $this->transform($role, AdminRoleTransformer::class);
     }
 

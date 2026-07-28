@@ -10,6 +10,8 @@ use Everest\Models\TicketMessage;
 use Everest\Exceptions\DisplayException;
 use Everest\Http\Requests\Api\Client\ClientApiRequest;
 use Everest\Transformers\Api\Client\TicketTransformer;
+use Everest\Http\Requests\Api\Client\Account\StoreTicketRequest;
+use Everest\Http\Requests\Api\Client\Account\AddTicketMessageRequest;
 
 class TicketController extends ClientApiController
 {
@@ -30,7 +32,7 @@ class TicketController extends ClientApiController
     /**
      * Stores a new Ticket for the authenticated user's account.
      */
-    public function store(Request $request): array
+    public function store(StoreTicketRequest $request): array
     {
         $enabled = config('modules.tickets.enabled');
         $max_count = (int) config('modules.tickets.max_count');
@@ -75,7 +77,7 @@ class TicketController extends ClientApiController
     /**
      * Add a message to a ticket.
      */
-    public function message(Ticket $ticket, Request $request): array
+    public function message(Ticket $ticket, AddTicketMessageRequest $request): array
     {
         if ($request->user()->id !== $ticket->user_id) {
             throw new DisplayException('You do not own this ticket.');

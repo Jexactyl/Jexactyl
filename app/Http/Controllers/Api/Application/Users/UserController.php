@@ -21,6 +21,7 @@ use Everest\Http\Requests\Api\Application\Users\GetUsersRequest;
 use Everest\Http\Requests\Api\Application\Users\StoreUserRequest;
 use Everest\Http\Requests\Api\Application\Users\DeleteUserRequest;
 use Everest\Http\Requests\Api\Application\Users\UpdateUserRequest;
+use Everest\Http\Requests\Api\Application\Users\SuspendUserRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 
 class UserController extends ApplicationApiController
@@ -150,7 +151,7 @@ class UserController extends ApplicationApiController
      *
      * @throws \Throwable
      */
-    public function suspend(User $user): Response
+    public function suspend(SuspendUserRequest $request, User $user): Response
     {
         if ($user->root_admin) {
             throw new \Exception('You cannot suspend an administrator.');
