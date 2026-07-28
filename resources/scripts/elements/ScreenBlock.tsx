@@ -64,7 +64,11 @@ const ScreenBlock = ({ title, image, message, onBack, onRetry }: ScreenBlockProp
                                 onClick={() => (onRetry ? onRetry() : onBack ? onBack() : null)}
                                 className={onRetry ? 'hover:spin' : undefined}
                             >
-                                {onRetry ? <RefreshIcon className={'w-4 h-4'} /> : <ArrowLeftIcon className={'w-4 h-4'} />}
+                                {onRetry ? (
+                                    <RefreshIcon className={'w-4 h-4'} />
+                                ) : (
+                                    <ArrowLeftIcon className={'w-4 h-4'} />
+                                )}
                             </ActionButton>
                         </div>
                     )}
@@ -145,9 +149,7 @@ const Suspended = ({
 
     const isFree = product.price === 0;
 
-    const suspensionThreshold = isFree
-        ? settings.renewal?.free_suspension_days || 7
-        : settings.renewal?.paid_suspension_days || 30;
+    const suspensionThreshold = settings.renewal?.threshold || 30;
 
     const now = new Date();
     const daysOverdue = Math.max(0, Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)));

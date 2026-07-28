@@ -6,8 +6,7 @@ export function hasAdminPermission(userPermissions: string[], required?: string 
         permission =>
             // Allows checking for any permission matching a name, for example users.*
             // will return if the user has any permission under the users.XYZ namespace.
-            (permission.endsWith('.*') &&
-                userPermissions.some(p => p.startsWith(permission.split('.')?.[0] ?? ''))) ||
+            (permission.endsWith('.*') && userPermissions.some(p => p.startsWith(permission.split('.')?.[0] ?? ''))) ||
             // Otherwise just check if the entire permission exists in the array or not.
             userPermissions.indexOf(permission) >= 0,
     );

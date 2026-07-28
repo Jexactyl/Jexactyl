@@ -87,10 +87,7 @@ export const TableHead = ({ children }: { children: ReactNode }) => {
     const { colors } = useStoreState(state => state.theme.data!);
 
     return (
-        <thead
-            css={tw`border-t border-b border-gray-800 backdrop-blur-sm`}
-            style={{ backgroundColor: colors.headers }}
-        >
+        <thead css={tw`border-t border-b border-gray-800 backdrop-blur-sm`} style={{ backgroundColor: colors.headers }}>
             <tr>{children}</tr>
         </thead>
     );
