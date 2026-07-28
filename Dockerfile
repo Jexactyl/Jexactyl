@@ -13,7 +13,7 @@ RUN npm i -g pnpm && pnpm i \
 FROM --platform=$TARGETOS/$TARGETARCH php:8.3-fpm-alpine
 WORKDIR /app
 COPY . ./
-COPY --from=0 /app/public/assets ./public/assets
+COPY --from=0 /app/public/build ./public/build
 RUN apk add --no-cache --update ca-certificates dcron curl git supervisor tar unzip nginx libpng-dev libxml2-dev libzip-dev certbot certbot-nginx mysql-client \
     && docker-php-ext-configure zip \
     && docker-php-ext-install bcmath gd pdo_mysql zip \
