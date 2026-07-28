@@ -84,7 +84,7 @@ class StartupModificationServiceTest extends IntegrationTestCase
                 'egg_id' => $nextEgg->id,
                 'startup' => 'sample startup',
                 'skip_scripts' => true,
-                'docker_image' => 'docker/hodor',
+                'image' => 'docker/hodor',
             ]);
 
         $this->assertInstanceOf(Server::class, $response);
