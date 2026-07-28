@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Setup;
 
 use Everest\Models\Setting;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Everest\Http\Requests\Api\Application\OverviewRequest;
@@ -41,6 +42,10 @@ class SetupController extends ApplicationApiController
     public function finish(OverviewRequest $request): Response
     {
         Setting::set('settings::app:setup', true);
+
+        Activity::event('admin:setup:finish')
+            ->description('The panel setup wizard was completed')
+            ->log();
 
         return $this->returnNoContent();
     }

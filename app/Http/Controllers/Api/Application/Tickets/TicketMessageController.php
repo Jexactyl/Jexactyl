@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Tickets;
 
 use Everest\Models\Ticket;
+use Everest\Facades\Activity;
 use Everest\Models\TicketMessage;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Http\Requests\Api\Application\Tickets;
@@ -51,6 +52,12 @@ class TicketMessageController extends ApplicationApiController
             'user_id' => $request->user()->id,
             'message' => $request->input('message'),
         ]);
+
+        Activity::event('admin:tickets:message')
+            ->subject($ticket)
+            ->property('ticket', $ticket)
+            ->description('A message was added to a ticket')
+            ->log();
 
         return $this->transform($message, TicketMessageTransformer::class);
     }

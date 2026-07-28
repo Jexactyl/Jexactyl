@@ -45,11 +45,12 @@ class BillingExceptionController extends ApplicationApiController
      */
     public function resolve(ResolveBillingExceptionRequest $request, string $uuid): Response
     {
-        $exception = BillingException::where('uuid', $uuid);
+        $exception = BillingException::where('uuid', $uuid)->firstOrFail();
 
         $exception->delete();
 
         Activity::event('admin:billing:exception-resolve')
+            ->subject($exception)
             ->property('exception', $exception)
             ->description('A billing exception was resolved')
             ->log();

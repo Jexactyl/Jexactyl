@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Servers;
 
 use Everest\Models\Server;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Everest\Services\Servers\SuspensionService;
@@ -35,6 +36,12 @@ class ServerManagementController extends ApplicationApiController
     {
         $this->suspensionService->toggle($server);
 
+        Activity::event('admin:servers:suspend')
+            ->subject($server)
+            ->property('server', $server)
+            ->description('A server was suspended')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -47,6 +54,12 @@ class ServerManagementController extends ApplicationApiController
     {
         $this->suspensionService->toggle($server, SuspensionService::ACTION_UNSUSPEND);
 
+        Activity::event('admin:servers:unsuspend')
+            ->subject($server)
+            ->property('server', $server)
+            ->description('A server was unsuspended')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -58,6 +71,12 @@ class ServerManagementController extends ApplicationApiController
     public function reinstall(ServerWriteRequest $request, Server $server): Response
     {
         $this->reinstallServerService->handle($server);
+
+        Activity::event('admin:servers:reinstall')
+            ->subject($server)
+            ->property('server', $server)
+            ->description('A server was marked for reinstallation')
+            ->log();
 
         return $this->returnNoContent();
     }
@@ -75,6 +94,12 @@ class ServerManagementController extends ApplicationApiController
 
         $server->update(['status' => $server->isInstalled() ? Server::STATUS_INSTALLING : null]);
 
+        Activity::event('admin:servers:toggle')
+            ->subject($server)
+            ->property('server', $server)
+            ->description('A server installation status was toggled')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -86,6 +111,12 @@ class ServerManagementController extends ApplicationApiController
     public function transfer(TransferServerRequest $request, Server $server): JsonResponse
     {
         $transfer = $this->transferService->handle($server, $request->validated());
+
+        Activity::event('admin:servers:transfer')
+            ->subject($server)
+            ->property('server', $server)
+            ->description('A server transfer was initiated')
+            ->log();
 
         return new JsonResponse([
             'message' => 'Server transfer has been initiated.',

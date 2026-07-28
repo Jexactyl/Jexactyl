@@ -18,7 +18,7 @@ interface Props {
     children?: React.ReactNode;
 }
 
-function wrapProperties(value: unknown): any {
+export function wrapProperties(value: unknown): any {
     if (value === null || typeof value === 'string' || typeof value === 'number') {
         return `<strong>${String(value)}</strong>`;
     }
@@ -92,7 +92,12 @@ export default ({ activity, children }: Props) => {
                     <div className={'mt-1 flex items-center text-sm'}>
                         {activity.ip && (
                             <span>
-                                {activity.ip}
+                                <Link
+                                    to={`#${pathTo({ ip: activity.ip })}`}
+                                    className={'transition-colors duration-75 hover:text-cyan-400'}
+                                >
+                                    {activity.ip}
+                                </Link>
                                 <span className={'text-slate-400'}>&nbsp;|&nbsp;</span>
                             </span>
                         )}

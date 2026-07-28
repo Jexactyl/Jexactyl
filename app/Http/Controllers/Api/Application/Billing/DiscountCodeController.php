@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Application\Billing;
 
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\QueryBuilder;
 use Everest\Models\Billing\DiscountCode;
@@ -52,6 +53,12 @@ class DiscountCodeController extends ApplicationApiController
     {
         $discount_code = $this->creationService->handle($request->validated());
 
+        Activity::event('admin:billing:discount-codes:create')
+            ->subject($discount_code)
+            ->property('discount_code', $discount_code)
+            ->description('A discount code was created')
+            ->log();
+
         return $this->transform($discount_code, DiscountCodeTransformer::class);
     }
 
@@ -62,6 +69,13 @@ class DiscountCodeController extends ApplicationApiController
     {
         $discount_code = DiscountCode::findOrFail($id);
         $new_discount_code = $this->updateService->handle($discount_code, $request->validated());
+
+        Activity::event('admin:billing:discount-codes:update')
+            ->subject($new_discount_code)
+            ->property('discount_code', $new_discount_code)
+            ->property('new_data', $request->all())
+            ->description('A discount code was updated')
+            ->log();
 
         return $this->transform($new_discount_code, DiscountCodeTransformer::class);
     }
@@ -74,6 +88,12 @@ class DiscountCodeController extends ApplicationApiController
         $discount_code = DiscountCode::findOrFail($id);
 
         $discount_code->delete();
+
+        Activity::event('admin:billing:discount-codes:delete')
+            ->subject($discount_code)
+            ->property('discount_code', $discount_code)
+            ->description('A discount code was deleted')
+            ->log();
 
         return $this->returnNoContent();
     }

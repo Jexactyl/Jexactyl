@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Nodes;
 
 use Everest\Models\Node;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Everest\Models\Allocation;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -79,6 +80,12 @@ class AllocationController extends ApplicationApiController
 
         $this->assignmentService->handle($node, $request->all());
 
+        Activity::event('admin:nodes:allocations:create')
+            ->subject($node)
+            ->property('node', $node)
+            ->description('Allocations were added to a node')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -91,6 +98,13 @@ class AllocationController extends ApplicationApiController
     {
         $this->deletionService->handle($allocation);
 
+        Activity::event('admin:nodes:allocations:delete')
+            ->subject($node)
+            ->property('node', $node)
+            ->property('allocation', $allocation)
+            ->description('An allocation was removed from a node')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -102,6 +116,12 @@ class AllocationController extends ApplicationApiController
         $allocations = Allocation::where('server_id', null)->get();
 
         $allocations->map->delete();
+
+        Activity::event('admin:nodes:allocations:delete-all')
+            ->subject($node)
+            ->property('node', $node)
+            ->description('All unused allocations were removed from a node')
+            ->log();
 
         return $this->returnNoContent();
     }

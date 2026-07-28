@@ -61,6 +61,7 @@ class ServerPresetController extends ApplicationApiController
         $preset = ServerPreset::create($request->normalize());
 
         Activity::event('admin:server_presets:create')
+            ->subject($preset)
             ->property('server_preset', $preset)
             ->description('A server preset was created')
             ->log();
@@ -78,6 +79,7 @@ class ServerPresetController extends ApplicationApiController
         $preset->fill($request->normalize())->saveOrFail();
 
         Activity::event('admin:server_presets:update')
+            ->subject($preset)
             ->property('server_preset', $preset)
             ->description('A server preset was updated')
             ->log();
@@ -93,6 +95,7 @@ class ServerPresetController extends ApplicationApiController
         $preset = ServerPreset::findOrFail($id);
 
         Activity::event('admin:server_presets:delete')
+            ->subject($preset)
             ->property('server_preset', $preset)
             ->description('A server preset was deleted')
             ->log();

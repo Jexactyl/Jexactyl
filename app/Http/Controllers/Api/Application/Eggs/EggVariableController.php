@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Eggs;
 
 use Everest\Models\Egg;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Everest\Models\EggVariable;
 use Illuminate\Database\ConnectionInterface;
@@ -35,6 +36,13 @@ class EggVariableController extends ApplicationApiController
     {
         $variable = $this->variableCreationService->handle($egg->id, $request->validated());
 
+        Activity::event('admin:eggs:variables:create')
+            ->subject($egg, $variable)
+            ->property('egg', $egg)
+            ->property('variable', $variable)
+            ->description('A variable was added to an egg')
+            ->log();
+
         return $this->transform($variable, EggVariableTransformer::class);
     }
 
@@ -53,6 +61,12 @@ class EggVariableController extends ApplicationApiController
             }
         });
 
+        Activity::event('admin:eggs:variables:update')
+            ->subject($egg)
+            ->property('egg', $egg)
+            ->description('Egg variables were updated')
+            ->log();
+
         return $this->transform($egg->refresh()->variables, EggVariableTransformer::class);
     }
 
@@ -65,6 +79,13 @@ class EggVariableController extends ApplicationApiController
             ->where('id', $eggVariable->id)
             ->where('egg_id', $egg->id)
             ->delete();
+
+        Activity::event('admin:eggs:variables:delete')
+            ->subject($egg, $eggVariable)
+            ->property('egg', $egg)
+            ->property('variable', $eggVariable)
+            ->description('A variable was removed from an egg')
+            ->log();
 
         return $this->returnNoContent();
     }

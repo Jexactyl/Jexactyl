@@ -7,6 +7,7 @@ import { toPaginatedSet } from '@definitions/helpers';
 import { ActivityLog, Transformers } from '@definitions/account';
 import useFilteredObject from '@/plugins/useFilteredObject';
 import { useUserSWRKey } from '@/plugins/useSWRKey';
+import { createContext, createPaginatedHook } from '@/api';
 
 export type ActivityLogFilters = QueryBuilderParams<'ip' | 'event', 'timestamp'>;
 
@@ -31,5 +32,21 @@ const useActivityLogs = (
         { revalidateOnMount: false, ...(config || {}) },
     );
 };
+
+export interface ActivityLogListFilters {
+    actor?: string;
+    event?: string;
+    ip?: string;
+}
+
+export const Context = createContext<ActivityLogListFilters>();
+
+export const useGetActivityLogs = createPaginatedHook<ActivityLog, ActivityLogListFilters>({
+    url: '/api/application/activity',
+    swrKey: 'admin-activity',
+    context: Context,
+    transformer: Transformers.toActivityLog,
+    includes: ['actor'],
+});
 
 export { useActivityLogs };

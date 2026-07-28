@@ -7,6 +7,7 @@ import ServerPresetViewContainer from '@/components/admin/management/servers/pre
 // todo(jex): lazy load these
 
 const OverviewContainer = lazy(() => import('@/components/admin/general/overview/OverviewContainer'));
+const ActivityLogsContainer = lazy(() => import('@/components/admin/general/activity/ActivityLogsContainer'));
 const SettingsRouter = lazy(() => import('@/components/admin/general/settings/SettingsRouter'));
 const ApplicationApiRouter = lazy(() => import('@/components/admin/general/api/ApplicationApiRouter'));
 
@@ -47,6 +48,12 @@ const admin: AdminRouteDefinition[] = [
      * Admin - General Routes
      */
     route('', OverviewContainer, { name: 'Overview', end: true, icon: Icon.OfficeBuildingIcon, category: 'general' }),
+    route('activity', ActivityLogsContainer, {
+        name: 'Activity',
+        icon: Icon.ClipboardListIcon,
+        category: 'general',
+        condition: ({ activityEnabled }: { activityEnabled: boolean }) => activityEnabled,
+    }),
     route('settings/*', SettingsRouter, { name: 'Settings', icon: Icon.CogIcon, category: 'general' }),
     route('settings/webhooks/*', WebhookRouter),
     route('api/*', ApplicationApiRouter, { name: 'API', icon: Icon.CodeIcon, category: 'general', advanced: true }),

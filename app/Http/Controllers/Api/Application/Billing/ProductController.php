@@ -74,6 +74,7 @@ class ProductController extends ApplicationApiController
         }
 
         Activity::event('admin:billing:products:create')
+            ->subject($product, $category)
             ->property('product', $product)
             ->description('A new billing product was created')
             ->log();
@@ -106,6 +107,7 @@ class ProductController extends ApplicationApiController
         }
 
         Activity::event('admin:billing:products:update')
+            ->subject($product, $category)
             ->property('product', $product)
             ->property('new_data', $request->all())
             ->description('A billing product has been updated')
@@ -134,6 +136,7 @@ class ProductController extends ApplicationApiController
         $product->delete();
 
         Activity::event('admin:billing:products:delete')
+            ->subject($product, $category)
             ->property('product', $product)
             ->description('A billing product has been deleted')
             ->log();

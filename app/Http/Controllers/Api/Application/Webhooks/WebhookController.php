@@ -50,6 +50,12 @@ class WebhookController extends ApplicationApiController
             }
         }
 
+        Activity::event('admin:webhooks:toggle')
+            ->property('id', $request->input('id'))
+            ->property('enabled', $request->input('enabled'))
+            ->description('Webhook event(s) were toggled')
+            ->log();
+
         return $this->returnNoContent();
     }
 

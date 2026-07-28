@@ -46,6 +46,7 @@ export default class Transformers {
 
     static toUser = ({ attributes }: FractalResponseData): Models.User => {
         return {
+            id: attributes.id,
             uuid: attributes.uuid,
             username: attributes.username,
             email: attributes.email,
@@ -64,6 +65,7 @@ export default class Transformers {
 
         return {
             id: attributes.id,
+            logId: attributes.log_id ?? null,
             batch: attributes.batch,
             event: attributes.event,
             ip: attributes.ip,
@@ -71,6 +73,7 @@ export default class Transformers {
             description: attributes.description,
             properties: attributes.properties,
             hasAdditionalMetadata: attributes.has_additional_metadata ?? false,
+            subjects: attributes.subjects ?? [],
             timestamp: new Date(attributes.timestamp),
             relationships: {
                 actor: transform(actor as FractalResponseData, this.toUser, null),

@@ -3,6 +3,7 @@
 namespace Everest\Http\Controllers\Api\Application\Theme;
 
 use Everest\Models\Theme;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Everest\Contracts\Repository\ThemeRepositoryInterface;
 use Everest\Http\Requests\Api\Application\Theme\UpdateThemeRequest;
@@ -28,6 +29,12 @@ class ThemeController extends ApplicationApiController
     {
         $this->theme->set('theme::colors:' . $request->input('key'), $request->input('value'));
 
+        Activity::event('admin:theme:update')
+            ->property('key', $request->input('key'))
+            ->property('value', $request->input('value'))
+            ->description('A panel theme color was updated')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -39,6 +46,10 @@ class ThemeController extends ApplicationApiController
         foreach ($this->theme->all() as $setting) {
             $setting->delete();
         }
+
+        Activity::event('admin:theme:reset')
+            ->description('The panel theme was reset to factory defaults')
+            ->log();
 
         return $this->returnNoContent();
     }

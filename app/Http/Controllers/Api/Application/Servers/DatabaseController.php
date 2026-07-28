@@ -4,6 +4,7 @@ namespace Everest\Http\Controllers\Api\Application\Servers;
 
 use Everest\Models\Server;
 use Everest\Models\Database;
+use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Everest\Services\Databases\DatabasePasswordService;
 use Everest\Services\Databases\DatabaseManagementService;
@@ -52,6 +53,13 @@ class DatabaseController extends ApplicationApiController
     {
         $this->databasePasswordService->handle($database);
 
+        Activity::event('admin:servers:databases:reset-password')
+            ->subject($server, $database)
+            ->property('server', $server)
+            ->property('database', $database)
+            ->description('A server database password was reset')
+            ->log();
+
         return $this->returnNoContent();
     }
 
@@ -66,6 +74,13 @@ class DatabaseController extends ApplicationApiController
             'database' => $request->databaseName(),
         ]));
 
+        Activity::event('admin:servers:databases:create')
+            ->subject($server, $database)
+            ->property('server', $server)
+            ->property('database', $database)
+            ->description('A database was created for a server')
+            ->log();
+
         return $this->transform($database, ServerDatabaseTransformer::class);
     }
 
@@ -76,7 +91,16 @@ class DatabaseController extends ApplicationApiController
      */
     public function delete(ServerDatabaseWriteRequest $request, Database $database): Response
     {
+        $server = $database->server;
+
         $this->databaseManagementService->delete($database);
+
+        Activity::event('admin:servers:databases:delete')
+            ->subject($server, $database)
+            ->property('server', $server)
+            ->property('database', $database)
+            ->description('A server database was deleted')
+            ->log();
 
         return $this->returnNoContent();
     }

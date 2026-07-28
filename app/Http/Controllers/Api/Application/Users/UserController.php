@@ -116,6 +116,7 @@ class UserController extends ApplicationApiController
         $user = $this->updateService->handle($user, $request->validated());
 
         Activity::event('admin:users:update')
+            ->subject($user)
             ->property('user', $user)
             ->property('new_data', $request->all())
             ->description('A user was updated')
@@ -136,6 +137,7 @@ class UserController extends ApplicationApiController
         $user = $this->creationService->handle($request->validated());
 
         Activity::event('admin:users:create')
+            ->subject($user)
             ->property('user', $user)
             ->description('A user was created')
             ->log();
@@ -160,6 +162,7 @@ class UserController extends ApplicationApiController
         $user->update(['state' => $user->isSuspended() ? 'active' : 'suspended']);
 
         Activity::event('admin:users:suspend')
+            ->subject($user)
             ->property('user', $user)
             ->description('A user was suspended')
             ->log();
@@ -178,6 +181,7 @@ class UserController extends ApplicationApiController
         $this->deletionService->handle($user);
 
         Activity::event('admin:users:delete')
+            ->subject($user)
             ->property('user', $user)
             ->description('A user was deleted')
             ->log();

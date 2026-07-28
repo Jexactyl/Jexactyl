@@ -68,6 +68,7 @@ class CategoryController extends ApplicationApiController
         }
 
         Activity::event('admin:billing:categories:create')
+            ->subject($category)
             ->property('category', $category)
             ->description('A billing category was created')
             ->log();
@@ -96,6 +97,7 @@ class CategoryController extends ApplicationApiController
         }
 
         Activity::event('admin:billing:categories:update')
+            ->subject($category)
             ->property('category', $category)
             ->property('new_data', $request->all())
             ->description('A billing category was updated')
@@ -126,6 +128,7 @@ class CategoryController extends ApplicationApiController
         });
 
         Activity::event('admin:billing:categories:delete')
+            ->subject($category)
             ->property('category', $category)
             ->description('A billing category was deleted')
             ->log();

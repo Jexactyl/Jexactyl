@@ -11,11 +11,14 @@ import Spinner from '@/elements/Spinner';
 import classNames from 'classnames';
 import { useStoreState } from '@/state/hooks';
 
-export function useTableHooks<T>(initialState?: T | (() => T)): TableHooks<T> {
+export function useTableHooks<T>(
+    initialState?: T | (() => T),
+    initialSort?: { column: string; direction?: boolean },
+): TableHooks<T> {
     const [page, setPage] = useState<number>(1);
     const [filters, setFilters] = useState<T | null>(initialState || null);
-    const [sort, setSortState] = useState<string | null>(null);
-    const [sortDirection, setSortDirection] = useState<boolean>(false);
+    const [sort, setSortState] = useState<string | null>(initialSort?.column ?? null);
+    const [sortDirection, setSortDirection] = useState<boolean>(initialSort?.direction ?? false);
 
     const setSort = (newSort: string | null) => {
         if (sort === newSort) {

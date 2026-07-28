@@ -73,6 +73,7 @@ class NestController extends ApplicationApiController
         $nest = $this->nestCreationService->handle($request->validated());
 
         Activity::event('admin:nests:create')
+            ->subject($nest)
             ->property('nest', $nest)
             ->description('A nest was created')
             ->log();
@@ -92,6 +93,7 @@ class NestController extends ApplicationApiController
         );
 
         Activity::event('admin:nests:import')
+            ->subject($egg, $nest)
             ->property('egg', $egg)
             ->property('nest', $nest)
             ->description('An egg was imported to a nest')
@@ -111,6 +113,7 @@ class NestController extends ApplicationApiController
         $this->nestUpdateService->handle($nest->id, $request->validated());
 
         Activity::event('admin:nests:update')
+            ->subject($nest)
             ->property('nest', $nest)
             ->property('new_data', $request->all())
             ->description('A nest was updated')
@@ -129,6 +132,7 @@ class NestController extends ApplicationApiController
         $this->nestDeletionService->handle($nest->id);
 
         Activity::event('admin:nests:delete')
+            ->subject($nest)
             ->property('nest', $nest)
             ->description('A nest was deleted')
             ->log();

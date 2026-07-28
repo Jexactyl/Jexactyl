@@ -69,6 +69,7 @@ class ServerController extends ApplicationApiController
         $server = $this->creationService->handle($request->validated());
 
         Activity::event('admin:servers:create')
+            ->subject($server)
             ->property('server', $server)
             ->description('A server was created')
             ->log();
@@ -91,6 +92,7 @@ class ServerController extends ApplicationApiController
         $server = $this->presetCreationService->handle($request->user(), $request->normalize());
 
         Activity::event('admin:servers:create')
+            ->subject($server)
             ->property('server', $server)
             ->property('server_preset', $request['preset_id'])
             ->description('A server was created via a server preset')
@@ -118,6 +120,7 @@ class ServerController extends ApplicationApiController
         $this->deletionService->withForce($request->boolean('force'))->handle($server);
 
         Activity::event('admin:servers:delete')
+            ->subject($server)
             ->property('server', $server)
             ->description('A server was deleted')
             ->log();
@@ -141,6 +144,7 @@ class ServerController extends ApplicationApiController
         $server = $this->detailsModificationService->returnUpdatedModel()->handle($server, $request->validated());
 
         Activity::event('admin:servers:update')
+            ->subject($server)
             ->property('server', $server)
             ->property('new_data', $request->all())
             ->description('A server was updated')
