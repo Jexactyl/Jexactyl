@@ -2,6 +2,7 @@ import ContentBox from '@/elements/ContentBox';
 import UpdatePasswordForm from '@account/forms/UpdatePasswordForm';
 import UpdateEmailAddressForm from '@account/forms/UpdateEmailAddressForm';
 import ConfigureTwoFactorForm from '@account/forms/ConfigureTwoFactorForm';
+import UpdateAvatarForm from '@account/forms/UpdateAvatarForm';
 import PageContentBlock from '@/elements/PageContentBlock';
 import tw from 'twin.macro';
 import { breakpoint } from '@/assets/theme';
@@ -36,16 +37,20 @@ export default () => {
                 </MessageBox>
             )}
 
-            <Container css={[tw`lg:grid lg:grid-cols-3 mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}>
-                <ContentBox title="Update Password" showFlashes="account:password">
+            <Container css={[tw`lg:grid lg:grid-cols-4 mb-10`, state?.twoFactorRedirect ? tw`mt-4` : tw`mt-10`]}>
+                <ContentBox title="Avatar" showFlashes="account:avatar">
+                    <UpdateAvatarForm />
+                </ContentBox>
+
+                <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Update Password" showFlashes="account:password">
                     <UpdatePasswordForm />
                 </ContentBox>
 
-                <ContentBox css={tw`mt-8 sm:mt-0 sm:ml-8`} title="Update Email Address" showFlashes="account:email">
+                <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Update Email Address" showFlashes="account:email">
                     <UpdateEmailAddressForm />
                 </ContentBox>
 
-                <ContentBox css={tw`md:ml-8 mt-8 md:mt-0`} title="Two-Step Verification">
+                <ContentBox css={tw`mt-8 lg:mt-0 lg:ml-8`} title="Two-Step Verification">
                     <ConfigureTwoFactorForm />
                 </ContentBox>
             </Container>

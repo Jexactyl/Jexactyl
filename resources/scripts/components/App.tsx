@@ -33,7 +33,7 @@ interface ExtendedWindow extends Window {
         root_admin: boolean;
         use_totp: boolean;
         language: string;
-        avatar_url: string;
+        avatar_url: string | null;
         admin_role_name: string;
         admin_role_id?: number;
         admin_permissions: string[];

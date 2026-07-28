@@ -3,11 +3,13 @@
 namespace Everest\Models;
 
 use Everest\Rules\Username;
+use Illuminate\Support\Str;
 use Everest\Facades\Activity;
 use Everest\Models\Billing\Order;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Everest\Models\Traits\HasAccessTokens;
@@ -42,7 +44,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property bool $gravatar
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string $avatar_url
+ * @property string|null $avatar_url
  * @property string $recovery_code
  * @property string|null $admin_role_name
  * @property string $md5
@@ -133,6 +135,7 @@ class User extends Model implements
         'state',
         'root_admin',
         'recovery_code',
+        'avatar_url',
     ];
 
     /**
@@ -178,6 +181,7 @@ class User extends Model implements
         'admin_role_id' => 'nullable|exists:admin_roles,id',
         'totp_secret' => 'nullable|string',
         'recovery_code' => 'nullable|string',
+        'avatar_url' => 'sometimes|nullable|string|max:500',
     ];
 
     /**
@@ -232,10 +236,25 @@ class User extends Model implements
         $this->attributes['username'] = mb_strtolower($value);
     }
 
+    /**
+     * Returns the user's custom avatar, either a manually specified URL or an
+     * uploaded file resolved against the public storage disk. Returns null when
+     * the user has not configured a custom avatar, in which case the frontend
+     * falls back to a generated avatar.
+     */
     public function avatarUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => 'https://www.gravatar.com/avatar/' . $this->md5 . '.jpg',
+            get: function () {
+                $value = $this->attributes['avatar_url'] ?? null;
+                if (empty($value)) {
+                    return null;
+                }
+
+                return Str::startsWith($value, ['http://', 'https://'])
+                    ? $value
+                    : Storage::disk('public')->url($value);
+            },
         );
     }
 

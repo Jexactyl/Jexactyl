@@ -5,7 +5,9 @@ namespace Everest\Tests\Integration\Api\Client;
 use Everest\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AccountControllerTest extends ClientApiIntegrationTestCase
 {
@@ -182,5 +184,69 @@ class AccountControllerTest extends ClientApiIntegrationTestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonPath('errors.0.meta.rule', 'confirmed');
         $response->assertJsonPath('errors.0.detail', 'The password confirmation does not match.');
+    }
+
+    /**
+     * Test that a user's avatar can be set to a manually provided URL, and that
+     * the value is reflected back through the account endpoint.
+     */
+    public function testAvatarIsUpdatedFromUrl()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->postJson('/api/client/account/avatar', [
+            'avatar_url' => 'https://example.com/avatar.png',
+        ]);
+
+        $response->assertOk();
+        $response->assertJsonPath('attributes.avatar_url', 'https://example.com/avatar.png');
+
+        $this->assertDatabaseHas('users', ['id' => $user->id, 'avatar_url' => 'https://example.com/avatar.png']);
+    }
+
+    /**
+     * Test that a user's avatar can be set by uploading an image, that the file is stored
+     * on the public disk, and that the previously stored file is cleaned up when replaced.
+     */
+    public function testAvatarIsUpdatedFromUploadedFile()
+    {
+        Storage::fake('public');
+
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->call(
+            'POST',
+            '/api/client/account/avatar',
+            [],
+            [],
+            ['avatar' => UploadedFile::fake()->image('avatar.png')],
+        );
+
+        $response->assertOk();
+
+        $user = $user->refresh();
+        $this->assertNotNull($user->getRawOriginal('avatar_url'));
+        Storage::disk('public')->assertExists($user->getRawOriginal('avatar_url'));
+    }
+
+    /**
+     * Test that a user's avatar can be removed, reverting the account back to using the
+     * default generated avatar on the frontend.
+     */
+    public function testAvatarIsRemoved()
+    {
+        Storage::fake('public');
+
+        /** @var User $user */
+        $user = User::factory()->create(['avatar_url' => 'https://example.com/avatar.png']);
+
+        $response = $this->actingAs($user)->deleteJson('/api/client/account/avatar');
+
+        $response->assertOk();
+        $response->assertJsonPath('attributes.avatar_url', null);
+
+        $this->assertDatabaseHas('users', ['id' => $user->id, 'avatar_url' => null]);
     }
 }

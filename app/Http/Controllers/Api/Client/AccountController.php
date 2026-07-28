@@ -2,15 +2,18 @@
 
 namespace Everest\Http\Controllers\Api\Client;
 
+use Everest\Models\User;
 use Illuminate\Http\Request;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\RateLimiter;
 use Everest\Services\Users\UserUpdateService;
 use Everest\Transformers\Api\Client\AccountTransformer;
 use Everest\Http\Requests\Api\Client\Account\SetupUserRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdateEmailRequest;
+use Everest\Http\Requests\Api\Client\Account\UpdateAvatarRequest;
 use Everest\Http\Requests\Api\Client\Account\UpdatePasswordRequest;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
@@ -100,5 +103,63 @@ class AccountController extends ClientApiController
         $user = $this->updateService->handle($request->user(), $request->validated());
 
         return $this->returnNoContent();
+    }
+
+    /**
+     * Update the authenticated user's avatar, either from an uploaded file or a
+     * manually provided URL. Uploading a file takes precedence if both are present.
+     */
+    public function updateAvatar(UpdateAvatarRequest $request): array
+    {
+        $user = $request->user();
+
+        if ($request->hasFile('avatar')) {
+            $this->deleteStoredAvatar($user);
+
+            $avatarUrl = $request->file('avatar')->store('avatars', 'public');
+        } else {
+            $avatarUrl = $request->validated('avatar_url');
+            $this->deleteStoredAvatar($user);
+        }
+
+        $user = $this->updateService->handle($user, ['avatar_url' => $avatarUrl]);
+
+        Activity::event('user:account.avatar-changed')->log();
+
+        return $this->fractal->item($user)
+            ->transformWith(AccountTransformer::class)
+            ->toArray();
+    }
+
+    /**
+     * Remove the authenticated user's custom avatar, reverting to the default
+     * generated avatar.
+     */
+    public function removeAvatar(Request $request): array
+    {
+        $user = $request->user();
+
+        $this->deleteStoredAvatar($user);
+
+        $user = $this->updateService->handle($user, ['avatar_url' => null]);
+
+        Activity::event('user:account.avatar-changed')->log();
+
+        return $this->fractal->item($user)
+            ->transformWith(AccountTransformer::class)
+            ->toArray();
+    }
+
+    /**
+     * Deletes the currently stored avatar file from the public disk, if the
+     * user's avatar is a locally uploaded file rather than an external URL.
+     */
+    private function deleteStoredAvatar(User $user): void
+    {
+        $current = $user->getRawOriginal('avatar_url');
+
+        if ($current && !str_starts_with($current, 'http://') && !str_starts_with($current, 'https://')) {
+            Storage::disk('public')->delete($current);
+        }
     }
 }

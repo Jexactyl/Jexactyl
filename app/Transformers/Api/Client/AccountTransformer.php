@@ -26,6 +26,7 @@ class AccountTransformer extends Transformer
             'username' => $model->username,
             'email' => $model->email,
             'language' => $model->language,
+            'avatar_url' => $model->avatar_url,
         ];
     }
 }

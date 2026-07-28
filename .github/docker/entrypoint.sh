@@ -91,6 +91,10 @@ done
 echo -e "Migrating and Seeding D.B"
 php artisan migrate --seed --force
 
+## make sure uploaded files (e.g. avatars) are publicly reachable
+echo -e "Linking storage."
+php artisan storage:link || true
+
 ## start cronjobs for the queue
 echo -e "Starting cron jobs."
 crond -L /var/log/crond -l 5
