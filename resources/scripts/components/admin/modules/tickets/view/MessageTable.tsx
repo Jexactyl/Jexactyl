@@ -123,7 +123,8 @@ const MessagesTable = ({ ticketId }: { ticketId: number }) => {
                                                     </td>
                                                 </TableRow>
                                             ))
-                                            .toReversed()}
+                                            .slice()
+                                            .reverse()}
                                 </TableBody>
                             </table>
 

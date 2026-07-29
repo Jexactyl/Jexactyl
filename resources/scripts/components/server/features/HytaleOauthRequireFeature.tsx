@@ -3,6 +3,7 @@ import Modal from '@/elements/Modal';
 import { ServerContext } from '@/state/server';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button';
+import { Variant } from '@/elements/button/types';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { SocketEvent } from '@/components/server/events';
@@ -61,7 +62,11 @@ const HytaleOauthRequireFeature = () => {
                 continue.
             </p>
             <div css={tw`mt-8 sm:flex items-center justify-end`}>
-                <Button isSecondary onClick={() => setVisible(false)} css={tw`w-full sm:w-auto border-transparent`}>
+                <Button
+                    variant={Variant.Secondary}
+                    onClick={() => setVisible(false)}
+                    css={tw`w-full sm:w-auto border-transparent`}
+                >
                     Cancel
                 </Button>
                 <Button onClick={handleLogin} css={tw`mt-4 sm:mt-0 sm:ml-4 w-full sm:w-auto`}>

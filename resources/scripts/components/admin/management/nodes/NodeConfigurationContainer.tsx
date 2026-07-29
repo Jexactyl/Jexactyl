@@ -64,7 +64,8 @@ export default () => {
 
             {searchParams.get('setup') === 'true' && (
                 <Alert type={'info'} css={tw`mb-4`}>
-                    After this is done, you&apos;ll need to set up Allocations for servers to connect to. Click 'Allocations' at the top of your screen.
+                    After this is done, you&apos;ll need to set up Allocations for servers to connect to. Click
+                    &apos;Allocations&apos; at the top of your screen.
                 </Alert>
             )}
         </>

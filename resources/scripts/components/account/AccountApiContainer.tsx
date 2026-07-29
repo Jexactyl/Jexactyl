@@ -5,7 +5,7 @@ import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { getApiKeys, deleteApiKey } from '@/api/routes/account/api-keys';
-import { type ApiKey } from '@definitions/user';
+import { type ApiKey } from '@definitions/account';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import { format } from 'date-fns';
 import PageContentBlock from '@/elements/PageContentBlock';

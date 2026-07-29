@@ -41,7 +41,7 @@ export default ({ database, className }: Props) => {
     const schema = object().shape({
         confirm: string()
             .required('The database name must be provided.')
-            .oneOf([database.name!.split('_', 2)[1], database.name], 'The database name must be provided.'),
+            .oneOf([database.name!.split('_', 2)[1] ?? '', database.name], 'The database name must be provided.'),
     });
 
     const submit = (_: { confirm: string }, { setSubmitting }: FormikHelpers<{ confirm: string }>) => {

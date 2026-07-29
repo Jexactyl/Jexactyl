@@ -82,7 +82,8 @@ export default () => {
                                                 </p>
                                             </div>
                                         ))
-                                        .toReversed()}
+                                        .slice()
+                                        .reverse()}
                                 </>
                             )}
                         </ContentBox>

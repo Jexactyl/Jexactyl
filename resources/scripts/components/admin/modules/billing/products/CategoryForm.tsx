@@ -185,7 +185,7 @@ export default ({ category }: { category?: Category }) => {
                     </p>
                 </div>
             </div>
-            <Formik
+            <Formik<CategoryValues>
                 onSubmit={category ? update : submit}
                 enableReinitialize={true}
                 initialValues={{
@@ -194,8 +194,6 @@ export default ({ category }: { category?: Category }) => {
                     description: category?.description ?? '',
                     visible: category?.visible ?? false,
                     eggId: category?.eggId ?? 0,
-                    // Required by EggSelect component but not submitted to backend (not in CategoryValues type)
-                    environment: {} as Record<string, unknown>,
                 }}
                 validationSchema={object().shape({
                     name: string().required().max(191).min(3),

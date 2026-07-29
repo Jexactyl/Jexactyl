@@ -180,7 +180,7 @@ export default ({ discountCode }: { discountCode?: DiscountCode }) => {
                             </Label>
                             <Input
                                 name={'uses'}
-                                value={form.uses}
+                                value={form.uses ?? ''}
                                 onChange={e => update('uses', Number(e.target.value))}
                             />
                             <p className={'text-xs text-gray-400'}>

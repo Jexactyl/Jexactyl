@@ -57,7 +57,7 @@ function CreateAllocationForm({ nodeId }: { nodeId: number }) {
     };
 
     return (
-        <Formik
+        <Formik<Values>
             onSubmit={submit}
             initialValues={{
                 ips: [] as string[],

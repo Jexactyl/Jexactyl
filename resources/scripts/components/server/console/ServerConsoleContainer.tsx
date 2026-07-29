@@ -47,7 +47,7 @@ function ServerConsoleContainer() {
     const billingProductId = ServerContext.useStoreState(state => state.server.data!.billingProductId);
     const settings = useStoreState(state => state.everest.data!.billing);
 
-    const freeGraceDays = settings.renewal?.free_suspension_days || 7;
+    const freeGraceDays = settings.renewal?.days || 7;
 
     const daysUntilRenewal = renewalDate
         ? Math.floor((new Date(renewalDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))

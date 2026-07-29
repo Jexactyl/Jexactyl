@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { dirname, resolve } from 'pathe';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vite';
+import { defineConfig, PluginOption } from 'vite';
 import { compression } from 'vite-plugin-compression2';
 
-const plugins = [
+const plugins: PluginOption[] = [
     react({
         babel: {
             plugins: ['babel-plugin-macros', 'babel-plugin-styled-components'],
@@ -18,12 +18,12 @@ if (process.env.VITEST === undefined) {
     plugins.push(
         laravel({
             input: 'resources/scripts/index.tsx',
-        }),
+        }) as PluginOption,
         compression({
             algorithms: ['brotliCompress', 'gzip'],
             include: /\.(js|css|svg|json)$/,
             threshold: 1024,
-        }),
+        }) as PluginOption,
     );
 }
 
@@ -57,6 +57,8 @@ export default defineConfig({
                     if (id.includes('formik') || id.includes('yup')) return 'vendor-forms';
                     if (id.includes('react-select')) return 'vendor-select';
                     if (id.includes('easy-peasy')) return 'vendor-state';
+
+                    return undefined;
                 },
             },
         },

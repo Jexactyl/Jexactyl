@@ -210,8 +210,9 @@ export const SearchableSelect = <T extends IdObj>({
                 }
             }
 
-            if (items[index]) {
-                setHighlighted(items[index].id);
+            const nextItem = items[index];
+            if (nextItem) {
+                setHighlighted(nextItem.id);
             }
             return;
         }

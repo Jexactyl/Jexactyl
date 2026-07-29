@@ -1,5 +1,3 @@
-import type { StyledComponent } from 'styled-components';
-
 /**
  * Given a valid six character HEX color code, converts it into its associated
  * RGBA value with a user controllable alpha channel.
@@ -36,7 +34,7 @@ function hashToPath(hash: string): string {
     return hash.length > 0 ? decodeURIComponent(hash.substring(1)) : '/';
 }
 
-const withSubComponents = <C extends StyledComponent<any, any>, P extends Record<string, any>>(
+const withSubComponents = <C extends (...args: any[]) => any, P extends Record<string, any>>(
     component: C,
     properties: P,
 ): C & P => {

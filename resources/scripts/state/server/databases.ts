@@ -1,10 +1,10 @@
 import { action, Action } from 'easy-peasy';
-import { ServerDatabase } from '@/api/routes/server/databases/getServerDatabases';
+import { Database } from '@definitions/server';
 
 export interface ServerDatabaseStore {
-    data: ServerDatabase[];
-    setDatabases: Action<ServerDatabaseStore, ServerDatabase[]>;
-    appendDatabase: Action<ServerDatabaseStore, ServerDatabase>;
+    data: Database[];
+    setDatabases: Action<ServerDatabaseStore, Database[]>;
+    appendDatabase: Action<ServerDatabaseStore, Database>;
     removeDatabase: Action<ServerDatabaseStore, string>;
 }
 

@@ -62,9 +62,9 @@ export const getLogFiles = async (): Promise<LogFile[]> => {
                             modifiedAt: new Date(entry.attributes.modified_at),
                             errors: entry.attributes.errors,
                             warnings: entry.attributes.warnings,
-                        })
-                    )
-                )
+                        }),
+                    ),
+                ),
             )
             .catch(reject);
     });

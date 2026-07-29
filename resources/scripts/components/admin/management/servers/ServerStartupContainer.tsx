@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { object } from 'yup';
 
 import type { Egg, EggVariable } from '@definitions/admin';
-import type { LoadedEgg } from '@/api/routes/admin/eggs';
 import { getEgg } from '@/api/routes/admin/eggs';
 import type { Server } from '@definitions/admin';
 import { useServerFromRoute } from '@/api/routes/admin/servers';
@@ -157,8 +156,8 @@ function ServerStartupForm({
     server,
 }: {
     selectedEggId?: number;
-    egg?: LoadedEgg;
-    setEgg: (value: LoadedEgg | undefined) => void;
+    egg?: WithRelationships<Egg, 'variables'>;
+    setEgg: (value: WithRelationships<Egg, 'variables'> | undefined) => void;
     server: Server;
 }) {
     const {
@@ -220,7 +219,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
     );
-    const [egg, setEgg] = useState<LoadedEgg | undefined>(undefined);
+    const [egg, setEgg] = useState<WithRelationships<Egg, 'variables'> | undefined>(undefined);
 
     useEffect(() => {
         if (!server) {

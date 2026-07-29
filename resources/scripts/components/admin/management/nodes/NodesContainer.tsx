@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import type { ServerEntryFilters as Filters } from '@/api/routes/admin/servers';
 import { useNodeEntries as getNodes, NodeEntriesContext as NodesContext } from '@/api/routes/admin/nodes';
 import FlashMessageRender from '@/elements/FlashMessageRender';

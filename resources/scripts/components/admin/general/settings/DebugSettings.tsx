@@ -55,8 +55,10 @@ export default () => {
                         {logs === undefined
                             ? 'Checking for issues with the Panel...'
                             : totalErrors > 0
-                              ? `Found ${totalErrors} error${totalErrors === 1 ? '' : 's'} and ${totalWarnings} warning${totalWarnings === 1 ? '' : 's'} across ${logs.length} log file${logs.length === 1 ? '' : 's'}.`
-                              : 'No errors have been found in the Panel logs.'}
+                            ? `Found ${totalErrors} error${totalErrors === 1 ? '' : 's'} and ${totalWarnings} warning${
+                                  totalWarnings === 1 ? '' : 's'
+                              } across ${logs.length} log file${logs.length === 1 ? '' : 's'}.`
+                            : 'No errors have been found in the Panel logs.'}
                     </p>
                 </div>
                 <div className={'flex ml-auto pl-4'}>
@@ -105,9 +107,7 @@ export default () => {
                                             </span>
                                         </td>
                                         <td className={'px-6 text-sm text-left whitespace-nowrap'}>
-                                            <span
-                                                className={log.warnings > 0 ? 'text-yellow-400' : 'text-neutral-200'}
-                                            >
+                                            <span className={log.warnings > 0 ? 'text-yellow-400' : 'text-neutral-200'}>
                                                 {log.warnings}
                                             </span>
                                         </td>

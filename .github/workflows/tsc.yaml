@@ -1,0 +1,34 @@
+name: TSC
+
+on:
+  push:
+    branches:
+      - "develop"
+      - "3.x-develop"
+  pull_request:
+    branches:
+      - "develop"
+      - "3.x-develop"
+
+jobs:
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Typecheck
+        run: pnpm run typecheck
