@@ -33,6 +33,52 @@ const useActivityLogs = (
     );
 };
 
+const useUserActivityLogs = (
+    id: number,
+    filters?: ActivityLogFilters,
+    config?: SWRConfiguration<PaginatedResult<ActivityLog>, AxiosError>,
+) => {
+    const key = useUserSWRKey(['admin', 'users', id, 'activity', JSON.stringify(useFilteredObject(filters || {}))]);
+
+    return useSWR<PaginatedResult<ActivityLog>>(
+        key,
+        async () => {
+            const { data } = await http.get(`/api/application/users/${id}/activity`, {
+                params: {
+                    ...withQueryBuilderParams(filters),
+                    include: ['actor'],
+                },
+            });
+
+            return toPaginatedSet(data, Transformers.toActivityLog);
+        },
+        { revalidateOnMount: false, ...(config || {}) },
+    );
+};
+
+const useServerActivityLogs = (
+    id: number,
+    filters?: ActivityLogFilters,
+    config?: SWRConfiguration<PaginatedResult<ActivityLog>, AxiosError>,
+) => {
+    const key = useUserSWRKey(['admin', 'servers', id, 'activity', JSON.stringify(useFilteredObject(filters || {}))]);
+
+    return useSWR<PaginatedResult<ActivityLog>>(
+        key,
+        async () => {
+            const { data } = await http.get(`/api/application/servers/${id}/activity`, {
+                params: {
+                    ...withQueryBuilderParams(filters),
+                    include: ['actor'],
+                },
+            });
+
+            return toPaginatedSet(data, Transformers.toActivityLog);
+        },
+        { revalidateOnMount: false, ...(config || {}) },
+    );
+};
+
 export interface ActivityLogListFilters {
     actor?: string;
     subject?: string;
@@ -50,4 +96,4 @@ export const useGetActivityLogs = createPaginatedHook<ActivityLog, ActivityLogLi
     includes: ['actor'],
 });
 
-export { useActivityLogs };
+export { useActivityLogs, useUserActivityLogs, useServerActivityLogs };

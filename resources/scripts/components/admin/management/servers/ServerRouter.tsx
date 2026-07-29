@@ -13,6 +13,7 @@ import useFlash from '@/plugins/useFlash';
 import { useServerFromRoute } from '@/api/routes/admin/servers';
 import {
     AdjustmentsIcon,
+    ClockIcon,
     CogIcon,
     CurrencyDollarIcon,
     DatabaseIcon,
@@ -24,6 +25,7 @@ import {
 import { useStoreState } from '@/state/hooks';
 import ServerDatabases from './ServerDatabases';
 import ServerBillingContainer from './billing/ServerBillingContainer';
+import ServerActivityContainer from './ServerActivityContainer';
 import Pill from '@/elements/Pill';
 
 export default () => {
@@ -93,6 +95,7 @@ export default () => {
                     icon={CurrencyDollarIcon}
                     disabled={!billing.enabled || !server.billingProductId}
                 />
+                <SubNavigationLink to={`/admin/servers/${params.id}/activity`} name={'Activity'} icon={ClockIcon} />
                 <SubNavigationLink
                     to={`/admin/servers/${params.id}/manage`}
                     name={'Manage'}
@@ -110,6 +113,7 @@ export default () => {
                 <Route path={'startup'} element={<ServerStartupContainer />} />
                 <Route path={'databases'} element={<ServerDatabases />} />
                 <Route path={'billing'} element={<ServerBillingContainer />} />
+                <Route path={'activity'} element={<ServerActivityContainer />} />
                 <Route path={'manage'} element={<ServerManageContainer />} />
             </Routes>
         </AdminContentBlock>

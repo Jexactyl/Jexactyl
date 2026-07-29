@@ -9,11 +9,12 @@ import AdminContentBlock from '@/elements/AdminContentBlock';
 import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import UserAboutContainer from '@admin/management/users/view/AboutContainer';
 import UserServers from '@admin/management/users/view/ServersContainer';
+import UserActivityContainer from '@admin/management/users/view/ActivityContainer';
 import Spinner from '@/elements/Spinner';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import type { ApplicationStore } from '@/state';
 import type { User } from '@definitions/admin';
-import { CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
+import { ClockIcon, CogIcon, ServerIcon, UserIcon } from '@heroicons/react/outline';
 import ManageContainer from './view/ManageContainer';
 import { Button } from '@/elements/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -98,6 +99,10 @@ const UserRouter = () => {
                     <ServerIcon />
                 </SubNavigationLink>
 
+                <SubNavigationLink to={`/admin/users/${params.id}/activity`} name={'Activity'}>
+                    <ClockIcon />
+                </SubNavigationLink>
+
                 <SubNavigationLink to={`/admin/users/${params.id}/manage`} name={'Manage'}>
                     <CogIcon />
                 </SubNavigationLink>
@@ -106,6 +111,7 @@ const UserRouter = () => {
             <Routes>
                 <Route path="" element={<UserAboutContainer />} />
                 <Route path="servers" element={<UserServers />} />
+                <Route path="activity" element={<UserActivityContainer />} />
                 <Route path="manage" element={<ManageContainer />} />
             </Routes>
         </AdminContentBlock>

@@ -324,6 +324,7 @@ Route::middleware([AdminSubject::class])->group(function () {
         });
 
         Route::get('/{server:id}', [Application\Servers\ServerController::class, 'view']);
+        Route::get('/{server:id}/activity', Application\Servers\ActivityLogController::class);
         Route::get('/external/{external_id}', [Application\Servers\ExternalServerController::class, 'index']);
 
         Route::patch('/{server:id}', [Application\Servers\ServerController::class, 'update']);
@@ -375,6 +376,7 @@ Route::middleware([AdminSubject::class])->group(function () {
         });
 
         Route::get('/{user:id}', [Application\Users\UserController::class, 'view']);
+        Route::get('/{user:id}/activity', Application\Users\ActivityLogController::class);
         Route::get('/external/{external_id}', [Application\Users\ExternalUserController::class, 'index']);
 
         Route::post('/', [Application\Users\UserController::class, 'store']);
