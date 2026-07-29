@@ -9,10 +9,13 @@ use Illuminate\Http\JsonResponse;
 use Everest\Services\Servers\SuspensionService;
 use Everest\Services\Servers\ServerTransferService;
 use Everest\Services\Servers\ReinstallServerService;
+use Everest\Repositories\Wings\DaemonPowerRepository;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Servers\ServerToggleRequest;
 use Everest\Http\Requests\Api\Application\Servers\TransferServerRequest;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
+use Everest\Http\Requests\Api\Application\Servers\BulkPowerActionRequest;
 
 class ServerManagementController extends ApplicationApiController
 {
@@ -23,6 +26,7 @@ class ServerManagementController extends ApplicationApiController
         private ReinstallServerService $reinstallServerService,
         private SuspensionService $suspensionService,
         private ServerTransferService $transferService,
+        private DaemonPowerRepository $powerRepository,
     ) {
         parent::__construct();
     }
@@ -121,6 +125,40 @@ class ServerManagementController extends ApplicationApiController
         return new JsonResponse([
             'message' => 'Server transfer has been initiated.',
             'transfer' => $transfer,
+        ]);
+    }
+
+    /**
+     * Sends a power action to a batch of servers at once.
+     */
+    public function bulkPower(BulkPowerActionRequest $request): JsonResponse
+    {
+        $action = $request->input('action');
+
+        $servers = Server::query()->whereNull('status')->whereIn('id', $request->input('servers'))->with('node')->get();
+
+        $failed = [];
+        foreach ($servers as $server) {
+            try {
+                $this->powerRepository->setServer($server)->send($action);
+            } catch (DaemonConnectionException $exception) {
+                $failed[] = [
+                    'server' => $server->id,
+                    'message' => $exception->getMessage(),
+                ];
+            }
+        }
+
+        Activity::event('admin:servers:bulk-power')
+            ->property('action', $action)
+            ->property('servers', $servers->pluck('id'))
+            ->description('A bulk power action was performed on multiple servers')
+            ->log();
+
+        return new JsonResponse([
+            'action' => $action,
+            'total' => $servers->count(),
+            'failed' => $failed,
         ]);
     }
 }

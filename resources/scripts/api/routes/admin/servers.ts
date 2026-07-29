@@ -398,3 +398,19 @@ export const unsuspendServerEntry = (id: number): Promise<void> => {
             .catch(reject);
     });
 };
+
+export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
+
+export interface BulkPowerActionResult {
+    action: PowerAction;
+    total: number;
+    failed: { server: number; message: string }[];
+}
+
+export const bulkPowerAction = (ids: number[], action: PowerAction): Promise<BulkPowerActionResult> => {
+    return new Promise((resolve, reject) => {
+        http.post('/api/application/servers/bulk/power', { servers: ids, action })
+            .then(({ data }) => resolve(data))
+            .catch(reject);
+    });
+};

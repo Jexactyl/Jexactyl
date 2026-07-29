@@ -338,6 +338,7 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::post('/', [Application\Servers\ServerController::class, 'store']);
         Route::post('/preset', [Application\Servers\ServerController::class, 'storeWithPreset']);
+        Route::post('/bulk/power', [Application\Servers\ServerManagementController::class, 'bulkPower']);
         Route::post('/{server:id}/toggle', [Application\Servers\ServerManagementController::class, 'toggle']);
         Route::post('/{server:id}/suspend', [Application\Servers\ServerManagementController::class, 'suspend']);
         Route::post('/{server:id}/unsuspend', [Application\Servers\ServerManagementController::class, 'unsuspend']);

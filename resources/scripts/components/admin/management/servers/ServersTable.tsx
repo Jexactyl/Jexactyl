@@ -1,8 +1,13 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
+import type { PowerAction } from '@/api/routes/admin/servers';
 import type { ServerEntryFilters as Filters } from '@/api/routes/admin/servers';
-import { useServerEntries as getServers, ServerEntriesContext as ServersContext } from '@/api/routes/admin/servers';
+import {
+    bulkPowerAction,
+    useServerEntries as getServers,
+    ServerEntriesContext as ServersContext,
+} from '@/api/routes/admin/servers';
 import AdminTable, {
     ContentWrapper,
     Loading,
@@ -13,6 +18,8 @@ import AdminTable, {
     TableHeader,
     useTableHooks,
 } from '@/elements/AdminTable';
+import { Button } from '@/elements/button';
+import Checkbox from '@/elements/inputs/Checkbox';
 import CopyOnClick from '@/elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
@@ -23,12 +30,26 @@ interface Props {
 
 function ServersTable({ filters }: Props) {
     const { colors } = useStoreState(state => state.theme.data!);
-    const { clearFlashes, clearAndAddHttpError } = useFlash();
+    const { clearFlashes, clearAndAddHttpError, addFlash } = useFlash();
 
     const { setPage, setFilters, sort, setSort, sortDirection } = useContext(ServersContext);
     const { data: servers, error, isValidating } = getServers(['node', 'user']);
 
+    const [selected, setSelected] = useState<number[]>([]);
+    const [submitting, setSubmitting] = useState(false);
+
     const length = servers?.items?.length || 0;
+
+    const allSelected = length > 0 && selected.length === length;
+    const someSelected = selected.length > 0 && !allSelected;
+
+    const toggleSelectAll = () => {
+        setSelected(allSelected ? [] : servers?.items?.map(server => server.id) || []);
+    };
+
+    const toggleSelected = (id: number) => {
+        setSelected(current => (current.includes(id) ? current.filter(v => v !== id) : [...current, id]));
+    };
 
     const onSearch = (query: string): Promise<void> => {
         return new Promise(resolve => {
@@ -41,6 +62,33 @@ function ServersTable({ filters }: Props) {
         });
     };
 
+    const doBulkPowerAction = (action: PowerAction) => {
+        setSubmitting(true);
+        clearFlashes('servers');
+
+        bulkPowerAction(selected, action)
+            .then(result => {
+                if (result.failed.length > 0) {
+                    addFlash({
+                        key: 'servers',
+                        type: 'error',
+                        title: 'Warning',
+                        message: `${result.failed.length} of ${result.total} server(s) failed to receive the "${action}" action.`,
+                    });
+                } else {
+                    addFlash({
+                        key: 'servers',
+                        type: 'success',
+                        message: `Sent "${action}" to ${result.total} server(s).`,
+                    });
+                }
+
+                setSelected([]);
+            })
+            .catch(error => clearAndAddHttpError({ key: 'servers', error }))
+            .finally(() => setSubmitting(false));
+    };
+
     useEffect(() => {
         if (!error) {
             clearFlashes('servers');
@@ -50,13 +98,60 @@ function ServersTable({ filters }: Props) {
         clearAndAddHttpError({ key: 'servers', error });
     }, [error]);
 
+    useEffect(() => {
+        setSelected([]);
+    }, [servers]);
+
     return (
         <AdminTable>
             <ContentWrapper onSearch={onSearch}>
+                {selected.length > 0 && (
+                    <div css={tw`flex flex-row items-center h-12 px-6 border-b border-neutral-500`}>
+                        <p css={tw`text-sm text-neutral-300 mr-4`}>{selected.length} selected</p>
+
+                        <div css={tw`flex flex-row ml-auto gap-2`}>
+                            <Button.Success
+                                size={Button.Sizes.Small}
+                                disabled={submitting}
+                                onClick={() => doBulkPowerAction('start')}
+                            >
+                                Start
+                            </Button.Success>
+                            <Button.Warn
+                                size={Button.Sizes.Small}
+                                disabled={submitting}
+                                onClick={() => doBulkPowerAction('restart')}
+                            >
+                                Restart
+                            </Button.Warn>
+                            <Button.Text
+                                size={Button.Sizes.Small}
+                                disabled={submitting}
+                                onClick={() => doBulkPowerAction('stop')}
+                            >
+                                Stop
+                            </Button.Text>
+                            <Button.Danger
+                                size={Button.Sizes.Small}
+                                disabled={submitting}
+                                onClick={() => doBulkPowerAction('kill')}
+                            >
+                                Kill
+                            </Button.Danger>
+                        </div>
+                    </div>
+                )}
                 <Pagination data={servers} onPageSelect={setPage}>
                     <div css={tw`overflow-x-auto`}>
                         <table css={tw`w-full table-auto`}>
                             <TableHead>
+                                <th css={tw`px-6 py-2 w-px`}>
+                                    <Checkbox
+                                        checked={allSelected}
+                                        indeterminate={someSelected}
+                                        onChange={toggleSelectAll}
+                                    />
+                                </th>
                                 <TableHeader
                                     name={'Identifier'}
                                     direction={sort === 'uuidShort' ? (sortDirection ? 1 : 2) : null}
@@ -91,6 +186,12 @@ function ServersTable({ filters }: Props) {
                                     length > 0 &&
                                     servers.items.map(server => (
                                         <tr key={server.id} css={tw`h-14 hover:bg-neutral-600`}>
+                                            <td css={tw`px-6 w-px`}>
+                                                <Checkbox
+                                                    checked={selected.includes(server.id)}
+                                                    onChange={() => toggleSelected(server.id)}
+                                                />
+                                            </td>
                                             <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
                                                 <CopyOnClick text={server.identifier}>
                                                     <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
