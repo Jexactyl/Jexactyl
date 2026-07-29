@@ -1,4 +1,4 @@
-import { AdjustmentsIcon, ChipIcon, LinkIcon } from '@heroicons/react/outline';
+import { AdjustmentsIcon, ChipIcon, LinkIcon, TerminalIcon } from '@heroicons/react/outline';
 import { Route, Routes } from 'react-router-dom';
 import tw from 'twin.macro';
 
@@ -8,6 +8,7 @@ import { SubNavigation, SubNavigationLink } from '@admin/SubNavigation';
 import GeneralSettings from '@admin/general/settings/GeneralSettings';
 import { useStoreState } from '@/state/hooks';
 import ModeSettings from './ModeSettings';
+import DebugSettings from './DebugSettings';
 
 const SettingsRouter = () => {
     const appName = useStoreState(state => state.settings.data!.name);
@@ -37,11 +38,15 @@ const SettingsRouter = () => {
                 <SubNavigationLink to="/admin/settings/webhooks" name="Webhooks">
                     <LinkIcon />
                 </SubNavigationLink>
+                <SubNavigationLink to="/admin/settings/debug" name="Debug">
+                    <TerminalIcon />
+                </SubNavigationLink>
             </SubNavigation>
 
             <Routes>
                 <Route path="/" element={<GeneralSettings />} />
                 <Route path="/mode" element={<ModeSettings />} />
+                <Route path="/debug" element={<DebugSettings />} />
             </Routes>
         </AdminContentBlock>
     );
