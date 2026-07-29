@@ -39,19 +39,6 @@ export function statusToColor(state?: ServerPowerState): string {
     }
 }
 
-export function statusToGlow(state?: ServerPowerState): string {
-    switch (state) {
-        case 'running':
-            return 'shadow-emerald-500/40';
-        case 'starting':
-            return 'shadow-sky-500/40';
-        case 'stopping':
-            return 'shadow-amber-500/40';
-        default:
-            return 'shadow-red-500/40';
-    }
-}
-
 export function statusToBg(state?: ServerPowerState): string {
     switch (state) {
         case 'running':

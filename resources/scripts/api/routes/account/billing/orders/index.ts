@@ -13,14 +13,6 @@ export const useGetOrders = createPaginatedHook<Order, OrderFilters>({
     transformer: Transformers.toOrder,
 });
 
-export const getOrder = (id: number): Promise<Order> => {
-    return new Promise((resolve, reject) => {
-        http.get(`/api/client/billing/orders/${id}`)
-            .then(({ data }) => resolve(Transformers.toOrder(data)))
-            .catch(reject);
-    });
-};
-
 /**
  * Fetches up to the maximum page size of orders for the current user in one request,
  * used to compute account-wide billing stats client-side rather than paging through

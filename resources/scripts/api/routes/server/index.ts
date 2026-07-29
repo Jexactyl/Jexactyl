@@ -1,6 +1,5 @@
 import http from '@/api/http';
 import { Server, ServerStats, Transformers } from '@definitions/server';
-import { PowerAction } from '@server/console/ServerConsoleContainer';
 
 export type ServerStatus =
     | 'installing'
@@ -20,14 +19,6 @@ const getServer = (uuid: string): Promise<[Server, string[]]> => {
                     data.meta?.is_server_owner ? ['*'] : data.meta?.user_permissions || [],
                 ]),
             )
-            .catch(reject);
-    });
-};
-
-const sendPowerAction = (uuid: string, action: PowerAction): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        http.post(`/api/client/servers/${uuid}/power`, { signal: action })
-            .then(() => resolve())
             .catch(reject);
     });
 };
@@ -67,4 +58,4 @@ const getServerResourceUsage = (server: string): Promise<ServerStats> => {
     });
 };
 
-export { getServer, sendPowerAction, reinstallServer, renameServer, getServerResourceUsage };
+export { getServer, reinstallServer, renameServer, getServerResourceUsage };

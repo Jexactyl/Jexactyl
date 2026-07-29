@@ -10,4 +10,3 @@ const Input = Object.assign(
 );
 
 export { Input };
-export { default as styles } from './styles.module.css';

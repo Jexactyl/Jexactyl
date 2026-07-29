@@ -107,14 +107,6 @@ export const useServerEntries = (include: string[] = []) => {
     });
 };
 
-export const getServerEntry = (id: number, include: string[]): Promise<ServerEntry> => {
-    return new Promise((resolve, reject) => {
-        http.get(`/api/application/servers/${id}`, { params: { include: include.join(',') } })
-            .then(({ data }) => resolve(Transformers.toServerEntry(data)))
-            .catch(reject);
-    });
-};
-
 export interface CreateServerRequest {
     externalId: string;
     name: string;

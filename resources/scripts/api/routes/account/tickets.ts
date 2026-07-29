@@ -21,14 +21,6 @@ const useTickets = (config?: SWRConfiguration<Ticket[], AxiosError>) => {
     );
 };
 
-const getTickets = (): Promise<Ticket[]> => {
-    return new Promise((resolve, reject) => {
-        http.get('/api/client/account/tickets')
-            .then(({ data }) => resolve((data.data || []).map(Transformers.toTicket)))
-            .catch(reject);
-    });
-};
-
 const createTicket = async (title: string, message: string): Promise<Ticket> => {
     const { data } = await http.post('/api/client/account/tickets', { title, message });
 
@@ -68,4 +60,4 @@ const useTicketFromRoute = (): SWRResponse<Ticket, AxiosError> => {
 
 const deleteTicket = async (id: number): Promise<void> => await http.delete(`/api/client/account/tickets/${id}`);
 
-export { useTickets, getTickets, createTicket, getTicket, useTicketFromRoute, createMessage, deleteTicket };
+export { useTickets, createTicket, getTicket, useTicketFromRoute, createMessage, deleteTicket };

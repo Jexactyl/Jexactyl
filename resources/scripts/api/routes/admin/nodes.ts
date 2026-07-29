@@ -1,18 +1,8 @@
 import useSWR from 'swr';
 import { useContext } from 'react';
 import http, { getPaginationSet, PaginatedResult, QueryBuilderParams, withQueryBuilderParams } from '@/api/http';
-import { withRelationships } from '@/api/routes/admin';
 import { Allocation, AllocationEntry, Node, NodeEntry, Transformers } from '@definitions/admin';
 import { createContext } from '@/api';
-
-/**
- * Gets a single node and returns it.
- */
-export const getNode = async (id: string | number): Promise<Node> => {
-    const { data } = await http.get(`/api/application/nodes/${id}`);
-
-    return withRelationships(Transformers.toNode(data.data));
-};
 
 export const searchNodes = async (params: QueryBuilderParams<'name' | 'fqdn'>): Promise<Node[]> => {
     const { data } = await http.get('/api/application/nodes', {

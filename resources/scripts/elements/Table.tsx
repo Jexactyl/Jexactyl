@@ -1,45 +1,7 @@
-import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import { UsePaginationResult } from '@/plugins/usePagination';
 import { Button } from './button';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
-
-const Header = ({ children }: { children: ReactNode }) => {
-    const { colors } = useStoreState(s => s.theme.data!);
-
-    return (
-        <thead
-            className={'text-xs uppercase text-gray-400 backdrop-blur-sm'}
-            style={{ backgroundColor: colors.headers }}
-        >
-            <tr>{children}</tr>
-        </thead>
-    );
-};
-
-const HeaderItem = ({ children }: { children: ReactNode }) => <th className={'px-6 py-3'}>{children}</th>;
-
-const Body = ({ children }: { children: ReactNode }) => <tbody>{children}</tbody>;
-
-const BodyItem = ({ item, to, children }: { item: string; to?: string; children: ReactNode }) => {
-    const { colors } = useStoreState(s => s.theme.data!);
-
-    return (
-        <tr
-            className={'border-b border-gray-700/60 transition-colors duration-200 hover:bg-white/[0.03]'}
-            style={{ backgroundColor: colors.secondary }}
-        >
-            <th
-                style={{ color: colors.primary }}
-                className={'px-6 py-4 font-bold whitespace-nowrap hover:brightness-150 duration-300'}
-            >
-                {to ? <Link to={to}>{item}</Link> : item}
-            </th>
-            {children}
-        </tr>
-    );
-};
 
 const PaginatedFooter = ({
     pagination,
@@ -86,15 +48,4 @@ const PaginatedFooter = ({
     );
 };
 
-const Table = ({ children }: { children: ReactNode[] }) => {
-    const { colors } = useStoreState(s => s.theme.data!);
-
-    return (
-        <div className={'relative overflow-x-auto rounded-xl shadow-lg ring-1 ring-white/5'}>
-            <div className={'py-5 rounded-t-xl'} style={{ backgroundColor: colors.secondary }}></div>
-            <table className={'w-full text-sm text-left text-gray-400'}>{children}</table>
-        </div>
-    );
-};
-
-export { Table, Header, HeaderItem, Body, BodyItem, PaginatedFooter };
+export { PaginatedFooter };

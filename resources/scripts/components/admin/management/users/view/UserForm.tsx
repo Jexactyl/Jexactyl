@@ -1,5 +1,3 @@
-import type { Action } from 'easy-peasy';
-import { action, createContextStore } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Form, Formik } from 'formik';
 import tw from 'twin.macro';
@@ -14,26 +12,13 @@ import Label from '@/elements/Label';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { Button } from '@/elements/button';
 import Field, { FieldRow } from '@/elements/Field';
-import { UserRole, type User } from '@definitions/admin';
+import { UserRole } from '@definitions/admin';
 import { faIdBadge, faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import RoleSelect from './RoleSelect';
 import { useEffect, useState } from 'react';
 import { getRole } from '@/api/routes/admin/roles';
 import { Alert } from '@/elements/alert';
-
-interface ctx {
-    user: User | undefined;
-    setUser: Action<ctx, User | undefined>;
-}
-
-export const Context: ReturnType<typeof createContextStore<ctx>> = createContextStore<ctx>({
-    user: undefined,
-
-    setUser: action((state, payload) => {
-        state.user = payload;
-    }),
-});
 
 export interface Params {
     title: string;

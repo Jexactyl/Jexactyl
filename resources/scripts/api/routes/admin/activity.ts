@@ -11,28 +11,6 @@ import { createContext, createPaginatedHook } from '@/api';
 
 export type ActivityLogFilters = QueryBuilderParams<'ip' | 'event', 'timestamp'>;
 
-const useActivityLogs = (
-    filters?: ActivityLogFilters,
-    config?: SWRConfiguration<PaginatedResult<ActivityLog>, AxiosError>,
-) => {
-    const key = useUserSWRKey(['admin', 'activity', JSON.stringify(useFilteredObject(filters || {}))]);
-
-    return useSWR<PaginatedResult<ActivityLog>>(
-        key,
-        async () => {
-            const { data } = await http.get('/api/application/activity', {
-                params: {
-                    ...withQueryBuilderParams(filters),
-                    include: ['actor'],
-                },
-            });
-
-            return toPaginatedSet(data, Transformers.toActivityLog);
-        },
-        { revalidateOnMount: false, ...(config || {}) },
-    );
-};
-
 const useUserActivityLogs = (
     id: number,
     filters?: ActivityLogFilters,
@@ -96,4 +74,4 @@ export const useGetActivityLogs = createPaginatedHook<ActivityLog, ActivityLogLi
     includes: ['actor'],
 });
 
-export { useActivityLogs, useUserActivityLogs, useServerActivityLogs };
+export { useUserActivityLogs, useServerActivityLogs };

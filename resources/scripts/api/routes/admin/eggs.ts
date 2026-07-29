@@ -60,20 +60,6 @@ export const useEggFromRoute = (): SWRResponse<LoadedEgg, AxiosError> => {
     });
 };
 
-export const getEggEntry = async (id: number): Promise<EggEntry> => {
-    const { data } = await http.get(`/api/application/eggs/${id}`, { params: { include: ['variables'] } });
-
-    return Transformers.toEggEntry(data);
-};
-
-export const useEggEntry = (id: number) => {
-    return useSWR<EggEntry>(`egg:${id}`, async () => {
-        const { data } = await http.get(`/api/application/eggs/${id}`, { params: { include: ['variables'] } });
-
-        return Transformers.toEggEntry(data);
-    });
-};
-
 type EggEntry2 = Omit<Omit<Partial<EggEntry>, 'configFiles'>, 'configStartup'> & {
     configFiles: string;
     configStartup: string;

@@ -39,14 +39,6 @@ export interface ContextFilters {
 
 export const Context = createContext<ContextFilters>();
 
-export const getApiKeys = (): Promise<ApiKey> => {
-    return new Promise((resolve, reject) => {
-        http.get(`/api/application/api`)
-            .then(({ data }) => resolve(Transformers.toApiKey(data)))
-            .catch(reject);
-    });
-};
-
 export const useGetApiKeys = (include: string[] = []) => {
     const { page, filters, sort, sortDirection } = useContext(Context);
 
