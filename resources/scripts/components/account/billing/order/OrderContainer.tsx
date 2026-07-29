@@ -1,14 +1,14 @@
 import Spinner from '@/elements/Spinner';
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import NodeBox from '@account/billing/order/NodeBox';
 import PageContentBlock from '@/elements/PageContentBlock';
 import VariableBox from '@account/billing/order/VariableBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import {
     faArchive,
+    faCheck,
     faCreditCard,
     faDatabase,
     faEthernet,
@@ -30,12 +30,39 @@ import TitledGreyBox from '@/elements/TitledGreyBox';
 import AdminCheckbox from '@/elements/AdminCheckbox';
 import { processFreeCheckoutSession } from '@/api/routes/account/billing/orders/process';
 import DiscountCodeDialog from './DiscountCodeDialog';
+import LimitBox from '@/elements/billing/LimitBox';
+import Money from '@/elements/billing/Money';
+import { hexToRgba } from '@/lib/helpers';
 
-const LimitBox = ({ icon, content }: { icon: IconDefinition; content: string }) => {
+const StepHeader = ({
+    step,
+    complete,
+    title,
+    description,
+}: {
+    step: number;
+    complete: boolean;
+    title: ReactNode;
+    description: ReactNode;
+}) => {
+    const { colors } = useStoreState(state => state.theme.data!);
+
     return (
-        <div className={'font-semibold text-gray-400 my-1'}>
-            <FontAwesomeIcon icon={icon} className={'w-4 h-4 inline-flex mr-2 '} />
-            {content}
+        <div className={'flex items-start gap-4 mb-4'}>
+            <div
+                className={'w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 font-bold text-sm'}
+                style={
+                    complete
+                        ? { backgroundColor: colors.primary, color: '#fff' }
+                        : { backgroundColor: hexToRgba(colors.primary, 0.12), color: colors.primary }
+                }
+            >
+                {complete ? <FontAwesomeIcon icon={faCheck} className={'w-3.5 h-3.5'} /> : step}
+            </div>
+            <div className={'text-xl lg:text-3xl font-semibold'}>
+                {title}
+                <p className={'text-gray-400 font-normal text-sm mt-1'}>{description}</p>
+            </div>
         </div>
     );
 };
@@ -57,8 +84,6 @@ export default () => {
 
     const [termsAgreed, setTermsAgreed] = useState<boolean>(false);
     const [privacyAgreed, setPrivacyAgreed] = useState<boolean>(false);
-
-    const { colors } = useStoreState(state => state.theme.data!);
 
     const createFree = () => {
         if (product) {
@@ -122,33 +147,30 @@ export default () => {
                         Selected Plan
                         {product.icon && <img src={product.icon} className={'w-8 h-8 ml-2 inline-flex'} />}
                     </p>
-                    <LimitBox icon={faIdBadge} content={product.name} />
+                    <LimitBox icon={faIdBadge} limit={<>{product.name}</>} />
                     <div className={'font-semibold text-gray-400 text-lg my-1'}>
                         <FontAwesomeIcon icon={faCreditCard} className={'w-4 h-4 inline-flex mr-2 '} />
-                        <span style={{ color: colors.primary }} className={'mr-1'}>
-                            {billing.currency.symbol}
-                            {finalPrice} {billing.currency.code.toUpperCase()}
-                        </span>
+                        <Money value={Number(finalPrice)} className={'mr-1'} accent />
                         <span className={'text-sm'}>/ mo</span>
                     </div>
                     <div className={'h-0.5 my-4 bg-gray-600 mr-8 rounded-full'} />
-                    <LimitBox icon={faMicrochip} content={`${product.limits.cpu}% CPU`} />
-                    <LimitBox icon={faMemory} content={`${(product.limits.memory / 1024).toFixed(1)} GiB Memory`} />
-                    <LimitBox icon={faHdd} content={`${(product.limits.disk / 1024).toFixed(1)} GiB Disk`} />
+                    <LimitBox icon={faMicrochip} limit={<>{product.limits.cpu}% CPU</>} />
+                    <LimitBox icon={faMemory} limit={<>{(product.limits.memory / 1024).toFixed(1)} GiB Memory</>} />
+                    <LimitBox icon={faHdd} limit={<>{(product.limits.disk / 1024).toFixed(1)} GiB Disk</>} />
                     <div className={'h-0.5 my-4 bg-gray-600 mr-8 rounded-full'} />
-                    <LimitBox icon={faArchive} content={`${product.limits.backup} Backup Slots`} />
-                    <LimitBox icon={faDatabase} content={`${product.limits.database} Database Slots`} />
-                    <LimitBox icon={faEthernet} content={`${product.limits.allocation} Network Ports`} />
+                    <LimitBox icon={faArchive} limit={<>{product.limits.backup} Backup Slots</>} />
+                    <LimitBox icon={faDatabase} limit={<>{product.limits.database} Database Slots</>} />
+                    <LimitBox icon={faEthernet} limit={<>{product.limits.allocation} Network Ports</>} />
                 </div>
                 <div className={'lg:col-span-6'}>
                     <div>
                         <div className={'my-10'}>
-                            <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                                Choose a location
-                                <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                    Select a location from our list to deploy your server to.
-                                </p>
-                            </div>
+                            <StepHeader
+                                step={1}
+                                complete={!!selectedNode && (nodes?.length ?? 0) > 0}
+                                title={'Choose a location'}
+                                description={'Select a location from our list to deploy your server to.'}
+                            />
                             <div className={'grid lg:grid-cols-2 gap-4'}>
                                 {(!nodes || nodes.length < 1) && (
                                     <Alert type={'danger'} className={'col-span-2'}>
@@ -169,13 +191,14 @@ export default () => {
                         {eggs && eggs.length > 1 && (
                             <>
                                 <div className={'my-10'}>
-                                    <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                                        Plan Variables
-                                        <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                            Modify your server variables before your server is even created for ease of
-                                            use.
-                                        </p>
-                                    </div>
+                                    <StepHeader
+                                        step={2}
+                                        complete={!!selectedNode && (nodes?.length ?? 0) > 0}
+                                        title={'Plan Variables'}
+                                        description={
+                                            'Modify your server variables before your server is even created for ease of use.'
+                                        }
+                                    />
                                     <div className={'grid lg:grid-cols-2 gap-4'}>
                                         {eggs?.map(variable => (
                                             <div key={variable.envVariable}>
@@ -188,12 +211,12 @@ export default () => {
                             </>
                         )}
                         <div className={'my-10'}>
-                            <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                                Legal Documents
-                                <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                    Agree and sign the relevant legal documents for your new server.
-                                </p>
-                            </div>
+                            <StepHeader
+                                step={eggs && eggs.length > 1 ? 3 : 2}
+                                complete={termsAgreed && privacyAgreed}
+                                title={'Legal Documents'}
+                                description={'Agree and sign the relevant legal documents for your new server.'}
+                            />
                             <div className={'grid lg:grid-cols-2 gap-4'}>
                                 <TitledGreyBox title={'Terms of Service agreement'} className={'relative'}>
                                     {!termsAgreed ? (
@@ -248,18 +271,21 @@ export default () => {
                             <>
                                 {finalPrice !== 0 ? (
                                     <div className={'mt-10'}>
-                                        <div className={'text-xl lg:text-3xl font-semibold mb-4'}>
-                                            Due Today: {billing.currency.symbol}
-                                            {finalPrice} {billing.currency.code.toUpperCase()}
-                                            {discountCode && (
-                                                <span className={'text-green-400 text-base font-normal ml-3'}>
-                                                    ({discountCode.code} discount applied)
-                                                </span>
-                                            )}
-                                            <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                                                Press Pay Now to checkout via your preferred payment method.
-                                            </p>
-                                        </div>
+                                        <StepHeader
+                                            step={eggs && eggs.length > 1 ? 4 : 3}
+                                            complete={false}
+                                            title={
+                                                <>
+                                                    Due Today: <Money value={Number(finalPrice)} accent />
+                                                    {discountCode && (
+                                                        <span className={'text-green-400 text-base font-normal ml-3'}>
+                                                            ({discountCode.code} discount applied)
+                                                        </span>
+                                                    )}
+                                                </>
+                                            }
+                                            description={'Press Pay Now to checkout via your preferred payment method.'}
+                                        />
                                         <div className={'flex justify-between w-full mt-8'}>
                                             <DiscountCodeDialog
                                                 discountCode={discountCode}

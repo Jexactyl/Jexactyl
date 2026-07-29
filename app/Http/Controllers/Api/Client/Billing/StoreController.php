@@ -61,7 +61,7 @@ class StoreController extends ClientApiController
     /**
      * View a specific product.
      */
-    public function product(Product $porduct)
+    public function product(Product $product)
     {
         return $this->transform($product, ProductTransformer::class);
     }

@@ -3,11 +3,10 @@ import Spinner from '@/elements/Spinner';
 import { Button } from '@/elements/button';
 import { useStoreState } from '@/state/hooks';
 import ContentBox from '@/elements/ContentBox';
-import { ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageContentBlock from '@/elements/PageContentBlock';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    IconDefinition,
     faArchive,
     faDatabase,
     faEthernet,
@@ -22,18 +21,9 @@ import { Alert } from '@/elements/alert';
 import { getProducts } from '@/api/routes/account/billing/products';
 import { getCategories } from '@/api/routes/account/billing/categories';
 import { Category, Product } from '@definitions/account/billing';
-
-interface LimitProps {
-    icon: IconDefinition;
-    limit: ReactElement;
-}
-
-const LimitBox = ({ icon, limit }: LimitProps) => (
-    <div className={'text-gray-400 mt-1'}>
-        <FontAwesomeIcon icon={icon} className={'w-4 h-4 mr-2'} />
-        {limit}
-    </div>
-);
+import LimitBox from '@/elements/billing/LimitBox';
+import Money from '@/elements/billing/Money';
+import { hexToRgba } from '@/lib/helpers';
 
 export default () => {
     const [category, setCategory] = useState<number>();
@@ -78,33 +68,49 @@ export default () => {
                 </p>
             </div>
             <div className={'grid lg:grid-cols-4 gap-4 lg:gap-12'}>
-                <div className={'border-r-4 border-gray-500'}>
-                    <p className={'text-2xl text-gray-300 mb-8 mt-4 font-bold'}>Categories</p>
+                <div>
+                    <p className={'text-2xl text-gray-300 mb-6 mt-4 font-bold'}>Categories</p>
                     {(!categories || categories.length < 1) && (
                         <div className={'font-semibold my-4 text-gray-400'}>
                             <FontAwesomeIcon icon={faExclamationTriangle} className={'w-5 h-5 mr-2 text-yellow-400'} />
                             No categories found.
                         </div>
                     )}
-                    {categories?.map(cat => (
-                        <button
-                            className={classNames(
-                                'font-semibold my-4 w-full text-left hover:brightness-150 duration-300 cursor-pointer line-clamp-1',
-                                Number(cat.id) === category && 'brightness-150',
-                            )}
-                            disabled={category === Number(cat.id)}
-                            style={{ color: colors.primary }}
-                            onClick={() => {
-                                setCategory(Number(cat.id));
-                                setProducts(undefined);
-                            }}
-                            key={cat.id}
-                        >
-                            {cat.icon && <img src={cat.icon} className={'w-7 h-7 inline-flex rounded-full mr-3'} />}
-                            {cat.name}
-                            <div className={'h-0.5 mt-4 bg-gray-600 mr-8 rounded-full'} />
-                        </button>
-                    ))}
+                    <div className={'flex flex-col gap-1'}>
+                        {categories?.map(cat => {
+                            const active = Number(cat.id) === category;
+
+                            return (
+                                <button
+                                    className={classNames(
+                                        'flex items-center font-semibold w-full text-left rounded-lg py-3 px-4 duration-200 cursor-pointer line-clamp-1 border-l-4',
+                                        active
+                                            ? 'text-neutral-100'
+                                            : 'text-gray-400 hover:text-gray-200 border-transparent',
+                                    )}
+                                    style={
+                                        active
+                                            ? {
+                                                  borderColor: colors.primary,
+                                                  backgroundColor: hexToRgba(colors.primary, 0.08),
+                                              }
+                                            : undefined
+                                    }
+                                    disabled={active}
+                                    onClick={() => {
+                                        setCategory(Number(cat.id));
+                                        setProducts(undefined);
+                                    }}
+                                    key={cat.id}
+                                >
+                                    {cat.icon && (
+                                        <img src={cat.icon} className={'w-6 h-6 inline-flex rounded-full mr-3'} />
+                                    )}
+                                    {cat.name}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
                 <div className={'lg:col-span-3'}>
                     {!products ? (
@@ -122,67 +128,79 @@ export default () => {
                             )}
                             <div className={'grid grid-cols-1 xl:grid-cols-3 gap-4'}>
                                 {products?.map(product => (
-                                    <ContentBox key={product.id}>
-                                        <div className={'p-3 lg:p-6'}>
+                                    <ContentBox
+                                        key={product.id}
+                                        className={
+                                            'transition duration-200 hover:shadow-xl hover:-translate-y-0.5 flex flex-col'
+                                        }
+                                    >
+                                        <div className={'p-3 lg:p-6 flex flex-col flex-1'}>
                                             <div className={'flex justify-center'}>
-                                                {product.icon ? (
-                                                    <img src={product.icon} className={'w-16 h-16'} />
-                                                ) : (
-                                                    <FontAwesomeIcon
-                                                        icon={faShoppingBag}
-                                                        className={'w-12 h-12 m-2'}
-                                                        style={{ color: colors.primary }}
-                                                    />
-                                                )}
+                                                <div
+                                                    className={
+                                                        'w-16 h-16 rounded-full flex items-center justify-center'
+                                                    }
+                                                    style={{ backgroundColor: hexToRgba(colors.primary, 0.1) }}
+                                                >
+                                                    {product.icon ? (
+                                                        <img src={product.icon} className={'w-9 h-9'} />
+                                                    ) : (
+                                                        <FontAwesomeIcon
+                                                            icon={faShoppingBag}
+                                                            className={'w-7 h-7'}
+                                                            style={{ color: colors.primary }}
+                                                        />
+                                                    )}
+                                                </div>
                                             </div>
-                                            <p className={'text-3xl font-bold text-center mt-3'}>{product.name}</p>
-                                            <p className={'text-lg font-semibold text-center mt-1 mb-4 text-gray-400'}>
-                                                <span style={{ color: colors.primary }} className={'mr-1'}>
-                                                    {settings.currency.symbol}
-                                                    {product.price.toFixed(2)}
-                                                    &nbsp;
-                                                    {settings.currency.code.toUpperCase()}
-                                                </span>
-                                                <span className={'text-base'}>/ monthly</span>
+                                            <p className={'text-2xl font-bold text-center mt-4 font-header'}>
+                                                {product.name}
                                             </p>
-                                            <div className={'grid justify-center items-center'}>
+                                            <p className={'text-center mt-1 mb-6'}>
+                                                <Money
+                                                    value={product.price}
+                                                    suffix={' / mo'}
+                                                    accent
+                                                    className={'text-2xl font-bold'}
+                                                />
+                                            </p>
+                                            <div className={'grid grid-cols-2 gap-x-4 gap-y-1'}>
                                                 <LimitBox icon={faMicrochip} limit={<>{product.limits.cpu}% CPU</>} />
                                                 <LimitBox
                                                     icon={faMemory}
-                                                    limit={<>{product.limits.memory / 1024} GiB of RAM</>}
+                                                    limit={<>{product.limits.memory / 1024} GiB RAM</>}
                                                 />
                                                 <LimitBox
                                                     icon={faHdd}
-                                                    limit={<>{product.limits.disk / 1024} GiB of Storage</>}
+                                                    limit={<>{product.limits.disk / 1024} GiB Disk</>}
                                                 />
-                                                <div className={'border border-dashed border-gray-500 my-4'} />
-                                                {product.limits.backup ? (
-                                                    <LimitBox
-                                                        icon={faArchive}
-                                                        limit={<>{product.limits.backup} backup slots</>}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )}
-                                                {product.limits.database ? (
-                                                    <LimitBox
-                                                        icon={faDatabase}
-                                                        limit={<>{product.limits.database} database slots</>}
-                                                    />
-                                                ) : (
-                                                    <></>
-                                                )}
                                                 <LimitBox
                                                     icon={faEthernet}
                                                     limit={
                                                         <>
-                                                            {product.limits.allocation} network port
+                                                            {product.limits.allocation} port
                                                             {product.limits.allocation > 1 && 's'}
                                                         </>
                                                     }
                                                 />
+                                                {!!product.limits.backup && (
+                                                    <LimitBox
+                                                        icon={faArchive}
+                                                        limit={<>{product.limits.backup} backups</>}
+                                                    />
+                                                )}
+                                                {!!product.limits.database && (
+                                                    <LimitBox
+                                                        icon={faDatabase}
+                                                        limit={<>{product.limits.database} databases</>}
+                                                    />
+                                                )}
                                             </div>
-                                            <div className={'text-center mt-6'}>
+                                            <div
+                                                className={
+                                                    'text-center pt-4 mt-auto border-t border-dashed border-gray-700'
+                                                }
+                                            >
                                                 <Link to={`/account/billing/order/${product.id}`}>
                                                     <Button size={Button.Sizes.Large} className={'w-full'}>
                                                         Configure

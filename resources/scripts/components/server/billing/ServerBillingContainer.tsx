@@ -4,7 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import ContentBox from '@/elements/ContentBox';
 import { ServerContext } from '@/state/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowRight,
+    faBoxOpen,
+    faCalendarCheck,
+    faCircleCheck,
+    faHourglassHalf,
+    faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
 import useFlash from '@/plugins/useFlash';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import { Alert } from '@/elements/alert';
@@ -17,6 +24,9 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import ServerPaymentButton from './ServerPaymentButton';
 import OrdersContainer from '@/components/account/billing/orders/OrdersContainer';
 import { processFreeCheckoutSession } from '@/api/routes/account/billing/orders/process';
+import StatTile from '@/elements/billing/StatTile';
+import Money from '@/elements/billing/Money';
+import RadialProgress from '@/elements/billing/RadialProgress';
 
 export function timeUntil(targetDate: Date | string) {
     const date = targetDate instanceof Date ? targetDate : new Date(targetDate);
@@ -86,19 +96,47 @@ export default () => {
                     The product package you purchase initially no longer exists, so some details may not be shown.
                 </Alert>
             )}
+            {renewalDate && (
+                <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6'}>
+                    <StatTile icon={faBoxOpen} label={'Plan'} value={product ? product.name : 'Unknown'} />
+                    <StatTile
+                        icon={faCalendarCheck}
+                        label={'Cost'}
+                        value={product ? <Money value={product.price} /> : '...'}
+                        caption={`every ${settings.renewal.days} days`}
+                    />
+                    <StatTile icon={faHourglassHalf} label={'Renews In'} value={`${daysRemaining}d`} />
+                    <StatTile
+                        icon={daysRemaining > settings.renewal.threshold ? faCircleCheck : faTriangleExclamation}
+                        label={'Status'}
+                        value={daysRemaining > settings.renewal.threshold ? 'Active' : 'Renewing Soon'}
+                    />
+                </div>
+            )}
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 {!renewalDate ? (
                     <Alert type={'warning'}>There is no present renewal date for your server.</Alert>
                 ) : (
                     <ContentBox title={'Summary'}>
                         <SpinnerOverlay visible={loading} />
-                        <div>
-                            <Label>Next renewal due</Label>
-                            <p className={'text-gray-400 text-sm'}>
-                                {new Date(renewalDate).toLocaleDateString()}
-                                {' - '}
-                                {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
-                            </p>
+                        <div className={'flex items-center gap-6'}>
+                            <RadialProgress
+                                value={((settings.renewal.days - daysRemaining) / settings.renewal.days) * 100}
+                                label={
+                                    <div className={'text-center'}>
+                                        <p className={'text-lg font-bold leading-none'}>{daysRemaining}d</p>
+                                        <p className={'text-2xs text-gray-400 mt-1'}>left</p>
+                                    </div>
+                                }
+                            />
+                            <div>
+                                <Label>Next renewal due</Label>
+                                <p className={'text-gray-400 text-sm'}>
+                                    {new Date(renewalDate).toLocaleDateString()}
+                                    {' - '}
+                                    {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
+                                </p>
+                            </div>
                         </div>
                         <div className={'my-6'}>
                             <Label>Your package</Label>
@@ -109,9 +147,8 @@ export default () => {
                             <Label>Plan cost</Label>
                             <div className={'flex justify-between'}>
                                 <p className={'text-gray-400 text-sm'}>
-                                    {settings.currency.symbol}
-                                    {product ? product.price : '...'} {settings.currency.code.toUpperCase()} every{' '}
-                                    {settings.renewal.days} days
+                                    {product ? <Money value={product.price} /> : '...'} every {settings.renewal.days}{' '}
+                                    days
                                 </p>
                                 <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
                                     View order <FontAwesomeIcon icon={faArrowRight} />

@@ -5,25 +5,30 @@ namespace Everest\Services\Billing;
 use Everest\Models\Node;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\BillingException;
+use Everest\Repositories\Wings\DaemonConfigurationRepository;
 
 class NodeCollectionService
 {
+    public function __construct(private DaemonConfigurationRepository $nodeRepository)
+    {
+    }
+
     /**
      * Collect available nodes to deploy products to.
      */
     public function handle(Product $product): array
     {
-        $available = [];
+        $available = collect();
         $nodes = Node::where($product->price == 0 ? 'deployable_free' : 'deployable', true)->get();
 
-        if (!$nodes) {
+        if ($nodes->isEmpty()) {
             BillingException::create([
                 'title' => 'No deployable nodes found',
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
                 'description' => 'Ensure at least one node has the "deployable" box checked',
             ]);
 
-            return $available;
+            return $available->all();
         }
 
         foreach ($nodes as $node) {
@@ -50,6 +55,6 @@ class NodeCollectionService
             ]);
         }
 
-        return $available;
+        return $available->all();
     }
 }
