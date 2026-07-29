@@ -35,6 +35,7 @@ const useActivityLogs = (
 
 export interface ActivityLogListFilters {
     actor?: string;
+    subject?: string;
     event?: string;
     ip?: string;
 }

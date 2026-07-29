@@ -102,7 +102,7 @@ function ActivityLogsContainer() {
         setFilters(value => ({ ...value, event: hash.event || undefined, ip: hash.ip || undefined }));
     }, [hash]);
 
-    const hasActiveFilters = Boolean(filters?.actor || filters?.event || filters?.ip);
+    const hasActiveFilters = Boolean(filters?.actor || filters?.subject || filters?.event || filters?.ip);
 
     return (
         <AdminContentBlock title={'Activity Log'}>
@@ -136,6 +136,12 @@ function ActivityLogsContainer() {
                         placeholder={'Filter by username...'}
                         value={filters?.actor ?? ''}
                         onChange={value => setFilters(current => ({ ...current, actor: value || undefined }))}
+                    />
+                    <FilterField
+                        label={'Subject'}
+                        placeholder={'Filter by subject...'}
+                        value={filters?.subject ?? ''}
+                        onChange={value => setFilters(current => ({ ...current, subject: value || undefined }))}
                     />
                     <FilterField
                         label={'Event'}
