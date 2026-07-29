@@ -3,7 +3,7 @@ import type { ServerEntryFilters as Filters } from '@/api/routes/admin/servers';
 import { useNodeEntries as getNodes, NodeEntriesContext as NodesContext } from '@/api/routes/admin/nodes';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import AdminTable, {
@@ -21,15 +21,11 @@ import { Button } from '@/elements/button';
 import CopyOnClick from '@/elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 import { useStoreState } from '@/state/hooks';
-import { Dialog } from '@/elements/dialog';
-import NewNodeContainer from './NewNodeContainer';
-
 const NodesContainer = () => {
     const { colors } = useStoreState(state => state.theme.data!);
     const { setPage, setFilters, sort, setSort, sortDirection } = useContext(NodesContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { data: nodes, error, isValidating } = getNodes();
-    const [open, setOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (!error) {
@@ -55,9 +51,6 @@ const NodesContainer = () => {
 
     return (
         <AdminContentBlock title={'Nodes'}>
-            <Dialog title={'Create a New Node'} open={open} onClose={() => setOpen(false)} size={'xl'}>
-                <NewNodeContainer />
-            </Dialog>
             <div css={tw`w-full flex flex-row items-center mb-8`}>
                 <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Nodes</h2>
@@ -68,11 +61,11 @@ const NodesContainer = () => {
                     </p>
                 </div>
 
-                <div css={tw`flex ml-auto pl-4`}>
-                    <Button type={'button'} css={tw`h-10 px-4 py-0 whitespace-nowrap`} onClick={() => setOpen(true)}>
+                <Link to={'/admin/nodes/new'} css={tw`flex ml-auto pl-4`}>
+                    <Button type={'button'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
                         New Node
                     </Button>
-                </div>
+                </Link>
             </div>
 
             <FlashMessageRender byKey={'nodes'} css={tw`mb-4`} />
