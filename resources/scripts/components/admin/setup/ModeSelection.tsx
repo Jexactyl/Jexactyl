@@ -36,7 +36,7 @@ export default () => {
                     <PersonalModeSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Personal Mode</p>
                     <p className={'text-gray-400'}>
-                        Personal Mode allows you to run Jexactyl in standard settings, with basic features enable by
+                        Personal Mode allows you to run Jexpanelin standard settings, with basic features enable by
                         default. It gives you all the great typical features of a game hosting panel without any
                         business-oriented features making it a cluttered experience.
                     </p>
@@ -50,7 +50,7 @@ export default () => {
                     <StandardMoveSvg color={primary} />
                     <p className={'text-2xl lg:text-4xl font-bold mb-2'}>Standard Mode</p>
                     <p className={'text-gray-400'}>
-                        Standard Mode allows all of the Jexactyl features by default, such as billing, tickets, webhooks
+                        Standard Mode allows all of the Jexpanelfeatures by default, such as billing, tickets, webhooks
                         and more. It&apos;s ideal for businesses or large groups who need more control over their users.
                     </p>
                     <div className={'absolute top-0 right-0 p-3'}>

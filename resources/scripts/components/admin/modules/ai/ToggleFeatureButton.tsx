@@ -14,7 +14,7 @@ export default () => {
 
     return (
         <div className={'mr-4'} onClick={submit}>
-            {!ai.enabled ? <Button>Enable Jexactyl AI</Button> : <Button.Danger>Disable Jexactyl AI</Button.Danger>}
+            {!ai.enabled ? <Button>Enable JexpanelAI</Button> : <Button.Danger>Disable JexpanelAI</Button.Danger>}
         </div>
     );
 };

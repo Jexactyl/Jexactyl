@@ -131,7 +131,7 @@ export default () => {
             <AdminBox title={'Version Information'} icon={faDesktop}>
                 {settings.debug && (
                     <Alert type={'warning'} className={'mb-3'}>
-                        Jexactyl is running in debug mode. Do not use in production.
+                        Jexpanelis running in debug mode. Do not use in production.
                     </Alert>
                 )}
                 {loading ? (
@@ -151,7 +151,7 @@ export default () => {
                         </div>
                         {versionData?.panel.current.startsWith('v4.0.0-') && (
                             <Alert type={'danger'} className={'mt-4'}>
-                                You are running a beta release of Jexactyl v4, which may include several bugs or weird
+                                You are running a beta release of Jexpanelv4, which may include several bugs or weird
                                 glitches. Do NOT use this software in production unless you don&apos;t care about losing
                                 data.
                             </Alert>
@@ -220,7 +220,7 @@ export default () => {
                             link={'/admin/settings'}
                             title={'Enable automatic updates'}
                             description={
-                                'By setting up automatic updates, you can keep Jexactyl stable and secure in the background.'
+                                'By setting up automatic updates, you can keep Jexpanelstable and secure in the background.'
                             }
                         />
                     )}

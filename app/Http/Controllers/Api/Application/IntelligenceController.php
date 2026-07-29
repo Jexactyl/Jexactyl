@@ -37,21 +37,21 @@ class IntelligenceController extends ApplicationApiController
 
         Activity::event('admin:ai:update')
             ->property('settings', $request->all())
-            ->description('Jexactyl AI settings were updated')
+            ->description('JexpanelAI settings were updated')
             ->log();
 
         return $this->returnNoContent();
     }
 
     /**
-     * Send a query to Jexactyl AI through Gemini.
+     * Send a query to JexpanelAI through Gemini.
      *
      * @throws \Throwable
      */
     public function query(Intelligence\QueryRequest $request): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new \Exception('The Jexactyl AI module is not enabled.');
+            throw new \Exception('The JexpanelAI module is not enabled.');
         }
 
         $client = new Client(config('modules.ai.key'));

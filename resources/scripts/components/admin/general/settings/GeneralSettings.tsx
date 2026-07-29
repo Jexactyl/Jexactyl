@@ -88,7 +88,7 @@ export default () => {
                                 />
                             </div>
                             <p className={'text-gray-400 text-xs mt-1.5'}>
-                                If enabled, Jexactyl will automatically update in order to keep your system secure and
+                                If enabled, Jexpanelwill automatically update in order to keep your system secure and
                                 introduce new features.
                             </p>
                         </div>
@@ -106,7 +106,7 @@ export default () => {
                             </div>
                             <p className={'text-gray-400 text-xs mt-1.5'}>
                                 If enabled, small boxes will appear in the top-right of the UI indicating whether
-                                Jexactyl modules are enabled/disabled. Only on large screens.
+                                Jexpanelmodules are enabled/disabled. Only on large screens.
                             </p>
                         </div>
                     </AdminBox>

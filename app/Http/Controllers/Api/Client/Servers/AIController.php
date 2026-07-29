@@ -25,7 +25,7 @@ class AIController extends ClientApiController
     public function index(QueryAIRequest $request, Server $server): JsonResponse
     {
         if (!config('modules.ai.enabled')) {
-            throw new \Exception('The Jexactyl AI module is not enabled.');
+            throw new \Exception('The JexpanelAI module is not enabled.');
         }
 
         $client = new Client(config('modules.ai.key'));

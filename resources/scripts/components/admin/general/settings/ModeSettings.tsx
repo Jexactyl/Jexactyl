@@ -82,7 +82,7 @@ export default () => {
             </FeatureContainer>
             <div className={'h-px bg-gray-700 rounded-full my-4'} />
             <FeatureContainer noHeight icon={faTerminal} title={'Debug Mode'} image={<ServerSvg color={primary} />}>
-                When Jexactyl is in Debug mode, all HTTP request data is exposed and errors are reported including
+                When Jexpanelis in Debug mode, all HTTP request data is exposed and errors are reported including
                 sensitive details. Use this mode with caution, and especially{' '}
                 <strong>do not use this mode in production.</strong>
                 <p className={'text-right mt-2'}>

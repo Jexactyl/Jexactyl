@@ -17,11 +17,11 @@ export default () => {
     if (settings.enabled && !settings.key) return <ConfigureAI />;
 
     return (
-        <AdminContentBlock title={'Jexactyl AI'}>
+        <AdminContentBlock title={'JexpanelAI'}>
             <FlashMessageRender byKey={'admin:ai'} className={'mb-4'} />
             <div className={'w-full flex flex-row items-center mb-8'}>
                 <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
-                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Jexactyl AI</h2>
+                    <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>JexpanelAI</h2>
                     <p
                         className={
                             'hidden lg:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden'

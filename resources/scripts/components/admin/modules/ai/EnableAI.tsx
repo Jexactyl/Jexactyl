@@ -8,9 +8,9 @@ export default () => {
     const primary = useStoreState(state => state.theme.data!.colors.primary);
 
     return (
-        <FeatureContainer image={<AISvg color={primary} />} icon={faWandMagicSparkles} title={'Jexactyl AI'}>
+        <FeatureContainer image={<AISvg color={primary} />} icon={faWandMagicSparkles} title={'JexpanelAI'}>
             Use Jexactyl&apos;s Artificial Intelligence suite to give users better insights into errors, provide instant
-            support and help administrators take better control over their Panel. Jexactyl uses Gemini AI in order to
+            support and help administrators take better control over their Panel. Jexpaneluses Gemini AI in order to
             serve intelligence requests.
             <p className={'text-right mt-2'}>
                 <ToggleFeatureButton />

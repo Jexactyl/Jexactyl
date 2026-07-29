@@ -35,10 +35,10 @@ export default () => {
     }, [key]);
 
     return (
-        <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure Jexactyl AI'}>
+        <Dialog open onClose={() => undefined} preventExternalClose hideCloseIcon title={'Configure JexpanelAI'}>
             <SpinnerOverlay visible={loading} />
             <p className={'text-gray-400'}>
-                In order to use <span style={{ color: theme.primary }}>Jexactyl AI</span>, you must get a Gemini API key
+                In order to use <span style={{ color: theme.primary }}>JexpanelAI</span>, you must get a Gemini API key
                 from Google.
             </p>
             <p className={'text-gray-400 my-2'}>
