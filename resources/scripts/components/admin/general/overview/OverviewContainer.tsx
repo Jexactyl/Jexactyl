@@ -6,14 +6,19 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import {
     faArrowRight,
+    faChartLine,
+    faCoins,
+    faDatabase,
     faDesktop,
     faHeart,
     faLayerGroup,
     faQuestionCircle,
     faRecycle,
+    faSave,
     faServer,
     faTicket,
     faUserPlus,
+    faUsers,
     IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import AdminBox from '@/elements/AdminBox';
@@ -56,6 +61,27 @@ const SuggestionCard = ({ icon, title, description, link, action }: SuggestionPr
                     {action ?? 'Manage'} <FontAwesomeIcon icon={faArrowRight} />
                 </Link>
             </p>
+        </div>
+    );
+};
+
+interface StatProps {
+    icon: IconDefinition;
+    title: string;
+    value: ReactNode;
+    subtext?: string;
+}
+
+const StatCard = ({ icon, title, value, subtext }: StatProps) => {
+    const { colors } = useStoreState(state => state.theme.data!);
+
+    return (
+        <div className={'bg-black/25 p-3 lg:p-4 rounded-lg'}>
+            <p className={'text-sm text-gray-400'}>
+                <FontAwesomeIcon icon={icon} style={{ color: colors.primary }} /> {title}
+            </p>
+            <p className={'text-2xl font-semibold mt-1'}>{value}</p>
+            {subtext && <p className={'text-xs text-gray-400 mt-1'}>{subtext}</p>}
         </div>
     );
 };
@@ -133,6 +159,59 @@ export default () => {
                     </>
                 )}
             </AdminBox>
+            <AdminBox title={'Statistics'} className={'mt-6'} icon={faChartLine}>
+                {loading || !metricData ? (
+                    <Spinner size={'large'} centered />
+                ) : (
+                    <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4'}>
+                        <StatCard icon={faLayerGroup} title={'Nodes'} value={metricData.nodes} />
+                        <StatCard
+                            icon={faServer}
+                            title={'Servers'}
+                            value={metricData.servers.total}
+                            subtext={
+                                metricData.servers.suspended > 0 || metricData.servers.installing > 0
+                                    ? [
+                                          metricData.servers.suspended > 0
+                                              ? `${metricData.servers.suspended} suspended`
+                                              : null,
+                                          metricData.servers.installing > 0
+                                              ? `${metricData.servers.installing} installing`
+                                              : null,
+                                      ]
+                                          .filter(Boolean)
+                                          .join(', ')
+                                    : undefined
+                            }
+                        />
+                        <StatCard
+                            icon={faUsers}
+                            title={'Users'}
+                            value={metricData.users.total}
+                            subtext={`${metricData.users.admins} administrators`}
+                        />
+                        <StatCard icon={faTicket} title={'Pending Tickets'} value={metricData.tickets} />
+                        <StatCard icon={faDatabase} title={'Databases'} value={metricData.databases} />
+                        <StatCard icon={faSave} title={'Backups'} value={metricData.backups} />
+                        {metricData.billing && (
+                            <>
+                                <StatCard
+                                    icon={faCoins}
+                                    title={'Revenue'}
+                                    value={`${everest.billing.currency.symbol}${metricData.billing.revenue.toFixed(2)}`}
+                                    subtext={`${metricData.billing.orders_this_month} orders this month`}
+                                />
+                                <StatCard
+                                    icon={faQuestionCircle}
+                                    title={'Pending Orders'}
+                                    value={metricData.billing.orders_pending}
+                                    subtext={`${metricData.billing.products} products available`}
+                                />
+                            </>
+                        )}
+                    </div>
+                )}
+            </AdminBox>
             <AdminBox title={'Suggested Actions'} className={'mt-6'} icon={faQuestionCircle}>
                 <div className={'grid lg:grid-cols-3 gap-4'}>
                     {!settings.auto_update && (
@@ -165,7 +244,7 @@ export default () => {
                                     description={"Nodes are physical servers which Jexactyl's servers run on."}
                                 />
                             )}
-                            {metricData.servers < 1 && (
+                            {metricData.servers.total < 1 && (
                                 <SuggestionCard
                                     icon={faServer}
                                     link={'/admin/servers/new'}
@@ -179,6 +258,14 @@ export default () => {
                                     link={'/admin/tickets'}
                                     title={'Answer customer tickets'}
                                     description={`You currently have ${metricData.tickets} pending tickets.`}
+                                />
+                            )}
+                            {metricData.billing && metricData.billing.orders_pending > 0 && (
+                                <SuggestionCard
+                                    icon={faCoins}
+                                    link={'/admin/billing/orders'}
+                                    title={'Review pending orders'}
+                                    description={`You currently have ${metricData.billing.orders_pending} pending billing orders.`}
                                 />
                             )}
                         </>
