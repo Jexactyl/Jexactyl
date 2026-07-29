@@ -31,6 +31,11 @@ class ServerPresetCreationService
         $preset = ServerPreset::findOrFail($data['preset_id']);
         $egg = Egg::findOrFail($preset->egg_id ?? 1);
         $allocation = Allocation::where('node_id', $data['node_id'])->where('server_id', null)->first();
+
+        if (!$allocation) {
+            throw new DisplayException('There are no free allocations available on the selected node.');
+        }
+
         $environment = $this->getEnvironmentWithDefaults($egg);
 
         $data = [
