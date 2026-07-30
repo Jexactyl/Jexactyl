@@ -2,11 +2,11 @@
 
 namespace Everest\Console\Commands;
 
-use Everest\Console\Kernel;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Everest\Services\Helpers\SoftwareVersionService;
 
 class AutoUpdateCommand extends Command
@@ -90,21 +90,35 @@ class AutoUpdateCommand extends Command
             });
         });
 
-        /** @var \Illuminate\Foundation\Application $app */
-        $app = require __DIR__ . '/../../../bootstrap/app.php';
-        /** @var Kernel $kernel */
-        $kernel = $app->make(Kernel::class);
-        $kernel->bootstrap();
-        $this->setLaravel($app);
+        // From here on, every remaining step must run as its own fresh PHP process rather
+        // than in-process via $this->call(). Composer's autoloader (vendor/autoload.php)
+        // was already loaded once when this command started, before "composer install"
+        // above could have added or updated any packages; PHP never reloads an already
+        // required file, so this process's autoloader permanently has no knowledge of
+        // anything composer just changed on disk. Re-requiring bootstrap/app.php does not
+        // fix this — it re-registers providers using the same stale autoloader, which then
+        // throws "Class ... not found" for any newly added package. A fresh `php artisan`
+        // invocation always builds its autoloader from the current state of vendor/, so it
+        // doesn't have this problem.
+        $phpBinary = (new PhpExecutableFinder())->find(false) ?: 'php';
+        $artisan = $this->getLaravel()->basePath('artisan');
 
-        $this->withProgress($bar, function () {
+        $runArtisan = function (array $arguments) use ($phpBinary, $artisan) {
+            $process = new Process([$phpBinary, $artisan, ...$arguments]);
+            $process->setTimeout(5 * 60);
+            $process->run(function ($type, $buffer) {
+                $this->{$type === Process::ERR ? 'error' : 'line'}($buffer);
+            });
+        };
+
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan optimize:clear');
-            $this->call('optimize:clear');
+            $runArtisan(['optimize:clear']);
         });
 
-        $this->withProgress($bar, function () {
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan migrate --force --seed');
-            $this->call('migrate', ['--force' => true, '--seed' => true]);
+            $runArtisan(['migrate', '--force', '--seed']);
         });
 
         $this->withProgress($bar, function () use ($user, $group) {
@@ -116,14 +130,14 @@ class AutoUpdateCommand extends Command
             });
         });
 
-        $this->withProgress($bar, function () {
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan queue:restart');
-            $this->call('queue:restart');
+            $runArtisan(['queue:restart']);
         });
 
-        $this->withProgress($bar, function () {
+        $this->withProgress($bar, function () use ($runArtisan) {
             $this->line('$upgrader> php artisan up');
-            $this->call('up');
+            $runArtisan(['up']);
         });
 
         $this->newLine(2);
