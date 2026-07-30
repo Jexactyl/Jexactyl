@@ -30,6 +30,18 @@ export default function NodeSettingsContainer({ node }: { node?: Node }) {
 
             <div css={tw`mb-6`}>
                 <Field
+                    id={'sftpAlias'}
+                    name={'sftpAlias'}
+                    label={'SFTP Alias'}
+                    type={'text'}
+                    description={
+                        'Optional hostname shown to server owners in the File Manager SFTP details instead of the FQDN.'
+                    }
+                />
+            </div>
+
+            <div css={tw`mb-6`}>
+                <Field
                     id={'daemonBase'}
                     name={'daemonBase'}
                     label={'Data Directory'}

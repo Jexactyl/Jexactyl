@@ -25,6 +25,7 @@ class UpdateNodeTest extends ApplicationApiIntegrationTestCase
             'name' => 'New Name',
             'description' => 'New Description',
             'fqdn' => 'new.example.com',
+            'sftp_alias' => 'sftp.new.example.com',
             'scheme' => 'https',
             'memory' => 100,
             'memory_overallocate' => 10,
@@ -40,6 +41,7 @@ class UpdateNodeTest extends ApplicationApiIntegrationTestCase
             ->assertJsonPath('attributes.name', 'New Name')
             ->assertJsonPath('attributes.description', 'New Description')
             ->assertJsonPath('attributes.fqdn', 'new.example.com')
+            ->assertJsonPath('attributes.sftp_alias', 'sftp.new.example.com')
             ->assertJsonPath('attributes.scheme', 'https')
             ->assertJsonPath('attributes.memory', 100)
             ->assertJsonPath('attributes.memory_overallocate', 10)

@@ -52,7 +52,7 @@ class ServerTransformer extends Transformer
             'node' => $server->node->name,
             'is_node_under_maintenance' => $server->node->isUnderMaintenance(),
             'sftp_details' => [
-                'ip' => $server->node->fqdn,
+                'ip' => $server->node->sftp_alias ?: $server->node->fqdn,
                 'port' => $server->node->public_port_sftp,
             ],
             'description' => $server->description,

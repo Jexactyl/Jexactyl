@@ -32,6 +32,7 @@ const initialValues: Values2 = {
     locationId: 0,
     databaseHostId: null,
     fqdn: '',
+    sftpAlias: '',
     scheme: 'https',
     behindProxy: 'false',
     public: 'true',

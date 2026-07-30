@@ -104,6 +104,7 @@ export default class Transformers {
             name: attributes.name,
             description: attributes.description,
             fqdn: attributes.fqdn,
+            sftpAlias: attributes.sftp_alias,
             ports: {
                 http: {
                     public: attributes.publicPortHttp,
@@ -411,6 +412,7 @@ export default class Transformers {
         description: attributes.description,
         databaseHostId: attributes.database_host_id,
         fqdn: attributes.fqdn,
+        sftpAlias: attributes.sftp_alias,
         listenPortHTTP: attributes.listen_port_http,
         publicPortHTTP: attributes.public_port_http,
         listenPortSFTP: attributes.listen_port_sftp,

@@ -85,6 +85,7 @@ export interface CreateNodeValues {
     locationId: number;
     databaseHostId: number | null;
     fqdn: string;
+    sftpAlias: string | null;
     scheme: string;
     behindProxy: boolean;
     public: boolean;

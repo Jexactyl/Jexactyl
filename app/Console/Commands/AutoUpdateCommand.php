@@ -4,8 +4,8 @@ namespace Everest\Console\Commands;
 
 use Everest\Console\Kernel;
 use Illuminate\Console\Command;
-use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Everest\Services\Helpers\SoftwareVersionService;
 

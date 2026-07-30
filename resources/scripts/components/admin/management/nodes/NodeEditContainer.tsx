@@ -22,6 +22,7 @@ interface Values {
     name: string;
     databaseHostId: number | null;
     fqdn: string;
+    sftpAlias: string | null;
     scheme: string;
     behindProxy: string; // Yes, this is technically a boolean.
     public: string; // Yes, this is technically a boolean.
@@ -87,6 +88,7 @@ export default () => {
                 name: node.name,
                 databaseHostId: node.databaseHostId,
                 fqdn: node.fqdn,
+                sftpAlias: node.sftpAlias,
                 scheme: node.scheme,
                 behindProxy: node.behindProxy ? 'true' : 'false',
                 public: node.public ? 'true' : 'false',

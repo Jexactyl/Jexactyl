@@ -38,6 +38,7 @@ export interface Node extends Model {
     name: string;
     description: string | null;
     fqdn: string;
+    sftpAlias: string | null;
     ports: NodePorts;
     scheme: 'http' | 'https';
     isBehindProxy: boolean;
@@ -66,6 +67,7 @@ export interface NodeEntry {
     description: string | null;
     databaseHostId: number | null;
     fqdn: string;
+    sftpAlias: string | null;
     listenPortHTTP: number;
     publicPortHTTP: number;
     listenPortSFTP: number;
