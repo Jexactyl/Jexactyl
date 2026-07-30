@@ -5,11 +5,14 @@ namespace Everest\Transformers\Api\Client;
 use Everest\Models\Server;
 use Everest\Models\Billing\Order;
 use League\Fractal\Resource\Item;
+use Everest\Models\Billing\Invoice;
 use Everest\Transformers\Api\Transformer;
 use League\Fractal\Resource\NullResource;
 
 class OrderTransformer extends Transformer
 {
+    protected array $availableIncludes = ['server', 'invoice'];
+
     public function getResourceName(): string
     {
         return Order::RESOURCE_NAME;
@@ -29,6 +32,7 @@ class OrderTransformer extends Transformer
             'product_id' => $model->product_id,
             'type' => $model->type ?? '?',
             'server_id' => $model->server_id,
+            'metadata' => $model->metadata,
             'created_at' => $model->created_at->toIso8601String(),
             'updated_at' => $model->updated_at->toIso8601String(),
         ];
@@ -39,6 +43,22 @@ class OrderTransformer extends Transformer
      */
     public function includeServer(Order $model): Item|NullResource
     {
+        if (!$model->server instanceof Server) {
+            return $this->null();
+        }
+
         return $this->item($model->server, new ServerTransformer());
+    }
+
+    /**
+     * Return the invoice generated for this order, if one exists yet.
+     */
+    public function includeInvoice(Order $model): Item|NullResource
+    {
+        if (!$model->invoice instanceof Invoice) {
+            return $this->null();
+        }
+
+        return $this->item($model->invoice, new InvoiceTransformer());
     }
 }

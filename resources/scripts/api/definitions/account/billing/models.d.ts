@@ -2,6 +2,12 @@ import { Model } from '@definitions';
 import { OrderType } from '@/api/routes/account/billing/orders/types';
 import { Server } from '../../server';
 
+interface Invoice extends Model {
+    id: number;
+    number: string | null;
+    generatedAt: Date | null;
+}
+
 interface Order extends Model {
     id: number;
     name: string;
@@ -12,11 +18,12 @@ interface Order extends Model {
     status: OrderStatus;
     type: OrderType;
     server_id?: number | null;
-    metadata: { deployment_fee?: number } | null;
+    metadata: { deployment_fee?: number; discount_code?: string; subtotal?: number } | null;
     created_at: Date;
 
     relationships: {
         server: Server | null;
+        invoice: Invoice | null;
     };
 }
 

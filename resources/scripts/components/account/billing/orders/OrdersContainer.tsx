@@ -30,7 +30,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import StatTile from '@/elements/billing/StatTile';
 import Money from '@/elements/billing/Money';
-import InvoiceDialog from './InvoiceDialog';
+import InvoiceIcon from './InvoiceIcon';
 
 export function type(state: string): PillStatus {
     switch (state) {
@@ -152,7 +152,7 @@ function OrderTable({ server_id }: { server_id?: number }) {
                                                 </td>
                                             )}
                                             <td className={'px-6 py-4 text-center'}>
-                                                <InvoiceDialog order={order} type={type} />
+                                                <InvoiceIcon order={order} />
                                             </td>
                                         </TableRow>
                                     ))}

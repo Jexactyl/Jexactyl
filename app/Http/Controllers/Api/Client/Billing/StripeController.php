@@ -81,8 +81,10 @@ class StripeController extends ClientApiController
         $order_type = $server ? Order::TYPE_RENEWAL : Order::TYPE_NEW;
         $egg_id = $this->resolveEggSelection($product, $request->input('egg_id'));
 
+        $discountCode = $request->input('discount_code');
+
         if ($request->exists('discount_code')) {
-            $price = $this->discountService->handle($product, $request->input('discount_code'));
+            $price = $this->discountService->handle($product, $discountCode);
         }
 
         $metadata = [
@@ -97,7 +99,11 @@ class StripeController extends ClientApiController
             'discount_code' => $request->input('discount_code') ?? null,
         ];
 
-        $orderMetadata = $deploymentFee > 0 ? ['deployment_fee' => $deploymentFee] : null;
+        $orderMetadata = array_filter([
+            'deployment_fee' => $deploymentFee > 0 ? $deploymentFee : null,
+            'discount_code' => $price !== null ? $discountCode : null,
+            'subtotal' => $price !== null ? $product->price : null,
+        ], fn ($value) => $value !== null) ?: null;
 
         $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price, $deploymentFee);
 

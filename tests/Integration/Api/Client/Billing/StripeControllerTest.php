@@ -11,6 +11,21 @@ use Everest\Tests\Integration\Api\Client\ClientApiIntegrationTestCase;
 
 class StripeControllerTest extends ClientApiIntegrationTestCase
 {
+    /**
+     * ClientApiIntegrationTestCase's tearDown() does not know about billing
+     * models, so without this an Order created (and, in the "accepted" case,
+     * transitioned to STATUS_PROCESSED) here leaks into every test that runs
+     * after this class in the same process.
+     */
+    protected function tearDown(): void
+    {
+        Order::query()->forceDelete();
+        Product::query()->forceDelete();
+        Category::query()->forceDelete();
+
+        parent::tearDown();
+    }
+
     private function enableBilling(): void
     {
         config([

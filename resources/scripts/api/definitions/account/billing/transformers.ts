@@ -6,7 +6,7 @@ import { transform } from '@definitions/helpers';
 
 export default class Transformers {
     static toOrder = ({ attributes: data }: FractalResponseData): Models.Order => {
-        const { server } = data.relationships || {};
+        const { server, invoice } = data.relationships || {};
 
         return {
             id: data.id,
@@ -23,9 +23,16 @@ export default class Transformers {
 
             relationships: {
                 server: transform(server as FractalResponseData, ServerTransformers.toServer, null),
+                invoice: transform(invoice as FractalResponseData, Transformers.toInvoice, null),
             },
         };
     };
+
+    static toInvoice = ({ attributes: data }: FractalResponseData): Models.Invoice => ({
+        id: data.id,
+        number: data.number ?? null,
+        generatedAt: data.generated_at ? new Date(data.generated_at) : null,
+    });
 
     static toCategory = ({ attributes: data }: FractalResponseData): Models.Category => ({
         id: data.id,

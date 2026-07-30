@@ -90,6 +90,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         // View existing billing orders that have already been created
         Route::get('/orders', [Client\Billing\OrderController::class, 'index']);
         Route::get('/orders/{order:id}', [Client\Billing\OrderController::class, 'view']);
+        Route::get('/orders/{order:id}/invoice', [Client\Billing\OrderController::class, 'invoice']);
 
         // Billing controllers and services
         Route::post('/stripe/create', [Client\Billing\StripeController::class, 'create']);

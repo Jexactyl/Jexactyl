@@ -58,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
             'billing_product' => Models\Billing\Product::class,
             'billing_discount_code' => Models\Billing\DiscountCode::class,
             'billing_exception' => Models\Billing\BillingException::class,
+            'billing_order' => Models\Billing\Order::class,
+            'billing_invoice' => Models\Billing\Invoice::class,
         ]);
 
         Carbon::serializeUsing(fn ($carbon) => $carbon->utc()->toIso8601ZuluString());

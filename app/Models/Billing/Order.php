@@ -5,6 +5,7 @@ namespace Everest\Models\Billing;
 use Everest\Models\User;
 use Everest\Models\Model;
 use Everest\Models\Server;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -99,6 +100,14 @@ class Order extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    /**
+     * Gets the invoice generated for this order, if any.
+     */
+    public function invoice(): HasOne
+    {
+        return $this->hasOne(Invoice::class, 'order_id');
     }
 
     /**

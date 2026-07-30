@@ -10,6 +10,7 @@ use Illuminate\Database\Console\PruneCommand;
 use Everest\Console\Commands\AutoUpdateCommand;
 use Everest\Console\Commands\Billing\CleanupOrdersCommand;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Everest\Console\Commands\Billing\GenerateInvoicesCommand;
 use Everest\Console\Commands\Schedule\ProcessRunnableCommand;
 use Everest\Console\Commands\Billing\SuspendBillableServersCommand;
 use Everest\Console\Commands\Maintenance\PruneOrphanedBackupsCommand;
@@ -60,6 +61,7 @@ class Kernel extends ConsoleKernel
             $schedule->command(CleanupOrdersCommand::class)->daily();
             $schedule->command(SuspendBillableServersCommand::class)->daily();
             $schedule->command(CalculateOrderThreatIndexCommand::class)->everyFiveMinutes();
+            $schedule->command(GenerateInvoicesCommand::class)->everyFiveMinutes();
         }
     }
 }
