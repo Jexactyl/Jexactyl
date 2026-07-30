@@ -57,6 +57,12 @@ function ServerDetailsBlock({ className }: { className?: string }) {
         return !match ? 'n/a' : `${match.alias || ip(match.ip)}:${match.port}`;
     });
 
+    const allocationDisplay = ServerContext.useStoreState(state => {
+        const match = state.server.data!.allocations.find(allocation => allocation.isDefault);
+
+        return match?.notes || allocation;
+    });
+
     useEffect(() => {
         if (!connected || !instance) {
             return;
@@ -86,7 +92,7 @@ function ServerDetailsBlock({ className }: { className?: string }) {
     return (
         <div className={classNames('grid grid-cols-10 gap-2 md:gap-4 mb-6', className)}>
             <StatBlock icon={faWifi} title={'Address'} className={'col-span-5 lg:col-span-2'} copyOnClick={allocation}>
-                {allocation}
+                {allocationDisplay}
             </StatBlock>
             <StatBlock
                 icon={faClock}
