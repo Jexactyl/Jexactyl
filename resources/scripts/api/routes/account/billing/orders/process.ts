@@ -9,9 +9,17 @@ export const createCheckoutSession = (
     server_id?: number,
     variables?: BillingServerVariables[],
     discount_code?: string,
+    egg_id?: number,
 ): Promise<string> => {
     return new Promise((resolve, reject) => {
-        http.post(`/api/client/billing/stripe/create`, { node_id, server_id, product_id, variables, discount_code })
+        http.post(`/api/client/billing/stripe/create`, {
+            node_id,
+            server_id,
+            product_id,
+            variables,
+            discount_code,
+            egg_id,
+        })
             .then(({ data }) => resolve(data))
             .catch(reject);
     });
@@ -30,9 +38,10 @@ export const processFreeCheckoutSession = (
     node_id?: number,
     variables?: { key: string; value: string }[],
     server_id?: number,
+    egg_id?: number,
 ): Promise<Server> => {
     return new Promise((resolve, reject) => {
-        http.post(`/api/client/billing/free/process`, { server_id, node_id, product_id, variables })
+        http.post(`/api/client/billing/free/process`, { server_id, node_id, product_id, variables, egg_id })
             .then(({ data }) => resolve(data))
             .catch(reject);
     });

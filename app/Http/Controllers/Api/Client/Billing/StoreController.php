@@ -9,6 +9,7 @@ use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
 use Everest\Models\Billing\BillingException;
 use Everest\Services\Billing\NodeCollectionService;
+use Everest\Transformers\Api\Client\EggTransformer;
 use Everest\Transformers\Api\Client\NodeTransformer;
 use Everest\Transformers\Api\Client\ProductTransformer;
 use Everest\Transformers\Api\Client\CategoryTransformer;
@@ -76,6 +77,17 @@ class StoreController extends ClientApiController
             ->get();
 
         return $this->transform($variables, EggVariableTransformer::class);
+    }
+
+    /**
+     * Returns the eggs available for a product's nest, for products whose category
+     * doesn't pin a specific egg and lets the customer choose one at checkout.
+     */
+    public function eggs(Product $product): array
+    {
+        $eggs = Egg::where('nest_id', $product->category->nest_id)->get();
+
+        return $this->transform($eggs, EggTransformer::class);
     }
 
     /**

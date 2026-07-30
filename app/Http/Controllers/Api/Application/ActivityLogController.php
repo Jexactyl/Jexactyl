@@ -4,8 +4,8 @@ namespace Everest\Http\Controllers\Api\Application;
 
 use Everest\Models\User;
 use Everest\Models\ActivityLog;
-use Illuminate\Support\Facades\Schema;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Schema;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Everest\Http\Requests\Api\Application\ActivityRequest;

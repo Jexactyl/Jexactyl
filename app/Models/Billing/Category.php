@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $description
  * @property bool $visible
  * @property int $nest_id
- * @property int $egg_id
+ * @property int|null $egg_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -45,7 +45,7 @@ class Category extends Model
         'description' => 'nullable|string|max:300',
         'visible' => 'nullable|bool',
         'nest_id' => 'required|exists:nests,id',
-        'egg_id' => 'required|exists:eggs,id',
+        'egg_id' => 'nullable|exists:eggs,id',
     ];
 
     public function products(): HasMany

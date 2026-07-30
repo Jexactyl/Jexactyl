@@ -84,6 +84,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         // Viewing of available categories/products
         Route::get('/categories/{category:id}', [Client\Billing\StoreController::class, 'products']);
         Route::get('/products/{product:id}', [Client\Billing\StoreController::class, 'product']);
+        Route::get('/products/{product:id}/eggs', [Client\Billing\StoreController::class, 'eggs']);
         Route::get('/products/{egg:id}/variables', [Client\Billing\StoreController::class, 'variables']);
 
         // View existing billing orders that have already been created

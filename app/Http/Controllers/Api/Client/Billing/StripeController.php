@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Everest\Models\Egg;
 use Everest\Models\Node;
 use Everest\Models\User;
 use Stripe\StripeClient;
@@ -73,6 +74,7 @@ class StripeController extends ClientApiController
         }
 
         $order_type = $server ? Order::TYPE_RENEWAL : Order::TYPE_NEW;
+        $egg_id = $this->resolveEggSelection($product, $request->input('egg_id'));
 
         if ($request->exists('discount_code')) {
             $price = $this->discountService->handle($product, $request->input('discount_code'));
@@ -84,6 +86,7 @@ class StripeController extends ClientApiController
             'product_id' => (string) $product->id,
             'node_id' => (string) ($node_id ?? ''),
             'server_id' => (string) ($server?->id ?? 0),
+            'egg_id' => (string) ($egg_id ?? ''),
             'variables' => json_encode($request->input('variables') ?? []),
             'order_type' => $order_type,
             'discount_code' => $request->input('discount_code') ?? null,
@@ -194,5 +197,29 @@ class StripeController extends ClientApiController
         }
 
         return $this->transform($discount_code, DiscountCodeTransformer::class);
+    }
+
+    /**
+     * Validate the egg a customer selected for a product whose category doesn't pin one.
+     * Categories with a fixed egg ignore any submitted selection. Returns the egg id to
+     * carry through the checkout, or null when the category already has a fixed egg.
+     */
+    private function resolveEggSelection(Product $product, mixed $submittedEggId): ?int
+    {
+        if ($product->category->egg_id) {
+            return null;
+        }
+
+        if (!$submittedEggId) {
+            throw new DisplayException('An egg must be selected to deploy this product.');
+        }
+
+        $egg = Egg::findOrFail($submittedEggId);
+
+        if ((int) $egg->nest_id !== (int) $product->category->nest_id) {
+            throw new DisplayException('The selected egg does not belong to this product\'s nest.');
+        }
+
+        return $egg->id;
     }
 }

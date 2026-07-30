@@ -6,9 +6,9 @@ use Everest\Models\Server;
 use Everest\Models\ActivityLog;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Everest\Transformers\Api\Application\ActivityLogTransformer;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Servers\GetServerActivityRequest;
-use Everest\Transformers\Api\Application\ActivityLogTransformer;
 
 class ActivityLogController extends ApplicationApiController
 {

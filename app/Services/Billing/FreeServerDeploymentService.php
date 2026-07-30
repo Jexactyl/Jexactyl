@@ -3,7 +3,6 @@
 namespace Everest\Services\Billing;
 
 use Carbon\Carbon;
-use Everest\Models\Egg;
 use Everest\Models\Node;
 use Everest\Models\User;
 use Everest\Models\Server;
@@ -24,10 +23,10 @@ class FreeServerDeploymentService extends ServerDeploymentService
     /**
      * Process the creation of a free server.
      */
-    public function handleFree(User $user, Product $product, Node $node, Order $order, array $variables): Server
+    public function handleFree(User $user, Product $product, Node $node, Order $order, array $variables, ?int $eggId = null): Server
     {
         $renewalDays = config('modules.billing.renewal.free_renewal_days', 30);
-        $egg = Egg::findOrFail($product->category->egg_id);
+        $egg = $this->resolveEgg($product, $eggId);
         $allocation = $this->getAllocation($node->id, $order->id);
         $environment = $this->getEnvironment($egg->id, $variables);
 

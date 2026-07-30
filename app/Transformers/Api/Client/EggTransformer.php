@@ -18,6 +18,7 @@ class EggTransformer extends Transformer
     public function transform(Egg $model): array
     {
         return [
+            'id' => $model->id,
             'uuid' => $model->uuid,
             'name' => $model->name,
         ];

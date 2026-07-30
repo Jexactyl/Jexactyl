@@ -56,6 +56,12 @@ export default class Transformers {
         fqdn: data.fqdn,
     });
 
+    static toEgg = ({ attributes: data }: FractalResponseData): Models.Egg => ({
+        id: data.id,
+        uuid: data.uuid,
+        name: data.name,
+    });
+
     static toDiscountCode = ({ attributes: data }: FractalResponseData): Models.DiscountCode => ({
         code: data.code,
         description: data.description,

@@ -9,8 +9,8 @@ use Everest\Models\Server;
 use Everest\Models\Ticket;
 use Everest\Models\Database;
 use Everest\Models\Billing\Order;
-use Everest\Models\Billing\Product;
 use Illuminate\Http\JsonResponse;
+use Everest\Models\Billing\Product;
 use Everest\Services\Helpers\SoftwareVersionService;
 use Everest\Http\Requests\Api\Application\OverviewRequest;
 

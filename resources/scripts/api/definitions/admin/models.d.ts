@@ -572,7 +572,7 @@ interface Category extends Model {
     description: string;
     visible: boolean;
     nestId: number;
-    eggId: number;
+    eggId: number | null;
 
     createdAt: Date;
     updatedAt?: Date | null;

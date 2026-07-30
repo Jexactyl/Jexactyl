@@ -3,7 +3,6 @@
 namespace Everest\Http\Controllers\Api\Application\Settings;
 
 use Carbon\Carbon;
-use ZipArchive;
 use Everest\Facades\Activity;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -56,7 +55,7 @@ class DebugController extends ApplicationApiController
      * Downloads a single log file so an admin can inspect or share it
      * when diagnosing an issue with the Panel.
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function download(string $file): BinaryFileResponse
     {
@@ -83,8 +82,8 @@ class DebugController extends ApplicationApiController
 
         $zipPath = tempnam(sys_get_temp_dir(), 'panel-logs-') . '.zip';
 
-        $zip = new ZipArchive();
-        $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $zip = new \ZipArchive();
+        $zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
         foreach ($files as $file) {
             $zip->addFile($file->getPathname(), $file->getFilename());
@@ -105,7 +104,7 @@ class DebugController extends ApplicationApiController
      * Resolves a log filename to an absolute path on disk, guarding against
      * directory traversal outside of the logs directory.
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     private function resolvePath(string $file): string
     {
@@ -130,7 +129,7 @@ class DebugController extends ApplicationApiController
 
         while (($line = fgets($handle)) !== false) {
             if (str_contains($line, $needle)) {
-                $count++;
+                ++$count;
             }
         }
 

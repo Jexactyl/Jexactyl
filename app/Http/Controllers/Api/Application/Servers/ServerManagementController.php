@@ -10,11 +10,11 @@ use Everest\Services\Servers\SuspensionService;
 use Everest\Services\Servers\ServerTransferService;
 use Everest\Services\Servers\ReinstallServerService;
 use Everest\Repositories\Wings\DaemonPowerRepository;
+use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 use Everest\Http\Requests\Api\Application\Servers\ServerWriteRequest;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
 use Everest\Http\Requests\Api\Application\Servers\ServerToggleRequest;
 use Everest\Http\Requests\Api\Application\Servers\TransferServerRequest;
-use Everest\Exceptions\Http\Connection\DaemonConnectionException;
 use Everest\Http\Requests\Api\Application\Servers\BulkPowerActionRequest;
 
 class ServerManagementController extends ApplicationApiController

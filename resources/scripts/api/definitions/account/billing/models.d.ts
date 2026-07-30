@@ -39,7 +39,7 @@ interface Product extends Model {
     icon?: string;
     price: number;
     description?: string;
-    eggId: number;
+    eggId: number | null;
     limits: {
         cpu: number;
         memory: number;
@@ -54,6 +54,12 @@ interface Node extends Model {
     id: string;
     name: string;
     fqdn: string;
+}
+
+interface Egg extends Model {
+    id: number;
+    uuid: string;
+    name: string;
 }
 
 interface StripeIntent extends Model {

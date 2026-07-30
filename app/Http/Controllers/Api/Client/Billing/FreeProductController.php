@@ -2,6 +2,7 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
+use Everest\Models\Egg;
 use Everest\Models\Node;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
@@ -36,6 +37,8 @@ class FreeProductController extends ClientApiController
 
         $this->freeDeploymentService->validate($product, $user, $node, $is_new_order);
 
+        $egg_id = $is_new_order ? $this->resolveEggSelection($product, $request->input('egg_id')) : null;
+
         $order = $this->orderService->create(
             null,
             $user,
@@ -51,6 +54,7 @@ class FreeProductController extends ClientApiController
                 $node,
                 $order,
                 $request->input('variables', []),
+                $egg_id,
             );
 
             $order->assignServer($server);
@@ -72,5 +76,29 @@ class FreeProductController extends ClientApiController
         $order->update(['status' => Order::STATUS_PROCESSED]);
 
         return $this->transform($server, ServerTransformer::class);
+    }
+
+    /**
+     * Validate the egg a customer selected for a product whose category doesn't pin one.
+     * Categories with a fixed egg ignore any submitted selection. Returns the egg id to
+     * carry through deployment, or null when the category already has a fixed egg.
+     */
+    private function resolveEggSelection(Product $product, mixed $submittedEggId): ?int
+    {
+        if ($product->category->egg_id) {
+            return null;
+        }
+
+        if (!$submittedEggId) {
+            throw new DisplayException('An egg must be selected to deploy this product.');
+        }
+
+        $egg = Egg::findOrFail($submittedEggId);
+
+        if ((int) $egg->nest_id !== (int) $product->category->nest_id) {
+            throw new DisplayException('The selected egg does not belong to this product\'s nest.');
+        }
+
+        return $egg->id;
     }
 }

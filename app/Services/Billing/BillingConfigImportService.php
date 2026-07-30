@@ -2,6 +2,7 @@
 
 namespace Everest\Services\Billing;
 
+use Everest\Models\Egg;
 use Illuminate\Support\Str;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
@@ -23,6 +24,12 @@ class BillingConfigImportService
             }
             $new_uuid = Str::uuid()->toString();
 
+            // An imported egg_id is only trustworthy once we've confirmed it belongs to the
+            // imported nest_id; derive nest_id from the egg itself rather than trusting the
+            // file's pairing, mirroring how CategoryController resolves this for admin input.
+            $egg_id = isset($category['egg_id']) ? (int) $category['egg_id'] : null;
+            $nest_id = $egg_id ? Egg::findOrFail($egg_id)->nest_id : (int) $category['nest_id'];
+
             // Create the new category
             $new_category = Category::create([
                 'uuid' => $new_uuid, // don't overlap UUIDs
@@ -30,8 +37,8 @@ class BillingConfigImportService
                 'icon' => $category['icon'] ?? null,
                 'description' => $category['description'],
                 'visible' => (bool) $category['visible'],
-                'egg_id' => (int) $category['egg_id'],
-                'nest_id' => (int) $category['nest_id'],
+                'egg_id' => $egg_id,
+                'nest_id' => $nest_id,
             ]);
 
             // Map the old category UUID to the new category UUID

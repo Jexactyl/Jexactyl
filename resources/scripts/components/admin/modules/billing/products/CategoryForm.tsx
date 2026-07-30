@@ -11,16 +11,13 @@ import type { ApplicationStore } from '@/state';
 import AdminBox from '@/elements/AdminBox';
 import { createCategory, updateCategory } from '@/api/routes/admin/billing';
 import { object, string, boolean, number } from 'yup';
-import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faLayerGroup, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import Label from '@/elements/Label';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { ServerServiceContainer } from '@admin/management/servers/ServerStartupContainer';
-import { WithRelationships } from '@/api/routes/admin';
-import type { Egg } from '@definitions/admin';
+import { Dispatch, SetStateAction, useState } from 'react';
+import CategoryNestEggSelect from './CategoryNestEggSelect';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
 import CategoryDeleteButton from './CategoryDeleteButton';
-import { getEgg } from '@/api/routes/admin/eggs';
 import { Category } from '@definitions/admin';
 import { CategoryValues } from '@/api/routes/admin/billing';
 import { useSWRConfig } from 'swr';
@@ -32,19 +29,8 @@ interface Props {
 }
 
 function InternalForm({ category, visible, setVisible }: Props) {
-    const [_egg, setEgg] = useState<WithRelationships<Egg, 'variables'> | undefined>();
-    const { values, isSubmitting } = useFormikContext<CategoryValues>();
+    const { isSubmitting } = useFormikContext<CategoryValues>();
     const { secondary } = useStoreState(state => state.theme.data!.colors);
-
-    // Load egg object when category.eggId changes (after save/SWR revalidation)
-    // Note: No need for guard - useEffect only runs when category?.eggId changes
-    useEffect(() => {
-        if (category?.eggId) {
-            getEgg(category.eggId)
-                .then(egg => setEgg(egg))
-                .catch(error => console.error(error));
-        }
-    }, [category?.eggId]);
 
     return (
         <Form>
@@ -106,12 +92,9 @@ function InternalForm({ category, visible, setVisible }: Props) {
                     </AdminBox>
                 </div>
                 <div css={tw`w-full flex flex-col mr-0 lg:mr-2`}>
-                    <ServerServiceContainer
-                        selectedEggId={values.eggId}
-                        setEgg={setEgg}
-                        nestId={category?.nestId ?? 0}
-                        noToggle
-                    />
+                    <AdminBox title={'Service Configuration'} icon={faLayerGroup} isLoading={isSubmitting}>
+                        <CategoryNestEggSelect />
+                    </AdminBox>
                     <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                         <div css={tw`text-right`}>
                             {category && <CategoryDeleteButton category={category} />}
@@ -193,15 +176,16 @@ export default ({ category }: { category?: Category }) => {
                     icon: category?.icon ?? '',
                     description: category?.description ?? '',
                     visible: category?.visible ?? false,
-                    eggId: category?.eggId ?? 0,
+                    nestId: category?.nestId ?? null,
+                    eggId: category?.eggId ?? null,
                 }}
                 validationSchema={object().shape({
                     name: string().required().max(191).min(3),
                     icon: string().nullable().max(191).min(3),
                     description: string().nullable().max(191).min(3),
                     visible: boolean().required(),
-                    nestId: number(),
-                    eggId: number(),
+                    nestId: number().nullable().required('A nest must be selected for this category.'),
+                    eggId: number().nullable(),
                 })}
             >
                 <InternalForm category={category} visible={visible} setVisible={setVisible} />

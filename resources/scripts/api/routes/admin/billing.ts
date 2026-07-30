@@ -40,7 +40,8 @@ export interface CategoryValues {
     icon: string;
     description: string;
     visible: boolean;
-    eggId: number;
+    nestId: number | null;
+    eggId: number | null;
 }
 
 export interface ProductFilters {

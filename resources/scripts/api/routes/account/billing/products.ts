@@ -1,4 +1,4 @@
-import { Product, Transformers, type Node } from '@definitions/account/billing';
+import { Product, Transformers, type Node, type Egg } from '@definitions/account/billing';
 import { EggVariable } from '@definitions/server';
 import http from '@/api/http';
 import { Transformers as ServerTransformers } from '@definitions/server';
@@ -23,6 +23,14 @@ export const getProductVariables = (id: number): Promise<EggVariable[]> => {
     return new Promise((resolve, reject) => {
         http.get(`/api/client/billing/products/${id}/variables`)
             .then(({ data }) => resolve((data.data || []).map(ServerTransformers.toEggVariable)))
+            .catch(reject);
+    });
+};
+
+export const getProductEggs = (id: number): Promise<Egg[]> => {
+    return new Promise((resolve, reject) => {
+        http.get(`/api/client/billing/products/${id}/eggs`)
+            .then(({ data }) => resolve((data.data || []).map(Transformers.toEgg)))
             .catch(reject);
     });
 };
