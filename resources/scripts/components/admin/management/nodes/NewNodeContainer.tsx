@@ -39,6 +39,7 @@ const initialValues: Values2 = {
     daemonBase: '/var/lib/pterodactyl/volumes',
     deployable: 'false',
     deployableFree: 'false',
+    deploymentFee: 0,
 
     listenPortHTTP: 8080,
     publicPortHTTP: 8080,
@@ -165,6 +166,9 @@ export default () => {
                 memoryOverallocate: number().required(),
                 disk: number().required(),
                 diskOverallocate: number().required(),
+                deploymentFee: number()
+                    .typeError('Deployment fee must be a number')
+                    .min(0, 'Deployment fee cannot be negative'),
             })}
         >
             <InternalForm />

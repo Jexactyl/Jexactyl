@@ -108,7 +108,8 @@ export default () => {
 
                 const nodesData = await getViableNodes(productData.id);
                 setNodes(nodesData);
-                setSelectedNode(Number(nodesData[0]?.id) ?? 0);
+                const firstEligible = nodesData.find(node => (productData.price === 0 ? node.deployableFree : true));
+                setSelectedNode(Number(firstEligible?.id) ?? 0);
 
                 if (productData.eggId === null) {
                     const eggsData = await getProductEggs(productData.id);
@@ -142,6 +143,10 @@ export default () => {
         }
         return Math.max(0, product.price - discountCode.value).toFixed(2);
     })();
+
+    const selectedNodeData = nodes?.find(node => Number(node.id) === selectedNode);
+    const deploymentFee = selectedNodeData?.deploymentFee ?? 0;
+    const grandTotal = Number(finalPrice) + deploymentFee;
 
     const showVariablesStep = !!variables && variables.length > 1;
 
@@ -203,6 +208,7 @@ export default () => {
                                         key={node.id}
                                         selected={selectedNode}
                                         setSelected={setSelectedNode}
+                                        disabled={product.price === 0 && !node.deployableFree}
                                     />
                                 ))}
                             </div>
@@ -327,7 +333,13 @@ export default () => {
                                             complete={false}
                                             title={
                                                 <>
-                                                    Due Today: <Money value={Number(finalPrice)} accent />
+                                                    Due Today: <Money value={grandTotal} accent />
+                                                    {deploymentFee > 0 && (
+                                                        <span className={'text-sm text-gray-400 font-normal ml-2'}>
+                                                            (includes <Money value={deploymentFee} /> one-time
+                                                            deployment fee)
+                                                        </span>
+                                                    )}
                                                     {discountCode && (
                                                         <span className={'text-green-400 text-base font-normal ml-3'}>
                                                             ({discountCode.code} discount applied)
@@ -335,7 +347,16 @@ export default () => {
                                                     )}
                                                 </>
                                             }
-                                            description={'Press Pay Now to checkout via your preferred payment method.'}
+                                            description={
+                                                deploymentFee > 0 ? (
+                                                    <>
+                                                        Then <Money value={Number(finalPrice)} suffix={'/mo'} />{' '}
+                                                        starting next billing cycle.
+                                                    </>
+                                                ) : (
+                                                    'Press Pay Now to checkout via your preferred payment method.'
+                                                )
+                                            }
                                         />
                                         <div className={'flex justify-between w-full mt-8'}>
                                             <DiscountCodeDialog

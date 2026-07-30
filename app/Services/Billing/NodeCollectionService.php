@@ -19,7 +19,13 @@ class NodeCollectionService
     public function handle(Product $product): array
     {
         $available = collect();
-        $nodes = Node::where($product->price == 0 ? 'deployable_free' : 'deployable', true)->get();
+        $isFree = $product->price == 0;
+
+        // Free orders also surface paid-only nodes (greyed out client-side) so
+        // users can see a deployment-fee node exists rather than it vanishing.
+        $nodes = $isFree
+            ? Node::where('deployable', true)->orWhere('deployable_free', true)->get()
+            : Node::where('deployable', true)->get();
 
         if ($nodes->isEmpty()) {
             BillingException::create([

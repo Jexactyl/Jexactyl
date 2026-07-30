@@ -83,6 +83,7 @@ export interface NodeEntry {
     daemonBase: string;
     deployable: boolean;
     deployableFree: boolean;
+    deploymentFee: number;
     createdAt: Date;
     updatedAt: Date;
 

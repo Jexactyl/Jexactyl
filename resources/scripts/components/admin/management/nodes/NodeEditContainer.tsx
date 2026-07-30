@@ -28,6 +28,7 @@ interface Values {
     public: string; // Yes, this is technically a boolean.
     deployable: string; // Yes, this is technically a boolean.
     deployableFree: string;
+    deploymentFee: number;
     daemonBase: string; // This value cannot be updated once a node has been created.
 
     memory: number;
@@ -94,6 +95,7 @@ export default () => {
                 public: node.public ? 'true' : 'false',
                 deployable: node.deployable ? 'true' : 'false',
                 deployableFree: node.deployableFree ? 'true' : 'false',
+                deploymentFee: node.deploymentFee ?? 0,
                 daemonBase: node.daemonBase,
 
                 listenPortHTTP: node.listenPortHTTP,
@@ -117,6 +119,9 @@ export default () => {
                 memoryOverallocate: number().required(),
                 disk: number().required(),
                 diskOverallocate: number().required(),
+                deploymentFee: number()
+                    .typeError('Deployment fee must be a number')
+                    .min(0, 'Deployment fee cannot be negative'),
             })}
         >
             {({ isSubmitting, isValid }) => (

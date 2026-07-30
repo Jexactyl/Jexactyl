@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $type
  * @property int $threat_index
  * @property string|null $transaction_id
+ * @property array|null $metadata
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -49,7 +50,7 @@ class Order extends Model
      */
     protected $fillable = [
         'name', 'user_id', 'description', 'transaction_id',
-        'total', 'status', 'product_id', 'type', 'threat_index',
+        'total', 'status', 'product_id', 'type', 'threat_index', 'metadata',
     ];
 
     /**
@@ -60,6 +61,7 @@ class Order extends Model
         'total' => 'float',
         'product_id' => 'int',
         'threat_index' => 'int',
+        'metadata' => 'array',
     ];
 
     public static array $validationRules = [
@@ -72,6 +74,7 @@ class Order extends Model
         'type' => 'required|in:new,upgrade,renewal',
         'threat_index' => 'nullable|int|min:-1|max:100',
         'transaction_id' => 'nullable|string',
+        'metadata' => 'nullable|array',
     ];
 
     /**

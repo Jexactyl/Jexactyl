@@ -52,6 +52,7 @@ class StripeController extends ClientApiController
     {
         $price = null;
         $server = null;
+        $deploymentFee = 0.0;
         $node_id = $request->input('node_id') ?? null;
         $product = Product::findOrFail($request->input('product_id'));
 
@@ -60,9 +61,13 @@ class StripeController extends ClientApiController
         }
 
         if ($node_id) {
-            if (!Node::findOrFail($request->input('node_id'))->deployable) {
+            $node = Node::findOrFail($node_id);
+
+            if (!$node->deployable) {
                 throw new DisplayException('Paid servers cannot be deployed to this node.');
             }
+
+            $deploymentFee = (float) ($node->deployment_fee ?? 0);
         } else {
             try {
                 $server = $request->user()->servers()
@@ -92,7 +97,9 @@ class StripeController extends ClientApiController
             'discount_code' => $request->input('discount_code') ?? null,
         ];
 
-        $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price);
+        $orderMetadata = $deploymentFee > 0 ? ['deployment_fee' => $deploymentFee] : null;
+
+        $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price, $deploymentFee);
 
         $order = $this->orderService->create(
             $transaction->id,
@@ -100,7 +107,8 @@ class StripeController extends ClientApiController
             $product,
             Order::STATUS_PENDING,
             $order_type,
-            $price
+            $price,
+            $orderMetadata
         );
 
         if ($server) {

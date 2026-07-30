@@ -25,6 +25,7 @@ class StoreNodeRequest extends ApplicationApiRequest
             'public',
             'deployable',
             'deployable_free',
+            'deployment_fee',
 
             'listen_port_http',
             'public_port_http',

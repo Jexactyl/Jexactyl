@@ -18,6 +18,7 @@ export default class Transformers {
             product_id: data.product_id,
             type: data.type,
             server_id: data.server_id ?? null,
+            metadata: data.metadata ?? null,
             created_at: new Date(data.created_at),
 
             relationships: {
@@ -54,6 +55,9 @@ export default class Transformers {
         id: data.id,
         name: data.name,
         fqdn: data.fqdn,
+        deployable: data.deployable ?? false,
+        deployableFree: data.deployable_free ?? false,
+        deploymentFee: data.deployment_fee ?? 0,
     });
 
     static toEgg = ({ attributes: data }: FractalResponseData): Models.Egg => ({

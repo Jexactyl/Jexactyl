@@ -12,6 +12,7 @@ interface Order extends Model {
     status: OrderStatus;
     type: OrderType;
     server_id?: number | null;
+    metadata: { deployment_fee?: number } | null;
     created_at: Date;
 
     relationships: {
@@ -54,6 +55,9 @@ interface Node extends Model {
     id: string;
     name: string;
     fqdn: string;
+    deployable: boolean;
+    deployableFree: boolean;
+    deploymentFee: number;
 }
 
 interface Egg extends Model {

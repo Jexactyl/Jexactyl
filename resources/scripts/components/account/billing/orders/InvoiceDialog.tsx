@@ -52,6 +52,9 @@ export default ({ order, type }: Props) => {
                         <Row label={'Linked Server'} value={order.relationships.server.name} />
                     )}
                     <Row label={'Issued'} value={new Date(order.created_at).toLocaleDateString()} />
+                    {!!order.metadata?.deployment_fee && (
+                        <Row label={'Deployment Fee'} value={<Money value={order.metadata.deployment_fee} />} />
+                    )}
                     <Row label={'Total'} value={<Money value={order.total} suffix={'/mo'} accent />} />
                 </div>
                 <div className={'text-right mt-6 print:hidden'}>

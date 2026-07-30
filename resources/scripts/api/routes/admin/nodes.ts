@@ -92,6 +92,7 @@ export interface CreateNodeValues {
     daemonBase: string;
     deployable: boolean;
     deployableFree: boolean;
+    deploymentFee: number;
 
     memory: number;
     memoryOverallocate: number;

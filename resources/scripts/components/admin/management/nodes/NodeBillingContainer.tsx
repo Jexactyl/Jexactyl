@@ -2,6 +2,7 @@ import { faCashRegister } from '@fortawesome/free-solid-svg-icons';
 import { Field as FormikField, useFormikContext } from 'formik';
 import tw from 'twin.macro';
 import AdminBox from '@/elements/AdminBox';
+import Field from '@/elements/Field';
 import Label from '@/elements/Label';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 
@@ -44,6 +45,17 @@ export default () => {
                 <p className={'text-sm text-gray-400 mt-1'}>
                     Allows users to deploy <strong>free</strong> servers to this node via the billing system.
                 </p>
+            </div>
+            <div className={'mt-6'}>
+                <Field
+                    id={'deploymentFee'}
+                    name={'deploymentFee'}
+                    type={'text'}
+                    label={'Deployment Fee'}
+                    description={
+                        'Optional one-time fee charged in addition to the product price when a paid server is first deployed to this node. Leave at 0 for no fee.'
+                    }
+                />
             </div>
         </AdminBox>
     );

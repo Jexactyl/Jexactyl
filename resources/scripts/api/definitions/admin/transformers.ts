@@ -428,6 +428,7 @@ export default class Transformers {
         daemonBase: attributes.daemon_base,
         deployable: attributes.deployable,
         deployableFree: attributes.deployable_free,
+        deploymentFee: attributes.deployment_fee ?? 0,
         createdAt: new Date(attributes.created_at),
         updatedAt: new Date(attributes.updated_at),
 
