@@ -5,7 +5,9 @@ namespace Everest\Console\Commands;
 use Everest\Console\Kernel;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Everest\Services\Helpers\SoftwareVersionService;
 
 class AutoUpdateCommand extends Command
 {
@@ -15,7 +17,8 @@ class AutoUpdateCommand extends Command
         {--user= : The user that PHP runs under. All files will be owned by this user.}
         {--group= : The group that PHP runs under. All files will be owned by this group.}
         {--url= : The specific archive to download.}
-        {--release= : A specific Jexpanel version to download from GitHub. Leave blank to use latest.}';
+        {--release= : A specific Jexpanel version to download from GitHub. Leave blank to use latest.}
+        {--force : Perform the upgrade even if the current version is already the latest.}';
 
     protected $description = 'Downloads a new archive for Jexpanel from GitHub and then executes the normal upgrade commands.';
 
@@ -32,6 +35,15 @@ class AutoUpdateCommand extends Command
             $this->error('Cannot execute automatic update process. The minimum required PHP version required is 8.2.0, you have [' . PHP_VERSION . '].');
 
             return self::FAILURE;
+        }
+
+        Cache::forget(SoftwareVersionService::VERSION_CACHE_KEY);
+        $versionService = $this->getLaravel()->make(SoftwareVersionService::class);
+
+        if (!$this->option('force') && !$this->option('url') && !$this->option('release') && $versionService->isLatestPanel()) {
+            $this->info("You are already running the latest version of Jexpanel ({$versionService->getCurrentVersion()}). Pass --force to update anyway.");
+
+            return self::SUCCESS;
         }
 
         $user = $this->option('user') ?? 'www-data';
