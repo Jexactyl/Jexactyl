@@ -71,7 +71,7 @@ export default ({ expand, setExpand }: Props) => {
     const TERMINAL_PRELUDE = '\n\u001b[1m\u001b[33mEverest Container: \u001b[0m';
     const ref = useRef<HTMLDivElement>(null);
     const terminal = useMemo(() => new Terminal({ ...terminalProps, ...terminalInitOnlyProps }), []);
-    const fitAddon = new FitAddon();
+    const fitAddon = useMemo(() => new FitAddon(), []);
     const searchAddon = new SearchAddon();
     const searchBar = new SearchBarAddon({ searchAddon });
     const webLinksAddon = new WebLinksAddon();
@@ -177,6 +177,15 @@ export default ({ expand, setExpand }: Props) => {
     );
 
     useEffect(() => {
+        if (!terminal.element) return;
+
+        // Wait for the min-h transition (duration-500) to finish before re-fitting,
+        // otherwise xterm computes its size mid-animation and glitches.
+        const timeout = window.setTimeout(() => fitAddon.fit(), 500);
+        return () => window.clearTimeout(timeout);
+    }, [expand]);
+
+    useEffect(() => {
         const listeners: Record<string, (s: string) => void> = {
             [SocketEvent.STATUS]: handlePowerChangeEvent,
             [SocketEvent.CONSOLE_OUTPUT]: handleConsoleOutput,
@@ -223,7 +232,7 @@ export default ({ expand, setExpand }: Props) => {
             style={{ backgroundColor: secondary }}
             className={classNames(
                 styles.terminal,
-                'relative p-2 rounded-lg',
+                'relative p-2 rounded-lg transition-all duration-500 ease-linear',
                 expand ? 'min-h-[48rem]' : 'min-h-[16rem]',
             )}
         >
