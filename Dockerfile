@@ -10,7 +10,7 @@ RUN npm i -g pnpm && pnpm i \
 
 # Stage 1:
 # Build the actual container with all of the needed PHP dependencies that will run the application.
-FROM --platform=$TARGETOS/$TARGETARCH php:8.3-fpm-alpine
+FROM --platform=$TARGETOS/$TARGETARCH php:8.4-fpm-alpine
 WORKDIR /app
 COPY . ./
 COPY --from=0 /app/public/build ./public/build

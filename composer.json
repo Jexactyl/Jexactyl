@@ -2,7 +2,7 @@
     "name": "jexactyl/jexactyl",
     "license": "MIT",
     "require": {
-        "php": "^8.2 || ^8.3 || ^8.4",
+        "php": "^8.4 || ^8.5",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
@@ -83,7 +83,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "8.2.0"
+            "php": "8.4.0"
         },
         "allow-plugins": {
             "php-http/discovery": true

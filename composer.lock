@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51934cfbdb70313b99be2f22937b8cfd",
+    "content-hash": "fe33e1d65698804456df1cea164ea3a7",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1149,12 +1149,12 @@
             "version": "v7.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/firebase/php-jwt.git",
+                "url": "https://github.com/googleapis/php-jwt.git",
                 "reference": "28aa0694bcfdfa5e2959c394d5a1ee7a5083629e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/28aa0694bcfdfa5e2959c394d5a1ee7a5083629e",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/28aa0694bcfdfa5e2959c394d5a1ee7a5083629e",
                 "reference": "28aa0694bcfdfa5e2959c394d5a1ee7a5083629e",
                 "shasum": ""
             },
@@ -13124,7 +13124,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2 || ^8.3 || ^8.4",
+        "php": "^8.4 || ^8.5",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
@@ -13132,7 +13132,7 @@
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.2.0"
+        "php": "8.4.0"
     },
     "plugin-api-version": "2.9.0"
 }

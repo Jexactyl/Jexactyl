@@ -24,6 +24,21 @@ $kernel->bootstrap();
 // setup process are output nicely.
 (new Provider())->register();
 
+// Collision's Whoops handler throws on every reported error, including
+// E_DEPRECATED. On PHP 8.5 that turns routine framework deprecation notices
+// (e.g. Illuminate\Console\Command::parseVerbosity()'s null array offset)
+// into fatal errors during migrate:fresh/db:seed below. Keep Whoops for real
+// errors but stop it from treating deprecations as fatal.
+$previousErrorHandler = set_error_handler(
+    function (int $level, string $message, string $file = '', int $line = 0) use (&$previousErrorHandler) {
+        if ($level === E_DEPRECATED || $level === E_USER_DEPRECATED) {
+            return true;
+        }
+
+        return $previousErrorHandler !== null && $previousErrorHandler($level, $message, $file, $line);
+    }
+);
+
 $output = new ConsoleOutput();
 
 $prefix = 'database.connections.' . config('database.default');
