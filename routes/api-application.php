@@ -91,6 +91,11 @@ Route::middleware([AdminSubject::class])->group(function () {
             Route::get('/', [Application\Billing\OrderController::class, 'index']);
         });
 
+        Route::group(['prefix' => '/invoices'], function () {
+            Route::get('/', [Application\Billing\InvoiceController::class, 'index']);
+            Route::get('/{invoice:id}/download', [Application\Billing\InvoiceController::class, 'download']);
+        });
+
         Route::group(['prefix' => '/discount-codes'], function () {
             Route::get('/', [Application\Billing\DiscountCodeController::class, 'index']);
             Route::post('/', [Application\Billing\DiscountCodeController::class, 'store']);

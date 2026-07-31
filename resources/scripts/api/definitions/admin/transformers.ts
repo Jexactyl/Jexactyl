@@ -187,6 +187,18 @@ export default class Transformers {
         updated_at: data.updated_at ? new Date(data.updated_at) : null,
     });
 
+    static toInvoice = ({ attributes: data }: FractalResponseData): Models.Invoice => ({
+        id: data.id,
+        uuid: data.uuid,
+        number: data.number,
+        order_id: data.order_id,
+        total: data.total,
+        status: data.status,
+        user: data.user,
+        generated_at: data.generated_at ? new Date(data.generated_at) : null,
+        created_at: new Date(data.created_at),
+    });
+
     static toProduct = ({ attributes }: FractalResponseData): Models.Product => ({
         id: attributes.id,
         uuid: attributes.uuid,

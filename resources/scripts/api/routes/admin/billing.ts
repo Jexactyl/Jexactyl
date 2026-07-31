@@ -9,6 +9,7 @@ import {
     Category,
     DiscountCode,
     DiscountCodeType,
+    Invoice,
     Order,
     Product,
     Transformers,
@@ -60,6 +61,12 @@ export interface OrderFilters {
     name?: string;
     description?: string;
     total?: number;
+}
+
+export interface InvoiceFilters {
+    number?: string;
+    user?: string;
+    status?: string;
 }
 
 export interface BillingExceptionFilters {
@@ -235,6 +242,34 @@ export const useGetOrders = createPaginatedHook<Order, OrderFilters>({
     context: OrderContext,
     transformer: Transformers.toOrder,
 });
+
+export const InvoiceContext = createContext<InvoiceFilters>();
+
+export const useGetInvoices = createPaginatedHook<Invoice, InvoiceFilters>({
+    url: '/api/application/billing/invoices',
+    swrKey: 'invoices',
+    context: InvoiceContext,
+    transformer: Transformers.toInvoice,
+});
+
+export const downloadInvoice = (id: number, filename: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.get(`/api/application/billing/invoices/${id}/download`, { responseType: 'blob' })
+            .then(({ data }) => {
+                const url = window.URL.createObjectURL(new Blob([data]));
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                link.click();
+
+                window.URL.revokeObjectURL(url);
+
+                resolve();
+            })
+            .catch(reject);
+    });
+};
 
 export const DiscountCodeContext = createContext<DiscountCodeFilters>();
 

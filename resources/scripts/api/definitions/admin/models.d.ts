@@ -526,6 +526,22 @@ interface Order extends Model {
     updated_at?: Date | null;
 }
 
+interface Invoice extends Model {
+    id: number;
+    uuid: string;
+    number: string | null;
+    order_id: number;
+    total: number | null;
+    status: OrderStatus | null;
+    user: {
+        id: number | null;
+        username: string | null;
+        email: string | null;
+    };
+    generated_at: Date | null;
+    created_at: Date;
+}
+
 interface DiscountCode extends Model {
     id: number;
     code: string;

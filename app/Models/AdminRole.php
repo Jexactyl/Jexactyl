@@ -79,6 +79,7 @@ class AdminRole extends Model
     public const BILLING_CATEGORIES_UPDATE = 'billing.category-update';
     public const BILLING_CATEGORIES_DELETE = 'billing.category-delete';
     public const BILLING_ORDERS = 'billing.orders';
+    public const BILLING_INVOICES = 'billing.invoices';
     public const BILLING_EXCEPTIONS = 'billing.exceptions';
     public const BILLING_UPDATE = 'billing.update';
     public const BILLING_EXPORT = 'billing.export';
@@ -204,6 +205,7 @@ class AdminRole extends Model
             'keys' => [
                 'read' => 'Read basic billing information.',
                 'orders' => 'Read all user orders on the system.',
+                'invoices' => 'Read all generated invoices on the system.',
                 'products-create' => 'Create a billing product.',
                 'products-update' => 'Update a billing product.',
                 'products-delete' => 'Delete a billing product.',
