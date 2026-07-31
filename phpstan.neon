@@ -13,6 +13,23 @@ parameters:
         - app
     ignoreErrors:
         - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder(<[^>]+>)?::allowed(\w+)\(\)#'
+        # PHPStan false positive: flags `$nullable?->prop ?? $default` as an unnecessary
+        # nullsafe access even when the object genuinely can be null (reproduced in an
+        # isolated script with no project code involved). Removing the nullsafe operator
+        # would introduce a real null-pointer fatal error at runtime.
+        -
+            message: '#^Using nullsafe property access "\?->id" on left side of \?\? is unnecessary\. Use -> instead\.$#'
+            path: app/Http/Controllers/Api/Client/Billing/StripeController.php
+        # Laravel Sanctum's HasApiTokens::currentAccessToken() is documented as
+        # `@return TToken` without `|null`, but Sanctum's own code (and the fact that
+        # withAccessToken() is only called for actual token-authenticated requests)
+        # confirms it is null for session/cookie-authenticated requests. The instanceof
+        # check is real and necessary; this is an upstream stub gap, not a bug here.
+        -
+            message: '#^Instanceof between Everest\\Models\\ApiKey and Everest\\Models\\ApiKey will always evaluate to true\.$#'
+            paths:
+                - app/Http/Middleware/Activity/TrackAPIKey.php
+                - app/Http/Middleware/Api/Client/RequireClientApiKey.php
     excludePaths:
         - app/Repositories
         - app/Extensions/Spatie/Fractalistic/Fractal.php

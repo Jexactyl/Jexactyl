@@ -27,7 +27,7 @@ class WebhookEventService
                 'embeds' => [[
                     'title' => $event->key,
                     'description' => $event->description,
-                    'url' => env('APP_URL') . '/admin',
+                    'url' => config('app.url') . '/admin',
                     'timestamp' => now()->toIso8601String(),
                     'footer' => [
                         'text' => 'Provided by Jexpanel v4',
@@ -35,7 +35,7 @@ class WebhookEventService
                     ],
                     'author' => [
                         'name' => $user->email,
-                        'url' => env('APP_URL') . '/admin/users/' . $user->id,
+                        'url' => config('app.url') . '/admin/users/' . $user->id,
                     ],
                 ]],
             ]);

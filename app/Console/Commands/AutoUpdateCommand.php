@@ -31,12 +31,6 @@ class AutoUpdateCommand extends Command
      */
     public function handle()
     {
-        if (version_compare(PHP_VERSION, '8.2.0') < 0) {
-            $this->error('Cannot execute automatic update process. The minimum required PHP version required is 8.2.0, you have [' . PHP_VERSION . '].');
-
-            return self::FAILURE;
-        }
-
         Cache::forget(SoftwareVersionService::VERSION_CACHE_KEY);
         $versionService = $this->getLaravel()->make(SoftwareVersionService::class);
 

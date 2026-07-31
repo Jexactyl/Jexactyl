@@ -319,6 +319,8 @@ class Server extends Model
 
     /**
      * Gets information for the service variables associated with this server.
+     *
+     * @return HasMany<EggVariable, $this>
      */
     public function variables(): HasMany
     {

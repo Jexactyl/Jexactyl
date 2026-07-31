@@ -5,7 +5,6 @@ namespace Everest\Services\Billing;
 use Carbon\Carbon;
 use Everest\Models\Egg;
 use Everest\Models\User;
-use Stripe\StripeObject;
 use Everest\Models\Server;
 use Everest\Models\Allocation;
 use Everest\Models\EggVariable;
@@ -31,17 +30,17 @@ class ServerDeploymentService
      *
      * @throws NoViableAllocationException
      */
-    public function handle(User $user, Product $product, StripeObject $metadata, Order $order): Server
+    public function handle(User $user, Product $product, array $metadata, Order $order): Server
     {
         $renewalDays = config('modules.billing.renewal.days', 30);
-        $metadataEggId = $metadata->egg_id ?? '';
+        $metadataEggId = $metadata['egg_id'] ?? '';
         $egg = $this->resolveEgg($product, $metadataEggId !== '' ? (int) $metadataEggId : null);
-        $allocation = $this->getAllocation($metadata->node_id, $order->id);
-        $environment = $this->getEnvironment($egg->id, json_decode($metadata->variables));
+        $allocation = $this->getAllocation($metadata['node_id'], $order->id);
+        $environment = $this->getEnvironment($egg->id, json_decode($metadata['variables']));
 
         try {
             $server = $this->creation->handle([
-                'node_id' => $metadata->node_id,
+                'node_id' => $metadata['node_id'],
                 'allocation_id' => $allocation,
                 'egg_id' => $egg->id,
                 'nest_id' => $product->category->nest_id,

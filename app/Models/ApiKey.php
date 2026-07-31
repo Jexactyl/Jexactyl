@@ -5,6 +5,7 @@ namespace Everest\Models;
 use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
 use Everest\Services\Acl\Api\AdminAcl;
+use Laravel\Sanctum\Contracts\HasAbilities;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -59,7 +60,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class ApiKey extends Model
+class ApiKey extends Model implements HasAbilities
 {
     /**
      * The resource name for this model when it is transformed into an
@@ -206,5 +207,19 @@ class ApiKey extends Model
         $prefix = self::getPrefixForType($type);
 
         return $prefix . Str::random(self::IDENTIFIER_LENGTH - strlen($prefix));
+    }
+
+    /**
+     * API keys are not scoped by ability tokens — access is controlled entirely
+     * through the `r_*` resource permission columns — so any ability is allowed.
+     */
+    public function can($ability): bool
+    {
+        return true;
+    }
+
+    public function cant($ability): bool
+    {
+        return !$this->can($ability);
     }
 }

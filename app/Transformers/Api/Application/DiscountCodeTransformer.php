@@ -26,7 +26,7 @@ class DiscountCodeTransformer extends Transformer
             'uses' => $model->uses,
             'expires_at' => $model->expires_at ? $model->expires_at->toIso8601String() : null,
             'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : null,
+            'updated_at' => $model->updated_at->toIso8601String(),
         ];
     }
 }

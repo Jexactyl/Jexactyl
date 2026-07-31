@@ -1,0 +1,35 @@
+name: PHPStan
+
+on:
+  push:
+    branches:
+      - "develop"
+      - "3.x-develop"
+  pull_request:
+    branches:
+      - "develop"
+      - "3.x-develop"
+
+jobs:
+  phpstan:
+    name: Static Analysis
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-8.4-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-8.4-
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          extensions: bcmath, cli, curl, gd, mbstring, mysql, openssl, pdo, tokenizer, xml, zip
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --no-progress --no-suggest --prefer-dist
+      - run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G

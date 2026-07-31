@@ -12,7 +12,7 @@ use Everest\Models\Model;
  * @property int $value
  * @property int|null $uses
  * @property bool $active
- * @property \Carbon\Carbon $expires_at
+ * @property \Carbon\Carbon|null $expires_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */

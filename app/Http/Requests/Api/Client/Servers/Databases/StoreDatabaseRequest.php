@@ -21,7 +21,6 @@ class StoreDatabaseRequest extends ClientApiRequest implements ClientPermissions
 
     public function rules(): array
     {
-        /** @var Server $server */
         $server = $this->route()->parameter('server');
 
         Assert::isInstanceOf($server, Server::class);

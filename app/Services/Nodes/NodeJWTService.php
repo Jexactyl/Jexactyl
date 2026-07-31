@@ -21,7 +21,7 @@ class NodeJWTService
 
     private ?User $user = null;
 
-    private ?\DateTimeImmutable $expiresAt;
+    private ?\DateTimeImmutable $expiresAt = null;
 
     private ?string $subject = null;
 

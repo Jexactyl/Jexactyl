@@ -139,10 +139,10 @@ class StripeController extends ClientApiController
             throw new DisplayException('Payment not completed.');
         }
 
-        $metadata = $transaction->metadata;
-        $server = Server::find($metadata->server_id);
-        $user = User::findOrFail($metadata->user_id);
-        $product = Product::findOrFail($metadata->product_id);
+        $metadata = (array) $transaction->metadata;
+        $server = Server::find($metadata['server_id']);
+        $user = User::findOrFail($metadata['user_id']);
+        $product = Product::findOrFail($metadata['product_id']);
         $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
         if ($order->isProcessed()) {
@@ -190,7 +190,7 @@ class StripeController extends ClientApiController
             ]);
         }
 
-        $discount_code = DiscountCode::where('code', $metadata->discount_code)->first();
+        $discount_code = DiscountCode::where('code', $metadata['discount_code'])->first();
 
         if ($discount_code) {
             $discount_code->use();

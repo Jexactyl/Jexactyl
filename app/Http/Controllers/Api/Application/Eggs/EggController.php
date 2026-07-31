@@ -40,7 +40,6 @@ class EggController extends ApplicationApiController
             throw new QueryValueOutOfRangeHttpException('per_page', 1, 100);
         }
 
-        // @phpstan-ignore-next-line
         $eggs = QueryBuilder::for(Egg::query())
             ->where('nest_id', '=', $nest->id)
             ->allowedFilters(...['id', 'name', 'author'])

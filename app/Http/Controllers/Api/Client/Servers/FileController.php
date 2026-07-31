@@ -4,7 +4,7 @@ namespace Everest\Http\Controllers\Api\Client\Servers;
 
 use Everest\Models\Server;
 use Carbon\CarbonImmutable;
-use Jexactyl\Enum\JwtScope;
+use Everest\Enum\JwtScope;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Everest\Services\Nodes\NodeJWTService;

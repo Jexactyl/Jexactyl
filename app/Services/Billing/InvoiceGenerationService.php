@@ -67,10 +67,10 @@ class InvoiceGenerationService
         }
 
         $lineItems = array_values(array_filter([
-            $product ? [
+            [
                 'description' => $product->name,
                 'amount' => $subtotal,
-            ] : null,
+            ],
             $discountCode ? [
                 'description' => "Discount ({$discountCode})",
                 'amount' => -$discountAmount,
@@ -92,7 +92,7 @@ class InvoiceGenerationService
                 'username' => $order->user->username,
                 'email' => $order->user->email,
             ],
-            'product' => $product ? [
+            'product' => [
                 'name' => $product->name,
                 'cpu_limit' => $product->cpu_limit,
                 'memory_limit' => $product->memory_limit,
@@ -100,7 +100,7 @@ class InvoiceGenerationService
                 'backup_limit' => $product->backup_limit,
                 'database_limit' => $product->database_limit,
                 'allocation_limit' => $product->allocation_limit,
-            ] : null,
+            ],
             'server' => $server ? [
                 'name' => $server->name,
                 'uuid' => $server->uuid,

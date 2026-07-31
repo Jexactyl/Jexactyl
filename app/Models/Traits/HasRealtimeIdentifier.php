@@ -31,9 +31,9 @@ trait HasRealtimeIdentifier
     protected function identifier(): Attribute
     {
         return Attribute::get(function () {
-            $bytes = Uuid::fromString($this->getRawOriginal(static::$identifierDataColumn))->getBytes();
+            $bytes = Uuid::fromString($this->getRawOriginal(self::$identifierDataColumn))->getBytes();
 
-            return sprintf('%s_%s', static::$identifierPrefix, Base32::encodeUnpadded($bytes));
+            return sprintf('%s_%s', self::$identifierPrefix, Base32::encodeUnpadded($bytes));
         });
     }
 

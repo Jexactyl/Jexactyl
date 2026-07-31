@@ -23,7 +23,7 @@ class UserTransformer extends Transformer
     {
         return [
             'uuid' => $model->uuid,
-            'identifier' => $model->identifier,
+            'identifier' => $model->uuid,
             'username' => $model->username,
             'email' => $model->email,
             'image' => $model->avatar_url,

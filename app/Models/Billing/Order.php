@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property array|null $metadata
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property User $user
+ * @property Server|null $server
+ * @property Product $product
+ * @property Invoice|null $invoice
  */
 class Order extends Model
 {

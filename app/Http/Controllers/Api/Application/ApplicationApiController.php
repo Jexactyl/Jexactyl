@@ -78,9 +78,7 @@ abstract class ApplicationApiController extends Controller
 
     protected function transform(mixed $data, string $transformer, ?bool $asCollection = null): array
     {
-        $transformerInstance = is_string($transformer)
-            ? app($transformer)
-            : $transformer;
+        $transformerInstance = app($transformer);
 
         if ($data instanceof LengthAwarePaginator) {
             return $this->fractal

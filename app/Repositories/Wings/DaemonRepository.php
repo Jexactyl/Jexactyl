@@ -23,6 +23,8 @@ abstract class DaemonRepository
 
     /**
      * Set the server model this request is stemming from.
+     *
+     * @return static
      */
     public function setServer(Server $server): self
     {
@@ -35,6 +37,8 @@ abstract class DaemonRepository
 
     /**
      * Set the node model this request is stemming from.
+     *
+     * @return static
      */
     public function setNode(Node $node): self
     {

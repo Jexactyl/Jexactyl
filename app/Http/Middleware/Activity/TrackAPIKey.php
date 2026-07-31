@@ -19,7 +19,7 @@ class TrackAPIKey
         if ($request->user()) {
             $token = $request->user()->currentAccessToken();
 
-            LogTarget::setApiKeyId($token instanceof ApiKey ? $token->id : null); // @phpstan-ignore instanceof.alwaysTrue
+            LogTarget::setApiKeyId($token instanceof ApiKey ? $token->id : null);
         }
 
         return $next($request);

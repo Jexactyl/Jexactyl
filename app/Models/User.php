@@ -61,6 +61,12 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property int|null $ssh_keys_count
  * @property \Illuminate\Database\Eloquent\Collection|ApiKey[] $tokens
  * @property int|null $tokens_count
+ * @property \Illuminate\Database\Eloquent\Collection|ServerGroup[] $serverGroups
+ * @property int|null $server_groups_count
+ * @property \Illuminate\Database\Eloquent\Collection|Ticket[] $tickets
+ * @property int|null $tickets_count
+ * @property \Illuminate\Database\Eloquent\Collection|Order[] $orders
+ * @property int|null $orders_count
  *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
@@ -293,42 +299,66 @@ class User extends Model implements
         return $this->morphToMany(ActivityLog::class, 'subject', 'activity_log_subjects');
     }
 
+    /**
+     * @return HasOne<AdminRole, $this>
+     */
     public function adminRole(): HasOne
     {
         return $this->hasOne(AdminRole::class, 'id', 'admin_role_id');
     }
 
+    /**
+     * @return HasMany<ApiKey, $this>
+     */
     public function apiKeys(): HasMany
     {
         return $this->hasMany(ApiKey::class)
             ->where('key_type', ApiKey::TYPE_ACCOUNT);
     }
 
+    /**
+     * @return HasMany<ServerGroup, $this>
+     */
     public function serverGroups(): HasMany
     {
         return $this->hasMany(ServerGroup::class);
     }
 
+    /**
+     * @return HasMany<RecoveryToken, $this>
+     */
     public function recoveryTokens(): HasMany
     {
         return $this->hasMany(RecoveryToken::class);
     }
 
+    /**
+     * @return HasMany<Server, $this>
+     */
     public function servers(): HasMany
     {
         return $this->hasMany(Server::class, 'owner_id');
     }
 
+    /**
+     * @return HasMany<UserSSHKey, $this>
+     */
     public function sshKeys(): HasMany
     {
         return $this->hasMany(UserSSHKey::class);
     }
 
+    /**
+     * @return HasMany<Ticket, $this>
+     */
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }
 
+    /**
+     * @return HasMany<Order, $this>
+     */
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
