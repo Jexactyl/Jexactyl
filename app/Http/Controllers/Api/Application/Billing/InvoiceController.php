@@ -33,7 +33,7 @@ class InvoiceController extends ApplicationApiController
         }
 
         $invoices = QueryBuilder::for(Invoice::with('order.user'))
-            ->allowedFilters([
+            ->allowedFilters(...[
                 AllowedFilter::partial('number'),
                 AllowedFilter::callback('user', function ($query, $value) {
                     $query->whereHas('order.user', function ($query) use ($value) {
@@ -47,7 +47,7 @@ class InvoiceController extends ApplicationApiController
                     });
                 }),
             ])
-            ->allowedSorts(['id', 'number', 'generated_at', 'created_at'])
+            ->allowedSorts(...['id', 'number', 'generated_at', 'created_at'])
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 

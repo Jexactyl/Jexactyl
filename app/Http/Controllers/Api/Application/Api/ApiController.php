@@ -38,8 +38,8 @@ class ApiController extends ApplicationApiController
 
         $apiKeys = QueryBuilder::for(ApiKey::query())
             ->where('key_type', 2)
-            ->allowedFilters(['id', 'identifier', 'last_used_at'])
-            ->allowedSorts(['id', 'identifier', 'last_used_at'])
+            ->allowedFilters(...['id', 'identifier', 'last_used_at'])
+            ->allowedSorts(...['id', 'identifier', 'last_used_at'])
             ->paginate($perPage);
 
         return $this->transform($apiKeys, ApiKeyTransformer::class);

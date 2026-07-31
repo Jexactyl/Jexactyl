@@ -24,21 +24,6 @@ $kernel->bootstrap();
 // setup process are output nicely.
 (new Provider())->register();
 
-// Collision's Whoops handler throws on every reported error, including
-// E_DEPRECATED. On PHP 8.5 that turns routine framework deprecation notices
-// (e.g. Illuminate\Console\Command::parseVerbosity()'s null array offset)
-// into fatal errors during migrate:fresh/db:seed below. Keep Whoops for real
-// errors but stop it from treating deprecations as fatal.
-$previousErrorHandler = set_error_handler(
-    function (int $level, string $message, string $file = '', int $line = 0) use (&$previousErrorHandler) {
-        if ($level === E_DEPRECATED || $level === E_USER_DEPRECATED) {
-            return true;
-        }
-
-        return $previousErrorHandler !== null && $previousErrorHandler($level, $message, $file, $line);
-    }
-);
-
 $output = new ConsoleOutput();
 
 $prefix = 'database.connections.' . config('database.default');
@@ -63,3 +48,12 @@ if (!env('SKIP_MIGRATIONS')) {
 } else {
     $output->writeln(PHP_EOL . '<comment>Skipping database migrations...</comment>' . PHP_EOL);
 }
+
+// The kernel bootstrap above (and the artisan commands run against it) registers
+// global error/exception handlers via Illuminate's HandleExceptions bootstrapper
+// and Collision's provider. Laravel's own test lifecycle unconditionally drains
+// the *entire* handler stack after every test (see HandleExceptions::flushState),
+// so any handlers left over from this one-time setup would make every single
+// test appear to have "removed error handlers other than its own". Flush now so
+// PHPUnit's per-test snapshot starts from a clean baseline.
+Illuminate\Foundation\Bootstrap\HandleExceptions::flushState();

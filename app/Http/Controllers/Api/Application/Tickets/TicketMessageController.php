@@ -32,8 +32,8 @@ class TicketMessageController extends ApplicationApiController
         }
 
         $messages = QueryBuilder::for(TicketMessage::query())
-            ->allowedFilters(['id'])
-            ->allowedSorts(['id'])
+            ->allowedFilters(...['id'])
+            ->allowedSorts(...['id'])
             ->where('ticket_id', $ticket->id)
             ->paginate($perPage);
 

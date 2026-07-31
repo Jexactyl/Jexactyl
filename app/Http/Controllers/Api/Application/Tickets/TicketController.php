@@ -33,8 +33,8 @@ class TicketController extends ApplicationApiController
         }
 
         $tickets = QueryBuilder::for(Ticket::query())
-            ->allowedFilters(['id', 'title', 'status', 'created_at'])
-            ->allowedSorts(['id', 'title', 'status', 'created_at'])
+            ->allowedFilters(...['id', 'title', 'status', 'created_at'])
+            ->allowedSorts(...['id', 'title', 'status', 'created_at'])
             ->paginate($perPage);
 
         return $this->transform($tickets, TicketTransformer::class);

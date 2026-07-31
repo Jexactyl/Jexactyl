@@ -27,7 +27,7 @@ class WebhookController extends ApplicationApiController
     public function index(Webhooks\GetWebhookEventsRequest $request): array
     {
         $events = QueryBuilder::for(WebhookEvent::query())
-            ->allowedFilters(['key'])
+            ->allowedFilters(...['key'])
             ->get();
 
         return $this->transform($events, WebhookEventTransformer::class);

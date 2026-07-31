@@ -33,8 +33,8 @@ class BillingExceptionController extends ApplicationApiController
         }
 
         $exceptions = QueryBuilder::for(BillingException::query())
-            ->allowedFilters(['id', 'title'])
-            ->allowedSorts(['id', 'title', 'exception_type', 'created_at'])
+            ->allowedFilters(...['id', 'title'])
+            ->allowedSorts(...['id', 'title', 'exception_type', 'created_at'])
             ->paginate($perPage);
 
         return $this->transform($exceptions, BillingExceptionTransformer::class);

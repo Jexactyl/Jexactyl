@@ -32,10 +32,10 @@ class OrderController extends ClientApiController
 
         $orders = QueryBuilder::for(Order::query())
             ->with(['server', 'invoice'])
-            ->allowedIncludes(['server', 'invoice'])
+            ->allowedIncludes(...['server', 'invoice'])
             ->where('user_id', $request->user()->id)
-            ->allowedFilters(['id', 'name', 'server_id'])
-            ->allowedSorts(['id', 'name', 'total', 'type', 'created_at', 'threat_index'])
+            ->allowedFilters(...['id', 'name', 'server_id'])
+            ->allowedSorts(...['id', 'name', 'total', 'type', 'created_at', 'threat_index'])
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 

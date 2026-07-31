@@ -43,8 +43,8 @@ class EggController extends ApplicationApiController
         // @phpstan-ignore-next-line
         $eggs = QueryBuilder::for(Egg::query())
             ->where('nest_id', '=', $nest->id)
-            ->allowedFilters(['id', 'name', 'author'])
-            ->allowedSorts(['id', 'name', 'author']);
+            ->allowedFilters(...['id', 'name', 'author'])
+            ->allowedSorts(...['id', 'name', 'author']);
         if ($perPage > 0) {
             $eggs = $eggs->paginate($perPage);
         }

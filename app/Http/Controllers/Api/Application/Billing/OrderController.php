@@ -30,8 +30,8 @@ class OrderController extends ApplicationApiController
         }
 
         $orders = QueryBuilder::for(Order::query())
-            ->allowedFilters(['id', 'name', 'description'])
-            ->allowedSorts(['id', 'name', 'total', 'is_renewal', 'created_at', 'threat_index'])
+            ->allowedFilters(...['id', 'name', 'description'])
+            ->allowedSorts(...['id', 'name', 'total', 'is_renewal', 'created_at', 'threat_index'])
             ->paginate($perPage);
 
         return $this->transform($orders, OrderTransformer::class);

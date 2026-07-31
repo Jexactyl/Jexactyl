@@ -38,8 +38,8 @@ class DiscountCodeController extends ApplicationApiController
         }
 
         $discount_codes = QueryBuilder::for(DiscountCode::query())
-            ->allowedFilters(['id', 'code', 'type', 'expires_at'])
-            ->allowedSorts(['id', 'code', 'value', 'type', 'uses', 'expires_at', 'created_at'])
+            ->allowedFilters(...['id', 'code', 'type', 'expires_at'])
+            ->allowedSorts(...['id', 'code', 'value', 'type', 'uses', 'expires_at', 'created_at'])
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 

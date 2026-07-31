@@ -33,13 +33,13 @@ class LinkController extends ApplicationApiController
         }
 
         $links = QueryBuilder::for(CustomLink::query())
-            ->allowedFilters([
+            ->allowedFilters(...[
                 AllowedFilter::exact('id'),
                 'name',
                 'url',
                 'visible',
             ])
-            ->allowedSorts(['id', 'visible', 'name'])
+            ->allowedSorts(...['id', 'visible', 'name'])
             ->paginate($perPage);
 
         return $this->transform($links, LinkTransformer::class);

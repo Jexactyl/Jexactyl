@@ -19,11 +19,11 @@ class ActivityLogController extends ApplicationApiController
     {
         $activity = QueryBuilder::for($server->activity())
             ->with(['actor', 'subjects.subject'])
-            ->allowedFilters([
+            ->allowedFilters(...[
                 AllowedFilter::partial('event'),
                 AllowedFilter::partial('ip'),
             ])
-            ->allowedSorts(['timestamp', 'event'])
+            ->allowedSorts(...['timestamp', 'event'])
             ->whereNotIn('activity_logs.event', ActivityLog::DISABLED_EVENTS)
             ->paginate(min($request->query('per_page', 25), 100))
             ->appends($request->query());

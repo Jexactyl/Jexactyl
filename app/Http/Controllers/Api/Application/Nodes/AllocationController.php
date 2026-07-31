@@ -41,7 +41,7 @@ class AllocationController extends ApplicationApiController
         }
 
         $allocations = QueryBuilder::for(Allocation::query()->where('node_id', '=', $node->id))
-            ->allowedFilters([
+            ->allowedFilters(...[
                 'id', 'ip', 'port', 'alias',
                 AllowedFilter::callback('server_id', function (Builder $query, $value) {
                     if ($value === '0') {
@@ -58,7 +58,7 @@ class AllocationController extends ApplicationApiController
                     });
                 }),
             ])
-            ->allowedSorts(['id', 'ip', 'port', 'server_id'])
+            ->allowedSorts(...['id', 'ip', 'port', 'server_id'])
             ->paginate($perPage);
 
         return $this->transform($allocations, AllocationTransformer::class);
