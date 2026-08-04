@@ -22,6 +22,7 @@ type OwnProps = RouteProps;
 type Props = OwnProps & {
     clearAndAddHttpError: ActionCreator<FlashStore['clearAndAddHttpError']['payload']>;
     token: string;
+    from?: string;
 };
 
 function LoginCheckpointContainer() {
@@ -70,12 +71,12 @@ function LoginCheckpointContainer() {
 }
 
 const EnhancedForm = withFormik<Props, Values>({
-    handleSubmit: ({ code, recoveryCode }, { setSubmitting, props: { clearAndAddHttpError, token } }) => {
+    handleSubmit: ({ code, recoveryCode }, { setSubmitting, props: { clearAndAddHttpError, token, from } }) => {
         checkpoint(token, code, recoveryCode)
             .then(response => {
                 if (response.complete) {
                     // @ts-expect-error this is valid
-                    window.location = response.intended || '/';
+                    window.location = from || response.intended || '/';
                     return;
                 }
 
@@ -105,6 +106,7 @@ export default ({ ...props }: OwnProps) => {
     // here via a full-page server redirect instead, which has no router state, so fall
     // back to reading the token from the query string in that case.
     const token = location.state?.token || new URLSearchParams(location.search).get('token') || '';
+    const from = location.state?.from;
 
     if (!token) {
         navigate('/auth/login');
@@ -112,5 +114,5 @@ export default ({ ...props }: OwnProps) => {
         return null;
     }
 
-    return <EnhancedForm clearAndAddHttpError={clearAndAddHttpError} token={token} {...props} />;
+    return <EnhancedForm clearAndAddHttpError={clearAndAddHttpError} token={token} from={from} {...props} />;
 };

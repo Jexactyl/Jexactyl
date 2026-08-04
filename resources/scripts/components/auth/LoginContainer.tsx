@@ -2,7 +2,7 @@ import { useStoreState } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Formik } from 'formik';
 import { useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
@@ -34,6 +34,8 @@ function LoginContainer() {
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = (location.state as { from?: string } | null)?.from;
 
     useEffect(() => {
         clearFlashes();
@@ -78,11 +80,11 @@ function LoginContainer() {
             .then(response => {
                 if (response.complete) {
                     // @ts-expect-error this is valid
-                    window.location = response.intended || '/';
+                    window.location = from || response.intended || '/';
                     return;
                 }
 
-                navigate('/auth/login/checkpoint', { state: { token: response.confirmationToken } });
+                navigate('/auth/login/checkpoint', { state: { token: response.confirmationToken, from } });
             })
             .catch(error => {
                 console.error(error);
