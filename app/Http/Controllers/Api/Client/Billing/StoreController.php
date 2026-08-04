@@ -46,7 +46,7 @@ class StoreController extends ClientApiController
      */
     public function products(Category $category): array
     {
-        $products = Product::where('category_uuid', $category->uuid)->get();
+        $products = Product::where('category_uuid', $category->uuid)->orderBy('price')->get();
 
         if ($products->count() == 0) {
             BillingException::create([
