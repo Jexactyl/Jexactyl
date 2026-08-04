@@ -2,9 +2,9 @@
 
 namespace Everest\Http\Controllers\Api\Client\Servers;
 
+use Everest\Enum\JwtScope;
 use Everest\Models\Server;
 use Carbon\CarbonImmutable;
-use Everest\Enum\JwtScope;
 use Everest\Facades\Activity;
 use Illuminate\Http\Response;
 use Everest\Services\Nodes\NodeJWTService;
