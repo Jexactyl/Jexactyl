@@ -16,7 +16,7 @@ class RequireTwoFactorAuthentication
     /**
      * The route to redirect a user to enable 2FA.
      */
-    protected string $redirectRoute = '/account';
+    protected string $redirectRoute = '/account/security';
 
     /**
      * Check the user state on the incoming request to determine if they should be allowed to

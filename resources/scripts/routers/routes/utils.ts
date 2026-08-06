@@ -1,5 +1,5 @@
-import type { ComponentType, ElementType } from 'react';
-import { matchRoutes } from 'react-router-dom';
+import { createElement, type ComponentType, type ElementType } from 'react';
+import { matchRoutes, Navigate } from 'react-router-dom';
 
 export interface RouteDefinition {
     route: string;
@@ -23,6 +23,14 @@ export interface AdminRouteDefinition extends RouteDefinition {
 }
 
 export const normalize = (route: string): string => route.replace(/[:*].*$/, '').replace(/\/+$/, '');
+
+/**
+ * Builds a component that sends the visitor somewhere else, for pages that have moved.
+ */
+export const redirectTo =
+    (to: string): ComponentType =>
+    () =>
+        createElement(Navigate, { to, replace: true });
 
 type Condition<T = any> = (flags: T) => boolean;
 

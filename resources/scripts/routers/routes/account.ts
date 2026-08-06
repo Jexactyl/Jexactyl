@@ -1,10 +1,8 @@
 import { lazy } from 'react';
 import * as Icon from '@heroicons/react/outline';
-import { route, type RouteDefinition } from '@/routers/routes/utils';
+import { redirectTo, route, type RouteDefinition } from '@/routers/routes/utils';
 
-const AccountApiContainer = lazy(() => import('@account/AccountApiContainer'));
-const AccountSSHContainer = lazy(() => import('@account/ssh/AccountSSHContainer'));
-const AccountPasskeyContainer = lazy(() => import('@account/passkeys/AccountPasskeyContainer'));
+const SecurityRouter = lazy(() => import('@account/security/SecurityRouter'));
 const AccountOverviewContainer = lazy(() => import('@account/AccountOverviewContainer'));
 
 const TicketContainer = lazy(() => import('@account/tickets/TicketContainer'));
@@ -22,9 +20,17 @@ const account: RouteDefinition[] = [
      * Account - General Routes
      */
     route('', AccountOverviewContainer, { name: 'Account', end: true, icon: Icon.UserIcon }),
-    route('api', AccountApiContainer, { name: 'API Credentials', icon: Icon.CodeIcon }),
-    route('ssh', AccountSSHContainer, { name: 'SSH Keys', icon: Icon.TerminalIcon }),
-    route('passkeys', AccountPasskeyContainer, { name: 'Passkeys', icon: Icon.FingerPrintIcon }),
+    route('security/*', SecurityRouter, { name: 'Security', icon: Icon.ShieldCheckIcon }),
+
+    /**
+     * Account - Legacy Redirects
+     *
+     * These pages became tabs under Security. Unnamed so they stay out of the sidebar, they
+     * exist only so existing bookmarks don't land on a 404.
+     */
+    route('api', redirectTo('/account/security/api')),
+    route('ssh', redirectTo('/account/security/ssh')),
+    route('passkeys', redirectTo('/account/security/passkeys')),
 
     /**
      * Account - Ticket Routes

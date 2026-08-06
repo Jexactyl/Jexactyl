@@ -40,7 +40,8 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
     }
 
     /**
-     * Without either factor the user is redirected to their account page to enrol.
+     * Without either factor the user is sent to the security tab, which is where two-factor
+     * enrolment lives.
      */
     public function testUserWithNeitherFactorIsRedirected()
     {
@@ -51,7 +52,7 @@ class RequireTwoFactorAuthenticationTest extends MiddlewareTestCase
 
         $response = $this->getMiddleware()->handle($this->request, $this->getClosureAssertions());
 
-        $this->assertStringEndsWith('/account', $response->getTargetUrl());
+        $this->assertStringEndsWith('/account/security', $response->getTargetUrl());
     }
 
     public function testRequirementIsSkippedEntirelyWhenNotForced()
