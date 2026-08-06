@@ -31,5 +31,6 @@ jobs:
           extensions: bcmath, cli, curl, gd, mbstring, mysql, openssl, pdo, tokenizer, xml, zip
           tools: composer:v2
           coverage: none
+      - run: cp .env.ci .env
       - run: composer install --no-interaction --no-progress --no-suggest --prefer-dist
       - run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G

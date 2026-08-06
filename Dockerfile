@@ -5,7 +5,8 @@
 FROM --platform=$TARGETOS/$TARGETARCH node:22-alpine
 WORKDIR /app
 COPY . ./
-RUN npm i -g pnpm && pnpm i \
+RUN corepack enable && corepack prepare --activate \
+    && pnpm i \
     && pnpm build
 
 # Stage 1:
