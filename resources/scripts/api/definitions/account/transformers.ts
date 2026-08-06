@@ -12,6 +12,13 @@ export default class Transformers {
         };
     };
 
+    static toPasskey = ({ attributes }: FractalResponseData): Models.Passkey => ({
+        uuid: attributes.uuid,
+        name: attributes.name,
+        lastUsedAt: attributes.last_used_at ? new Date(attributes.last_used_at) : null,
+        createdAt: new Date(attributes.created_at),
+    });
+
     static toApiKey = ({ attributes }: FractalResponseData): Models.ApiKey => ({
         id: attributes.id,
         identifier: attributes.identifier,

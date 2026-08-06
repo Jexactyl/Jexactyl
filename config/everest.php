@@ -42,6 +42,17 @@ return [
             'window' => env('APP_2FA_WINDOW', 4),
             'verify_newer' => true,
         ],
+        'passkeys' => [
+            // The WebAuthn relying party. Both values fall back to sensible defaults derived
+            // from the application itself: the host of APP_URL, and the app name.
+            //
+            // The relying party ID must be a registrable domain suffix of the origin the Panel
+            // is served from (no scheme, no port). Changing it invalidates every passkey that
+            // has already been registered against the old value.
+            'rp_id' => env('WEBAUTHN_RP_ID'),
+            'rp_name' => env('WEBAUTHN_RP_NAME'),
+            'timeout' => env('WEBAUTHN_TIMEOUT', 60000),
+        ],
     ],
 
     /*

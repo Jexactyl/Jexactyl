@@ -1,13 +1,14 @@
 import { useStoreState } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Formik } from 'formik';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
 import { object, string } from 'yup';
 
 import { login, externalLogin } from '@/api/routes/auth/login';
+import { passkeyLogin, passkeysSupported, isPasskeyCancellation } from '@/api/routes/auth/passkey';
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import Field from '@/elements/Field';
 import { Button } from '@/elements/button';
@@ -15,7 +16,7 @@ import useFlash from '@/plugins/useFlash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import Label from '@/elements/Label';
-import { faAt, faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faEnvelope, faFingerprint, faKey } from '@fortawesome/free-solid-svg-icons';
 
 interface Values {
     username: string;
@@ -25,6 +26,8 @@ interface Values {
 function LoginContainer() {
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
+
+    const [passkeyPending, setPasskeyPending] = useState(false);
 
     const appName = useStoreState(state => state.settings.data!.name);
     const modules = useStoreState(state => state.everest.data!.auth.modules);
@@ -58,6 +61,28 @@ function LoginContainer() {
                 window.location = url;
             })
             .catch(error => clearAndAddHttpError({ key: 'auth:register', error }));
+    };
+
+    const usePasskey = () => {
+        if (passkeyPending) return;
+
+        clearFlashes();
+        setPasskeyPending(true);
+
+        passkeyLogin()
+            .then(response => {
+                // @ts-expect-error this is valid
+                window.location = from || response.intended || '/';
+            })
+            .catch(error => {
+                setPasskeyPending(false);
+
+                // Dismissing the OS prompt is not a failure worth shouting about.
+                if (isPasskeyCancellation(error)) return;
+
+                console.error(error);
+                clearAndAddHttpError({ error });
+            });
     };
 
     const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
@@ -146,6 +171,21 @@ function LoginContainer() {
                             Login
                         </Button>
                     </div>
+                    {passkeysSupported() && (
+                        <div css={tw`mt-3`}>
+                            {/* `loading` is what disables this button — Button overrides any
+                                explicit `disabled` prop with it. */}
+                            <Button.Text
+                                type={'button'}
+                                onClick={usePasskey}
+                                loading={passkeyPending}
+                                className={'w-full'}
+                            >
+                                <FontAwesomeIcon icon={faFingerprint} className={'mr-2 my-auto'} /> Or, Sign in with a
+                                Passkey
+                            </Button.Text>
+                        </div>
+                    )}
                     {recaptchaEnabled && (
                         <Reaptcha
                             ref={ref}

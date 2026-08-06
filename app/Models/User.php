@@ -59,6 +59,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property int|null $servers_count
  * @property \Illuminate\Database\Eloquent\Collection|UserSSHKey[] $sshKeys
  * @property int|null $ssh_keys_count
+ * @property \Illuminate\Database\Eloquent\Collection|UserPasskey[] $passkeys
+ * @property int|null $passkeys_count
  * @property \Illuminate\Database\Eloquent\Collection|ApiKey[] $tokens
  * @property int|null $tokens_count
  * @property \Illuminate\Database\Eloquent\Collection|ServerGroup[] $serverGroups
@@ -209,7 +211,7 @@ class User extends Model implements
      */
     public function toReactObject(): array
     {
-        return Collection::make($this->append(['avatar_url', 'admin_role_name', 'admin_permissions'])->toArray())
+        return Collection::make($this->append(['avatar_url', 'admin_role_name', 'admin_permissions', 'has_password'])->toArray())
             ->except(['id', 'external_id', 'admin_role'])
             ->toArray();
     }
@@ -275,6 +277,17 @@ class User extends Model implements
     {
         return Attribute::make(
             get: fn () => $this->root_admin ? ['*'] : ($this->adminRole->permissions ?? []),
+        );
+    }
+
+    /**
+     * Accounts created through an SSO module have no usable password. The frontend needs to
+     * know this so it can drop password confirmation prompts that those users cannot satisfy.
+     */
+    public function hasPassword(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => !empty($this->password),
         );
     }
 
@@ -346,6 +359,14 @@ class User extends Model implements
     public function sshKeys(): HasMany
     {
         return $this->hasMany(UserSSHKey::class);
+    }
+
+    /**
+     * @return HasMany<UserPasskey, $this>
+     */
+    public function passkeys(): HasMany
+    {
+        return $this->hasMany(UserPasskey::class);
     }
 
     /**

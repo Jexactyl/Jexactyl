@@ -42,6 +42,15 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
             Route::get('/two-factor', [Client\TwoFactorController::class, 'index']);
             Route::post('/two-factor', [Client\TwoFactorController::class, 'store']);
             Route::post('/two-factor/disable', [Client\TwoFactorController::class, 'delete']);
+
+            // A passkey satisfies the forced two-factor requirement, so these must stay
+            // reachable for an account that has not enrolled in TOTP.
+            Route::prefix('/passkeys')->group(function () {
+                Route::get('/', [Client\PasskeyController::class, 'index']);
+                Route::post('/options', [Client\PasskeyController::class, 'options']);
+                Route::post('/', [Client\PasskeyController::class, 'store']);
+                Route::post('/remove', [Client\PasskeyController::class, 'delete']);
+            });
         });
 
         Route::put('/email', [Client\AccountController::class, 'updateEmail'])->name('api:client.account.update-email');

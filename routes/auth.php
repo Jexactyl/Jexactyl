@@ -27,6 +27,11 @@ Route::middleware(['throttle:authentication'])->group(function () {
     Route::post('/login', [Auth\LoginController::class, 'login'])->middleware('recaptcha');
     Route::post('/login/checkpoint', Auth\LoginCheckpointController::class)->name('auth.login-checkpoint');
 
+    // Passkey login endpoints. These are usernameless — they identify nobody and hand out
+    // nothing but a challenge — so unlike the password endpoints they carry no recaptcha.
+    Route::post('/passkey/options', [Auth\PasskeyLoginController::class, 'options'])->name('auth.passkey.options');
+    Route::post('/passkey/login', [Auth\PasskeyLoginController::class, 'login'])->name('auth.passkey.login');
+
     Route::post('/register', [Auth\LoginController::class, 'register'])->middleware('recaptcha');
 
     Route::post('/modules/discord', [Auth\Modules\DiscordLoginController::class, 'requestToken'])->middleware('recaptcha');

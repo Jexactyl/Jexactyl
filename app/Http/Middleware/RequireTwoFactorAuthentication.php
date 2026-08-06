@@ -45,8 +45,12 @@ class RequireTwoFactorAuthentication
         // If this setting is not configured, or the user is already using 2FA then we can just
         // send them right through, nothing else needs to be checked.
         //
+        // A session established with a passkey is let through too: a discoverable credential
+        // gated behind user verification already satisfies multi-factor authentication, so
+        // there is nothing to be gained by pushing those users towards TOTP enrolment.
+        //
         // If the level is set as admin and the user is not an admin, pass them through as well.
-        if (!$twoFactorRequired || $user->use_totp) {
+        if (!$twoFactorRequired || $user->use_totp || $request->session()->get('auth_passkey', false)) {
             return $next($request);
         }
 

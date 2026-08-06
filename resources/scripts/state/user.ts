@@ -13,6 +13,7 @@ export interface UserData {
     language: string;
     rootAdmin: boolean;
     useTotp: boolean;
+    hasPassword: boolean;
     avatarURL: string | null;
     roleName: string;
     admin_role_id?: number;

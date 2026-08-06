@@ -15,6 +15,7 @@ return [
         'checkpoint' => 'Two-factor authentication requested',
         'recovery-token' => 'Used two-factor recovery token',
         'token' => 'Solved two-factor challenge',
+        'passkey' => 'Logged in with a passkey',
         'ip-blocked' => 'Blocked request from unlisted IP address for :identifier',
         'sftp' => [
             'fail' => 'Failed SFTP log in',
@@ -39,6 +40,10 @@ return [
         'two-factor' => [
             'create' => 'Enabled two-factor auth',
             'delete' => 'Disabled two-factor auth',
+        ],
+        'passkey' => [
+            'create' => 'Added passkey :name to account',
+            'delete' => 'Removed passkey :name from account',
         ],
     ],
     'server' => [

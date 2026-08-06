@@ -44,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
             'server' => Models\Server::class,
             'server_preset' => Models\ServerPreset::class,
             'ssh_key' => Models\UserSSHKey::class,
+            'passkey' => Models\UserPasskey::class,
             'ticket' => Models\Ticket::class,
             'task' => Models\Task::class,
             'link' => Models\CustomLink::class,

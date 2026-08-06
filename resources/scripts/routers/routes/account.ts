@@ -4,6 +4,7 @@ import { route, type RouteDefinition } from '@/routers/routes/utils';
 
 const AccountApiContainer = lazy(() => import('@account/AccountApiContainer'));
 const AccountSSHContainer = lazy(() => import('@account/ssh/AccountSSHContainer'));
+const AccountPasskeyContainer = lazy(() => import('@account/passkeys/AccountPasskeyContainer'));
 const AccountOverviewContainer = lazy(() => import('@account/AccountOverviewContainer'));
 
 const TicketContainer = lazy(() => import('@account/tickets/TicketContainer'));
@@ -23,6 +24,7 @@ const account: RouteDefinition[] = [
     route('', AccountOverviewContainer, { name: 'Account', end: true, icon: Icon.UserIcon }),
     route('api', AccountApiContainer, { name: 'API Credentials', icon: Icon.CodeIcon }),
     route('ssh', AccountSSHContainer, { name: 'SSH Keys', icon: Icon.TerminalIcon }),
+    route('passkeys', AccountPasskeyContainer, { name: 'Passkeys', icon: Icon.FingerPrintIcon }),
 
     /**
      * Account - Ticket Routes

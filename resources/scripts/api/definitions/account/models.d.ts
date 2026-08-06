@@ -20,6 +20,13 @@ interface SSHKey extends Model {
     created_at: Date;
 }
 
+interface Passkey extends Model {
+    uuid: string;
+    name: string;
+    lastUsedAt: Date | null;
+    createdAt: Date;
+}
+
 interface ApiKey extends Model {
     id?: number;
     identifier: string;
