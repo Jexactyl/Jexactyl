@@ -87,6 +87,7 @@ export default () => {
 
     const [termsAgreed, setTermsAgreed] = useState<boolean>(false);
     const [privacyAgreed, setPrivacyAgreed] = useState<boolean>(false);
+    const [isBusiness, setIsBusiness] = useState<boolean>(false);
 
     const needsEggSelection = product?.eggId === null;
     const resolvedEggId = product?.eggId ?? selectedEgg;
@@ -317,6 +318,23 @@ export default () => {
                                         </div>
                                     )}
                                 </TitledGreyBox>
+                                <TitledGreyBox title={'Purchase Type'} className={'relative'}>
+                                    Select whether you're purchasing this as an individual or a business.
+                                    <div className={'flex gap-2 mt-3'}>
+                                        <Button
+                                            color={!isBusiness ? Button.Colors.Primary : Button.Colors.Grey}
+                                            onClick={() => setIsBusiness(false)}
+                                        >
+                                            Personal
+                                        </Button>
+                                        <Button
+                                            color={isBusiness ? Button.Colors.Primary : Button.Colors.Grey}
+                                            onClick={() => setIsBusiness(true)}
+                                        >
+                                            Business
+                                        </Button>
+                                    </div>
+                                </TitledGreyBox>
                             </div>
                         </div>
                         <div className={'h-px bg-gray-700 rounded-full'} />
@@ -370,6 +388,7 @@ export default () => {
                                                     vars={vars}
                                                     discount_code={discountCode?.code}
                                                     egg={resolvedEggId}
+                                                    isBusiness={isBusiness}
                                                 />
                                             </div>
                                         </div>
