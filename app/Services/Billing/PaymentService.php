@@ -44,7 +44,7 @@ class PaymentService
             'mode' => 'payment',
             'customer_email' => $user->email,
             'billing_address_collection' => 'required',
-                                                           
+    
             'line_items' => $lineItems,
             'automatic_tax' => ['enabled' => true],
 
