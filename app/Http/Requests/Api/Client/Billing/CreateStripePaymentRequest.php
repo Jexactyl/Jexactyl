@@ -15,6 +15,7 @@ class CreateStripePaymentRequest extends ClientApiRequest
             'egg_id' => 'nullable|int|exists:eggs,id',
             'variables' => 'nullable|array',
             'discount_code' => 'nullable|string|exists:discount_codes,code',
+            'is_business' => 'nullable|boolean',
         ];
     }
 }
