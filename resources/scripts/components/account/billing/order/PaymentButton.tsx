@@ -33,7 +33,15 @@ export default (data: Props) => {
 
         const variables: BillingServerVariables[] = Array.from(data.vars, ([key, value]) => ({ key, value }));
 
-        createCheckoutSession(data.product.id, data.node, undefined, variables, data.discount_code, data.egg, data.isBusiness)
+        createCheckoutSession(
+            data.product.id,
+            data.node,
+            undefined,
+            variables,
+            data.discount_code,
+            data.egg,
+            data.isBusiness
+        )
             .then(url => {
                 window.location.assign(url);
             })
