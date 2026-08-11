@@ -20,7 +20,7 @@ export const createCheckoutSession = (
             variables,
             discount_code,
             egg_id,
-            is_business,   // new
+            is_business,
         })
             .then(({ data }) => resolve(data))
             .catch(reject);
