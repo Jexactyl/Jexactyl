@@ -13,7 +13,7 @@ interface Props {
     vars: Map<string, string>;
     discount_code?: string | undefined;
     egg?: number;
-    isBusiness: boolean;   // new
+    isBusiness: boolean;
 }
 
 export interface BillingServerVariables {
