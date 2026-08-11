@@ -13,6 +13,7 @@ interface Props {
     vars: Map<string, string>;
     discount_code?: string | undefined;
     egg?: number;
+    isBusiness: boolean;   // new
 }
 
 export interface BillingServerVariables {
@@ -32,7 +33,7 @@ export default (data: Props) => {
 
         const variables: BillingServerVariables[] = Array.from(data.vars, ([key, value]) => ({ key, value }));
 
-        createCheckoutSession(data.product.id, data.node, undefined, variables, data.discount_code, data.egg)
+        createCheckoutSession(data.product.id, data.node, undefined, variables, data.discount_code, data.egg, data.isBusiness)
             .then(url => {
                 window.location.assign(url);
             })
