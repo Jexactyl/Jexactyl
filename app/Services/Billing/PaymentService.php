@@ -32,6 +32,7 @@ class PaymentService
                     'currency' => strtolower(config('modules.billing.currency.code')),
                     'product_data' => [
                         'name' => 'Deployment Fee',
+                        'tax_code' => $taxCode,
                     ],
                     'unit_amount' => (int) round($deploymentFee * 100),
                 ],
