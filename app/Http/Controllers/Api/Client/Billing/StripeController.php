@@ -55,6 +55,7 @@ class StripeController extends ClientApiController
         $deploymentFee = 0.0;
         $node_id = $request->input('node_id') ?? null;
         $product = Product::findOrFail($request->input('product_id'));
+        $isBusiness = $request->boolean('is_business');
 
         if (!$product->isPaid()) {
             throw new DisplayException('You cannot create a checkout session for a free product.');
@@ -105,7 +106,7 @@ class StripeController extends ClientApiController
             'subtotal' => $price !== null ? $product->price : null,
         ], fn ($value) => $value !== null) ?: null;
 
-        $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price, $deploymentFee);
+        $transaction = $this->paymentService->create($this->stripe, $request->user(), $product, $metadata, $price, $deploymentFee, $isBusiness);
 
         $order = $this->orderService->create(
             $transaction->id,
