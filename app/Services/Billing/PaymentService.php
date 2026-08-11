@@ -42,8 +42,10 @@ class PaymentService
         $transaction = $stripe->checkout->sessions->create([
             'mode' => 'payment',
             'customer_email' => $user->email,
-
+            'billing_address_collection' => 'required',
+                                                           
             'line_items' => $lineItems,
+            'automatic_tax' => ['enabled' => true],
 
             'success_url' => config('app.url') . '/account/billing/processing?session={CHECKOUT_SESSION_ID}',
             'cancel_url' => config('app.url') . '/account/billing/cancel',
