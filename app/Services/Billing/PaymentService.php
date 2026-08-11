@@ -11,7 +11,7 @@ class PaymentService
     /**
      * Create a new Stripe checkout and return the URL as an object.
      */
-    public function create(StripeClient $stripe, User $user, Product $product, array $metadata, ?float $price = null, ?float $deploymentFee = null): object
+    public function create(StripeClient $stripe, User $user, Product $product, array $metadata, ?float $price = null, ?float $deploymentFee = null, bool $isBusiness = false): object
     {
         $taxCode = $isBusiness ? 'txcd_10101000' : 'txcd_10010001'; // IaaS - business / personal use
         $lineItems = [[
