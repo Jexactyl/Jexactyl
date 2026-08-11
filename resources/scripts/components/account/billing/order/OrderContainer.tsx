@@ -322,13 +322,13 @@ export default () => {
                                     Select whether you're purchasing this as an individual or a business.
                                     <div className={'flex gap-2 mt-3'}>
                                         <Button
-                                            color={!isBusiness ? Button.Variants.Primary : Button.Variants.Secondary}
+                                            variant={!isBusiness ? Button.Variants.Primary : Button.Variants.Secondary}
                                             onClick={() => setIsBusiness(false)}
                                         >
                                             Personal
                                         </Button>
                                         <Button
-                                            color={isBusiness ? Button.Variants.Primary : Button.Variants.Secondary}
+                                            variant={isBusiness ? Button.Variants.Primary : Button.Variants.Secondary}
                                             onClick={() => setIsBusiness(true)}
                                         >
                                             Business
