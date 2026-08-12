@@ -34,7 +34,7 @@ class VerifyReCaptcha
         if ($recaptchaState && str_starts_with($recaptchaState, 'discord-')) {
             return $next($request);
         }
-        
+
         if ($recaptchaState) {
             $recaptchaResponse = decrypt($recaptchaState);
         }
