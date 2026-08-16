@@ -53,7 +53,7 @@ class PaymentService
 
             'metadata' => $metadata,
         ], [
-            'stripe-version' => '2026-07-29.dahlia'
+            'stripe_version' => '2026-07-29.dahlia'
         ]);
 
         return $transaction;
