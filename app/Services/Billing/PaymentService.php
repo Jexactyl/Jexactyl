@@ -52,6 +52,8 @@ class PaymentService
             'cancel_url' => config('app.url') . '/account/billing/cancel',
 
             'metadata' => $metadata,
+        ], [
+            'stripe-version' => '2026-07-29.dahlia'
         ]);
 
         return $transaction;
