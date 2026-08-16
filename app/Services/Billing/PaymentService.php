@@ -52,8 +52,6 @@ class PaymentService
             'cancel_url' => config('app.url') . '/account/billing/cancel',
 
             'metadata' => $metadata,
-        ], [
-            'stripe_version' => '2025-03-31'
         ]);
 
         return $transaction;
