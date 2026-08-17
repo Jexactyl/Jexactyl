@@ -139,32 +139,31 @@ class StripeController extends ClientApiController
         if ($transaction->payment_status !== 'paid') {
             throw new DisplayException('Payment not completed.');
         }
+        try {
+            $metadata = (array) $transaction->metadata;
+            $serverId = $metadata['server_id'] ?? null;
+            $server = $serverId ? Server::find($serverId) : null;
+            $user = User::findOrFail($metadata['user_id']);
+            $product = Product::findOrFail($metadata['product_id']);
+            $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
-        $metadata = (array) $transaction->metadata;
-        $serverId = $metadata['server_id'] ?? null;
-        $server = $serverId ? Server::find($serverId) : null;
-        $user = User::findOrFail($metadata['user_id']);
-        $product = Product::findOrFail($metadata['product_id']);
-        $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
-
-        if ($order->isProcessed()) {
-            throw new DisplayException('This order has already been processed.');
-        }
+            if ($order->isProcessed()) {
+                throw new DisplayException('This order has already been processed.');
+            }
 
         // Bind the completed payment to the order. A session reports 'paid' regardless
         // of how much was collected or in which currency, so the amount and currency
         // must be checked against the order before the order is treated as paid.
         // Amounts are integers in the currency's minor unit, matching the value sent
         // to Stripe in PaymentService::create().
-        $expected = (int) round($order->total * 100);
-        $currency = strtolower((string) config('modules.billing.currency.code'));
+            $expected = (int) round($order->total * 100);
+            $currency = strtolower((string) config('modules.billing.currency.code'));
 
-        if (strtolower((string) ($transaction->currency ?? '')) !== $currency
-            || (int) ($transaction->amount_total ?? 0) < $expected) {
-            throw new DisplayException('Payment amount or currency does not match the order.');
-        }
+            if (strtolower((string) ($transaction->currency ?? '')) !== $currency
+                || (int) ($transaction->amount_total ?? 0) < $expected) {
+                throw new DisplayException('Payment amount or currency does not match the order.');
+            }
 
-        try {
             switch ($order->type) {
                 case Order::TYPE_RENEWAL:
                     $server = $this->renewalService->handle($server);
@@ -185,7 +184,7 @@ class StripeController extends ClientApiController
             $order->setStatus(Order::STATUS_FAILED);
 
             BillingException::create([
-                'order_id' => $order->id,
+                'order_id' => $order->id ?? null,
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
                 'title' => 'Deployment or renewal of server failed',
                 'description' => $exception->getMessage(),
