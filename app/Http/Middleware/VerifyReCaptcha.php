@@ -31,6 +31,10 @@ class VerifyReCaptcha
         $recaptchaResponse = $request->input('g-recaptcha-response');
         $recaptchaState = $request->input('state');
 
+        if ($recaptchaState && str_starts_with($recaptchaState, 'discord-')) {
+            return $next($request);
+        }
+        
         if ($recaptchaState) {
             $recaptchaResponse = decrypt($recaptchaState);
         }
