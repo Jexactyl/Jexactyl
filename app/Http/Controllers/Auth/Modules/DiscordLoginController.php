@@ -40,7 +40,7 @@ class DiscordLoginController extends AbstractLoginController
         // Generate an unguessable, single-use state value and bind it to this session so
         // that the callback can verify the response actually belongs to a flow this
         // browser initiated (CSRF protection for the OAuth handshake).
-        $state = Str::random(40);
+        $state = 'discord-' . Str::random(40);
         $request->session()->put(self::STATE_SESSION_KEY, $state);
 
         return 'https://discord.com/api/oauth2/authorize?'
