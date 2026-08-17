@@ -141,7 +141,8 @@ class StripeController extends ClientApiController
         }
 
         $metadata = (array) $transaction->metadata;
-        $server = Server::find($metadata['server_id']);
+        $serverId = $metadata['server_id'] ?? null;
+        $server = $serverId ? Server::find($serverId) : null;
         $user = User::findOrFail($metadata['user_id']);
         $product = Product::findOrFail($metadata['product_id']);
         $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
