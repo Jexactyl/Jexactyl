@@ -94,7 +94,7 @@ class StripeController extends ClientApiController
         $metadata = [
             'user_id' => (string) $request->user()->id,
             'customer_email' => $request->user()->email,
-            'product_id' => (string) $product->id,
+            'product_id' => (string) ($product->id ?? ''),
             'node_id' => (string) ($node_id ?? ''),
             'server_id' => (string) ($server?->id ?? 0),
             'egg_id' => (string) ($egg_id ?? ''),
