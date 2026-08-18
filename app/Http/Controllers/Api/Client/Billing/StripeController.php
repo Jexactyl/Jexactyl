@@ -44,7 +44,7 @@ class StripeController extends ClientApiController
             ? app(StripeClient::class)
             : new StripeClient([
                 'api_key' => config('modules.billing.keys.secret'),
-                'api_version' => '2026-07-29.dahlia',
+                'stripe_version' => '2026-07-29.dahlia',
             ]);
     }
 
