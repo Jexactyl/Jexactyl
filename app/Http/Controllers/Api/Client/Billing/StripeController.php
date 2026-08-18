@@ -145,11 +145,11 @@ class StripeController extends ClientApiController
         }
         $order = null;
         try {
-            $metadata = $transaction->metadata->toArray();
-            $serverId = $metadata['server_id'] ?? null;
-            $server = $serverId ? Server::find($serverId) : null;
-            $userId = $metadata['user_id'] ?? null;
-            $productId = $metadata['product_id'] ?? null;
+            $metadataArray = $transaction->metadata->toArray();
+            $serverId = $metadataArray['server_id'] ?? null;
+            $server = $metadataArray ? Server::find($serverId) : null;
+            $userId = $metadataArray['user_id'] ?? null;
+            $productId = $metadataArray['product_id'] ?? null;
             
             if (!$userId || !$productId) {
                 throw new DisplayException('This checkout session is missing required order metadata.');
@@ -199,7 +199,7 @@ class StripeController extends ClientApiController
                 default:
                     break;
             }
-            $discountCodeValue = $metadata['discount_code'] ?? null;
+            $discountCodeValue = $metadataArray['discount_code'] ?? null;
             $discount_code = $discountCodeValue ? DiscountCode::where('code', $discountCodeValue)->first() : null;
     
             if ($discount_code) {
