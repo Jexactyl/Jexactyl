@@ -83,7 +83,7 @@ class StripeController extends ClientApiController
         }
 
         $order_type = $server ? Order::TYPE_RENEWAL : Order::TYPE_NEW;
-        $egg_id = $this->resolveEggSelection($product, $request->input('egg_id'));
+        $egg_id = $server ? $server->egg_id : $this->resolveEggSelection($product, $request->input('egg_id'));
 
         $discountCode = $request->input('discount_code');
 
