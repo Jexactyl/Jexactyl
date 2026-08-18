@@ -105,7 +105,7 @@ class BuildModificationService
                 // If we are attempting to remove the default allocation for the server, see if we can reassign
                 // to the first provided value in add_allocations. If there is no new first allocation then we
                 // will throw an exception back.
-                if ($allocation === ($data['allocation_id'] ?? $server->allocation_id)) {
+                if ((int) $allocation === (int) ($data['allocation_id'] ?? $server->allocation_id)) {
                     if (empty($freshlyAllocated)) {
                         throw new DisplayException('You are attempting to delete the default allocation for this server but there is no fallback allocation to use.');
                     }
