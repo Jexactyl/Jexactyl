@@ -42,7 +42,10 @@ class StripeController extends ClientApiController
 
         $this->stripe = app()->bound(StripeClient::class)
             ? app(StripeClient::class)
-            : new StripeClient(config('modules.billing.keys.secret'));
+            : new StripeClient([
+                'api_key' => config('modules.billing.keys.secret'),
+                'api_version' => '2026-07-29.dahlia',
+            ]);
     }
 
     /**
@@ -147,6 +150,15 @@ class StripeController extends ClientApiController
             $product = Product::findOrFail($metadata['product_id']);
             $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
+            logger()->info('Stripe process() debug', [
+                'session_id' => $transaction->id,
+                'payment_status' => $transaction->payment_status,
+                'metadata' => $metadata,
+                'order_id' => $order->id,
+                'order_status' => $order->status,
+                'order_type' => $order->type,
+            ]);
+            
             if ($order->isProcessed()) {
                 throw new DisplayException('This order has already been processed.');
             }
