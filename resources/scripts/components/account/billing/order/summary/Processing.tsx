@@ -5,6 +5,7 @@ import PageContentBlock from '@/elements/PageContentBlock';
 import Spinner from '@/elements/Spinner';
 import { processCheckoutSession } from '@/api/routes/account/billing/orders/process';
 import { useStoreState } from '@/state/hooks';
+import http from '@/api/http';
 
 export default () => {
     const navigate = useNavigate();
@@ -19,6 +20,13 @@ export default () => {
                 .then(server => navigate(`/server/${server.id}`))
                 .catch((error) => {
                     console.error('processCheckoutSession failed:', error);
+
+                    http.post('/api/client/log-error', {
+                        message: error?.response?.data?.errors?.[0]?.detail ?? error?.message ?? 'Unknown error',
+                        context: { session },
+                        url: window.location.href,
+                    }).catch(() => {});
+                    
                     navigate('/account/billing/cancel');
                 });
         } else {
