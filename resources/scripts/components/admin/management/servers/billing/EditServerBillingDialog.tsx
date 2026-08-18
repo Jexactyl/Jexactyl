@@ -88,6 +88,7 @@ export default ({ server }: { server: Server }) => {
             payload.billingProductId = productId;
         } else {
             payload.billingProductId = null;
+            payload.renewalDate = null;
         }
 
         updateServer(server.id, payload)
