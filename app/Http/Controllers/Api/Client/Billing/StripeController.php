@@ -100,7 +100,7 @@ class StripeController extends ClientApiController
             'egg_id' => (string) ($egg_id ?? ''),
             'variables' => json_encode($request->input('variables') ?? []),
             'order_type' => $order_type,
-            'discount_code' => $request->input('discount_code') ?? null,
+            'discount_code' => (string) ($discountCode ?? ''),
         ];
 
         $orderMetadata = array_filter([
@@ -202,8 +202,8 @@ class StripeController extends ClientApiController
                 'description' => $exception->getMessage(),
             ]);
         }
-
-        $discount_code = DiscountCode::where('code', $metadata['discount_code'])->first();
+        $discountCodeValue = $metadata['discount_code'] ?? null;
+        $discount_code = $discountCodeValue ? DiscountCode::where('code', $discountCodeValue)->first() : null;
 
         if ($discount_code) {
             $discount_code->use();
