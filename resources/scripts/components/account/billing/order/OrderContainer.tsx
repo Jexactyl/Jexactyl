@@ -319,20 +319,25 @@ export default () => {
                                     )}
                                 </TitledGreyBox>
                                 <TitledGreyBox title={'Purchase Type'} className={'relative'}>
-                                    Select whether you're purchasing this as an individual or a business.
-                                    <div className={'flex gap-2 mt-3'}>
-                                        <Button
-                                            variant={!isBusiness ? Button.Variants.Primary : Button.Variants.Secondary}
-                                            onClick={() => setIsBusiness(false)}
-                                        >
-                                            Personal
-                                        </Button>
-                                        <Button
-                                            variant={isBusiness ? Button.Variants.Primary : Button.Variants.Secondary}
-                                            onClick={() => setIsBusiness(true)}
-                                        >
-                                            Business
-                                        </Button>
+                                    {!isBusiness ? (
+                                        <>
+                                            Click this checkbox only if you're purchasing as a business.
+                                        </>
+                                    ) : (
+                                        <>
+                                            Click this checkbox only if you're purchasing as a business.
+                                            <Alert type={'success'}>Is business</Alert>
+                                        </>
+                                    )}
+                                    {(!isBusiness || isBusiness) && (
+                                        <div className={'absolute top-0 right-0 p-3'}>
+                                            <AdminCheckbox
+                                                name={'business'}
+                                                checked={isBusiness}
+                                                onChange={() => setIsBusiness(!isBusiness)}
+                                            />
+                                        </div>
+                                    )}
                                     </div>
                                 </TitledGreyBox>
                             </div>
