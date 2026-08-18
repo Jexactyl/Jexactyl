@@ -191,25 +191,26 @@ export default ({ server }: { server: Server }) => {
                                             </Select>
                                         )}
                                     </div>
+                                    
+                                    {/* Renewal Date */}
+                                    <div>
+                                        <div className={'flex'}>
+                                            <Label>
+                                                <ClockIcon className={'w-4 inline-flex'} /> Renewal Date
+                                            </Label>
+                                            <span className={'ml-2 italic text-gray-400 text-sm'}>
+                                                Adjust when this server will renew.
+                                            </span>
+                                        </div>
+                                        <Input
+                                            type="datetime-local"
+                                            value={renewalDate}
+                                            onChange={e => setRenewalDate(e.target.value)}
+                                        />
+                                    </div>
                                 </>
                             )}
-
-                            {/* Renewal Date */}
-                            <div>
-                                <div className={'flex'}>
-                                    <Label>
-                                        <ClockIcon className={'w-4 inline-flex'} /> Renewal Date
-                                    </Label>
-                                    <span className={'ml-2 italic text-gray-400 text-sm'}>
-                                        Adjust when this server will renew.
-                                    </span>
-                                </div>
-                                <Input
-                                    type="datetime-local"
-                                    value={renewalDate}
-                                    onChange={e => setRenewalDate(e.target.value)}
-                                />
-                            </div>
+    
 
                             <div className={'ml-auto'}>
                                 <Button type="button" onClick={submit}>
