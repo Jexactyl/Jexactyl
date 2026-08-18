@@ -338,7 +338,6 @@ export default () => {
                                             />
                                         </div>
                                     )}
-                                    </div>
                                 </TitledGreyBox>
                             </div>
                         </div>
