@@ -25,6 +25,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
     Route::get('/permissions', [Client\ClientController::class, 'permissions']);
     Route::get('links', [Client\LinkController::class, 'index']);
 
+    Route::post('/log-error', [Client\LogController::class, 'store']);
     Route::prefix('/groups')->group(function () {
         Route::get('/', [Client\ServerGroupController::class, 'index']);
         Route::post('/', [Client\ServerGroupController::class, 'store']);
