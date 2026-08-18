@@ -143,6 +143,7 @@ class StripeController extends ClientApiController
             throw new DisplayException('Payment not completed.');
         }
         $order = null;
+        $transaction = null;
         try {
             $metadata = (array) $transaction->metadata;
             $serverId = $metadata['server_id'] ?? null;
@@ -159,12 +160,12 @@ class StripeController extends ClientApiController
             $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
             logger()->info('Stripe process() debug', [
-                'session_id' => $transaction->id,
-                'payment_status' => $transaction->payment_status,
-                'metadata' => $metadata,
-                'order_id' => $order->id,
-                'order_status' => $order->status,
-                'order_type' => $order->type,
+                'session_id' => $transaction?->id,
+                'payment_status' => $transaction->payment_status ?? null,
+                'metadata' => $metadata ?? null,
+                'order_id' => $order?->id ?? null,
+                'order_status' => $order?->status ?? null,
+                'order_type' => $order?->type ?? null,
             ]);
             
             if ($order->isProcessed()) {
@@ -208,7 +209,15 @@ class StripeController extends ClientApiController
             return $this->transform($server, ServerTransformer::class);
         } catch (\Throwable $exception) {
             $order?->setStatus(Order::STATUS_FAILED);
-
+            logger()->info('Stripe process() debug', [
+                'session_id' => $transaction?->id,
+                'payment_status' => $transaction->payment_status ?? null,
+                'metadata' => $metadata ?? null,
+                'order_id' => $order?->id ?? null,
+                'order_status' => $order?->status ?? null,
+                'order_type' => $order?->type ?? null,
+                'error' => $exception ?? null,
+            ]);
             BillingException::create([
                 'order_id' => $order->id ?? null,
                 'exception_type' => BillingException::TYPE_DEPLOYMENT,
