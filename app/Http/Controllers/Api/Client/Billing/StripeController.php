@@ -133,6 +133,7 @@ class StripeController extends ClientApiController
      */
     public function process(ProcessStripePaymentRequest $request): array
     {
+        $transaction = null;
         try {
             $transaction = $this->stripe->checkout->sessions->retrieve($request->input('session'));
         } catch (DisplayException $ex) {
@@ -143,7 +144,6 @@ class StripeController extends ClientApiController
             throw new DisplayException('Payment not completed.');
         }
         $order = null;
-        $transaction = null;
         try {
             $metadata = (array) $transaction->metadata;
             $serverId = $metadata['server_id'] ?? null;
