@@ -145,7 +145,7 @@ class StripeController extends ClientApiController
         }
         $order = null;
         try {
-            $metadata = (array) $transaction->metadata;
+            $metadata = $transaction->metadata->toArray();
             $serverId = $metadata['server_id'] ?? null;
             $server = $serverId ? Server::find($serverId) : null;
             $userId = $metadata['user_id'] ?? null;
