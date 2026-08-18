@@ -22,7 +22,7 @@ export default () => {
                     navigate('/account/billing/cancel');
                 });
         } else {
-            navigate('/acccount/billing/cancel');
+            navigate('/account/billing/cancel');
         }
     }, []);
 
