@@ -142,6 +142,7 @@ class StripeController extends ClientApiController
         if ($transaction->payment_status !== 'paid') {
             throw new DisplayException('Payment not completed.');
         }
+        $order = null;
         try {
             $metadata = (array) $transaction->metadata;
             $serverId = $metadata['server_id'] ?? null;
@@ -153,8 +154,8 @@ class StripeController extends ClientApiController
                 throw new DisplayException('This checkout session is missing required order metadata.');
             }
             
-            $user = User::findOrFail($userId);
-            $product = Product::findOrFail($productId);
+            $user = User::findOrFail($userId) ?? null;
+            $product = Product::findOrFail($productId) ?? null;
             $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
             logger()->info('Stripe process() debug', [
