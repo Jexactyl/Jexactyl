@@ -33,6 +33,7 @@ class Order extends Model
     public const STATUS_FAILED = 'failed';
     public const STATUS_EXPIRED = 'expired';
     public const STATUS_PENDING = 'pending';
+    public const STATUS_PROCESSING = 'processing';
     public const STATUS_PROCESSED = 'processed';
 
     public const TYPE_NEW = 'new';
@@ -74,7 +75,7 @@ class Order extends Model
         'user_id' => 'required|exists:users,id',
         'description' => 'required|string|min:3',
         'total' => 'required|min:0',
-        'status' => 'required|in:expired,pending,failed,processed',
+        'status' => 'required|in:expired,pending,processing,failed,processed',
         'product_id' => 'exists:products,id',
         'type' => 'required|in:new,upgrade,renewal',
         'threat_index' => 'nullable|int|min:-1|max:100',

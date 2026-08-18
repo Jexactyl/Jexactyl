@@ -4,9 +4,12 @@ namespace Everest\Http\Controllers\Api\Client\Billing;
 
 use Everest\Models\Egg;
 use Everest\Models\Node;
+use Everest\Models\User;
 use Everest\Models\Billing\Order;
+use Illuminate\Support\Facades\DB;
 use Everest\Models\Billing\Product;
 use Everest\Exceptions\DisplayException;
+use Everest\Models\Billing\BillingException;
 use Everest\Services\Billing\CreateOrderService;
 use Everest\Services\Billing\ServerRenewalService;
 use Everest\Transformers\Api\Client\ServerTransformer;
@@ -35,30 +38,57 @@ class FreeProductController extends ClientApiController
         $node = Node::find($request->input('node_id'));
         $product = Product::findOrFail($request->input('product_id'));
 
-        $this->freeDeploymentService->validate($product, $user, $node, $is_new_order);
-
-        $egg_id = $is_new_order ? $this->resolveEggSelection($product, $request->input('egg_id')) : null;
-
-        $order = $this->orderService->create(
-            null,
-            $user,
-            $product,
-            Order::STATUS_PENDING,
-            $is_new_order ? Order::TYPE_NEW : Order::TYPE_RENEWAL,
-        );
-
         if ($is_new_order && $node) {
-            $server = $this->freeDeploymentService->handleFree(
+            $egg_id = $this->resolveEggSelection($product, $request->input('egg_id'));
+
+            $order = DB::transaction(function () use ($user, $product, $node) {
+                User::whereKey($user->getKey())->lockForUpdate()->firstOrFail();
+
+                $this->freeDeploymentService->validate($product, $user, $node, true);
+
+                return $this->orderService->create(
+                    null,
+                    $user,
+                    $product,
+                    Order::STATUS_PENDING,
+                    Order::TYPE_NEW,
+                );
+            });
+
+            try {
+                $server = $this->freeDeploymentService->handleFree(
+                    $user,
+                    $product,
+                    $node,
+                    $order,
+                    $request->input('variables', []),
+                    $egg_id,
+                );
+
+                $order->assignServer($server);
+            } catch (DisplayException $exception) {
+                $order->setStatus(Order::STATUS_FAILED);
+
+                BillingException::create([
+                    'order_id' => $order->id,
+                    'exception_type' => BillingException::TYPE_DEPLOYMENT,
+                    'title' => 'Deployment of free server failed',
+                    'description' => $exception->getMessage(),
+                ]);
+
+                throw $exception;
+            }
+        } else {
+            $this->freeDeploymentService->validate($product, $user, $node, false);
+
+            $order = $this->orderService->create(
+                null,
                 $user,
                 $product,
-                $node,
-                $order,
-                $request->input('variables', []),
-                $egg_id,
+                Order::STATUS_PENDING,
+                Order::TYPE_RENEWAL,
             );
 
-            $order->assignServer($server);
-        } else {
             $server = $user->servers()
                 ->where('id', $request->input('server_id'))
                 ->firstOrFail();

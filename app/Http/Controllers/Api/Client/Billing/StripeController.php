@@ -8,6 +8,7 @@ use Everest\Models\User;
 use Stripe\StripeClient;
 use Everest\Models\Server;
 use Everest\Models\Billing\Order;
+use Illuminate\Support\Facades\DB;
 use Everest\Models\Billing\Product;
 use Everest\Exceptions\DisplayException;
 use Everest\Models\Billing\DiscountCode;
@@ -143,22 +144,37 @@ class StripeController extends ClientApiController
         $server = Server::find($metadata['server_id']);
         $user = User::findOrFail($metadata['user_id']);
         $product = Product::findOrFail($metadata['product_id']);
-        $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
-        if ($order->isProcessed()) {
-            throw new DisplayException('This order has already been processed.');
-        }
+        // Atomically claim the order before doing any deployment work.
+        $order = DB::transaction(function () use ($transaction, $metadata) {
+            $order = Order::where('transaction_id', $transaction->id)->lockForUpdate()->firstOrFail();
 
-        // Bind the completed payment to the order. A session reports 'paid' regardless
-        // of how much was collected or in which currency, so the amount and currency
-        // must be checked against the order before the order is treated as paid.
-        // Amounts are integers in the currency's minor unit, matching the value sent
-        // to Stripe in PaymentService::create().
+            if ($order->status !== Order::STATUS_PENDING) {
+                throw new DisplayException('This order has already been processed.');
+            }
+
+            $order->setStatus(Order::STATUS_PROCESSING);
+
+            if (!empty($metadata['discount_code'])) {
+                $discount_code = DiscountCode::where('code', $metadata['discount_code'])->lockForUpdate()->first();
+
+                if ($discount_code && $discount_code->isValid()) {
+                    $discount_code->use();
+                }
+            }
+
+            return $order;
+        });
+
+        // Bind the completed payment to the order.
         $expected = (int) round($order->total * 100);
         $currency = strtolower((string) config('modules.billing.currency.code'));
 
         if (strtolower((string) ($transaction->currency ?? '')) !== $currency
             || (int) ($transaction->amount_total ?? 0) < $expected) {
+            // Release the claim rather than failing the order outright.
+            $order->setStatus(Order::STATUS_PENDING);
+
             throw new DisplayException('Payment amount or currency does not match the order.');
         }
 
@@ -188,12 +204,6 @@ class StripeController extends ClientApiController
                 'title' => 'Deployment or renewal of server failed',
                 'description' => $exception->getMessage(),
             ]);
-        }
-
-        $discount_code = DiscountCode::where('code', $metadata['discount_code'])->first();
-
-        if ($discount_code) {
-            $discount_code->use();
         }
 
         return $this->transform($server, ServerTransformer::class);
