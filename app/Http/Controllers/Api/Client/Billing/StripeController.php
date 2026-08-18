@@ -146,8 +146,15 @@ class StripeController extends ClientApiController
             $metadata = (array) $transaction->metadata;
             $serverId = $metadata['server_id'] ?? null;
             $server = $serverId ? Server::find($serverId) : null;
-            $user = User::findOrFail($metadata['user_id']);
-            $product = Product::findOrFail($metadata['product_id']);
+            $userId = $metadata['user_id'] ?? null;
+            $productId = $metadata['product_id'] ?? null;
+            
+            if (!$userId || !$productId) {
+                throw new DisplayException('This checkout session is missing required order metadata.');
+            }
+            
+            $user = User::findOrFail($userId);
+            $product = Product::findOrFail($productId);
             $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
             logger()->info('Stripe process() debug', [
@@ -190,9 +197,15 @@ class StripeController extends ClientApiController
                 default:
                     break;
             }
-
+            $discountCodeValue = $metadata['discount_code'] ?? null;
+            $discount_code = $discountCodeValue ? DiscountCode::where('code', $discountCodeValue)->first() : null;
+    
+            if ($discount_code) {
+                $discount_code->use();
+            }
             $order->setStatus(Order::STATUS_PROCESSED);
-        } catch (DisplayException $exception) {
+            return $this->transform($server, ServerTransformer::class);
+        } catch (\Throwable $exception) {
             $order->setStatus(Order::STATUS_FAILED);
 
             BillingException::create([
@@ -201,15 +214,12 @@ class StripeController extends ClientApiController
                 'title' => 'Deployment or renewal of server failed',
                 'description' => $exception->getMessage(),
             ]);
-        }
-        $discountCodeValue = $metadata['discount_code'] ?? null;
-        $discount_code = $discountCodeValue ? DiscountCode::where('code', $discountCodeValue)->first() : null;
 
-        if ($discount_code) {
-            $discount_code->use();
+            throw new DisplayException('Your payment was received, but the order could not be completed. Please open a ticket or contact us directly.');
         }
+            
 
-        return $this->transform($server, ServerTransformer::class);
+        
     }
 
     /**
