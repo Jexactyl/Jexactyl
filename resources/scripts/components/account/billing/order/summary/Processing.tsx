@@ -17,7 +17,8 @@ export default () => {
         if (session) {
             processCheckoutSession(session)
                 .then(server => navigate(`/server/${server.id}`))
-                .catch(() => {
+                .catch((error) => {
+                    console.error('processCheckoutSession failed:', error);
                     navigate('/account/billing/cancel');
                 });
         } else {
