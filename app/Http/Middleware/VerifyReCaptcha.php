@@ -31,6 +31,14 @@ class VerifyReCaptcha
         $recaptchaResponse = $request->input('g-recaptcha-response');
         $recaptchaState = $request->input('state');
 
+        // Discord and Google's OAuth flows carry their own CSRF "state" parameter through
+        // this same middleware, which is not an encrypted reCAPTCHA payload. Their state
+        // values are prefixed so we can recognise and skip them here instead of trying
+        // (and failing) to decrypt them.
+        if ($recaptchaState && (str_starts_with($recaptchaState, 'discord-') || str_starts_with($recaptchaState, 'google-'))) {
+            return $next($request);
+        }
+
         if ($recaptchaState) {
             $recaptchaResponse = decrypt($recaptchaState);
         }
