@@ -87,7 +87,6 @@ export default ({ server }: { server: Server }) => {
             payload.renewalDate = localToUTC(renewalDate);
             payload.billingProductId = productId;
         } else {
-            payload.renewalDate = null;
             payload.billingProductId = null;
         }
 
