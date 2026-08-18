@@ -154,8 +154,8 @@ class StripeController extends ClientApiController
                 throw new DisplayException('This checkout session is missing required order metadata.');
             }
             
-            $user = User::findOrFail($userId) ?? null;
-            $product = Product::findOrFail($productId) ?? null;
+            $user = User::findOrFail($userId);
+            $product = Product::findOrFail($productId);
             $order = Order::where('transaction_id', $transaction->id)->firstOrFail();
 
             logger()->info('Stripe process() debug', [
@@ -207,7 +207,7 @@ class StripeController extends ClientApiController
             $order->setStatus(Order::STATUS_PROCESSED);
             return $this->transform($server, ServerTransformer::class);
         } catch (\Throwable $exception) {
-            $order->setStatus(Order::STATUS_FAILED);
+            $order?->setStatus(Order::STATUS_FAILED);
 
             BillingException::create([
                 'order_id' => $order->id ?? null,
