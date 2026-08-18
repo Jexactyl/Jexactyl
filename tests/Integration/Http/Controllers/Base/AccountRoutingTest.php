@@ -16,6 +16,11 @@ class AccountRoutingTest extends HttpTestCase
     {
         parent::setUp();
 
+        // These assertions render the SPA shell, which pulls in @vite(). CI has no frontend
+        // build when the PHP suite runs, so without this the Blade template blows up looking
+        // for public/build/manifest.json.
+        $this->withoutVite();
+
         config()->set('modules.auth.security.force2fa', true);
     }
 
