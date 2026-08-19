@@ -48,9 +48,9 @@ class SettingsServiceProvider extends ServiceProvider
         'pterodactyl:client_features:allocations:enabled'
                 => 'bool',
         'pterodactyl:client_features:allocations:range_start'
-                => 'string',
+                => 'tolerant',
         'pterodactyl:client_features:allocations:range_end'
-                => 'string',
+                => 'tolerant',
         'activity:enabled:account'
                 => 'bool',
         'activity:enabled:server'
@@ -90,7 +90,7 @@ class SettingsServiceProvider extends ServiceProvider
         'modules:auth:jguard:delay'
                 => 'int',
         'modules:auth:jguard:sensitivity'
-                => 'int',
+                => 'string',
 
         // Billing module settings
         'modules:billing:enabled'
