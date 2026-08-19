@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -178,7 +178,7 @@ return [
     */
 
     'exceptions' => [
-        'report_all' => env('APP_REPORT_ALL_EXCEPTIONS', false),
+        'report_all' => (bool) env('APP_REPORT_ALL_EXCEPTIONS', false),
     ],
 
     /*

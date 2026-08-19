@@ -4,7 +4,7 @@ return [
     /*
      * Enable or disable the webook module.
      */
-    'enabled' => env('WEBHOOK_ENABLED', false),
+    'enabled' => (bool) env('WEBHOOK_ENABLED', false),
 
     /*
      * Set the webhook URL to send data.

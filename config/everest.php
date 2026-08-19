@@ -39,7 +39,7 @@ return [
         '2fa_required' => env('APP_2FA_REQUIRED', 0),
         '2fa' => [
             'bytes' => 32,
-            'window' => env('APP_2FA_WINDOW', 4),
+            'window' => (int) env('APP_2FA_WINDOW', 4),
             'verify_newer' => true,
         ],
         'passkeys' => [
@@ -51,7 +51,7 @@ return [
             // has already been registered against the old value.
             'rp_id' => env('WEBAUTHN_RP_ID'),
             'rp_name' => env('WEBAUTHN_RP_NAME'),
-            'timeout' => env('WEBAUTHN_TIMEOUT', 60000),
+            'timeout' => (int) env('WEBAUTHN_TIMEOUT', 60000),
         ],
     ],
 
@@ -66,16 +66,16 @@ return [
 
     'paginate' => [
         'frontend' => [
-            'servers' => env('APP_PAGINATE_FRONT_SERVERS', 15),
+            'servers' => (int) env('APP_PAGINATE_FRONT_SERVERS', 15),
         ],
         'admin' => [
-            'servers' => env('APP_PAGINATE_ADMIN_SERVERS', 25),
-            'users' => env('APP_PAGINATE_ADMIN_USERS', 25),
+            'servers' => (int) env('APP_PAGINATE_ADMIN_SERVERS', 25),
+            'users' => (int) env('APP_PAGINATE_ADMIN_USERS', 25),
         ],
         'api' => [
-            'nodes' => env('APP_PAGINATE_API_NODES', 25),
-            'servers' => env('APP_PAGINATE_API_SERVERS', 25),
-            'users' => env('APP_PAGINATE_API_USERS', 25),
+            'nodes' => (int) env('APP_PAGINATE_API_NODES', 25),
+            'servers' => (int) env('APP_PAGINATE_API_SERVERS', 25),
+            'users' => (int) env('APP_PAGINATE_API_USERS', 25),
         ],
     ],
 
@@ -88,8 +88,8 @@ return [
     */
 
     'guzzle' => [
-        'timeout' => env('GUZZLE_TIMEOUT', 15),
-        'connect_timeout' => env('GUZZLE_CONNECT_TIMEOUT', 5),
+        'timeout' => (int) env('GUZZLE_TIMEOUT', 15),
+        'connect_timeout' => (int) env('GUZZLE_CONNECT_TIMEOUT', 5),
     ],
 
     /*
@@ -117,17 +117,17 @@ return [
 
     'client_features' => [
         'databases' => [
-            'enabled' => env('PTERODACTYL_CLIENT_DATABASES_ENABLED', true),
-            'allow_random' => env('PTERODACTYL_CLIENT_DATABASES_ALLOW_RANDOM', true),
+            'enabled' => (bool) env('PTERODACTYL_CLIENT_DATABASES_ENABLED', true),
+            'allow_random' => (bool) env('PTERODACTYL_CLIENT_DATABASES_ALLOW_RANDOM', true),
         ],
 
         'schedules' => [
             // The total number of tasks that can exist for any given schedule at once.
-            'per_schedule_task_limit' => env('PTERODACTYL_PER_SCHEDULE_TASK_LIMIT', 10),
+            'per_schedule_task_limit' => (int) env('PTERODACTYL_PER_SCHEDULE_TASK_LIMIT', 10),
         ],
 
         'allocations' => [
-            'enabled' => env('PTERODACTYL_CLIENT_ALLOCATIONS_ENABLED', true),
+            'enabled' => (bool) env('PTERODACTYL_CLIENT_ALLOCATIONS_ENABLED', true),
             'range_start' => env('PTERODACTYL_CLIENT_ALLOCATIONS_RANGE_START'),
             'range_end' => env('PTERODACTYL_CLIENT_ALLOCATIONS_RANGE_END'),
         ],
@@ -142,7 +142,7 @@ return [
     */
 
     'files' => [
-        'max_edit_size' => env('PTERODACTYL_FILES_MAX_EDIT_SIZE', 1024 * 1024 * 4),
+        'max_edit_size' => (int) env('PTERODACTYL_FILES_MAX_EDIT_SIZE', 1024 * 1024 * 4),
     ],
 
     /*
@@ -172,6 +172,6 @@ return [
     */
 
     'assets' => [
-        'use_hash' => env('PTERODACTYL_USE_ASSET_HASH', false),
+        'use_hash' => (bool) env('PTERODACTYL_USE_ASSET_HASH', false),
     ],
 ];

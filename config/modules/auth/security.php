@@ -11,6 +11,6 @@ return [
     | password incorrectly.
     |
     */
-    'attempts' => env('LOGIN_ATTEMPT_LIMIT', 3),
-    'force2fa' => env('FORCE_TWO_FACTOR', false),
+    'attempts' => (int) env('LOGIN_ATTEMPT_LIMIT', 3),
+    'force2fa' => (bool) env('FORCE_TWO_FACTOR', false),
 ];
