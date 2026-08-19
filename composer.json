@@ -1,5 +1,5 @@
 {
-    "name": "jexactyl/jexactyl",
+    "name": "craftrdointech/jexactyl",
     "license": "MIT",
     "require": {
         "php": "^8.4 || ^8.5",
