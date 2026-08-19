@@ -47,15 +47,15 @@ class InvoiceGenerationService
         $server = $order->server;
         $node = $server?->node;
         $egg = $server?->egg;
-        $metadata = $order->metadata ?? [];
+        $metadata = $order->metadata ?? (object) [];
 
-        $deploymentFee = (float) ($metadata['deployment_fee'] ?? 0);
-        $discountCode = $metadata['discount_code'] ?? null;
+        $deploymentFee = (float) ($metadata->deployment_fee ?? 0);
+        $discountCode = $metadata->discount_code ?? null;
 
-        if ($discountCode && isset($metadata['subtotal'])) {
+        if ($discountCode && isset($metadata->subtotal)) {
             // Pre-discount price, captured at checkout time since the live
             // product price may have since changed.
-            $subtotal = (float) $metadata['subtotal'];
+            $subtotal = (float) $metadata->subtotal;
             $discountAmount = max(0, $subtotal - ($order->total - $deploymentFee));
         } else {
             // No discount was captured for this order, so fall back to what was
