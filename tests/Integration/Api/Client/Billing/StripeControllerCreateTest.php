@@ -67,7 +67,7 @@ class StripeControllerCreateTest extends ClientApiIntegrationTestCase
         $this->assertSame(15.75, $order->total);
         // assertEquals (not assertSame): Order.metadata round-trips through a JSON
         // column, and PHP's json_encode drops the ".0" off whole-number floats.
-        $this->assertEquals(5.25, $order->metadata['deployment_fee']);
+        $this->assertEquals(5.25, $order->metadata->deployment_fee);
         $this->assertArrayNotHasKey('discount_code', $order->metadata);
     }
 
@@ -96,8 +96,8 @@ class StripeControllerCreateTest extends ClientApiIntegrationTestCase
         $order = Order::where('transaction_id', 'cs_test_discount')->firstOrFail();
 
         $this->assertSame(15.50, $order->total);
-        $this->assertSame('SAVE5NOW', $order->metadata['discount_code']);
-        $this->assertEquals(20.50, $order->metadata['subtotal']);
+        $this->assertSame('SAVE5NOW', $order->metadata->discount_code);
+        $this->assertEquals(20.50, $order->metadata->subtotal);
     }
 
     public function testOrderMetadataIsNullWhenThereIsNoFeeOrDiscount(): void
