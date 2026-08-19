@@ -62,7 +62,7 @@ services:
       retries: 5
 
   panel:
-    image: ghcr.io/jexactyl/jexactyl:latest
+    image: ghcr.io/craftrdointech/jexactyl:latest
     restart: always
     networks:
       - jexpanel
