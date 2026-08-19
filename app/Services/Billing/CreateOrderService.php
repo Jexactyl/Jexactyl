@@ -11,11 +11,12 @@ class CreateOrderService
     /**
      * Process the creation of an order.
      */
-    public function create(?string $transaction_id, User $user, Product $product, ?string $status, string $type, ?float $price = null, ?array $metadata = null): Order
+    public function create(?string $transaction_id, User $user, Product $product, ?string $status, string $type, ?float $price = null, object|array|null $metadata = null): Order
     {
+        $metadata = (object) ($metadata ?? []);
         $order = new Order();
         $uuid = uuid_create();
-        $deploymentFee = (float) ($metadata['deployment_fee'] ?? 0);
+        $deploymentFee = (float) ($metadata->deployment_fee ?? 0);
 
         $order->name = $uuid;
         $order->transaction_id = $transaction_id;
