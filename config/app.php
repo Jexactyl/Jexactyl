@@ -38,7 +38,7 @@ return [
     | This variable toggles whether Jexpanelhas been configured and is ready
     | for use. This should ideally be done via the UI.
     */
-    'auto_update' => false,
+    'setup' => false,
 
     /*
     |--------------------------------------------------------------------------

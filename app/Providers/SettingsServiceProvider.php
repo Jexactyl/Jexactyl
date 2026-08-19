@@ -13,69 +13,136 @@ class SettingsServiceProvider extends ServiceProvider
 {
     protected array $keys = [
         // Jexactyl-specific keys
-        'app:name', 'app:logo', 'app:mode', 'app:setup', 'app:locale',
-        'app:speed_dial', 'app:indicators', 'app:auto_update',
-        'recaptcha:enabled', 'recaptcha:secret_key', 'recaptcha:website_key',
-        'pterodactyl:guzzle:timeout', 'pterodactyl:guzzle:connect_timeout',
-        'pterodactyl:console:count', 'pterodactyl:console:frequency',
-        'pterodactyl:auth:2fa_required',
-        'pterodactyl:client_features:allocations:enabled',
-        'pterodactyl:client_features:allocations:range_start',
-        'pterodactyl:client_features:allocations:range_end',
-        'activity:enabled:account',
-        'activity:enabled:server',
-        'activity:enabled:admin',
+        'app:name'
+                => 'string', 
+        'app:logo'
+                => 'string', 
+        'app:mode'
+                => 'string', 
+        'app:setup'
+                => 'bool', 
+        'app:locale'
+                => "string",
+        'app:speed_dial'
+                => 'bool', 
+        'app:indicators'
+                => 'bool', 
+        'app:auto_update'
+                => 'bool',
+        'recaptcha:enabled'
+                => 'bool', 
+        'recaptcha:secret_key'
+                => 'string', 
+        'recaptcha:website_key'
+                => 'string',
+        'pterodactyl:guzzle:timeout'
+                => 'int', 
+        'pterodactyl:guzzle:connect_timeout'
+                => 'int',
+        'pterodactyl:console:count'
+                => 'int', 
+        'pterodactyl:console:frequency'
+                => 'int',
+        'pterodactyl:auth:2fa_required'
+                => 'bool',
+        'pterodactyl:client_features:allocations:enabled'
+                => 'bool',
+        'pterodactyl:client_features:allocations:range_start'
+                => 'string',
+        'pterodactyl:client_features:allocations:range_end'
+                => 'string',
+        'activity:enabled:account'
+                => 'bool',
+        'activity:enabled:server'
+                => 'bool',
+        'activity:enabled:admin'
+                => 'bool',
 
         // Authentication module settings
-        'modules:auth:registration:enabled',
-        'modules:auth:security:force2fa',
-        'modules:auth:security:attempts',
+        'modules:auth:registration:enabled'
+                => 'bool',
+        'modules:auth:security:force2fa'
+                => 'bool',
+        'modules:auth:security:attempts'
+                => 'int',
 
-        'modules:auth:discord:enabled',
-        'modules:auth:discord:client_id',
-        'modules:auth:discord:client_secret',
+        'modules:auth:discord:enabled'
+                => 'bool',
+        'modules:auth:discord:client_id'
+                => 'string',
+        'modules:auth:discord:client_secret'
+                => 'string',
 
-        'modules:auth:google:enabled',
-        'modules:auth:google:client_id',
-        'modules:auth:google:client_secret',
+        'modules:auth:google:enabled'
+                => 'bool',
+        'modules:auth:google:client_id'
+                => 'string',
+        'modules:auth:google:client_secret'
+                => 'string',
 
-        'modules:auth:onboarding:enabled',
-        'modules:auth:onboarding:content',
+        'modules:auth:onboarding:enabled'
+                => 'bool',
+        'modules:auth:onboarding:content'
+                => 'string',
 
-        'modules:auth:jguard:enabled',
-        'modules:auth:jguard:delay',
-        'modules:auth:jguard:sensitivity',
+        'modules:auth:jguard:enabled'
+                => 'bool',
+        'modules:auth:jguard:delay'
+                => 'int',
+        'modules:auth:jguard:sensitivity'
+                => 'int',
 
         // Billing module settings
-        'modules:billing:enabled',
-        'modules:billing:keys:secret',
-        'modules:billing:currency:code',
-        'modules:billing:currency:symbol',
-        'modules:billing:links:terms',
-        'modules:billing:links:privacy',
-        'modules:billing:renewal:days',
-        'modules:billing:renewal:threshold',
-        'modules:billing:allow_upgrades',
+        'modules:billing:enabled'
+                => 'bool',
+        'modules:billing:keys:secret'
+                => 'string',
+        'modules:billing:currency:code'
+                => 'string',
+        'modules:billing:currency:symbol'
+                => 'string',
+        'modules:billing:links:terms'
+                => 'string',
+        'modules:billing:links:privacy'
+                => 'string',
+        'modules:billing:renewal:days'
+                => 'int',
+        'modules:billing:renewal:threshold'
+                => 'int',
+        'modules:billing:allow_upgrades'
+                => 'bool',
 
         // Ticket module settings
-        'modules:tickets:enabled',
-        'modules:tickets:max_count',
+        'modules:tickets:enabled'
+                => 'bool',
+        'modules:tickets:max_count'
+                => 'int',
 
         // Alert module settings
-        'modules:alert:enabled',
-        'modules:alert:type',
-        'modules:alert:position',
-        'modules:alert:content',
-        'modules:alert:uuid',
+        'modules:alert:enabled'
+                => 'bool',
+        'modules:alert:type'
+                => 'string',
+        'modules:alert:position'
+                => 'string',
+        'modules:alert:content'
+                => 'string',
+        'modules:alert:uuid'
+                => 'string',
 
         // AI module settings
-        'modules:ai:enabled',
-        'modules:ai:key',
-        'modules:ai:user_access',
+        'modules:ai:enabled'
+                => 'bool',
+        'modules:ai:key'
+                => 'string',
+        'modules:ai:user_access'
+                => 'bool',
 
         // Webhook module settings
-        'modules:webhooks:enabled',
-        'modules:webhooks:url',
+        'modules:webhooks:enabled'
+                => 'bool',
+        'modules:webhooks:url'
+                => 'string',
     ];
 
     /**
@@ -116,6 +183,10 @@ class SettingsServiceProvider extends ServiceProvider
 
             if (is_string($lower) && array_key_exists($lower, $this->map)) {
                 $value = $this->map[$lower];
+            } elseif ($type !== "tolerant" && (get_debug_type($value) !== $type && gettype($value) !== $type)) {
+                $value = is_bool($value) ? ($value ? 1 : 0) : $value;
+                $value = !is_string($value) ? json_encode($value) : $value;
+                settype($value, $type);
             }
 
             $config->set($dotKey, $value);
