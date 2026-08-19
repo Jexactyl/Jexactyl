@@ -103,7 +103,7 @@ return [
 
     'cdn' => [
         'cache_time' => 60,
-        'panel_url' => 'https://api.github.com/repos/Jexactyl/Jexactyl/releases/latest',
+        'panel_url' => 'https://api.github.com/repos/CraftrDoinTech/Jexactyl/releases/latest',
         'wings_url' => 'https://api.github.com/repos/pterodactyl/wings/releases/latest',
     ],
 
