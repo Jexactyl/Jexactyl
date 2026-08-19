@@ -11,7 +11,7 @@ use Everest\Services\Helpers\SoftwareVersionService;
 
 class AutoUpdateCommand extends Command
 {
-    protected const DEFAULT_URL = 'https://github.com/jexactyl/jexactyl/releases/%s/panel.tar.gz';
+    protected const DEFAULT_URL = 'https://github.com/CraftrDointTech/jexactyl/releases/%s/panel.tar.gz';
 
     protected $signature = 'p:auto-update
         {--user= : The user that PHP runs under. All files will be owned by this user.}
