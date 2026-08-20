@@ -31,7 +31,7 @@ class VerifyReCaptcha
         $recaptchaResponse = $request->input('g-recaptcha-response');
         $recaptchaState = $request->input('state');
 
-        if ($recaptchaState && str_starts_with($recaptchaState, 'discord-')) {
+        if ($recaptchaState && (str_starts_with($recaptchaState, 'discord-') || str_starts_with($recaptchaState, 'google-'))) {
             return $next($request);
         }
         
