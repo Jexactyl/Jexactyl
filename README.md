@@ -7,6 +7,8 @@
 
 ---
 
+
+
 ## Overview
 Jexpanel is a modern, high-performance **game server management panel** built on **Pterodactyl Panel**, offering enhanced security, advanced customization, and integrated billing—supporting Stripe and PayPal—right out of the box.
 
