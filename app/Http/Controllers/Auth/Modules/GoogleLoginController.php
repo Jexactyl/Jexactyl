@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Everest\Exceptions\DisplayException;
 use Laravel\Socialite\Facades\Socialite;
-use Everest\Extensions\Laravel\Socialite\GoogleProvider;
+use Laravel\Socialite\Two\GoogleProvider;
 use Everest\Http\Controllers\Auth\AbstractLoginController;
 
 class GoogleLoginController extends AbstractLoginController

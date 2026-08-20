@@ -31,7 +31,7 @@ class VerifyReCaptcha
         $recaptchaResponse = $request->input('g-recaptcha-response');
         $recaptchaState = $request->input('state');
 
-        if ($recaptchaState && (str_starts_with($recaptchaState, 'discord-') || str_starts_with($recaptchaState, 'google-'))) {
+        if ($recaptchaState && (str_starts_with($recaptchaState, 'discord-') || $request->is('login/google/callback') || $request->routeIs('auth.google.callback')) {
             return $next($request);
         }
         
