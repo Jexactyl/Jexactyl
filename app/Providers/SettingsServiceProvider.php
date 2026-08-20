@@ -174,14 +174,20 @@ class SettingsServiceProvider extends ServiceProvider
             return;
         }
 
-        foreach ($this->keys as $key) {
+        foreach ($this->keys as $key => $type) {
             $dotKey = str_replace(':', '.', $key);
 
             $value = Arr::get($values, 'settings::' . $key, $config->get($dotKey));
 
             $lower = is_string($value) ? strtolower($value) : $value;
 
-            if (is_string($lower) && array_key_exists($lower, $this->map)) {
+            if ($lower === 'null' || $lower === '(null)') {
+                $value = null;
+            } elseif (
+                is_string($lower) && array_key_exists($lower, $this->map)
+                    && 
+                ($type === get_debug_type($this->map[$lower]) || $type === gettype($this->map[$lower]))
+            ) {
                 $value = $this->map[$lower];
             } elseif ($type !== "tolerant" && (get_debug_type($value) !== $type && gettype($value) !== $type)) {
                 $value = is_bool($value) ? ($value ? 1 : 0) : $value;
