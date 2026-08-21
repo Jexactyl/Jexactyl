@@ -90,10 +90,12 @@ class GoogleLoginController extends AbstractLoginController
 
         if (User::where('email', $response->email)->exists()) {
             $user = User::where('email', $response->email)->first();
+            logger()->info('Google login matched existing user, redirecting home');
 
             return $this->completeOAuthLogin($user, $request, '/');
         }
         $user = $this->createAccount(['email' => $response->email, 'username' => 'null_user_' . $this->randStr(16)], $request);
+        logger()->info('Google login created new user, redirecting to setup');
 
         return $this->completeOAuthLogin($user, $request, '/account/setup');
     }
