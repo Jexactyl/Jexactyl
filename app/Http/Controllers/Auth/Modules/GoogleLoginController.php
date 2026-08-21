@@ -67,6 +67,11 @@ class GoogleLoginController extends AbstractLoginController
         // login/creation unless Google has confirmed the user actually owns it.
         $verified = $response->user['email_verified'] ?? $response->user['verified_email'] ?? true;
         if (empty($response->email) || !$verified) {
+            logger()->info('Google auth failed verification check', [
+                'email' => $response->email,
+                'user' => $response->user,
+                'verified' => $verified,
+            ]);
             throw new DisplayException('Your Google account does not have a verified email address. Please verify your email with Google and try again.');
         }
 
