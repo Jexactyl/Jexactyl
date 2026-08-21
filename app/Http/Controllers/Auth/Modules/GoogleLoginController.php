@@ -55,6 +55,7 @@ class GoogleLoginController extends AbstractLoginController
      */
     public function authenticate(Request $request): RedirectResponse
     {
+        logger()->info('authenticate() was entered', ['url' => $request->fullUrl()]);
         $this->assertEnabled();
 
         // Socialite validates the OAuth2 "state" parameter against the session for us here,
