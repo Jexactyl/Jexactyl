@@ -59,7 +59,16 @@ class GoogleLoginController extends AbstractLoginController
 
         // Socialite validates the OAuth2 "state" parameter against the session for us here,
         // protecting this callback from login-CSRF.
-        $response = Socialite::buildProvider(GoogleProvider::class, $this->config)->user();
+        try {
+            $response = Socialite::buildProvider(GoogleProvider::class, $this->config)->user();
+        } catch (\Throwable $exception) {
+            logger()->error('Socialite Google user() failed', [
+                'class' => get_class($exception),
+                'message' => $exception->getMessage(),
+            ]);
+            throw $exception;
+        }
+
 
         // Google's userinfo payload includes an "email_verified" flag because, like most
         // providers, it is possible in edge cases (e.g. some Workspace domain setups) for
