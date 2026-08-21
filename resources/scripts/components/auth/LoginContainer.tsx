@@ -26,6 +26,7 @@ interface Values {
 function LoginContainer() {
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
+    const pendingAction = useRef<string>('login');
 
     const [passkeyPending, setPasskeyPending] = useState(false);
 
@@ -46,6 +47,7 @@ function LoginContainer() {
 
     const useOauth = (name: string) => {
         if (recaptchaEnabled && !token.current) {
+            pendingAction.current = name;
             ref.current!.execute().catch(error => {
                 console.error(error);
 
@@ -91,6 +93,7 @@ function LoginContainer() {
         // If there is no token in the state yet, request the token and then abort this submit request
         // since it will be re-submitted when the recaptcha data is returned by the component.
         if (recaptchaEnabled && !token.current) {
+            pendingAction.current = 'login';
             ref.current!.execute().catch(error => {
                 console.error(error);
 
@@ -193,10 +196,22 @@ function LoginContainer() {
                             sitekey={siteKey || '_invalid_key'}
                             onVerify={response => {
                                 token.current = response;
-                                submitForm();
+                                if (pendingAction.current === 'login') {
+                                    submitForm();
+                                } else {
+                                    externalLogin(pendingAction.current, token.current)
+                                        .then(url => {
+                                            // @ts-expect-error this is fine
+                                            window.location = url;
+                                        })
+                                        .catch(error => clearAndAddHttpError({ key: 'auth:register', error }));
+                                }
+
+                                pendingAction.current = 'login';
                             }}
                             onExpire={() => {
                                 setSubmitting(false);
+                                pendingAction.current = 'login';
                                 token.current = '';
                             }}
                         />
