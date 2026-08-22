@@ -224,13 +224,13 @@ export default () => {
                             }
                         />
                     )}
-                    {!everest.auth.registration.enabled && (
+                    {!everest.auth.registration.email.enabled && (
                         <SuggestionCard
                             icon={faUserPlus}
                             link={'/admin/auth'}
                             title={'Allow user registration'}
                             description={
-                                'Enabling the Authentication module allows users to signup via the login page.'
+                                'Enabling the Authentication module allows users to signup via the login page, or you can enable registration for specific OAuth modules.'
                             }
                         />
                     )}

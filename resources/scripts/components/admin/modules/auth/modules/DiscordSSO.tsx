@@ -129,7 +129,7 @@ export default () => {
                 <Select
                     id={'enabled'}
                     name={'enabled'}
-                    onChange={e => updateRegistration('enabled', e.target.value)}
+                    onChange={e => updateRegistration(e.target.value)}
                     autoComplete={'off'}
                 >
                     <option value={1} selected={registrationSettings.enabled}>

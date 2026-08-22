@@ -18,6 +18,7 @@ export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const settings = useStoreState(state => state.everest.data!.auth.modules.google);
+    const registrationSettings = useStoreState(state => state.everest.data!.modules.auth.registration.google);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -104,7 +105,7 @@ export default () => {
                 <Select
                     id={'enabled'}
                     name={'enabled'}
-                    onChange={e => updateRegistration('enabled', e.target.value)}
+                    onChange={e => updateRegistration(e.target.value)}
                     autoComplete={'off'}
                 >
                     <option value={1} selected={registrationSettings.enabled}>

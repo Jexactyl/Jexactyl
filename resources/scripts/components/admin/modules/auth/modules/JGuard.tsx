@@ -19,6 +19,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
     const sensitivity = useStoreState(state => state.everest.data!.auth.modules.jguard.sensitivity);
+    const registrationSettings = useStoreState(state => state.everest.data!.modules.auth.registration.jguard);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -119,7 +120,7 @@ export default () => {
                 <Select
                     id={'enabled'}
                     name={'enabled'}
-                    onChange={e => updateRegistration('enabled', e.target.value)}
+                    onChange={e => updateRegistration(e.target.value)}
                     autoComplete={'off'}
                 >
                     <option value={1} selected={registrationSettings.enabled}>
