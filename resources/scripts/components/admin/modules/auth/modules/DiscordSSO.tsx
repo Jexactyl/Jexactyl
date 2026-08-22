@@ -150,7 +150,7 @@ export default () => {
             <Alert type={'info'}>
                 <div>
                     Use the following Callback URL:
-                    <CopyOnClick><p className={'bg-black/50 p-1 rounded-lg font-mono w-fit max-w-full overflow-hidden text-ellipsis whitespace-nowrap mt-2'}>
+                    <CopyOnClick text={'/auth/modules/discord/authenticate'}><p className={'bg-black/50 p-1 rounded-lg font-mono w-fit max-w-full overflow-hidden text-ellipsis whitespace-nowrap mt-2'}>
                         /auth/modules/discord/authenticate
                     </p></CopyOnClick>
                 </div>
