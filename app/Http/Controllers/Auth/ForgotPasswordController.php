@@ -29,7 +29,8 @@ class ForgotPasswordController extends AbstractLoginController
             $this->sendLockoutResponse($request);
         }
 
-        if (config('modules.auth.jguard.enabled') && $this->jguard->isSuspicious($request->ip())) {
+        $guard = (config('modules.auth.jguard.enabled') ?? false);
+        if ($guard && $this->jguard->isSuspicious($request->ip())) {
             throw new DisplayException('Too many recent attempts from your IP. Please try again later.');
         }
         try {

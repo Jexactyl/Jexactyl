@@ -47,7 +47,7 @@ class LoginCheckpointController extends AbstractLoginController
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->sendLockoutResponse($request);
         }
-        $guard = (config('modules.auth.registration.jguard.enabled') ?? false) && (config('modules.auth.jguard.enabled') ?? false);
+        $guard = (config('modules.auth.jguard.enabled') ?? false);
         if ($guard && $this->jguard->isSuspicious($request->ip())) {
             throw new DisplayException('Too many recent signups or failed login attempts have been detected from your network. Please try again later.');
         }
