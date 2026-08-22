@@ -13,6 +13,7 @@ import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import useStatus from '@/plugins/useStatus';
 import { Link } from 'react-router-dom';
+import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
@@ -23,6 +24,8 @@ export default () => {
     const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
     const sensitivity = useStoreState(state => state.everest.data!.auth.modules.jguard.sensitivity);
     const registrationSettings = useStoreState(state => state.everest.data!.auth.registration.jguard);
+    const settings = useStoreState(state => state.everest.data!.auth.modules.jguard);
+    const { colors } = useStoreState(state => state.theme.data!);
 
     const update = async (key: string, value: any) => {
         clearFlashes();

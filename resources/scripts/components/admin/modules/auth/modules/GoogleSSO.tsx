@@ -15,7 +15,6 @@ import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 import { Alert } from '@/elements/alert';
 import { Link } from 'react-router-dom';
 import CopyOnClick from '@/elements/CopyOnClick';
-const { colors } = useStoreState(state => state.theme.data!);
 
 export default () => {
     const { status, setStatus } = useStatus();
@@ -23,6 +22,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const settings = useStoreState(state => state.everest.data!.auth.modules.google);
     const registrationSettings = useStoreState(state => state.everest.data!.auth.registration.google);
+    const { colors } = useStoreState(state => state.theme.data!);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
