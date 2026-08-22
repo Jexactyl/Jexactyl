@@ -127,7 +127,7 @@ export default () => {
                 </p>
             </div>
             <div className={'my-6'}>
-                <Label>Client Secret {!settings.abuseipdb_api_key && <RequiredFieldIcon />}</Label>
+                <Label>API Key {!settings.abuseipdb_api_key && <RequiredFieldIcon />}</Label>
                 <Input
                     autoComplete={'off'}
                     id={'abuseipdb_api_key'}
@@ -136,7 +136,7 @@ export default () => {
                     onChange={e => update('abuseipdb_api_key', e.target.value)}
                     placeholder={settings.abuseipdb_api_key ? '••••••••••••••••' : ''}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>Set the 
+                <p className={'text-xs text-gray-400 mt-1'}>Set the{' '}
                     <Link
                         to={'https://abuseipdb.com/register'}
                         target={'_blank'} 
@@ -146,7 +146,7 @@ export default () => {
                     >
                         AbuseIPDB
                     </Link>
-                     api key.</p>
+                    {' '}api key.</p>
             </div>
             
             <div>
