@@ -28,7 +28,10 @@ export default () => {
         <div className={'hidden md:block fixed top-3 right-3'}>
             <div className={'grid grid-cols-1 gap-y-2'}>
                 {settings.auto_update && <Indicator text={'Automatic updates are enabled.'} icon={faRecycle} />}
-                {everest.auth.registration.enabled && <Indicator text={'User registration is enabled.'} icon={faKey} />}
+                {everest.auth.registration.email.enabled && <Indicator text={'User registration with email is enabled.'} icon={faKey} />}
+                {everest.auth.registration.discord.enabled && <Indicator text={'User registration with discord is enabled.'} icon={faKey} />}
+                {everest.auth.registration.google.enabled && <Indicator text={'User registration with google is enabled.'} icon={faKey} />}
+                {everest.auth.registration.jguard.enabled && <Indicator text={'jGuard for registrations is enabled.'} icon={faKey} />}
                 {everest.billing.enabled && <Indicator text={'Billing module is enabled.'} icon={faDollar} />}
                 {everest.tickets.enabled && <Indicator text={'Support ticket system is enabled.'} icon={faTicket} />}
             </div>

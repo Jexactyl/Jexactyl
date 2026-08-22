@@ -19,7 +19,7 @@ const Container = styled.div`
 export default () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const registration = useStoreState(state => state.everest.data!.auth.registration.enabled);
+    const registration = useStoreState(state => state.everest.data!.auth.registration.email.enabled);
 
     return (
         <Container>

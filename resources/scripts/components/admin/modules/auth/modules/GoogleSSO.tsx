@@ -18,7 +18,7 @@ export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const settings = useStoreState(state => state.everest.data!.auth.modules.google);
-    const registrationSettings = useStoreState(state => state.everest.data!.modules.auth.registration.google);
+    const registrationSettings = useStoreState(state => state.everest.data!.auth.registration.google);
 
     const update = async (key: string, value: any) => {
         clearFlashes();

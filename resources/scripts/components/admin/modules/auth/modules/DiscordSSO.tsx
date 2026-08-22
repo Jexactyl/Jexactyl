@@ -19,7 +19,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { colors } = useStoreState(state => state.theme.data!);
     const settings = useStoreState(state => state.everest.data!.auth.modules.discord);
-    const registrationSettings = useStoreState(state => state.everest.data!.modules.auth.registration.discord);
+    const registrationSettings = useStoreState(state => state.everest.data!.auth.registration.discord);
 
     const update = async (key: string, value: any) => {
         clearFlashes();

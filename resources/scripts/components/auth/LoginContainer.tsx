@@ -32,7 +32,7 @@ function LoginContainer() {
 
     const appName = useStoreState(state => state.settings.data!.name);
     const modules = useStoreState(state => state.everest.data!.auth.modules);
-    const registration = useStoreState(state => state.everest.data!.auth.registration.enabled);
+    const registration = useStoreState(state => state.everest.data!.auth.registration.email.enabled);
 
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState(state => state.settings.data!.recaptcha);
