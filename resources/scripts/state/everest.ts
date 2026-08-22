@@ -20,7 +20,7 @@ export interface EverestSettings {
                 enabled: boolean;
                 delay?: number;
                 sensitivity?: 'low' | 'medium' | 'high';
-                abuseipdb_api_key?: string;
+                abuseipdb_api_key?: boolean;
             };
             discord: {
                 enabled: boolean;

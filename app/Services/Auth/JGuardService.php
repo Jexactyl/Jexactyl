@@ -5,6 +5,8 @@ namespace Everest\Services\Auth;
 use Carbon\Carbon;
 use Everest\Models\JGuardDelay;
 use Everest\Models\JGuardAttempt;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class JGuardService
 {
