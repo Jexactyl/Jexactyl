@@ -13,6 +13,7 @@ import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
 import Select from '@/elements/Select';
 import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 import { Alert } from '@/elements/alert';
+import CopyOnClick from '@/elements/CopyOnClick';
 
 export default () => {
     const { status, setStatus } = useStatus();
@@ -129,9 +130,9 @@ export default () => {
             <Alert type={'info'}>
                 <div>
                     Use the following Callback URL:
-                    <p className={'bg-black/50 p-1 rounded-lg font-mono w-fit mt-2'}>
+                    <CopyOnClick><p className={'bg-black/50 p-1 rounded-lg font-mono w-fit max-w-full overflow-hidden text-ellipsis whitespace-nowrap mt-2'}>
                         /auth/modules/google/authenticate
-                    </p>
+                    </p></CopyOnClick>
                 </div>
             </Alert>
         </AdminBox>
