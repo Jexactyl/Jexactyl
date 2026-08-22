@@ -95,6 +95,8 @@ class SettingsServiceProvider extends ServiceProvider
                 => 'bool',
         'modules:auth:jguard:delay'
                 => 'int',
+        'modules:auth:jguard:abuseipdb_api_key'
+                => 'string',
         'modules:auth:jguard:sensitivity'
                 => 'string',
 

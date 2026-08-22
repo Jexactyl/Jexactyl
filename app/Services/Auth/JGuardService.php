@@ -29,10 +29,27 @@ class JGuardService
     {
         [$window, $threshold] = $this->thresholds();
 
-        return JGuardAttempt::query()
+        $jguard_score = JGuardAttempt::query()
             ->where('ip', $ip)
             ->where('created_at', '>=', Carbon::now()->subMinutes($window))
             ->count() >= $threshold;
+        $score = Cache::remember("abuseipdb:{$ip}", now()->addHour(), function () use ($ip) {
+            try {
+                $response = Http::withHeaders([
+                    'Key' => config('modules.auth.jguard.abuseipdb_api_key'),
+                    'Accept' => 'application/json',
+                ])->timeout(3)->get('https://api.abuseipdb.com/api/v2/check', [
+                    'ipAddress' => $ip,
+                    'maxAgeInDays' => 90,
+                ]);
+
+                return $response->successful() ? $response->json('data.abuseConfidenceScore') : null;
+            } catch (\Throwable $e) {
+                logger()->warning('AbuseIPDB check failed', ['ip' => $ip, 'error' => $e->getMessage()]);
+                return null;
+            }
+        });
+        return ($score !== null && ($score >= (($threshold - 1) * 10))) || $jguard_score;
     }
 
     /**

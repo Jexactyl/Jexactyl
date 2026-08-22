@@ -13,7 +13,9 @@ import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
 import Select from '@/elements/Select';
 import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 import { Alert } from '@/elements/alert';
+import { Link } from 'react-router-dom';
 import CopyOnClick from '@/elements/CopyOnClick';
+const { colors } = useStoreState(state => state.theme.data!);
 
 export default () => {
     const { status, setStatus } = useStatus();
@@ -93,7 +95,17 @@ export default () => {
                     placeholder={settings.clientId ? '••••••••••••••••' : ''}
                 />
 
-                <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client ID.</p>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    Set the Google Client ID. You can find this in the{' '}
+                    <Link
+                        to={'https://console.cloud.google.com/apis/credentials'}
+                        style={{ color: colors.primary }}
+                        className={'hover:brightness-125 duration-300'}
+                    >
+                        Google Cloud Console
+                    </Link>
+                    .
+                </p>
             </div>
             <div className={'my-6'}>
                 <Label>Client Secret {!settings.clientSecret && <RequiredFieldIcon />}</Label>
@@ -105,7 +117,17 @@ export default () => {
                     onChange={e => update('client_secret', e.target.value)}
                     placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
                 />
-                <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client Secret.</p>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    Set the Google Client ID. You can find this in the{' '}
+                    <Link
+                        to={'https://console.cloud.google.com/apis/credentials'}
+                        style={{ color: colors.primary }}
+                        className={'hover:brightness-125 duration-300'}
+                    >
+                        Google Cloud Console
+                    </Link>
+                    .
+                </p>
             </div>
             
             <div>

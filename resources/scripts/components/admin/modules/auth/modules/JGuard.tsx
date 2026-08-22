@@ -12,6 +12,7 @@ import { Dialog } from '@/elements/dialog';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import useStatus from '@/plugins/useStatus';
+import { Link } from 'react-router-dom';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
@@ -121,6 +122,28 @@ export default () => {
                     failed to log in multiple times. Higher sensitivity blocks alt accounts more aggressively, but may
                     also affect legitimate users signing up from a shared IP (e.g. school or office networks).
                 </p>
+            </div>
+            <div className={'my-6'}>
+                <Label>Client Secret {!settings.abuseipdb_api_key && <RequiredFieldIcon />}</Label>
+                <Input
+                    autoComplete={'off'}
+                    id={'abuseipdb_api_key'}
+                    type={'password'}
+                    name={'abuseipdb_api_key'}
+                    onChange={e => update('abuseipdb_api_key', e.target.value)}
+                    placeholder={settings.abuseipdb_api_key ? '••••••••••••••••' : ''}
+                />
+                <p className={'text-xs text-gray-400 mt-1'}>Set the 
+                    <Link
+                        to={'https://abuseipdb.com/register'}
+                        target={'_blank'} 
+                        rel={'noopener noreferrer'}
+                        style={{ color: colors.primary }}
+                        className={'hover:brightness-125 duration-300'}
+                    >
+                        AbuseIPDB
+                    </Link>
+                     api key.</p>
             </div>
             
             <div>

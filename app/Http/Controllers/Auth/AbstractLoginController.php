@@ -149,7 +149,7 @@ abstract class AbstractLoginController extends ApplicationApiController
     public function createAccount(array $data, Request $request, ?string $source = "email"): User
     {
         $delay = (int) config('modules.auth.jguard.delay');
-        $guard = config('modules.auth.registration.jguard.enabled') ?? false;
+        $guard = (config('modules.auth.registration.jguard.enabled') ?? false) && (config('modules.auth.jguard.enabled') ?? false);
         $enabled = config('modules.auth.registration.' . $source . '.enabled') ?? false;
 
         if (!$enabled ) {

@@ -118,6 +118,8 @@ export default () => {
                     Set the Discord Client Secret. You can find this in the{' '}
                     <Link
                         to={'https://discord.com/developers/docs/intro'}
+                        target={'_blank'} 
+                        rel={'noopener noreferrer'}
                         style={{ color: colors.primary }}
                         className={'hover:brightness-125 duration-300'}
                     >
