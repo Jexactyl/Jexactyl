@@ -17,7 +17,7 @@ export default () => {
         clearFlashes();
         setStatus('loading');
 
-        updateModule('registration', key, value)
+        updateModule('registration.email', key, value)
             .then(() => {
                 setStatus('success');
             })
@@ -37,22 +37,21 @@ export default () => {
                     onChange={e => update('enabled', e.target.value)}
                     autoComplete={'off'}
                 >
-                    <option value={1} selected={settings.enabled}>
+                    <option value={1} selected={settings.email.enabled}>
                         Enabled
                     </option>
-                    <option value={0} selected={!settings.enabled}>
+                    <option value={0} selected={!settings.email.enabled}>
                         Disabled
                     </option>
                 </Select>
                 <p className={'text-xs text-gray-400 mt-1'}>
-                    Toggle whether users can register using the built-in pages.
+                    Toggle whether users can register using email.
                 </p>
             </div>
             {!settings.enabled && (
                 <Alert type={'warning'} className={'mt-6'}>
                     <span className={'text-xs'}>
-                        Since registration is disabled, OAuth modules like Discord will only allow users to login - not
-                        register.
+                        Registration for email is disabled, but can be re-enabled or separately enabled for Oauth modules such as Discord or Google.
                     </span>
                 </Alert>
             )}

@@ -6,7 +6,10 @@ export type AlertPosition = 'top-center' | 'bottom-right' | 'bottom-left' | 'cen
 export interface EverestSettings {
     auth: {
         registration: {
-            enabled: boolean;
+            email: { enabled: boolean; };
+            discord: { enabled: boolean; };
+            google: { enabled: boolean; };
+            jguard: { enabled: boolean; };
         };
         security: {
             force2fa: boolean;

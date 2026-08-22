@@ -14,7 +14,10 @@ class EverestComposer
         $view->with('everestConfiguration', [
             'auth' => [
                 'registration' => [
-                    'enabled' => boolval(config('modules.auth.registration.enabled', false)),
+                    'email' => ['enabled' => boolval(config('modules.auth.registration.email.enabled', false))],
+                    'discord' => ['enabled' => boolval(config('modules.auth.registration.discord.enabled', false))],
+                    'google' => ['enabled' => boolval(config('modules.auth.registration.google.enabled', false))],
+                    'jguard' => ['enabled' => boolval(config('modules.auth.registration.jguard.enabled', false))],
                 ],
                 'security' => [
                     'force2fa' => boolval(config('modules.auth.security.force2fa', false)),

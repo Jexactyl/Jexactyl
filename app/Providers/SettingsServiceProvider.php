@@ -59,7 +59,13 @@ class SettingsServiceProvider extends ServiceProvider
                 => 'bool',
 
         // Authentication module settings
-        'modules:auth:registration:enabled'
+        'modules:auth:registration:email:enabled'
+                => 'bool',
+        'modules:auth:registration:discord:enabled'
+                => 'bool',
+        'modules:auth:registration:google:enabled'
+                => 'bool',
+        'modules:auth:registration:jguard:enabled'
                 => 'bool',
         'modules:auth:security:force2fa'
                 => 'bool',

@@ -33,7 +33,22 @@ export default () => {
                 setStatus('error');
             });
     };
+    
+    const updateRegistration = async (value: any) => {
+        clearFlashes();
+        setStatus('loading');
 
+        updateModule('registration', 'google:enabled', value)
+            .then(() => {
+                setStatus('success');
+                setTimeout(() => setStatus('none'), 2000);
+            })
+            .catch(error => {
+                clearAndAddHttpError({ key: 'auth:modules:google', error });
+
+                setStatus('none');
+            });
+    };
     const doDeletion = () => {
         toggleModule('disable', 'google')
             .then(() => {
@@ -82,6 +97,26 @@ export default () => {
                     placeholder={settings.clientSecret ? '••••••••••••••••' : ''}
                 />
                 <p className={'text-xs text-gray-400 mt-1'}>Set the Google Client Secret.</p>
+            </div>
+            
+            <div>
+                <Label>Allow User Registration</Label>
+                <Select
+                    id={'enabled'}
+                    name={'enabled'}
+                    onChange={e => updateRegistration('enabled', e.target.value)}
+                    autoComplete={'off'}
+                >
+                    <option value={1} selected={registrationSettings.enabled}>
+                        Enabled
+                    </option>
+                    <option value={0} selected={!registrationSettings.enabled}>
+                        Disabled
+                    </option>
+                </Select>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    Toggle whether users can register using Google.
+                </p>
             </div>
             <Alert type={'info'}>
                 <div>

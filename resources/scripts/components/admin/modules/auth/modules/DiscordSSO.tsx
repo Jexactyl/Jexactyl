@@ -19,6 +19,7 @@ export default () => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { colors } = useStoreState(state => state.theme.data!);
     const settings = useStoreState(state => state.everest.data!.auth.modules.discord);
+    const registrationSettings = useStoreState(state => state.everest.data!.modules.auth.registration.discord);
 
     const update = async (key: string, value: any) => {
         clearFlashes();
@@ -35,7 +36,21 @@ export default () => {
                 setStatus('none');
             });
     };
+    const updateRegistration = async (value: any) => {
+        clearFlashes();
+        setStatus('loading');
 
+        updateModule('registration', 'discord:enabled', value)
+            .then(() => {
+                setStatus('success');
+                setTimeout(() => setStatus('none'), 2000);
+            })
+            .catch(error => {
+                clearAndAddHttpError({ key: 'auth:modules:discord', error });
+
+                setStatus('none');
+            });
+    };
     const doDeletion = () => {
         toggleModule('disable', 'discord')
             .then(() => {
@@ -107,6 +122,25 @@ export default () => {
                         Developer Portal
                     </Link>
                     .
+                </p>
+            </div>
+            <div>
+                <Label>Allow User Registration</Label>
+                <Select
+                    id={'enabled'}
+                    name={'enabled'}
+                    onChange={e => updateRegistration('enabled', e.target.value)}
+                    autoComplete={'off'}
+                >
+                    <option value={1} selected={registrationSettings.enabled}>
+                        Enabled
+                    </option>
+                    <option value={0} selected={!registrationSettings.enabled}>
+                        Disabled
+                    </option>
+                </Select>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    Toggle whether users can register using Discord.
                 </p>
             </div>
             <Alert type={'info'}>

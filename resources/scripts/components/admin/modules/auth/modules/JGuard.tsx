@@ -37,7 +37,22 @@ export default () => {
                 setLoading(false);
             });
     };
+    
+    const updateRegistration = async (value: any) => {
+        clearFlashes();
+        setStatus('loading');
 
+        updateModule('registration', 'jguard:enabled', value)
+            .then(() => {
+                setStatus('success');
+                setTimeout(() => setStatus('none'), 2000);
+            })
+            .catch(error => {
+                clearAndAddHttpError({ key: 'auth:modules:jguard', error });
+
+                setStatus('none');
+            });
+    };
     const doDeletion = () => {
         toggleModule('disable', 'jguard')
             .then(() => {
@@ -96,6 +111,26 @@ export default () => {
                     Controls how quickly jGuard blocks new signups from an IP address that has recently registered or
                     failed to log in multiple times. Higher sensitivity blocks alt accounts more aggressively, but may
                     also affect legitimate users signing up from a shared IP (e.g. school or office networks).
+                </p>
+            </div>
+            
+            <div>
+                <Label>Allow User Registration</Label>
+                <Select
+                    id={'enabled'}
+                    name={'enabled'}
+                    onChange={e => updateRegistration('enabled', e.target.value)}
+                    autoComplete={'off'}
+                >
+                    <option value={1} selected={registrationSettings.enabled}>
+                        Enabled
+                    </option>
+                    <option value={0} selected={!registrationSettings.enabled}>
+                        Disabled
+                    </option>
+                </Select>
+                <p className={'text-xs text-gray-400 mt-1'}>
+                    Toggle whether jGuard is used for signups. If this is disabled, jGuard will only be used for logins.
                 </p>
             </div>
         </AdminBox>

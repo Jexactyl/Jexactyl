@@ -146,14 +146,14 @@ abstract class AbstractLoginController extends ApplicationApiController
      *
      * @throws DisplayException
      */
-    public function createAccount(array $data, Request $request): User
+    public function createAccount(array $data, Request $request, ?string $source = "email"): User
     {
         $delay = (int) config('modules.auth.jguard.delay');
-        $guard = config('modules.auth.jguard.enabled') ?? false;
-        $enabled = config('modules.auth.registration.enabled') ?? false;
+        $guard = config('modules.auth.registration.jguard.enabled') ?? false;
+        $enabled = config('modules.auth.registration.' . $source . '.enabled') ?? false;
 
-        if (!$enabled) {
-            throw new DisplayException('User signup is disabled at this time.');
+        if (!$enabled ) {
+            throw new DisplayException('User signup from this source is disabled at this time.');
         }
 
         if (User::where('username', $data['username'])->exists()) {
