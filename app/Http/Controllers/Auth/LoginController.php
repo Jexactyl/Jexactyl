@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Everest\Exceptions\DisplayException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+
 class LoginController extends AbstractLoginController
 {
     /**
@@ -41,11 +42,16 @@ class LoginController extends AbstractLoginController
      */
     public function login(Request $request): JsonResponse
     {
+        
+        
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             $this->sendLockoutResponse($request);
         }
-
+        $guard = (config('modules.auth.registration.jguard.enabled') ?? false) && (config('modules.auth.jguard.enabled') ?? false);
+        if ($guard && $this->jguard->isSuspicious($request->ip())) {
+            throw new DisplayException('Too many recent signups or failed login attempts have been detected from your network. Please try again later.');
+        }
         try {
             $username = $request->input('user');
 

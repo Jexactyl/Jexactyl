@@ -24,6 +24,14 @@ class ForgotPasswordController extends AbstractLoginController
      */
     protected function verify(Request $request): JsonResponse|RedirectResponse
     {
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            $this->sendLockoutResponse($request);
+        }
+
+        if (config('modules.auth.jguard.enabled') && $this->jguard->isSuspicious($request->ip())) {
+            throw new DisplayException('Too many recent attempts from your IP. Please try again later.');
+        }
         try {
             $user = User::where('email', $request->input('email'))->firstOrFail();
         } catch (DisplayException $ex) {

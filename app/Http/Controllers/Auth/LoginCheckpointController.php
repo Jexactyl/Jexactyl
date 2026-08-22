@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Everest\Events\Auth\ProvidedAuthenticationToken;
 use Everest\Http\Requests\Auth\LoginCheckpointRequest;
+use Everest\Exceptions\DisplayException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
@@ -45,6 +46,10 @@ class LoginCheckpointController extends AbstractLoginController
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->sendLockoutResponse($request);
+        }
+        $guard = (config('modules.auth.registration.jguard.enabled') ?? false) && (config('modules.auth.jguard.enabled') ?? false);
+        if ($guard && $this->jguard->isSuspicious($request->ip())) {
+            throw new DisplayException('Too many recent signups or failed login attempts have been detected from your network. Please try again later.');
         }
 
         $details = $request->session()->get('auth_confirmation_token');
