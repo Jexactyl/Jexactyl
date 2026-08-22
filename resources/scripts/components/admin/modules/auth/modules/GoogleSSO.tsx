@@ -10,6 +10,7 @@ import { Dialog } from '@/elements/dialog';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import RequiredFieldIcon from '@/elements/RequiredFieldIcon';
+import Select from '@/elements/Select';
 import { toggleModule, updateModule } from '@/api/routes/admin/auth';
 import { Alert } from '@/elements/alert';
 
@@ -60,7 +61,13 @@ export default () => {
     };
 
     return (
-        <AdminBox title={'Google SSO Module'} icon={faGoogle} byKey={'auth:modules:google'} status={status} canDelete>
+        <AdminBox 
+            title={'Google SSO Module'} 
+            icon={faGoogle} 
+            byKey={'auth:modules:google'} 
+            status={status} 
+            canDelete
+        >
             <FlashMessageRender byKey={'auth:modules:google'} className={'my-2'} />
             <Dialog.Confirm
                 open={confirm}

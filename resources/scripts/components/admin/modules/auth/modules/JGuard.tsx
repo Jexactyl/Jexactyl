@@ -11,11 +11,13 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import { Dialog } from '@/elements/dialog';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
+import useStatus from '@/plugins/useStatus';
 
 export default () => {
     const [confirm, setConfirm] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
+    const { status, setStatus } = useStatus();
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const delay = useStoreState(state => state.everest.data!.auth.modules.jguard.delay);
     const sensitivity = useStoreState(state => state.everest.data!.auth.modules.jguard.sensitivity);
@@ -64,7 +66,13 @@ export default () => {
     };
 
     return (
-        <AdminBox title={'jGuard'} icon={faDoorOpen}>
+        <AdminBox 
+            title={'jGuard'} 
+            icon={faDoorOpen} 
+            byKey={'auth:modules:jguard'} 
+            status={status} 
+            canDelete
+        >
             <FlashMessageRender byKey={'auth:modules:jguard'} className={'my-2'} />
             {loading && <Spinner className={'absolute top-0 right-8 m-3.5'} size={'small'} />}
             {success && <CheckCircleIcon className={'w-5 h-5 absolute top-0 right-8 m-3.5 text-green-500'} />}
