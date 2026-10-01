@@ -27,9 +27,9 @@ class AssetComposer
             ],
             'activity' => [
                 'enabled' => [
-                    'account' => config('activity.enabled.account', true),
-                    'server' => config('activity.enabled.server', true),
-                    'admin' => config('activity.enabled.admin', true),
+                    'account' => filter_var(config('activity.enabled.account', true), FILTER_VALIDATE_BOOLEAN),
+                    'server' => filter_var(config('activity.enabled.server', true), FILTER_VALIDATE_BOOLEAN),
+                    'admin' => filter_var(config('activity.enabled.admin', true), FILTER_VALIDATE_BOOLEAN),
                 ],
             ],
         ]);
