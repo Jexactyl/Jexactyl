@@ -4,6 +4,7 @@ namespace Everest\Tests\Integration\Api\Client\Billing;
 
 use Ramsey\Uuid\Uuid;
 use Stripe\StripeClient;
+use Stripe\Checkout\Session;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
@@ -73,13 +74,14 @@ class StripeControllerTest extends ClientApiIntegrationTestCase
      */
     private function stubSession(string $sessionId, int $amountTotal, string $currency, array $metadata): void
     {
-        $session = (object) [
+        // Use a real Stripe object so metadata behaves as it does in production (#591).
+        $session = Session::constructFrom([
             'id' => $sessionId,
             'payment_status' => 'paid',
             'amount_total' => $amountTotal,
             'currency' => $currency,
-            'metadata' => (object) $metadata,
-        ];
+            'metadata' => $metadata,
+        ]);
 
         $sessions = \Mockery::mock();
         $sessions->shouldReceive('retrieve')->with($sessionId)->andReturn($session);

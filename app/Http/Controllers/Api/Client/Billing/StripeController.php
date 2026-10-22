@@ -140,7 +140,9 @@ class StripeController extends ClientApiController
             throw new DisplayException('Payment not completed.');
         }
 
-        $metadata = (array) $transaction->metadata;
+        // StripeObject keeps its values in internal properties, so an (array) cast
+        // yields mangled keys rather than the metadata itself.
+        $metadata = $transaction->metadata?->toArray() ?? [];
         $server = Server::find($metadata['server_id']);
         $user = User::findOrFail($metadata['user_id']);
         $product = Product::findOrFail($metadata['product_id']);
