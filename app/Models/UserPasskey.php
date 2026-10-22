@@ -72,11 +72,13 @@ class UserPasskey extends Model
         'credential' => ['required', 'string'],
     ];
 
-    protected static function booted(): void
+    protected static function boot()
     {
-        static::creating(function (self $passkey) {
+        static::saving(function (self $passkey) {
             $passkey->uuid = $passkey->uuid ?? Str::uuid()->toString();
         });
+
+        parent::boot();
     }
 
     /**

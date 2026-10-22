@@ -3,6 +3,7 @@
 namespace Everest\Services\Users;
 
 use Everest\Models\User;
+use Illuminate\Support\Str;
 use Webauthn\CredentialRecord;
 use Everest\Models\UserPasskey;
 use Webauthn\PublicKeyCredential;
@@ -147,6 +148,7 @@ class PasskeyService
         }
 
         return $user->passkeys()->create([
+            'uuid' => Str::uuid()->toString(),
             'name' => $name,
             'credential_id' => $credentialId,
             'credential' => $this->serializer->serialize($record, 'json'),
