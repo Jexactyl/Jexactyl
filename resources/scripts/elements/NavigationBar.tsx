@@ -7,7 +7,6 @@ import { SiteTheme } from '@/state/theme';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRightIcon, EyeIcon, HeartIcon, HomeIcon, IdentificationIcon } from '@heroicons/react/outline';
 import { useActivityLogs } from '@/api/routes/account/activity';
-import Spinner from '@/elements/Spinner';
 import { formatDistanceToNow } from 'date-fns';
 
 const RightNavigation = styled.div<{ theme: SiteTheme }>`
@@ -33,23 +32,56 @@ const NavigationBar = () => {
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
     const user = useStoreState(state => state.user.data!);
-    const activityEnabled = useStoreState(state => state.settings.data!.activity.enabled.account);
-    const { data } = useActivityLogs({ page: 1 }, { revalidateOnMount: true, revalidateOnFocus: false });
+    const activityEnabled = useStoreState(state => state.settings.data?.activity?.enabled?.account ?? false);
+    const { data } = useActivityLogs({ page: 1 }, { revalidateOnMount: activityEnabled, revalidateOnFocus: false });
 
     const pathnames = location.pathname.split('/').filter(Boolean);
+
+    const items = [];
+
+    if (activityEnabled && data?.items && data.items.length > 0) {
+        items.push(
+            <span key="activity" className={'inline-flex items-center gap-x-2'}>
+                <EyeIcon className={'w-4 h-4 flex-shrink-0'} />
+                <span className="font-bold mb-1">{data.items[0]?.event}</span> -{' '}
+                <span className="text-xs">
+                    {formatDistanceToNow(data.items[0]?.timestamp ?? new Date(), {
+                        includeSeconds: true,
+                        addSuffix: true,
+                    })}
+                </span>
+            </span>
+        );
+    }
+
+    items.push(
+        <span key="2fa" className={'inline-flex items-center gap-x-2'}>
+            <HeartIcon
+                className={`w-4 h-4 flex-shrink-0 ${user.useTotp ? 'text-green-400' : 'text-red-400'}`}
+            />
+            2FA is {user.useTotp ? 'Enabled' : 'Disabled'}
+        </span>
+    );
+
+    items.push(
+        <span key="user-id" className={'inline-flex items-center gap-x-2'}>
+            <IdentificationIcon className={'w-4 h-4 flex-shrink-0'} />
+            User ID: {user.uuid.slice(0, 8)}
+        </span>
+    );
 
     useEffect(() => {
         const interval = setInterval(() => {
             setWidth(prev => {
                 if (prev >= 80) {
-                    setCurrentPage(p => (p + 1) % 3);
+                    setCurrentPage(p => (p + 1) % items.length);
                     return 0;
                 }
                 return prev + 1;
             });
         }, 75);
         return () => clearInterval(interval);
-    }, []);
+    }, [items.length]);
 
     const renderBreadcrumbs = () => (
         <ol className="w-1/3 text-gray-400 text-sm inline-flex space-x-2">
@@ -74,47 +106,7 @@ const NavigationBar = () => {
         </ol>
     );
 
-    const renderPageContent = () => {
-        switch (currentPage) {
-            case 0:
-                return (
-                    <span className={'inline-flex items-center gap-x-2'}>
-                        <EyeIcon className={'w-4 h-4 flex-shrink-0'} />
-                        {!data || !activityEnabled ? (
-                            <Spinner size="small" centered />
-                        ) : (
-                            <>
-                                <span className="font-bold mb-1">{data.items[0]?.event}</span> -{' '}
-                                <span className="text-xs">
-                                    {formatDistanceToNow(data.items[0]?.timestamp ?? new Date(), {
-                                        includeSeconds: true,
-                                        addSuffix: true,
-                                    })}
-                                </span>
-                            </>
-                        )}
-                    </span>
-                );
-            case 1:
-                return (
-                    <span className={'inline-flex items-center gap-x-2'}>
-                        <HeartIcon
-                            className={`w-4 h-4 flex-shrink-0 ${user.useTotp ? 'text-green-400' : 'text-red-400'}`}
-                        />
-                        2FA is {user.useTotp ? 'Enabled' : 'Disabled'}
-                    </span>
-                );
-            case 2:
-                return (
-                    <span className={'inline-flex items-center gap-x-2'}>
-                        <IdentificationIcon className={'w-4 h-4 flex-shrink-0'} />
-                        User ID: {user.uuid.slice(0, 8)}
-                    </span>
-                );
-            default:
-                return null;
-        }
-    };
+    const renderPageContent = () => items[currentPage % items.length] || null;
 
     return (
         <div
